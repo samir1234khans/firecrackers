@@ -1,0 +1,2 @@
+# Documentation/schema validation only; this is not an application dependency list.
+jsonschema>=4.18,<5

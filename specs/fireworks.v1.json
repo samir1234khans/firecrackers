@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "configurationVersion": "2026-09-15.1",
+  "status": "proposed-unimplemented",
+  "coordinateConvention": "burstY is bottom-origin normalized usable screen height; radius uses smaller viewport dimension; all timings describe virtual animation",
+  "effects": [
+    {
+      "id": "gold-willow", "displayName": "Gold Willow", "family": "willow", "launchCostUnits": 1,
+      "fuseSeconds": [1.5, 2.5], "ascentSeconds": [1.8, 2.5], "visualDurationSecondsApprox": [7, 10],
+      "burstYNormalized": [0.65, 0.77], "radiusNormalized": [0.22, 0.30], "trailLifeSeconds": [4.5, 7.0],
+      "primaryEmittersStandard": [140, 220], "minimumPrimaryEmittersLow": 80,
+      "paletteGroups": ["warm-gold"], "signature": "Long uneven drooping canopy with age-fading gold trails and retained lit smoke"
+    },
+    {
+      "id": "multicolor-peony", "displayName": "Multicolor Peony", "family": "peony", "launchCostUnits": 1,
+      "fuseSeconds": [1.5, 2.5], "ascentSeconds": [1.4, 2.0], "visualDurationSecondsApprox": [3.5, 5.5],
+      "burstYNormalized": [0.60, 0.74], "radiusNormalized": [0.18, 0.25], "trailLifeSeconds": [0.0, 0.15],
+      "primaryEmittersStandard": [180, 280], "minimumPrimaryEmittersLow": 100,
+      "paletteGroups": ["crimson-gold", "green-silver", "violet-gold"], "signature": "Crisp coordinated-color sphere with short or nearly absent trails"
+    },
+    {
+      "id": "chrysanthemum", "displayName": "Chrysanthemum", "family": "chrysanthemum", "launchCostUnits": 1,
+      "fuseSeconds": [1.5, 2.5], "ascentSeconds": [1.6, 2.2], "visualDurationSecondsApprox": [5, 7],
+      "burstYNormalized": [0.63, 0.77], "radiusNormalized": [0.21, 0.29], "trailLifeSeconds": [2.8, 4.3],
+      "primaryEmittersStandard": [150, 230], "minimumPrimaryEmittersLow": 90,
+      "paletteGroups": ["gold-red-tips", "silver-amber-tips"], "signature": "Radiant spherical spokes from trajectory-linked trails; less hanging sag than Willow"
+    },
+    {
+      "id": "silver-crossette-crackle", "displayName": "Silver Crossette Crackle", "family": "crossette", "launchCostUnits": 1,
+      "fuseSeconds": [1.5, 2.5], "ascentSeconds": [1.5, 2.1], "visualDurationSecondsApprox": [4.5, 6.5],
+      "burstYNormalized": [0.61, 0.75], "radiusNormalized": [0.19, 0.26], "trailLifeSeconds": [1.2, 2.5],
+      "primaryEmittersStandard": [20, 32], "minimumPrimaryEmittersLow": 10,
+      "paletteGroups": ["silver-amber"], "signature": "Readable four-child splits followed by separately budgeted soft crackle",
+      "splitDelaySeconds": [0.45, 0.80], "childrenPerParent": 4, "maxChildGeneration": 1,
+      "crackleDelayAfterSplitSeconds": [0.20, 0.65]
+    },
+    {
+      "id": "grand-finale", "displayName": "Grand Finale", "family": "multibreak", "launchCostUnits": 3,
+      "fuseSeconds": [1.5, 2.5], "ascentSeconds": [2.0, 2.6], "visualDurationSecondsApprox": [9, 13],
+      "burstYNormalized": [0.67, 0.79], "radiusNormalized": [0.09, 0.15],
+      "primaryEmittersStandard": [1, 1], "minimumPrimaryEmittersLow": 1,
+      "paletteGroups": ["festival-to-gold"], "signature": "Three timed child groups and one closing gold canopy; no recursive finale",
+      "maxChildGeneration": 1, "combinedEnvelopeMaxNormalized": 0.34,
+      "childGroups": [
+        {"offsetSeconds": 0.0, "effectId": "multicolor-peony", "countStandard": 2, "countLow": 1},
+        {"offsetSeconds": 0.65, "effectId": "chrysanthemum", "countStandard": 2, "countLow": 1},
+        {"offsetSeconds": 1.30, "effectId": "multicolor-peony", "countStandard": 2, "countLow": 1},
+        {"offsetSeconds": 2.20, "effectId": "gold-willow", "countStandard": 1, "countLow": 1}
+      ]
+    }
+  ]
+}

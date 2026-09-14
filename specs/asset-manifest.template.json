@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "status": "empty-template-no-assets-acquired",
+  "assets": [],
+  "recordFields": {
+    "id": "stable unique asset ID",
+    "runtimePath": "verified relative path to shipped derivative",
+    "type": "texture | model | audio | icon | font | procedural",
+    "sourceAuthor": "creator or organization",
+    "sourceUrlOrProof": "source and permission/ownership evidence",
+    "licenseOrOwnership": "exact license identifier or first-party ownership record",
+    "acquiredDate": "YYYY-MM-DD",
+    "modifications": "derivative/adaptation description",
+    "attribution": "required notice text or reason no display credit is required",
+    "sha256": "actual content digest",
+    "bytes": "actual integer file size",
+    "dimensionsOrDuration": "actual dimensions or duration when relevant",
+    "status": "planned | placeholder | rights-review | approved | rejected",
+    "reviewer": "review identifier"
+  },
+  "releaseRule": "Only approved recorded assets ship; an empty inventory is not a completed rights audit."
+}

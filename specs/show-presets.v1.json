@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "configurationVersion": "2026-09-15.1",
+  "status": "proposed-unimplemented",
+  "defaults": {"initialMode": "manual", "displayPreset": "calm", "soundEnabled": false, "hapticsEnabled": false, "manualTakeoverRequiresExplicitResume": true, "maxSameFamilyConsecutive": 2, "maxCueCount": 32, "maxPlanningHorizonSeconds": 20},
+  "presets": [
+    {"id": "calm", "burstSpacingSeconds": [5, 9], "phraseSeconds": [45, 70], "cooldownSecondsMinimum": 5, "grandFinaleMinimumIntervalSeconds": 60, "weights": {"gold-willow": 5, "multicolor-peony": 4, "chrysanthemum": 2, "silver-crossette-crackle": 1, "grand-finale": 0}},
+    {"id": "festival", "burstSpacingSeconds": [2.5, 5], "phraseSeconds": [50, 80], "cooldownSecondsMinimum": 6, "grandFinaleMinimumIntervalSeconds": 60, "weights": {"gold-willow": 3, "multicolor-peony": 4, "chrysanthemum": 3, "silver-crossette-crackle": 2, "grand-finale": 1}},
+    {"id": "finale", "burstSpacingSeconds": [0.8, 1.8], "phraseSeconds": [12, 18], "cooldownSecondsMinimum": 12, "grandFinaleMaximumPerPhrase": 1, "weights": {"gold-willow": 3, "multicolor-peony": 4, "chrysanthemum": 4, "silver-crossette-crackle": 2, "grand-finale": 1}}
+  ],
+  "rules": [
+    "Spacing describes desired burst windows, not unconditional ignition intervals.",
+    "Subtract seeded fuse and ascent duration when planning ignition; never catch up by shortening a fuse.",
+    "Safety, reduced-flash preferences, reservations and effective quality override desired pacing.",
+    "Grand Finale is an effect; finale is a preset. Do not recurse between these concepts.",
+    "The planning horizon is shorter than a phrase; generate each phrase incrementally."
+  ]
+}

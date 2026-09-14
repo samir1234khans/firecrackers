@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Firecrackers V1 digital effect catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "configurationVersion", "status", "coordinateConvention", "effects"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "configurationVersion": {"type": "string", "minLength": 1},
+    "status": {"const": "proposed-unimplemented"},
+    "coordinateConvention": {"type": "string", "minLength": 1},
+    "effects": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/$defs/effect"}}
+  },
+  "$defs": {
+    "range": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0}},
+    "unitRange": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+    "integerRange": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 1}},
+    "childGroup": {
+      "type": "object", "additionalProperties": false,
+      "required": ["offsetSeconds", "effectId", "countStandard", "countLow"],
+      "properties": {
+        "offsetSeconds": {"type": "number", "minimum": 0, "maximum": 5},
+        "effectId": {"enum": ["gold-willow", "multicolor-peony", "chrysanthemum", "silver-crossette-crackle"]},
+        "countStandard": {"type": "integer", "minimum": 1, "maximum": 2},
+        "countLow": {"const": 1}
+      }
+    },
+    "effect": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "displayName", "family", "launchCostUnits", "fuseSeconds", "ascentSeconds", "visualDurationSecondsApprox", "burstYNormalized", "radiusNormalized", "primaryEmittersStandard", "minimumPrimaryEmittersLow", "paletteGroups", "signature"],
+      "properties": {
+        "id": {"enum": ["gold-willow", "multicolor-peony", "chrysanthemum", "silver-crossette-crackle", "grand-finale"]},
+        "displayName": {"type": "string", "minLength": 1},
+        "family": {"enum": ["willow", "peony", "chrysanthemum", "crossette", "multibreak"]},
+        "launchCostUnits": {"type": "integer", "minimum": 1, "maximum": 3},
+        "fuseSeconds": {"$ref": "#/$defs/range"},
+        "ascentSeconds": {"$ref": "#/$defs/range"},
+        "visualDurationSecondsApprox": {"$ref": "#/$defs/range"},
+        "burstYNormalized": {"$ref": "#/$defs/unitRange"},
+        "radiusNormalized": {"$ref": "#/$defs/unitRange"},
+        "trailLifeSeconds": {"$ref": "#/$defs/range"},
+        "primaryEmittersStandard": {"$ref": "#/$defs/integerRange"},
+        "minimumPrimaryEmittersLow": {"type": "integer", "minimum": 1},
+        "paletteGroups": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "signature": {"type": "string", "minLength": 1},
+        "splitDelaySeconds": {"$ref": "#/$defs/range"},
+        "childrenPerParent": {"const": 4},
+        "maxChildGeneration": {"const": 1},
+        "crackleDelayAfterSplitSeconds": {"$ref": "#/$defs/range"},
+        "combinedEnvelopeMaxNormalized": {"type": "number", "minimum": 0, "maximum": 0.34},
+        "childGroups": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/childGroup"}}
+      },
+      "allOf": [
+        {"if": {"properties": {"family": {"const": "crossette"}}}, "then": {"required": ["splitDelaySeconds", "childrenPerParent", "maxChildGeneration", "crackleDelayAfterSplitSeconds"]}},
+        {"if": {"properties": {"family": {"const": "multibreak"}}}, "then": {"required": ["childGroups", "combinedEnvelopeMaxNormalized", "maxChildGeneration"], "properties": {"launchCostUnits": {"const": 3}}}, "else": {"properties": {"launchCostUnits": {"const": 1}}}}
+      ]
+    }
+  }
+}

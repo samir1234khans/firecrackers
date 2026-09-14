@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "configurationVersion": "2026-09-15.1",
+  "status": "proposed-unbenchmarked",
+  "tiers": {
+    "low": {"targetFps": 30, "frameIntervalP95TargetMs": 40, "primaryEmitterSlots": 512, "trailSegmentSlots": 4096, "secondarySparkSlots": 1024, "smokeImpostors": 48, "lightEnvelopes": 2, "launchCostUnits": 3, "audioVoices": 10, "maxDpr": 1.0, "maxRenderedPixels": 1500000, "estimatedGraphicsMemoryCeilingMiB": 96},
+    "standard": {"targetFps": 60, "frameIntervalP95TargetMs": 20, "primaryEmitterSlots": 1536, "trailSegmentSlots": 16384, "secondarySparkSlots": 4096, "smokeImpostors": 96, "lightEnvelopes": 4, "launchCostUnits": 6, "audioVoices": 16, "maxDpr": 1.5, "maxRenderedPixels": 2400000, "estimatedGraphicsMemoryCeilingMiB": 160},
+    "ultra": {"targetFps": 60, "frameIntervalP95TargetMs": 20, "primaryEmitterSlots": 3072, "trailSegmentSlots": 32768, "secondarySparkSlots": 8192, "smokeImpostors": 160, "lightEnvelopes": 6, "launchCostUnits": 9, "audioVoices": 24, "maxDpr": 2.0, "maxRenderedPixels": 4000000, "estimatedGraphicsMemoryCeilingMiB": 256}
+  },
+  "simulation": {"fixedStepSeconds": 0.016666666666666666, "maxSubstepsPerFrame": 4, "maxCueCount": 32, "maxPlanningHorizonSeconds": 20},
+  "adaptation": {"windowSeconds": 2, "badWindowsToDowngrade": 3, "headroomSecondsToUpgrade": 20, "minimumSecondsBetweenChanges": 30},
+  "loadingTargets": {"compressedCoreKiB": 700, "criticalTransferMiB": 3, "completeOfflinePackageMiB": 12, "readySeconds": 5, "networkMbps": 10, "networkLatencyMs": 100},
+  "notes": [
+    "Budgets are starting targets, not measurements or promises of device support.",
+    "All pools and memory/overdraw caps apply together; launch units alone do not prove capacity.",
+    "A tier downgrade changes future admission first and drains existing valid reservations safely."
+  ]
+}
