@@ -220,7 +220,7 @@ export function CinematicHUD({
 
           <div className='hud-quick-action'>
             <span className='hud-control-label'>Quick light</span>
-            <button className='hud-light-once' onClick={onIgnite} disabled={!canLight}><Flame size={15}/><span>Light once</span></button>
+            <button className='hud-light-once' aria-label='Light once' onClick={onIgnite} disabled={!canLight}><Flame size={15}/><span>Light once</span></button>
           </div>
         </div>
       </div>
