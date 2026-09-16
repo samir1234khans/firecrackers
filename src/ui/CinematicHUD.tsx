@@ -148,7 +148,7 @@ export function CinematicHUD({
 
       <nav className='hud-mode-rail glass' aria-label='Show mode'>
         <button className={!show ? 'active' : ''} aria-pressed={!show} onClick={onManual}>Manual</button>
-        <button className={show === 'calm' ? 'active' : ''} aria-pressed={show === 'calm'} aria-haspopup='dialog' onClick={onShowDialog}>Auto show</button>
+        <button aria-label='Automatic show' className={show === 'calm' ? 'active' : ''} aria-pressed={show === 'calm'} aria-haspopup='dialog' onClick={onShowDialog}>Auto show</button>
         <button className={show === 'festival' ? 'active' : ''} aria-pressed={show === 'festival'} onClick={() => onStartShow('festival')}>Festival</button>
         <button className={show === 'finale' ? 'active' : ''} aria-pressed={show === 'finale'} onClick={() => onStartShow('finale')}>Finale</button>
       </nav>
