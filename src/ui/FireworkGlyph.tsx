@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import type { FamilyId } from '../engine/catalog';
+import '../styles/hud-v3-art.css';
 
 type Props = { family: FamilyId; color: string };
 
