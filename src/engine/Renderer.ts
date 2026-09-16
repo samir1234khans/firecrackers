@@ -13,6 +13,7 @@ export class FireworkRenderer {
     readonly renderer: THREE.WebGPURenderer;
     readonly scene = new THREE.Scene();
     readonly camera = new THREE.PerspectiveCamera(42, 1, .1, 1500);
+    private readonly opaqueCamera = new THREE.PerspectiveCamera();
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
     private readonly environment = new THREE.Group();
     private readonly sky: THREE.Mesh;
@@ -70,7 +71,7 @@ export class FireworkRenderer {
         }
         const opaqueLayers = new THREE.Layers();
         opaqueLayers.set(0);
-        this.opaquePass = pass(this.scene, this.camera).setLayers(opaqueLayers);
+        this.opaquePass = pass(this.scene, this.opaqueCamera).setLayers(opaqueLayers);
         this.particles = new ParticleScene(this.scene, this.smokeAtlas, this.opaquePass);
         this.scenePass = pass(this.scene, this.camera);
         const source = this.scenePass.getTextureNode('output');
@@ -108,7 +109,8 @@ export class FireworkRenderer {
         this.host.dataset.renderer = 'cinematic-v2';
         this.host.dataset.backend = this.backend;
         this.resize();
-        await this.renderer.compileAsync(this.scene, this.camera);
+        // Warm the actual post-processing graph, not a re-entrant standalone scene compilation.
+        // The opaque pass has a separate camera identity so its render list cannot overwrite the beauty pass.
         if (!this.disposed)
             this.render();
     }
@@ -155,6 +157,9 @@ export class FireworkRenderer {
             return;
         const start = performance.now(), sim = this.sim;
         this.camera.updateMatrixWorld();
+        this.opaqueCamera.copy(this.camera);
+        this.opaqueCamera.layers.set(0);
+        this.opaqueCamera.updateMatrixWorld();
         this.particles.update(sim, this.camera, this.host.clientHeight * this.renderer.getPixelRatio());
         this.bloomPass.strength.value = BUDGETS[sim.quality].bloom * (sim.reducedFlashes ? .7 : 1);
         for (const prop of this.props)
