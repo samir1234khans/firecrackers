@@ -3,7 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 async function enter(page: Page) {
   await page.goto('/?backend=webgl');
   const skip = page.getByRole('button', { name: 'Skip introduction' });
-  if (await skip.isVisible()) await skip.click();
+  if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
   await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
 }
 
