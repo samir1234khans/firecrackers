@@ -1,7 +1,13 @@
 import { test, expect, type Page } from '@playwright/test';
 
 type QA = { freeze: (value: boolean) => void; advance: (seconds: number) => void; render: () => void; snapshot: () => Record<string, number | string> };
-const qa = (page: Page, seconds: number) => page.evaluate(value => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.advance(value), seconds);
+const qa = (page: Page, seconds: number) => page.evaluate(async value => {
+  const q = (window as unknown as { __firecrackersQA: QA }).__firecrackersQA;
+  q.advance(value);
+  // TSL scene/bloom passes update once per renderer frame. Do not capture the old cached pass.
+  await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+  q.render();
+}, seconds);
 async function enter(page: Page, query = 'backend=webgl&qa=1') {
   await page.goto(`/?${query}`);
   const skip = page.getByRole('button', { name: 'Skip introduction' });
@@ -91,6 +97,7 @@ test('transparent canvas has transparent corners and visible emitted pixels', as
   await frozen(page); await qa(page, 6);
   const pixels = await page.evaluate(async () => {
     const q = (window as unknown as { __firecrackersQA: QA }).__firecrackersQA;
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
     q.render();
     const source = document.querySelector('.scene-host canvas') as HTMLCanvasElement;
     const image = new Image();
@@ -111,8 +118,13 @@ test('transparent canvas has transparent corners and visible emitted pixels', as
 test('resize during ascent preserves progress and landscape controls remain reachable', async ({ page }) => {
   await enter(page); await frozen(page);
   await page.getByRole('button', { name: 'Light once', exact: true }).click();
-  await qa(page, 2.8);
-  const before = await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
+  let before = await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
+  for (let step = 0; step < 40 && before.phase !== 'thrust' && before.phase !== 'coast'; step++) {
+    await qa(page, .1);
+    before = await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
+  }
+  expect(['thrust', 'coast']).toContain(before.phase);
+  expect(before.launched).toBe(1);
   await page.setViewportSize({ width: 851, height: 393 });
   await qa(page, 3);
   const after = await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
