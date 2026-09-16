@@ -1,0 +1,39 @@
+name: Verification environment bundle
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/fireworks-v1]
+    paths: [.github/workflows/verification-bundle.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install the exact verification toolchain
+        run: npm ci
+      - name: Package only tracked source and installed dependencies
+        run: |
+          mkdir -p /tmp/firecrackers-verification
+          git archive --format=tar HEAD | gzip > /tmp/firecrackers-verification/source.tar.gz
+          tar -czf /tmp/firecrackers-verification/dependencies.tar.gz node_modules
+          git rev-parse HEAD > /tmp/firecrackers-verification/SOURCE_COMMIT.txt
+          sha256sum package-lock.json > /tmp/firecrackers-verification/LOCK_SHA256.txt
+          node --version > /tmp/firecrackers-verification/NODE_VERSION.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verification-environment
+          path: /tmp/firecrackers-verification/
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
