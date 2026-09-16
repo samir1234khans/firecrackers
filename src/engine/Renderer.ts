@@ -120,7 +120,7 @@ export class FireworkRenderer {
             return;
         const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight), aspect = w / h;
         const groundPixels = h < 460 ? Math.min(142, h * .38) : w < 600 ? Math.min(250, h * .37) : 220;
-        const span = Math.max(136, 78 / aspect, 108 / (1 - groundPixels / h));
+        const span = Math.max(136, 110 / aspect, 108 / (1 - groundPixels / h));
         const centerY = this.sim.ground + (.5 - groundPixels / h) * span;
         this.camera.aspect = aspect;
         this.camera.position.set(0, centerY, span / (2 * Math.tan(this.camera.fov * Math.PI / 360)));

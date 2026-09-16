@@ -106,7 +106,15 @@ jobs:
           python scripts/validate_docs.py
       - run: npx playwright install --with-deps chromium
       - name: Cinematic renderer gate
-        run: npx playwright test tests/browser/v2.spec.ts --project=desktop-chromium --max-failures=1
+        run: npx playwright test tests/browser/v2.spec.ts --max-failures=1
+      - name: Preserve desktop and portrait renderer gate captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: renderer-gate-${{ github.sha }}
+          path: test-results
+          retention-days: 7
+          if-no-files-found: ignore
       - run: npm run test:e2e
       - name: Preserve actual build and browser evidence
         if: always()
