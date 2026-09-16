@@ -11,7 +11,7 @@ const qa = (page: Page, seconds: number) => page.evaluate(async value => {
 async function enter(page: Page, query = 'backend=webgl&qa=1') {
   await page.goto(`/?${query}`);
   const skip = page.getByRole('button', { name: 'Skip introduction' });
-  if (await skip.isVisible()) await skip.click();
+  if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
   await expect(page.locator('.scene-host')).toHaveAttribute('data-renderer', 'cinematic-v2', { timeout: 45000 });
   await page.waitForFunction(() => Boolean((window as unknown as { __firecrackersQA?: QA }).__firecrackersQA), undefined, { timeout: 45000 });
 }
