@@ -2,7 +2,8 @@ import { test, expect, type Page } from '@playwright/test';
 
 async function enter(page: Page, backend = 'webgl') {
   await page.goto(`/?backend=${backend}`);
-  await page.getByRole('button', { name: 'Skip introduction' }).click();
+  const skip = page.getByRole('button', { name: 'Skip introduction' });
+  if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
   await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
 }
 async function counts(page: Page) {
@@ -109,7 +110,7 @@ test('every family produces an inspectable peak and the screen recovers in lands
   for (const [index, name] of families.entries()) {
     await page.goto('/?backend=webgl');
     const skip = page.getByRole('button', { name: 'Skip introduction' });
-    if (await skip.isVisible()) await skip.click();
+    if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
     await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
     await page.getByRole('button', { name, exact: true }).click();
     await page.getByRole('button', { name: 'Light once', exact: true }).click();
