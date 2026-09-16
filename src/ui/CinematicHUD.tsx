@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { FAMILIES } from '../engine/catalog';
 import type { FamilyId, ShowPreset } from '../engine/catalog';
-import { RocketIcon } from './RocketIcon';
+import { FireworkGlyph } from './FireworkGlyph';
 
 type Family = typeof FAMILIES[number];
 
@@ -180,11 +180,11 @@ export function CinematicHUD({
       <div className='hud-status' role='status' aria-live='polite'>{notice}</div>
       <div className='hud-deck glass'>
         <div className='hud-family-rail' role='group' aria-label='Five firework styles'>
-          {FAMILIES.map((family, index) => {
+          {FAMILIES.map(family => {
             const familyMeta = FAMILY_META[family.id];
             const chosen = selectedId === family.id;
             return <button key={family.id} className={`hud-family${chosen ? ' selected' : ''}`} aria-label={family.name} aria-pressed={chosen} title={family.name} onClick={() => onSelect(family.id)}>
-              <span className='hud-family-art'><RocketIcon color={family.color} index={index}/></span>
+              <span className='hud-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
               <span className='hud-family-copy'><strong>{family.short}</strong><small>{familyMeta.mood}</small></span>
               <span className='hud-family-selected' aria-hidden='true'/>
             </button>;
