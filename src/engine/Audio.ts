@@ -9,6 +9,7 @@ export class AudioEngine {
   private voices=new Set<AudioScheduledSourceNode>();
   private timers=new Set<ReturnType<typeof setTimeout>>();
   private ambience:AudioBufferSourceNode|null=null;
+  private hapticActive=false;
   private enabled=false; private haptics=false; private volume=0.45; private ambient=false; private disposed=false;
   async configure(enabled:boolean,volume:number,haptics:boolean,ambience:boolean) {
     if(this.disposed) return false;
@@ -34,8 +35,8 @@ export class AudioEngine {
   consume(events:SimEvent[],worldWidth:number) {
     for(const e of events) {
       const delay=e.type==='burst'?0.22+e.y/260:e.type==='crackle'?0.38:0;
-      if(this.haptics && (e.type==='launch'||e.type==='burst')) {
-        const timer=setTimeout(()=> { this.timers.delete(timer); if(this.haptics && !document.hidden) navigator.vibrate(e.type==='launch'?12:22); },delay*1000);
+      if(this.haptics && this.timers.size<12 && (e.type==='launch'||e.type==='burst')) {
+        const timer=setTimeout(()=> { this.timers.delete(timer); if(this.haptics && !document.hidden) this.hapticActive=navigator.vibrate(e.type==='launch'?12:22); },delay*1000);
         this.timers.add(timer);
       }
       if(!this.enabled || !this.context || this.context.state!=='running') continue;
@@ -88,7 +89,8 @@ export class AudioEngine {
     for(const voice of this.voices) { try { voice.stop(); } catch {} } this.voices.clear();
     for(const timer of this.timers) clearTimeout(timer); this.timers.clear();
     if(this.ambience) { try {this.ambience.stop();} catch {} this.ambience=null; }
-    if(typeof navigator.vibrate==='function') navigator.vibrate(0);
+    if(this.hapticActive && typeof navigator.vibrate==='function') navigator.vibrate(0);
+    this.hapticActive=false;
   }
   dispose() { this.disposed=true; this.stop(); void this.context?.close(); this.context=null; }
 }

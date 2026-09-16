@@ -25,8 +25,9 @@ test('deliberate lighting reaches a rendered burst, with sound and no applicatio
   await expect(page.getByRole('button', { name: 'Mute sound' })).toBeVisible();
   await page.getByRole('button', { name: 'Light once', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeDisabled();
-  // Lifecycle wait is a product effect duration, not artificial app latency.
-  await page.waitForTimeout(7000);
+  await expect(page.locator('.scene-message')).toHaveText('Stay for the falling embers.', { timeout: 30000 });
+  await page.waitForTimeout(1400);
+  await page.keyboard.press('Escape');
   await page.screenshot({ path: test.info().outputPath('willow-burst.png') });
   expect(await counts(page)).toEqual({ launched: 1, bursts: 1 });
   await expect(page.locator('dl')).toContainText('WebGL 2');
@@ -100,4 +101,27 @@ test('cached app cold-loads offline and can light a different family', async ({ 
   await page.waitForTimeout(6000);
   expect((await counts(page)).bursts).toBe(1);
   await context.setOffline(false);
+});
+
+test('every family produces an inspectable peak and the screen recovers in landscape', async ({ page }) => {
+  test.setTimeout(180000);
+  const families = ['Gold Willow', 'Multicolor Peony', 'Chrysanthemum', 'Silver Crossette Crackle', 'Grand Finale'];
+  for (const [index, name] of families.entries()) {
+    await page.goto('/?backend=webgl');
+    const skip = page.getByRole('button', { name: 'Skip introduction' });
+    if (await skip.isVisible()) await skip.click();
+    await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+    await page.getByRole('button', { name, exact: true }).click();
+    await page.getByRole('button', { name: 'Light once', exact: true }).click();
+    await expect(page.locator('.scene-message')).toHaveText('Stay for the falling embers.', { timeout: 30000 });
+    await page.waitForTimeout(name === 'Grand Finale' ? 3000 : 1100);
+    await page.keyboard.press('Escape');
+    await page.screenshot({ path: test.info().outputPath(`family-${index}.png`) });
+  }
+  await page.setViewportSize({ width: 851, height: 393 });
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Open settings' }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({ path: test.info().outputPath('landscape-settings.png') });
 });
