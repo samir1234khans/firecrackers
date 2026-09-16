@@ -1,1 +1,23 @@
-{"compilerOptions":{"target":"ES2020","module":"ES2022","moduleResolution":"bundler","strict":true,"noUnusedLocals":true,"noUnusedParameters":true,"outDir":".test-build","rootDir":"src","skipLibCheck":true},"include":["src/engine/catalog.ts","src/engine/Pool.ts","src/engine/Simulation.ts"]}
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": ".test-build",
+    "rootDir": "src",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/engine/catalog.ts",
+    "src/engine/Pool.ts",
+    "src/engine/Simulation.ts",
+    "src/engine/Trails.ts",
+    "src/platform/PauseIntent.ts",
+    "src/platform/WakeLockController.ts",
+    "src/platform/presentation.ts",
+    "src/engine/QualityGovernor.ts"
+  ]
+}

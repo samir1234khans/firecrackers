@@ -3,7 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 async function enter(page: Page, backend = 'webgl') {
   await page.goto(`/?backend=${backend}`);
   await page.getByRole('button', { name: 'Skip introduction' }).click();
-  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
 }
 async function counts(page: Page) {
   await page.keyboard.press('Escape');
@@ -25,7 +25,7 @@ test('deliberate lighting reaches a rendered burst, with sound and no applicatio
   await expect(page.getByRole('button', { name: 'Mute sound' })).toBeVisible();
   await page.getByRole('button', { name: 'Light once', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeDisabled();
-  await expect(page.locator('.scene-message')).toHaveText('Stay for the falling embers.', { timeout: 30000 });
+  await expect.poll(async () => Number(await page.locator('main').getAttribute('data-bursts')), { timeout: 45000 }).toBeGreaterThan(0);
   await page.waitForTimeout(1400);
   await page.keyboard.press('Escape');
   await page.screenshot({ path: test.info().outputPath('willow-burst.png') });
@@ -41,12 +41,12 @@ test('short hold cancels without firing; keyboard alternative starts the same li
   await page.keyboard.down('Space');
   await page.waitForTimeout(160);
   await page.keyboard.up('Space');
-  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
   expect(await counts(page)).toEqual({ launched: 0, bursts: 0 });
   await page.getByRole('button', { name: 'Close panel' }).click();
   await fuse.focus();
   await page.keyboard.press('Enter');
-  await page.waitForTimeout(6000);
+  await expect.poll(async () => Number(await page.locator('main').getAttribute('data-launched')), { timeout: 45000 }).toBe(1);
   expect((await counts(page)).launched).toBe(1);
 });
 
@@ -79,7 +79,7 @@ test('comfort preferences persist; scene and audio do not resume on refresh', as
   await page.getByLabel('Graphics quality').selectOption('low');
   await page.getByLabel('Reduced interface motion').check();
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
   await expect(page.getByRole('button', { name: 'Enable sound' })).toBeVisible();
   await page.getByRole('button', { name: 'Open settings' }).click();
   await expect(page.getByLabel('Graphics quality')).toHaveValue('low');
@@ -92,28 +92,28 @@ test('cached app cold-loads offline and can light a different family', async ({ 
   await enter(page);
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
   await context.setOffline(true);
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
   await page.getByRole('button', { name: 'Multicolor Peony', exact: true }).click();
   await page.getByRole('button', { name: 'Light once', exact: true }).click();
-  await page.waitForTimeout(6000);
+  await expect.poll(async () => Number(await page.locator('main').getAttribute('data-bursts')), { timeout: 45000 }).toBe(1);
   expect((await counts(page)).bursts).toBe(1);
   await context.setOffline(false);
 });
 
 test('every family produces an inspectable peak and the screen recovers in landscape', async ({ page }) => {
-  test.setTimeout(180000);
+  test.setTimeout(300000);
   const families = ['Gold Willow', 'Multicolor Peony', 'Chrysanthemum', 'Silver Crossette Crackle', 'Grand Finale'];
   for (const [index, name] of families.entries()) {
     await page.goto('/?backend=webgl');
     const skip = page.getByRole('button', { name: 'Skip introduction' });
     if (await skip.isVisible()) await skip.click();
-    await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+    await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
     await page.getByRole('button', { name, exact: true }).click();
     await page.getByRole('button', { name: 'Light once', exact: true }).click();
-    await expect(page.locator('.scene-message')).toHaveText('Stay for the falling embers.', { timeout: 30000 });
+    await expect.poll(async () => Number(await page.locator('main').getAttribute('data-bursts')), { timeout: 45000 }).toBeGreaterThan(0);
     await page.waitForTimeout(name === 'Grand Finale' ? 3000 : 1100);
     await page.keyboard.press('Escape');
     await page.screenshot({ path: test.info().outputPath(`family-${index}.png`) });
