@@ -6,3 +6,4 @@ test-results/
 .env*
 !.env.example
 public/icons/
+public/THIRD_PARTY_NOTICES.txt

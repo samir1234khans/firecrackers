@@ -1,39 +1,61 @@
 # Firecrackers
 
-A single-screen, realistic digital fireworks experience: choose a firework, place it, light its fuse, watch it rise, and stay with the smoke and falling embers. A restrained layered-glass interface gives way to a festival night sky.
+A single-screen digital festival night. Choose a firework, place it, light its fuse, watch it rise, and stay with the smoke and falling embers. A restrained layered-glass interface gets out of the way.
 
-**Stage: complete pre-implementation documentation baseline. The application, finished media, device benchmarks, and production deployment are not implemented or verified yet.**
+**Stage: working V1 implementation and isolated preview. Not yet a production-certified or photorealism-approved release.**
 
-## Start here
+[Open the preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 
-- [Documentation index](docs/README.md) — the complete set of 22 specialist documents.
-- [Product brief](docs/01-product-brief.md) and [V1 requirements](docs/02-requirements-and-acceptance.md) — goals and 30 testable obligations.
-- [Decisions and open questions](docs/03-decisions-and-open-questions.md) — confirmed direction versus proposed defaults.
-- [Implementation roadmap](docs/16-implementation-roadmap.md) — gated build sequence, beginning with Gold Willow.
-- [Implementation handover](docs/20-implementation-handover.md) — ready-to-use prompt for the development phase.
-- [Machine-readable specifications](specs/README.md), [development workflow](DEVELOPMENT.md), and [current status](PROJECT_STATUS.md).
+Implementation lives on `feat/fireworks-v1`. The original documentation baseline on `main` is preserved until review and promotion. There are no accounts, purchases, API keys, or backend services.
 
-## Agreed direction
+## What is implemented
 
-Web app first, installable PWA. Five distinctive fireworks: Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle, and Grand Finale. Manual placement and deliberate ignition, realistic ascent and bursts, persistent smoke, optional spatial sound, and directed continuous shows. No accounts, payments, advertising, or server-side AI in V1.
+Five different effects: Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle, and a layered Grand Finale. Each uses the same deliberate placement/ignition lifecycle, not a canned movie. A 650 ms hold lights the fuse; early release cancels. Light once and keyboard controls provide alternatives.
 
-The fireworks should resemble real festival displays, not confetti or neon screensavers. Glass styling belongs to the small interface, not the firework simulation. Continuous display means a visible, active page, with honest browser capability fallbacks.
+The app includes seeded particle physics, persistent wind-drifted smoke, local blast illumination, 3D rocket props, original procedural spatial sound, optional haptics, Calm/Festival/finite Finale automatic shows, manual takeover, adaptive quality, pause/resume, tab-hidden suspension, responsive glass controls, first-run help, versioned preferences, reset, fullscreen and wake-lock capability handling, and an installable offline PWA.
 
-## Documentation validation
+## Run and verify
+
+Use the Node version in `.nvmrc` and the committed dependency lock.
+
+```sh
+npm ci
+npm run dev
+```
+
+```sh
+npm run typecheck
+npm run lint
+npm test
+npm run test:soak
+npm run build
+npx playwright install chromium
+npm run test:e2e
+```
+
+`npm run preview` serves the production build. Install/offline testing requires a build and a secure origin or localhost; it is not enabled in the development server. Build output is `dist/`. Development/preview servers bind to loopback by default. Do not publish a Vite development server.
+
+Keyboard: 1–5 choose, Left/Right place, L lights once, Space pauses/resumes, M controls sound, Escape reveals controls or closes a panel. Every action also has an accessible named control.
+
+## Evidence and release boundary
+
+The application passed TypeScript checks, lint, 18 engine tests, accelerated two-hour logical soaks, documentation validation, and 12 Chromium desktop/mobile-emulation browser scenarios, including offline cold reload. Actual screenshots capture all five families. See the [implementation record](docs/evidence/runtime-implementation.md) for source commits, CI runs, hardening results, and gaps.
+
+Mobile emulation is not a physical phone test. True hardware WebGPU parity, Safari/iOS, long-session GPU/thermal behavior, full service-worker update/recovery testing, flash-risk assessment, and final visual/audio realism approval remain release gates. Layered smoke and soft additive glow are implementation choices, not claims of a volumetric fluid solver or HDR bloom pipeline.
+
+## Documentation
+
+- [Documentation index](docs/README.md) — the 22 specialist specifications remain preserved.
+- [Product brief](docs/01-product-brief.md), [requirements](docs/02-requirements-and-acceptance.md), and [decisions](docs/03-decisions-and-open-questions.md).
+- [Runtime implementation and evidence](docs/evidence/runtime-implementation.md).
+- [Current project status](PROJECT_STATUS.md), [development workflow](DEVELOPMENT.md), and [agent instructions](AGENTS.md).
+- [Original implementation roadmap](docs/16-implementation-roadmap.md), [handover](docs/20-implementation-handover.md), and [machine-readable specifications](specs/README.md).
 
 ```sh
 python -m pip install -r scripts/requirements-docs.txt
 python scripts/validate_docs.py
 ```
 
-The [documentation workflow](.github/workflows/docs-validation.yml) runs link, requirement-coverage, catalog-schema, and configuration checks and packages the baseline. Its success validates documentation structure, not graphics, performance, audio quality, asset rights, or application readiness. See PROJECT_STATUS for the recorded verification boundary.
+Documentation validation checks structure, links, and coverage; it does not certify graphics or performance. Historical pre-implementation documents describe the target; the runtime evidence record describes what has actually been built and tested.
 
-No Node application commands exist until the implementation scaffold is created. Do not deploy this documentation directory as though it were the finished app.
-
-## Repository use
-
-The baseline is stored on `main`, preserving the original initial commit. Before implementation, inspect the latest repository state and follow AGENTS.md and DEVELOPMENT.md. Preserve existing work and use non-force Git updates.
-
-Working title: **Firecrackers**. Final consumer branding and a public code license remain owner choices; neither blocks the first working Gold Willow.
-
-Baseline date: 15 September 2026. This is a software simulation, not a guide to handling or constructing physical fireworks.
+All visual/audio assets in this implementation are procedural/original except installed libraries and their icons. Builds preserve third-party license notices. Final branding, production hosting/domain, and a public license for the application remain owner choices. This is software simulation, not physical firework guidance.
