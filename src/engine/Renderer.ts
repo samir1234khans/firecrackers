@@ -50,7 +50,9 @@ export class FireworkRenderer {
         const horizonMesh = new THREE.Mesh(new THREE.PlaneGeometry(580, 65), new THREE.MeshBasicMaterial({ map: this.horizon, transparent: true, depthWrite: false }));
         horizonMesh.position.set(0, -17, -110);
         horizonMesh.renderOrder = -5;
-        this.environment.add(this.sky, horizonMesh);
+        const foreground = new THREE.Mesh(new THREE.PlaneGeometry(700, 400), new THREE.MeshBasicMaterial({ color: '#04070b' }));
+        foreground.position.set(0, -248, -109);
+        this.environment.add(this.sky, horizonMesh, foreground);
         this.scene.add(this.environment);
         this.scene.add(new THREE.HemisphereLight(0x96a5c2, 0x1c120a, 1.4));
         const key = new THREE.DirectionalLight(0xffd7a3, 2.2);
@@ -109,8 +111,7 @@ export class FireworkRenderer {
         this.host.dataset.renderer = 'cinematic-v2';
         this.host.dataset.backend = this.backend;
         this.resize();
-        // Warm the actual post-processing graph, not a re-entrant standalone scene compilation.
-        // The opaque pass has a separate camera identity so its render list cannot overwrite the beauty pass.
+        // Warm the actual graph. Separate camera identities prevent nested render-list mutation.
         if (!this.disposed)
             this.render();
     }
@@ -118,14 +119,16 @@ export class FireworkRenderer {
         if (this.disposed)
             return;
         const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight), aspect = w / h;
-        const span = Math.max(120, 76 / aspect);
+        const groundPixels = h < 460 ? Math.min(142, h * .38) : w < 600 ? Math.min(250, h * .37) : 220;
+        const span = Math.max(136, 78 / aspect, 108 / (1 - groundPixels / h));
+        const centerY = this.sim.ground + (.5 - groundPixels / h) * span;
         this.camera.aspect = aspect;
-        this.camera.position.set(0, 46, span / (2 * Math.tan(this.camera.fov * Math.PI / 360)));
-        this.camera.lookAt(0, 46, 0);
+        this.camera.position.set(0, centerY, span / (2 * Math.tan(this.camera.fov * Math.PI / 360)));
+        this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
         const ratio = (this.camera.position.z + 250) / this.camera.position.z;
-        this.sky.position.y = 46;
+        this.sky.position.y = centerY;
         this.sky.scale.set(span * aspect * ratio, span * ratio, 1);
         this.sim.setViewport(Math.min(160, span * aspect * .78), 16);
         this.renderer.setSize(w, h);
@@ -171,6 +174,7 @@ export class FireworkRenderer {
                 return;
             prop.group.visible = this.mode !== 'transparent';
             prop.group.position.set(x, y, z);
+            prop.group.scale.setScalar(1.5);
             prop.group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(vx, vy, vz).normalize());
             prop.update(family, burn, contact, sim.time, sim.wind);
         };
@@ -181,7 +185,7 @@ export class FireworkRenderer {
             if (r.stage !== 'afterglow') {
                 place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, r.stage === 'ascent' ? r.vx : 0, r.stage === 'ascent' ? r.vy : 1, r.stage === 'ascent' ? r.vz : 0);
             }
-        this.pad.position.set(sim.placementToX(), sim.ground - 2.76, 0);
+        this.pad.position.set(sim.placementToX(), sim.ground - 4.14, 0);
         this.pad.visible = this.mode === 'interactive';
         this.projected.set(sim.placementToX(), sim.ground, 0).project(this.camera);
         const groundPixels = (1 + this.projected.y) * .5 * this.host.clientHeight;

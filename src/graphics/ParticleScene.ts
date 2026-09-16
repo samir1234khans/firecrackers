@@ -24,6 +24,7 @@ class Batch {
         this.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array([-.5, -.5, 0, .5, -.5, 0, .5, .5, 0, -.5, .5, 0]), 3));
         this.geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]), 2));
         this.geometry.setIndex([0, 1, 2, 0, 2, 3]);
+        this.geometry.setAttribute('normal', new THREE.BufferAttribute(new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1]), 3));
         for (const [name, size] of Object.entries(layout)) {
             const a = new THREE.InstancedBufferAttribute(new Float32Array(capacity * size), size);
             a.setUsage(THREE.DynamicDrawUsage);
@@ -96,7 +97,7 @@ export class ParticleScene {
             const across = uv().x.sub(.5).mul(2).abs();
             const core = across.pow(2).mul(-18).exp();
             const halo = across.pow(2).mul(-3.5).exp().mul(.075);
-            // End caps overlap by sub-pixel extent in the vertex upload; no detached dotted streaks.
+            // Adjacent segments use copied continuous path endpoints; width and brightness taper with age.
             t.material.colorNode = attribute('iColor', 'vec3').mul(u.energy);
             t.material.opacityNode = core.add(halo).mul(attribute('iAlpha', 'float')).mul(protectedMask);
             this.trails.push(t);
@@ -129,7 +130,6 @@ export class ParticleScene {
             const heat = 2.4 + Math.exp(-p.age[i] * 5) * 1.4;
             a.iColor.setXYZ(n, p.r[i] * heat, p.g[i] * (1 - red) * heat, p.b[i] * (1 - red) * heat);
         }
-        // Luminous launch heads and secondary carriers exist independently of the prop meshes.
         const addHead = (x: number, y: number, z: number, size: number, r: number, g: number, blue: number) => {
             const b = this.heads[bucketFor(z)], n = b.count++, a = b.attrs;
             a.iPosition.setXYZ(n, x, y, z);
@@ -147,7 +147,7 @@ export class ParticleScene {
             const z = (t.az[i] + t.bz[i]) * .5, b = this.trails[bucketFor(z)], n = b.count++, a = b.attrs;
             const age = t.age[i] / t.life[i];
             const pixel = Math.max(.026, (camera.position.z - z) * pixelFactor);
-            const width = Math.max(t.width[i] * (1 - age * .65), pixel * .28) * 4.2;
+            const width = Math.max(t.width[i] * (1 - age * .65), pixel * .70) * 4.2;
             a.iA.setXYZ(n, t.ax[i], t.ay[i], t.az[i]);
             a.iB.setXYZ(n, t.bx[i], t.by[i], t.bz[i]);
             a.iWidth.setX(n, width);
@@ -155,7 +155,6 @@ export class ParticleScene {
             a.iColor.setXYZ(n, t.r[i] * 2.4, t.g[i] * 2.4, t.b[i] * 2.4);
         }
         const smoke = sim.smoke;
-        // At most 96 items: exact sorting within each approximate depth bucket is inexpensive.
         const order = Array.from({ length: smoke.count }, (_, i) => i).sort((a, b) => smoke.z[a] - smoke.z[b]);
         for (const i of order) {
             const b = this.smoke[bucketFor(smoke.z[i])], n = b.count++, a = b.attrs;
@@ -163,7 +162,7 @@ export class ParticleScene {
             for (const light of sim.lights) {
                 const lx = light.x - smoke.x[i], ly = light.y - smoke.y[i], lz = light.z - smoke.z[i];
                 const d = Math.hypot(lx, ly, lz), falloff = Math.max(0, 1 - d / 39);
-                const power = falloff * falloff * Math.exp(-light.age * 1.55) * light.strength * (sim.reducedFlashes ? .70 : 1.0);
+                const power = falloff * falloff * Math.exp(-light.age * .90) * light.strength * (sim.reducedFlashes ? 1.0 : 1.25);
                 lr += light.r * power;
                 lg += light.g * power;
                 lb += light.b * power;

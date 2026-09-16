@@ -38,6 +38,7 @@ test('V2 renderer produces all five spatial effects and ignition checkpoints wit
       await qa(page, 3);
       await page.screenshot({ path: test.info().outputPath('04-willow-canopy.png') });
       await qa(page, 2);
+      await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Multicolor Peony', exact: true }).click();
       await page.getByRole('button', { name: 'Light once', exact: true }).click();
       await qa(page, 4.2);
@@ -117,6 +118,7 @@ test('resize during ascent preserves progress and landscape controls remain reac
   const after = await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
   expect(after.launched).toBe(before.launched); expect(Number(after.bursts)).toBeGreaterThan(0);
   await page.screenshot({ path: test.info().outputPath('landscape-burst.png') });
+  await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Open settings' }).click();
   await page.getByLabel('Graphics quality').selectOption('low');
   await expect(page.getByRole('dialog')).toBeVisible();
