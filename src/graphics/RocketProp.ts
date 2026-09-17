@@ -19,7 +19,7 @@ export class RocketProp {
     ]);
     private lastFamily = -1;
     constructor(paperTexture: THREE.Texture) {
-        this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0xeac17a, roughness: .89, metalness: 0 });
+        this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0x182332, roughness: .64, metalness: .06 });
         this.capMaterial = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0x806544, roughness: .81, metalness: .04 });
         this.body = new THREE.Mesh(new THREE.CylinderGeometry(.50, .51, 3.25, 24, 1), this.paper);
         this.body.position.y = 3.25;
@@ -30,8 +30,8 @@ export class RocketProp {
         const bottom = new THREE.Mesh(new THREE.CylinderGeometry(.51, .50, .11, 24), new THREE.MeshStandardMaterial({ color: 0x3b3024, roughness: 1 }));
         bottom.position.y = 1.57;
         this.stripes = new THREE.Group();
-        const bandMaterial = new THREE.MeshStandardMaterial({ color: 0x786549, roughness: .66, metalness: .12 });
-        for (const y of [1.88, 4.55]) {
+        const bandMaterial = new THREE.MeshStandardMaterial({ color: 0xc39a62, roughness: .26, metalness: .62 });
+        for (const y of [1.88, 2.03, 4.40, 4.55]) {
             const band = new THREE.Mesh(new THREE.CylinderGeometry(.512, .512, .14, 24), bandMaterial);
             band.position.y = y;
             this.stripes.add(band);
@@ -46,8 +46,8 @@ export class RocketProp {
     update(family: number, burnProgress: number, contact: number, time: number, wind: number) {
         if (family !== this.lastFamily) {
             this.lastFamily = family;
-            this.paper.color.set(FAMILIES[family].color);
-            this.capMaterial.color.set(FAMILIES[family].color).multiplyScalar(.64);
+            this.paper.color.set('#172233');
+            this.capMaterial.color.set(FAMILIES[family].color).multiplyScalar(.76);
             const radii = [1, .92, 1.08, .86, 1.16], heights = [1, 1.06, .96, 1.13, 1.12];
             this.body.scale.set(radii[family], heights[family], radii[family]);
             this.cap.scale.set(radii[family], family === 4 ? 1.16 : 1, radii[family]);

@@ -1,10 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
+import { enterSky } from './enter';
 
 async function enter(page: Page, backend = 'webgl') {
-  await page.goto(`/?backend=${backend}`);
-  const skip = page.getByRole('button', { name: 'Skip introduction' });
-  if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
-  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
+  await enterSky(page, `backend=${backend}`);
 }
 async function counts(page: Page) {
   await page.keyboard.press('Escape');
@@ -108,10 +106,7 @@ test('every family produces an inspectable peak and the screen recovers in lands
   test.setTimeout(300000);
   const families = ['Gold Willow', 'Multicolor Peony', 'Chrysanthemum', 'Silver Crossette Crackle', 'Grand Finale'];
   for (const [index, name] of families.entries()) {
-    await page.goto('/?backend=webgl');
-    const skip = page.getByRole('button', { name: 'Skip introduction' });
-    if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
-    await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
+    await enterSky(page);
     await page.getByRole('button', { name, exact: true }).click();
     await page.getByRole('button', { name: 'Light once', exact: true }).click();
     await expect.poll(async () => Number(await page.locator('main').getAttribute('data-bursts')), { timeout: 45000 }).toBeGreaterThan(0);

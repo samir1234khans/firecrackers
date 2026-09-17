@@ -16,14 +16,10 @@ export function PresentationSettings({ value, onChange, onStart, onExit, disable
     const setRect = (index: number, valuePercent: number) => {
         const rect: SafeRect = [...value.safeRect];
         const v = Math.max(0, Math.min(1, valuePercent / 100));
-        if (index === 0)
-            rect[0] = Math.min(v, rect[2] - .05);
-        if (index === 1)
-            rect[1] = Math.min(v, rect[3] - .05);
-        if (index === 2)
-            rect[2] = Math.max(v, rect[0] + .05);
-        if (index === 3)
-            rect[3] = Math.max(v, rect[1] + .05);
+        if (index === 0) rect[0] = Math.min(v, rect[2] - .05);
+        if (index === 1) rect[1] = Math.min(v, rect[3] - .05);
+        if (index === 2) rect[2] = Math.max(v, rect[0] + .05);
+        if (index === 3) rect[3] = Math.max(v, rect[1] + .05);
         onChange({ ...value, safeRect: rect });
     };
     const copy = async () => {
@@ -32,12 +28,11 @@ export function PresentationSettings({ value, onChange, onStart, onExit, disable
         try {
             await navigator.clipboard.writeText(output);
             setCopyState('Display link copied.');
-        }
-        catch {
+        } catch {
             setCopyState('Select and copy this display link.');
         }
     };
-    return <section className='settings-group presentation-settings' aria-label='Display and streaming'>
+    return <section id='settings-display' className='settings-group presentation-settings' aria-label='Display and streaming'>
     <h3>Display & streaming</h3>
     <label className='setting-row'><span className='setting-label'>Canvas output</span>
       <select aria-label='Canvas output' value={value.mode} onChange={event => onChange({ ...value, mode: event.target.value as Presentation['mode'] })}>

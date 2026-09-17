@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { enterSky } from './enter';
 
 type QA = { freeze: (value: boolean) => void; advance: (seconds: number) => void; render: () => void; snapshot: () => Record<string, number | string> };
 const qa = (page: Page, seconds: number) => page.evaluate(async value => {
@@ -9,10 +10,7 @@ const qa = (page: Page, seconds: number) => page.evaluate(async value => {
   q.render();
 }, seconds);
 async function enter(page: Page, query = 'backend=webgl&qa=1') {
-  await page.goto(`/?${query}`);
-  const skip = page.getByRole('button', { name: 'Skip introduction' });
-  if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
-  await expect(page.locator('.scene-host')).toHaveAttribute('data-renderer', 'cinematic-v2', { timeout: 45000 });
+  await enterSky(page, query);
   await page.waitForFunction(() => Boolean((window as unknown as { __firecrackersQA?: QA }).__firecrackersQA), undefined, { timeout: 45000 });
 }
 async function frozen(page: Page) {

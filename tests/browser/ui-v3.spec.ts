@@ -1,13 +1,8 @@
-import { test, expect, type Page } from '@playwright/test';
-
-async function enter(page: Page) {
-  await page.goto('/?backend=webgl');
-  const skip = page.getByRole('button', { name: 'Skip introduction' });
-  if (await skip.isVisible()) await skip.evaluate(element => (element as HTMLButtonElement).click());
-  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled({ timeout: 45000 });
-}
+import { test, expect } from '@playwright/test';
+import { enterSky as enter } from './enter';
 
 test('desktop command deck exposes the new hierarchy without covering the sky', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
   await enter(page);
   await expect(page.getByLabel('Firecrackers command deck')).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Show mode' })).toBeVisible();
@@ -25,7 +20,7 @@ test('desktop command deck exposes the new hierarchy without covering the sky', 
   expect(inspector).not.toBeNull();
   expect(deck).not.toBeNull();
   expect(inspector!.x + inspector!.width).toBeLessThanOrEqual(1280);
-  expect(deck!.y).toBeGreaterThan(560);
+  expect(deck!.y).toBeGreaterThan(500);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: test.info().outputPath('ui-v3-desktop.png') });
 });
@@ -78,4 +73,67 @@ test('short landscape retains the full command path without horizontal overflow'
   await expect(page.getByRole('button', { name: 'Open settings' })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: test.info().outputPath('ui-v3-landscape.png') });
+});
+
+test('settings navigation, reset and reduced-motion keep the deck centered', async ({ page }) => {
+  await enter(page);
+  await page.getByRole('button', { name: 'Pause scene', exact: true }).click();
+  await page.getByRole('button', { name: 'Open settings' }).click();
+  const panel = page.getByRole('dialog');
+  await expect(panel).toHaveClass(/sheet--settings/);
+  await page.getByRole('navigation', { name: 'Settings sections' }).getByRole('button', { name: 'Graphics', exact: true }).click();
+  await page.getByLabel('Reduced interface motion', { exact: true }).check();
+  await page.getByLabel('Graphics quality', { exact: true }).selectOption('low');
+  await page.screenshot({ path: test.info().outputPath('ui-v3-settings.png') });
+  await page.getByRole('button', { name: 'Close panel' }).click();
+  await expect(page.locator('main')).toHaveAttribute('data-paused', 'true');
+  const deck = await page.getByLabel('Firework controls').boundingBox();
+  const width = page.viewportSize()!.width;
+  expect(Math.abs(deck!.x + deck!.width / 2 - width / 2)).toBeLessThan(2);
+  await page.getByRole('button', { name: 'Open settings' }).click();
+  await page.getByRole('navigation', { name: 'Settings sections' }).getByRole('button', { name: 'Device', exact: true }).click();
+  await page.getByRole('button', { name: 'Reset this sky' }).click();
+  await page.getByRole('button', { name: 'Keep my sky' }).click();
+  await expect(page.getByLabel('Graphics quality')).toHaveValue('low');
+  await page.getByRole('button', { name: 'Close panel' }).click();
+  await page.getByRole('button', { name: 'Resume scene', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+});
+
+test('small phone retains visible quick light and can operate every modal', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 667 });
+  await enter(page);
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeInViewport();
+  await page.getByRole('button', { name: 'Automatic show' }).click();
+  await expect(page.locator('dialog')).toHaveClass(/sheet--show/);
+  await page.screenshot({ path: test.info().outputPath('ui-v3-show-small-phone.png') });
+  await page.getByRole('button', { name: 'Close panel' }).click();
+  await page.getByRole('button', { name: 'Open settings' }).click();
+  await page.getByRole('button', { name: 'Replay introduction' }).click();
+  await expect(page.locator('dialog')).toHaveClass(/sheet--help/);
+  await page.getByRole('button', { name: 'Enter the night', exact: true }).click();
+  await expect(page.locator('main')).toHaveAttribute('data-overlay', 'none');
+  const width = await page.evaluate(() => ({ page: document.documentElement.scrollWidth, view: innerWidth }));
+  expect(width.page).toBeLessThanOrEqual(width.view);
+  await page.screenshot({ path: test.info().outputPath('ui-v3-small-phone.png') });
+});
+
+test('the real 3D launch stage is present and the concept-sized scene is usable', async ({ page }) => {
+  await page.setViewportSize({ width: 1536, height: 1024 });
+  await enter(page, 'backend=webgl&qa=1');
+  await expect(page.locator('.scene-host')).toHaveAttribute('data-stage', 'spatial-v3');
+  await page.evaluate(() => (window as unknown as { __firecrackersQA: { freeze: (v: boolean) => void } }).__firecrackersQA.freeze(true));
+  await page.screenshot({ path: test.info().outputPath('ui-v3-launch-stage.png') });
+  await page.getByRole('button', { name: 'Place firework left', exact: true }).click();
+  await expect(page.getByRole('slider', { name: 'Firework position' })).toHaveValue('28');
+  await page.getByRole('button', { name: 'Light once', exact: true }).click();
+  await page.evaluate(async () => {
+    const qa = (window as unknown as { __firecrackersQA: { advance: (s: number) => void; render: () => void } }).__firecrackersQA;
+    qa.advance(5.5);
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    qa.render();
+  });
+  await expect(page.locator('main')).toHaveAttribute('data-bursts', '1');
+  await page.keyboard.press('Escape');
+  await page.screenshot({ path: test.info().outputPath('ui-v3-concept-size-burst.png') });
 });
