@@ -1,7 +1,7 @@
 /** Versioned virtual-animation parameters, not physical firework specifications. */
 export const CONFIG_VERSION = '2026-09-17.3';
 export const FAMILIES = [
-    { id: 'gold-willow', name: 'Gold Willow', short: 'Willow', note: 'A slow-falling canopy of gold.', color: '#eac17a', count: 192, speed: 23, life: 7.2, drag: 0.43, gravity: 3.2, trail: 2.9, cost: 1, ascent: 2.2 },
+    { id: 'gold-willow', name: 'Gold Willow', short: 'Willow', note: 'A slow-falling canopy of gold.', color: '#eac17a', count: 192, speed: 25, life: 7.8, drag: 0.41, gravity: 4.3, trail: 3.1, cost: 1, ascent: 2.2 },
     { id: 'multicolor-peony', name: 'Multicolor Peony', short: 'Peony', note: 'A crisp sphere of jewel-like stars.', color: '#dd819d', count: 248, speed: 24, life: 2.7, drag: 0.66, gravity: 2.8, trail: 0.14, cost: 1, ascent: 1.9 },
     { id: 'chrysanthemum', name: 'Chrysanthemum', short: 'Chrysanthemum', note: 'Radiant copper rays with ruby tips.', color: '#ed9b69', count: 192, speed: 25, life: 4.8, drag: 0.50, gravity: 3.1, trail: 1.7, cost: 1, ascent: 2.1 },
     { id: 'silver-crossette-crackle', name: 'Silver Crossette Crackle', short: 'Crossette', note: 'Silver stars open into four smaller trails.', color: '#c2d9e6', count: 32, speed: 19, life: 3.2, drag: 0.38, gravity: 3.0, trail: 0.9, cost: 1, ascent: 2.0 },

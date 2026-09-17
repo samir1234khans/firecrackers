@@ -75,12 +75,14 @@ export class ParticleScene {
             const sampleUV = (f: ReturnType<typeof float>) => uv().mul(64 / 68).add(2 / 68).add(vec2(f.mod(4), f.div(4).floor().add(variant.mul(4)))).div(vec2(4, 12));
             const density = mix(texture(atlas, sampleUV(frameA)), texture(atlas, sampleUV(frameB)), frame.fract());
             const normal = density.gb.mul(2).sub(1);
-            const shading = dot(normal, attribute('iLightDir', 'vec2')).mul(.45).add(.72).clamp(.22, 1.2);
-            s.material.colorNode = vec3(.021, .026, .036).add(attribute('iColor', 'vec3').mul(shading));
+            const direction = attribute('iLightDir', 'vec2');
+            const localDirection = vec2(direction.x.mul(cos(a)).add(direction.y.mul(sin(a))), direction.y.mul(cos(a)).sub(direction.x.mul(sin(a))));
+            const shading = dot(normal, localDirection).mul(.45).add(.72).clamp(.22, 1.2);
+            s.material.colorNode = vec3(.034, .044, .064).add(attribute('iColor', 'vec3').mul(shading));
             s.material.opacityNode = density.a.mul(attribute('iAlpha', 'float')).mul(soft).mul(protectedMask);
             this.smoke.push(s);
             scene.add(s.mesh);
-            const h = new Batch(3088, { iPosition: 3, iScale: 2, iAlpha: 1, iColor: 3 }, 12 + bucket * 3, true);
+            const h = new Batch(4096, { iPosition: 3, iScale: 2, iAlpha: 1, iColor: 3 }, 12 + bucket * 3, true);
             h.material.positionNode = attribute('iPosition', 'vec3').add(u.right.mul(positionGeometry.x).mul(attribute('iScale', 'vec2').x)).add(u.up.mul(positionGeometry.y).mul(attribute('iScale', 'vec2').y));
             const radius = uv().sub(.5).length().mul(2);
             const kernel = radius.pow(2).mul(-14).exp().mul(.88).add(radius.pow(2).mul(-3).exp().mul(.075));
@@ -97,9 +99,9 @@ export class ParticleScene {
             const across = uv().x.sub(.5).mul(2).abs();
             const core = across.pow(2).mul(-18).exp();
             const halo = across.pow(2).mul(-3.5).exp().mul(.075);
-            // Adjacent segments use copied continuous path endpoints; width and brightness taper with age.
             t.material.colorNode = attribute('iColor', 'vec3').mul(u.energy);
-            t.material.opacityNode = core.add(halo).mul(attribute('iAlpha', 'float')).mul(protectedMask);
+            const grain = middle.dot(vec3(4.7, 9.3, 3.1)).sin().mul(.23).add(.77);
+            t.material.opacityNode = core.add(halo).mul(grain).mul(attribute('iAlpha', 'float')).mul(protectedMask);
             this.trails.push(t);
             scene.add(t.mesh);
         }
@@ -114,9 +116,7 @@ export class ParticleScene {
         u.protect.value = sim.protectCenter ? 1 : 0;
         u.safeRect.value.set(...sim.safeRect);
         u.energy.value = sim.reducedFlashes ? .90 : 1.12;
-        for (const group of [this.heads, this.trails, this.smoke])
-            for (const batch of group)
-                batch.count = 0;
+        for (const group of [this.heads, this.trails, this.smoke]) for (const batch of group) batch.count = 0;
         const pixelFactor = 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, height);
         const p = sim.heads;
         for (let i = 0; i < p.count; i++) {
@@ -127,8 +127,19 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
             a.iAlpha.setX(n, fade * (.84 + hash01(p.id[i], 51) * .16));
-            const heat = 2.4 + Math.exp(-p.age[i] * 5) * 1.4;
+            const heat = 1.85 + Math.exp(-p.age[i] * 6) * 1.45;
             a.iColor.setXYZ(n, p.r[i] * heat, p.g[i] * (1 - red) * heat, p.b[i] * (1 - red) * heat);
+        }
+        const embers = sim.embers;
+        for (let i = 0; i < embers.count; i++) {
+            const b = this.heads[bucketFor(embers.z[i])], n = b.count++, a = b.attrs;
+            const age = embers.age[i] / embers.life[i];
+            const pixel = Math.max(.03, (camera.position.z - embers.z[i]) * pixelFactor);
+            const size = Math.max(.07, pixel * .44) * 4;
+            a.iPosition.setXYZ(n, embers.x[i], embers.y[i], embers.z[i]);
+            a.iScale.setXY(n, size, size * 1.35);
+            a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * .75);
+            a.iColor.setXYZ(n, embers.r[i] * 2.3, embers.g[i] * 1.9, embers.b[i] * 1.3);
         }
         const addHead = (x: number, y: number, z: number, size: number, r: number, g: number, blue: number) => {
             const b = this.heads[bucketFor(z)], n = b.count++, a = b.attrs;
@@ -137,22 +148,19 @@ export class ParticleScene {
             a.iColor.setXYZ(n, r, g, blue);
             a.iAlpha.setX(n, .88);
         };
-        for (const r of sim.rockets)
-            if (r.stage === 'ascent')
-                addHead(r.x, r.y + 1.7, r.z, r.phase === 'thrust' ? 1.0 : .65, 4.5, 2.5, .8);
-        for (const c of sim.cues)
-            addHead(c.x, c.y, c.z, .72, 3, 2.1, .9);
+        for (const r of sim.rockets) if (r.stage === 'ascent') addHead(r.x, r.y + 1.7, r.z, r.phase === 'thrust' ? 1.0 : .65, 4.5, 2.5, .8);
+        for (const c of sim.cues) addHead(c.x, c.y, c.z, .72, 3, 2.1, .9);
         const t = sim.trails;
         for (let i = 0; i < t.count; i++) {
             const z = (t.az[i] + t.bz[i]) * .5, b = this.trails[bucketFor(z)], n = b.count++, a = b.attrs;
             const age = t.age[i] / t.life[i];
             const pixel = Math.max(.026, (camera.position.z - z) * pixelFactor);
-            const width = Math.max(t.width[i] * (1 - age * .65), pixel * .70) * 4.2;
+            const width = Math.max(t.width[i] * (1 - age * .65), pixel * .54) * 4.2;
             a.iA.setXYZ(n, t.ax[i], t.ay[i], t.az[i]);
             a.iB.setXYZ(n, t.bx[i], t.by[i], t.bz[i]);
             a.iWidth.setX(n, width);
-            a.iAlpha.setX(n, Math.pow(1 - age, 1.65) * .86);
-            a.iColor.setXYZ(n, t.r[i] * 2.4, t.g[i] * 2.4, t.b[i] * 2.4);
+            a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * (.56 + hash01(t.owner[i], 81) * .36));
+            a.iColor.setXYZ(n, t.r[i] * 1.7, t.g[i] * 1.7, t.b[i] * 1.7);
         }
         const smoke = sim.smoke;
         const order = Array.from({ length: smoke.count }, (_, i) => i).sort((a, b) => smoke.z[a] - smoke.z[b]);
@@ -162,7 +170,7 @@ export class ParticleScene {
             for (const light of sim.lights) {
                 const lx = light.x - smoke.x[i], ly = light.y - smoke.y[i], lz = light.z - smoke.z[i];
                 const d = Math.hypot(lx, ly, lz), falloff = Math.max(0, 1 - d / 39);
-                const power = falloff * falloff * Math.exp(-light.age * .90) * light.strength * (sim.reducedFlashes ? 1.0 : 1.25);
+                const power = falloff * falloff * Math.exp(-light.age * .72) * light.strength * (sim.reducedFlashes ? 1.0 : 1.25);
                 lr += light.r * power;
                 lg += light.g * power;
                 lb += light.b * power;
@@ -173,17 +181,15 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, smoke.x[i], smoke.y[i], smoke.z[i]);
             a.iScale.setXY(n, smoke.size[i] * 2.8, smoke.size[i] * 2.1);
             a.iRotation.setX(n, smoke.angle[i]);
-            a.iAlpha.setX(n, Math.min(1, smoke.age[i] * 1.8) * Math.pow(1 - age, 1.4) * smoke.gravity[i] * .65);
+            a.iAlpha.setX(n, Math.min(1, smoke.age[i] * 1.8) * Math.pow(1 - age, 1.4) * smoke.gravity[i] * .86);
             a.iColor.setXYZ(n, Math.min(1.2, lr), Math.min(1.2, lg), Math.min(1.2, lb));
             a.iLightDir.setXY(n, dx, dy);
             a.iFrame.setX(n, Math.min(14.98, (1 - Math.exp(-smoke.age[i] * .22)) * 15));
             a.iVariant.setX(n, smoke.id[i] % 3);
         }
-        for (const group of [this.heads, this.trails, this.smoke])
-            for (const batch of group)
-                batch.upload();
+        for (const group of [this.heads, this.trails, this.smoke]) for (const batch of group) batch.upload();
     }
-    dispose() { for (const group of [this.heads, this.trails, this.smoke])
-        for (const b of group)
-            b.dispose(); }
+    dispose() {
+        for (const group of [this.heads, this.trails, this.smoke]) for (const b of group) b.dispose();
+    }
 }

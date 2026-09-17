@@ -1,0 +1,34 @@
+name: Realism visual checkpoint
+on:
+  push:
+    branches: [feat/fireworks-v1]
+    paths: ['src/**', 'tests/browser/realism-v3.spec.ts', '.github/workflows/realism-preview.yml']
+permissions:
+  contents: read
+concurrency:
+  group: realism-visual-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/browser/realism-v3.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: realism-visual-${{ github.sha }}
+          path: |
+            test-results
+            playwright-report
+          retention-days: 7

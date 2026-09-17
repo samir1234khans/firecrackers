@@ -1,5 +1,5 @@
 import * as THREE from 'three/webgpu';
-import { color, float, mix, pass, uniform, uv, vec4 } from 'three/tsl';
+import { float, mix, pass, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 import { BUDGETS, FAMILIES } from './catalog';
 import type { Quality } from './catalog';
@@ -7,7 +7,8 @@ import type { Simulation } from './Simulation';
 import { ParticleScene } from '../graphics/ParticleScene';
 import { RocketProp } from '../graphics/RocketProp';
 import { LaunchStage } from '../graphics/LaunchStage';
-import { makeHorizonTexture, makePaperTexture, makeSmokeAtlas } from '../graphics/textures';
+import { NightEnvironment } from '../graphics/NightEnvironment';
+import { makePaperTexture, makeSmokeAtlas } from '../graphics/textures';
 import type { DisplayMode } from '../platform/presentation';
 
 /** Perspective, depth-aware native r180 TSL pipeline. Simulation remains CPU fixed-step. */
@@ -17,11 +18,9 @@ export class FireworkRenderer {
     readonly camera = new THREE.PerspectiveCamera(42, 1, .1, 1500);
     private readonly opaqueCamera = new THREE.PerspectiveCamera();
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
-    private readonly environment = new THREE.Group();
-    private readonly sky: THREE.Mesh;
+    private readonly environment = new NightEnvironment();
     private readonly smokeAtlas = makeSmokeAtlas();
     private readonly paper = makePaperTexture();
-    private readonly horizon = makeHorizonTexture();
     private readonly props = Array.from({ length: 8 }, () => new RocketProp(this.paper));
     private readonly stage = new LaunchStage();
     private readonly blastLight = new THREE.PointLight(0xffcc88, 0, 160, 2);
@@ -44,20 +43,11 @@ export class FireworkRenderer {
         this.renderer.toneMappingExposure = .95;
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         this.camera.layers.enable(1);
-        const skyMaterial = new THREE.MeshBasicNodeMaterial({ depthWrite: false });
-        skyMaterial.colorNode = mix(color('#02040a'), color('#142338'), uv().y.oneMinus().pow(3.2));
-        this.sky = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), skyMaterial);
-        this.sky.position.z = -250;
-        this.sky.renderOrder = -10;
-        const horizonMesh = new THREE.Mesh(new THREE.PlaneGeometry(580, 65), new THREE.MeshBasicMaterial({ map: this.horizon, transparent: true, depthWrite: false }));
-        horizonMesh.position.set(0, -17, -110);
-        horizonMesh.renderOrder = -5;
-        const foreground = new THREE.Mesh(new THREE.PlaneGeometry(700, 400), new THREE.MeshBasicMaterial({ color: '#04070b' }));
-        foreground.position.set(0, -248, -109);
-        this.environment.add(this.sky, horizonMesh, foreground);
-        this.scene.add(this.environment);
-        this.scene.add(new THREE.HemisphereLight(0x96a5c2, 0x1c120a, 1.4));
-        const key = new THREE.DirectionalLight(0xffd7a3, 2.2);
+        this.scene.add(this.environment.group);
+        this.scene.environment = this.environment.probe;
+        this.scene.environmentIntensity = .85;
+        this.scene.add(new THREE.HemisphereLight(0xa6bfdc, 0x34261a, 2.0));
+        const key = new THREE.DirectionalLight(0xffdcaf, 3.5);
         key.position.set(-8, 35, 45);
         this.scene.add(key, this.blastLight);
         this.scene.add(this.stage.group);
@@ -96,6 +86,7 @@ export class FireworkRenderer {
         this.host.replaceChildren(this.renderer.domElement);
         this.host.dataset.renderer = 'cinematic-v2';
         this.host.dataset.stage = 'spatial-v3';
+        this.host.dataset.realism = 'observatory-v3';
         this.host.dataset.backend = this.backend;
         this.resize();
         // Warm the actual graph. Separate camera identities prevent nested render-list mutation.
@@ -105,16 +96,15 @@ export class FireworkRenderer {
         if (this.disposed) return;
         const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight), aspect = w / h;
         const groundPixels = h < 460 ? Math.min(142, h * .38) : w < 600 ? Math.min(282, h * .39) : 300;
-        const span = Math.max(136, 110 / aspect, 108 / (1 - groundPixels / h));
+        const span = Math.max(136, 108 / aspect, 106 / (1 - groundPixels / h));
         const centerY = this.sim.ground + (.5 - groundPixels / h) * span;
         this.camera.aspect = aspect;
-        this.camera.position.set(0, centerY, span / (2 * Math.tan(this.camera.fov * Math.PI / 360)));
+        const distance = span / (2 * Math.tan(this.camera.fov * Math.PI / 360));
+        const pitch = .18;
+        this.camera.position.set(0, centerY + Math.sin(pitch) * distance, Math.cos(pitch) * distance);
         this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
-        const ratio = (this.camera.position.z + 250) / this.camera.position.z;
-        this.sky.position.y = centerY;
-        this.sky.scale.set(span * aspect * ratio, span * ratio, 1);
         this.sim.setViewport(Math.min(160, span * aspect * .78), 16);
         this.renderer.setSize(w, h);
         this.setQuality(this.sim.quality);
@@ -122,7 +112,7 @@ export class FireworkRenderer {
     setDisplay(mode: DisplayMode) {
         this.mode = mode;
         const transparent = mode === 'transparent';
-        this.environment.visible = !transparent;
+        this.environment.group.visible = !transparent;
         this.overlay.value = transparent ? 1 : 0;
         this.renderer.setClearColor(0x020409, transparent ? 0 : 1);
         this.host.dataset.display = mode;
@@ -137,8 +127,11 @@ export class FireworkRenderer {
     projectPlacement(clientX: number) {
         const rect = this.host.getBoundingClientRect();
         const ndc = (clientX - rect.left) / Math.max(1, rect.width) * 2 - 1;
-        const halfWidth = this.camera.position.z * Math.tan(this.camera.fov * Math.PI / 360) * this.camera.aspect;
-        return Math.max(.2, Math.min(.8, .5 + ndc * halfWidth / this.sim.launchSpan));
+        const projected = new THREE.Vector3(0, this.sim.ground, 0).project(this.camera);
+        const ray = new THREE.Raycaster();
+        ray.setFromCamera(new THREE.Vector2(ndc, projected.y), this.camera);
+        const point = ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), new THREE.Vector3());
+        return point ? Math.max(.2, Math.min(.8, .5 + point.x / this.sim.launchSpan)) : .5;
     }
     render() {
         if (this.disposed || !this.initialized) return;
@@ -154,7 +147,7 @@ export class FireworkRenderer {
         const place = (family: number, x: number, y: number, z: number, burn: number, contact: number, vx = 0, vy = 1, vz = 0) => {
             const prop = this.props[slot++];
             if (!prop) return;
-            prop.group.visible = this.mode !== 'transparent';
+            prop.group.visible = this.mode === 'interactive';
             prop.group.position.set(x, y, z);
             prop.group.scale.set(3.8, 3.4, 3.8);
             prop.group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(vx, vy, vz).normalize());
@@ -166,7 +159,8 @@ export class FireworkRenderer {
         for (const r of sim.rockets) if (r.stage !== 'afterglow') {
             place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, r.stage === 'ascent' ? r.vx : 0, r.stage === 'ascent' ? r.vy : 1, r.stage === 'ascent' ? r.vz : 0);
         }
-        this.stage.update(sim, this.mode !== 'transparent');
+        this.stage.update(sim, this.mode === 'interactive');
+        this.environment.update(sim, this.mode !== 'transparent');
         this.projected.set(sim.placementToX(), sim.ground, 0).project(this.camera);
         const groundPixels = (1 + this.projected.y) * .5 * this.host.clientHeight;
         const parent = this.host.parentElement;
@@ -207,7 +201,7 @@ export class FireworkRenderer {
         for (const m of materials) m.dispose();
         this.smokeAtlas.dispose();
         this.paper.dispose();
-        this.horizon.dispose();
+        this.environment.dispose();
         if (this.initialized) this.renderer.dispose();
         this.renderer.domElement.remove();
     }

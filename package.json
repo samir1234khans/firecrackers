@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=22.16.0"
-  },
+  "engines": { "node": ">=22.16.0" },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
-    "test": "tsc -p tsconfig.engine.json && node --test tests/engine.test.mjs tests/v2.test.mjs",
+    "test": "tsc -p tsconfig.engine.json && node --test tests/engine.test.mjs tests/v2.test.mjs tests/realism-v3.test.mjs",
     "test:soak": "tsc -p tsconfig.engine.json && node tests/soak.mjs",
     "test:e2e": "playwright test",
     "build": "node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && tsc --noEmit && vite build",

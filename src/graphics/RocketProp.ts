@@ -1,6 +1,7 @@
 import * as THREE from 'three/webgpu';
 import { color, mix, smoothstep, uniform, uv } from 'three/tsl';
 import { FAMILIES } from '../engine/catalog';
+import { FUSE_POINTS, fusePointAt } from '../engine/FusePath';
 /** Shared materials/geometry; five authored silhouettes, with a real arc-length fuse. */
 export class RocketProp {
     readonly group = new THREE.Group();
@@ -13,17 +14,14 @@ export class RocketProp {
     private readonly body: THREE.Mesh;
     private readonly cap: THREE.Mesh;
     private readonly stripes: THREE.Group;
-    private readonly curve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(2.05, .85, .14), new THREE.Vector3(1.78, 1.22, .12),
-        new THREE.Vector3(1.08, 1.10, .1), new THREE.Vector3(.52, 1.7, 0),
-    ]);
+    private readonly curve = new THREE.CubicBezierCurve3(...FUSE_POINTS.map(p => new THREE.Vector3(...p)) as [THREE.Vector3, THREE.Vector3, THREE.Vector3, THREE.Vector3]);
     private lastFamily = -1;
     constructor(paperTexture: THREE.Texture) {
-        this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0x182332, roughness: .64, metalness: .06 });
-        this.capMaterial = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0x806544, roughness: .81, metalness: .04 });
-        this.body = new THREE.Mesh(new THREE.CylinderGeometry(.50, .51, 3.25, 24, 1), this.paper);
+        this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0xffffff, roughness: .70, metalness: .03 });
+        this.capMaterial = new THREE.MeshStandardMaterial({ color: 0xb19a74, roughness: .29, metalness: .62 });
+        this.body = new THREE.Mesh(new THREE.CylinderGeometry(.50, .51, 3.25, 48, 1), this.paper);
         this.body.position.y = 3.25;
-        this.cap = new THREE.Mesh(new THREE.ConeGeometry(.61, 1.22, 24), this.capMaterial);
+        this.cap = new THREE.Mesh(new THREE.ConeGeometry(.61, 1.22, 48), this.capMaterial);
         this.cap.position.y = 5.48;
         const wood = new THREE.Mesh(new THREE.BoxGeometry(.115, 6.0, .115), new THREE.MeshStandardMaterial({ color: 0x795537, roughness: 1 }));
         wood.position.set(-.29, .28, -.07);
@@ -46,7 +44,7 @@ export class RocketProp {
     update(family: number, burnProgress: number, contact: number, time: number, wind: number) {
         if (family !== this.lastFamily) {
             this.lastFamily = family;
-            this.paper.color.set('#172233');
+            this.paper.color.set('#e6edf5');
             this.capMaterial.color.set(FAMILIES[family].color).multiplyScalar(.76);
             const radii = [1, .92, 1.08, .86, 1.16], heights = [1, 1.06, .96, 1.13, 1.12];
             this.body.scale.set(radii[family], heights[family], radii[family]);
@@ -56,7 +54,7 @@ export class RocketProp {
         }
         this.burn.value = burnProgress;
         const glowing = (burnProgress >= 0 && burnProgress < 1) || contact > 0;
-        const point = this.curve.getPointAt(Math.max(0, Math.min(1, burnProgress)));
+        const point = new THREE.Vector3(...fusePointAt(burnProgress));
         this.ember.position.copy(point);
         this.ember.visible = glowing;
         this.flame.position.copy(point).add(new THREE.Vector3(wind * .1, .18, 0));
@@ -64,7 +62,7 @@ export class RocketProp {
         this.flame.scale.set(.60, .95 + Math.sin(time * 12) * .08, .30);
         this.flame.rotation.z = -wind * .10;
         this.lamp.position.copy(point).add(new THREE.Vector3(0, .2, .9));
-        this.lamp.intensity = glowing ? (burnProgress >= 0 ? 3.0 : contact * 2.4) : 0;
+        this.lamp.intensity = glowing ? (burnProgress >= 0 ? 6.0 : contact * 4.4) : 0;
         this.paper.emissive.set(0x281403);
         this.paper.emissiveIntensity = glowing ? .11 : 0;
     }
