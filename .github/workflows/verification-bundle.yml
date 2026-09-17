@@ -22,7 +22,7 @@ jobs:
           node-version-file: .nvmrc
       - name: Install the exact verification toolchain
         run: npm ci
-      - name: Package tracked source and dependencies for the UI completion checkpoint
+      - name: Package tracked source and dependencies for the Realism V3 checkpoint
         run: |
           mkdir -p /tmp/firecrackers-verification
           git archive --format=tar HEAD | gzip > /tmp/firecrackers-verification/source.tar.gz
