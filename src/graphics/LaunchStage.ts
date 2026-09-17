@@ -2,7 +2,7 @@ import * as THREE from 'three/webgpu';
 import { color, uv } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
 
-/** Original real-time geometry. Not a pre-rendered background or a physical launcher design. */
+/** Original real-time geometry, not a physical launcher design. */
 export class LaunchStage {
   readonly group = new THREE.Group();
   private readonly ringMaterial = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.7, .79, .25) });
@@ -20,26 +20,20 @@ export class LaunchStage {
     upper.position.y = .62;
     this.group.add(plinth, upper);
     for (const [radius, y, luminous] of [[19.25,.4,1], [17.9,.46,0], [14.25,.81,1], [11.2,.83,0], [6.5,.84,0]] as const) {
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, luminous ? .075 : .032, 6, 100), luminous ? this.ringMaterial : this.inlayMaterial);
-      ring.rotation.x = -Math.PI / 2;
-      ring.position.y = y;
-      this.group.add(ring);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, luminous ? .13 : .045, 6, 100), luminous ? this.ringMaterial : this.inlayMaterial);
+      ring.rotation.x = -Math.PI / 2; ring.position.y = y; this.group.add(ring);
     }
     const socket = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 2, 1.3, 40, 1, true), this.inlayMaterial);
-    socket.position.y = 1.42;
-    this.group.add(socket);
+    socket.position.y = 1.42; this.group.add(socket);
     this.dial = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.28, 64, 1, 0, Math.PI * 1.6), this.ringMaterial);
-    this.dial.rotation.x = -Math.PI / 2;
-    this.dial.position.y = .84;
+    this.dial.rotation.x = -Math.PI / 2; this.dial.position.y = .84;
     this.group.add(this.dial);
     this.washMaterial.colorNode = color('#b78346');
     this.washMaterial.opacityNode = uv().sub(.5).length().mul(2).oneMinus().clamp(0, 1).pow(3).mul(.17);
     const wash = new THREE.Mesh(new THREE.PlaneGeometry(85, 60), this.washMaterial);
-    wash.rotation.x = -Math.PI / 2;
-    wash.position.y = -.72;
+    wash.rotation.x = -Math.PI / 2; wash.position.y = -.72;
     this.contactLight.position.set(-1, 5, 6);
     this.group.add(wash, this.contactLight);
-    // A recessed outer step and evenly spaced inlaid markers catch the environment light.
     const lower = new THREE.Mesh(new THREE.CylinderGeometry(22.5, 23.2, .7, 96), dark);
     lower.position.y = -.95;
     const edge = new THREE.Mesh(new THREE.TorusGeometry(22.55, .045, 6, 128), this.inlayMaterial);

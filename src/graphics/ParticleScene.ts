@@ -80,16 +80,14 @@ export class ParticleScene {
             const shading = dot(normal, localDirection).mul(.45).add(.72).clamp(.22, 1.2);
             s.material.colorNode = vec3(.034, .044, .064).add(attribute('iColor', 'vec3').mul(shading));
             s.material.opacityNode = density.a.mul(attribute('iAlpha', 'float')).mul(soft).mul(protectedMask);
-            this.smoke.push(s);
-            scene.add(s.mesh);
+            this.smoke.push(s); scene.add(s.mesh);
             const h = new Batch(4096, { iPosition: 3, iScale: 2, iAlpha: 1, iColor: 3 }, 12 + bucket * 3, true);
             h.material.positionNode = attribute('iPosition', 'vec3').add(u.right.mul(positionGeometry.x).mul(attribute('iScale', 'vec2').x)).add(u.up.mul(positionGeometry.y).mul(attribute('iScale', 'vec2').y));
             const radius = uv().sub(.5).length().mul(2);
             const kernel = radius.pow(2).mul(-14).exp().mul(.88).add(radius.pow(2).mul(-3).exp().mul(.075));
             h.material.colorNode = attribute('iColor', 'vec3').mul(u.energy);
             h.material.opacityNode = kernel.mul(attribute('iAlpha', 'float')).mul(protectedMask);
-            this.heads.push(h);
-            scene.add(h.mesh);
+            this.heads.push(h); scene.add(h.mesh);
             const t = new Batch(24000, { iA: 3, iB: 3, iWidth: 1, iAlpha: 1, iColor: 3 }, 11 + bucket * 3, true);
             const start = attribute('iA', 'vec3'), end = attribute('iB', 'vec3');
             const middle = mix(start, end, uv().y);
@@ -100,10 +98,9 @@ export class ParticleScene {
             const core = across.pow(2).mul(-18).exp();
             const halo = across.pow(2).mul(-3.5).exp().mul(.075);
             t.material.colorNode = attribute('iColor', 'vec3').mul(u.energy);
-            const grain = middle.dot(vec3(4.7, 9.3, 3.1)).sin().mul(.23).add(.77);
+            const grain = middle.dot(vec3(.7, 1.3, .4)).sin().mul(.08).add(.92);
             t.material.opacityNode = core.add(halo).mul(grain).mul(attribute('iAlpha', 'float')).mul(protectedMask);
-            this.trails.push(t);
-            scene.add(t.mesh);
+            this.trails.push(t); scene.add(t.mesh);
         }
     }
     update(sim: Simulation, camera: THREE.PerspectiveCamera, height: number) {
@@ -111,8 +108,7 @@ export class ParticleScene {
         u.camera.value.copy(camera.position);
         u.right.value.setFromMatrixColumn(camera.matrixWorld, 0);
         u.up.value.setFromMatrixColumn(camera.matrixWorld, 1);
-        u.near.value = camera.near;
-        u.far.value = camera.far;
+        u.near.value = camera.near; u.far.value = camera.far;
         u.protect.value = sim.protectCenter ? 1 : 0;
         u.safeRect.value.set(...sim.safeRect);
         u.energy.value = sim.reducedFlashes ? .90 : 1.12;
@@ -127,7 +123,7 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
             a.iAlpha.setX(n, fade * (.84 + hash01(p.id[i], 51) * .16));
-            const heat = 1.85 + Math.exp(-p.age[i] * 6) * 1.45;
+            const heat = 3.2 + Math.exp(-p.age[i] * 6) * 2.0;
             a.iColor.setXYZ(n, p.r[i] * heat, p.g[i] * (1 - red) * heat, p.b[i] * (1 - red) * heat);
         }
         const embers = sim.embers;
@@ -139,14 +135,13 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, embers.x[i], embers.y[i], embers.z[i]);
             a.iScale.setXY(n, size, size * 1.35);
             a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * .75);
-            a.iColor.setXYZ(n, embers.r[i] * 2.3, embers.g[i] * 1.9, embers.b[i] * 1.3);
+            a.iColor.setXYZ(n, embers.r[i] * 4, embers.g[i] * 3.4, embers.b[i] * 2.4);
         }
         const addHead = (x: number, y: number, z: number, size: number, r: number, g: number, blue: number) => {
             const b = this.heads[bucketFor(z)], n = b.count++, a = b.attrs;
             a.iPosition.setXYZ(n, x, y, z);
             a.iScale.setXY(n, size, size * 1.6);
-            a.iColor.setXYZ(n, r, g, blue);
-            a.iAlpha.setX(n, .88);
+            a.iColor.setXYZ(n, r, g, blue); a.iAlpha.setX(n, .88);
         };
         for (const r of sim.rockets) if (r.stage === 'ascent') addHead(r.x, r.y + 1.7, r.z, r.phase === 'thrust' ? 1.0 : .65, 4.5, 2.5, .8);
         for (const c of sim.cues) addHead(c.x, c.y, c.z, .72, 3, 2.1, .9);
@@ -155,12 +150,12 @@ export class ParticleScene {
             const z = (t.az[i] + t.bz[i]) * .5, b = this.trails[bucketFor(z)], n = b.count++, a = b.attrs;
             const age = t.age[i] / t.life[i];
             const pixel = Math.max(.026, (camera.position.z - z) * pixelFactor);
-            const width = Math.max(t.width[i] * (1 - age * .65), pixel * .54) * 4.2;
+            const width = Math.max(t.width[i] * (1 - age * .65), pixel * .62) * 4.2;
             a.iA.setXYZ(n, t.ax[i], t.ay[i], t.az[i]);
             a.iB.setXYZ(n, t.bx[i], t.by[i], t.bz[i]);
             a.iWidth.setX(n, width);
             a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * (.56 + hash01(t.owner[i], 81) * .36));
-            a.iColor.setXYZ(n, t.r[i] * 1.7, t.g[i] * 1.7, t.b[i] * 1.7);
+            a.iColor.setXYZ(n, t.r[i] * 3.3, t.g[i] * 3.3, t.b[i] * 3.3);
         }
         const smoke = sim.smoke;
         const order = Array.from({ length: smoke.count }, (_, i) => i).sort((a, b) => smoke.z[a] - smoke.z[b]);
@@ -171,11 +166,8 @@ export class ParticleScene {
                 const lx = light.x - smoke.x[i], ly = light.y - smoke.y[i], lz = light.z - smoke.z[i];
                 const d = Math.hypot(lx, ly, lz), falloff = Math.max(0, 1 - d / 39);
                 const power = falloff * falloff * Math.exp(-light.age * .72) * light.strength * (sim.reducedFlashes ? 1.0 : 1.25);
-                lr += light.r * power;
-                lg += light.g * power;
-                lb += light.b * power;
-                dx += lx / Math.max(1, d) * power;
-                dy += ly / Math.max(1, d) * power;
+                lr += light.r * power; lg += light.g * power; lb += light.b * power;
+                dx += lx / Math.max(1, d) * power; dy += ly / Math.max(1, d) * power;
             }
             const age = smoke.age[i] / smoke.life[i];
             a.iPosition.setXYZ(n, smoke.x[i], smoke.y[i], smoke.z[i]);

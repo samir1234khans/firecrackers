@@ -15,7 +15,7 @@ import type { DisplayMode } from '../platform/presentation';
 export class FireworkRenderer {
     readonly renderer: THREE.WebGPURenderer;
     readonly scene = new THREE.Scene();
-    readonly camera = new THREE.PerspectiveCamera(42, 1, .1, 1500);
+    readonly camera = new THREE.PerspectiveCamera(42, 1, 1, 1500);
     private readonly opaqueCamera = new THREE.PerspectiveCamera();
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
     private readonly environment = new NightEnvironment();
@@ -44,6 +44,7 @@ export class FireworkRenderer {
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         this.camera.layers.enable(1);
         this.scene.add(this.environment.group);
+        this.scene.fog = new THREE.FogExp2('#07111e', .0021);
         this.scene.environment = this.environment.probe;
         this.scene.environmentIntensity = .85;
         this.scene.add(new THREE.HemisphereLight(0xa6bfdc, 0x34261a, 2.0));
@@ -75,10 +76,7 @@ export class FireworkRenderer {
     }
     async init() {
         await this.renderer.init();
-        if (this.disposed) {
-            this.renderer.dispose();
-            return;
-        }
+        if (this.disposed) { this.renderer.dispose(); return; }
         this.initialized = true;
         this.backend = (this.renderer.backend as unknown as { isWebGPUBackend?: boolean }).isWebGPUBackend ? 'WebGPU' : 'WebGL 2';
         const device = (this.renderer.backend as unknown as { device?: { lost: Promise<unknown> } }).device;
@@ -89,18 +87,17 @@ export class FireworkRenderer {
         this.host.dataset.realism = 'observatory-v3';
         this.host.dataset.backend = this.backend;
         this.resize();
-        // Warm the actual graph. Separate camera identities prevent nested render-list mutation.
         if (!this.disposed) this.render();
     }
     resize() {
         if (this.disposed) return;
         const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight), aspect = w / h;
-        const groundPixels = h < 460 ? Math.min(142, h * .38) : w < 600 ? Math.min(282, h * .39) : 300;
+        const groundPixels = h < 460 ? Math.min(142, h * .38) : w < 600 ? Math.min(295, h * .4) : 332;
         const span = Math.max(136, 108 / aspect, 106 / (1 - groundPixels / h));
         const centerY = this.sim.ground + (.5 - groundPixels / h) * span;
         this.camera.aspect = aspect;
         const distance = span / (2 * Math.tan(this.camera.fov * Math.PI / 360));
-        const pitch = .18;
+        const pitch = .08;
         this.camera.position.set(0, centerY + Math.sin(pitch) * distance, Math.cos(pitch) * distance);
         this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
@@ -153,12 +150,8 @@ export class FireworkRenderer {
             prop.group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(vx, vy, vz).normalize());
             prop.update(family, burn, contact, sim.time, sim.wind);
         };
-        if (sim.prepared && !sim.rockets.some(r => r.stage === 'fuse')) {
-            place(FAMILIES.findIndex(f => f.id === sim.selected), sim.placementToX(), sim.ground, 0, -.01, sim.holding ? sim.holdProgress : 0);
-        }
-        for (const r of sim.rockets) if (r.stage !== 'afterglow') {
-            place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, r.stage === 'ascent' ? r.vx : 0, r.stage === 'ascent' ? r.vy : 1, r.stage === 'ascent' ? r.vz : 0);
-        }
+        if (sim.prepared && !sim.rockets.some(r => r.stage === 'fuse')) place(FAMILIES.findIndex(f => f.id === sim.selected), sim.placementToX(), sim.ground, 0, -.01, sim.holding ? sim.holdProgress : 0);
+        for (const r of sim.rockets) if (r.stage !== 'afterglow') place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, r.stage === 'ascent' ? r.vx : 0, r.stage === 'ascent' ? r.vy : 1, r.stage === 'ascent' ? r.vz : 0);
         this.stage.update(sim, this.mode === 'interactive');
         this.environment.update(sim, this.mode !== 'transparent');
         this.projected.set(sim.placementToX(), sim.ground, 0).project(this.camera);

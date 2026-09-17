@@ -5,8 +5,7 @@ async function advance(page: Page, seconds: number) {
   await page.evaluate(async seconds => {
     const q = (window as unknown as { __firecrackersQA: QA }).__firecrackersQA;
     q.advance(seconds);
-    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
-    q.render();
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve())); q.render();
   }, seconds);
 }
 test('observatory stage and full ignition render with retained smoke and detached embers', async ({ page }) => {
@@ -37,6 +36,7 @@ test('observatory stage and full ignition render with retained smoke and detache
   await page.getByRole('button', { name: 'Light once', exact: true }).click();
   await advance(page, 4.4);
   await page.screenshot({ path: test.info().outputPath('rv3-06-layered.png') });
+  await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Open settings' }).click();
   await expect(page.getByLabel('Graphics quality')).toHaveValue('ultra');
   await page.getByRole('button', { name: 'Close panel' }).click();
