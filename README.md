@@ -1,18 +1,24 @@
 # Firecrackers
 
-A single-screen digital festival night. Choose a firework, place it, light its fuse, watch it rise, and stay with the smoke and falling embers. A restrained layered-glass interface gets out of the way.
+An interactive, single-screen festival night: choose a firework, place it, light its fuse, watch it rise, and stay for the falling embers. Realism V3 combines a spatial launch stage with a restrained cinematic glass interface.
 
-**Stage: working V1 implementation and isolated preview. Not yet a production-certified or photorealism-approved release.**
+**Current build: Realism V3 / UI V3 — `2026-09-19.4`. Working preview, with production hardware and final art approval still open.**
 
-[Open the preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
+[Open the live preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 
-Implementation lives on `feat/fireworks-v1`. The original documentation baseline on `main` is preserved until review and promotion. There are no accounts, purchases, API keys, or backend services.
+Implementation remains on `feat/fireworks-v1`. The original `main` documentation baseline and the alternate implementation branch are preserved. There are no accounts, purchases, API keys or backend services.
 
 ## What is implemented
 
-Five different effects: Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle, and a layered Grand Finale. Each uses the same deliberate placement/ignition lifecycle, not a canned movie. A 650 ms hold lights the fuse; early release cancels. Light once and keyboard controls provide alternatives.
+The five families are Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale. Each runs the actual seeded simulation, not a recorded movie. A 650 ms hold commits the fuse; early release cancels. Light once, Enter and keyboard placement provide alternatives.
 
-The app includes seeded particle physics, persistent wind-drifted smoke, local blast illumination, 3D rocket props, original procedural spatial sound, optional haptics, Calm/Festival/finite Finale automatic shows, manual takeover, adaptive quality, pause/resume, tab-hidden suspension, responsive glass controls, first-run help, versioned preferences, reset, fullscreen and wake-lock capability handling, and an installable offline PWA.
+The rendered world includes a dimensional, concentric launch stage, printed-paper rocket wraps with trim, a shared arc-length fuse path, fuse smoke, launch exhaust, powered ascent and coast, perspective depth, connected trails, spatial splits, visible secondary carriers, detached cooling embers, persistent locally illuminated smoke, an original night environment and native Three.js TSL bloom.
+
+The UI has Manual/Auto/Festival/Finale controls, family-specific previews, a selected-family inspector on desktop, radial ignition, responsive phone/landscape layouts and coordinated settings/help/show panels. Hidden controls cannot accidentally ignite a rocket on their first reveal tap. Manual pause, audio cancellation and wake-lock cancellation are preserved.
+
+Automatic displays, validated seeded links, protected output areas and transparent output are available. The PWA caches its runtime for offline play. Sound and haptics require user activation. Preferences stay local to the browser.
+
+Ultra is the default quality, with a 60 fps target rather than a guaranteed measured rate. Reduced flashes stays on; sound and haptics stay off. Explicit saved Low/Standard choices remain respected. The empty scene renders on demand; active effects use bounded time updates so slower rendering does not unnecessarily stretch fuse and flight timing.
 
 ## Run and verify
 
@@ -29,33 +35,34 @@ npm run lint
 npm test
 npm run test:soak
 npm run build
+node --test tests/release-fingerprint.test.mjs
 npx playwright install chromium
 npm run test:e2e
 ```
 
-`npm run preview` serves the production build. Install/offline testing requires a build and a secure origin or localhost; it is not enabled in the development server. Build output is `dist/`. Development/preview servers bind to loopback by default. Do not publish a Vite development server.
+`npm run preview` serves `dist/`. Offline/install testing requires the production build and a secure origin or localhost. Local servers bind to loopback; do not publish a Vite development server.
 
-Keyboard: 1–5 choose, Left/Right place, L lights once, Space pauses/resumes, M controls sound, Escape reveals controls or closes a panel. Every action also has an accessible named control.
+Keyboard: 1–5 choose, Left/Right place, L lights once, Space pauses/resumes, M controls sound, and Escape reveals controls or closes a panel. A different family can be selected while a committed fuse finishes; the already-lit rocket retains its original family.
 
-## Evidence and release boundary
+## Verified evidence
 
-The application passed TypeScript checks, lint, 18 engine tests, accelerated two-hour logical soaks, documentation validation, and 12 Chromium desktop/mobile-emulation browser scenarios, including offline cold reload. Actual screenshots capture all five families. See the [implementation record](docs/evidence/runtime-implementation.md) for source commits, CI runs, hardening results, and gaps.
+Runtime checkpoint `dabd00c8358f65e961ac4c67eea89043016e9165` passed 51 unit/engine/lifecycle tests, all 44 browser cases (22 desktop and 22 mobile Chromium emulation), typecheck, lint, production build, dependency security review and 258 documentation checks. Neither browser project had failures, flaky cases or skips. The two-hour logical simulation remained bounded; it is not a real-time GPU endurance test.
 
-Mobile emulation is not a physical phone test. True hardware WebGPU parity, Safari/iOS, long-session GPU/thermal behavior, full service-worker update/recovery testing, flash-risk assessment, and final visual/audio realism approval remain release gates. Layered smoke and soft additive glow are implementation choices, not claims of a volumetric fluid solver or HDR bloom pipeline.
+The build writes `/release.json`, containing a SHA-256 fingerprint of the 21 delivered upgrade modules. Public verification passed on 19 September 2026. JSX is canonicalized with the pinned TypeScript parser, excluding only the host's static diagnostic labels; engine and CSS files remain byte-exact after line-ending normalization. The public-preview verification workflow compares the actual published receipt with the repository, rather than assuming a deployment label proves source parity. See the [Realism V3 delivery record](docs/evidence/realism-v3-delivery.md) for exact CI/deployment evidence and limitations.
+
+## Release boundary
+
+This build does not claim physical Android/tablet, hardware WebGPU, Safari/iOS, OBS, thermal/endurance or flash-risk certification. Those tests and final owner visual/audio approval remain open. Smoke and rocket art are original procedural assets, not Blender fluid bakes or imported production GLBs. Audio is synthesized, not a professionally recorded library. Native bloom is implemented; a live volumetric fluid solver and GPU-compute particle simulation are not.
 
 ## Documentation
 
-- [Documentation index](docs/README.md) — the 22 specialist specifications remain preserved.
-- [Product brief](docs/01-product-brief.md), [requirements](docs/02-requirements-and-acceptance.md), and [decisions](docs/03-decisions-and-open-questions.md).
-- [Runtime implementation and evidence](docs/evidence/runtime-implementation.md).
-- [Current project status](PROJECT_STATUS.md), [development workflow](DEVELOPMENT.md), and [agent instructions](AGENTS.md).
-- [Original implementation roadmap](docs/16-implementation-roadmap.md), [handover](docs/20-implementation-handover.md), and [machine-readable specifications](specs/README.md).
+- [Current status](PROJECT_STATUS.md) and [Realism V3 delivery evidence](docs/evidence/realism-v3-delivery.md).
+- [UI V3 plan](docs/ui-v3/PLAN.md) and [realism upgrade specifications](docs/realism-v2/README.md).
+- [Documentation index](docs/README.md), [original implementation evidence](docs/evidence/runtime-implementation.md), [development workflow](DEVELOPMENT.md) and [agent instructions](AGENTS.md).
 
 ```sh
 python -m pip install -r scripts/requirements-docs.txt
 python scripts/validate_docs.py
 ```
 
-Documentation validation checks structure, links, and coverage; it does not certify graphics or performance. Historical pre-implementation documents describe the target; the runtime evidence record describes what has actually been built and tested.
-
-All visual/audio assets in this implementation are procedural/original except installed libraries and their icons. Builds preserve third-party license notices. Final branding, production hosting/domain, and a public license for the application remain owner choices. This is software simulation, not physical firework guidance.
+Documentation validation checks structure, not visual realism or hardware performance. Historical plans remain preserved. Builds include third-party notices. Final branding, public application licensing and a permanent domain remain owner decisions. This is software simulation, not physical firework guidance.

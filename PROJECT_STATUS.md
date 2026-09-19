@@ -1,33 +1,44 @@
 # Project status
 
-Updated: 16 September 2026.
+Updated: 19 September 2026.
 
-## Current stage
+## Current delivery
 
-**Working V1 implementation; isolated preview deployed. Production/realism sign-off remains open.**
+**Realism V3 / UI V3, build `2026-09-19.4`: implemented, browser-verified and deployed to the existing preview.** Production hardware and final owner art/audio approval remain separate gates.
 
 Preview: https://firecrackers-a93nle.v2.appdeploy.ai/
 
-The implementation is on `feat/fireworks-v1`; `main` remains the preserved documentation baseline. No custom domain, production migration, account system, backend, or native Android wrapper was created.
+Runtime checkpoint: `dabd00c8358f65e961ac4c67eea89043016e9165` on `feat/fireworks-v1`. Subsequent delivery tooling adds the public source fingerprint and verification without changing these tested runtime modules. No promotion to `main`, branch deletion, native wrapper, new backend or custom-domain migration occurred.
 
-## Implemented
+## Delivered functionality
 
-A runnable React/Vite/TypeScript application, Three.js WebGPU renderer with WebGL 2 fallback, five-family seeded fixed-step simulation, bounded particle/trail/smoke/light/voice pools, deliberate fuse ignition and cancellation, drag/placement alternatives, 3D rocket props, drifting illuminated smoke, procedural spatial audio, opt-in haptics, automatic shows, manual priority, pause and hidden-page recovery, responsive glass UI, keyboard controls, comfort preferences, onboarding, reset, fullscreen/install/wake-lock feedback, offline PWA and explicit-update handling. Reproducible build configuration, engine/browser tests, CI, original icon generation and third-party notice generation are included.
+The cinematic command deck, radial ignition, family artwork/inspector, mobile/landscape arrangements and matching settings/onboarding/show panels are now delivered together with the real 3D launch stage. The observatory environment, printed-paper rocket materials, shared fuse curve, fuse/exhaust/residue smoke, connected trails, detached embers, colored local smoke illumination, perspective and native bloom are included.
 
-## Verified evidence
+All five families, deliberate hold/cancel, single-action and keyboard alternatives, sound-off startup, opt-in haptics, finite and continuous show modes, manual takeover, protected display output, transparent overlay, offline caching and explicit update handling are retained.
 
-- 18 engine tests passed locally and in GitHub Actions.
-- Accelerated two-hour logical simulations at Low and Standard stayed within caps. These are not real-time GPU or device endurance tests.
-- Build, typecheck, lint and documentation validation passed.
-- Run 35062832838 passed 10 browser cases. Run 35063650709 passed the expanded 12-case desktop/mobile Chromium suite, capturing every family and exercising offline cold load, sound activation, hold cancellation, show takeover, preferences and reset.
-- The preview host reports ready, with no reported frontend/backend errors at deployment completion. Its separate QA result field was not supplied; the browser evidence above comes from GitHub Actions.
+Ultra graphics, Festival selection and 60 fps presentation targets remain the defaults. Reduced flashes stays enabled. These are settings, not an FPS guarantee.
 
-## Hardening in this commit
+## Delivery fixes completed on 19 September
 
-The second run deliberately failed its separate security gate for two high-severity build-tool dependency findings. This commit pins the fixes reported by the actual npm audit: Vite 6.4.3 and PostCSS 8.5.28, binds local servers to loopback, and preserves runtime third-party license text. The next CI run must validate this exact hardening revision; the previous successful runtime run is not a clean-audit claim. Final run identifiers and outcomes belong in the runtime evidence record.
+Visible frame time is now consumed through bounded fixed-step slices, instead of dropping all elapsed time above 100 ms and stretching the fuse/flight on slow renderers. Idle scenes avoid redundant rendering, with immediate redraw on selection and resize. The smoke-depth pass uses inexpensive opaque proxies rather than repeating PBR shading. The floor uses authored stone tone plus a changing burst wash; the hero stage and rocket retain PBR materials.
 
-## Outstanding release gates
+Selecting the next family during a burning fuse now works without cancelling or mutating the committed rocket. Manual takeover stops future automatic launches immediately. Regression tests cover both changes.
 
-Physical Android/tablet and Safari/iOS sessions, hardware WebGPU/WebGL parity, 30-minute device and two-hour real-time display/thermal tests, interruption/context-loss and service-worker update/recovery matrix, flash-risk/accessibility review, and owner approval of the final realism/art/audio quality. Smoke uses layered billboards and glow uses additive particle kernels; a full volumetric solver, GPU-compute simulation, HDR bloom and professionally recorded festival sound are not implemented.
+## Verified results
 
-The final consumer brand, public code license, permanent hosting/domain and professional audio budget remain non-blocking owner choices until release. See [runtime implementation evidence](docs/evidence/runtime-implementation.md) for the acceptance matrix and continuation instructions.
+- GitHub Actions runtime run `35437161311`: desktop and mobile jobs both successful.
+- 51 engine, lifecycle and configuration tests passed.
+- 44 browser cases passed: 22 desktop and 22 mobile Chromium emulation; zero failures, flaky cases or skips.
+- TypeScript, lint, production build, dependency security review and 258 documentation checks passed.
+- Accelerated 7,200-second logical simulation passed, with bounded heads/trails/smoke/cues/rockets. It is not a two-hour wall-time graphics test.
+- Actual desktop, portrait and landscape captures reviewed, including the launch stage, fuse, break and late canopy.
+- Four dedicated source-fingerprint tests passed. Public source verification run `35439359156` passed for all 21 delivered upgrade modules, excluding only audited static host diagnostic labels.
+- The receipt-enabled local build produced the same four compiled JS/CSS asset bytes as the verified CI build. The receipt itself is an additional public diagnostic file.
+
+The exact published snapshot and public source-parity result are recorded in [the delivery evidence](docs/evidence/realism-v3-delivery.md), alongside the remaining tests. The host's ready status is not substituted for completed browser evidence.
+
+## Still open beyond this delivery
+
+Physical Android/tablet and Safari/iOS checks; hardware WebGPU/WebGL comparison; actual OBS composition; long-session GPU, thermal and power behavior; comprehensive context-loss/update/rollback testing; flash-risk/accessibility assessment; listening review and final owner visual approval.
+
+Higher-end authored GLB/PBR models, Blender-baked smoke, a recorded audio library and further trail/atmosphere art direction remain optional next fidelity milestones, not features silently claimed as finished. No live fluid solver or GPU-compute migration was performed.
