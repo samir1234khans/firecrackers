@@ -22,7 +22,7 @@ jobs:
           node-version-file: .nvmrc
       - name: Install the exact verification toolchain
         run: npm ci
-      - name: Package tracked source and dependencies for the Realism V3 checkpoint
+      - name: Package tracked source and dependencies for final Realism V3 delivery
         run: |
           mkdir -p /tmp/firecrackers-verification
           git archive --format=tar HEAD | gzip > /tmp/firecrackers-verification/source.tar.gz
@@ -34,6 +34,6 @@ jobs:
         with:
           name: verification-environment
           path: /tmp/firecrackers-verification/
-          retention-days: 2
+          retention-days: 3
           compression-level: 0
           if-no-files-found: error
