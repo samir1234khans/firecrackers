@@ -18,6 +18,7 @@
     "src/platform/PauseIntent.ts",
     "src/platform/WakeLockController.ts",
     "src/platform/presentation.ts",
-    "src/engine/QualityGovernor.ts"
+    "src/engine/QualityGovernor.ts",
+    "src/engine/VisibleFrame.ts"
   ]
 }

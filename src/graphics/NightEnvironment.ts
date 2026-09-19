@@ -28,8 +28,9 @@ export class NightEnvironment {
 
     this.floorTexture = this.makeFloor();
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(1400, 1200),
-      new THREE.MeshStandardMaterial({ map: this.floorTexture, color: '#727a86', roughness: .57,
-        metalness: .18, envMapIntensity: .12 }));
+      // Authored stone tone; burst wash supplies the changing illumination.
+      // Hero rocket/stage retain PBR. The full-screen floor does not need an IBL sample per pixel.
+      new THREE.MeshBasicMaterial({ map: this.floorTexture, color: '#a7b5c8' }));
     floor.rotation.x = -Math.PI / 2;
     floor.position.set(0, 4.9, -220);
     this.group.add(floor);

@@ -8,6 +8,7 @@ import { ParticleScene } from '../graphics/ParticleScene';
 import { RocketProp } from '../graphics/RocketProp';
 import { LaunchStage } from '../graphics/LaunchStage';
 import { NightEnvironment } from '../graphics/NightEnvironment';
+import { OpaqueDepth } from '../graphics/OpaqueDepth';
 import { makePaperTexture, makeSmokeAtlas } from '../graphics/textures';
 import type { DisplayMode } from '../platform/presentation';
 
@@ -24,6 +25,7 @@ export class FireworkRenderer {
     private readonly props = Array.from({ length: 8 }, () => new RocketProp(this.paper));
     private readonly stage = new LaunchStage();
     private readonly blastLight = new THREE.PointLight(0xffcc88, 0, 160, 2);
+    private readonly opaqueDepth: OpaqueDepth;
     private readonly opaquePass: ReturnType<typeof pass>;
     private readonly scenePass: ReturnType<typeof pass>;
     private readonly bloomPass: ReturnType<typeof bloom>;
@@ -58,7 +60,8 @@ export class FireworkRenderer {
         }
         const opaqueLayers = new THREE.Layers();
         opaqueLayers.set(0);
-        this.opaquePass = pass(this.scene, this.opaqueCamera).setLayers(opaqueLayers);
+        this.opaqueDepth = new OpaqueDepth(this.scene);
+        this.opaquePass = pass(this.opaqueDepth.scene, this.opaqueCamera).setLayers(opaqueLayers);
         this.particles = new ParticleScene(this.scene, this.smokeAtlas, this.opaquePass);
         this.scenePass = pass(this.scene, this.camera);
         const source = this.scenePass.getTextureNode('output');
@@ -170,6 +173,7 @@ export class FireworkRenderer {
             this.blastLight.intensity = 0;
             parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
+        this.opaqueDepth.update();
         this.post.render();
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;
@@ -182,6 +186,7 @@ export class FireworkRenderer {
         this.bloomPass.dispose();
         this.scenePass.dispose();
         this.opaquePass.dispose();
+        this.opaqueDepth.dispose();
         this.post.dispose();
         const geometries = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>();
         this.scene.traverse(object => {

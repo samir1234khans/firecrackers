@@ -117,14 +117,11 @@ export class Simulation {
     }
     select(id: FamilyId) {
         this.stopShow(false);
-        if (this.rockets.some(r => r.stage === 'fuse')) {
-            this.message = 'Let this fuse finish.';
-            return false;
-        }
+        const burning = this.rockets.some(r => r.stage === 'fuse');
         this.cancelHold();
         this.selected = FAMILIES[familyIndex(id)].id;
-        this.prepared = true;
-        this.message = FAMILIES[familyIndex(id)].note;
+        this.prepared = !burning;
+        this.message = burning ? `${FAMILIES[familyIndex(id)].name} is next. The lit fuse will finish.` : FAMILIES[familyIndex(id)].note;
         return true;
     }
     beginHold() {

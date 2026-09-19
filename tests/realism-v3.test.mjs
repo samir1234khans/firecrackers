@@ -27,3 +27,44 @@ test('fuse path clamps invalid inputs and travels continuously along one curve',
   }
   assert.ok(Math.max(...steps) / Math.min(...steps) < 1.02);
 });
+
+
+test('visible slow frames preserve virtual time up to the bounded catch-up budget', async () => {
+  const { advanceVisibleFrame } = await import('../.test-build/engine/VisibleFrame.js');
+  const fast = new Simulation(318), slow = new Simulation(318);
+  fast.ignite(); slow.ignite();
+  for (let i = 0; i < 360; i++) advanceVisibleFrame(fast, 1 / 60);
+  for (let i = 0; i < 24; i++) advanceVisibleFrame(slow, .25);
+  assert.ok(Math.abs(fast.time - slow.time) < 1 / 60 + 1e-8);
+  assert.equal(fast.launched, slow.launched);
+  assert.equal(fast.bursts, slow.bursts);
+  assert.ok(slow.bursts > 0);
+});
+
+test('visible frame adapter rejects invalid deltas and caps a long interruption', async () => {
+  const { advanceVisibleFrame } = await import('../.test-build/engine/VisibleFrame.js');
+  const calls = []; const target = { advance: value => calls.push(value) };
+  for (const value of [NaN, Infinity, -1, 0]) advanceVisibleFrame(target, value);
+  assert.equal(calls.length, 0);
+  advanceVisibleFrame(target, 3600);
+  assert.ok(calls.length <= 5);
+  assert.ok(calls.reduce((sum, value) => sum + value, 0) <= .50000001);
+  assert.ok(calls.every(value => value <= .1));
+});
+
+test('manual selection during an automatic fuse preserves the committed effect and takes over', () => {
+  const s = new Simulation(901);
+  s.startShow('festival');
+  for (let i = 0; i < 60; i++) s.advance(1 / 60);
+  const rocket = s.rockets.find(r => r.stage === 'fuse');
+  assert.ok(rocket);
+  const originalFamily = rocket.family;
+  assert.equal(s.select('chrysanthemum'), true);
+  assert.equal(s.show, null);
+  assert.equal(s.selected, 'chrysanthemum');
+  assert.equal(s.ready, false);
+  assert.equal(rocket.family, originalFamily);
+  for (let i = 0; i < 300; i++) s.advance(1 / 60);
+  assert.equal(s.rockets.length, 1);
+  assert.equal(s.ready, true);
+});

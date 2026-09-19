@@ -3,6 +3,7 @@ import { Simulation } from './Simulation';
 import { AudioEngine } from './Audio';
 import { familyIndex } from './catalog';
 import { QualityGovernor } from './QualityGovernor';
+import { advanceVisibleFrame } from './VisibleFrame';
 import { PauseIntent } from '../platform/PauseIntent';
 import { parsePresentation } from '../platform/presentation';
 import type { Presentation } from '../platform/presentation';
@@ -47,6 +48,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let lastQuality = 0;
         let warmFrames = 0;
         let captureFrozen = false;
+        let previousVisualState = '';
+        let previouslyMoving = false;
         let graphics: FireworkRenderer | null = null;
         const governor = new QualityGovernor();
         alive.current = true;
@@ -85,10 +88,19 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             const elapsed = last ? (now - last) / 1000 : 0;
             last = now;
             if (!document.hidden && !state.paused && !captureFrozen) {
-                state.advance(Math.min(.1, elapsed));
+                advanceVisibleFrame(state, elapsed);
                 sound.consume(state.drainEvents(), state.width);
                 const targetFps = display.current.fps === 30 || state.quality === 'low' ? 30 : 60;
-                if (!lastRender || now - lastRender >= 1000 / targetFps - 1.2) {
+                // The empty observatory is static. Redraw selection/placement immediately,
+                // but do not shade the same idle floor and bloom graph sixty times a second.
+                const visualState = `${state.selected}:${state.placement}:${state.quality}:${state.reducedFlashes}:${display.current.mode}`;
+                const moving = state.holding || state.heads.count > 0 || state.trails.count > 0 ||
+                    state.smoke.count > 0 || state.embers.count > 0 || state.cues.length > 0 ||
+                    state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
+                if (!lastRender || visualState !== previousVisualState ||
+                    ((moving || previouslyMoving) && now - lastRender >= 1000 / targetFps - 1.2)) {
+                    previousVisualState = visualState;
+                    previouslyMoving = moving;
                     const cadence = lastRender ? now - lastRender : 1000 / targetFps;
                     lastRender = now;
                     try {
@@ -122,12 +134,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         };
         const resize = () => {
             graphics?.resize();
-            if (state.paused) {
-                try {
-                    graphics?.render();
-                }
-                catch { /* Recovery UI remains usable. */ }
+            // A resize clears the canvas, including while the idle scene is render-on-demand.
+            try {
+                graphics?.render();
             }
+            catch { /* Recovery UI remains usable. */ }
         };
         const onVisibility = () => {
             last = 0;

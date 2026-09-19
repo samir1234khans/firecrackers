@@ -17,7 +17,7 @@ test('observatory stage and full ignition render with retained smoke and detache
   await page.waitForFunction(() => Boolean((window as unknown as { __firecrackersQA?: QA }).__firecrackersQA));
   await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.freeze(true));
   await expect(page.locator('.scene-host')).toHaveAttribute('data-realism', 'observatory-v3');
-  await expect(page.locator('main')).toHaveAttribute('data-version', '2026-09-17.3');
+  await expect(page.locator('main')).toHaveAttribute('data-version', '2026-09-19.4');
   await page.screenshot({ path: test.info().outputPath('rv3-01-idle.png') });
   await page.getByRole('button', { name: 'Light once', exact: true }).click();
   await advance(page, 1);
@@ -41,4 +41,37 @@ test('observatory stage and full ignition render with retained smoke and detache
   await expect(page.getByLabel('Graphics quality')).toHaveValue('ultra');
   await page.getByRole('button', { name: 'Close panel' }).click();
   expect(errors).toEqual([]);
+});
+
+test('idle sky avoids duplicate frames, then selection and resize redraw the scene', async ({ page }) => {
+  await enterSky(page, 'backend=webgl&qa=1');
+  const snapshot = () => page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
+  await page.waitForTimeout(500);
+  const before = await snapshot();
+  await page.waitForTimeout(750);
+  const idle = await snapshot();
+  expect(Number(idle.frames) - Number(before.frames)).toBeLessThanOrEqual(2);
+  await page.getByRole('button', { name: 'Multicolor Peony', exact: true }).click();
+  await expect.poll(async () => Number((await snapshot()).frames)).toBeGreaterThan(Number(idle.frames));
+  const selected = await snapshot();
+  await page.setViewportSize({ width: 851, height: 393 });
+  await expect.poll(async () => Number((await snapshot()).frames)).toBeGreaterThan(Number(selected.frames));
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
+  await page.screenshot({ path: test.info().outputPath('rv3-idle-landscape.png') });
+});
+
+test('a family can be queued during a lit fuse without cancelling its committed rocket', async ({ page }) => {
+  await enterSky(page, 'backend=webgl&qa=1');
+  await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.freeze(true));
+  await page.getByRole('button', { name: 'Light once', exact: true }).click();
+  await expect(page.locator('main')).toHaveAttribute('data-phase', 'fuse');
+  await page.getByRole('button', { name: 'Multicolor Peony', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Multicolor Peony', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeDisabled();
+  await advance(page, 6);
+  const state = await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
+  expect(state.selected).toBe('multicolor-peony');
+  expect(state.launched).toBe(1);
+  expect(state.bursts).toBe(1);
+  await expect(page.getByRole('button', { name: 'Light once', exact: true })).toBeEnabled();
 });

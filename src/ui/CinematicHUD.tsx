@@ -102,7 +102,7 @@ export function CinematicHUD({ selected, available, phase, hidden, reducedMotion
           {FAMILIES.map(family => {
             const familyMeta = FAMILY_META[family.id];
             const chosen = selectedId === family.id;
-            return <button key={family.id} className={`hud-family${chosen ? ' selected' : ''}`} aria-label={family.name} aria-pressed={chosen} title={family.name} disabled={!available || phase === 'fuse'} onClick={() => onSelect(family.id)}>
+            return <button key={family.id} className={`hud-family${chosen ? ' selected' : ''}`} aria-label={family.name} aria-pressed={chosen} title={family.name} disabled={!available} onClick={() => onSelect(family.id)}>
               <span className='hud-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
               <span className='hud-family-copy'><strong>{family.short}</strong><small>{familyMeta.mood}</small></span>
               <span className='hud-family-selected' aria-hidden='true'/>
