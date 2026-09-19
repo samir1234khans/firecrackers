@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "status": "proposed-unmeasured-not-runtime-config",
+  "researchDate": "2026-09-16",
+  "sourceBaseline": "5aafb8033fbfb231518efbb73d1fa2141ff53977",
+  "threeBaseline": "0.180.0",
+  "implemented": false,
+  "benchmarked": false,
+  "notes": [
+    "Do not consume this file in production without measurement and configuration migration.",
+    "Counts are ceilings, not required allocations or guarantees of performance.",
+    "Use both DPR and an absolute render-pixel cap.",
+    "Lower quality must retain all five effect identities and required child events.",
+    "Internal HDR rendering does not promise HDR display or OBS output.",
+    "Flash reduction is not accessibility or seizure-safety certification."
+  ],
+  "interaction": {
+    "holdCommitMs": 650,
+    "fuseSecondsRange": [1.5, 2.5],
+    "cameraMotionDefault": "fixed",
+    "soundDefault": false,
+    "hapticsDefault": false,
+    "singleActionIgnitionRequired": true,
+    "nonDragPlacementRequired": true
+  },
+  "tiers": {
+    "low": {
+      "targetFps": 30,
+      "medianFrameMsTarget": 33.3,
+      "p95FrameMsTarget": 36.7,
+      "activeHeadCeiling": 768,
+      "trailHistorySampleCeiling": 12000,
+      "smokeInstanceCeiling": 32,
+      "dprCeiling": 1.0,
+      "renderPixelCeiling": 1000000,
+      "postBloom": "minimal-or-disabled-after-comparison",
+      "smokeLinearResolutionExperiment": [0.25, 0.5, 1.0]
+    },
+    "standard": {
+      "targetFps": 60,
+      "medianFrameMsTarget": 16.7,
+      "p95FrameMsTarget": 20.0,
+      "activeHeadCeiling": 1536,
+      "trailHistorySampleCeiling": 32000,
+      "smokeInstanceCeiling": 64,
+      "dprCeiling": 1.5,
+      "renderPixelCeiling": 2100000,
+      "postBloom": "bounded-native-tsl",
+      "smokeLinearResolutionExperiment": [0.5, 1.0]
+    },
+    "high": {
+      "targetFps": 60,
+      "medianFrameMsTarget": 16.7,
+      "p95FrameMsTarget": 20.0,
+      "activeHeadCeiling": 3072,
+      "trailHistorySampleCeiling": 64000,
+      "smokeInstanceCeiling": 96,
+      "dprCeiling": 1.75,
+      "renderPixelCeiling": 3700000,
+      "postBloom": "bounded-native-tsl",
+      "smokeLinearResolutionExperiment": [0.5, 1.0]
+    }
+  },
+  "stream": {
+    "defaultWidth": 1920,
+    "defaultHeight": 1080,
+    "targetFps": 30,
+    "startingResourceTier": "standard",
+    "soundDefault": false,
+    "firstMilestone": "full-scene",
+    "transparentOverlay": "separate-unverified-milestone",
+    "protectedAreas": "operator-defined-static-rectangles",
+    "actualObsVerificationRequired": true,
+    "autoApplyUpdatesDuringShow": false
+  },
+  "evidence": {
+    "deviceSessionMinutesMinimum": 30,
+    "realTimeDisplayHoursMinimum": 2,
+    "logicalSoakCountsAsGpuEndurance": false,
+    "hardwareWebGpuRequiredForParityClaim": true,
+    "ownerArtReviewRequired": true,
+    "wholeSequenceFlashReviewRequired": true
+  }
+}

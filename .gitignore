@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.test-build/
+playwright-report/
+test-results/
+.env*
+!.env.example
+public/icons/
+public/THIRD_PARTY_NOTICES.txt
+public/release.json

@@ -1,39 +1,68 @@
 # Firecrackers
 
-A single-screen, realistic digital fireworks experience: choose a firework, place it, light its fuse, watch it rise, and stay with the smoke and falling embers. A restrained layered-glass interface gives way to a festival night sky.
+An interactive, single-screen festival night: choose a firework, place it, light its fuse, watch it rise, and stay for the falling embers. Realism V3 combines a spatial launch stage with a restrained cinematic glass interface.
 
-**Stage: complete pre-implementation documentation baseline. The application, finished media, device benchmarks, and production deployment are not implemented or verified yet.**
+**Current build: Realism V3 / UI V3 — `2026-09-19.4`. Working preview, with production hardware and final art approval still open.**
 
-## Start here
+[Open the live preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 
-- [Documentation index](docs/README.md) — the complete set of 22 specialist documents.
-- [Product brief](docs/01-product-brief.md) and [V1 requirements](docs/02-requirements-and-acceptance.md) — goals and 30 testable obligations.
-- [Decisions and open questions](docs/03-decisions-and-open-questions.md) — confirmed direction versus proposed defaults.
-- [Implementation roadmap](docs/16-implementation-roadmap.md) — gated build sequence, beginning with Gold Willow.
-- [Implementation handover](docs/20-implementation-handover.md) — ready-to-use prompt for the development phase.
-- [Machine-readable specifications](specs/README.md), [development workflow](DEVELOPMENT.md), and [current status](PROJECT_STATUS.md).
+Implementation remains on `feat/fireworks-v1`. The original `main` documentation baseline and the alternate implementation branch are preserved. There are no accounts, purchases, API keys or backend services.
 
-## Agreed direction
+## What is implemented
 
-Web app first, installable PWA. Five distinctive fireworks: Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle, and Grand Finale. Manual placement and deliberate ignition, realistic ascent and bursts, persistent smoke, optional spatial sound, and directed continuous shows. No accounts, payments, advertising, or server-side AI in V1.
+The five families are Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale. Each runs the actual seeded simulation, not a recorded movie. A 650 ms hold commits the fuse; early release cancels. Light once, Enter and keyboard placement provide alternatives.
 
-The fireworks should resemble real festival displays, not confetti or neon screensavers. Glass styling belongs to the small interface, not the firework simulation. Continuous display means a visible, active page, with honest browser capability fallbacks.
+The rendered world includes a dimensional, concentric launch stage, printed-paper rocket wraps with trim, a shared arc-length fuse path, fuse smoke, launch exhaust, powered ascent and coast, perspective depth, connected trails, spatial splits, visible secondary carriers, detached cooling embers, persistent locally illuminated smoke, an original night environment and native Three.js TSL bloom.
 
-## Documentation validation
+The UI has Manual/Auto/Festival/Finale controls, family-specific previews, a selected-family inspector on desktop, radial ignition, responsive phone/landscape layouts and coordinated settings/help/show panels. Hidden controls cannot accidentally ignite a rocket on their first reveal tap. Manual pause, audio cancellation and wake-lock cancellation are preserved.
+
+Automatic displays, validated seeded links, protected output areas and transparent output are available. The PWA caches its runtime for offline play. Sound and haptics require user activation. Preferences stay local to the browser.
+
+Ultra is the default quality, with a 60 fps target rather than a guaranteed measured rate. Reduced flashes stays on; sound and haptics stay off. Explicit saved Low/Standard choices remain respected. The empty scene renders on demand; active effects use bounded time updates so slower rendering does not unnecessarily stretch fuse and flight timing.
+
+## Run and verify
+
+Use the Node version in `.nvmrc` and the committed dependency lock.
+
+```sh
+npm ci
+npm run dev
+```
+
+```sh
+npm run typecheck
+npm run lint
+npm test
+npm run test:soak
+npm run build
+node --test tests/release-fingerprint.test.mjs
+npx playwright install chromium
+npm run test:e2e
+```
+
+`npm run preview` serves `dist/`. Offline/install testing requires the production build and a secure origin or localhost. Local servers bind to loopback; do not publish a Vite development server.
+
+Keyboard: 1–5 choose, Left/Right place, L lights once, Space pauses/resumes, M controls sound, and Escape reveals controls or closes a panel. A different family can be selected while a committed fuse finishes; the already-lit rocket retains its original family.
+
+## Verified evidence
+
+Runtime checkpoint `dabd00c8358f65e961ac4c67eea89043016e9165` passed 51 unit/engine/lifecycle tests, all 44 browser cases (22 desktop and 22 mobile Chromium emulation), typecheck, lint, production build, dependency security review and 258 documentation checks. Neither browser project had failures, flaky cases or skips. The two-hour logical simulation remained bounded; it is not a real-time GPU endurance test.
+
+The build writes `/release.json`, containing a SHA-256 fingerprint of the 21 delivered upgrade modules. Public verification passed on 19 September 2026. JSX is canonicalized with the pinned TypeScript parser, excluding only the host's static diagnostic labels; engine and CSS files remain byte-exact after line-ending normalization. The public-preview verification workflow compares the actual published receipt with the repository, rather than assuming a deployment label proves source parity. See the [Realism V3 delivery record](docs/evidence/realism-v3-delivery.md) for exact CI/deployment evidence and limitations.
+
+## Release boundary
+
+This build does not claim physical Android/tablet, hardware WebGPU, Safari/iOS, OBS, thermal/endurance or flash-risk certification. Those tests and final owner visual/audio approval remain open. Smoke and rocket art are original procedural assets, not Blender fluid bakes or imported production GLBs. Audio is synthesized, not a professionally recorded library. Native bloom is implemented; a live volumetric fluid solver and GPU-compute particle simulation are not.
+
+## Documentation
+
+- [Current status](PROJECT_STATUS.md) and [Realism V3 delivery evidence](docs/evidence/realism-v3-delivery.md).
+- [UI V3 plan](docs/ui-v3/PLAN.md) and [realism upgrade specifications](docs/realism-v2/README.md).
+- [Documentation index](docs/README.md), [original implementation evidence](docs/evidence/runtime-implementation.md), [development workflow](DEVELOPMENT.md) and [agent instructions](AGENTS.md).
 
 ```sh
 python -m pip install -r scripts/requirements-docs.txt
 python scripts/validate_docs.py
 ```
 
-The [documentation workflow](.github/workflows/docs-validation.yml) runs link, requirement-coverage, catalog-schema, and configuration checks and packages the baseline. Its success validates documentation structure, not graphics, performance, audio quality, asset rights, or application readiness. See PROJECT_STATUS for the recorded verification boundary.
-
-No Node application commands exist until the implementation scaffold is created. Do not deploy this documentation directory as though it were the finished app.
-
-## Repository use
-
-The baseline is stored on `main`, preserving the original initial commit. Before implementation, inspect the latest repository state and follow AGENTS.md and DEVELOPMENT.md. Preserve existing work and use non-force Git updates.
-
-Working title: **Firecrackers**. Final consumer branding and a public code license remain owner choices; neither blocks the first working Gold Willow.
-
-Baseline date: 15 September 2026. This is a software simulation, not a guide to handling or constructing physical fireworks.
+Documentation validation checks structure, not visual realism or hardware performance. Historical plans remain preserved. Builds include third-party notices. Final branding, public application licensing and a permanent domain remain owner decisions. This is software simulation, not physical firework guidance.
