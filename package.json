@@ -11,7 +11,7 @@
     "test": "tsc -p tsconfig.engine.json && node --test tests/engine.test.mjs tests/v2.test.mjs tests/realism-v3.test.mjs",
     "test:soak": "tsc -p tsconfig.engine.json && node tests/soak.mjs",
     "test:e2e": "playwright test",
-    "build": "node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && tsc --noEmit && vite build",
+    "build": "node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && node scripts/generate-release.mjs && tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {

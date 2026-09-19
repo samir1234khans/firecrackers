@@ -7,3 +7,4 @@ test-results/
 !.env.example
 public/icons/
 public/THIRD_PARTY_NOTICES.txt
+public/release.json
