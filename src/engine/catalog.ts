@@ -27,7 +27,7 @@ export function randomStream(seed: number) {
     };
 }
 /** Stateless variation: changing smoke emission cannot perturb a star's trajectory. */
-export function hash01(id: number, salt: number) {
+export function hash01(id: number, salt = 0) {
     let x = Math.imul((id ^ salt) >>> 0, 0x45d9f3b);
     x = Math.imul(x ^ (x >>> 16), 0x45d9f3b);
     return ((x ^ (x >>> 16)) >>> 0) / 4294967296;
