@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import { enterSky } from './enter';
+import { CONFIG_VERSION } from '../../src/engine/catalog';
 type QA = { freeze: (v: boolean) => void; advance: (s: number) => void; render: () => void; snapshot: () => Record<string, number | string> };
 async function advance(page: Page, seconds: number) {
   await page.evaluate(async seconds => {
@@ -17,7 +18,7 @@ test('observatory stage and full ignition render with retained smoke and detache
   await page.waitForFunction(() => Boolean((window as unknown as { __firecrackersQA?: QA }).__firecrackersQA));
   await page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.freeze(true));
   await expect(page.locator('.scene-host')).toHaveAttribute('data-realism', 'observatory-v3');
-  await expect(page.locator('main')).toHaveAttribute('data-version', '2026-09-19.4');
+  await expect(page.locator('main')).toHaveAttribute('data-version', CONFIG_VERSION);
   await page.screenshot({ path: test.info().outputPath('rv3-01-idle.png') });
   await page.getByRole('button', { name: 'Light once', exact: true }).click();
   await advance(page, 1);
