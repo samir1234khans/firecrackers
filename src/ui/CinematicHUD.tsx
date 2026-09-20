@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, KeyboardEvent, PointerEvent } from 'react';
 import { ArrowLeft, ArrowRight, Circle, Flame, Maximize, Minimize, Pause, Play, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { FAMILIES } from '../engine/catalog';
@@ -45,23 +46,72 @@ const FAMILY_META: Record<FamilyId, FamilyMeta> = {
 
 export function CinematicHUD({ selected, available, phase, hidden, reducedMotion, selectedId, show, paused, soundActive, fullscreen, canLight, holding, holdProgress, placement, notice, onPause, onSound, onFullscreen, onSettings, onShowDialog, onStartShow, onManual, onSelect, onPlacement, onHoldStart, onHoldCancel, onIgnite }: Props) {
   const meta = FAMILY_META[selectedId];
+  const [holdHint, setHoldHint] = useState(false);
+  const gesture = useRef<{ stamp: number; pointer: number | null; family: FamilyId } | null>(null);
+  const cancelRef = useRef(onHoldCancel);
+  cancelRef.current = onHoldCancel;
+  // A context change invalidates the old press, including an already committed fuse.
+  useEffect(() => { gesture.current = null; }, [available, canLight, hidden, paused, selectedId]);
+  useEffect(() => {
+    const cancel = () => {
+      if (!gesture.current) return;
+      gesture.current = null;
+      cancelRef.current();
+    };
+    window.addEventListener('blur', cancel);
+    document.addEventListener('visibilitychange', cancel);
+    return () => {
+      gesture.current = null;
+      window.removeEventListener('blur', cancel);
+      document.removeEventListener('visibilitychange', cancel);
+    };
+  }, []);
+  const cancelHold = () => { gesture.current = null; onHoldCancel(); };
+  const finishHold = (stamp: number, pointer: number | null) => {
+    const press = gesture.current;
+    if (!press || press.pointer !== pointer) return;
+    gesture.current = null;
+    // GPU stalls can leave the bounded simulation clock behind a real 650 ms hold.
+    // Reconcile on release using event timestamps, not delayed event-handler time.
+    // No extra timer can ignite after pointer cancellation, blur or a tab switch.
+    const elapsed = stamp - press.stamp;
+    const eligible = canLight && !paused && !hidden && !document.hidden && press.family === selectedId;
+    if (eligible && Number.isFinite(elapsed) && elapsed >= 650) onIgnite();
+    else if (eligible && elapsed >= 0) setHoldHint(true);
+    onHoldCancel();
+  };
   const stageLabel = paused ? 'Scene paused' : !available ? 'Preparing sky' : phase === 'fuse' ? 'Fuse is burning' : phase === 'thrust' || phase === 'coast' ? 'Watch it rise' : 'Ready to light';
   const holdStyle = { '--ignite-progress': `${Math.min(1, holdProgress) * 100}%` } as CSSProperties;
+  const statusText = paused ? 'Scene paused. Tap Resume to continue.'
+    : phase === 'fuse' ? 'Fuse lit. Watch the sky.'
+    : phase === 'thrust' || phase === 'coast' ? 'Rising. The burst is next.'
+    : holdHint && canLight && !holding ? 'Hold for 0.7 seconds, or tap Light once.'
+    : notice;
   const startHold = (event: PointerEvent<HTMLButtonElement>) => {
-    if (event.button !== 0 || !canLight) return;
+    if (event.button !== 0 || !event.isPrimary || !canLight || gesture.current) return;
     event.preventDefault();
+    event.currentTarget.focus({ preventScroll: true });
     event.currentTarget.setPointerCapture(event.pointerId);
+    gesture.current = { stamp: event.timeStamp, pointer: event.pointerId, family: selectedId };
+    setHoldHint(false);
     onHoldStart();
   };
   const keyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (!canLight || event.repeat) return;
-    if (event.key === 'Enter') { event.preventDefault(); event.stopPropagation(); onIgnite(); }
-    if (event.key === ' ') { event.preventDefault(); event.stopPropagation(); onHoldStart(); }
+    if (event.key === 'Enter') {
+      event.preventDefault(); event.stopPropagation();
+      cancelHold(); setHoldHint(false); onIgnite();
+    }
+    if (event.key === ' ' && !gesture.current) {
+      event.preventDefault(); event.stopPropagation();
+      gesture.current = { stamp: event.timeStamp, pointer: null, family: selectedId };
+      setHoldHint(false); onHoldStart();
+    }
   };
   const keyUp = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key !== ' ') return;
-    event.preventDefault();
-    onHoldCancel();
+    event.preventDefault(); event.stopPropagation();
+    finishHold(event.timeStamp, null);
   };
   return <>
     <header inert={hidden || undefined} className='hud-command chrome' aria-label='Firecrackers command deck'>
@@ -96,7 +146,7 @@ export function CinematicHUD({ selected, available, phase, hidden, reducedMotion
       <div className='hud-character' aria-label='Effect character'>{meta.character.map(item => <span key={item}>{item}</span>)}</div>
     </aside>
     <section inert={hidden || undefined} className='hud-deck-wrap chrome' aria-label='Firework controls'>
-      <div className='hud-status' role='status' aria-live='polite'>{notice}</div>
+      <div className='hud-status' role='status' aria-live='polite'>{statusText}</div>
       <div className='hud-deck glass'>
         <div className='hud-family-rail' role='group' aria-label='Five firework styles'>
           {FAMILIES.map(family => {
@@ -118,13 +168,13 @@ export function CinematicHUD({ selected, available, phase, hidden, reducedMotion
             <button aria-label='Place firework right' disabled={!canLight} onClick={() => onPlacement(0.72)}><ArrowRight size={15}/></button>
           </div>
           <div className='hud-ignite-shell'>
-            <button className={`hud-ignite${holding ? ' holding' : ''}${reducedMotion ? ' still' : ''}`} aria-label='Hold to light selected firework' disabled={!canLight} style={holdStyle} onPointerDown={startHold} onPointerUp={onHoldCancel} onPointerCancel={onHoldCancel} onLostPointerCapture={onHoldCancel} onBlur={onHoldCancel} onKeyDown={keyDown} onKeyUp={keyUp}>
+            <button className={`hud-ignite${holding ? ' holding' : ''}${reducedMotion ? ' still' : ''}`} aria-label='Hold to light selected firework' disabled={!canLight} style={holdStyle} onPointerDown={startHold} onPointerUp={event => finishHold(event.timeStamp, event.pointerId)} onPointerCancel={cancelHold} onLostPointerCapture={cancelHold} onBlur={cancelHold} onKeyDown={keyDown} onKeyUp={keyUp}>
               <span className='hud-ignite-core'><Flame size={22}/><strong>{holding ? 'Release to cancel' : 'Hold to ignite'}</strong><small>{holding ? 'Fuse contact' : stageLabel}</small></span>
             </button>
           </div>
           <div className='hud-quick-action'>
             <span className='hud-control-label'>Quick light</span>
-            <button className='hud-light-once' aria-label='Light once' onClick={onIgnite} disabled={!canLight}><Flame size={15}/><span>Light once</span></button>
+            <button className='hud-light-once' aria-label='Light once' onClick={() => { setHoldHint(false); onIgnite(); }} disabled={!canLight}><Flame size={15}/><span>Light once</span></button>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 /** Versioned virtual-animation parameters, not physical firework specifications. */
-export const CONFIG_VERSION = '2026-09-19.4';
+export const CONFIG_VERSION = '2026-09-20.2';
 export const FAMILIES = [
     { id: 'gold-willow', name: 'Gold Willow', short: 'Willow', note: 'A slow-falling canopy of gold.', color: '#eac17a', count: 192, speed: 25, life: 7.8, drag: 0.41, gravity: 4.3, trail: 3.1, cost: 1, ascent: 2.2 },
     { id: 'multicolor-peony', name: 'Multicolor Peony', short: 'Peony', note: 'A crisp sphere of jewel-like stars.', color: '#dd819d', count: 248, speed: 24, life: 2.7, drag: 0.66, gravity: 2.8, trail: 0.14, cost: 1, ascent: 1.9 },
