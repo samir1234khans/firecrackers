@@ -7,21 +7,34 @@ permissions:
   contents: read
 concurrency:
   group: ignition-reliability-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   published-audit:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22.16.0'
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+      - name: Build source receipt
+        run: npm run build
+      - name: Verify published source receipt
+        run: node scripts/verify-preview.mjs
       - name: Real desktop and touchscreen ignition
+        if: always()
         run: node tests/live-ignition.mjs
+      - name: Preserve source and release identity
+        if: always()
+        run: |
+          mkdir -p ignition-evidence
+          git archive --format=zip HEAD > ignition-evidence/source.zip
+          cp public/release.json ignition-evidence/expected-release.json
       - name: Save rendered evidence
         if: always()
         uses: actions/upload-artifact@v4

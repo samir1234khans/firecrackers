@@ -3,112 +3,41 @@
     "name": "Light and watch the observatory Willow, then preserve manual pause",
     "sanity": true,
     "viewport": "desktop",
-    "covers": [
-      "UI V3 command deck",
-      "3D observatory stage and rocket",
-      "selection and placement",
-      "complete fuse launch burst and afterglow",
-      "local smoke lighting and detached embers",
-      "manual pause persistence",
-      "settings navigation"
-    ],
-    "description": "The real primary workflow completes, with the new stage and a controllable paused scene.",
-    "steps": [
-      "Open the app and skip the introduction when shown. Select Gold Willow and Place firework left; verify the position is 28.",
-      "Choose Light once and observe fuse smoke, launch, aerial break and falling embers. Reveal controls with Escape when needed.",
-      "Open settings, expand Graphics details and verify Realism V3 / UI V3, build 2026-09-19.4, and nonzero Launched / bursts.",
-      "Close settings, pause the scene, reopen and close settings."
-    ],
-    "expected": "The Willow renders above the dimensional launch stage and the count increases. Closing settings preserves manual pause and Resume scene remains usable."
+    "covers": ["UI V3 command deck", "3D observatory stage and rocket", "selection and placement", "complete fuse launch burst and afterglow", "local smoke lighting and detached embers", "manual pause persistence", "settings navigation", "real-time mouse hold ignition", "visible launch-state feedback"],
+    "description": "The real primary workflow completes through both ignition controls, with a controllable paused scene.",
+    "steps": ["Open the app and skip the introduction when shown. Select Gold Willow and Place firework left; verify the position is 28.", "Choose Light once and observe fuse smoke, launch, aerial break and falling embers. Reveal controls with Escape when needed.", "Select Gold Willow again and hold the ignition ring with the mouse for about one second, then release. Verify a second fuse, launch and visible burst, not just a pressed button.", "Open settings, expand Graphics details and verify Realism V3 / UI V3, build 2026-09-20.1, and at least two Launched / bursts.", "Close settings, pause the scene, reopen and close settings. Verify the pause instruction and resume."],
+    "expected": "Both single-action and completed mouse holds produce visible Willow bursts. Closing settings preserves manual pause and Resume scene remains usable."
   },
   {
     "name": "Cancel a short hold and choose the next family during a lit fuse",
     "viewport": "mobile",
-    "covers": [
-      "mobile radial ignition",
-      "early-release guardrail",
-      "keyboard and single-action alternatives",
-      "next-family selection during fuse",
-      "committed ignition preservation",
-      "sound activation mute and haptic capability",
-      "accessible family names"
-    ],
-    "description": "Early release cannot launch; selecting another family does not cancel a committed firework.",
-    "steps": [
-      "Open a fresh app state, skip the introduction and select Gold Willow. Focus Hold to light selected firework, hold Space for less than 200 milliseconds and release.",
-      "Open Graphics details in settings and verify no rocket has launched, then close settings.",
-      "Choose Light once, then select Multicolor Peony while the fuse is burning. Verify Peony is selected and Light once cannot start a second fuse yet.",
-      "Let the committed firework launch and break. Select Peony and focus the ignition ring, then press Enter to run the single-action keyboard path.",
-      "Explicitly enable sound, verify Mute sound is available, then mute. Check haptic support feedback in settings."
-    ],
-    "expected": "The short hold creates no launch. A committed rocket finishes while the chosen next family is retained. Keyboard ignition works; audio requires activation and unsupported haptics are not shown as active."
+    "covers": ["mobile radial ignition", "early-release guardrail", "short-tap guidance", "real touchscreen hold", "keyboard and single-action alternatives", "next-family selection during fuse", "committed ignition preservation", "sound activation mute and haptic capability", "accessible family names"],
+    "description": "Early release cannot launch; a deliberate touch hold works and selecting another family preserves an already committed rocket.",
+    "steps": ["Open a fresh app state, skip the introduction and select Gold Willow. Tap and immediately release the ignition ring; verify guidance to hold for 0.7 seconds or tap Light once and no launch.", "Hold the ring for about one second using touch and release. Verify fuse, launch and a visible burst.", "Choose Light once, then select Multicolor Peony while the fuse is burning. Verify Peony is selected and Light once cannot start a second fuse yet.", "Let the committed firework launch and break. Select Peony and focus the ignition ring, then press Enter to run the single-action keyboard path.", "Explicitly enable sound, verify Mute sound is available, then mute. Check haptic support feedback in settings."],
+    "expected": "The short hold creates no launch and explains the alternative. A completed touch hold and keyboard ignition work. A committed rocket finishes while the next family is retained; audio requires activation."
   },
   {
     "name": "Direct the show, take over manually and inspect all five families",
     "viewport": "desktop",
-    "covers": [
-      "Manual Auto Festival Finale modes",
-      "all five firework families",
-      "spatial crossette split",
-      "visible secondary carriers",
-      "finite finale",
-      "manual takeover",
-      "hide and reveal without accidental ignition"
-    ],
+    "covers": ["Manual Auto Festival Finale modes", "all five firework families", "spatial crossette split", "visible secondary carriers", "finite finale", "manual takeover", "hide and reveal without accidental ignition"],
     "description": "The show rail is connected to the simulation rather than decorative controls.",
-    "steps": [
-      "Open the app, skip introduction when shown and use the Festival button. Wait for an automatic fuse.",
-      "Select Chrysanthemum; verify Manual is active and future automatic launches stop while the already-lit effect finishes.",
-      "Use Light once to view Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale in turn. Allow an active effect to finish if admission is temporarily unavailable.",
-      "Let controls fade, tap once to reveal them and verify this reveal does not light another rocket.",
-      "Open Auto show to inspect its pacing choices. Close it and start Finale from the mode rail. Observe the finite sequence finish into falling residue."
-    ],
+    "steps": ["Open the app, skip introduction when shown and use the Festival button. Wait for an automatic fuse.", "Select Chrysanthemum; verify Manual is active and future automatic launches stop while the already-lit effect finishes.", "Use Light once to view Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale in turn. Allow an active effect to finish if admission is temporarily unavailable.", "Let controls fade, tap once to reveal them and verify this reveal does not light another rocket.", "Open Auto show to inspect its pacing choices. Close it and start Finale from the mode rail. Observe the finite sequence finish into falling residue."],
     "expected": "Five distinct effects appear, including branching silver stars and traveling finale carriers. Manual takeover preserves committed effects but stops future auto launches. The Finale terminates."
   },
   {
     "name": "Retain comfort settings, use device features and safely reset",
     "viewport": "mobile",
-    "covers": [
-      "Ultra default",
-      "reduced-flash default",
-      "responsive scrollable settings",
-      "preference persistence",
-      "silent reload",
-      "offline cache status",
-      "fullscreen installation and wake-lock feedback",
-      "reset confirmation"
-    ],
+    "covers": ["Ultra default", "reduced-flash default", "responsive scrollable settings", "preference persistence", "silent reload", "offline cache status", "fullscreen installation and wake-lock feedback", "reset confirmation"],
     "description": "Device preferences remain separate from transient playback and destructive reset requires confirmation.",
-    "steps": [
-      "Open a fresh app state, skip the introduction and open settings. Verify Ultra graphics and Reduced flashes enabled.",
-      "Choose Low and Reduced interface motion, then reload and check both are retained with sound inactive.",
-      "Navigate settings sections and inspect Offline play status after caching. Invoke installation and fullscreen actions and accept either actual support or explicit capability feedback.",
-      "Choose Reset this sky, then Keep my sky; verify preferences remain.",
-      "Confirm Reset sky and preferences and verify the introduction and a fresh scene return."
-    ],
+    "steps": ["Open a fresh app state, skip the introduction and open settings. Verify Ultra graphics and Reduced flashes enabled.", "Choose Low and Reduced interface motion, then reload and check both are retained with sound inactive.", "Navigate settings sections and inspect Offline play status after caching. Invoke installation and fullscreen actions and accept either actual support or explicit capability feedback.", "Choose Reset this sky, then Keep my sky; verify preferences remain.", "Confirm Reset sky and preferences and verify the introduction and a fresh scene return."],
     "expected": "Explicit comfort choices survive reload; sound does not autoplay. Device features return truthful outcomes. Cancelled reset preserves state; confirmed reset clears it."
   },
   {
     "name": "Create a silent protected display and return to manual play",
     "viewport": "desktop",
-    "covers": [
-      "night-sky display",
-      "transparent overlay",
-      "protected rectangle",
-      "seeded display links",
-      "30 and 60 fps targets",
-      "copy-link fallback",
-      "silent presentation startup",
-      "manual return"
-    ],
+    "covers": ["night-sky display", "transparent overlay", "protected rectangle", "seeded display links", "30 and 60 fps targets", "copy-link fallback", "silent presentation startup", "manual return"],
     "description": "Operator controls create a reusable display configuration without requesting camera or video access.",
-    "steps": [
-      "Open settings and navigate to Display. Choose Transparent overlay, Calm pacing, 30 fps, and Protect a clear area; adjust the Left boundary.",
-      "Copy the display link, using the visible text-field fallback when clipboard permission is unavailable. Open that URL.",
-      "Observe the display, with no persistent controls or autoplay sound. Press Escape to reveal the command deck.",
-      "Open settings and verify the selected output, pacing and protected rectangle. Change to Night-sky display and 60 fps target.",
-      "Choose Return to interactive sky, close settings, and light a manually chosen firework."
-    ],
+    "steps": ["Open settings and navigate to Display. Choose Transparent overlay, Calm pacing, 30 fps, and Protect a clear area; adjust the Left boundary.", "Copy the display link, using the visible text-field fallback when clipboard permission is unavailable. Open that URL.", "Observe the display, with no persistent controls or autoplay sound. Press Escape to reveal the command deck.", "Open settings and verify the selected output, pacing and protected rectangle. Change to Night-sky display and 60 fps target.", "Choose Return to interactive sky, close settings, and light a manually chosen firework."],
     "expected": "The generated link preserves seed, mode, pacing, frame-rate target and protected area. The scene stays controllable, starts silently and returns to usable manual play. Actual OBS compatibility remains a separate test."
   }
 ]

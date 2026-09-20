@@ -2,7 +2,6 @@ import { expect, test } from '@playwright/test';
 import { enterSky } from './enter';
 
 type QA = { freeze: (value: boolean) => void; snapshot: () => { active: number; fuse: boolean } };
-const qaWindow = () => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA;
 
 // Freeze only the test simulation to reproduce input/render-clock divergence.
 // These checks prove gesture semantics, not GPU performance or device endurance.
