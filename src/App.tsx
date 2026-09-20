@@ -30,6 +30,7 @@ export default function App() {
   const keyboard = useRef(false);
   const dragging = useRef(false);
   const revealTap = useRef(false);
+  const pinnedControls = useRef(false);
   const notify = useCallback((text: string) => setNotice(text), []);
   const world = useWorld(host, prefs, epoch, notify, presentation);
   const platform = usePlatform(notify);
@@ -39,7 +40,9 @@ export default function App() {
   const context = useRef({ overlay, prefs, state });
   context.current = { overlay, prefs, state };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
-  const wake = () => { lastActivity.current = Date.now(); setHidden(false); };
+  // An explicit reveal stays usable until the next deliberate launch/show.
+  // Three seconds is too short to race the deck transition on a slow touch device.
+  const wake = () => { if (hidden) pinnedControls.current = true; lastActivity.current = Date.now(); setHidden(false); };
   const open = (next: Overlay) => { world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
   const close = () => { setOverlay(null); world.setOverlay(false); wake(); };
   const select = (id: FamilyId) => {
@@ -60,7 +63,7 @@ export default function App() {
   useEffect(() => {
     const id = setInterval(() => {
       const c = context.current;
-      if (Date.now() - lastActivity.current > 3000 && !c.overlay && !keyboard.current && !c.state.holding && c.prefs.onboarded && c.state.launched > 0 && !c.state.paused) {
+      if (Date.now() - lastActivity.current > 3000 && !c.overlay && !keyboard.current && !pinnedControls.current && !dragging.current && !c.state.holding && c.prefs.onboarded && c.state.launched > 0 && !c.state.paused) {
         const focused = document.activeElement;
         if (focused instanceof HTMLElement && focused.closest('.chrome')) focused.blur();
         setHidden(true);
@@ -109,7 +112,16 @@ export default function App() {
   const toggleSound = async () => { const active = await world.configureSound(!world.soundActive); change('sound', active); };
   const setPlacement = (value: number) => { world.sim.current.stopShow(false); world.sim.current.setPlacement(value); world.refresh(); };
   const resumeOrPause = () => { world.pause(!state.paused); if (!state.paused) platform.releaseWake(); wake(); };
+  const ignite = () => {
+    const before = world.sim.current.rockets.length;
+    world.ignite();
+    if (world.sim.current.rockets.length > before) {
+      pinnedControls.current = false;
+      lastActivity.current = Date.now();
+    }
+  };
   const startShow = (preset: ShowPreset) => {
+    pinnedControls.current = false;
     change('preset', preset);
     world.start(preset);
     setOverlay(null);
@@ -122,6 +134,7 @@ export default function App() {
     wake();
   };
   const reset = () => {
+    pinnedControls.current = false;
     setPresentation(p => ({ ...p, mode: 'interactive', show: null }));
     world.reset();
     void world.configureSound(false);
@@ -190,9 +203,9 @@ export default function App() {
       onManual={returnToManual}
       onSelect={select}
       onPlacement={setPlacement}
-      onHoldStart={() => { world.sim.current.beginHold(); world.refresh(); }}
-      onHoldCancel={() => { world.sim.current.cancelHold(); world.refresh(); }}
-      onIgnite={world.ignite}
+      onHoldStart={() => { if (world.sim.current.beginHold()) pinnedControls.current = false; world.refresh(); }}
+      onHoldCancel={() => { if (world.sim.current.holding) pinnedControls.current = true; world.sim.current.cancelHold(); world.refresh(); }}
+      onIgnite={ignite}
     />
 
     {!world.ready && !world.error && <div className='loading-state' role='status'><span className='loading-spark'/><span>Preparing the night sky</span></div>}
