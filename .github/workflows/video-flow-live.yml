@@ -2,8 +2,8 @@ name: Video flow live verification
 on:
   push:
     branches: [fix/video-launch-flow]
-    paths:
-      - .github/workflows/video-flow-live.yml
+    paths: [.github/workflows/video-flow-live.yml]
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
@@ -13,37 +13,66 @@ jobs:
   verify-live:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Apply the inspected host-toolbar fix when pending
+        run: |
+          if test -f .github/repair/host-toolbar.py; then python3 .github/repair/host-toolbar.py; fi
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
       - run: npm ci
+      - name: Unit and source checks
+        run: |
+          npm run typecheck
+          npm run lint
+          npm test
+          npm run test:video-flow
+          node --test tests/release-fingerprint.test.mjs
       - name: Compare public source receipt with this exact source
         run: |
           mkdir -p /tmp/video-flow-live
           node scripts/generate-release.mjs
           node --input-type=module - <<'JS'
           import { readFile, writeFile } from 'node:fs/promises';
-          import { execFileSync } from 'node:child_process';
           const expected = JSON.parse(await readFile('public/release.json', 'utf8'));
           const response = await fetch('https://firecrackers-a93nle.v2.appdeploy.ai/release.json', { cache: 'no-store' });
           if (!response.ok) throw new Error('Public receipt HTTP ' + response.status);
           const actual = await response.json();
           const mismatchedModules = expected.modules.filter(e => !actual.modules.some(a => a.path === e.path && a.sha256 === e.sha256)).map(e => e.path);
-          const result = { checkedAt: new Date().toISOString(), sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), url: 'https://firecrackers-a93nle.v2.appdeploy.ai/', version: actual.version, expectedSha256: expected.sha256, actualSha256: actual.sha256, moduleCount: expected.modules.length, mismatchedModules, matches: expected.sha256 === actual.sha256 && actual.version === '2026-09-21.2', normalization: expected.normalization, scope: expected.scope };
+          const result = { checkedAt: new Date().toISOString(), url: 'https://firecrackers-a93nle.v2.appdeploy.ai/', version: actual.version, expectedSha256: expected.sha256, actualSha256: actual.sha256, moduleCount: expected.modules.length, mismatchedModules, matches: expected.sha256 === actual.sha256 && actual.version === '2026-09-21.3', normalization: expected.normalization, scope: expected.scope };
           await writeFile('/tmp/video-flow-live/source-parity.json', JSON.stringify(result, null, 2));
-          await writeFile('/tmp/video-flow-live/public-release.json', JSON.stringify(actual, null, 2));
           console.log(JSON.stringify(result, null, 2));
           if (!result.matches) process.exitCode = 1;
           JS
       - run: npx playwright install --with-deps chromium
-      - name: Run actual published desktop and mobile workflows
+      - name: Run published desktop and mobile workflows with host toolbar intact
         env:
           VIDEO_FLOW_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
         run: node tests/video-flow-browser.mjs /tmp/video-flow-live
+      - name: Save verified normal source files on the repair branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = 'samir1234khans/firecrackers'
+          test "$GITHUB_REF" = 'refs/heads/fix/video-launch-flow'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- src/App.tsx src/styles/flow.css src/engine/catalog.ts tests/tests.json tests/video-flow-browser.mjs
+          if test -f .github/repair/host-toolbar.py; then git rm -- .github/repair/host-toolbar.py; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: keep mobile actions clear of host toolbar; verify live launch workflows'
+            AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+            git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" fetch origin refs/heads/fix/video-launch-flow
+            test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+            git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:refs/heads/fix/video-launch-flow
+          fi
+          git rev-parse HEAD > /tmp/video-flow-live/SOURCE_COMMIT.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:

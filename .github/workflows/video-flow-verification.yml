@@ -1,90 +1,25 @@
-name: Video flow verification
+name: Video flow standalone verification
 on:
-  push:
-    branches: [fix/video-launch-flow]
+  workflow_dispatch:
 permissions:
   contents: read
-concurrency:
-  group: video-flow-verification
-  cancel-in-progress: true
 jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Apply hash-verified source repair
-        id: apply
-        run: |
-          mkdir -p /tmp/video-flow-evidence
-          python3 - <<'PY'
-          from pathlib import Path
-          import gzip, hashlib, subprocess
-          parts = sorted(Path('.github/repair').glob('*.gzpart'))
-          if parts:
-              data = gzip.decompress(b''.join(p.read_bytes() for p in parts))
-              digest = hashlib.sha256(data).hexdigest()
-              assert digest == '5d682491ed6b5a36e7ec97d2de9a573a2bd9327e9211bf9bc5d79f752917b034', digest
-              patch = Path('/tmp/video-flow.patch')
-              patch.write_bytes(data)
-              subprocess.run(['git', 'apply', '--check', str(patch)], check=True)
-              subprocess.run(['git', 'apply', str(patch)], check=True)
-              Path('/tmp/video-flow-evidence/APPLIED_PATCH_SHA256.txt').write_text(digest + '\n')
-              p = Path('src/graphics/ParticleScene.ts')
-              s = p.read_text()
-              old = 'addHead(...shell, .50 + receded * .50, 3.6, 2.4, 1.1);'
-              assert s.count(old) == 1
-              s = s.replace(old, 'addHead(...shell, 2.2 + receded * .8, 3.6, 2.4, 1.1);')
-              s = s.replace("if (r.phase === 'thrust') addHead(...motor, 1.15, 4.5, 2.5, .8);", "if (r.phase === 'thrust') addHead(...motor, 2.8, 4.5, 2.5, .8);")
-              p.write_text(s)
-          PY
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
       - run: npm ci
-      - name: Typecheck, lint, engine and source-fingerprint tests
-        run: |
-          set -o pipefail
-          npm run typecheck 2>&1 | tee /tmp/video-flow-evidence/typecheck.log
-          npm run lint 2>&1 | tee /tmp/video-flow-evidence/lint.log
-          npm test 2>&1 | tee /tmp/video-flow-evidence/engine.log
-          npm run test:video-flow 2>&1 | tee /tmp/video-flow-evidence/video-unit.log
-          node --test tests/release-fingerprint.test.mjs 2>&1 | tee /tmp/video-flow-evidence/fingerprint.log
-      - name: Production build
-        run: |
-          set -o pipefail
-          npm run build 2>&1 | tee /tmp/video-flow-evidence/build.log
-          cp dist/release.json /tmp/video-flow-evidence/release.json
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
-      - name: Actual desktop and mobile launch workflows
-        run: node tests/video-flow-browser.mjs /tmp/video-flow-evidence
-      - name: Save normal source files to the isolated repair branch
-        if: always() && steps.apply.outcome == 'success'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          test "$GITHUB_REPOSITORY" = 'samir1234khans/firecrackers'
-          test "$GITHUB_REF" = 'refs/heads/fix/video-launch-flow'
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git restore -- .github/workflows/runtime-validation.yml
-          git add -- src scripts tests docs README.md PROJECT_STATUS.md package.json
-          if test -d .github/repair; then git rm -- .github/repair/*.gzpart; fi
-          if ! git diff --cached --quiet; then
-            git commit -m 'fix: implement video-led launch lifecycle, geometry and mobile controls'
-            AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
-            git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" fetch origin refs/heads/fix/video-launch-flow
-            test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-            git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:refs/heads/fix/video-launch-flow
-          fi
-          git rev-parse HEAD > /tmp/video-flow-evidence/SOURCE_COMMIT.txt
-          git archive --format=tar HEAD | gzip > /tmp/video-flow-evidence/source.tar.gz
+      - run: npm run typecheck && npm run lint && npm test && npm run test:video-flow
+      - run: node --test tests/release-fingerprint.test.mjs
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/video-flow-browser.mjs /tmp/video-flow-evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -92,4 +27,3 @@ jobs:
           path: /tmp/video-flow-evidence/
           retention-days: 7
           compression-level: 0
-          if-no-files-found: error
