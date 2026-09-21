@@ -38,7 +38,7 @@ export class NightEnvironment {
 
     // Practical lights establish near/far perspective without one scene light per lamp.
     const lamps = new THREE.InstancedMesh(new THREE.BoxGeometry(.65, .12, 2.5),
-      new THREE.MeshBasicMaterial({ color: new THREE.Color(1.8, .82, .26) }), 28);
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(.30, .19, .09) }), 28);
     const housings = new THREE.InstancedMesh(new THREE.BoxGeometry(1.4, .42, 3.7),
       new THREE.MeshStandardMaterial({ color: '#171e27', metalness: .42, roughness: .4 }), 28);
     for (let i = 0; i < 28; i++) {

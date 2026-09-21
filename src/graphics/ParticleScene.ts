@@ -2,6 +2,7 @@ import * as THREE from 'three/webgpu';
 import { attribute, cos, dot, float, mix, pass, positionGeometry, positionView, screenUV, sin, smoothstep, texture, uniform, uv, vec2, vec3 } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
 import { hash01 } from '../engine/catalog';
+import { rocketPoint, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, flightBodyOpacity } from '../engine/LaunchGeometry';
 const BUCKETS = 6;
 const bucketFor = (z: number) => Math.max(0, Math.min(BUCKETS - 1, Math.floor((z + 75) / 25)));
 export class ParticleUniforms {
@@ -143,7 +144,15 @@ export class ParticleScene {
             a.iScale.setXY(n, size, size * 1.6);
             a.iColor.setXYZ(n, r, g, blue); a.iAlpha.setX(n, .88);
         };
-        for (const r of sim.rockets) if (r.stage === 'ascent') addHead(r.x, r.y + 1.7, r.z, r.phase === 'thrust' ? 1.0 : .65, 4.5, 2.5, .8);
+        for (const r of sim.rockets) {
+            if (r.stage !== 'ascent') continue;
+            const shell = rocketPoint(r, SHELL_LOCAL_Y);
+            const motor = rocketPoint(r, MOTOR_LOCAL_Y);
+            const receded = 1 - flightBodyOpacity(r.age, r.ascent);
+            // One luminous shell follows exactly the same attachment that will burst.
+            addHead(...shell, 2.2 + receded * .8, 3.6, 2.4, 1.1);
+            if (r.phase === 'thrust') addHead(...motor, 2.8, 4.5, 2.5, .8);
+        }
         for (const c of sim.cues) addHead(c.x, c.y, c.z, .72, 3, 2.1, .9);
         const t = sim.trails;
         for (let i = 0; i < t.count; i++) {

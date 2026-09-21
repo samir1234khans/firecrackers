@@ -3,6 +3,7 @@ import type { FamilyId, Quality, ShowPreset } from './catalog.js';
 import { Pool } from './Pool.js';
 import { Trails } from './Trails.js';
 import { fusePointAt, ROCKET_SCALE } from './FusePath.js';
+import { FLIGHT_GRAVITY, REARM_SECONDS, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, rocketPoint } from './LaunchGeometry.js';
 export type SimEvent = {
     id: number;
     time: number;
@@ -27,6 +28,7 @@ export type Rocket = {
     py: number;
     pz: number;
     ground: number;
+    padX: number;
     top: number;
     age: number;
     fuse: number;
@@ -105,11 +107,32 @@ export class Simulation {
         this.showRng = randomStream(seed ^ 0x5bf03635);
         this.smokeRng = randomStream(seed ^ 0x34167829);
     }
-    get activeUnits() { return this.rockets.reduce((n, r) => n + r.cost, 0); }
-    get ready() { return this.prepared && !this.paused && !this.rockets.some(r => r.stage === 'fuse'); }
+    get activeUnits() { return this.rockets.reduce((n, r) => n + (r.stage === 'afterglow' ? 0 : r.cost), 0); }
+    get committed() { return this.rockets.find(r => r.stage !== 'afterglow'); }
+    get rearming() { return this.rockets.some(r => r.stage === 'afterglow' && r.age < REARM_SECONDS); }
+    get launchBlock() {
+        if (this.paused) return 'paused';
+        if (this.committed || this.rearming || !this.prepared) return 'busy';
+        if (!this.canReserve(familyIndex(this.selected))) return 'capacity';
+        return '';
+    }
+    get ready() { return this.launchBlock === ''; }
+    private reserveFor(family: number) {
+        return family === 4 ? 900 : family === 3 ? 160 : Math.ceil((FAMILIES[family]?.count || 0) * 1.2);
+    }
+    private canReserve(family: number) {
+        const f = FAMILIES[family];
+        return Boolean(f) && this.activeUnits + f.cost <= BUDGETS[this.quality].units &&
+            this.heads.count + this.futureHeads + this.reserveFor(family) <= this.heads.capacity;
+    }
     get smallScale() { return 1; }
     get wind() { return 0.85 + Math.sin(this.time * 0.12) * 0.24; }
-    get phase() { return this.holding ? 'contact' : this.rockets[this.rockets.length - 1]?.phase || 'ready'; }
+    get phase() {
+        if (this.holding) return 'contact';
+        if (this.committed) return this.committed.phase;
+        if (this.rearming) return 'burst';
+        return this.heads.count || this.trails.count || this.embers.count || this.cues.length ? 'afterglow' : 'ready';
+    }
     placementToX(value = this.placement) { return (clamp(value, 0.2, 0.8) - 0.5) * this.launchSpan; }
     setViewport(width: number, _ground: number) { this.launchSpan = clamp(width, 65, 160); }
     setPlacement(value: number) {
@@ -117,11 +140,11 @@ export class Simulation {
     }
     select(id: FamilyId) {
         this.stopShow(false);
-        const burning = this.rockets.some(r => r.stage === 'fuse');
+        const burning = Boolean(this.committed);
         this.cancelHold();
         this.selected = FAMILIES[familyIndex(id)].id;
         this.prepared = !burning;
-        this.message = burning ? `${FAMILIES[familyIndex(id)].name} is next. The lit fuse will finish.` : FAMILIES[familyIndex(id)].note;
+        this.message = burning ? `${FAMILIES[familyIndex(id)].name} is next. The current rocket will finish.` : FAMILIES[familyIndex(id)].note;
         return true;
     }
     beginHold() {
@@ -140,23 +163,27 @@ export class Simulation {
     }
     ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement = this.placement) {
         if (source === 'manual') this.stopShow(false);
-        if (this.paused || (source === 'manual' && !this.ready)) return false;
+        if (this.paused) return false;
+        if (source === 'manual' && (!this.prepared || this.committed || this.rearming)) return false;
         const f = FAMILIES[family];
-        const reserve = family === 4 ? 900 : family === 3 ? 160 : Math.ceil((f?.count || 0) * 1.2);
-        if (!f || this.activeUnits + f.cost > BUDGETS[this.quality].units || this.heads.count + this.futureHeads + reserve > this.heads.capacity) {
+        const reserve = this.reserveFor(family);
+        if (!this.canReserve(family)) {
             this.cancelHold();
             this.message = 'Let this burst finish, then light another.';
             return false;
         }
         const rand = this.launchRng;
-        const x = this.placementToX(placement), top = 70 + rand() * 7;
-        const ascent = f.ascent + (rand() - 0.5) * 0.16;
-        const thrust = ascent * 0.34, coast = ascent - thrust, gravity = 8;
-        const acceleration = (top - this.ground + 0.5 * gravity * coast * coast) / (0.5 * thrust * thrust + thrust * coast);
+        const x = this.placementToX(placement), top = 72 + rand() * 6;
+        // Solve a powered rise followed by a coast that reaches the apex at zero vertical speed.
+        // All families share virtual gravity; height changes flight duration, not the viewport.
+        const thrustFraction = .24;
+        const ascent = Math.sqrt(2 * (top - this.ground) / (FLIGHT_GRAVITY * (1 - thrustFraction)));
+        const thrust = ascent * thrustFraction, coast = ascent - thrust;
+        const acceleration = FLIGHT_GRAVITY * coast / thrust;
         const rocket: Rocket = {
             id: this.nextObjectId++, family, x, y: this.ground, z: 0, px: x, py: this.ground, pz: 0,
-            vx: (rand() - 0.5) * 1.6, vy: 0, vz: -2.2 - rand() * 1.6, ground: this.ground, top, age: 0,
-            fuse: 1.5 + rand(), ascent, thrust, acceleration, phase: 'fuse', stage: 'fuse',
+            vx: (rand() - 0.5) * 1.0, vy: 0, vz: (rand() - 0.5) * 1.1, ground: this.ground, padX: x, top, age: 0,
+            fuse: 0.58 + rand() * 0.18, ascent, thrust, acceleration, phase: 'fuse', stage: 'fuse',
             cost: f.cost, seed: Math.floor(rand() * 0xffffffff), reserve,
         };
         this.rockets.push(rocket);
@@ -227,6 +254,9 @@ export class Simulation {
             holding: this.holding, holdProgress: this.holdProgress, show: this.show, launched: this.launched,
             bursts: this.bursts, active: this.rockets.length, particles: this.heads.count + this.trails.count + this.embers.count,
             smoke: this.smoke.count, quality: this.quality, message: this.message, time: this.time,
+            launchBlock: this.launchBlock, committedId: this.committed?.id ?? null,
+            committedFamily: this.committed ? FAMILIES[this.committed.family].name : '',
+            flightProgress: this.committed?.stage === 'ascent' ? Math.min(1, this.committed.age / this.committed.ascent) : 0,
             fuse: this.rockets.some(r => r.stage === 'fuse'), phase: this.phase, carriers: this.cues.length, embers: this.embers.count,
         };
     }
@@ -268,9 +298,9 @@ export class Simulation {
                     r.stage = 'ascent';
                     r.phase = 'thrust';
                     this.launched++;
-                    this.prepared = true;
-                    this.emit('launch', r.x, r.y, r.z, r.family);
-                    for (let puff = 0; puff < 4; puff++) this.addSmoke(r.x + (puff - 1.5) * 1.3, r.ground - 4.5, r.z, 2.5, .72, 1);
+                    const motor = rocketPoint(r, MOTOR_LOCAL_Y);
+                    this.emit('launch', ...motor, r.family);
+                    for (let puff = 0; puff < 4; puff++) this.addSmoke(motor[0] + (puff - 1.5) * .7, motor[1] - .6, motor[2], 1.5, .58, 1);
                     if (!this.show) this.message = 'Rising into the night.';
                 }
             } else if (r.stage === 'ascent') {
@@ -280,8 +310,9 @@ export class Simulation {
                     r.phase = 'afterglow';
                     r.age = 0;
                     this.primary(r);
+                    this.prepared = !this.rockets.some(other => other.stage !== 'afterglow');
                 }
-            } else if (r.age > 16) this.rockets.splice(i, 1);
+            } else if (r.age > Math.max(8, FAMILIES[r.family].life + FAMILIES[r.family].trail + 1)) this.rockets.splice(i, 1);
         }
         for (let i = this.cues.length - 1; i >= 0; i--) {
             const c = this.cues[i];
@@ -298,22 +329,25 @@ export class Simulation {
         }
     }
     private moveRocket(r: Rocket, dt: number) {
-        const before = r.age - dt;
-        const powered = Math.max(0, Math.min(dt, r.thrust - before));
-        const coast = dt - powered;
-        const advanceY = (a: number, t: number) => { r.y += r.vy * t + 0.5 * a * t * t; r.vy += a * t; };
-        advanceY(r.acceleration, powered);
-        advanceY(-8, coast);
+        const previousMotor = rocketPoint(r, MOTOR_LOCAL_Y);
+        const powered = Math.min(r.age, r.thrust);
+        const coast = clamp(r.age - r.thrust, 0, r.ascent - r.thrust);
+        const peakVelocity = r.acceleration * r.thrust;
+        r.y = r.ground + .5 * r.acceleration * powered * powered +
+            peakVelocity * coast - .5 * FLIGHT_GRAVITY * coast * coast;
+        r.vy = r.age < r.thrust ? r.acceleration * powered : Math.max(0, peakVelocity - FLIGHT_GRAVITY * coast);
         r.phase = r.age < r.thrust ? 'thrust' : 'coast';
-        r.vx += this.wind * dt * 0.13;
+        r.vx = r.vx * Math.exp(-.42 * dt) + this.wind * dt * .10;
+        r.vz *= Math.exp(-.55 * dt);
         r.x += r.vx * dt;
         r.z += r.vz * dt;
-        const poweredTail = r.phase === 'thrust';
-        this.trails.add(r.px, r.py, r.pz, r.x, r.y, r.z, poweredTail ? 0.64 : 0.42, poweredTail ? 0.105 : 0.043, 1, poweredTail ? 0.66 : 0.37, 0.11, r.id, 0, BUDGETS[this.quality].trails);
-        r.px = r.x;
-        r.py = r.y;
-        r.pz = r.z;
-        if (hash01(Math.floor(r.age * 60), r.seed ^ 9) > (poweredTail ? 0.73 : 0.90)) this.addSmoke(r.x, r.y, r.z, 1.6, poweredTail ? 0.45 : 0.23, 1);
+        const motor = rocketPoint(r, MOTOR_LOCAL_Y), poweredTail = r.phase === 'thrust';
+        this.trails.add(...previousMotor, ...motor, poweredTail ? .56 : .25,
+            poweredTail ? .13 : .045, 1, poweredTail ? .66 : .37, .11, r.id, 0, BUDGETS[this.quality].trails);
+        r.px = r.x; r.py = r.y; r.pz = r.z;
+        if (hash01(Math.floor(r.age * 60), r.seed ^ 9) > (poweredTail ? .68 : .94)) {
+            this.addSmoke(motor[0], motor[1] - .35, motor[2], poweredTail ? 1.3 : .65, poweredTail ? .48 : .15, 1);
+        }
     }
     private directShow() {
         if (this.show === 'finale' && this.time - this.showStart >= 32) {
@@ -336,18 +370,19 @@ export class Simulation {
         this.nextCue = this.time + (admitted ? Math.max(spacing + (haze > 0.8 ? 1.0 : 0), this.reducedFlashes ? 3 : 0) : 1.25);
     }
     private primary(r: Rocket) {
+        const [x, y, z] = rocketPoint(r, SHELL_LOCAL_Y);
         if (r.family !== 4) {
-            this.burst(r.family, r.x, r.y, r.z, 1, r.seed, r.vx * 0.13, r.vy * 0.08, r.vz * 0.13);
+            this.burst(r.family, x, y, z, 1, r.seed, r.vx * .13, r.vy * .08, r.vz * .13);
             return;
         }
         const rand = randomStream(r.seed);
         const groups = this.reducedFlashes ?
             [{ f: 1, t: 0.35 }, { f: 2, t: 1.10 }, { f: 1, t: 1.85 }, { f: 3, t: 2.60 }, { f: 0, t: 3.50 }] :
             [{ f: 1, t: 0.35 }, { f: 2, t: 0.80 }, { f: 1, t: 1.20 }, { f: 3, t: 1.60 }, { f: 0, t: 2.25 }];
-        this.emit('burst', r.x, r.y, r.z, 4, 0.5);
+        this.emit('burst', x, y, z, 4, 0.5);
         for (let j = 0; j < groups.length; j++) {
             const g = groups[j];
-            this.cues.push({ id: this.nextObjectId++, at: this.time + g.t, family: g.f, x: r.x, y: r.y, z: r.z,
+            this.cues.push({ id: this.nextObjectId++, at: this.time + g.t, family: g.f, x, y, z,
                 vx: (j % 2 ? -1 : 1) * (5 + rand() * 5), vy: 2 + rand() * 5, vz: (rand() - 0.5) * 8,
                 scale: j === 4 ? 0.83 : 0.56, seed: Math.floor(rand() * 0xffffffff), reserve: j === 4 ? 230 : 155 });
         }
@@ -358,9 +393,11 @@ export class Simulation {
         const rotate = rand() * Math.PI * 2, palette = Math.floor(rand() * 3);
         let lightR = 0, lightG = 0, lightB = 0;
         for (let i = 0; i < n; i++) {
-            const theta = i * 2.399963229728653 + rotate + (rand() - 0.5) * 0.18;
-            const vertical = 1 - 2 * (i + 0.5) / n, radial = Math.sqrt(Math.max(0, 1 - vertical * vertical));
-            const speed = f.speed * scale * (0.80 + rand() * 0.35);
+            // Preserve a spherical family silhouette without the machine-perfect Fibonacci shell.
+            const theta = i * 2.399963229728653 + rotate + (rand() - 0.5) * 0.52;
+            const vertical = clamp(1 - 2 * (i + 0.5) / n + (rand() - 0.5) * 0.16, -1, 1);
+            const radial = Math.sqrt(Math.max(0, 1 - vertical * vertical));
+            const speed = f.speed * scale * (0.74 + rand() * 0.48);
             let r = 1, g = 0.38 + rand() * 0.26, b = 0.055 + rand() * .035;
             if (family === 1) {
                 const sector = Math.floor(((theta % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2)) / (Math.PI * 2) * 6);

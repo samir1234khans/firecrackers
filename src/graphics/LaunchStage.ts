@@ -50,11 +50,11 @@ export class LaunchStage {
   }
   update(sim: Simulation, visible: boolean) {
     this.group.visible = visible;
-    this.group.position.set(sim.placementToX(), sim.ground - 9.8, 0);
+    this.group.position.set(sim.committed?.padX ?? sim.placementToX(), sim.ground - 9.8, 0);
     const fuse = sim.rockets.find(r => r.stage === 'fuse');
     const contact = sim.holding ? Math.min(1, sim.holdProgress) : fuse ? .75 : 0;
     const rise = sim.rockets.some(r => r.phase === 'thrust') ? .4 : 0;
-    this.ringMaterial.color.setRGB(1.2 + contact * .5, .65 + contact * .25, .24 + contact * .1);
+    this.ringMaterial.color.setRGB(.58 + contact * .45, .34 + contact * .22, .14 + contact * .08);
     this.contactLight.intensity = 8 + contact * 9 + rise * 10;
     this.dial.rotation.z = sim.holding ? -sim.holdProgress * Math.PI * 2 : 0;
   }

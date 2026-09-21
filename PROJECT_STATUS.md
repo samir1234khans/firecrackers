@@ -1,3 +1,11 @@
+# Video-flow repair candidate — 21 September 2026
+
+Build `2026-09-21.2` on `fix/video-launch-flow` repairs the supplied video defects. The [plan](docs/video-flow/PLAN.md) records the 24 findings and risk checks. The [validation contract](docs/video-flow/VALIDATION.md) separates current evidence from untested devices.
+
+This branch includes the AppDeploy-only v9 changes before applying the new repairs; older implementation branches and Nightfall remain untouched. Publication and final browser results will be recorded separately.
+
+---
+
 # Project status
 
 Updated: 19 September 2026.

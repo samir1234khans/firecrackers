@@ -1,0 +1,111 @@
+/* Video-flow repair: isolate the manual controls from the legacy circular HUD. */
+.fireworks-app .flow-command {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  left: 24px;
+  right: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: 'brand modes utilities';
+  gap: 12px;
+  align-items: center;
+  pointer-events: none;
+}
+.flow-brand { grid-area: brand; display: flex; align-items: center; gap: 9px; color: #e5bd80; }
+.flow-brand h1 { margin: 0; font: 400 25px/1.15 Georgia, serif; letter-spacing: -.5px; color: #f1ede5; }
+.flow-brand h1 span { color: #e5bd80; }
+.flow-utilities { grid-area: utilities; justify-self: end; display: flex; gap: 2px; padding: 3px; border: 1px solid #c5d0df24; border-radius: 15px; background: #0c131fcc; }
+.flow-command button { pointer-events: auto; border: 0; font: 500 12px/1.2 system-ui, sans-serif; cursor: pointer; }
+.flow-utilities button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; color: #c9d2de; background: transparent; border-radius: 11px; }
+.flow-modes { grid-area: modes; display: flex; gap: 3px; padding: 4px; border: 1px solid #c5d0df24; border-radius: 15px; background: #0c131fcc; }
+.flow-modes button { min-height: 44px; min-width: 68px; padding: 0 14px; color: #b2bccb; background: transparent; border: 1px solid transparent; border-radius: 11px; }
+.flow-modes button.active { color: #f2d4a4; background: #e5bd8019; border-color: #e5bd8040; }
+.flow-command button:hover:not(:disabled), .flow-placement button:hover:not(:disabled) { background: #ffffff10; }
+.fireworks-app .flow-deck-wrap {
+  position: absolute;
+  top: auto;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: 50%;
+  right: auto;
+  width: min(620px, calc(100% - 32px));
+  max-width: none;
+  transform: translateX(-50%);
+  pointer-events: none;
+  margin: 0;
+  z-index: 30;
+}
+.flow-status { min-height: 37px; padding: 6px 10px 9px; text-align: center; color: #d1d8e4; font: 400 12px/1.45 system-ui, sans-serif; text-shadow: 0 2px 12px #000; }
+.flow-deck { padding: 10px 12px 9px; border: 1px solid #b6c3d02e; border-radius: 21px; background: linear-gradient(160deg, #151d2aea, #09101cea); box-shadow: 0 12px 38px #0005; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); pointer-events: auto; }
+.flow-families { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; }
+.flow-family { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; min-height: 67px; padding: 3px 0 6px; gap: 3px; border: 1px solid transparent; border-radius: 12px; background: transparent; color: #acb6c5; font: 500 11px/1.3 system-ui, sans-serif; cursor: pointer; }
+.flow-family.selected { background: #e5bd8012; color: #f2ddbb; border-color: #e5bd8047; }
+.flow-family-art { display: block; width: 45px; height: 39px; overflow: hidden; }
+.flow-family-art > svg { display: block; width: 100%; height: 100%; }
+.flow-selection { display: flex; align-items: baseline; gap: 8px; padding: 9px 2px 3px; min-height: 30px; font: 400 11px/1.3 system-ui, sans-serif; color: #9ba8bc; }
+.flow-selection strong { font-weight: 550; color: #e4e9f0; font-size: 13px; }
+.flow-bottom { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 18px; }
+.flow-placement { display: grid; grid-template-columns: 1fr 44px; align-items: center; gap: 0 6px; }
+.flow-placement label { grid-column: 1; color: #aab5c5; font: 400 11px/1.3 system-ui, sans-serif; }
+.flow-placement input { grid-column: 1; width: 100%; min-width: 0; height: 30px; margin: 0; accent-color: #e5bd80; cursor: pointer; touch-action: pan-y; }
+.flow-placement button { grid-column: 2; grid-row: 1 / 3; width: 44px; height: 44px; padding: 0; display: grid; place-items: center; border-radius: 11px; border: 1px solid #b7c4d52e; background: transparent; color: #c3cddc; }
+.flow-launch { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 52px; border: 1px solid #f2d5a9; border-radius: 12px; padding: 9px 12px; background: #e5bd80; color: #201b15; font: 650 14px/1.3 system-ui, sans-serif; cursor: pointer; box-shadow: inset 0 1px 0 #ffedcb60; }
+.flow-launch:hover:not(:disabled) { background: #f0cf9b; }
+.flow-launch:active:not(:disabled) { transform: translateY(1px); }
+.flow-launch:disabled { opacity: 1; background: #202b3a; border-color: #b7c4d530; color: #bac4d3; box-shadow: none; cursor: default; }
+.flow-launch-key { margin-left: 6px; padding: 2px 6px; border: 1px solid #54422c50; border-radius: 4px; font-size: 10px; font-weight: 400; }
+.flow-footer { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 8px; color: #99a7bb; font: 400 10px/1.4 system-ui, sans-serif; }
+.flow-build { white-space: nowrap; color: #7d8ca2; }
+.flow-deck button:focus-visible, .flow-command button:focus-visible, .flow-placement input:focus-visible { outline: 2px solid #f0ca8e; outline-offset: 3px; }
+.flow-family:disabled, .flow-placement button:disabled, .flow-placement input:disabled, .flow-modes button:disabled { opacity: .5; cursor: default; }
+.flow-update { position: absolute; z-index: 65; top: max(78px, calc(env(safe-area-inset-top) + 64px)); left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; max-width: calc(100% - 24px); padding: 7px 10px; background: #142234f5; color: #e7d7bd; border: 1px solid #b99c6655; border-radius: 12px; font-size: 12px; }
+.flow-update button { min-height: 40px; padding: 4px 10px; background: #e5bd80; color: #211b14; border: 0; border-radius: 8px; white-space: nowrap; }
+.controls-hidden .flow-command { opacity: 0; pointer-events: none; }
+.controls-hidden .flow-deck-wrap { opacity: 0; pointer-events: none; transform: translate(-50%, 10px); }
+@media (max-width: 700px) {
+  .fireworks-app .flow-command { left: 12px; right: 12px; top: max(10px, env(safe-area-inset-top)); grid-template-columns: 1fr auto; grid-template-areas: 'brand utilities' 'modes modes'; gap: 8px; }
+  .flow-brand { gap: 6px; }
+  .flow-brand h1 { font-size: 22px; }
+  .flow-utilities { padding: 0; gap: 0; border-radius: 12px; }
+  .flow-fullscreen { display: none !important; }
+  .flow-modes { width: 100%; padding: 3px; }
+  .flow-modes button { flex: 1; min-width: 0; padding: 0 8px; }
+  .fireworks-app .flow-deck-wrap { width: calc(100% - 20px); bottom: max(8px, env(safe-area-inset-bottom)); }
+  .flow-deck { padding: 7px 9px 8px; border-radius: 18px; }
+  .flow-families { gap: 3px; }
+  .flow-family { font-size: 11px; min-height: 61px; }
+  .flow-family-art { width: 39px; height: 33px; }
+  .flow-selection { padding-top: 7px; }
+  .flow-bottom { grid-template-columns: 1fr; gap: 2px; }
+  .flow-placement { grid-template-columns: 85px 1fr 44px; gap: 0 8px; }
+  .flow-placement label { grid-column: 1; }
+  .flow-placement input { grid-column: 2; height: 44px; }
+  .flow-placement button { grid-column: 3; grid-row: 1; }
+  .flow-launch { min-height: 50px; }
+  .flow-launch-key { display: none; }
+  .flow-footer { font-size: 9px; padding-top: 6px; }
+  .flow-status { font-size: 11px; min-height: 33px; padding-bottom: 7px; }
+  .flow-update { top: 120px; }
+}
+@media (max-height: 480px) and (min-width: 600px) {
+  .fireworks-app .flow-command { top: 8px; left: 14px; right: 14px; gap: 8px; }
+  .flow-brand h1 { font-size: 20px; }
+  .flow-brand > svg { width: 19px; }
+  .flow-modes button { padding: 0 9px; min-width: 53px; }
+  .flow-utilities { gap: 0; padding: 0; }
+  .flow-fullscreen { display: none !important; }
+  .fireworks-app .flow-deck-wrap { width: min(800px, calc(100% - 24px)); bottom: max(5px, env(safe-area-inset-bottom)); }
+  .flow-status { min-height: 23px; padding: 1px 6px 5px; font-size: 11px; }
+  .flow-deck { display: grid; grid-template-columns: 1fr 270px; column-gap: 14px; padding: 5px 9px; }
+  .flow-families { grid-column: 1; grid-row: 1 / 4; align-self: center; }
+  .flow-family { min-height: 57px; }
+  .flow-family-art { width: 38px; height: 28px; }
+  .flow-selection { grid-column: 2; font-size: 10px; padding: 0 0 3px; min-height: 20px; }
+  .flow-selection strong { font-size: 12px; }
+  .flow-bottom { grid-column: 2; grid-template-columns: 1fr; gap: 0; }
+  .flow-placement { display: none; }
+  .flow-launch { min-height: 44px; }
+  .flow-footer { grid-column: 2; padding-top: 4px; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-command, .flow-deck-wrap, .flow-launch { transition: none !important; }
+}

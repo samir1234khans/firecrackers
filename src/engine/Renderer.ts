@@ -2,6 +2,7 @@ import * as THREE from 'three/webgpu';
 import { float, mix, pass, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 import { BUDGETS, FAMILIES } from './catalog';
+import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from './LaunchGeometry';
 import type { Quality } from './catalog';
 import type { Simulation } from './Simulation';
 import { ParticleScene } from '../graphics/ParticleScene';
@@ -95,8 +96,15 @@ export class FireworkRenderer {
     resize() {
         if (this.disposed) return;
         const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight), aspect = w / h;
-        const groundPixels = h < 460 ? Math.min(142, h * .38) : w < 600 ? Math.min(295, h * .4) : 332;
-        const span = Math.max(136, 108 / aspect, 106 / (1 - groundPixels / h));
+        const hostRect = this.host.getBoundingClientRect();
+        const deck = this.host.parentElement?.querySelector('.flow-deck-wrap')?.getBoundingClientRect();
+        const header = this.host.parentElement?.querySelector('.flow-command')?.getBoundingClientRect();
+        // Frame the real free space, not a hard-coded assumption about the control deck.
+        const interactive = this.mode === 'interactive';
+        const groundPixels = interactive && deck ? Math.min(h * .58, hostRect.bottom - deck.top + 26) : h * .12;
+        const topMargin = interactive && header ? Math.max(24, header.bottom - hostRect.top + 14) : 24;
+        const skyFraction = Math.max(.24, (h - groundPixels - topMargin) / h);
+        const span = Math.max(136, 108 / aspect, 108 / skyFraction);
         const centerY = this.sim.ground + (.5 - groundPixels / h) * span;
         this.camera.aspect = aspect;
         const distance = span / (2 * Math.tan(this.camera.fov * Math.PI / 360));
@@ -116,6 +124,7 @@ export class FireworkRenderer {
         this.overlay.value = transparent ? 1 : 0;
         this.renderer.setClearColor(0x020409, transparent ? 0 : 1);
         this.host.dataset.display = mode;
+        if (this.initialized) this.resize();
     }
     setQuality(q: Quality) {
         const budget = BUDGETS[q], w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
@@ -144,17 +153,30 @@ export class FireworkRenderer {
         this.bloomPass.strength.value = BUDGETS[sim.quality].bloom * (sim.reducedFlashes ? .7 : 1);
         for (const prop of this.props) prop.group.visible = false;
         let slot = 0;
-        const place = (family: number, x: number, y: number, z: number, burn: number, contact: number, vx = 0, vy = 1, vz = 0) => {
+        let staged = 0, airborne = 0;
+        const place = (family: number, x: number, y: number, z: number, burn: number, contact: number, vx = 0, vy = 1, vz = 0, bodyOpacity = 1) => {
             const prop = this.props[slot++];
             if (!prop) return;
-            prop.group.visible = this.mode === 'interactive';
+            prop.group.visible = this.mode === 'interactive' && bodyOpacity > .002;
             prop.group.position.set(x, y, z);
             prop.group.scale.set(3.8, 3.4, 3.8);
             prop.group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(vx, vy, vz).normalize());
-            prop.update(family, burn, contact, sim.time, sim.wind);
+            prop.update(family, burn, contact, sim.time, sim.wind, bodyOpacity);
         };
-        if (sim.prepared && !sim.rockets.some(r => r.stage === 'fuse')) place(FAMILIES.findIndex(f => f.id === sim.selected), sim.placementToX(), sim.ground, 0, -.01, sim.holding ? sim.holdProgress : 0);
-        for (const r of sim.rockets) if (r.stage !== 'afterglow') place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, r.stage === 'ascent' ? r.vx : 0, r.stage === 'ascent' ? r.vy : 1, r.stage === 'ascent' ? r.vz : 0);
+        if (!sim.committed && !sim.rearming && !sim.show) {
+            place(FAMILIES.findIndex(f => f.id === sim.selected), sim.placementToX(), sim.ground, 0, -.01, sim.holding ? sim.holdProgress : 0);
+            staged++;
+        }
+        for (const r of sim.rockets) {
+            if (r.stage === 'afterglow') continue;
+            const axis = flightAxis(r);
+            const opacity = r.stage === 'ascent' ? flightBodyOpacity(r.age, r.ascent) : 1;
+            place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, ...axis, opacity);
+            if (r.stage === 'fuse') staged++; else airborne++;
+        }
+        this.host.dataset.stagedRockets = String(staged);
+        this.host.dataset.airborneRockets = String(airborne);
+        this.host.dataset.visibleRocketBodies = String(this.props.filter(prop => prop.group.visible).length);
         this.stage.update(sim, this.mode === 'interactive');
         this.environment.update(sim, this.mode !== 'transparent');
         this.projected.set(sim.placementToX(), sim.ground, 0).project(this.camera);
@@ -177,6 +199,18 @@ export class FireworkRenderer {
         this.post.render();
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;
+    }
+    diagnostics() {
+        const r = this.sim.committed;
+        const point = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
+        const projected = point ? new THREE.Vector3(...point).project(this.camera) : null;
+        return {
+            stagedRockets: Number(this.host.dataset.stagedRockets || 0),
+            airborneRockets: Number(this.host.dataset.airborneRockets || 0),
+            visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,
+            shellScreen: projected ? { x: (projected.x + 1) * this.host.clientWidth / 2, y: (1 - projected.y) * this.host.clientHeight / 2 } : null,
+            flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell: point } : null,
+        };
     }
     dispose() {
         if (this.disposed) return;

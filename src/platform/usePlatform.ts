@@ -20,6 +20,8 @@ export function usePlatform(notice: (text: string) => void) {
     const releaseWake = useCallback(() => wake.current?.release(), []);
     useEffect(() => {
         let alive = true;
+        let registration: ServiceWorkerRegistration | undefined;
+        const checkUpdate = () => { if (!document.hidden) void registration?.update().catch(() => { /* Offline is normal. */ }); };
         const api = (navigator as unknown as {
             wakeLock?: {
                 request: (type: string) => Promise<WakeToken>;
@@ -35,7 +37,8 @@ export function usePlatform(notice: (text: string) => void) {
                     setOffline(true); },
                 onNeedRefresh: () => { if (alive)
                     setUpdateReady(true); },
-                onRegisteredSW: (_url, registration) => {
+                onRegisteredSW: (_url, registered) => {
+                    registration = registered;
                     if (registration?.active)
                         void navigator.serviceWorker.ready.then(async () => {
                             try {
@@ -55,6 +58,7 @@ export function usePlatform(notice: (text: string) => void) {
         const onFullscreen = () => setFullscreen(Boolean(document.fullscreenElement));
         const onHidden = () => { if (document.hidden)
             controller.release(); };
+        window.addEventListener('focus', checkUpdate);
         window.addEventListener('beforeinstallprompt', onInstall);
         window.addEventListener('appinstalled', onInstalled);
         document.addEventListener('fullscreenchange', onFullscreen);
@@ -64,6 +68,7 @@ export function usePlatform(notice: (text: string) => void) {
             controller.dispose();
             if (wake.current === controller)
                 wake.current = null;
+            window.removeEventListener('focus', checkUpdate);
             window.removeEventListener('beforeinstallprompt', onInstall);
             window.removeEventListener('appinstalled', onInstalled);
             document.removeEventListener('fullscreenchange', onFullscreen);

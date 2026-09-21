@@ -15,6 +15,7 @@ import { parsePresentation } from './platform/presentation';
 import { PresentationSettings } from './ui/PresentationSettings';
 import { PanelNav } from './ui/PanelNav';
 import './styles/completion.css';
+import './styles/flow.css';
 
 type Overlay = 'help' | 'settings' | 'show' | 'reset' | null;
 
@@ -26,11 +27,8 @@ export default function App() {
   const [hidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
   const [notice, setNotice] = useState('');
   const host = useRef<HTMLDivElement>(null);
-  const lastActivity = useRef(Date.now());
-  const keyboard = useRef(false);
   const dragging = useRef(false);
   const revealTap = useRef(false);
-  const pinnedControls = useRef(false);
   const notify = useCallback((text: string) => setNotice(text), []);
   const world = useWorld(host, prefs, epoch, notify, presentation);
   const platform = usePlatform(notify);
@@ -40,9 +38,7 @@ export default function App() {
   const context = useRef({ overlay, prefs, state });
   context.current = { overlay, prefs, state };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
-  // An explicit reveal stays usable until the next deliberate launch/show.
-  // Three seconds is too short to race the deck transition on a slow touch device.
-  const wake = () => { if (hidden) pinnedControls.current = true; lastActivity.current = Date.now(); setHidden(false); };
+  const wake = () => setHidden(false);
   const open = (next: Overlay) => { world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
   const close = () => { setOverlay(null); world.setOverlay(false); wake(); };
   const select = (id: FamilyId) => {
@@ -60,22 +56,14 @@ export default function App() {
     return () => { delete document.documentElement.dataset.output; };
   }, [presentation.mode]);
   useEffect(() => { if (state.bursts > 0 && !prefs.onboarded) change('onboarded', true); }, [state.bursts, prefs.onboarded, change]);
+  // Keep the command deck present during interactive play. Nightfall's persistent controls are
+  // clearer after a burst and avoid the reveal-tap race that made the newer UI feel unresponsive.
   useEffect(() => {
-    const id = setInterval(() => {
-      const c = context.current;
-      if (Date.now() - lastActivity.current > 3000 && !c.overlay && !keyboard.current && !pinnedControls.current && !dragging.current && !c.state.holding && c.prefs.onboarded && c.state.launched > 0 && !c.state.paused) {
-        const focused = document.activeElement;
-        if (focused instanceof HTMLElement && focused.closest('.chrome')) focused.blur();
-        setHidden(true);
-      }
-    }, 500);
-    return () => clearInterval(id);
-  }, []);
+    if (presentation.mode === 'interactive') setHidden(false);
+  }, [presentation.mode]);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const c = context.current;
-      keyboard.current = true;
-      lastActivity.current = Date.now();
       setHidden(false);
       if (c.overlay) return;
       if (event.key === 'Escape') {
@@ -84,7 +72,7 @@ export default function App() {
       }
       if (event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea')) return;
       const w = worldRef.current;
-      if (event.repeat) return;
+      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
       if (event.key === ' ') {
         event.preventDefault();
         w.pause(!w.sim.current.paused);
@@ -112,16 +100,8 @@ export default function App() {
   const toggleSound = async () => { const active = await world.configureSound(!world.soundActive); change('sound', active); };
   const setPlacement = (value: number) => { world.sim.current.stopShow(false); world.sim.current.setPlacement(value); world.refresh(); };
   const resumeOrPause = () => { world.pause(!state.paused); if (!state.paused) platform.releaseWake(); wake(); };
-  const ignite = () => {
-    const before = world.sim.current.rockets.length;
-    world.ignite();
-    if (world.sim.current.rockets.length > before) {
-      pinnedControls.current = false;
-      lastActivity.current = Date.now();
-    }
-  };
+  const ignite = () => { setNotice(''); world.ignite(); };
   const startShow = (preset: ShowPreset) => {
-    pinnedControls.current = false;
     change('preset', preset);
     world.start(preset);
     setOverlay(null);
@@ -134,7 +114,6 @@ export default function App() {
     wake();
   };
   const reset = () => {
-    pinnedControls.current = false;
     setPresentation(p => ({ ...p, mode: 'interactive', show: null }));
     world.reset();
     void world.configureSound(false);
@@ -154,10 +133,11 @@ export default function App() {
     data-bursts={state.bursts}
     data-paused={state.paused}
     data-display={presentation.mode}
+    data-launch-block={state.launchBlock}
+    data-committed-id={state.committedId}
     className={`fireworks-app${hidden ? ' controls-hidden' : ''}${prefs.reducedMotion ? ' reduced-motion' : ''}${presentation.mode !== 'interactive' ? ' presentation-mode' : ''}`}
     onPointerMove={wake}
     onPointerDownCapture={event => {
-      keyboard.current = false;
       revealTap.current = false;
       if (overlay) return;
       if (hidden && !(event.target as HTMLElement).closest('[data-always]')) {
@@ -165,7 +145,7 @@ export default function App() {
         event.stopPropagation();
         revealTap.current = true;
         wake();
-      } else lastActivity.current = Date.now();
+      }
     }}
     onClickCapture={event => {
       if (revealTap.current) {
@@ -177,6 +157,9 @@ export default function App() {
     onFocusCapture={wake}
   >
     <div ref={host} className='scene-host' aria-hidden='true'/>
+    {platform.updateReady && !overlay && <div className='flow-update' role='status'>
+      <span>A newer sky is ready.</span><button disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>{Boolean(state.committedId) ? 'After this flight' : 'Update & restart'}</button>
+    </div>}
 
     <CinematicHUD
       selected={selected}
@@ -190,10 +173,11 @@ export default function App() {
       soundActive={world.soundActive}
       fullscreen={platform.fullscreen}
       canLight={canLight}
-      holding={state.holding}
-      holdProgress={state.holdProgress}
       placement={state.placement}
-      notice={notice || (state.message.startsWith('Let this') || state.message.startsWith('Let the') || state.launched === 0 ? state.message : '')}
+      notice={notice}
+      launchBlock={state.launchBlock}
+      committedFamily={state.committedFamily}
+      launched={state.launched}
       onPause={resumeOrPause}
       onSound={() => void toggleSound()}
       onFullscreen={() => void platform.toggleFullscreen()}
@@ -203,8 +187,6 @@ export default function App() {
       onManual={returnToManual}
       onSelect={select}
       onPlacement={setPlacement}
-      onHoldStart={() => { if (world.sim.current.beginHold()) pinnedControls.current = false; world.refresh(); }}
-      onHoldCancel={() => { if (world.sim.current.holding) pinnedControls.current = true; world.sim.current.cancelHold(); world.refresh(); }}
       onIgnite={ignite}
     />
 
@@ -226,6 +208,7 @@ export default function App() {
         onPointerMove={event => { if (dragging.current) setPlacement(world.positionFromPointer(event.clientX)); }}
         onPointerUp={() => { dragging.current = false; }}
         onPointerCancel={() => { dragging.current = false; }}
+        onLostPointerCapture={() => { dragging.current = false; }}
       />
     </div>}
 
@@ -237,13 +220,13 @@ export default function App() {
 
     {overlay === 'help' && <Dialog variant='help' title='A little spark. A whole night sky.' onClose={close}>
       <p className='intro-copy'>Take a moment out of the everyday. This night is yours to light.</p>
-      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Five different ways to fill the sky.</small></span></div><div><Hand/><span><strong>Find its place</strong><small>Drag the rocket, or use the placement controls.</small></span></div><div><Flame/><span><strong>Light it. Look up.</strong><small>Hold the ignition control, or choose Light once. Let the embers fall.</small></span></div></div>
+      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Five different ways to fill the sky.</small></span></div><div><Hand/><span><strong>Find its place</strong><small>Drag the rocket, or use the placement controls.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>One press lights the fuse. Let the rocket rise and the embers fall.</small></span></div></div>
       <Toggle label='Reduced flashes' detail='Softer light, with the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
       <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
       <p className='fine-print'>Flashing visual effects. Sound starts off. Pause is always within reach. This is a digital simulation only.</p>
       <button className='primary-button full' onClick={close}>Enter the night</button>
       <button className='text-button full' onClick={() => { change('onboarded', true); close(); }}>Skip introduction</button>
-      <details className='keyboard-help'><summary>Keyboard controls</summary><p>1–5: choose · Left/Right: place · L: light once · Space: pause · M: sound · Escape: reveal controls or close a panel. Tab moves through every control.</p></details>
+      <details className='keyboard-help'><summary>Keyboard controls</summary><p>1–5: choose · Left/Right: place · L: launch · Space: pause · M: sound · Escape: close a panel. Tab moves through every control.</p></details>
     </Dialog>}
 
     {overlay === 'show' && <Dialog variant='show' title='Let the sky take over.' onClose={close}>
@@ -253,7 +236,7 @@ export default function App() {
         { id: 'festival', name: 'Festival', description: 'A gathering of colour, rhythm and light.', icon: <Sparkles size={21}/> },
         { id: 'finale', name: 'Finale', description: 'A 32-second flourish, then a quiet sky.', icon: <Flame size={21}/> },
       ] as const).map(p => <label key={p.id} className={`preset${prefs.preset === p.id ? ' chosen' : ''}`}><input type='radio' name='preset' value={p.id} checked={prefs.preset === p.id} onChange={() => change('preset', p.id as ShowPreset)}/>{p.icon}<span><strong>{p.name}</strong><small>{p.description}</small></span></label>)}</fieldset>
-      <p className='fine-print'>Choosing a firework yourself stops automatic launches. Controls fade when idle; tap anywhere to bring them back.</p>
+      <p className='fine-print'>Choosing a firework yourself stops future automatic launches. Manual controls stay available while you watch.</p>
       <button className='primary-button full' disabled={!world.ready || Boolean(world.error)} onClick={() => startShow(prefs.preset)}>Start show <Play size={17}/></button>
       {state.show && <button className='text-button full' onClick={() => { world.sim.current.stopShow(); close(); }}>Stop automatic show</button>}
     </Dialog>}
@@ -277,14 +260,12 @@ export default function App() {
         world.setOverlay(false);
         setOverlay(null);
         setHidden(true);
-        keyboard.current = false;
-        lastActivity.current = Date.now();
-      }} onExit={() => { setPresentation(p => ({ ...p, mode: 'interactive', show: null })); world.sim.current.stopShow(); world.refresh(); wake(); }}/>
+          }} onExit={() => { setPresentation(p => ({ ...p, mode: 'interactive', show: null })); world.sim.current.stopShow(); world.refresh(); wake(); }}/>
       <div className='settings-group' id='settings-device'><h3>This device</h3>
         <Toggle label='Keep screen awake' detail={platform.awake ? 'Active while this page stays visible.' : 'Optional; released on pause or tab switch.'} checked={platform.awake} onChange={() => void platform.toggleWake()}/>
         <div className='setting-row'><span><span className='setting-label'>Offline play</span><small>{platform.offline ? 'Offline package cached on this device.' : 'Available after the offline package finishes caching.'}</small></span><span className={`status-dot${platform.offline ? ' available' : ''}`}/></div>
         <div className='button-row'><button className='secondary-button' onClick={() => void platform.installApp()}><Download size={16}/>{platform.installable ? 'Install app' : 'Installation help'}</button><button className='secondary-button' onClick={() => void platform.toggleFullscreen()}><Maximize size={16}/>Fullscreen</button></div>
-        {platform.updateReady && <button className='secondary-button full' onClick={() => { world.pause(true); void platform.applyUpdate(); }}>Update app and restart</button>}
+        {platform.updateReady && <button className='secondary-button full' disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>Update app and restart</button>}
       </div>
       <details className='diagnostics'><summary>Graphics details</summary><dl><div><dt>Renderer</dt><dd>{world.backend} · Realism V3 / UI V3</dd></div><div><dt>Build</dt><dd>{CONFIG_VERSION}</dd></div><div><dt>Render pixels</dt><dd>{world.metrics.renderPixels.toLocaleString()}</dd></div><div><dt>Active quality</dt><dd>{state.quality}</dd></div><div><dt>Visible particles</dt><dd>{state.particles.toLocaleString()}</dd></div><div><dt>Smoke layers</dt><dd>{state.smoke} / 96</dd></div><div><dt>Launched / bursts</dt><dd>{state.launched} / {state.bursts}</dd></div></dl></details>
       <p className='fine-print'>No accounts, tracking or remote media. Preferences stay in this browser. Your hosting provider may retain access logs. Offline storage can be cleared by your browser.</p>

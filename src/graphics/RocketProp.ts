@@ -16,6 +16,7 @@ export class RocketProp {
     private readonly stripes: THREE.Group;
     private readonly curve = new THREE.CubicBezierCurve3(...FUSE_POINTS.map(p => new THREE.Vector3(...p)) as [THREE.Vector3, THREE.Vector3, THREE.Vector3, THREE.Vector3]);
     private lastFamily = -1;
+    private readonly solids: THREE.Material[] = [];
     constructor(paperTexture: THREE.Texture) {
         this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0xffffff, roughness: .70, metalness: .03 });
         this.capMaterial = new THREE.MeshStandardMaterial({ color: 0xb19a74, roughness: .29, metalness: .62 });
@@ -40,8 +41,20 @@ export class RocketProp {
         this.group.add(this.body, this.cap, wood, bottom, this.stripes, fuse, this.ember, this.flame, this.lamp);
         this.ember.visible = false;
         this.flame.visible = false;
+        // Set the blending mode once, not on each frame. The detailed shell fades into
+        // its emissive point as it recedes; the physical world position never jumps.
+        this.group.traverse(object => {
+            if (!(object instanceof THREE.Mesh) || object === this.ember || object === this.flame) return;
+            for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+                if (this.solids.includes(material)) continue;
+                material.transparent = true;
+                material.depthWrite = false;
+                this.solids.push(material);
+            }
+        });
     }
-    update(family: number, burnProgress: number, contact: number, time: number, wind: number) {
+    update(family: number, burnProgress: number, contact: number, time: number, wind: number, bodyOpacity = 1) {
+        for (const material of this.solids) material.opacity = bodyOpacity;
         if (family !== this.lastFamily) {
             this.lastFamily = family;
             this.paper.color.set('#e6edf5');

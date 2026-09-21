@@ -1,13 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import type { CSSProperties, KeyboardEvent, PointerEvent } from 'react';
-import { ArrowLeft, ArrowRight, Circle, Flame, Maximize, Minimize, Pause, Play, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
-import { FAMILIES } from '../engine/catalog';
+import { Flame, Maximize, Minimize, Pause, Play, Settings2, Sparkles, Volume2, VolumeX, Crosshair } from 'lucide-react';
+import { CONFIG_VERSION, FAMILIES } from '../engine/catalog';
 import type { FamilyId, ShowPreset } from '../engine/catalog';
 import { FireworkGlyph } from './FireworkGlyph';
 
-type Family = typeof FAMILIES[number];
 type Props = {
-  selected: Family;
+  selected: typeof FAMILIES[number];
   available: boolean;
   phase: string;
   hidden: boolean;
@@ -18,10 +15,11 @@ type Props = {
   soundActive: boolean;
   fullscreen: boolean;
   canLight: boolean;
-  holding: boolean;
-  holdProgress: number;
   placement: number;
   notice: string;
+  launchBlock: string;
+  committedFamily: string;
+  launched: number;
   onPause: () => void;
   onSound: () => void;
   onFullscreen: () => void;
@@ -31,152 +29,72 @@ type Props = {
   onManual: () => void;
   onSelect: (id: FamilyId) => void;
   onPlacement: (value: number) => void;
-  onHoldStart: () => void;
-  onHoldCancel: () => void;
   onIgnite: () => void;
 };
-type FamilyMeta = { mood: string; description: string; character: [string, string, string] };
-const FAMILY_META: Record<FamilyId, FamilyMeta> = {
-  'gold-willow': { mood: 'Elegant · Lingering', description: 'A slow golden canopy that hangs, falls and leaves a warm afterglow.', character: ['Golden', 'Long trails', 'Hanging canopy'] },
-  'multicolor-peony': { mood: 'Vibrant · Joyful', description: 'A crisp spherical break with jewel-like colour and a cleaner fade.', character: ['Multicolor', 'Short trails', 'Spherical break'] },
-  'chrysanthemum': { mood: 'Bold · Radiant', description: 'Dense copper rays with stronger trailing structure and late curvature.', character: ['Copper', 'Trailing rays', 'Radial bloom'] },
-  'silver-crossette-crackle': { mood: 'Sharp · Crackling', description: 'Silver parents travel, split spatially and finish with restrained crackle.', character: ['Silver', 'Branching', 'Crackle finish'] },
-  'grand-finale': { mood: 'Epic · Layered', description: 'Visible carriers build a finite multi-stage sequence with a golden ending.', character: ['Layered', 'Multiple breaks', 'Golden ending'] },
+
+const SHORT_NAMES: Record<FamilyId, string> = {
+  'gold-willow': 'Willow',
+  'multicolor-peony': 'Peony',
+  'chrysanthemum': 'Chrysanth.',
+  'silver-crossette-crackle': 'Crossette',
+  'grand-finale': 'Finale',
 };
 
-export function CinematicHUD({ selected, available, phase, hidden, reducedMotion, selectedId, show, paused, soundActive, fullscreen, canLight, holding, holdProgress, placement, notice, onPause, onSound, onFullscreen, onSettings, onShowDialog, onStartShow, onManual, onSelect, onPlacement, onHoldStart, onHoldCancel, onIgnite }: Props) {
-  const meta = FAMILY_META[selectedId];
-  const [holdHint, setHoldHint] = useState(false);
-  const gesture = useRef<{ stamp: number; pointer: number | null; family: FamilyId } | null>(null);
-  const cancelRef = useRef(onHoldCancel);
-  cancelRef.current = onHoldCancel;
-  // A context change invalidates the old press, including an already committed fuse.
-  useEffect(() => { gesture.current = null; }, [available, canLight, hidden, paused, selectedId]);
-  useEffect(() => {
-    const cancel = () => {
-      if (!gesture.current) return;
-      gesture.current = null;
-      cancelRef.current();
-    };
-    window.addEventListener('blur', cancel);
-    document.addEventListener('visibilitychange', cancel);
-    return () => {
-      gesture.current = null;
-      window.removeEventListener('blur', cancel);
-      document.removeEventListener('visibilitychange', cancel);
-    };
-  }, []);
-  const cancelHold = () => { gesture.current = null; onHoldCancel(); };
-  const finishHold = (stamp: number, pointer: number | null) => {
-    const press = gesture.current;
-    if (!press || press.pointer !== pointer) return;
-    gesture.current = null;
-    // GPU stalls can leave the bounded simulation clock behind a real 650 ms hold.
-    // Reconcile on release using event timestamps, not delayed event-handler time.
-    // No extra timer can ignite after pointer cancellation, blur or a tab switch.
-    const elapsed = stamp - press.stamp;
-    const eligible = canLight && !paused && !hidden && !document.hidden && press.family === selectedId;
-    if (eligible && Number.isFinite(elapsed) && elapsed >= 650) onIgnite();
-    else if (eligible && elapsed >= 0) setHoldHint(true);
-    onHoldCancel();
-  };
-  const stageLabel = paused ? 'Scene paused' : !available ? 'Preparing sky' : phase === 'fuse' ? 'Fuse is burning' : phase === 'thrust' || phase === 'coast' ? 'Watch it rise' : 'Ready to light';
-  const holdStyle = { '--ignite-progress': `${Math.min(1, holdProgress) * 100}%` } as CSSProperties;
-  const statusText = paused ? 'Scene paused. Tap Resume to continue.'
-    : phase === 'fuse' ? 'Fuse lit. Watch the sky.'
-    : phase === 'thrust' || phase === 'coast' ? 'Rising. The burst is next.'
-    : holdHint && canLight && !holding ? 'Hold for 0.7 seconds, or tap Light once.'
-    : notice;
-  const startHold = (event: PointerEvent<HTMLButtonElement>) => {
-    if (event.button !== 0 || !event.isPrimary || !canLight || gesture.current) return;
-    event.preventDefault();
-    event.currentTarget.focus({ preventScroll: true });
-    event.currentTarget.setPointerCapture(event.pointerId);
-    gesture.current = { stamp: event.timeStamp, pointer: event.pointerId, family: selectedId };
-    setHoldHint(false);
-    onHoldStart();
-  };
-  const keyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (!canLight || event.repeat) return;
-    if (event.key === 'Enter') {
-      event.preventDefault(); event.stopPropagation();
-      cancelHold(); setHoldHint(false); onIgnite();
-    }
-    if (event.key === ' ' && !gesture.current) {
-      event.preventDefault(); event.stopPropagation();
-      gesture.current = { stamp: event.timeStamp, pointer: null, family: selectedId };
-      setHoldHint(false); onHoldStart();
-    }
-  };
-  const keyUp = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key !== ' ') return;
-    event.preventDefault(); event.stopPropagation();
-    finishHold(event.timeStamp, null);
-  };
+/** Persistent controls; the launch state and the selected next family are separate. */
+export function CinematicHUD({ selected, available, phase, hidden, reducedMotion, selectedId, show, paused, soundActive, fullscreen, canLight, placement, notice, launchBlock, committedFamily, launched, onPause, onSound, onFullscreen, onSettings, onShowDialog, onStartShow, onManual, onSelect, onPlacement, onIgnite }: Props) {
+  const busy = launchBlock === 'busy';
+  const next = Boolean(committedFamily) && selected.name !== committedFamily;
+  const status = !available ? 'Preparing the sky…'
+    : paused ? 'Paused. Resume to continue the same firework.'
+    : phase === 'fuse' ? `${committedFamily || selected.name}: fuse lit.`
+    : phase === 'thrust' ? `${committedFamily || selected.name}: lifting off.`
+    : phase === 'coast' ? `${committedFamily || selected.name}: coasting to the burst.`
+    : phase === 'burst' ? 'Bursting. Preparing the next firework…'
+    : launchBlock === 'capacity' ? 'Let the sky clear a little before the next launch.'
+    : show ? `${show === 'calm' ? 'Calm' : show === 'festival' ? 'Festival' : 'Finale'} show is running. Select a style for manual play.`
+    : notice || (launched > 0 ? 'Ready again. Let the embers fall, or launch another.' : 'Choose a style, set its position, then launch.');
+  const action = !available ? 'Preparing sky…' : paused ? 'Scene paused' : phase === 'fuse' ? 'Fuse lit'
+    : phase === 'thrust' || phase === 'coast' ? 'Watch it rise' : busy ? 'Preparing next…'
+    : launchBlock === 'capacity' ? 'Waiting for a clear sky' : 'Launch firework';
+
   return <>
-    <header inert={hidden || undefined} className='hud-command chrome' aria-label='Firecrackers command deck'>
-      <div className='hud-brand'>
-        <span className='hud-brand-mark' aria-hidden='true'><Sparkles size={24} strokeWidth={1.35}/></span>
-        <span><h1>Firecrackers</h1><small>Cinematic fireworks</small></span>
+    <header inert={hidden || undefined} className='hud-command flow-command chrome' aria-label='Firecrackers command deck'>
+      <div className='flow-brand'><Sparkles size={23} strokeWidth={1.4}/><h1>Firecrackers<span>.</span></h1></div>
+      <div className='flow-utilities' aria-label='Scene controls'>
+        <button aria-label={soundActive ? 'Mute sound' : 'Enable sound'} title={soundActive ? 'Mute sound' : 'Enable sound'} onClick={onSound}>{soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
+        <button aria-label={paused ? 'Resume scene' : 'Pause scene'} title={paused ? 'Resume' : 'Pause'} onClick={onPause}>{paused ? <Play size={18}/> : <Pause size={18}/>}</button>
+        <button className='flow-fullscreen' aria-label={fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} title='Fullscreen' onClick={onFullscreen}>{fullscreen ? <Minimize size={18}/> : <Maximize size={18}/>}</button>
+        <button aria-label='Open settings' title='Settings' onClick={onSettings}><Settings2 size={18}/></button>
       </div>
-      <nav className='hud-mode-rail glass' aria-label='Show mode'>
+      <nav className='flow-modes' aria-label='Show mode'>
         <button className={!show ? 'active' : ''} aria-pressed={!show} disabled={!available} onClick={onManual}>Manual</button>
-        <button aria-label='Automatic show' className={show === 'calm' ? 'active' : ''} aria-pressed={show === 'calm'} aria-haspopup='dialog' disabled={!available} onClick={onShowDialog}>Auto show</button>
+        <button aria-label='Automatic show' aria-haspopup='dialog' className={show === 'calm' ? 'active' : ''} aria-pressed={show === 'calm'} disabled={!available} onClick={onShowDialog}>Auto show</button>
         <button className={show === 'festival' ? 'active' : ''} aria-pressed={show === 'festival'} disabled={!available} onClick={() => onStartShow('festival')}>Festival</button>
         <button className={show === 'finale' ? 'active' : ''} aria-pressed={show === 'finale'} disabled={!available} onClick={() => onStartShow('finale')}>Finale</button>
       </nav>
-      <div className='hud-utilities glass' aria-label='Scene controls'>
-        <button className={soundActive ? 'active' : ''} aria-label={soundActive ? 'Mute sound' : 'Enable sound'} title={soundActive ? 'Sound on' : 'Sound off'} onClick={onSound}>
-          {soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}<span>{soundActive ? 'Sound' : 'Muted'}</span>
-        </button>
-        <button aria-label={paused ? 'Resume scene' : 'Pause scene'} title={paused ? 'Resume' : 'Pause'} onClick={onPause}>
-          {paused ? <Play size={18}/> : <Pause size={18}/>}<span>{paused ? 'Resume' : 'Pause'}</span>
-        </button>
-        <button className='hud-utility-icon' aria-label={fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} onClick={onFullscreen}>{fullscreen ? <Minimize size={18}/> : <Maximize size={18}/>}</button>
-        <button className='hud-utility-icon' aria-label='Open settings' onClick={onSettings}><Settings2 size={19}/></button>
-      </div>
     </header>
-    <aside className='hud-inspector glass chrome' aria-label={`${selected.name} details`}>
-      <span className='hud-inspector-glint' aria-hidden='true'/>
-      <div className='hud-inspector-preview'><FireworkGlyph family={selectedId} color={selected.color}/></div>
-      <p className='hud-inspector-overline'>Selected firework</p>
-      <h2>{selected.name}</h2>
-      <p className='hud-inspector-mood'>{meta.mood}</p>
-      <p className='hud-inspector-copy'>{meta.description}</p>
-      <div className='hud-character' aria-label='Effect character'>{meta.character.map(item => <span key={item}>{item}</span>)}</div>
-    </aside>
-    <section inert={hidden || undefined} className='hud-deck-wrap chrome' aria-label='Firework controls'>
-      <div className='hud-status' role='status' aria-live='polite'>{statusText}</div>
-      <div className='hud-deck glass'>
-        <div className='hud-family-rail' role='group' aria-label='Five firework styles'>
-          {FAMILIES.map(family => {
-            const familyMeta = FAMILY_META[family.id];
-            const chosen = selectedId === family.id;
-            return <button key={family.id} className={`hud-family${chosen ? ' selected' : ''}`} aria-label={family.name} aria-pressed={chosen} title={family.name} disabled={!available} onClick={() => onSelect(family.id)}>
-              <span className='hud-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
-              <span className='hud-family-copy'><strong>{family.short}</strong><small>{familyMeta.mood}</small></span>
-              <span className='hud-family-selected' aria-hidden='true'/>
-            </button>;
-          })}
+
+    <section inert={hidden || undefined} className={`hud-deck-wrap flow-deck-wrap chrome${reducedMotion ? ' still' : ''}`} aria-label='Firework controls'>
+      <div className='flow-status' role='status' aria-live='polite'>{status}</div>
+      <div className='flow-deck'>
+        <div className='flow-families' role='group' aria-label='Five firework styles'>
+          {FAMILIES.map(family => <button key={family.id} className={`flow-family${family.id === selectedId ? ' selected' : ''}`} aria-label={family.name} aria-pressed={family.id === selectedId} title={family.name} disabled={!available} onClick={() => onSelect(family.id)}>
+            <span className='flow-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
+            <span>{SHORT_NAMES[family.id]}</span>
+          </button>)}
         </div>
-        <div className='hud-action-row'>
-          <div className='hud-placement' role='group' aria-label='Firework placement'>
-            <span className='hud-control-label'>Position</span>
-            <button aria-label='Place firework left' disabled={!canLight} onClick={() => onPlacement(0.28)}><ArrowLeft size={15}/></button>
-            <input aria-label='Firework position' type='range' min='20' max='80' step='1' value={Math.round(placement * 100)} disabled={!canLight} onChange={event => onPlacement(Number(event.target.value) / 100)}/>
-            <button aria-label='Place firework center' disabled={!canLight} onClick={() => onPlacement(0.5)}><Circle size={8}/></button>
-            <button aria-label='Place firework right' disabled={!canLight} onClick={() => onPlacement(0.72)}><ArrowRight size={15}/></button>
+        <div className='flow-selection'><span>{next ? 'Next' : 'Selected'}</span><strong>{selected.name}</strong></div>
+        <div className='flow-bottom'>
+          <div className='flow-placement'>
+            <label htmlFor='launch-position'>Launch position</label>
+            <input id='launch-position' aria-label='Firework position' type='range' min='20' max='80' step='1' value={Math.round(placement * 100)} disabled={!canLight || Boolean(show)} onChange={event => onPlacement(Number(event.target.value) / 100)}/>
+            <button aria-label='Place firework center' title='Center the firework' disabled={!canLight || Boolean(show)} onClick={() => onPlacement(.5)}><Crosshair size={18}/></button>
           </div>
-          <div className='hud-ignite-shell'>
-            <button className={`hud-ignite${holding ? ' holding' : ''}${reducedMotion ? ' still' : ''}`} aria-label='Hold to light selected firework' disabled={!canLight} style={holdStyle} onPointerDown={startHold} onPointerUp={event => finishHold(event.timeStamp, event.pointerId)} onPointerCancel={cancelHold} onLostPointerCapture={cancelHold} onBlur={cancelHold} onKeyDown={keyDown} onKeyUp={keyUp}>
-              <span className='hud-ignite-core'><Flame size={22}/><strong>{holding ? 'Release to cancel' : 'Hold to ignite'}</strong><small>{holding ? 'Fuse contact' : stageLabel}</small></span>
-            </button>
-          </div>
-          <div className='hud-quick-action'>
-            <span className='hud-control-label'>Quick light</span>
-            <button className='hud-light-once' aria-label='Light once' onClick={() => { setHoldHint(false); onIgnite(); }} disabled={!canLight}><Flame size={15}/><span>Light once</span></button>
-          </div>
+          <button className='flow-launch' aria-label='Launch selected firework' aria-describedby='launch-feedback' disabled={!canLight} onKeyDown={event => { if (event.repeat && (event.key === 'Enter' || event.key === ' ')) event.preventDefault(); }} onClick={onIgnite}>
+            <Flame size={20}/><span>{action}</span><span className='flow-launch-key' aria-hidden='true'>L</span>
+          </button>
         </div>
+        <div className='flow-footer'><span id='launch-feedback'>{busy ? 'One rocket in flight · your next selection is kept' : paused ? 'Time is stopped' : 'One press · one firework'}</span><span className='flow-build' title='Current build'>{CONFIG_VERSION}</span></div>
       </div>
     </section>
   </>;

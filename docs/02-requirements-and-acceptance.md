@@ -47,3 +47,8 @@ Status: specification, not a test result. All numbered requirements are mandator
 All state-changing input must be idempotent under double clicks, pointer cancellation, key repeat, resize, and tab switching. Settings remain operable while the scene is paused. Flash reduction and user pause override automatic-show choreography. Background means decorative content in a visible app, not guaranteed execution under the operating-system lock screen.
 
 Derived defaults such as numeric particle budgets may change after profiling without reopening the product scope. Removing a family, a manual gesture stage, an accessibility path, or a browser fallback is a product decision and requires an explicit decision-register change.
+
+
+## Video-flow repair amendment — 21 September 2026
+
+For build `2026-09-21.2`, the manual primary action is a single press, not a hold gesture. A committed rocket owns the platform through fuse and ascent; a short rearm follows the primary break. Next-family selection is allowed without mutating the current flight. Controls remain visible in interactive mode. Resource admission includes future particle reservations but no fictitious launch occupancy from afterglow-only records. See [the video-flow plan](video-flow/PLAN.md) and [validation contract](video-flow/VALIDATION.md) for acceptance and test scope.

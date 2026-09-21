@@ -93,7 +93,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 const targetFps = display.current.fps === 30 || state.quality === 'low' ? 30 : 60;
                 // The empty observatory is static. Redraw selection/placement immediately,
                 // but do not shade the same idle floor and bloom graph sixty times a second.
-                const visualState = `${state.selected}:${state.placement}:${state.quality}:${state.reducedFlashes}:${display.current.mode}`;
+                const visualState = `${state.selected}:${state.placement}:${state.quality}:${state.reducedFlashes}:${display.current.mode}:${state.rearming}:${Boolean(state.committed)}`;
                 const moving = state.holding || state.heads.count > 0 || state.trails.count > 0 ||
                     state.smoke.count > 0 || state.embers.count > 0 || state.cues.length > 0 ||
                     state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
@@ -150,6 +150,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             intent.current.block('hidden', document.hidden);
             syncPause();
         };
+        const bounds = new ResizeObserver(resize);
+        if (host.current) bounds.observe(host.current);
+        for (const element of host.current?.parentElement?.querySelectorAll('.flow-command, .flow-deck-wrap') || []) bounds.observe(element);
         window.addEventListener('resize', resize);
         document.addEventListener('visibilitychange', onVisibility);
         void import('./Renderer').then(async (module) => {
@@ -178,7 +181,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics }),
+                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics() }),
                     freeze: (value: boolean) => { captureFrozen = Boolean(value); last = 0; },
                     advance: (seconds: number) => {
                         if (!Number.isFinite(seconds) || seconds < 0 || seconds > 120)
@@ -204,6 +207,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             alive.current = false;
             soundRequest.current++;
             cancelAnimationFrame(frame);
+            bounds.disconnect();
             window.removeEventListener('resize', resize);
             document.removeEventListener('visibilitychange', onVisibility);
             delete (window as unknown as {

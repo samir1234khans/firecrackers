@@ -1,3 +1,5 @@
+> **Video-flow repair:** Build `2026-09-21.2` is being qualified on `fix/video-launch-flow`. See [the repair plan](docs/video-flow/PLAN.md) and [the current validation contract](docs/video-flow/VALIDATION.md). Manual launch is one press; the platform stays empty during flight and re-arms after the primary break. The historical delivery record below describes the previous release.
+
 # Firecrackers
 
 An interactive, single-screen festival night: choose a firework, place it, light its fuse, watch it rise, and stay for the falling embers. Realism V3 combines a spatial launch stage with a restrained cinematic glass interface.
