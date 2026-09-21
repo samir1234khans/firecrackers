@@ -1,0 +1,26 @@
+name: Viewability source checkpoint
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/viewability-recovery]
+    paths: [.github/workflows/viewability-source.yml]
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Archive the exact tracked source only
+        run: |
+          mkdir -p /tmp/firecrackers-source
+          git archive HEAD | gzip > /tmp/firecrackers-source/source.tar.gz
+          git rev-parse HEAD > /tmp/firecrackers-source/SOURCE_COMMIT.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: viewability-source
+          path: /tmp/firecrackers-source/
+          retention-days: 3
