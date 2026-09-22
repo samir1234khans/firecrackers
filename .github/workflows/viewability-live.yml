@@ -2,7 +2,7 @@ name: Published viewability and launch verification
 on:
   push:
     branches: [fix/viewability-recovery]
-    paths: [.github/workflows/viewability-live.yml]
+    paths: [.github/workflows/viewability-live.yml, tests/video-flow-browser.mjs]
   workflow_dispatch:
 permissions:
   contents: read

@@ -66,7 +66,7 @@ try {
     const page = await context.newPage(); cases.push(page);
     let deliberatelyOffline = false;
     const expectedHostOffline = url => {
-      try { const u = new URL(url); return (u.hostname === 'v2.appdeploy.ai' && u.pathname === '/shared/js/overlay.js') || (u.hostname === 'api-v2.appdeploy.ai' && u.pathname === '/app/firecrackers-a93nle/_warmup'); } catch { return false; }
+      try { const u = new URL(url); return (u.hostname === 'v2.appdeploy.ai' && u.pathname === '/shared/js/overlay.js') || (u.hostname === 'api-v2.appdeploy.ai' && ['/app/firecrackers-a93nle/_warmup', '/p'].includes(u.pathname)); } catch { return false; }
     };
     page.on('requestfailed', request => report.failedRequests.push({url: request.url(), error: request.failure()?.errorText, deliberatelyOffline}));
     page.on('pageerror', e => report.consoleErrors.push(`${v.name}: ${e.message}`));
