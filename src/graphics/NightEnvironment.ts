@@ -134,8 +134,8 @@ export class NightEnvironment {
     const image = c.createImageData(512, 512), rand = randomStream(1773);
     for (let i = 0; i < image.data.length; i += 4) {
       const grain = rand() * 4;
-      image.data[i] = 15 + grain; image.data[i + 1] = 20 + grain;
-      image.data[i + 2] = 28 + grain; image.data[i + 3] = 255;
+      image.data[i] = 27 + grain; image.data[i + 1] = 35 + grain;
+      image.data[i + 2] = 47 + grain; image.data[i + 3] = 255;
     }
     c.putImageData(image, 0, 0);
     c.fillStyle = '#080c13'; c.fillRect(0, 0, 512, 3); c.fillRect(0, 0, 3, 512);

@@ -109,3 +109,15 @@
 @media (prefers-reduced-motion: reduce) {
   .flow-command, .flow-deck-wrap, .flow-launch { transition: none !important; }
 }
+
+/* Keep host preview chrome outside the app's actual touch targets.
+   Do not hide the host toolbar or bypass hit testing. */
+@media (max-width: 700px), (max-height: 480px) {
+  .fireworks-app[data-hosted-preview='true'] .flow-deck-wrap {
+    bottom: max(72px, calc(env(safe-area-inset-bottom) + 12px));
+  }
+  .fireworks-app[data-hosted-preview='true'] .sheet {
+    max-height: calc(100dvh - 100px);
+    margin: 12px auto 88px;
+  }
+}

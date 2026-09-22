@@ -36,6 +36,8 @@ export function canonicalSource(path, text) {
 
 export async function generateRelease() {
   const paths = [
+    'src/bootstrap.ts', 'src/main.tsx', 'src/ui/AppBoundary.tsx', 'src/styles/recovery.css',
+    'src/engine/RendererPort.ts', 'src/engine/RendererRecovery.ts', 'src/graphics/CompatibilityRenderer.ts',
     'src/App.tsx', 'src/engine/FusePath.ts', 'src/engine/LaunchGeometry.ts', 'src/engine/Renderer.ts',
     'src/engine/Simulation.ts', 'src/engine/VisibleFrame.ts', 'src/engine/catalog.ts',
     'src/engine/useWorld.ts', 'src/platform/usePlatform.ts', 'src/graphics/LaunchStage.ts',

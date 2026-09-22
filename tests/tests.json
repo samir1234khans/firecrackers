@@ -3,116 +3,41 @@
     "name": "One press produces one complete rocket and a usable next launch",
     "sanity": true,
     "viewport": "desktop",
-    "covers": [
-      "onboarding",
-      "single-action launch",
-      "fuse",
-      "powered climb and coast",
-      "visible primary burst",
-      "no duplicate staged rocket",
-      "capacity and busy guard",
-      "persistent post-burst controls",
-      "build identity"
-    ],
+    "covers": ["onboarding", "single-action launch", "fuse", "powered climb and coast", "visible primary burst", "no duplicate staged rocket", "capacity and busy guard", "persistent post-burst controls", "build identity", "readable loading shell", "renderer fallback"],
     "description": "Verify the primary workflow through actual visible effects, not only a changing counter.",
-    "steps": [
-      "Enter the night and select Gold Willow.",
-      "Press Launch firework once. Try a second immediate activation; it must not add another rocket.",
-      "Observe the same rocket leave an empty platform, become a moving glow, coast and burst.",
-      "Wait for the launch action to re-enable, select Peony and launch again. Inspect the visible build identifier."
-    ],
-    "expected": "Exactly one rocket is admitted per ready action; no full-sized replacement appears during ascent. Both complete sequences render, controls remain accessible and the build reads 2026-09-21.2."
+    "steps": ["Enter the night and select Gold Willow.", "Press Launch firework once. Try a second immediate activation; it must not add another rocket.", "Observe the same rocket leave an empty platform, become a moving glow, coast and burst.", "Wait for the launch action to re-enable, select Peony and launch again. Inspect the visible build identifier.", "Open compatibility mode from Settings and launch again. The scene must remain playable with a visible compatibility label."],
+    "expected": "Exactly one rocket is admitted per ready action; no full-sized replacement appears during ascent. Both complete sequences render, controls remain accessible and the build reads 2026-09-22.1."
   },
   {
     "name": "Select the next family without changing a mobile flight",
     "viewport": "mobile",
-    "covers": [
-      "five family identities",
-      "full next-selection name",
-      "mobile touch targets",
-      "position lock",
-      "orientation change",
-      "shared exhaust and burst positions",
-      "rapid-tap rejection"
-    ],
+    "covers": ["five family identities", "full next-selection name", "mobile touch targets", "position lock", "orientation change", "shared exhaust and burst positions", "rapid-tap rejection"],
     "description": "The current flight and the selected next firework remain distinct.",
-    "steps": [
-      "Select Chrysanthemum and launch.",
-      "During the lit fuse, select Silver Crossette Crackle. Verify the active rocket stays Chrysanthemum and launch/position remain locked.",
-      "Observe that the detailed body gives way to a continuous moving point before the break.",
-      "After the break, launch the saved next selection. Repeat with the other families.",
-      "Inspect portrait and short-landscape controls; open and close settings in landscape."
-    ],
+    "steps": ["Select Chrysanthemum and launch.", "During the lit fuse, select Silver Crossette Crackle. Verify the active rocket stays Chrysanthemum and launch/position remain locked.", "Observe that the detailed body gives way to a continuous moving point before the break.", "After the break, launch the saved next selection. Repeat with the other families.", "Inspect portrait and short-landscape controls; open and close settings in landscape."],
     "expected": "Selection never mutates a committed rocket. All five effects remain available, full names are visible in the caption, and usable controls do not overlap or disappear."
   },
   {
     "name": "Pause the same rocket and take over from automatic playback",
     "viewport": "desktop",
-    "covers": [
-      "pause and resume",
-      "settings pause ownership",
-      "hidden-tab pause",
-      "automatic presets",
-      "finite finale",
-      "manual takeover",
-      "keyboard activation",
-      "negative input guard"
-    ],
+    "covers": ["pause and resume", "settings pause ownership", "hidden-tab pause", "automatic presets", "finite finale", "manual takeover", "keyboard activation", "negative input guard"],
     "description": "Playback ownership and state transitions remain coherent.",
-    "steps": [
-      "Launch and pause during ascent; wait and confirm no movement or burst while paused.",
-      "Open and close settings; verify manual pause persists. Resume the same flight.",
-      "Start Festival, then select a family; verify future automatic launches stop while the committed effect finishes.",
-      "Use keyboard launch for the next effect. Start Finale and observe the finite show finish.",
-      "Switch away from the tab and return; verify explicit Resume rather than fast-forwarded effects."
-    ],
+    "steps": ["Launch and pause during ascent; wait and confirm no movement or burst while paused.", "Open and close settings; verify manual pause persists. Resume the same flight.", "Start Festival, then select a family; verify future automatic launches stop while the committed effect finishes.", "Use keyboard launch for the next effect. Start Finale and observe the finite show finish.", "Switch away from the tab and return; verify explicit Resume rather than fast-forwarded effects."],
     "expected": "Pause freezes the same physical state, takeover preserves committed effects, Finale stops scheduling, and keyboard or tab transitions do not create unintended launches."
   },
   {
     "name": "Retain settings and offer truthful device and recovery actions",
     "viewport": "mobile",
-    "covers": [
-      "graphics quality",
-      "reduced flashes and motion",
-      "sound opt-in",
-      "haptics capability",
-      "fullscreen capability",
-      "wake lock",
-      "installation feedback",
-      "preferences persistence",
-      "reset confirmation",
-      "graphics recovery",
-      "explicit update"
-    ],
+    "covers": ["graphics quality", "reduced flashes and motion", "sound opt-in", "haptics capability", "fullscreen capability", "wake lock", "installation feedback", "preferences persistence", "reset confirmation", "graphics recovery", "explicit update"],
     "description": "Keep existing settings and recovery usable after the control rewrite.",
-    "steps": [
-      "Open settings. Verify sound is initially off and Reduced flashes remains enabled. Change graphics quality and reduced interface motion.",
-      "Activate and mute sound. Inspect installation, fullscreen, haptics and keep-awake actions; unsupported actions should explain their status.",
-      "Reload and confirm saved graphics choices and silent startup.",
-      "Choose Reset this sky, cancel, then confirm a reset; verify cancellation preserves choices and confirmation starts a fresh scene.",
-      "Check the build identifier and any available Update action; do not restart a committed flight automatically."
-    ],
+    "steps": ["Open settings. Verify sound is initially off and Reduced flashes remains enabled. Change graphics quality and reduced interface motion.", "Activate and mute sound. Inspect installation, fullscreen, haptics and keep-awake actions; unsupported actions should explain their status.", "Reload and confirm saved graphics choices and silent startup.", "With the host preview toolbar present, scroll settings to the bottom and choose Reset this sky; it must be reachable without hiding the toolbar. Cancel, then confirm a reset; verify cancellation preserves choices and confirmation starts a fresh scene.", "Check the build identifier and any available Update action; do not restart a committed flight automatically."],
     "expected": "Settings persist, sensitive device features require explicit action or give capability feedback, reset requires confirmation, and the latest build can be identified without guessing from the URL."
   },
   {
     "name": "Use offline and protected display output, then return to manual",
     "viewport": "desktop",
-    "covers": [
-      "PWA offline cold reload",
-      "transparent output",
-      "protected rectangle",
-      "display links",
-      "silent display startup",
-      "30/60 fps settings",
-      "manual return"
-    ],
+    "covers": ["PWA offline cold reload", "transparent output", "protected rectangle", "display links", "silent display startup", "30/60 fps settings", "manual return", "graphics recovery actions", "startup failure recovery"],
     "description": "Output modes and offline functionality remain separate from the manual deck.",
-    "steps": [
-      "Allow offline caching, disconnect and reload the production app; verify manual controls load.",
-      "Reconnect and create a transparent protected display link with 30 fps target.",
-      "Open the link and observe the transparent output with no persistent command deck or autoplay sound.",
-      "Reveal controls, change display settings and return to interactive sky. Launch a selected firework."
-    ],
+    "steps": ["Allow offline caching, disconnect and reload the production app; verify manual controls load.", "Reconnect and create a transparent protected display link with 30 fps target.", "Open the link and observe the transparent output with no persistent command deck or autoplay sound.", "Reveal controls, change display settings and return to interactive sky. Launch a selected firework.", "Open Settings and inspect the active renderer and compatibility-mode link. Confirm device feedback is readable inside the settings panel."],
     "expected": "The cached build works offline; the link preserves display configuration and silent startup, and returning to manual restores the complete launch flow. Physical OBS and hardware FPS remain separate qualification checks."
   }
 ]

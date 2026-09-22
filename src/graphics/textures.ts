@@ -60,8 +60,8 @@ export function makePaperTexture() {
     const rand = randomStream(74291), image = c.createImageData(512, 1024);
     for (let y = 0; y < 1024; y++) for (let x = 0; x < 512; x++) {
         const i = (y * 512 + x) * 4, grain = rand() * 10 + Math.sin(y * .32) * 1.4;
-        image.data[i] = 48 + grain; image.data[i + 1] = 59 + grain;
-        image.data[i + 2] = 74 + grain; image.data[i + 3] = 255;
+        image.data[i] = 66 + grain; image.data[i + 1] = 80 + grain;
+        image.data[i + 2] = 99 + grain; image.data[i + 3] = 255;
     }
     c.putImageData(image, 0, 0);
     c.lineWidth = 1.2; c.strokeStyle = 'rgba(228,187,121,.78)';

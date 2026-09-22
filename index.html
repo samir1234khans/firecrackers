@@ -8,10 +8,31 @@
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
     <title>Firecrackers</title>
+    <style>
+      html,body{margin:0;background:#040a14;color:#e9ecf1;font-family:system-ui,sans-serif}
+      .boot-shell{box-sizing:border-box;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;background:radial-gradient(ellipse at 50% 75%,#14273a,#040a14 72%)}
+      .boot-label{color:#e5bd80;letter-spacing:.15em;font-size:13px;text-transform:uppercase}
+      .boot-shell h1{font:400 clamp(30px,5vw,54px)/1.12 Georgia,serif;margin:18px 0}
+      .boot-shell p{max-width:480px;line-height:1.6}
+      .boot-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:20px}
+      .boot-actions[hidden]{display:none}
+      .boot-actions a,.boot-actions button{box-sizing:border-box;background:#e5bd80;color:#211a13;min-height:46px;border:0;border-radius:10px;padding:13px 18px;text-decoration:none;font:600 14px/1.4 system-ui;cursor:pointer}
+      .boot-actions a:focus-visible,.boot-actions button:focus-visible{outline:3px solid white;outline-offset:4px}
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <section class="boot-shell" id="boot-shell" role="status">
+        <p class="boot-label">Firecrackers</p>
+        <h1>A little spark.<br />A whole night sky.</h1>
+        <p id="boot-message">Opening your sky…</p>
+        <div id="boot-recovery" class="boot-actions">
+          <a href="./">Reload website</a>
+          <a href="?backend=canvas">Open compatibility mode</a>
+        </div>
+      </section>
+    </div>
     <noscript>This interactive fireworks simulation needs JavaScript. It uses no accounts or tracking.</noscript>
-    <script type="module" src="./src/main.tsx"></script>
+    <script type="module" src="./src/bootstrap.ts"></script>
   </body>
 </html>

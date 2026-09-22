@@ -19,6 +19,7 @@
     "src/platform/WakeLockController.ts",
     "src/platform/presentation.ts",
     "src/engine/QualityGovernor.ts",
-    "src/engine/VisibleFrame.ts"
+    "src/engine/VisibleFrame.ts",
+    "src/engine/RendererRecovery.ts"
   ]
 }

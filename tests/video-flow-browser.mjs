@@ -1,6 +1,6 @@
 import { chromium } from 'playwright';
 import { strict as assert } from 'node:assert';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 
@@ -10,7 +10,8 @@ const base = process.env.VIDEO_FLOW_URL || 'http://127.0.0.1:4173/';
 const only = process.env.VIDEO_FLOW_PROJECT || '';
 await mkdir(output, { recursive: true });
 let server, browser;
-const report = { url: base, build: '2026-09-21.2', browser: 'Chromium / software WebGL 2', checks: [], consoleErrors: [], warnings: [], screenshots: [], failed: null };
+const build = (await readFile('src/engine/catalog.ts', 'utf8')).match(/CONFIG_VERSION\s*=\s*'([^']+)'/)[1];
+const report = { url: base, build, browser: 'Chromium / software WebGL 2', checks: [], consoleErrors: [], expectedHostOfflineErrors: [], failedRequests: [], warnings: [], screenshots: [], failed: null };
 const cases = [];
 const record = (name, details = {}) => { report.checks.push({ name, result: 'passed', ...details }); console.log('PASS', name, JSON.stringify(details)); };
 const shot = async (page, name) => { await page.screenshot({ path: path.join(output, `${name}.png`) }); report.screenshots.push(`${name}.png`); };
@@ -63,8 +64,19 @@ try {
   for (const v of viewports) {
     const context = await browser.newContext({ viewport: { width: v.width, height: v.height }, hasTouch: v.mobile, isMobile: v.mobile, deviceScaleFactor: 1, recordVideo: { dir: path.join(output, 'videos'), size: { width: v.width, height: v.height } } });
     const page = await context.newPage(); cases.push(page);
+    let deliberatelyOffline = false;
+    const expectedHostOffline = url => {
+      try { const u = new URL(url); return (u.hostname === 'v2.appdeploy.ai' && u.pathname === '/shared/js/overlay.js') || (u.hostname === 'api-v2.appdeploy.ai' && u.pathname === '/app/firecrackers-a93nle/_warmup'); } catch { return false; }
+    };
+    page.on('requestfailed', request => report.failedRequests.push({url: request.url(), error: request.failure()?.errorText, deliberatelyOffline}));
     page.on('pageerror', e => report.consoleErrors.push(`${v.name}: ${e.message}`));
-    page.on('console', m => { if (m.type() === 'error') report.consoleErrors.push(`${v.name}: ${m.text()}`); else if (m.type() === 'warning') report.warnings.push(`${v.name}: ${m.text()}`); });
+    page.on('console', m => {
+      if (m.type() === 'error') {
+        const item = `${v.name}: ${m.text()} [${m.location().url || 'unknown location'}]`;
+        if (deliberatelyOffline && m.text().includes('ERR_INTERNET_DISCONNECTED') && expectedHostOffline(m.location().url)) report.expectedHostOfflineErrors.push(item);
+        else report.consoleErrors.push(item);
+      } else if (m.type() === 'warning') report.warnings.push(`${v.name}: ${m.text()}`);
+    });
     await enter(page);
     assert.ok((await page.title()).includes('Firecrackers'));
     assert.equal(await page.locator('main').getAttribute('data-version'), report.build);
@@ -152,7 +164,14 @@ try {
     await page.getByRole('button', { name: 'Open settings' }).click();
     assert.equal(await page.getByLabel('Graphics quality', { exact: true }).inputValue(), 'low');
     assert.equal(await page.getByLabel('Sound', { exact: true }).isChecked(), false);
-    await page.getByRole('button', { name: 'Reset this sky' }).click();
+    const resetAction = page.getByRole('button', { name: 'Reset this sky' });
+    await resetAction.scrollIntoViewIfNeeded();
+    assert.ok(await resetAction.evaluate(element => {
+      const r = element.getBoundingClientRect();
+      return element.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2));
+    }), 'Reset action must be reachable with host preview toolbar present');
+    await shot(page, `${v.name}-settings-reset-reachable`);
+    await resetAction.click();
     await page.getByRole('button', { name: 'Keep my sky' }).click();
     assert.equal(await page.getByLabel('Graphics quality', { exact: true }).inputValue(), 'low');
     await page.getByRole('button', { name: 'Close panel' }).click();
@@ -169,10 +188,11 @@ try {
     } else {
       // The production service worker, not a mocked cache, must support a cold offline reload.
       await page.evaluate(async () => { await navigator.serviceWorker.ready; });
+      deliberatelyOffline = true;
       await context.setOffline(true); await page.reload({ waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true', undefined, { timeout: 60000 });
       assert.ok(await page.locator('.flow-launch').isEnabled());
-      await context.setOffline(false);
+      await context.setOffline(false); deliberatelyOffline = false;
       record('desktop: production offline package cold reload');
     }
 
@@ -188,7 +208,7 @@ try {
     await context.close(); cases.splice(cases.indexOf(page), 1);
   }
   assert.deepEqual(report.consoleErrors, []);
-  record('No page errors, framework errors or console errors');
+  record('No unexpected page, framework or console errors; separately recorded host-only offline requests');
 } catch (error) {
   report.failed = error.stack || String(error);
   for (const [i, page] of cases.entries()) {

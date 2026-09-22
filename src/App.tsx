@@ -16,6 +16,7 @@ import { PresentationSettings } from './ui/PresentationSettings';
 import { PanelNav } from './ui/PanelNav';
 import './styles/completion.css';
 import './styles/flow.css';
+import './styles/recovery.css';
 
 type Overlay = 'help' | 'settings' | 'show' | 'reset' | null;
 
@@ -126,6 +127,7 @@ export default function App() {
 
   return <main
     data-version={CONFIG_VERSION}
+    data-backend={world.backend}
     data-ready={world.ready}
     data-overlay={overlay || 'none'}
     data-phase={state.phase}
@@ -133,6 +135,7 @@ export default function App() {
     data-bursts={state.bursts}
     data-paused={state.paused}
     data-display={presentation.mode}
+    data-hosted-preview={location.hostname.endsWith('.appdeploy.ai')}
     data-launch-block={state.launchBlock}
     data-committed-id={state.committedId}
     className={`fireworks-app${hidden ? ' controls-hidden' : ''}${prefs.reducedMotion ? ' reduced-motion' : ''}${presentation.mode !== 'interactive' ? ' presentation-mode' : ''}`}
@@ -160,6 +163,8 @@ export default function App() {
     {platform.updateReady && !overlay && <div className='flow-update' role='status'>
       <span>A newer sky is ready.</span><button disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>{Boolean(state.committedId) ? 'After this flight' : 'Update & restart'}</button>
     </div>}
+
+    {world.ready && world.backend.startsWith('Canvas') && !hidden && !overlay && <div className='renderer-note'>Compatibility graphics · same five fireworks</div>}
 
     <CinematicHUD
       selected={selected}
@@ -190,8 +195,8 @@ export default function App() {
       onIgnite={ignite}
     />
 
-    {!world.ready && !world.error && <div className='loading-state' role='status'><span className='loading-spark'/><span>Preparing the night sky</span></div>}
-    {world.error && <section className='recovery glass' role='alert'><h2>The sky needs a fresh start.</h2><p>{world.error}</p><div className='button-row'><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}>Retry with lower quality</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
+    {!world.ready && !world.error && <div className='loading-state' role='status'><span className='loading-spark'/><span>Preparing the night sky</span><small>Graphics will switch automatically when needed.</small><a href='?backend=canvas'>Open compatibility mode</a></div>}
+    {world.error && <section className='recovery glass' role='alert'><h2>The sky needs a fresh start.</h2><p>{world.error}</p><div className='button-row'><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
     {state.paused && !overlay && !world.error && <button className='paused-card glass' onClick={resumeOrPause}><Play size={19}/><span>Take your time.<small>Resume the night</small></span></button>}
 
     {world.ready && !world.error && canLight && <div className='placement-stage chrome'>
@@ -243,6 +248,7 @@ export default function App() {
 
     {overlay === 'settings' && <Dialog variant='settings' title='Make yourself comfortable.' onClose={close}>
       <PanelNav reducedMotion={prefs.reducedMotion}/>
+      {notice && <p className='settings-notice' role='status'>{notice}</p>}
       <div className='settings-group' id='settings-sound'><h3>Sound & feel</h3>
         <Toggle label='Sound' detail='Original spatial booms, hiss and crackle.' checked={world.soundActive} onChange={() => void toggleSound()}/>
         <label className='volume-setting'><span>Volume</span><input aria-label='Volume' type='range' min='0' max='0.8' step='0.01' value={prefs.volume} onChange={event => change('volume', Number(event.target.value))}/></label>
@@ -250,6 +256,9 @@ export default function App() {
         <Toggle label='Gentle haptics' detail={typeof navigator.vibrate === 'function' ? 'Short pulses on compatible devices.' : 'Not supported in this browser.'} disabled={typeof navigator.vibrate !== 'function'} checked={prefs.haptics && typeof navigator.vibrate === 'function'} onChange={v => change('haptics', v)}/>
       </div>
       <div className='settings-group' id='settings-graphics'><h3>Comfort & graphics</h3>
+        <p className='fine-print'>Active renderer: {world.backend}. Compatibility mode uses simpler graphics without a GPU.</p>
+        <div className='button-row'><a className='secondary-button' href='?backend=canvas'>Compatibility mode</a><a className='secondary-button' href='?backend=webgl'>Try WebGL graphics</a></div>
+        <p className='fine-print'>Switching renderer opens a fresh sky and keeps your saved preferences.</p>
         <Toggle label='Reduced flashes' detail='Softens the light that catches the smoke.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
         <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
         <label className='setting-row'><span className='setting-label'>Graphics quality</span><select aria-label='Graphics quality' value={prefs.quality} onChange={event => change('quality', event.target.value as Preferences['quality'])}><option value='auto'>Automatic</option><option value='low'>Low</option><option value='standard'>Standard</option><option value='ultra'>Ultra</option></select></label>

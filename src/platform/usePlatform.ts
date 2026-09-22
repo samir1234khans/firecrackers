@@ -21,7 +21,7 @@ export function usePlatform(notice: (text: string) => void) {
     useEffect(() => {
         let alive = true;
         let registration: ServiceWorkerRegistration | undefined;
-        const checkUpdate = () => { if (!document.hidden) void registration?.update().catch(() => { /* Offline is normal. */ }); };
+        const checkUpdate = () => { if (!document.hidden && navigator.onLine) void registration?.update().catch(() => { /* Offline is normal. */ }); };
         const api = (navigator as unknown as {
             wakeLock?: {
                 request: (type: string) => Promise<WakeToken>;

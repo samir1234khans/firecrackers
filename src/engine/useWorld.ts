@@ -9,7 +9,9 @@ import { parsePresentation } from '../platform/presentation';
 import type { Presentation } from '../platform/presentation';
 import type { ShowPreset } from './catalog';
 import type { Preferences } from '../platform/preferences';
-import type { FireworkRenderer } from './Renderer';
+import type { RendererPort } from './RendererPort';
+import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
+import { withDeadline } from './RendererRecovery';
 /** DOM owns controls; one fixed simulation clock owns all fireworks and their sound events. */
 export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferences: Preferences, epoch: number, notice: (text: string) => void, presentation: Presentation = parsePresentation('')) {
     const prefs = useRef(preferences);
@@ -19,7 +21,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     const [initial] = useState(() => new Simulation(presentation.seed));
     const sim = useRef(initial);
     const audio = useRef<AudioEngine | null>(null);
-    const renderer = useRef<FireworkRenderer | null>(null);
+    const renderer = useRef<RendererPort | null>(null);
     const intent = useRef(new PauseIntent());
     const [snapshot, setSnapshot] = useState(() => initial.snapshot());
     const [ready, setReady] = useState(false);
@@ -50,7 +52,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let captureFrozen = false;
         let previousVisualState = '';
         let previouslyMoving = false;
-        let graphics: FireworkRenderer | null = null;
+        let graphics: RendererPort | null = null;
+        const startup = new AbortController();
         const governor = new QualityGovernor();
         alive.current = true;
         setReady(false);
@@ -90,7 +93,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             if (!document.hidden && !state.paused && !captureFrozen) {
                 advanceVisibleFrame(state, elapsed);
                 sound.consume(state.drainEvents(), state.width);
-                const targetFps = display.current.fps === 30 || state.quality === 'low' ? 30 : 60;
+                const targetFps = display.current.fps === 30 || state.quality === 'low' || graphics?.backend.startsWith('Canvas') ? 30 : 60;
                 // The empty observatory is static. Redraw selection/placement immediately,
                 // but do not shade the same idle floor and bloom graph sixty times a second.
                 const visualState = `${state.selected}:${state.placement}:${state.quality}:${state.reducedFlashes}:${display.current.mode}:${state.rearming}:${Boolean(state.committed)}`;
@@ -99,6 +102,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
                 if (!lastRender || visualState !== previousVisualState ||
                     ((moving || previouslyMoving) && now - lastRender >= 1000 / targetFps - 1.2)) {
+                    const continuous = moving && previouslyMoving;
                     previousVisualState = visualState;
                     previouslyMoving = moving;
                     const cadence = lastRender ? now - lastRender : 1000 / targetFps;
@@ -109,7 +113,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     catch {
                         fail('Graphics were interrupted. Try lower quality or restart the scene.');
                     }
-                    if (++warmFrames > 60)
+                    if (++warmFrames > 60 && continuous && cadence < 500)
                         governor.add(cadence);
                 }
                 if (prefs.current.quality === 'auto' && now - lastQuality > 1500 && warmFrames > 90) {
@@ -133,12 +137,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             frame = requestAnimationFrame(tick);
         };
         const resize = () => {
-            graphics?.resize();
-            // A resize clears the canvas, including while the idle scene is render-on-demand.
+            // Resizing also redraws an idle/paused canvas. Failures retain recovery controls.
             try {
+                graphics?.resize();
                 graphics?.render();
-            }
-            catch { /* Recovery UI remains usable. */ }
+            } catch { fail('The scene could not resize. Try compatibility graphics.'); }
         };
         const onVisibility = () => {
             last = 0;
@@ -150,24 +153,57 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             intent.current.block('hidden', document.hidden);
             syncPause();
         };
-        const bounds = new ResizeObserver(resize);
-        if (host.current) bounds.observe(host.current);
-        for (const element of host.current?.parentElement?.querySelectorAll('.flow-command, .flow-deck-wrap') || []) bounds.observe(element);
+        const bounds = typeof ResizeObserver === 'function' ? new ResizeObserver(resize) : null;
+        if (host.current) bounds?.observe(host.current);
+        for (const element of host.current?.parentElement?.querySelectorAll('.flow-command, .flow-deck-wrap') || []) bounds?.observe(element);
         window.addEventListener('resize', resize);
         document.addEventListener('visibilitychange', onVisibility);
-        void import('./Renderer').then(async (module) => {
-            if (cancelled || !host.current)
-                return;
-            const forced = new URLSearchParams(location.search).get('backend') === 'webgl';
-            graphics = new module.FireworkRenderer(host.current, state, fail, forced);
-            renderer.current = graphics;
-            graphics.setDisplay(display.current.mode);
-            await graphics.init();
-            if (cancelled) {
-                graphics.dispose();
-                return;
+        const startGraphics = async () => {
+            const target = host.current;
+            if (cancelled || !target) return;
+            const preferred = new URLSearchParams(location.search).get('backend');
+            const begin = async (candidate: RendererPort) => {
+                graphics = candidate;
+                renderer.current = candidate;
+                candidate.setDisplay(display.current.mode);
+                try {
+                    await withDeadline(candidate.init(), startup.signal, 10000);
+                    if (cancelled) throw new DOMException('Cancelled', 'AbortError');
+                } catch (reason) {
+                    // Invalidate pending GPU initialization before another canvas can mount.
+                    try { candidate.dispose(); } catch { /* Continue to the next supported backend. */ }
+                    if (graphics === candidate) graphics = null;
+                    if (renderer.current === candidate) renderer.current = null;
+                    throw reason;
+                }
+            };
+            let initialized = false;
+            if (preferred !== 'canvas') {
+                try {
+                    const module = await withDeadline(import('./Renderer'), startup.signal, 10000);
+                    for (const forceWebGL of preferred === 'webgl' ? [true] : [false, true]) {
+                        if (cancelled) return;
+                        try {
+                            await begin(new module.FireworkRenderer(target, state, fail, forceWebGL));
+                            initialized = true;
+                            break;
+                        } catch {
+                            if (cancelled) return;
+                            setBackend('Trying compatible graphics');
+                        }
+                    }
+                } catch {
+                    if (cancelled) return;
+                }
             }
-            setBackend(graphics.backend);
+            if (!initialized && !cancelled) {
+                await begin(new CompatibilityRenderer(target, state));
+                if (preferred !== 'canvas') notice('Compatibility graphics is active. All five fireworks are still playable.');
+            }
+            if (cancelled || !graphics) return;
+            intent.current.block('graphics', false);
+            setError('');
+            setBackend((graphics as RendererPort).backend);
             setReady(true);
             // Starting a show through an explicit presentation link never activates sound.
             if (display.current.mode !== 'interactive' && display.current.show)
@@ -198,23 +234,24 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     render: () => graphics?.render(),
                 };
             }
-        }).catch(failure => {
-            console.error('Firecrackers graphics initialization failed:', failure);
-            fail('Graphics are unavailable. Try lower quality, another browser, or a fresh scene.');
+        };
+        void startGraphics().catch(() => {
+            if (!cancelled) fail('The scene could not start. Reload or use compatibility graphics. Your preferences are safe.');
         });
         return () => {
             cancelled = true;
+            startup.abort();
             alive.current = false;
             soundRequest.current++;
             cancelAnimationFrame(frame);
-            bounds.disconnect();
+            bounds?.disconnect();
             window.removeEventListener('resize', resize);
             document.removeEventListener('visibilitychange', onVisibility);
             delete (window as unknown as {
                 __firecrackersQA?: unknown;
             }).__firecrackersQA;
             sound.dispose();
-            graphics?.dispose();
+            try { graphics?.dispose(); } catch { /* A failed driver must not break React cleanup. */ }
             renderer.current = null;
             audio.current = null;
         };

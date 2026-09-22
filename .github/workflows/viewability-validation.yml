@@ -1,0 +1,54 @@
+name: Viewability and complete launch validation
+on:
+  push:
+    branches: [fix/viewability-recovery]
+    paths: ['src/**', 'tests/**', 'scripts/**', 'package*.json', 'index.html', 'tsconfig*.json', '.github/workflows/viewability-validation.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: viewability-candidate
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Type, lifecycle, fallback and build validation
+        run: |
+          npm run typecheck
+          npm run lint
+          npm test
+          npm run build
+          python3 scripts/validate_docs.py
+      - run: npx playwright install --with-deps chromium
+      - name: Serve the exact production build
+        run: |
+          npm run preview -- --port 4173 > /tmp/firecrackers-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Viewability, small screens and injected recovery failures
+        env:
+          VIEWABILITY_URL: http://127.0.0.1:4173/
+        run: node tests/viewability-browser.mjs /tmp/firecrackers-viewability
+      - name: Complete real-input desktop and mobile launch regressions
+        if: always()
+        env:
+          VIDEO_FLOW_URL: http://127.0.0.1:4173/
+        run: node tests/video-flow-browser.mjs /tmp/firecrackers-launch
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: viewability-and-launch-evidence
+          path: |
+            /tmp/firecrackers-viewability/
+            /tmp/firecrackers-launch/
+            /tmp/firecrackers-preview.log
+          retention-days: 7
