@@ -1,30 +1,26 @@
-> **Video-flow repair:** Build `2026-09-21.2` is being qualified on `fix/video-launch-flow`. See [the repair plan](docs/video-flow/PLAN.md) and [the current validation contract](docs/video-flow/VALIDATION.md). Manual launch is one press; the platform stays empty during flight and re-arms after the primary break. The historical delivery record below describes the previous release.
-
 # Firecrackers
 
-An interactive, single-screen festival night: choose a firework, place it, light its fuse, watch it rise, and stay for the falling embers. Realism V3 combines a spatial launch stage with a restrained cinematic glass interface.
+A single-screen festival night: choose a firework, set its position, launch once and follow the fuse, flight, burst and falling embers. Five distinct effects run a seeded simulation rather than a recorded video.
 
-**Current build: Realism V3 / UI V3 — `2026-09-19.4`. Working preview, with production hardware and final art approval still open.**
+**Current build: `2026-09-22.1` — viewability and launch recovery.**
 
-[Open the live preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
+[Open the website](https://firecrackers-a93nle.v2.appdeploy.ai/) · [Open compatibility graphics](https://firecrackers-a93nle.v2.appdeploy.ai/?backend=canvas)
 
-Implementation remains on `feat/fireworks-v1`. The original `main` documentation baseline and the alternate implementation branch are preserved. There are no accounts, purchases, API keys or backend services.
+The current repair is on `fix/viewability-recovery`, based on the newer `fix/video-launch-flow` work. Main and the older V3 branches are preserved. The latest evidence is in [viewability and launch recovery](docs/evidence/viewability-recovery.md); earlier milestones remain historical records.
 
-## What is implemented
+## Current experience
 
-The five families are Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale. Each runs the actual seeded simulation, not a recorded movie. A 650 ms hold commits the fuse; early release cancels. Light once, Enter and keyboard placement provide alternatives.
+Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale share placement, immutable committed-flight state, wind, smoke and light. A single press admits one rocket. While it flies, the next family can be selected without changing the active effect. The launch action becomes available again after the primary break/rearm transition. The command deck remains visible during manual play.
 
-The rendered world includes a dimensional, concentric launch stage, printed-paper rocket wraps with trim, a shared arc-length fuse path, fuse smoke, launch exhaust, powered ascent and coast, perspective depth, connected trails, spatial splits, visible secondary carriers, detached cooling embers, persistent locally illuminated smoke, an original night environment and native Three.js TSL bloom.
+The primary renderer uses the existing perspective 3D scene, rocket and stage materials, trails, secondary carriers, smoke, detached embers and bloom. Ultra is still the default graphics preference; sound starts off, reduced flashes stays enabled, and explicitly saved quality/comfort choices remain respected. A 60 fps target is not a device-performance guarantee.
 
-The UI has Manual/Auto/Festival/Finale controls, family-specific previews, a selected-family inspector on desktop, radial ignition, responsive phone/landscape layouts and coordinated settings/help/show panels. Hidden controls cannot accidentally ignite a rocket on their first reveal tap. Manual pause, audio cancellation and wake-lock cancellation are preserved.
+A readable initial page and React recovery screen prevent entry/interface failures from becoming a blank root. Graphics startup is bounded and falls back from the primary renderer to forced WebGL and finally clearly labelled Canvas 2D compatibility mode. The compatibility renderer is less detailed but runs the same five effects without requiring GPU context creation. Settings exposes deliberate renderer-switch and reload actions.
 
-Automatic displays, validated seeded links, protected output areas and transparent output are available. The PWA caches its runtime for offline play. Sound and haptics require user activation. Preferences stay local to the browser.
+The app retains pause/resume, silent startup, opt-in sound/haptics, automatic shows, a finite finale, protected/transparent presentation output, local preferences, offline caching and explicit updates. Device-only actions give support/permission feedback. No accounts, backend, API keys, purchases or new external media were introduced.
 
-Ultra is the default quality, with a 60 fps target rather than a guaranteed measured rate. Reduced flashes stays on; sound and haptics stay off. Explicit saved Low/Standard choices remain respected. The empty scene renders on demand; active effects use bounded time updates so slower rendering does not unnecessarily stretch fuse and flight timing.
+## Run and validate
 
-## Run and verify
-
-Use the Node version in `.nvmrc` and the committed dependency lock.
+Use the pinned Node version in `.nvmrc` and the committed dependency lock.
 
 ```sh
 npm ci
@@ -35,36 +31,23 @@ npm run dev
 npm run typecheck
 npm run lint
 npm test
-npm run test:soak
 npm run build
-node --test tests/release-fingerprint.test.mjs
-npx playwright install chromium
+npm run test:soak
 npm run test:e2e
 ```
 
-`npm run preview` serves `dist/`. Offline/install testing requires the production build and a secure origin or localhost. Local servers bind to loopback; do not publish a Vite development server.
+For the extra failure-injection/layout suite, serve the production build with `npm run preview` on port 4173, then run `npm run test:viewability`. Install the configured Chromium runtime with `npx playwright install chromium` when needed. Development servers bind to loopback; only publish production builds.
 
-Keyboard: 1–5 choose, Left/Right place, L lights once, Space pauses/resumes, M controls sound, and Escape reveals controls or closes a panel. A different family can be selected while a committed fuse finishes; the already-lit rocket retains its original family.
+The public verification workflow computes the 31-module release fingerprint, checks the actual hosted `/release.json`, and runs both browser suites against the public website. JSX comparison excludes only audited static host diagnostic attributes; it does not silently accept application-code differences. `index.html`, hosting wrappers and unrelated historical files are outside the fingerprint's declared module scope and are checked separately where the browser flows exercise them.
 
-## Verified evidence
+## Controls and updates
 
-Runtime checkpoint `dabd00c8358f65e961ac4c67eea89043016e9165` passed 51 unit/engine/lifecycle tests, all 44 browser cases (22 desktop and 22 mobile Chromium emulation), typecheck, lint, production build, dependency security review and 258 documentation checks. Neither browser project had failures, flaky cases or skips. The two-hour logical simulation remained bounded; it is not a real-time GPU endurance test.
+Use the named Launch firework button or L to launch. 1–5 choose a family, arrows adjust placement when ready, Space pauses/resumes, M controls sound, and Escape closes a panel/reveals presentation controls. The launch action is deliberately disabled during a committed flight, pause or resource-capacity hold. Its status text explains the current state.
 
-The build writes `/release.json`, containing a SHA-256 fingerprint of the 21 delivered upgrade modules. Public verification passed on 19 September 2026. JSX is canonicalized with the pinned TypeScript parser, excluding only the host's static diagnostic labels; engine and CSS files remain byte-exact after line-ending normalization. The public-preview verification workflow compares the actual published receipt with the repository, rather than assuming a deployment label proves source parity. See the [Realism V3 delivery record](docs/evidence/realism-v3-delivery.md) for exact CI/deployment evidence and limitations.
+The build identifier appears on the manual deck and in Settings → Graphics details. Use Update & restart when a cached older installation offers an update; a committed flight is not automatically interrupted for it.
 
-## Release boundary
+## Evidence and limits
 
-This build does not claim physical Android/tablet, hardware WebGPU, Safari/iOS, OBS, thermal/endurance or flash-risk certification. Those tests and final owner visual/audio approval remain open. Smoke and rocket art are original procedural assets, not Blender fluid bakes or imported production GLBs. Audio is synthesized, not a professionally recorded library. Native bloom is implemented; a live volumetric fluid solver and GPU-compute particle simulation are not.
+See the [current delivery record](docs/evidence/viewability-recovery.md) for exact commits, deployment snapshot, CI runs, tests, screenshots, source parity and remaining qualification limits. The [original documentation map](docs/README.md), [development workflow](DEVELOPMENT.md), [agent instructions](AGENTS.md), [V3 delivery](docs/evidence/realism-v3-delivery.md) and [video-flow plan](docs/video-flow/PLAN.md) remain available in the repository.
 
-## Documentation
-
-- [Current status](PROJECT_STATUS.md) and [Realism V3 delivery evidence](docs/evidence/realism-v3-delivery.md).
-- [UI V3 plan](docs/ui-v3/PLAN.md) and [realism upgrade specifications](docs/realism-v2/README.md).
-- [Documentation index](docs/README.md), [original implementation evidence](docs/evidence/runtime-implementation.md), [development workflow](DEVELOPMENT.md) and [agent instructions](AGENTS.md).
-
-```sh
-python -m pip install -r scripts/requirements-docs.txt
-python scripts/validate_docs.py
-```
-
-Documentation validation checks structure, not visual realism or hardware performance. Historical plans remain preserved. Builds include third-party notices. Final branding, public application licensing and a permanent domain remain owner decisions. This is software simulation, not physical firework guidance.
+Physical Android/tablet, Safari/iOS, hardware WebGPU parity, real-time thermal/endurance, OBS and complete flash/accessibility qualification are not established by Chromium emulation. Final art/audio approval is separate from a working build. This is a software simulation, not physical firework guidance.

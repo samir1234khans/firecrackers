@@ -1,0 +1,41 @@
+{
+  "build": "2026-09-22.1",
+  "source": "8bf5bc298c89df5c75505036bba0b5193856ced1",
+  "deploymentSnapshot": "1790036848382",
+  "publishedRun": 35672636416,
+  "viewabilityJob": 106572299447,
+  "launchJob": 106572299202,
+  "viewabilityPassed": 15,
+  "launchChecksPassed": 28,
+  "viewabilityFailures": [],
+  "launchFailure": null,
+  "unexpectedLaunchConsoleErrors": [],
+  "expectedHostOfflineErrors": [
+    "desktop: Failed to load resource: net::ERR_INTERNET_DISCONNECTED [https://api-v2.appdeploy.ai/app/firecrackers-a93nle/_warmup]",
+    "desktop: Failed to load resource: net::ERR_INTERNET_DISCONNECTED [https://api-v2.appdeploy.ai/p]"
+  ],
+  "sourceParity": {
+    "checkedAt": "2026-09-22T00:36:30.241Z",
+    "url": "https://firecrackers-a93nle.v2.appdeploy.ai/",
+    "version": "2026-09-22.1",
+    "expectedSha256": "46fe64fb3fe5481513e54e1dffe06be790c3953092c98aca9aa898a56aa387da",
+    "actualSha256": "46fe64fb3fe5481513e54e1dffe06be790c3953092c98aca9aa898a56aa387da",
+    "source": "8bf5bc298c89df5c75505036bba0b5193856ced1",
+    "matches": true,
+    "scope": "delivered-upgrade-modules",
+    "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+    "mismatchedModules": [],
+    "hostDiagnosticAttributes": 54,
+    "rawByteDifferences": [
+      "src/App.tsx",
+      "src/ui/AppBoundary.tsx",
+      "src/ui/CinematicHUD.tsx",
+      "src/ui/Dialog.tsx",
+      "src/ui/PanelNav.tsx",
+      "src/ui/PresentationSettings.tsx"
+    ]
+  },
+  "viewabilityArtifact": 10671777044,
+  "launchArtifact": 10670984091,
+  "environment": "GitHub Actions Chromium, software WebGL/SwiftShader and mobile emulation; no physical-device claim"
+}
