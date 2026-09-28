@@ -1,3 +1,4 @@
+import { carrierTint } from '../engine/GrandEffects';
 import { BUDGETS, FAMILIES, clamp, randomStream } from '../engine/catalog';
 import type { Quality } from '../engine/catalog';
 import type { Simulation, Rocket } from '../engine/Simulation';
@@ -7,7 +8,7 @@ import { fusePointAt } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
 
 /** GPU-independent fallback, not a substitute for the primary 3D renderer.
- * Flight, splitting, wind, pause and all five effects use the unchanged simulation.
+ * Flight, splitting, wind, pause and all ten effects use the unchanged simulation.
  */
 export class CompatibilityRenderer implements RendererPort {
     readonly backend = 'Canvas 2D · compatibility';
@@ -198,7 +199,7 @@ export class CompatibilityRenderer implements RendererPort {
             const p = this.project(...rocketPoint(r, SHELL_LOCAL_Y));
             this.glow(p.x, p.y, 4.3, '#ffcf86', .9);
         }
-        for (const carrier of s.cues) { const p = this.project(carrier.x, carrier.y, carrier.z); this.glow(p.x, p.y, 3, '#ffcf86', .8); }
+        for (const carrier of s.cues) { const p = this.project(carrier.x, carrier.y, carrier.z); this.glow(p.x, p.y, 3.5, this.tone(...carrierTint(carrier.family, carrier.palette)), .8); }
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
         const ground = this.project(s.placementToX(), s.ground);
         this.host.parentElement?.style.setProperty('--ground-px', `${this.height - ground.y}px`);

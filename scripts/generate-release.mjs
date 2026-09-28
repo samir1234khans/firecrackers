@@ -36,6 +36,7 @@ export function canonicalSource(path, text) {
 
 export async function generateRelease() {
   const paths = [
+    'src/engine/GrandEffects.ts', 'src/ui/FamilyPicker.tsx', 'src/ui/GrandGlyph.tsx', 'src/styles/grand-collection.css',
     'src/bootstrap.ts', 'src/main.tsx', 'src/ui/AppBoundary.tsx', 'src/styles/recovery.css',
     'src/engine/RendererPort.ts', 'src/engine/RendererRecovery.ts', 'src/graphics/CompatibilityRenderer.ts',
     'src/App.tsx', 'src/engine/FusePath.ts', 'src/engine/LaunchGeometry.ts', 'src/engine/Renderer.ts',

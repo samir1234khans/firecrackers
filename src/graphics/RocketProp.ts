@@ -1,8 +1,8 @@
 import * as THREE from 'three/webgpu';
 import { color, mix, smoothstep, uniform, uv } from 'three/tsl';
-import { FAMILIES } from '../engine/catalog';
+import { FAMILIES, ROCKET_PROFILES } from '../engine/catalog';
 import { FUSE_POINTS, fusePointAt } from '../engine/FusePath';
-/** Shared materials/geometry; five authored silhouettes, with a real arc-length fuse. */
+/** Shared materials/geometry; ten authored silhouettes, with a real arc-length fuse. */
 export class RocketProp {
     readonly group = new THREE.Group();
     readonly burn = uniform(-0.01);
@@ -59,11 +59,11 @@ export class RocketProp {
             this.lastFamily = family;
             this.paper.color.set('#e6edf5');
             this.capMaterial.color.set(FAMILIES[family].color).multiplyScalar(.76);
-            const radii = [1, .92, 1.08, .86, 1.16], heights = [1, 1.06, .96, 1.13, 1.12];
-            this.body.scale.set(radii[family], heights[family], radii[family]);
-            this.cap.scale.set(radii[family], family === 4 ? 1.16 : 1, radii[family]);
-            this.cap.position.y = 3.25 + 1.625 * heights[family] + .58;
-            this.stripes.scale.x = this.stripes.scale.z = radii[family];
+            const [radius, height] = ROCKET_PROFILES[family] ?? ROCKET_PROFILES[0];
+            this.body.scale.set(radius, height, radius);
+            this.cap.scale.set(radius, family === 4 ? 1.16 : 1, radius);
+            this.cap.position.y = 3.25 + 1.625 * height + .58;
+            this.stripes.scale.x = this.stripes.scale.z = radius;
         }
         this.burn.value = burnProgress;
         const glowing = (burnProgress >= 0 && burnProgress < 1) || contact > 0;

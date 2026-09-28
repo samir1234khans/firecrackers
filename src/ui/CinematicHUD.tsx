@@ -1,7 +1,7 @@
 import { Flame, Maximize, Minimize, Pause, Play, Settings2, Sparkles, Volume2, VolumeX, Crosshair } from 'lucide-react';
 import { CONFIG_VERSION, FAMILIES } from '../engine/catalog';
 import type { FamilyId, ShowPreset } from '../engine/catalog';
-import { FireworkGlyph } from './FireworkGlyph';
+import { FamilyPicker } from './FamilyPicker';
 
 type Props = {
   selected: typeof FAMILIES[number];
@@ -30,14 +30,6 @@ type Props = {
   onSelect: (id: FamilyId) => void;
   onPlacement: (value: number) => void;
   onIgnite: () => void;
-};
-
-const SHORT_NAMES: Record<FamilyId, string> = {
-  'gold-willow': 'Willow',
-  'multicolor-peony': 'Peony',
-  'chrysanthemum': 'Chrysanth.',
-  'silver-crossette-crackle': 'Crossette',
-  'grand-finale': 'Finale',
 };
 
 /** Persistent controls; the launch state and the selected next family are separate. */
@@ -77,12 +69,7 @@ export function CinematicHUD({ selected, available, phase, hidden, reducedMotion
     <section inert={hidden || undefined} className={`hud-deck-wrap flow-deck-wrap chrome${reducedMotion ? ' still' : ''}`} aria-label='Firework controls'>
       <div className='flow-status' role='status' aria-live='polite'>{status}</div>
       <div className='flow-deck'>
-        <div className='flow-families' role='group' aria-label='Five firework styles'>
-          {FAMILIES.map(family => <button key={family.id} className={`flow-family${family.id === selectedId ? ' selected' : ''}`} aria-label={family.name} aria-pressed={family.id === selectedId} title={family.name} disabled={!available} onClick={() => onSelect(family.id)}>
-            <span className='flow-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
-            <span>{SHORT_NAMES[family.id]}</span>
-          </button>)}
-        </div>
+        <FamilyPicker selectedId={selectedId} available={available} onSelect={onSelect}/>
         <div className='flow-selection'><span>{next ? 'Next' : 'Selected'}</span><strong>{selected.name}</strong></div>
         <div className='flow-bottom'>
           <div className='flow-placement'>

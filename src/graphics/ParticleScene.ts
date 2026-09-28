@@ -2,6 +2,7 @@ import * as THREE from 'three/webgpu';
 import { attribute, cos, dot, float, mix, pass, positionGeometry, positionView, screenUV, sin, smoothstep, texture, uniform, uv, vec2, vec3 } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
 import { hash01 } from '../engine/catalog';
+import { carrierTint } from '../engine/GrandEffects';
 import { rocketPoint, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, flightBodyOpacity } from '../engine/LaunchGeometry';
 const BUCKETS = 6;
 const bucketFor = (z: number) => Math.max(0, Math.min(BUCKETS - 1, Math.floor((z + 75) / 25)));
@@ -153,7 +154,10 @@ export class ParticleScene {
             addHead(...shell, 2.2 + receded * .8, 3.6, 2.4, 1.1);
             if (r.phase === 'thrust') addHead(...motor, 2.8, 4.5, 2.5, .8);
         }
-        for (const c of sim.cues) addHead(c.x, c.y, c.z, .72, 3, 2.1, .9);
+        for (const c of sim.cues) {
+            const tone = carrierTint(c.family, c.palette);
+            addHead(c.x, c.y, c.z, .82, tone[0] * 3, tone[1] * 3, tone[2] * 3);
+        }
         const t = sim.trails;
         for (let i = 0; i < t.count; i++) {
             const z = (t.az[i] + t.bz[i]) * .5, b = this.trails[bucketFor(z)], n = b.count++, a = b.attrs;

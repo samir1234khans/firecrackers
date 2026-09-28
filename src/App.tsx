@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download, Flame, Hand, Maximize, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX, Wind } from 'lucide-react';
-import { FAMILIES, CONFIG_VERSION } from './engine/catalog';
+import { FAMILIES, CONFIG_VERSION, familyKeyIndex } from './engine/catalog';
 import type { FamilyId, ShowPreset } from './engine/catalog';
 import { useWorld } from './engine/useWorld';
 import { defaults, loadPreferences, savePreferences } from './platform/preferences';
@@ -79,8 +79,8 @@ export default function App() {
         w.pause(!w.sim.current.paused);
       }
       if (event.key.toLowerCase() === 'l') w.ignite();
-      if (/^[1-5]$/.test(event.key)) {
-        const family = FAMILIES[Number(event.key) - 1];
+      if (familyKeyIndex(event.key) >= 0) {
+        const family = FAMILIES[familyKeyIndex(event.key)];
         if (w.sim.current.select(family.id)) change('family', family.id);
         w.refresh();
       }
@@ -164,7 +164,7 @@ export default function App() {
       <span>A newer sky is ready.</span><button disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>{Boolean(state.committedId) ? 'After this flight' : 'Update & restart'}</button>
     </div>}
 
-    {world.ready && world.backend.startsWith('Canvas') && !hidden && !overlay && <div className='renderer-note'>Compatibility graphics · same five fireworks</div>}
+    {world.ready && world.backend.startsWith('Canvas') && !hidden && !overlay && <div className='renderer-note'>Compatibility graphics · same ten fireworks</div>}
 
     <CinematicHUD
       selected={selected}
@@ -225,13 +225,13 @@ export default function App() {
 
     {overlay === 'help' && <Dialog variant='help' title='A little spark. A whole night sky.' onClose={close}>
       <p className='intro-copy'>Take a moment out of the everyday. This night is yours to light.</p>
-      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Five different ways to fill the sky.</small></span></div><div><Hand/><span><strong>Find its place</strong><small>Drag the rocket, or use the placement controls.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>One press lights the fuse. Let the rocket rise and the embers fall.</small></span></div></div>
+      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Ten distinct designs across Classics and the Grand collection.</small></span></div><div><Hand/><span><strong>Find its place</strong><small>Drag the rocket, or use the placement controls.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>One press lights the fuse. Let the rocket rise and the embers fall.</small></span></div></div>
       <Toggle label='Reduced flashes' detail='Softer light, with the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
       <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
       <p className='fine-print'>Flashing visual effects. Sound starts off. Pause is always within reach. This is a digital simulation only.</p>
       <button className='primary-button full' onClick={close}>Enter the night</button>
       <button className='text-button full' onClick={() => { change('onboarded', true); close(); }}>Skip introduction</button>
-      <details className='keyboard-help'><summary>Keyboard controls</summary><p>1–5: choose · Left/Right: place · L: launch · Space: pause · M: sound · Escape: close a panel. Tab moves through every control.</p></details>
+      <details className='keyboard-help'><summary>Keyboard controls</summary><p>1–5: classics · 6–9, 0: grand collection · Left/Right: place · L: launch · Space: pause · M: sound · Escape: close a panel. Tab moves through every control.</p></details>
     </Dialog>}
 
     {overlay === 'show' && <Dialog variant='show' title='Let the sky take over.' onClose={close}>

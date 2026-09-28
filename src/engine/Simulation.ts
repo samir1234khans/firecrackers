@@ -1,6 +1,7 @@
-import { BUDGETS, FAMILIES, clamp, familyIndex, hash01, randomStream } from './catalog.js';
+import { BUDGETS, FAMILIES, clamp, familyIndex, familyReservation, splitChildCount, hash01, randomStream } from './catalog.js';
 import type { FamilyId, Quality, ShowPreset } from './catalog.js';
 import { Pool } from './Pool.js';
+import { grandRecipe, coolGrandStar, carrierTint } from './GrandEffects.js';
 import { Trails } from './Trails.js';
 import { fusePointAt, ROCKET_SCALE } from './FusePath.js';
 import { FLIGHT_GRAVITY, REARM_SECONDS, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, rocketPoint } from './LaunchGeometry.js';
@@ -42,6 +43,7 @@ export type Rocket = {
     reserve: number;
 };
 export type Carrier = {
+    palette?: number;
     id: number;
     at: number;
     family: number;
@@ -118,7 +120,7 @@ export class Simulation {
     }
     get ready() { return this.launchBlock === ''; }
     private reserveFor(family: number) {
-        return family === 4 ? 900 : family === 3 ? 160 : Math.ceil((FAMILIES[family]?.count || 0) * 1.2);
+        return familyReservation(family);
     }
     private canReserve(family: number) {
         const f = FAMILIES[family];
@@ -158,7 +160,7 @@ export class Simulation {
     private get futureHeads() {
         let n = this.rockets.reduce((sum, r) => sum + (r.stage === 'afterglow' ? 0 : r.reserve), 0);
         n += this.cues.reduce((sum, c) => sum + c.reserve, 0);
-        for (let i = 0; i < this.heads.count; i++) if (this.heads.split[i] > 0) n += 3;
+        for (let i = 0; i < this.heads.count; i++) if (this.heads.split[i] > 0) n += splitChildCount(this.heads.family[i]) - 1;
         return n;
     }
     ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement = this.placement) {
@@ -229,6 +231,7 @@ export class Simulation {
         this.launched = 0;
         this.bursts = 0;
         this.sequence = 0;
+        this.previousFamily = -1;
         this.nextObjectId = 1;
         this.launchRng = randomStream(this.seed);
         this.showRng = randomStream(this.seed ^ 0x5bf03635);
@@ -321,10 +324,11 @@ export class Simulation {
             c.x += c.vx * dt;
             c.y += c.vy * dt;
             c.z += c.vz * dt;
-            this.trails.add(px, py, pz, c.x, c.y, c.z, 0.48, 0.065, 1, 0.69, 0.30, c.id, 0, BUDGETS[this.quality].trails);
+            const tone = carrierTint(c.family, c.palette);
+            this.trails.add(px, py, pz, c.x, c.y, c.z, .65, .085, ...tone, c.id, c.family, BUDGETS[this.quality].trails);
             if (this.time >= c.at) {
                 this.cues.splice(i, 1);
-                this.burst(c.family, c.x, c.y, c.z, c.scale, c.seed, c.vx * 0.15, c.vy * 0.15, c.vz * 0.15);
+                this.burst(c.family, c.x, c.y, c.z, c.scale, c.seed, c.vx * 0.15, c.vy * 0.15, c.vz * 0.15, c.palette);
             }
         }
     }
@@ -357,9 +361,10 @@ export class Simulation {
         }
         if (this.time < this.nextCue) return;
         const rand = this.showRng, mode = this.show;
-        let family = Math.floor(rand() * 4);
-        if (family === this.previousFamily) family = (family + 1) % 4;
-        if (mode !== 'calm' && rand() < 0.11) family = 4;
+        const eligible = FAMILIES.map((_, index) => index).filter(index => mode !== 'calm' || (index !== 4 && index !== 9));
+        let pick = Math.floor(rand() * eligible.length);
+        if (eligible[pick] === this.previousFamily) pick = (pick + 1) % eligible.length;
+        const family = eligible[pick];
         const side = rand() < 0.5;
         const position = this.protectCenter ? (side ? 0.23 : 0.77) : (0.29 + rand() * 0.42);
         const admitted = this.ignite('auto', family, position);
@@ -367,7 +372,7 @@ export class Simulation {
         const cycle = 0.5 + 0.5 * Math.sin((this.time - this.showStart) * 0.18);
         const spacing = mode === 'calm' ? 7 + rand() * 3 : mode === 'festival' ? 3.2 + cycle * 2 + rand() : 1.5 + rand();
         const haze = this.smoke.count / BUDGETS[this.quality].smoke;
-        this.nextCue = this.time + (admitted ? Math.max(spacing + (haze > 0.8 ? 1.0 : 0), this.reducedFlashes ? 3 : 0) : 1.25);
+        this.nextCue = this.time + (admitted ? Math.max(spacing + (family === 9 ? 3.5 : family >= 5 ? 1 : 0) + (haze > 0.8 ? 1.0 : 0), this.reducedFlashes ? 3 : 0) : 1.25);
     }
     private primary(r: Rocket) {
         const [x, y, z] = rocketPoint(r, SHELL_LOCAL_Y);
@@ -387,7 +392,11 @@ export class Simulation {
                 scale: j === 4 ? 0.83 : 0.56, seed: Math.floor(rand() * 0xffffffff), reserve: j === 4 ? 230 : 155 });
         }
     }
-    private burst(family: number, x: number, y: number, z: number, scale: number, seed: number, mx = 0, my = 0, mz = 0) {
+    private burst(family: number, x: number, y: number, z: number, scale: number, seed: number, mx = 0, my = 0, mz = 0, variant = -1) {
+        if (family >= 5) {
+            this.grandBurst(family, x, y, z, scale, seed, mx, my, mz, variant);
+            return;
+        }
         const f = FAMILIES[family], rand = randomStream(seed);
         const n = Math.round(f.count * BUDGETS[this.quality].scale * (scale < 1 ? 0.58 : 1));
         const rotate = rand() * Math.PI * 2, palette = Math.floor(rand() * 3);
@@ -418,11 +427,35 @@ export class Simulation {
         for (let i = 0; i < layers; i++) this.addSmoke(x + (rand() - 0.5) * 15 * scale, y + (rand() - 0.5) * 12 * scale, z + (rand() - 0.5) * 14 * scale, (4 + rand() * 5) * scale, 0.48 + rand() * 0.26, 2);
         if (!this.show) this.message = 'Stay for the falling embers.';
     }
+    private grandBurst(family: number, x: number, y: number, z: number, scale: number, seed: number, mx: number, my: number, mz: number, palette: number) {
+        const recipe = grandRecipe(family, this.quality, seed, scale, palette);
+        for (const star of recipe.stars) {
+            const [vx, vy, vz] = star.velocity;
+            this.heads.add(x, y, z, vx + mx, vy + my, vz + mz, star.life, ...star.color,
+                star.size, star.drag, star.gravity, star.trail, star.split, family);
+        }
+        this.bursts++;
+        // Staggered colored reports, never a full-screen strobe or amplified volume.
+        this.emit('burst', x, y, z, family, Math.min(1, scale));
+        if (this.lights.length < 12) this.lights.push({ x, y, z, age: 0,
+            r: recipe.light[0], g: recipe.light[1], b: recipe.light[2], strength: Math.min(1, scale) });
+        const random = randomStream(seed ^ 0x49e);
+        const layers = palette >= 0 ? 2 : this.quality === 'low' ? 4 : 7;
+        for (let j = 0; j < layers; j++) this.addSmoke(x + (random() - .5) * 14 * scale,
+            y + (random() - .5) * 12 * scale, z + (random() - .5) * 14 * scale,
+            (4 + random() * 4) * scale, .53, 2);
+        for (const carrier of recipe.carriers) this.cues.push({ id: this.nextObjectId++,
+            at: this.time + carrier.delay, family, x, y, z, vx: carrier.velocity[0],
+            vy: carrier.velocity[1], vz: carrier.velocity[2], scale: .72,
+            seed: carrier.seed, reserve: carrier.reserve, palette: carrier.palette });
+        if (!this.show) this.message = 'Stay for the color and the falling embers.';
+    }
     private moveHeads(dt: number) {
         const p = this.heads, budget = BUDGETS[this.quality];
         for (let i = p.count - 1; i >= 0; i--) {
             p.age[i] += dt;
             if (p.age[i] >= p.life[i] || p.y[i] < -18) { p.remove(i); continue; }
+            coolGrandStar(p, i, dt);
             const drag = Math.exp(-p.drag[i] * dt);
             p.vx[i] = p.vx[i] * drag + this.wind * 0.09 * dt;
             p.vy[i] = p.vy[i] * drag - p.gravity[i] * dt;
@@ -433,7 +466,7 @@ export class Simulation {
             if (p.split[i] > 0 && p.age[i] >= p.split[i]) { this.splitStar(i); continue; }
             // Sparse detached embers carry momentum but cool and fall independently.
             const rate = this.quality === 'low' ? 2 : 4;
-            if ((p.family[i] === 0 || p.family[i] === 2 || p.family[i] === 3) && p.id[i] % 3 === 0
+            if ((p.family[i] === 0 || p.family[i] === 2 || p.family[i] === 3 || p.family[i] >= 5) && p.id[i] % 3 === 0
                 && p.age[i] < p.life[i] * .82 && Math.floor(p.age[i] * rate) !== Math.floor((p.age[i] - dt) * rate)) {
                 const salt = Math.floor(p.age[i] * rate), q = hash01(p.id[i], salt * 17);
                 const cap = this.quality === 'low' ? 160 : this.quality === 'standard' ? 448 : 768;
@@ -465,12 +498,14 @@ export class Simulation {
         uz /= ul;
         const wx = ny * uz - nz * uy, wy = nz * ux - nx * uz, wz = nx * uy - ny * ux;
         const angle = hash01(id, 831) * Math.PI * 2;
+        const family = p.family[i], count = splitChildCount(family);
         p.remove(i);
-        for (let k = 0; k < 4; k++) {
-            const a = angle + k * Math.PI / 2, c = Math.cos(a) * 8, s = Math.sin(a) * 8;
-            p.add(x, y, z, vx * 0.55 + ux * c + wx * s, vy * 0.55 + uy * c + wy * s, vz * 0.55 + uz * c + wz * s, 1.8 + hash01(id, k) * 0.6, 0.84, 0.93, 1, 0.085, 0.65, 3.1, 0.95, 0, 3);
+        for (let k = 0; k < count; k++) {
+            const a = angle + k * Math.PI * 2 / count, c = Math.cos(a) * 8, s = Math.sin(a) * 8;
+            const tone = family === 8 ? [1, .19 + k * .04, .35] : [.84, .93, 1];
+            p.add(x, y, z, vx * 0.55 + ux * c + wx * s, vy * 0.55 + uy * c + wy * s, vz * 0.55 + uz * c + wz * s, 1.8 + hash01(id, k) * 0.6, tone[0], tone[1], tone[2], family === 8 ? .11 : .085, .65, 3.1, .95, 0, family);
         }
-        if (id % 8 === 0) this.emit('crackle', x, y, z, 3, 0.3);
+        if (id % 8 === 0) this.emit('crackle', x, y, z, family, .3);
     }
     private moveEmbers(dt: number) {
         const p = this.embers;
