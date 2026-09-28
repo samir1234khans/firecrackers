@@ -1,0 +1,79 @@
+name: Grand collection public verification
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/grand-collection]
+    paths: [.github/workflows/grand-public-verification.yml]
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci --ignore-scripts
+      - run: node --test tests/release-fingerprint.test.mjs
+      - run: node scripts/generate-release.mjs && node scripts/verify-preview.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grand-public-source
+          path: test-results/deployed-source-parity.json
+          retention-days: 7
+  live:
+    needs: source
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop, mobile]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Exercise all new effects on the actual public app
+        env:
+          GRAND_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
+          GRAND_PROJECT: ${{ matrix.project }}
+        run: node tests/grand-collection-browser.mjs /tmp/grand-public
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grand-public-${{ matrix.project }}
+          path: /tmp/grand-public
+          retention-days: 7
+  viewability:
+    needs: source
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Preserve public recovery and host-toolbar-safe controls
+        env:
+          VIEWABILITY_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
+        run: node tests/viewability-browser.mjs /tmp/grand-public-recovery
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grand-public-recovery
+          path: /tmp/grand-public-recovery
+          retention-days: 7
