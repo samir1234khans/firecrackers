@@ -68,7 +68,7 @@ try {
     await check('canvas-complete-launch', async page => {
         await enter(page, '?backend=canvas&qa=1');
         assert.match(await page.locator('main').getAttribute('data-backend'), /Canvas/);
-        assert.ok(await page.getByText('Compatibility graphics · same five fireworks', { exact: true }).isVisible());
+        assert.ok(await page.getByText('Compatibility graphics · same ten fireworks', { exact: true }).isVisible());
         await launch(page).tap();
         await page.waitForFunction(() => Number(document.querySelector('main')?.dataset.bursts) >= 1, undefined, { timeout: 20000 });
         await page.waitForFunction(() => !document.querySelector('.flow-launch').disabled);

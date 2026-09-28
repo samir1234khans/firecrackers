@@ -4,7 +4,7 @@ import { Simulation } from '../.test-build/engine/Simulation.js';
 import { FAMILIES, randomStream } from '../.test-build/engine/catalog.js';
 import { Pool } from '../.test-build/engine/Pool.js';
 const run=(s,seconds)=>{for(let i=0;i<Math.ceil(seconds*60);i++)s.advance(1/60);};
-test('five required identities with distinct topology and lifetime',()=>{assert.equal(FAMILIES.length,5);assert.equal(new Set(FAMILIES.map(f=>f.id)).size,5);assert.notEqual(FAMILIES[0].trail,FAMILIES[1].trail);assert.notEqual(FAMILIES[1].life,FAMILIES[2].life);});
+test('ten identities retain distinct original topology and lifetime',()=>{assert.equal(FAMILIES.length,10);assert.equal(new Set(FAMILIES.map(f=>f.id)).size,10);assert.notEqual(FAMILIES[0].trail,FAMILIES[1].trail);assert.notEqual(FAMILIES[1].life,FAMILIES[2].life);});
 test('uninterrupted hold commits once; release cannot duplicate it',()=>{const s=new Simulation();assert.equal(s.beginHold(),true);run(s,0.75);s.cancelHold();assert.equal(s.rockets.length,1);assert.equal(s.ignite(),false);assert.equal(s.drainEvents().filter(e=>e.type==='fuse').length,1);});
 test('early release cancels hold but retains the selected object',()=>{const s=new Simulation();s.beginHold();run(s,0.2);s.cancelHold();run(s,1);assert.equal(s.rockets.length,0);assert.equal(s.ready,true);assert.equal(s.holdProgress,0);});
 test('accessible ignition follows fuse, ascent, burst, and cleanup',()=>{const s=new Simulation();assert.equal(s.ignite(),true);assert.equal(s.launched,0);run(s,3);assert.equal(s.launched,1);run(s,3);assert.equal(s.bursts,1);assert.ok(s.heads.count>0);run(s,30);assert.equal(s.heads.count+s.trails.count+s.smoke.count+s.rockets.length,0);});
