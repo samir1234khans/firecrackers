@@ -1,0 +1,32 @@
+name: Grand collection source bundle
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/grand-collection]
+    paths: [.github/workflows/grand-collection-bundle.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Export only tracked source and exact installed dependencies
+        run: |
+          mkdir -p /tmp/grand-collection
+          git archive HEAD | gzip > /tmp/grand-collection/source.tar.gz
+          tar -czf /tmp/grand-collection/dependencies.tar.gz node_modules
+          git rev-parse HEAD > /tmp/grand-collection/SOURCE_COMMIT.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grand-collection-environment
+          path: /tmp/grand-collection
+          retention-days: 3
+          compression-level: 0
