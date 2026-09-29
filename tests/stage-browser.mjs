@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-import { inspectStage, inspectEdgeShelves, inspectEdgeSeparation, inspectOpenDock, edgeShelf, dockShelf, openPicker, chooseFamily } from './stage-helpers.mjs';
+import { inspectStage, inspectEdgeShelves, inspectEdgeSeparation, inspectBorderlessControls, inspectOpenDock, edgeShelf, dockShelf, openPicker, chooseFamily } from './stage-helpers.mjs';
 const base=process.env.STAGE_URL||'http://127.0.0.1:4173/';const out=process.argv[2]||'test-results/stage-full';await fs.mkdir(out,{recursive:true});
 const report={url:base,checks:[],errors:[],physicalDevice:false};const pass=(name,data={})=>{report.checks.push({name,...data});console.log('PASS',name)};
 const browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
@@ -9,6 +9,7 @@ const context=await browser.newContext({viewport:{width:393,height:851},hasTouch
 const snap=()=>p.evaluate(()=>window.__firecrackersQA.snapshot());
 const advance=async t=>{await p.evaluate(t=>window.__firecrackersQA.advance(t),t);await p.waitForTimeout(50);await p.evaluate(()=>window.__firecrackersQA.render())};
 const enter=async backend=>{await p.goto(`${base}?backend=${backend}&qa=1`);await p.waitForSelector('main[data-ready="true"]',{timeout:90000});};
+const dockToggle=page=>page.locator('[data-family-dock] .family-dock-toggle');
 const touchDrag=async(cdp,icon,x,y,end='touchEnd')=>{
  const r=await icon.boundingBox();assert.ok(r,`Missing drag source: ${icon}`);const sx=r.x+r.width/2,sy=r.y+r.height/2;
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:sx,y:sy}]});
@@ -33,7 +34,7 @@ try{
  pass('tablet: drag from both edge collections bursts immediately and exactly once');
  await p.setViewportSize({width:393,height:851});
  assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
- await p.getByRole('button',{name:'Open fireworks dock to drag a style into the sky'}).click();await inspectOpenDock(p);await p.screenshot({path:`${out}/dock-open-393x851.png`});
+ await dockToggle(p).click();await inspectOpenDock(p);await inspectBorderlessControls(p,11);await p.screenshot({path:`${out}/dock-open-393x851.png`});
  let dockBefore=await snap();await touchDrag(cdp,dockShelf(p,'classics').locator('[data-family-icon="multicolor-peony"]'),10,10);
  assert.equal((await snap()).launched,dockBefore.launched);assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'true');
  await touchDrag(cdp,dockShelf(p,'grand').locator('[data-family-icon="ruby-dahlia"]'),196,240,'touchCancel');
@@ -41,10 +42,15 @@ try{
  await touchDrag(cdp,dockShelf(p,'classics').locator('[data-family-icon="gold-willow"]'),196,240);
  let dockAfter=await snap();assert.equal(dockAfter.launched,dockBefore.launched+1);assert.equal(dockAfter.bursts,dockBefore.bursts+1);assert.equal(dockAfter.selected,'gold-willow');assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
  await advance(35);assert.equal((await snap()).particles,0);pass('mobile: expanded dock drag, invalid drop, cancel, and auto-close');
- await p.setViewportSize({width:320,height:480});await inspectStage(p);await p.getByRole('button',{name:'Open fireworks dock to drag a style into the sky'}).click();await inspectOpenDock(p);
+ await dockToggle(p).click();await inspectOpenDock(p);
+ const mobilePadBefore=await snap(),mobileHero=await p.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));
+ await touchDrag(cdp,dockShelf(p,'grand').locator('[data-family-icon="ruby-dahlia"]'),mobileHero.x+mobileHero.width/2,mobileHero.y+mobileHero.height*.89);
+ const mobilePadAfter=await snap();assert.equal(mobilePadAfter.phase,'fuse');assert.equal(mobilePadAfter.committedFamily,'Ruby Dahlia');assert.equal(mobilePadAfter.bursts,mobilePadBefore.bursts);assert.equal(mobilePadAfter.launched,mobilePadBefore.launched);assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
+ await advance(1);assert.equal((await snap()).launched,mobilePadBefore.launched+1);await advance(35);assert.equal((await snap()).particles,0);pass('mobile: dock drag to terrace lights one normal rocket at the drop position');
+ await p.setViewportSize({width:320,height:480});await inspectStage(p);await dockToggle(p).click();await inspectOpenDock(p);
  await dockShelf(p,'grand').locator('[data-family-icon="opal-supernova"]').focus();await p.keyboard.press('Escape');assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
  await p.waitForFunction(()=>document.activeElement===document.querySelector('.family-dock-toggle'));pass('320px phone: ten touch targets fit and Escape restores dock focus');
- await p.setViewportSize({width:844,height:390});await inspectStage(p);await p.getByRole('button',{name:'Open fireworks dock to drag a style into the sky'}).click();
+ await p.setViewportSize({width:844,height:390});await inspectStage(p);await dockToggle(p).click();
  const landscapeDock=await inspectOpenDock(p);assert.ok(landscapeDock.y>=200,`Expanded landscape dock must leave an upper sky: ${JSON.stringify(landscapeDock)}`);await p.screenshot({path:`${out}/dock-open-844x390.png`});
  const landscapeBefore=await snap(),landscapeHero=await p.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));
  await touchDrag(cdp,dockShelf(p,'grand').locator('[data-family-icon="phoenix-palm"]'),landscapeHero.x+landscapeHero.width/2,landscapeHero.y+landscapeHero.height*.28);
@@ -54,9 +60,18 @@ try{
  await desktop.goto(`${base}?backend=canvas&qa=1`);await desktop.waitForSelector('main[data-ready="true"]',{timeout:90000});await inspectStage(desktop);await inspectEdgeShelves(desktop,44);
  const desktopSnap=()=>desktop.evaluate(()=>window.__firecrackersQA.snapshot());
  const desktopAdvance=async t=>{await desktop.evaluate(t=>window.__firecrackersQA.advance(t),t);await desktop.waitForTimeout(50);};
+ await inspectBorderlessControls(desktop,21);
+ const fixedHero=await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));
+ const rubyIcon=edgeShelf(desktop,'grand').locator('[data-family-icon="ruby-dahlia"]'),rubyQuick=edgeShelf(desktop,'grand').locator('[data-family-launch="ruby-dahlia"]');
+ const selectBefore=await desktopSnap();await rubyIcon.click();await desktop.mouse.move(640,300);await desktop.waitForTimeout(150);
+ assert.equal((await desktopSnap()).selected,'ruby-dahlia');assert.equal((await desktopSnap()).launched,selectBefore.launched);
+ assert.equal(await rubyQuick.evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return Number(s.opacity)>.9&&s.visibility==='visible'&&s.pointerEvents!=='none'&&e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}),true,'Selected quick Launch stays visible without hover');
+ await inspectStage(desktop);assert.deepEqual(await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect)),fixedHero);pass('borderless SVG controls and selected quick Launch are immediately visible at rest');
  const leftIcon=edgeShelf(desktop,'classics').locator('[data-family-icon="multicolor-peony"]'),leftQuick=edgeShelf(desktop,'classics').locator('[data-family-launch="multicolor-peony"]');
  assert.equal(await leftQuick.evaluate(e=>{const s=getComputedStyle(e);return Number(s.opacity)<.1||s.visibility==='hidden'||s.pointerEvents==='none';}),true,'Quick Launch is hidden at rest');
  await leftIcon.hover();await desktop.waitForFunction(()=>{const e=document.querySelector('[data-edge="middle-left"] [data-family-launch="multicolor-peony"]'),s=getComputedStyle(e);return Number(s.opacity)>.9&&s.visibility==='visible'&&s.pointerEvents!=='none';});
+ await desktop.waitForTimeout(80);assert.deepEqual(await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect)),fixedHero,'Hover must not reframe the fireworks');
+ await leftQuick.focus();await desktop.waitForTimeout(80);assert.deepEqual(await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect)),fixedHero,'Quick Launch focus must not reframe the fireworks');await inspectStage(desktop);
  const iconBox=await leftIcon.boundingBox(),quickBox=await leftQuick.boundingBox();assert.ok(Math.hypot(iconBox.x+iconBox.width/2-quickBox.x-quickBox.width/2,iconBox.y+iconBox.height/2-quickBox.y-quickBox.height/2)<150,'Quick Launch stays near its hovered icon');
  let quickBefore=await desktopSnap();await leftQuick.click();let quickAfter=await desktopSnap();assert.equal(quickAfter.committedFamily,'Multicolor Peony');assert.equal(quickAfter.phase,'fuse');assert.equal(quickAfter.bursts,quickBefore.bursts);await leftQuick.evaluate(e=>e.click());assert.equal((await desktopSnap()).committedId,quickAfter.committedId);await desktopAdvance(1);assert.equal((await desktopSnap()).launched,quickBefore.launched+1);await desktopAdvance(35);pass('desktop: hovered Classic offers nearby Launch and admits one normal flight');
  const rightIcon=edgeShelf(desktop,'grand').locator('[data-family-icon="sapphire-saturn"]'),rightQuick=edgeShelf(desktop,'grand').locator('[data-family-launch="sapphire-saturn"]');
@@ -69,6 +84,17 @@ try{
   await desktopAdvance(35);assert.equal((await desktopSnap()).particles,0);
  }
  pass('desktop: dragging either edge collection into the sky bursts exactly once');
+ const padHero=await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));let leftPlacement=0;
+ for(const [collection,id,name,fraction] of [['classics','chrysanthemum','Chrysanthemum',.25],['grand','sapphire-saturn','Sapphire Saturn',.75]]){
+  const before=await desktopSnap();await mouseDrag(desktop,edgeShelf(desktop,collection).locator(`[data-family-icon="${id}"]`),padHero.x+padHero.width*fraction,padHero.y+padHero.height*.89);
+  const after=await desktopSnap();assert.equal(after.phase,'fuse');assert.equal(after.committedFamily,name);assert.equal(after.bursts,before.bursts);assert.equal(after.launched,before.launched);assert.equal(after.selected,id);assert.ok(after.placement>=.2&&after.placement<=.8);
+  if(collection==='classics'){leftPlacement=after.placement;assert.ok(leftPlacement<.5,`Left terrace placement: ${leftPlacement}`);}else assert.ok(after.placement>leftPlacement+.2,`Right terrace placement: ${after.placement} vs ${leftPlacement}`);
+  await desktopAdvance(1);assert.equal((await desktopSnap()).launched,before.launched+1);await desktopAdvance(35);assert.equal((await desktopSnap()).particles,0);
+ }
+ pass('desktop: launchpad-height drops produce a normal rocket at distinct horizontal positions');
+ const rejectedBefore=await desktopSnap();await mouseDrag(desktop,edgeShelf(desktop,'classics').locator('[data-family-icon="multicolor-peony"]'),padHero.x+padHero.width/2,padHero.y+padHero.height*.77);
+ const rejectedAfter=await desktopSnap();assert.equal(rejectedAfter.launched,rejectedBefore.launched);assert.equal(rejectedAfter.bursts,rejectedBefore.bursts);assert.equal(rejectedAfter.selected,rejectedBefore.selected);assert.equal(rejectedAfter.placement,rejectedBefore.placement);
+ pass('desktop: gap between sky and launchpad rejects a drop without changing selection or placement');
  await desktop.setViewportSize({width:1280,height:560});await inspectStage(desktop);await desktop.evaluate(()=>document.activeElement?.blur());await desktop.keyboard.press('3');
  assert.equal((await desktopSnap()).selected,'chrysanthemum');await inspectStage(desktop);await inspectEdgeShelves(desktop,44);await inspectEdgeSeparation(desktop);
  await desktop.screenshot({path:`${out}/layout-1280x560-long-caption.png`});await desktop.setViewportSize({width:1280,height:800});await inspectStage(desktop);await desktopContext.close();

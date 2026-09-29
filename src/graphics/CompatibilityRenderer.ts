@@ -181,7 +181,7 @@ export class CompatibilityRenderer implements RendererPort {
         this.staged = this.airborne = this.bodies = 0;
         if (this.mode === 'interactive') {
             this.drawStage();
-            if (!s.committed && !s.rearming && !s.show) {
+            if (!s.committed && !s.show) {
                 this.staged++;
                 this.drawRocket({ x: s.placementToX(), y: s.ground, z: 0, stage: 'fuse', age: -1, ascent: 1, fuse: 1, family: FAMILIES.findIndex(f => f.id === s.selected) });
             }

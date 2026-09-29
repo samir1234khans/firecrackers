@@ -4,6 +4,8 @@ A single-screen festival night with **ten selectable fireworks**. Choose a style
 
 **Live Cloudflare production: realism-refined waterfront, build `2026-09-29.3`.** See [the production release receipt](docs/evidence/realism-production-release-2026-09-29.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
 
+Build `2026-09-29.5` is under review at [the isolated pad-launch preview](https://firecrackers-pad-preview.allygym-api.workers.dev/). It adds borderless icon controls, an always-visible selected quick Launch, immediate next-rocket readiness, and drag-to-terrace placement. See [preview evidence](docs/evidence/pad-launch-preview-2026-09-29.md); the production domain has not yet been changed to this candidate.
+
 The release refines portrait water framing, broken effect reflections, smoke-family atlas selection, and an original textured Blender terrace. [Review its image studies and same-seed `.2` versus `.3` browser comparisons](docs/evidence/realism-refinement-2026-09-29.md), or [open the retained preview](https://firecrackers-realism-preview.allygym-api.workers.dev/).
 
 [Open Firecrackers](https://firecrackers.mainandmany.com/) · [Compatibility graphics](https://firecrackers.mainandmany.com/?backend=canvas) · [Prior AppDeploy preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
@@ -16,11 +18,11 @@ Start new development branches from current `main` and open pull requests back t
 
 **Grand collection:** Aurora Crown (jade crown and violet heart), Ruby Dahlia (ruby/rose petals and champagne center), Sapphire Saturn (blue sphere inside a tilted golden orbit), Phoenix Palm (amber branches splitting into rose leaves), and Opal Supernova (seven traveling jewels opening into a staggered bouquet).
 
-The side drawer has two collection tabs with five readable style targets each. Browsing a tab does not change the committed selection; selecting a style closes the drawer and the selected style survives reload. New styles have their own geometry, timing, palette aging and bounded child effects rather than being five recolors of one burst.
+The detailed picker has two collections of five readable style targets each. The candidate also keeps all five Classics in the left desktop rail and all five Grand styles in the right rail, with a compact expandable phone dock. Browsing does not change the committed selection; choosing a style persists across reload. New styles have their own geometry, timing, palette aging and bounded child effects rather than being five recolors of one burst.
 
 ## Playback and recovery
 
-One ready press admits one rocket. Repeated input cannot duplicate it. The selected next family can change without mutating the committed flight; launch and position remain locked until the rearm transition. Manual controls stay visible during normal play. Auto show, Festival and the finite Finale remain available.
+One ready press admits one rocket. Repeated input cannot duplicate an active fuse or flight. The selected next family can change without mutating the committed flight; the candidate makes the next rocket available as soon as the burst begins when particle capacity permits. Manual controls stay visible during normal play. Auto show, Festival and the finite Finale remain available.
 
 The preferred renderer uses the existing perspective 3D scene, stage, paper-wrapped rocket, trails, smoke, detached embers and bloom. Ultra remains the default quality, with a 60 fps target, not an FPS guarantee. Reduced flashes stays enabled; sound and haptics start off. Explicitly saved lower quality and comfort preferences are respected.
 
@@ -30,7 +32,7 @@ Startup and rendering failures retain readable recovery controls. The app can fa
 
 Six compact, transparent control groups frame the left and right edges. The measured central corridor stays clear on desktop and phones. Settings and the firework drawer pause the scene while open and restore the previous pause state on close.
 
-Drag a style from the drawer onto the sky to create one immediate burst at that point. It fades naturally. Invalid drops cancel; keyboard users can choose **Burst selected style in center**. The fixed **Launch** button retains the fuse and ascent sequence.
+Drag a style into the sky to create one immediate burst at that point. Drop it near the terrace to light a normal rocket at that horizontal position. Invalid drops cancel; keyboard users can choose **Burst selected style in center** or use a labelled Launch control. The main and adjacent Launch controls use borderless flame icons with full hit areas; the selected style's adjacent action stays visible. Normal launches retain the fuse and ascent sequence.
 
 Original Blender smoke, flame, rocket and terrace assets load progressively over procedural fallbacks. Rippling reflections follow the actual effects, and optional CC0 recordings augment the original sound design. See [asset provenance](assets-source/PROVENANCE.md) and [design review](assets-source/DESIGN.md).
 

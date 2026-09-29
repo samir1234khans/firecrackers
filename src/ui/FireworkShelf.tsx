@@ -26,15 +26,14 @@ export function FireworkShelf({ collection, variant, selectedId, available, canL
   >
     {families.map(family => {
       const launchable = canLaunchFamily(family.id);
-      return <div className='shelf-item' key={family.id} data-selected={family.id === selectedId}>
+      return <div className='shelf-item' key={family.id} data-selected={family.id === selectedId} style={{ '--family-color': family.color } as CSSProperties}>
         <button
           className='shelf-icon'
           type='button'
           data-family-icon={family.id}
-          aria-label={`${family.name}. ${launchable ? 'Select or drag into the sky to burst.' : 'Select for the next firework.'}`}
+          aria-label={`${family.name}. ${launchable ? 'Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.' : 'Select for the next firework.'}`}
           aria-pressed={family.id === selectedId}
-          title={`${family.name}: ${family.note} ${launchable ? 'Drag into the sky for an instant burst.' : 'Select for the next firework.'}`}
-          style={{ '--family-color': family.color } as CSSProperties}
+          title={`${family.name}: ${family.note} ${launchable ? 'Drag into the sky for a burst or onto the terrace for a normal rocket.' : 'Select for the next firework.'}`}
           disabled={!available}
           onPointerDown={event => { if (launchable) onDragStart?.(family.id, event); }}
           onClick={() => onSelect(family.id)}
@@ -43,12 +42,13 @@ export function FireworkShelf({ collection, variant, selectedId, available, canL
           className='shelf-quick-launch'
           type='button'
           data-family-launch={family.id}
+          data-stage-control
           aria-label={`Launch ${family.name}`}
           title={`Launch ${family.name} from the terrace`}
           disabled={!launchable}
           onKeyDown={event => { if (event.repeat && ['Enter', ' '].includes(event.key)) event.preventDefault(); }}
           onClick={() => onLaunchFamily(family.id)}
-        ><span className='shelf-quick-name'>{family.short}</span><span className='shelf-quick-call'><Flame size={12}/>Launch</span></button>}
+        ><Flame size={19} aria-hidden='true'/></button>}
       </div>;
     })}
   </div>;

@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Simulation } from '../.test-build/engine/Simulation.js';
 import { FAMILIES } from '../.test-build/engine/catalog.js';
-import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y, MOTOR_LOCAL_Y, REARM_SECONDS } from '../.test-build/engine/LaunchGeometry.js';
+import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y, MOTOR_LOCAL_Y } from '../.test-build/engine/LaunchGeometry.js';
 const advance = (s, n) => { for (let i = 0; i < Math.ceil(n * 60); i++) s.advance(1 / 60); };
 
-for (const f of FAMILIES) test(`${f.name}: one committed rocket, apex break, and explicit rearm`, () => {
+for (const f of FAMILIES) test(`${f.name}: one committed rocket, apex break, and immediate next readiness`, () => {
   const s = new Simulation(61); s.quality = 'ultra'; s.select(f.id);
   assert.equal(s.ignite(), true);
   const r = s.committed, id = r.id;
@@ -29,9 +29,8 @@ for (const f of FAMILIES) test(`${f.name}: one committed rocket, apex break, and
   const point = rocketPoint(r, SHELL_LOCAL_Y);
   assert.ok(Math.hypot(burst.x - point[0], burst.y - point[1], burst.z - point[2]) < 1e-6);
   assert.equal(s.activeUnits, 0);
-  assert.equal(s.launchBlock, 'busy');
-  advance(s, REARM_SECONDS + .05);
-  assert.ok(s.ready || s.launchBlock === 'capacity');
+  assert.equal(s.launchBlock, '', 'the next family is ready at the apex without a timer');
+  assert.equal(s.ready, true);
   advance(s, 18);
   assert.equal(s.ready, true);
   assert.equal(s.ignite(), true);
