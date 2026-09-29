@@ -10,8 +10,8 @@ import type { Simulation } from './Simulation';
 import { ParticleScene } from '../graphics/ParticleScene';
 import { RocketProp } from '../graphics/RocketProp';
 import { LaunchStage } from '../graphics/LaunchStage';
-import { loadWaterfrontAssets, disposeAssetGroup } from '../graphics/WaterfrontAssets';
-import type { WaterfrontAssets } from '../graphics/WaterfrontAssets';
+import { loadWaterfrontAssets, disposeWaterfrontAsset, WATERFRONT_ASSET_NAMES } from '../graphics/WaterfrontAssets';
+import type { WaterfrontAssets, WaterfrontAssetName } from '../graphics/WaterfrontAssets';
 import { WaterReflection } from '../graphics/WaterReflection';
 import { NightEnvironment } from '../graphics/NightEnvironment';
 import { OpaqueDepth } from '../graphics/OpaqueDepth';
@@ -40,8 +40,12 @@ export class FireworkRenderer {
     private readonly particles: ParticleScene;
     private readonly overlay = uniform(0);
     private readonly projected = new THREE.Vector3();
-    private pendingAssets: Partial<WaterfrontAssets> | null = null;
-    private assets: Partial<WaterfrontAssets> | null = null;
+    private pendingAssets: Partial<WaterfrontAssets> = {};
+    private assets: Partial<WaterfrontAssets> = {};
+    private readonly assetStates = Object.fromEntries(WATERFRONT_ASSET_NAMES.map(name => [name, 'loading'])) as Record<WaterfrontAssetName, 'loading' | 'ready' | 'active' | 'failed'>;
+    private readonly assetErrors: Partial<Record<WaterfrontAssetName, string>> = {};
+    private readonly assetQueuedAt: Partial<Record<WaterfrontAssetName, number>> = {};
+    private assetFrame = 0;
     private layout!: StageLayout;
     setLayout(layout: StageLayout) { this.layout = layout; }
     private mode: DisplayMode = 'interactive';
@@ -102,10 +106,35 @@ export class FireworkRenderer {
         this.host.dataset.backend = this.backend;
         this.resize();
         if (!this.disposed) this.render();
-        void loadWaterfrontAssets().then(assets => {
-            if (this.disposed) { disposeAssetGroup(assets.rocket); disposeAssetGroup(assets.terrace); assets.normal?.dispose(); assets.flame?.dispose(); return; }
-            this.pendingAssets = assets;
-            if (!this.sim.committed && !this.sim.heads.count) this.render();
+        this.host.dataset.assets = 'procedural fallback';
+        void loadWaterfrontAssets((name, asset) => {
+            if (this.disposed) { disposeWaterfrontAsset(name, asset); return; }
+            (this.pendingAssets as Record<string, unknown>)[name] = asset;
+            this.assetStates[name] = 'ready';
+            this.assetQueuedAt[name] = this.sim.time;
+            this.scheduleAssetRender();
+        }, (name, error) => {
+            if (this.disposed) return;
+            this.assetStates[name] = 'failed';
+            this.assetErrors[name] = error;
+            this.host.dataset.assetFailures = WATERFRONT_ASSET_NAMES.filter(key => this.assetStates[key] === 'failed').join(',');
+        }).catch(error => {
+            if (this.disposed) return;
+            for (const name of WATERFRONT_ASSET_NAMES) if (this.assetStates[name] === 'loading') {
+                this.assetStates[name] = 'failed';
+                this.assetErrors[name] = error instanceof Error ? error.message : String(error);
+            }
+            this.host.dataset.assetFailures = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'failed').join(',');
+        });
+    }
+    /** Coalesce idle/paused redraws; the main animation loop can consume pending assets first. */
+    private scheduleAssetRender() {
+        if (this.assetFrame || this.disposed) return;
+        this.assetFrame = requestAnimationFrame(() => {
+            this.assetFrame = 0;
+            if (this.disposed || !Object.keys(this.pendingAssets).length) return;
+            try { this.render(); }
+            catch { this.onFailure('An authored graphic could not be activated. Retry the scene.'); }
         });
     }
     resize() {
@@ -164,16 +193,33 @@ export class FireworkRenderer {
     render() {
         if (this.disposed || !this.initialized) return;
         const start = performance.now(), sim = this.sim;
-        if (this.pendingAssets && !sim.committed && !sim.heads.count && !sim.cues.length) {
-            const a = this.pendingAssets; this.pendingAssets = null; this.assets = a;
-            if (a.smoke) { this.smokeAtlas.image = { data: new Uint8Array(a.smoke.data), width: a.smoke.width, height: a.smoke.height }; this.smokeAtlas.needsUpdate = true; }
-            if (a.paper) { this.paper.image = a.paper; this.paper.needsUpdate = true; }
-            if (a.flame) for (const prop of this.props) prop.setFlameTexture(a.flame);
-            if (a.normal) this.water.setNormal(a.normal);
-            if (a.rocket) for (const prop of this.props) prop.setAuthoredGeometry(a.rocket);
-            if (a.terrace) this.environment.setTerrace(a.terrace);
-            this.host.dataset.assets = Object.keys(a).join(',');
+        // Apply at a frame boundary. Paper and rocket meshes wait for an interval
+        // without an airborne body; an eight-second cap also serves continuous shows.
+        for (const name of WATERFRONT_ASSET_NAMES) {
+            const asset = this.pendingAssets[name];
+            if (!asset) continue;
+            if ((name === 'paper' || name === 'rocket') && sim.committed &&
+                sim.time - (this.assetQueuedAt[name] ?? sim.time) < 8) continue;
+            delete this.pendingAssets[name];
+            (this.assets as Record<string, unknown>)[name] = asset;
+            try {
+                if (name === 'smoke') {
+                    const atlas = asset as ImageData;
+                    this.smokeAtlas.image = { data: new Uint8Array(atlas.data), width: atlas.width, height: atlas.height };
+                    this.smokeAtlas.needsUpdate = true;
+                } else if (name === 'paper') { this.paper.image = asset as HTMLImageElement; this.paper.needsUpdate = true; }
+                else if (name === 'flame') for (const prop of this.props) prop.setFlameTexture(asset as THREE.Texture);
+                else if (name === 'normal') this.water.setNormal(asset as THREE.Texture);
+                else if (name === 'rocket') for (const prop of this.props) prop.setAuthoredGeometry(asset as THREE.Group);
+                else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
+                this.assetStates[name] = 'active';
+            } catch (error) {
+                this.assetStates[name] = 'failed';
+                this.assetErrors[name] = error instanceof Error ? error.message : String(error);
+            }
         }
+        this.host.dataset.assets = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'active').join(',') || 'procedural fallback';
+        this.host.dataset.assetFailures = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'failed').join(',');
         this.camera.updateMatrixWorld();
         this.opaqueCamera.copy(this.camera);
         this.opaqueCamera.layers.set(0);
@@ -236,6 +282,8 @@ export class FireworkRenderer {
         const projected = point ? new THREE.Vector3(...point).project(this.camera) : null;
         return {
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
+            authoredAssetStates: { ...this.assetStates },
+            authoredAssetErrors: { ...this.assetErrors },
             stageLayout: this.layout, ...this.water.diagnostics(),
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
@@ -247,6 +295,7 @@ export class FireworkRenderer {
     dispose() {
         if (this.disposed) return;
         this.disposed = true;
+        cancelAnimationFrame(this.assetFrame);
         this.renderer.domElement.removeEventListener('webglcontextlost', this.lossHandler);
         this.particles.dispose();
         this.bloomPass.dispose();
@@ -267,8 +316,11 @@ export class FireworkRenderer {
         this.paper.dispose();
         this.environment.dispose();
         this.water.dispose();
-        disposeAssetGroup(this.assets?.rocket); this.assets?.normal?.dispose(); this.assets?.flame?.dispose();
-        disposeAssetGroup(this.pendingAssets?.rocket); disposeAssetGroup(this.pendingAssets?.terrace); this.pendingAssets?.normal?.dispose(); this.pendingAssets?.flame?.dispose();
+        for (const name of WATERFRONT_ASSET_NAMES) {
+            const active = this.assets[name], pending = this.pendingAssets[name];
+            if (active) disposeWaterfrontAsset(name, active);
+            if (pending) disposeWaterfrontAsset(name, pending);
+        }
         if (this.initialized) this.renderer.dispose();
         this.renderer.domElement.remove();
     }
