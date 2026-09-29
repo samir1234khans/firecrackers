@@ -2,9 +2,9 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Live Cloudflare production: Waterfront upgrade, build `2026-09-29.2`.** See [the release receipt](docs/evidence/waterfront-delivery-2026-09-29.md) for deployment and verification status. Main is the canonical application baseline.
+**Live Cloudflare production: realism-refined waterfront, build `2026-09-29.3`.** See [the production release receipt](docs/evidence/realism-production-release-2026-09-29.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
 
-**Realism preview: build `2026-09-29.3`.** The next pass refines portrait water framing, broken effect reflections, smoke-family atlas selection, and an original textured Blender terrace. [Open the separate Cloudflare preview](https://firecrackers-realism-preview.allygym-api.workers.dev/) or [review its image studies and same-seed browser comparisons](docs/evidence/realism-refinement-2026-09-29.md). The comparison is against the currently public `.2` build; it is not a production release receipt for `.3`.
+The release refines portrait water framing, broken effect reflections, smoke-family atlas selection, and an original textured Blender terrace. [Review its image studies and same-seed `.2` versus `.3` browser comparisons](docs/evidence/realism-refinement-2026-09-29.md), or [open the retained preview](https://firecrackers-realism-preview.allygym-api.workers.dev/).
 
 [Open Firecrackers](https://firecrackers.mainandmany.com/) · [Compatibility graphics](https://firecrackers.mainandmany.com/?backend=canvas) · [Prior AppDeploy preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 
@@ -60,7 +60,7 @@ python scripts/validate_docs.py
 
 For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:stage`, `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies and runs the full ten-effect workflow for main and pull requests into main. Development servers bind to loopback; publish production builds only.
 
-Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current Cloudflare release receipt is in [production evidence](docs/evidence/cloudflare-production-2026-09-29.md).
+Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current [Cloudflare production receipt](docs/evidence/realism-production-release-2026-09-29.md) records build `.3` and its rollback version.
 
 ## Historical Grand Collection delivery
 

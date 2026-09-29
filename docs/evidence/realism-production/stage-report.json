@@ -1,0 +1,92 @@
+{
+  "url": "https://firecrackers.mainandmany.com/",
+  "checks": [
+    {
+      "name": "320x480: center clearance and hit targets",
+      "ratio": 0.575
+    },
+    {
+      "name": "375x667: center clearance and hit targets",
+      "ratio": 0.6373333333333333
+    },
+    {
+      "name": "393x851: center clearance and hit targets",
+      "ratio": 0.6539440203562341
+    },
+    {
+      "name": "768x1024: center clearance and hit targets",
+      "ratio": 0.8229166666666666
+    },
+    {
+      "name": "844x390: center clearance and hit targets",
+      "ratio": 0.8388625592417062
+    },
+    {
+      "name": "1280x800: center clearance and hit targets",
+      "ratio": 0.775
+    },
+    {
+      "name": "1920x1080: center clearance and hit targets",
+      "ratio": 0.85
+    },
+    {
+      "name": "safe insets preserve clear center"
+    },
+    {
+      "name": "blank sky input is inert"
+    },
+    {
+      "name": "drawer close preserves manual pause"
+    },
+    {
+      "name": "panel pauses, traps focus, Escape restores invoker"
+    },
+    {
+      "name": "position draft commits after overlay pause removal"
+    },
+    {
+      "name": "invalid drop cancels without launching"
+    },
+    {
+      "name": "touch drag produces exactly one immediate burst"
+    },
+    {
+      "name": "keyboard-accessible instant burst and complete cleanup"
+    },
+    {
+      "name": "drawer selection and rotation preserve committed rocket"
+    },
+    {
+      "name": "recordings load after explicit sound activation; pause cancels voices"
+    },
+    {
+      "name": "projected phone waterline sits below the burst and desktop shoreline stays stable",
+      "phoneWaterlines": [
+        0.7004606279060251,
+        0.7059896047036005,
+        0.719504712963004
+      ],
+      "desktopWaterline": 0.48453149705819837
+    },
+    {
+      "name": "ultra: authored assets and reflection budget",
+      "width": 512,
+      "height": 320
+    },
+    {
+      "name": "standard: authored assets and reflection budget",
+      "width": 256,
+      "height": 160
+    },
+    {
+      "name": "low: authored assets and reflection budget",
+      "width": 256,
+      "height": 160
+    },
+    {
+      "name": "missing v004 terrace retains procedural stage and launches"
+    }
+  ],
+  "errors": [],
+  "physicalDevice": false
+}

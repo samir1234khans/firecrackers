@@ -1,0 +1,38 @@
+{
+  "checkedAtUtc": "2026-09-29T14:37:54.3064494Z",
+  "origin": "https://firecrackers.mainandmany.com",
+  "release": {
+    "version": "2026-09-29.3",
+    "sha256": "4ae7b48094bad269c0a47655d5d20e6839b71f593100aa052d90e4df63a6a40d",
+    "modules": 49
+  },
+  "head": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/sw.js",
+      "status": 200
+    },
+    {
+      "path": "/manifest.webmanifest",
+      "status": 200
+    },
+    {
+      "path": "/art/terrace-v004.glb",
+      "status": 200
+    },
+    {
+      "path": "/audio/report-01.wav",
+      "status": 200
+    }
+  ],
+  "preview": {
+    "checkedAtUtc": "2026-09-29T14:39:40.0353981Z",
+    "origin": "https://firecrackers-realism-preview.allygym-api.workers.dev",
+    "version": "2026-09-29.3",
+    "sha256": "4ae7b48094bad269c0a47655d5d20e6839b71f593100aa052d90e4df63a6a40d",
+    "modules": 49
+  }
+}

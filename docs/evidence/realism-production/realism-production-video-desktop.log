@@ -1,0 +1,17 @@
+
+> firecrackers@0.1.0 test:e2e
+> node tests/video-flow-browser.mjs test-results/realism-production-video-desktop
+
+PASS desktop: correct build, meaningful UI and actual canvas {}
+PASS desktop: six edge groups, clear hero, reachable picker and launch {"width":1280,"height":800,"hero":{"x":144,"y":0,"width":992,"height":800},"groups":[{"name":"top-left","x":12,"y":12,"width":128,"height":67,"right":140,"bottom":79},{"name":"middle-left","x":12,"y":317.8046875,"width":128,"height":164.390625,"right":140,"bottom":482.1953125},{"name":"bottom-left","x":12,"y":698,"width":128,"height":90,"right":140,"bottom":788},{"name":"top-right","x":1212,"y":12,"width":56,"height":90,"right":1268,"bottom":102},{"name":"middle-right","x":1212,"y":355,"width":56,"height":90,"right":1268,"bottom":445},{"name":"bottom-right","x":1212,"y":717,"width":56,"height":71,"right":1268,"bottom":788}],"buttons":[{"name":"Choose show mode","x":12,"y":35,"width":128,"height":44,"hit":true},{"name":"Previous firework","x":12,"y":317.8046875,"width":128,"height":44,"hit":true},{"name":"Choose firework: Gold Willow","x":12,"y":363.8046875,"width":128,"height":72.390625,"hit":true},{"name":"Next firework","x":12,"y":438.1953125,"width":128,"height":44,"hit":true},{"name":"Position firework","x":12,"y":698,"width":128,"height":44,"hit":true},{"name":"Help","x":12,"y":744,"width":128,"height":44,"hit":true},{"name":"Pause scene","x":1212,"y":12,"width":56,"height":44,"hit":true},{"name":"Enable sound","x":1212,"y":58,"width":56,"height":44,"hit":true},{"name":"Open settings","x":1212,"y":355,"width":56,"height":44,"hit":true},{"name":"Enter fullscreen","x":1212,"y":401,"width":56,"height":44,"hit":true},{"name":"Launch selected firework","x":1212,"y":717,"width":56,"height":56,"hit":true}],"overflow":false,"launch":{"width":56,"height":56,"bottom":773},"hit":true}
+PASS desktop: real launch, duplicate guard and immutable active family {}
+PASS desktop: visible burst after real-time input and ready-again state {"launched":1,"bursts":1}
+PASS desktop: second selected family launches after first burst {}
+PASS desktop: no duplicate staged rocket; continuous body-to-shell handoff and burst {"method":"labeled deterministic rendered checkpoints, not performance evidence"}
+PASS desktop: all five families produce rendered effects {}
+PASS desktop: pause freezes exact state, settings preserves pause, same rocket resumes {}
+PASS desktop: auto show and manual takeover preserve committed effects {}
+PASS desktop: graphics persistence, silent reload and reset cancellation {}
+PASS desktop: production offline package cold reload {}
+PASS desktop: protected transparent display returns to manual controls {}
+PASS No unexpected page, framework or console errors; separately recorded host-only offline requests {}
