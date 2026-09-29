@@ -100,7 +100,14 @@ jobs:
           exit 1
       - name: Waterfront, transparent edges and touch drag regression
         run: node tests/stage-browser.mjs /tmp/stage-evidence
+      - name: Progressive artwork loading and fallback
+        if: always()
+        run: node tests/assets-browser.mjs
+      - name: Runtime graphics overload recovery
+        if: always()
+        run: node tests/overload-browser.mjs /tmp/overload-evidence
       - name: Recovery fault injection and smallest layouts
+        if: always()
         env:
           VIEWABILITY_URL: http://127.0.0.1:4173/
         run: node tests/viewability-browser.mjs /tmp/recovery-evidence
@@ -111,4 +118,5 @@ jobs:
           path: |
             /tmp/recovery-evidence
             /tmp/stage-evidence
+            /tmp/overload-evidence
           retention-days: 7
