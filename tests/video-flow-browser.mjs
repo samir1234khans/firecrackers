@@ -1,3 +1,4 @@
+import { chooseFamily, inspectStage, inspectPicker, openPicker } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import { strict as assert } from 'node:assert';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -33,20 +34,7 @@ async function enter(page, suffix = '?backend=webgl&qa=1') {
 async function waitBurst(page, number) {
   await page.waitForFunction(n => Number(document.querySelector('main')?.dataset.bursts) >= n, number, { timeout: 90000 });
 }
-async function layout(page, label) {
-  const result = await page.evaluate(() => {
-    const launch = document.querySelector('.flow-launch').getBoundingClientRect();
-    const header = document.querySelector('.flow-command').getBoundingClientRect();
-    const deck = document.querySelector('.flow-deck-wrap').getBoundingClientRect();
-    const cards = [...document.querySelectorAll('.flow-family')].map(e => { const r = e.getBoundingClientRect(); return { w: r.width, h: r.height, x: r.x, right: r.right }; });
-    return { w: innerWidth, h: innerHeight, overflow: document.documentElement.scrollWidth > innerWidth, launch: { w: launch.width, h: launch.height, bottom: launch.bottom }, freeSky: deck.top - header.bottom, cards };
-  });
-  assert.equal(result.overflow, false);
-  assert.ok(result.launch.h >= 44 && result.launch.w >= 120);
-  assert.ok(result.launch.bottom <= result.h && result.freeSky > 90, JSON.stringify(result));
-  for (const card of result.cards) assert.ok(card.w >= 44 && card.h >= 44 && card.x >= 0 && card.right <= result.w, JSON.stringify(result));
-  record(`${label}: no overflow, reachable launch, five usable styles`, result);
-}
+async function layout(page, label) { const data = await inspectStage(page); await inspectPicker(page); record(label + ': six edge groups, clear hero, reachable picker and launch', data); }
 
 try {
   if (!process.env.VIDEO_FLOW_URL) {
@@ -90,7 +78,7 @@ try {
     assert.equal(await launch.isDisabled(), true);
     // An immediate second pointer action must not add another rocket.
     await launch.dispatchEvent('click');
-    await page.getByRole('button', { name: 'Multicolor Peony', exact: true }).click();
+    await chooseFamily(page, 'Multicolor Peony');
     const committed = await qa(page, 'snapshot');
     assert.equal(committed.committedFamily, 'Gold Willow');
     assert.equal(committed.selected, 'multicolor-peony');
@@ -109,7 +97,7 @@ try {
 
     // Exact phase captures prove geometry ownership without pretending they measure FPS.
     await enter(page); await qa(page, 'freeze', true);
-    await page.getByRole('button', { name: 'Chrysanthemum', exact: true }).click();
+    await chooseFamily(page, 'Chrysanthemum');
     await launch.click(); await advance(page, .15);
     let frame = await qa(page, 'snapshot');
     assert.equal(frame.stagedRockets, 1); assert.equal(frame.airborneRockets, 0);
@@ -128,7 +116,7 @@ try {
 
     for (const [index, name] of ['Gold Willow', 'Multicolor Peony', 'Chrysanthemum', 'Silver Crossette Crackle', 'Grand Finale'].entries()) {
       await advance(page, 24);
-      await page.getByRole('button', { name, exact: true }).click();
+      await chooseFamily(page, name);
       const count = (await qa(page, 'snapshot')).bursts;
       await launch.click(); await advance(page, index === 4 ? 5.1 : 3.8);
       assert.ok((await qa(page, 'snapshot')).bursts > count);
@@ -149,9 +137,9 @@ try {
     record(`${v.name}: pause freezes exact state, settings preserves pause, same rocket resumes`);
 
     await qa(page, 'freeze', true); await advance(page, 24);
-    await page.getByRole('button', { name: 'Festival', exact: true }).click(); await advance(page, 1);
+    await page.getByRole('button', { name: 'Choose show mode' }).click(); await page.getByRole('radio', { name: /Festival/ }).check(); await page.getByRole('button', { name: 'Start show' }).click(); await advance(page, 1);
     assert.equal((await qa(page, 'snapshot')).show, 'festival');
-    await page.getByRole('button', { name: 'Gold Willow', exact: true }).click();
+    await chooseFamily(page, 'Gold Willow');
     assert.equal((await qa(page, 'snapshot')).show, null); await advance(page, 8);
     assert.equal(await launch.isEnabled(), true);
     record(`${v.name}: auto show and manual takeover preserve committed effects`);

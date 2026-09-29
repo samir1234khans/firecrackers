@@ -1,3 +1,4 @@
+import { chooseFamily, inspectStage, inspectPicker, openPicker } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -28,23 +29,7 @@ async function enter(page, backend = 'webgl') {
     assert.match(await page.title(), /Firecrackers/);
     assert.equal(await page.locator('.scene-host canvas').count(), 1);
 }
-async function layout(page, label) {
-    const data = await page.evaluate(() => {
-        const launch = document.querySelector('.flow-launch'), r = launch.getBoundingClientRect();
-        const head = document.querySelector('.flow-command').getBoundingClientRect();
-        const deck = document.querySelector('.flow-deck-wrap').getBoundingClientRect();
-        return { width: innerWidth, height: innerHeight, freeSky: deck.top - head.bottom,
-            overflow: document.documentElement.scrollWidth > innerWidth,
-            launch: { height: r.height, bottom: r.bottom, width: r.width },
-            hit: launch.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)),
-            styles: [...document.querySelectorAll('.flow-family')].map(e => { const b = e.getBoundingClientRect(); return { name: e.getAttribute('aria-label'), x: b.x, right: b.right, width: b.width, height: b.height }; }),
-        };
-    });
-    assert.equal(data.overflow, false, JSON.stringify(data)); assert.equal(data.hit, true, JSON.stringify(data));
-    assert.equal(data.styles.length, 5); assert.ok(data.launch.height >= 44 && data.launch.bottom <= data.height && data.freeSky > 45, JSON.stringify(data));
-    for (const card of data.styles) assert.ok(card.width >= 44 && card.height >= 44 && card.x >= 0 && card.right <= data.width + .5, JSON.stringify(data));
-    record(label, data);
-}
+async function layout(page, label) { const data = await inspectStage(page); await inspectPicker(page); record(label + ': six edge groups, clear hero, reachable picker and launch', data); }
 let browser, current;
 try {
     browser = await chromium.launch({ headless: true, args: ['--enable-webgl', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
@@ -57,7 +42,7 @@ try {
             page.on('console', m => { if (m.type() === 'error') report.errors.push(`${label}: ${m.text()}`); else if (m.type() === 'warning') report.warnings.push(`${label}: ${m.text()}`); });
             await enter(page, backend);
             assert.match(await page.locator('main').getAttribute('data-backend'), backend === 'canvas' ? /Canvas/ : /WebGL/);
-            await page.getByRole('button', { name: 'Grand collection', exact: false }).click();
+            await chooseFamily(page, names[0]);
             assert.equal((await snapshot(page)).selected, ids[0]);
             await layout(page, `${label}: grand collection visible and launch reachable`);
             await shot(page, `${label}-collection`);
@@ -65,7 +50,7 @@ try {
             // Exercise real user input and wall-clock completion, not just the diagnostic adapter.
             if (device.mobile) await launch.tap(); else await launch.click();
             await launch.dispatchEvent('click');
-            await page.getByRole('button', { name: names[1], exact: true }).click();
+            await chooseFamily(page, names[1]);
             const committed = await snapshot(page);
             assert.equal(committed.committedFamily, names[0]); assert.equal(committed.active, 1);
             assert.equal(committed.selected, ids[1]);
@@ -76,7 +61,7 @@ try {
             await freeze(page, true);
             for (let i = 0; i < names.length; i++) {
                 await advance(page, 30);
-                await page.getByRole('button', { name: names[i], exact: true }).click();
+                await chooseFamily(page, names[i]);
                 const before = (await snapshot(page)).bursts;
                 await launch.click();
                 await advance(page, i === 4 ? 7.8 : i === 3 ? 5.4 : 4.9);
@@ -104,17 +89,19 @@ try {
             await freeze(page, true); await page.getByRole('button', { name: 'Resume scene', exact: true }).first().click();
             await advance(page, 30); assert.equal((await snapshot(page)).bursts, pending.bursts + pending.carriers);
             record(`${label}: composite pause and settings preserve pending children`);
-            await page.getByRole('button', { name: 'Classics', exact: false }).click();
-            await page.getByRole('button', { name: 'Gold Willow', exact: true }).click();
-            await page.getByRole('button', { name: 'Grand collection', exact: false }).click();
-            assert.equal((await snapshot(page)).selected, ids[4]);
+            await chooseFamily(page, 'Gold Willow');
+            await openPicker(page); await page.getByRole('button', { name: 'Grand collection', exact: false }).click();
+            assert.equal((await snapshot(page)).selected, 'gold-willow', 'Browsing tabs does not commit a selection');
+            await page.getByRole('button', { name: 'Close panel' }).click();
             await page.locator('body').click({ position: { x: 10, y: 160 } });
             for (const [i, key] of ['6', '7', '8', '9', '0'].entries()) { await page.keyboard.press(key); assert.equal((await snapshot(page)).selected, ids[i]); }
             await page.keyboard.press('1'); assert.equal((await snapshot(page)).selected, 'gold-willow');
             await page.keyboard.press('8');
             await enter(page, backend); assert.equal((await snapshot(page)).selected, ids[2]);
+            await openPicker(page);
             assert.equal(await page.getByRole('button', { name: names[2], exact: true }).getAttribute('aria-pressed'), 'true');
-            record(`${label}: collection memory, ten keyboard shortcuts and saved new family`);
+            await page.getByRole('button', { name: 'Close panel' }).click();
+            record(`${label}: noncommitting collection browsing, ten keyboard shortcuts and saved new family`);
             if (device.mobile && backend === 'canvas') {
                 for (const [w, h] of [[375,667],[320,568],[320,480],[844,390],[640,360]]) {
                     await page.setViewportSize({ width: w, height: h }); await layout(page, `${w}x${h}: grand collection layout`);

@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { measureStage } from './StageLayout';
+import type { FamilyId } from './catalog';
 import { Simulation } from './Simulation';
 import { AudioEngine } from './Audio';
 import { familyIndex } from './catalog';
@@ -139,6 +141,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const resize = () => {
             // Resizing also redraws an idle/paused canvas. Failures retain recovery controls.
             try {
+                if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive'));
                 graphics?.resize();
                 graphics?.render();
             } catch { fail('The scene could not resize. Try compatibility graphics.'); }
@@ -155,8 +158,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         };
         const bounds = typeof ResizeObserver === 'function' ? new ResizeObserver(resize) : null;
         if (host.current) bounds?.observe(host.current);
-        for (const element of host.current?.parentElement?.querySelectorAll('.flow-command, .flow-deck-wrap') || []) bounds?.observe(element);
+        for (const element of host.current?.parentElement?.querySelectorAll('[data-edge]') || []) bounds?.observe(element);
         window.addEventListener('resize', resize);
+        window.visualViewport?.addEventListener('resize', resize);
+        const layoutChanges = new MutationObserver(() => { if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive')); });
+        if (host.current?.parentElement) layoutChanges.observe(host.current.parentElement, { attributes: true, attributeFilter: ['data-overlay'] });
         document.addEventListener('visibilitychange', onVisibility);
         const startGraphics = async () => {
             const target = host.current;
@@ -198,7 +204,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             }
             if (!initialized && !cancelled) {
                 await begin(new CompatibilityRenderer(target, state));
-                if (preferred !== 'canvas') notice('Compatibility graphics is active. All five fireworks are still playable.');
+                if (preferred !== 'canvas') notice('Compatibility graphics is active. All ten fireworks are still playable.');
             }
             if (cancelled || !graphics) return;
             intent.current.block('graphics', false);
@@ -217,7 +223,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics() }),
+                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics() }),
                     freeze: (value: boolean) => { captureFrozen = Boolean(value); last = 0; },
                     advance: (seconds: number) => {
                         if (!Number.isFinite(seconds) || seconds < 0 || seconds > 120)
@@ -245,6 +251,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             soundRequest.current++;
             cancelAnimationFrame(frame);
             bounds?.disconnect();
+            layoutChanges.disconnect();
+            window.visualViewport?.removeEventListener('resize', resize);
             window.removeEventListener('resize', resize);
             document.removeEventListener('visibilitychange', onVisibility);
             delete (window as unknown as {
@@ -329,6 +337,17 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         }
         catch { /* A new renderer can be requested by epoch. */ }
     };
+    const heroRect = () => {
+        const l = measureStage(host.current!, display.current.mode === 'interactive');
+        return { ...l.heroRect, x: l.heroRect.x + l.viewport.x, y: l.heroRect.y + l.viewport.y };
+    };
+    const dropTarget = (x: number, y: number) => renderer.current?.projectBurst(x, y) ?? null;
+    const drop = (id: FamilyId, x: number, y: number) => {
+        const point = dropTarget(x, y);
+        if (!point || !status.current.ready || status.current.error) return false;
+        const admitted = sim.current.burstAt(id, ...point);
+        refresh(); return admitted;
+    };
     const positionFromPointer = (clientX: number) => renderer.current?.projectPlacement(clientX) ?? .5;
-    return { sim, ready, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, ignite, reset, refresh, positionFromPointer };
+    return { sim, ready, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, ignite, reset, refresh, positionFromPointer, heroRect, dropTarget, drop };
 }

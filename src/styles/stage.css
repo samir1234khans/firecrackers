@@ -1,0 +1,58 @@
+/* Six compact transparent islands. Their hit regions never span the central sky. */
+.fireworks-app { --edge-gap: 12px; --rail: min(128px, 12vw); --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); --safe-left: env(safe-area-inset-left, 0px); --safe-right: env(safe-area-inset-right, 0px); }
+.edge-group { position:absolute; z-index:30; width:var(--rail); display:flex; flex-direction:column; align-items:stretch; gap:2px; margin:0; padding:0; background:transparent; pointer-events:none; }
+.edge-group[data-edge$='left'] { left:calc(var(--safe-left) + var(--edge-gap)); }
+.edge-group[data-edge$='right'] { right:calc(var(--safe-right) + var(--edge-gap)); width:56px; }
+.edge-group[data-edge^='top'] { top:calc(var(--safe-top) + var(--edge-gap)); }
+.edge-group[data-edge^='middle'] { top:50%; transform:translateY(-50%); }
+.edge-group[data-edge^='bottom'] { bottom:calc(var(--safe-bottom) + var(--edge-gap)); }
+.edge-group button { position:relative; pointer-events:auto; min-width:44px; min-height:44px; width:100%; border:1px solid transparent; border-radius:10px; background:transparent; color:#e1e5eb; display:flex; align-items:center; justify-content:center; gap:6px; padding:4px; font:500 12px/1.2 system-ui,sans-serif; box-shadow:none; text-shadow:0 1px 2px #000; }
+.edge-group button svg { filter:drop-shadow(0 1px 1px #000); }
+.edge-group button:hover:not(:disabled),.edge-group button:focus-visible { background:#11192770; border-color:#e8c48560; }
+.edge-group button:focus-visible { outline:2px solid #f2cb88; outline-offset:0; }
+.edge-group button:disabled { opacity:.55; }
+.edge-brand { color:#e4bf85; display:flex; align-items:center; gap:4px; padding-bottom:2px; }
+.edge-brand h1 { font:400 16px/1 Georgia,serif; margin:0; color:#efe9df; letter-spacing:-.6px; }
+.edge-brand h1 span { color:#e4bf85; }
+.edge-brand svg { flex-shrink:0; width:18px; }
+.edge-group .edge-selection { flex-direction:column; padding:3px 2px; color:#f0ddbb; }
+.edge-selection .firework-glyph { width:44px; height:44px; filter:none; }
+.edge-selection span { overflow-wrap:anywhere; max-width:100%; }
+.edge-group .edge-launch { min-height:56px; width:56px; min-width:56px; flex-direction:column; padding:4px 0; gap:3px; background:#bb874b0a; color:#f1cd8f; border:1px solid #e8c48575; box-shadow:none; border-radius:50%; font-size:10px; }
+.edge-state { text-align:center; color:#e8d3b1; font:500 10px/1.3 system-ui,sans-serif; overflow-wrap:anywhere; text-shadow:0 1px 2px #000; }
+.update-dot { width:5px;height:5px;border-radius:50%;background:#f1c578;position:absolute;right:7px;top:7px; }
+.fireworks-app .sheet { width:min(380px,calc(100% - 24px - var(--safe-left) - var(--safe-right))); max-height:calc(100dvh - 24px - var(--safe-top) - var(--safe-bottom)); margin-block:auto; margin-right:calc(12px + var(--safe-right)); margin-left:auto; border-radius:18px; --panel-gutter:20px; }
+.fireworks-app .sheet--show,.fireworks-app .sheet--picker,.fireworks-app .sheet--position,.fireworks-app .sheet--help { margin-left:calc(12px + var(--safe-left)); margin-right:auto; }
+.fireworks-app .sheet::backdrop { background:#02050b70; backdrop-filter:blur(3px); }
+.sheet .flow-families { grid-template-columns:1fr; gap:8px; padding-block:12px; }
+.sheet .flow-family { flex-direction:row; justify-content:flex-start; padding:6px 12px; gap:14px; min-height:64px; font-size:14px; border:1px solid #b9c9db20; }
+.sheet .flow-family-art { width:48px; height:48px; }
+.sheet .flow-family-art svg { width:48px; height:48px; }
+.sheet .flow-family.selected { border-color:#e3bb7b; background:#c6a37414; }
+.sheet .collection-switch button { min-height:48px; }
+.position-slider { width:100%; min-height:48px; accent-color:#e4bf85; }
+.position-presets { display:flex;gap:8px; }
+.position-presets button { flex:1;min-height:48px;border:1px solid #d6bd8d50;border-radius:10px;background:#141d2a; }
+.sheet-heading .icon-button { min-width:48px;min-height:48px; }
+@media(max-width:1023px) {
+  .fireworks-app { --edge-gap:8px; --rail:56px; }
+  .edge-group button { min-height:48px;min-width:48px;font-size:10px;gap:2px; }
+  .edge-brand { justify-content:center; }
+  .edge-brand h1,.edge-desktop-label,.edge-fullscreen { display:none!important; }
+  .edge-selection .firework-glyph { width:36px;height:36px; }
+  .edge-group .edge-selection { padding:3px 2px; }
+}
+@media(max-height:540px) {
+  .edge-brand,.edge-help,.edge-fullscreen,.edge-selection span { display:none!important; }
+  .edge-group[data-edge='middle-left'] > button:not(.edge-selection) { display:none; }
+  .edge-group[data-edge='middle-left'] { gap:0; }
+  .edge-group .edge-selection { min-height:56px; }
+}
+@media(prefers-reduced-motion:reduce) { .edge-group button { transition:none; } }
+.sheet.is-dragging { background:transparent!important; border-color:transparent!important; box-shadow:none!important; overflow:visible!important; }
+.sheet.is-dragging::backdrop { background:transparent!important; backdrop-filter:none!important; }
+.sheet.is-dragging > .sheet-heading,.sheet.is-dragging .sheet-content > :not(.burst-drop-target) { visibility:hidden; }
+.sheet .flow-family { touch-action:none; }
+.burst-drop-target { position:fixed; transform:translate(-50%,-50%); display:grid; place-items:center; width:44px;height:44px; border:1px dashed #d2d8e7; border-radius:50%; color:#e3e5ed;pointer-events:none; }
+.burst-drop-target.valid { color:#f4cb86; border-color:#f4cb86; }
+.burst-drop-target span { position:absolute; top:48px; width:130px; text-align:center;font-size:12px;text-shadow:0 1px 3px #000; }

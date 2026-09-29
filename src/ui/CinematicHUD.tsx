@@ -1,88 +1,52 @@
-import { Flame, Maximize, Minimize, Pause, Play, Settings2, Sparkles, Volume2, VolumeX, Crosshair } from 'lucide-react';
-import { CONFIG_VERSION, FAMILIES } from '../engine/catalog';
+import { ChevronUp, ChevronDown, Crosshair, Flame, HelpCircle, Maximize, Minimize, Pause, Play, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { FAMILIES, familyIndex } from '../engine/catalog';
 import type { FamilyId, ShowPreset } from '../engine/catalog';
-import { FamilyPicker } from './FamilyPicker';
+import { FireworkGlyph } from './FireworkGlyph';
 
 type Props = {
-  selected: typeof FAMILIES[number];
-  available: boolean;
-  phase: string;
-  hidden: boolean;
-  reducedMotion: boolean;
-  selectedId: FamilyId;
-  show: ShowPreset | null;
-  paused: boolean;
-  soundActive: boolean;
-  fullscreen: boolean;
-  canLight: boolean;
-  placement: number;
-  notice: string;
-  launchBlock: string;
-  committedFamily: string;
-  launched: number;
-  onPause: () => void;
-  onSound: () => void;
-  onFullscreen: () => void;
-  onSettings: () => void;
-  onShowDialog: () => void;
-  onStartShow: (preset: ShowPreset) => void;
-  onManual: () => void;
-  onSelect: (id: FamilyId) => void;
-  onPlacement: (value: number) => void;
-  onIgnite: () => void;
+  selected: typeof FAMILIES[number]; available: boolean; phase: string; hidden: boolean;
+  selectedId: FamilyId; show: ShowPreset | null; paused: boolean; soundActive: boolean;
+  fullscreen: boolean; canLight: boolean; notice: string; committedFamily: string; updateReady: boolean;
+  onPause: () => void; onSound: () => void; onFullscreen: () => void;
+  onSettings: () => void; onShowDialog: () => void; onPicker: () => void;
+  onPosition: () => void; onHelp: () => void; onSelect: (id: FamilyId) => void; onIgnite: () => void;
 };
-
-/** Persistent controls; the launch state and the selected next family are separate. */
-export function CinematicHUD({ selected, available, phase, hidden, reducedMotion, selectedId, show, paused, soundActive, fullscreen, canLight, placement, notice, launchBlock, committedFamily, launched, onPause, onSound, onFullscreen, onSettings, onShowDialog, onStartShow, onManual, onSelect, onPlacement, onIgnite }: Props) {
-  const busy = launchBlock === 'busy';
-  const next = Boolean(committedFamily) && selected.name !== committedFamily;
-  const status = !available ? 'Preparing the sky…'
-    : paused ? 'Paused. Resume to continue the same firework.'
-    : phase === 'fuse' ? `${committedFamily || selected.name}: fuse lit.`
-    : phase === 'thrust' ? `${committedFamily || selected.name}: lifting off.`
-    : phase === 'coast' ? `${committedFamily || selected.name}: coasting to the burst.`
-    : phase === 'burst' ? 'Bursting. Preparing the next firework…'
-    : launchBlock === 'capacity' ? 'Let the sky clear a little before the next launch.'
-    : show ? `${show === 'calm' ? 'Calm' : show === 'festival' ? 'Festival' : 'Finale'} show is running. Select a style for manual play.`
-    : notice || (launched > 0 ? 'Ready again. Let the embers fall, or launch another.' : 'Choose a style, set its position, then launch.');
-  const action = !available ? 'Preparing sky…' : paused ? 'Scene paused' : phase === 'fuse' ? 'Fuse lit'
-    : phase === 'thrust' || phase === 'coast' ? 'Watch it rise' : busy ? 'Preparing next…'
-    : launchBlock === 'capacity' ? 'Waiting for a clear sky' : 'Launch firework';
-
+/** Six independent edge islands. No container captures input over the stage. */
+export function CinematicHUD(p: Props) {
+  const next = Boolean(p.committedFamily) && p.selected.name !== p.committedFamily;
+  const state = p.paused ? 'Paused' : !p.available ? 'Loading' : p.phase === 'fuse' ? 'Fuse'
+    : ['thrust', 'coast'].includes(p.phase) ? 'Flight' : p.canLight ? 'Ready' : 'Busy';
+  const cycle = (delta: number) => p.onSelect(FAMILIES[(familyIndex(p.selectedId) + delta + FAMILIES.length) % FAMILIES.length].id);
+  const common = { inert: p.hidden || undefined, className: 'edge-group chrome' };
   return <>
-    <header inert={hidden || undefined} className='hud-command flow-command chrome' aria-label='Firecrackers command deck'>
-      <div className='flow-brand'><Sparkles size={23} strokeWidth={1.4}/><h1>Firecrackers<span>.</span></h1></div>
-      <div className='flow-utilities' aria-label='Scene controls'>
-        <button aria-label={soundActive ? 'Mute sound' : 'Enable sound'} title={soundActive ? 'Mute sound' : 'Enable sound'} onClick={onSound}>{soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
-        <button aria-label={paused ? 'Resume scene' : 'Pause scene'} title={paused ? 'Resume' : 'Pause'} onClick={onPause}>{paused ? <Play size={18}/> : <Pause size={18}/>}</button>
-        <button className='flow-fullscreen' aria-label={fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} title='Fullscreen' onClick={onFullscreen}>{fullscreen ? <Minimize size={18}/> : <Maximize size={18}/>}</button>
-        <button aria-label='Open settings' title='Settings' onClick={onSettings}><Settings2 size={18}/></button>
-      </div>
-      <nav className='flow-modes' aria-label='Show mode'>
-        <button className={!show ? 'active' : ''} aria-pressed={!show} disabled={!available} onClick={onManual}>Manual</button>
-        <button aria-label='Automatic show' aria-haspopup='dialog' className={show === 'calm' ? 'active' : ''} aria-pressed={show === 'calm'} disabled={!available} onClick={onShowDialog}>Auto show</button>
-        <button className={show === 'festival' ? 'active' : ''} aria-pressed={show === 'festival'} disabled={!available} onClick={() => onStartShow('festival')}>Festival</button>
-        <button className={show === 'finale' ? 'active' : ''} aria-pressed={show === 'finale'} disabled={!available} onClick={() => onStartShow('finale')}>Finale</button>
-      </nav>
-    </header>
-
-    <section inert={hidden || undefined} className={`hud-deck-wrap flow-deck-wrap chrome${reducedMotion ? ' still' : ''}`} aria-label='Firework controls'>
-      <div className='flow-status' role='status' aria-live='polite'>{status}</div>
-      <div className='flow-deck'>
-        <FamilyPicker selectedId={selectedId} available={available} onSelect={onSelect}/>
-        <div className='flow-selection'><span>{next ? 'Next' : 'Selected'}</span><strong>{selected.name}</strong></div>
-        <div className='flow-bottom'>
-          <div className='flow-placement'>
-            <label htmlFor='launch-position'>Launch position</label>
-            <input id='launch-position' aria-label='Firework position' type='range' min='20' max='80' step='1' value={Math.round(placement * 100)} disabled={!canLight || Boolean(show)} onChange={event => onPlacement(Number(event.target.value) / 100)}/>
-            <button aria-label='Place firework center' title='Center the firework' disabled={!canLight || Boolean(show)} onClick={() => onPlacement(.5)}><Crosshair size={18}/></button>
-          </div>
-          <button className='flow-launch' aria-label='Launch selected firework' aria-describedby='launch-feedback' disabled={!canLight} onKeyDown={event => { if (event.repeat && (event.key === 'Enter' || event.key === ' ')) event.preventDefault(); }} onClick={onIgnite}>
-            <Flame size={20}/><span>{action}</span><span className='flow-launch-key' aria-hidden='true'>L</span>
-          </button>
-        </div>
-        <div className='flow-footer'><span id='launch-feedback'>{busy ? 'One rocket in flight · your next selection is kept' : paused ? 'Time is stopped' : 'One press · one firework'}</span><span className='flow-build' title='Current build'>{CONFIG_VERSION}</span></div>
-      </div>
+    <section {...common} data-edge='top-left' aria-label='Brand and show mode'>
+      <div className='edge-brand'><Sparkles size={19}/><h1>Firecrackers<span>.</span></h1></div>
+      <button aria-label='Choose show mode' aria-haspopup='dialog' onClick={p.onShowDialog}><span>{p.show === 'calm' ? 'Auto' : p.show ? p.show[0].toUpperCase() + p.show.slice(1) : 'Manual'}</span></button>
+    </section>
+    <section {...common} data-edge='middle-left' aria-label='Selected firework'>
+      <button aria-label='Previous firework' disabled={!p.available} onClick={() => cycle(-1)}><ChevronUp size={16}/></button>
+      <button className='edge-selection' aria-label={`Choose firework: ${p.selected.name}${next ? ', next launch' : ''}`} aria-haspopup='dialog' onClick={p.onPicker}>
+        <FireworkGlyph family={p.selectedId} color={p.selected.color}/><span>{p.selected.short}</span>
+      </button>
+      <button aria-label='Next firework' disabled={!p.available} onClick={() => cycle(1)}><ChevronDown size={16}/></button>
+      <span className='sr-only' role='status'>{next ? 'Next: ' : 'Selected: '}{p.selected.name}</span>
+    </section>
+    <section {...common} data-edge='bottom-left' aria-label='Placement and help'>
+      <button aria-label='Position firework' aria-haspopup='dialog' disabled={!p.canLight || Boolean(p.show)} onClick={p.onPosition}><Crosshair size={18}/><span className='edge-desktop-label'>Position</span></button>
+      <button className='edge-help' aria-label='Help' aria-haspopup='dialog' onClick={p.onHelp}><HelpCircle size={17}/><span className='edge-desktop-label'>Help</span></button>
+    </section>
+    <section {...common} data-edge='top-right' aria-label='Playback and sound'>
+      <button aria-label={p.paused ? 'Resume scene' : 'Pause scene'} onClick={p.onPause}>{p.paused ? <Play size={18}/> : <Pause size={18}/>}</button>
+      <button aria-label={p.soundActive ? 'Mute sound' : 'Enable sound'} onClick={p.onSound}>{p.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
+    </section>
+    <section {...common} data-edge='middle-right' aria-label='Settings and display'>
+      <button aria-label={p.updateReady ? 'Open settings, update available' : 'Open settings'} aria-haspopup='dialog' onClick={p.onSettings}><Settings2 size={18}/>{p.updateReady && <i className='update-dot'/>}</button>
+      <button className='edge-fullscreen' aria-label={p.fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} onClick={p.onFullscreen}>{p.fullscreen ? <Minimize size={18}/> : <Maximize size={18}/>}</button>
+    </section>
+    <section {...common} data-edge='bottom-right' aria-label='Launch controls'>
+      <button className='edge-launch flow-launch' aria-label='Launch selected firework' aria-describedby='launch-feedback' disabled={!p.canLight} onKeyDown={e => { if (e.repeat && ['Enter', ' '].includes(e.key)) e.preventDefault(); }} onClick={p.onIgnite}><Flame size={21}/><span>Launch</span></button>
+      <span className='edge-state' aria-hidden='true'>{state}</span>
+      <span id='launch-feedback' className='sr-only' role='status'>{state}. {p.committedFamily ? `${p.committedFamily} is committed; selection affects the next launch.` : 'One press launches one firework.'} {p.notice}</span>
     </section>
   </>;
 }

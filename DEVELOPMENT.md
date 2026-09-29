@@ -68,3 +68,13 @@ python scripts/validate_docs.py
 ```
 
 Update README, PROJECT_STATUS, the documentation index and current evidence after delivery. Preserve historical plans and failed-then-fixed findings. Structural validation is not a browser or art review. Generated evidence can live in Actions artifacts with stable identifiers and report hashes; retain important reports before artifact expiry.
+
+## Waterfront and drag-to-burst contracts
+
+`StageLayout` measures the six control groups, safe insets, hero corridor, burst canopy and reflection band. Both renderer backends consume this contract. Do not restore camera framing based on the removed bottom deck. `Simulation.burstAt` uses the same bounded admission and deterministic family generation as normal launch. Drawer drag commits only on a valid release; overlay pause ownership and an existing committed flight must remain intact.
+
+Run `npm run test:stage` against a production build, or set `STAGE_URL` to the preview origin. This verifies the seven requested viewport sizes, touch drag, focus restoration, pause ownership, audio opt-in and reflection budgets.
+
+Blender masters and reproducible scripts live under `assets-source/blender/`; see asset provenance before regenerating. Raw projects are excluded from `dist`. The release fingerprint includes delivered source modules and public art/audio binaries.
+
+To publish a separate reviewed preview after building, run `npx wrangler deploy --config wrangler.preview.jsonc`. Production uses `wrangler.jsonc`. Retain the previous Worker version from the release receipt for rollback. Do not equate emulated browser tests or accelerated logical soaks with physical-device performance qualification.

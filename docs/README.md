@@ -49,3 +49,7 @@ The full baseline also includes machine-readable specifications under `specs/`, 
 For the product owner: 01 → 03 → 04 → 06 → 16. For implementation: 02 → 05 → 10 → 11 → 12 → 17 → 20. For designers: 04 → 06 → 07 → 08 → 15. For release review: 14 → 17 → 18 → 21 → 22.
 
 A planning document alone is not implementation evidence. Planned tests remain unrun until an evidence record identifies the build, environment, and results; current executed results are linked at the top of this index.
+
+## Waterfront upgrade
+
+The current build adds the open central stage and drag-to-burst. See [release evidence](evidence/waterfront-delivery-2026-09-29.md), [editable asset provenance](../assets-source/PROVENANCE.md), and [concept review](../assets-source/DESIGN.md). Earlier deck and hold-to-ignite documents describe historical decisions superseded by the approved implementation.

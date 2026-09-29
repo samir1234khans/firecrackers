@@ -13,22 +13,27 @@ import './styles/cinematic.css';
 import './styles/hud-v3.css';
 import { parsePresentation } from './platform/presentation';
 import { PresentationSettings } from './ui/PresentationSettings';
+import { FamilyPicker } from './ui/FamilyPicker';
 import { PanelNav } from './ui/PanelNav';
 import './styles/completion.css';
 import './styles/flow.css';
 import './styles/recovery.css';
+import './styles/stage.css';
 
-type Overlay = 'help' | 'settings' | 'show' | 'reset' | null;
+type Overlay = 'help' | 'settings' | 'show' | 'reset' | 'picker' | 'position' | null;
 
 export default function App() {
   const [presentation, setPresentation] = useState(() => parsePresentation(location.search));
   const [prefs, setPrefs] = useState(loadPreferences);
-  const [overlay, setOverlay] = useState<Overlay>(() => parsePresentation(location.search).mode !== 'interactive' || loadPreferences().onboarded ? null : 'help');
+  const [overlay, setOverlay] = useState<Overlay>(null);
   const [epoch, setEpoch] = useState(0);
   const [hidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
   const [notice, setNotice] = useState('');
   const host = useRef<HTMLDivElement>(null);
-  const dragging = useRef(false);
+  const [positionDraft, setPositionDraft] = useState(.5);
+  const [pickerReady, setPickerReady] = useState(false);
+  const [drag, setDrag] = useState<{ id: FamilyId; x: number; y: number; valid: boolean } | null>(null);
+  const dragRef = useRef(drag); dragRef.current = drag;
   const revealTap = useRef(false);
   const notify = useCallback((text: string) => setNotice(text), []);
   const world = useWorld(host, prefs, epoch, notify, presentation);
@@ -40,8 +45,36 @@ export default function App() {
   context.current = { overlay, prefs, state };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
   const wake = () => setHidden(false);
-  const open = (next: Overlay) => { world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
-  const close = () => { setOverlay(null); world.setOverlay(false); wake(); };
+  const open = (next: Overlay) => { setPickerReady(world.sim.current.ready && world.ready); setPositionDraft(world.sim.current.placement); world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
+  const close = () => { setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
+  const finishPosition = () => { close(); world.sim.current.setPlacement(positionDraft); world.refresh(); };
+  const drop = (id: FamilyId, x: number, y: number) => {
+    if (!pickerReady) return;
+    close();
+    if (world.drop(id, x, y)) change('family', id);
+  };
+  const startDrag = (id: FamilyId, event: React.PointerEvent<HTMLButtonElement>) => {
+    if (!pickerReady || event.button !== 0) return;
+    const button = event.currentTarget, startX = event.clientX, startY = event.clientY;
+    button.setPointerCapture(event.pointerId);
+    let moved = false;
+    const move = (e: PointerEvent) => {
+      if (e.pointerId !== event.pointerId) return;
+      if (!moved && Math.hypot(e.clientX - startX, e.clientY - startY) < 9) return;
+      moved = true;
+      const valid = world.dropTarget(e.clientX, e.clientY) !== null;
+      const value = { id, x: e.clientX, y: e.clientY, valid }; dragRef.current = value; setDrag(value);
+    };
+    const end = (e: PointerEvent) => {
+      if (e.pointerId !== event.pointerId) return;
+      button.removeEventListener('pointermove', move); button.removeEventListener('pointerup', end); button.removeEventListener('pointercancel', cancel);
+      const value = dragRef.current; dragRef.current = null; setDrag(null);
+      if (moved && e.type === 'pointerup') { const suppress = (ev: MouseEvent) => { ev.preventDefault(); ev.stopImmediatePropagation(); }; button.addEventListener('click', suppress, { capture: true, once: true }); setTimeout(() => button.removeEventListener('click', suppress, true), 0); }
+      if (value?.valid && e.type === 'pointerup') drop(id, e.clientX, e.clientY);
+    };
+    const cancel = (e: PointerEvent) => end(e);
+    button.addEventListener('pointermove', move); button.addEventListener('pointerup', end); button.addEventListener('pointercancel', cancel);
+  };
   const select = (id: FamilyId) => {
     if (world.sim.current.select(id)) change('family', id);
     world.refresh();
@@ -99,7 +132,6 @@ export default function App() {
   const selected = FAMILIES.find(f => f.id === state.selected) || FAMILIES[0];
   const canLight = world.ready && !world.error && state.ready && !overlay;
   const toggleSound = async () => { const active = await world.configureSound(!world.soundActive); change('sound', active); };
-  const setPlacement = (value: number) => { world.sim.current.stopShow(false); world.sim.current.setPlacement(value); world.refresh(); };
   const resumeOrPause = () => { world.pause(!state.paused); if (!state.paused) platform.releaseWake(); wake(); };
   const ignite = () => { setNotice(''); world.ignite(); };
   const startShow = (preset: ShowPreset) => {
@@ -121,7 +153,7 @@ export default function App() {
     platform.releaseWake();
     setPrefs(defaults());
     setNotice('');
-    setOverlay('help');
+    setOverlay(null);
     setHidden(false);
   };
 
@@ -160,72 +192,58 @@ export default function App() {
     onFocusCapture={wake}
   >
     <div ref={host} className='scene-host' aria-hidden='true'/>
-    {platform.updateReady && !overlay && <div className='flow-update' role='status'>
-      <span>A newer sky is ready.</span><button disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>{Boolean(state.committedId) ? 'After this flight' : 'Update & restart'}</button>
-    </div>}
-
-    {world.ready && world.backend.startsWith('Canvas') && !hidden && !overlay && <div className='renderer-note'>Compatibility graphics · same ten fireworks</div>}
-
     <CinematicHUD
       selected={selected}
       available={world.ready && !world.error && !overlay}
       phase={state.phase}
       hidden={hidden}
-      reducedMotion={prefs.reducedMotion}
       selectedId={state.selected}
       show={state.show}
       paused={state.paused}
       soundActive={world.soundActive}
       fullscreen={platform.fullscreen}
       canLight={canLight}
-      placement={state.placement}
       notice={notice}
-      launchBlock={state.launchBlock}
       committedFamily={state.committedFamily}
-      launched={state.launched}
+      updateReady={platform.updateReady}
       onPause={resumeOrPause}
       onSound={() => void toggleSound()}
       onFullscreen={() => void platform.toggleFullscreen()}
       onSettings={() => open('settings')}
       onShowDialog={() => open('show')}
-      onStartShow={startShow}
-      onManual={returnToManual}
+      onPicker={() => open('picker')}
+      onPosition={() => open('position')}
+      onHelp={() => open('help')}
       onSelect={select}
-      onPlacement={setPlacement}
       onIgnite={ignite}
     />
 
     {!world.ready && !world.error && <div className='loading-state' role='status'><span className='loading-spark'/><span>Preparing the night sky</span><small>Graphics will switch automatically when needed.</small><a href='?backend=canvas'>Open compatibility mode</a></div>}
     {world.error && <section className='recovery glass' role='alert'><h2>The sky needs a fresh start.</h2><p>{world.error}</p><div className='button-row'><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
-    {state.paused && !overlay && !world.error && <button className='paused-card glass' onClick={resumeOrPause}><Play size={19}/><span>Take your time.<small>Resume the night</small></span></button>}
-
-    {world.ready && !world.error && canLight && <div className='placement-stage chrome'>
-      <button
-        className='move-target'
-        aria-label='Drag firework left or right'
-        title='Drag to place'
-        onPointerDown={event => {
-          if (event.button !== 0) return;
-          dragging.current = true;
-          world.sim.current.stopShow(false);
-          event.currentTarget.setPointerCapture(event.pointerId);
-        }}
-        onPointerMove={event => { if (dragging.current) setPlacement(world.positionFromPointer(event.clientX)); }}
-        onPointerUp={() => { dragging.current = false; }}
-        onPointerCancel={() => { dragging.current = false; }}
-        onLostPointerCapture={() => { dragging.current = false; }}
-      />
-    </div>}
-
     <div className='reveal-controls' aria-hidden={!hidden}>{hidden && <>
       <button className='icon-button glass' aria-label='Show controls' onClick={wake}><Settings2 size={18}/></button>
       <button className='icon-button glass' aria-label={state.paused ? 'Resume scene' : 'Pause scene'} data-always='true' onClick={resumeOrPause}>{state.paused ? <Play size={18}/> : <Pause size={18}/>}</button>
       <button className='icon-button glass' aria-label={world.soundActive ? 'Mute sound' : 'Enable sound'} data-always='true' onClick={() => void toggleSound()}>{world.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
     </>}</div>
 
+    {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} dragging={Boolean(drag)}>
+      <p className='intro-copy'>Tap a style for your next rocket. Drag a style into the sky for an instant burst.</p>
+      <FamilyPicker selectedId={state.selected} available={world.ready} onSelect={id => { select(id); close(); }} onDragStart={startDrag}/>
+      <button className='secondary-button full' disabled={!pickerReady} onClick={() => { const r = world.heroRect(); drop(state.selected, r.x + r.width / 2, r.y + r.height * .38); }}>Burst selected style in center</button>
+      {!pickerReady && <p className='fine-print'>Resume the scene and let the current rocket finish to drag a new burst.</p>}
+      {drag && <div className={`burst-drop-target${drag.valid ? ' valid' : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'><Sparkles size={26}/><span>{drag.valid ? 'Release to burst' : 'Move into the sky'}</span></div>}
+    </Dialog>}
+    {overlay === 'position' && <Dialog variant='position' title='Place the next rocket' onClose={close}>
+      <p className='intro-copy'>Choose a position along the launch terrace.</p>
+      <input className='position-slider' aria-label='Firework position' type='range' min='.2' max='.8' step='.01' value={positionDraft} onChange={e => setPositionDraft(Number(e.target.value))}/>
+      <div className='position-presets'>{[['Left', .2], ['Center', .5], ['Right', .8]].map(([label, value]) => <button key={label} onClick={() => setPositionDraft(Number(value))}>{label}</button>)}</div>
+      <button className='primary-button full' onClick={finishPosition}>Set position</button>
+      <button className='text-button full' onClick={() => setOverlay('help')}>Help</button>
+    </Dialog>}
+
     {overlay === 'help' && <Dialog variant='help' title='A little spark. A whole night sky.' onClose={close}>
       <p className='intro-copy'>Take a moment out of the everyday. This night is yours to light.</p>
-      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Ten distinct designs across Classics and the Grand collection.</small></span></div><div><Hand/><span><strong>Find its place</strong><small>Drag the rocket, or use the placement controls.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>One press lights the fuse. Let the rocket rise and the embers fall.</small></span></div></div>
+      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Ten distinct designs across Classics and the Grand collection.</small></span></div><div><Hand/><span><strong>Find its place</strong><small>Use Position for a rocket flight, or drag a style from the drawer into the sky for an instant burst.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>One press lights the fuse. Let the rocket rise and the embers fall.</small></span></div></div>
       <Toggle label='Reduced flashes' detail='Softer light, with the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
       <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
       <p className='fine-print'>Flashing visual effects. Sound starts off. Pause is always within reach. This is a digital simulation only.</p>
@@ -236,6 +254,7 @@ export default function App() {
 
     {overlay === 'show' && <Dialog variant='show' title='Let the sky take over.' onClose={close}>
       <p className='intro-copy'>A gently directed display. No two nights quite the same.</p>
+      <button className='secondary-button full' onClick={() => { returnToManual(); close(); }}>Manual</button>
       <fieldset className='show-presets'><legend className='sr-only'>Show pacing</legend>{([
         { id: 'calm', name: 'Calm', description: 'Room to breathe between every burst.', icon: <Wind size={21}/> },
         { id: 'festival', name: 'Festival', description: 'A gathering of colour, rhythm and light.', icon: <Sparkles size={21}/> },
@@ -277,6 +296,7 @@ export default function App() {
         {platform.updateReady && <button className='secondary-button full' disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>Update app and restart</button>}
       </div>
       <details className='diagnostics'><summary>Graphics details</summary><dl><div><dt>Renderer</dt><dd>{world.backend} · Realism V3 / UI V3</dd></div><div><dt>Build</dt><dd>{CONFIG_VERSION}</dd></div><div><dt>Render pixels</dt><dd>{world.metrics.renderPixels.toLocaleString()}</dd></div><div><dt>Active quality</dt><dd>{state.quality}</dd></div><div><dt>Visible particles</dt><dd>{state.particles.toLocaleString()}</dd></div><div><dt>Smoke layers</dt><dd>{state.smoke} / 96</dd></div><div><dt>Launched / bursts</dt><dd>{state.launched} / {state.bursts}</dd></div></dl></details>
+      <button className='text-button full' onClick={() => setOverlay('help')}>Help and keyboard controls</button>
       <p className='fine-print'>No accounts, tracking or remote media. Preferences stay in this browser. Your hosting provider may retain access logs. Offline storage can be cleared by your browser.</p>
       <div className='button-row'><button className='text-button' onClick={() => setOverlay('help')}>Replay introduction</button><button className='text-button' onClick={() => setOverlay('reset')}><RotateCcw size={14}/>Reset this sky</button></div>
     </Dialog>}

@@ -1,13 +1,14 @@
 import * as THREE from 'three/webgpu';
-import { color, mix, smoothstep, uniform, uv } from 'three/tsl';
+import { color, mix, smoothstep, texture, uniform, uv, vec2 } from 'three/tsl';
 import { FAMILIES, ROCKET_PROFILES } from '../engine/catalog';
 import { FUSE_POINTS, fusePointAt } from '../engine/FusePath';
 /** Shared materials/geometry; ten authored silhouettes, with a real arc-length fuse. */
 export class RocketProp {
     readonly group = new THREE.Group();
+    private readonly flameFrame = uniform(0);
     readonly burn = uniform(-0.01);
     readonly ember = new THREE.Mesh(new THREE.SphereGeometry(.085, 8, 6), new THREE.MeshBasicMaterial({ color: 0xffb24a }));
-    readonly flame = new THREE.Mesh(new THREE.SphereGeometry(.16, 10, 8), new THREE.MeshBasicMaterial({ color: 0xffdc9e, transparent: true, opacity: .85 }));
+    readonly flame: THREE.Mesh = new THREE.Mesh(new THREE.SphereGeometry(.16, 10, 8), new THREE.MeshBasicMaterial({ color: 0xffdc9e, transparent: true, opacity: .85 }));
     readonly lamp = new THREE.PointLight(0xffb45d, 0, 10, 2);
     private readonly paper: THREE.MeshStandardMaterial;
     private readonly capMaterial: THREE.MeshStandardMaterial;
@@ -53,6 +54,23 @@ export class RocketProp {
             }
         });
     }
+    setFlameTexture(atlas: THREE.Texture) {
+        const f = this.flameFrame;
+        const sample = texture(atlas, uv().mul(.94).add(.03).add(vec2(f.mod(4), f.div(4).floor())).div(4));
+        const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, side: THREE.DoubleSide });
+        material.colorNode = sample.rgb; material.opacityNode = sample.a;
+        this.flame.geometry.dispose(); (this.flame.material as THREE.Material).dispose();
+        this.flame.geometry = new THREE.PlaneGeometry(.72, 1.25); this.flame.material = material;
+    }
+    setAuthoredGeometry(template: THREE.Group) {
+        template.updateMatrixWorld(true);
+        for (const [name, target, y] of [['Paper_shell', this.body, 3.25], ['Foil_cap', this.cap, 5.48]] as const) {
+            const mesh = template.getObjectByName(name) ?? template.getObjectByName(name.replaceAll('_', ' '));
+            if (!(mesh instanceof THREE.Mesh)) continue;
+            const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
+            geometry.translate(0, -y, 0); target.geometry.dispose(); target.geometry = geometry;
+        }
+    }
     update(family: number, burnProgress: number, contact: number, time: number, wind: number, bodyOpacity = 1) {
         for (const material of this.solids) material.opacity = bodyOpacity;
         if (family !== this.lastFamily) {
@@ -66,6 +84,7 @@ export class RocketProp {
             this.stripes.scale.x = this.stripes.scale.z = radius;
         }
         this.burn.value = burnProgress;
+        this.flameFrame.value = Math.floor(time * 8) % 16;
         const glowing = (burnProgress >= 0 && burnProgress < 1) || contact > 0;
         const point = new THREE.Vector3(...fusePointAt(burnProgress));
         this.ember.position.copy(point);
@@ -80,3 +99,4 @@ export class RocketProp {
         this.paper.emissiveIntensity = glowing ? .11 : 0;
     }
 }
+

@@ -1,3 +1,5 @@
+import { measureStage, stageFraming } from './StageLayout';
+import type { StageLayout } from './StageLayout';
 import * as THREE from 'three/webgpu';
 import { float, mix, pass, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
@@ -8,6 +10,9 @@ import type { Simulation } from './Simulation';
 import { ParticleScene } from '../graphics/ParticleScene';
 import { RocketProp } from '../graphics/RocketProp';
 import { LaunchStage } from '../graphics/LaunchStage';
+import { loadWaterfrontAssets, disposeAssetGroup } from '../graphics/WaterfrontAssets';
+import type { WaterfrontAssets } from '../graphics/WaterfrontAssets';
+import { WaterReflection } from '../graphics/WaterReflection';
 import { NightEnvironment } from '../graphics/NightEnvironment';
 import { OpaqueDepth } from '../graphics/OpaqueDepth';
 import { makePaperTexture, makeSmokeAtlas } from '../graphics/textures';
@@ -20,6 +25,7 @@ export class FireworkRenderer {
     readonly camera = new THREE.PerspectiveCamera(42, 1, 1, 1500);
     private readonly opaqueCamera = new THREE.PerspectiveCamera();
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
+    private readonly water = new WaterReflection();
     private readonly environment = new NightEnvironment();
     private readonly smokeAtlas = makeSmokeAtlas();
     private readonly paper = makePaperTexture();
@@ -34,6 +40,10 @@ export class FireworkRenderer {
     private readonly particles: ParticleScene;
     private readonly overlay = uniform(0);
     private readonly projected = new THREE.Vector3();
+    private pendingAssets: Partial<WaterfrontAssets> | null = null;
+    private assets: Partial<WaterfrontAssets> | null = null;
+    private layout!: StageLayout;
+    setLayout(layout: StageLayout) { this.layout = layout; }
     private mode: DisplayMode = 'interactive';
     private disposed = false;
     private initialized = false;
@@ -46,7 +56,7 @@ export class FireworkRenderer {
         this.renderer.toneMappingExposure = .95;
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         this.camera.layers.enable(1);
-        this.scene.add(this.environment.group);
+        this.scene.add(this.environment.group, this.water.mesh);
         this.scene.fog = new THREE.FogExp2('#07111e', .0021);
         this.scene.environment = this.environment.probe;
         this.scene.environmentIntensity = .85;
@@ -92,20 +102,19 @@ export class FireworkRenderer {
         this.host.dataset.backend = this.backend;
         this.resize();
         if (!this.disposed) this.render();
+        void loadWaterfrontAssets().then(assets => {
+            if (this.disposed) { disposeAssetGroup(assets.rocket); disposeAssetGroup(assets.terrace); assets.normal?.dispose(); assets.flame?.dispose(); return; }
+            this.pendingAssets = assets;
+            if (!this.sim.committed && !this.sim.heads.count) this.render();
+        });
     }
     resize() {
         if (this.disposed) return;
         const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight), aspect = w / h;
-        const hostRect = this.host.getBoundingClientRect();
-        const deck = this.host.parentElement?.querySelector('.flow-deck-wrap')?.getBoundingClientRect();
-        const header = this.host.parentElement?.querySelector('.flow-command')?.getBoundingClientRect();
-        // Frame the real free space, not a hard-coded assumption about the control deck.
-        const interactive = this.mode === 'interactive';
-        const groundPixels = interactive && deck ? Math.min(h * .58, hostRect.bottom - deck.top + 26) : h * .12;
-        const topMargin = interactive && header ? Math.max(24, header.bottom - hostRect.top + 14) : 24;
-        const skyFraction = Math.max(.24, (h - groundPixels - topMargin) / h);
-        const span = Math.max(136, 108 / aspect, 108 / skyFraction);
-        const centerY = this.sim.ground + (.5 - groundPixels / h) * span;
+        this.layout = measureStage(this.host, this.mode === 'interactive');
+        const framing = stageFraming(this.layout);
+        const span = framing.span;
+        const centerY = this.sim.ground + (framing.baseline / h - .5) * span;
         this.camera.aspect = aspect;
         const distance = span / (2 * Math.tan(this.camera.fov * Math.PI / 360));
         const pitch = .08;
@@ -113,7 +122,7 @@ export class FireworkRenderer {
         this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
-        this.sim.setViewport(Math.min(160, span * aspect * .78), 16);
+        this.sim.setViewport(Math.min(160, this.layout.heroRect.width / framing.scale * .9), 16);
         this.renderer.setSize(w, h);
         this.setQuality(this.sim.quality);
     }
@@ -142,9 +151,27 @@ export class FireworkRenderer {
         const point = ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), new THREE.Vector3());
         return point ? Math.max(.2, Math.min(.8, .5 + point.x / this.sim.launchSpan)) : .5;
     }
+    projectBurst(clientX: number, clientY: number): [number, number] | null {
+        const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
+        if (x < r.x || x > r.x + r.width || y < r.y || y > r.y + r.height) return null;
+        const ray = new THREE.Raycaster();
+        ray.setFromCamera(new THREE.Vector2(x / l.viewport.width * 2 - 1, 1 - y / l.viewport.height * 2), this.camera);
+        const point = ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), new THREE.Vector3());
+        return point ? [point.x, point.y] : null;
+    }
     render() {
         if (this.disposed || !this.initialized) return;
         const start = performance.now(), sim = this.sim;
+        if (this.pendingAssets && !sim.committed && !sim.heads.count && !sim.cues.length) {
+            const a = this.pendingAssets; this.pendingAssets = null; this.assets = a;
+            if (a.smoke) { this.smokeAtlas.image = { data: new Uint8Array(a.smoke.data), width: a.smoke.width, height: a.smoke.height }; this.smokeAtlas.needsUpdate = true; }
+            if (a.paper) { this.paper.image = a.paper; this.paper.needsUpdate = true; }
+            if (a.flame) for (const prop of this.props) prop.setFlameTexture(a.flame);
+            if (a.normal) this.water.setNormal(a.normal);
+            if (a.rocket) for (const prop of this.props) prop.setAuthoredGeometry(a.rocket);
+            if (a.terrace) this.environment.setTerrace(a.terrace);
+            this.host.dataset.assets = Object.keys(a).join(',');
+        }
         this.camera.updateMatrixWorld();
         this.opaqueCamera.copy(this.camera);
         this.opaqueCamera.layers.set(0);
@@ -196,6 +223,7 @@ export class FireworkRenderer {
             parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
         this.opaqueDepth.update();
+        this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', camera => this.particles.orient(camera));
         this.post.render();
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;
@@ -205,6 +233,8 @@ export class FireworkRenderer {
         const point = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         const projected = point ? new THREE.Vector3(...point).project(this.camera) : null;
         return {
+            authoredAssets: this.host.dataset.assets || 'procedural fallback',
+            stageLayout: this.layout, ...this.water.diagnostics(),
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,
@@ -234,6 +264,9 @@ export class FireworkRenderer {
         this.smokeAtlas.dispose();
         this.paper.dispose();
         this.environment.dispose();
+        this.water.dispose();
+        disposeAssetGroup(this.assets?.rocket); this.assets?.normal?.dispose(); this.assets?.flame?.dispose();
+        disposeAssetGroup(this.pendingAssets?.rocket); disposeAssetGroup(this.pendingAssets?.terrace); this.pendingAssets?.normal?.dispose(); this.pendingAssets?.flame?.dispose();
         if (this.initialized) this.renderer.dispose();
         this.renderer.domElement.remove();
     }

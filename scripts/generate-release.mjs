@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
 
@@ -36,6 +36,8 @@ export function canonicalSource(path, text) {
 
 export async function generateRelease() {
   const paths = [
+    'src/graphics/WaterfrontAssets.ts', 'src/graphics/WaterReflection.ts', 'src/engine/Audio.ts',
+    'src/engine/StageLayout.ts', 'src/styles/stage.css',
     'src/engine/GrandEffects.ts', 'src/ui/FamilyPicker.tsx', 'src/ui/GrandGlyph.tsx', 'src/styles/grand-collection.css',
     'src/bootstrap.ts', 'src/main.tsx', 'src/ui/AppBoundary.tsx', 'src/styles/recovery.css',
     'src/engine/RendererPort.ts', 'src/engine/RendererRecovery.ts', 'src/graphics/CompatibilityRenderer.ts',
@@ -55,6 +57,11 @@ export async function generateRelease() {
     const normalized = canonicalSource(path, source);
     modules.push({ path, sha256: hash(normalized.text), rawSha256: hash(source), removedHostAttributes: normalized.removedHostAttributes });
   }
+  for (const dir of ['public/art', 'public/audio']) for (const name of (await readdir(dir)).sort()) {
+    const path = `${dir}/${name}`, bytes = await readFile(path);
+    modules.push({ path, sha256: hash(bytes), rawSha256: hash(bytes), removedHostAttributes: 0 });
+  }
+  modules.sort((a, b) => a.path.localeCompare(b.path));
   const catalog = await readFile('src/engine/catalog.ts', 'utf8');
   const version = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)?.[1];
   if (!version) throw new Error('Missing release version in the catalog.');
