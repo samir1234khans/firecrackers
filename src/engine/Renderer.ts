@@ -45,6 +45,7 @@ export class FireworkRenderer {
     private readonly assetStates = Object.fromEntries(WATERFRONT_ASSET_NAMES.map(name => [name, 'loading'])) as Record<WaterfrontAssetName, 'loading' | 'ready' | 'active' | 'failed'>;
     private readonly assetErrors: Partial<Record<WaterfrontAssetName, string>> = {};
     private readonly assetQueuedAt: Partial<Record<WaterfrontAssetName, number>> = {};
+    private pendingAssetCount = 0;
     private assetFrame = 0;
     private layout!: StageLayout;
     setLayout(layout: StageLayout) { this.layout = layout; }
@@ -109,6 +110,7 @@ export class FireworkRenderer {
         this.host.dataset.assets = 'procedural fallback';
         void loadWaterfrontAssets((name, asset) => {
             if (this.disposed) { disposeWaterfrontAsset(name, asset); return; }
+            if (!this.pendingAssets[name]) this.pendingAssetCount++;
             (this.pendingAssets as Record<string, unknown>)[name] = asset;
             this.assetStates[name] = 'ready';
             this.assetQueuedAt[name] = this.sim.time;
@@ -117,22 +119,26 @@ export class FireworkRenderer {
             if (this.disposed) return;
             this.assetStates[name] = 'failed';
             this.assetErrors[name] = error;
-            this.host.dataset.assetFailures = WATERFRONT_ASSET_NAMES.filter(key => this.assetStates[key] === 'failed').join(',');
+            this.publishAssetStatus();
         }).catch(error => {
             if (this.disposed) return;
             for (const name of WATERFRONT_ASSET_NAMES) if (this.assetStates[name] === 'loading') {
                 this.assetStates[name] = 'failed';
                 this.assetErrors[name] = error instanceof Error ? error.message : String(error);
             }
-            this.host.dataset.assetFailures = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'failed').join(',');
+            this.publishAssetStatus();
         });
+    }
+    private publishAssetStatus() {
+        this.host.dataset.assets = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'active').join(',') || 'procedural fallback';
+        this.host.dataset.assetFailures = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'failed').join(',');
     }
     /** Coalesce idle/paused redraws; the main animation loop can consume pending assets first. */
     private scheduleAssetRender() {
         if (this.assetFrame || this.disposed) return;
         this.assetFrame = requestAnimationFrame(() => {
             this.assetFrame = 0;
-            if (this.disposed || !Object.keys(this.pendingAssets).length) return;
+            if (this.disposed || !this.pendingAssetCount) return;
             try { this.render(); }
             catch { this.onFailure('An authored graphic could not be activated. Retry the scene.'); }
         });
@@ -195,31 +201,35 @@ export class FireworkRenderer {
         const start = performance.now(), sim = this.sim;
         // Apply at a frame boundary. Paper and rocket meshes wait for an interval
         // without an airborne body; an eight-second cap also serves continuous shows.
-        for (const name of WATERFRONT_ASSET_NAMES) {
-            const asset = this.pendingAssets[name];
-            if (!asset) continue;
-            if ((name === 'paper' || name === 'rocket') && sim.committed &&
-                sim.time - (this.assetQueuedAt[name] ?? sim.time) < 8) continue;
-            delete this.pendingAssets[name];
-            (this.assets as Record<string, unknown>)[name] = asset;
-            try {
-                if (name === 'smoke') {
-                    const atlas = asset as ImageData;
-                    this.smokeAtlas.image = { data: new Uint8Array(atlas.data), width: atlas.width, height: atlas.height };
-                    this.smokeAtlas.needsUpdate = true;
-                } else if (name === 'paper') { this.paper.image = asset as HTMLImageElement; this.paper.needsUpdate = true; }
-                else if (name === 'flame') for (const prop of this.props) prop.setFlameTexture(asset as THREE.Texture);
-                else if (name === 'normal') this.water.setNormal(asset as THREE.Texture);
-                else if (name === 'rocket') for (const prop of this.props) prop.setAuthoredGeometry(asset as THREE.Group);
-                else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
-                this.assetStates[name] = 'active';
-            } catch (error) {
-                this.assetStates[name] = 'failed';
-                this.assetErrors[name] = error instanceof Error ? error.message : String(error);
+        if (this.pendingAssetCount) {
+            let changed = false;
+            for (const name of WATERFRONT_ASSET_NAMES) {
+                const asset = this.pendingAssets[name];
+                if (!asset) continue;
+                if ((name === 'paper' || name === 'rocket') && sim.committed &&
+                    sim.time - (this.assetQueuedAt[name] ?? sim.time) < 8) continue;
+                delete this.pendingAssets[name];
+                this.pendingAssetCount--;
+                changed = true;
+                (this.assets as Record<string, unknown>)[name] = asset;
+                try {
+                    if (name === 'smoke') {
+                        const atlas = asset as ImageData;
+                        this.smokeAtlas.image = { data: new Uint8Array(atlas.data), width: atlas.width, height: atlas.height };
+                        this.smokeAtlas.needsUpdate = true;
+                    } else if (name === 'paper') { this.paper.image = asset as HTMLImageElement; this.paper.needsUpdate = true; }
+                    else if (name === 'flame') for (const prop of this.props) prop.setFlameTexture(asset as THREE.Texture);
+                    else if (name === 'normal') this.water.setNormal(asset as THREE.Texture);
+                    else if (name === 'rocket') for (const prop of this.props) prop.setAuthoredGeometry(asset as THREE.Group);
+                    else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
+                    this.assetStates[name] = 'active';
+                } catch (error) {
+                    this.assetStates[name] = 'failed';
+                    this.assetErrors[name] = error instanceof Error ? error.message : String(error);
+                }
             }
+            if (changed) this.publishAssetStatus();
         }
-        this.host.dataset.assets = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'active').join(',') || 'procedural fallback';
-        this.host.dataset.assetFailures = WATERFRONT_ASSET_NAMES.filter(name => this.assetStates[name] === 'failed').join(',');
         this.camera.updateMatrixWorld();
         this.opaqueCamera.copy(this.camera);
         this.opaqueCamera.layers.set(0);
