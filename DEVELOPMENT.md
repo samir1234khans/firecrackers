@@ -43,6 +43,8 @@ npm run test:viewability
 
 The Grand script supports `GRAND_PROJECT=desktop` or `mobile` and `GRAND_URL`. The original-flow script supports `VIDEO_FLOW_PROJECT` and `VIDEO_FLOW_URL`. The recovery script supports `VIEWABILITY_URL`. Defaults target loopback port 4173. Use the public URL only when deliberately verifying the deployed website.
 
+For independent art-loading and live overload recovery, run `node tests/assets-browser.mjs` and `node tests/overload-browser.mjs`. Use `ASSET_URL` and `OVERLOAD_URL` to target an isolated preview. The overload suite injects three slow-frame samples through the `?qa=1` test interface, then verifies the real renderer handoff, active flight, pause, show mode and drag coordinates. The reusable recovery CI job runs both suites against the exact production build artifact.
+
 Grand validation covers new recipes, both rendering modes, collection browsing and saved selection, ten shortcuts, child pause/cleanup and small layouts. The stage suite covers the six-edge layout, drawer drag, pause/focus ownership, audio activation and reflection budgets. The original suite protects launch, duplicate rejection, next selection, pause, takeover, preferences and offline/platform behavior. Recovery tests inject missing modules, unavailable/lost graphics and interface failures. Do not remove these guards to simplify an expansion.
 
 `Runtime validation` runs for application/configuration changes pushed to main and for pull requests into main. It calls the complete reusable `Grand collection validation` workflow, which builds once and serves that exact artifact for separate desktop, mobile and recovery jobs. The workflow can also be dispatched manually. Relevant unit, audit, build and logical-soak gates remain included; duplicate unit invocations in the older runtime workflow are unnecessary because `npm test` includes those suites.
@@ -81,6 +83,8 @@ Run `npm run test:stage` against a production build, or set `STAGE_URL` to the p
 Blender masters and reproducible scripts live under `assets-source/blender/`; see asset provenance before regenerating. Raw projects are excluded from `dist`. The release fingerprint includes delivered source modules and public art/audio binaries.
 
 To publish a separate reviewed preview after building, run `npx wrangler deploy --config wrangler.preview.jsonc`. Production uses `wrangler.jsonc`. Retain the previous Worker version from the release receipt for rollback. Do not equate emulated browser tests or accelerated logical soaks with physical-device performance qualification.
+
+The graphics recovery candidate uses `npx wrangler deploy --config wrangler.graphics-preview.jsonc`, which has no production route. Compare its `/release.json` SHA-256 with the local build before changing the custom domain.
 
 ## Realism refinement source and review
 

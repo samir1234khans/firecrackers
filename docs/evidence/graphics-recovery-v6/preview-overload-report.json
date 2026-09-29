@@ -1,0 +1,13 @@
+{
+  "url": "https://firecrackers-graphics-preview.allygym-api.workers.dev/",
+  "checks": [
+    "saved non-default quality is active before overload",
+    "three forced severe frames recover to Canvas while the same rocket keeps moving and bursts",
+    "manual pause and resume remain functional after recovery",
+    "Canvas projection still maps actual sky and terrace pointer drops after recovery",
+    "automatic Festival direction and Ultra quality continue through fallback"
+  ],
+  "errors": [],
+  "physicalDevice": false,
+  "injectedFrameSamples": true
+}

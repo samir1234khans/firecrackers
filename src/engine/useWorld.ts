@@ -14,7 +14,7 @@ import type { ShowPreset } from './catalog';
 import type { Preferences } from '../platform/preferences';
 import type { RendererPort } from './RendererPort';
 import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
-import { withDeadline } from './RendererRecovery';
+import { RenderOverloadGuard, withDeadline } from './RendererRecovery';
 export type DropTarget = { kind: 'burst'; point: [number, number] } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
@@ -60,8 +60,15 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let previousVisualState = '';
         let previouslyMoving = false;
         let graphics: RendererPort | null = null;
+        let switchingGraphics = false;
+        // Deterministic browser qualification exercises the real recovery path
+        // without depending on the CI machine's GPU speed.
+        let qaStallMs = 0;
+        let qaStallSamplesRemaining = 0;
+        let qaStallSamplesUsed = 0;
         const startup = new AbortController();
         const governor = new QualityGovernor();
+        const overload = new RenderOverloadGuard();
         alive.current = true;
         setReady(false);
         setError('');
@@ -92,6 +99,37 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             setReady(false);
             refresh();
         };
+        const recoverOverload = async () => {
+            const target = host.current;
+            const previous = graphics;
+            if (cancelled || switchingGraphics || !target || !previous || previous.backend.startsWith('Canvas')) return;
+            switchingGraphics = true;
+            setBackend('Recovering graphics');
+            let replacement: CompatibilityRenderer | null = null;
+            try {
+                replacement = new CompatibilityRenderer(target, state);
+                replacement.setDisplay(display.current.mode);
+                await replacement.init();
+                if (cancelled) { replacement.dispose(); return; }
+                graphics = replacement;
+                renderer.current = replacement;
+                // The old GPU canvas is no longer mounted. Its pending asset load and
+                // context-loss callbacks are invalidated by disposal.
+                try { previous.dispose(); } catch { /* Keep the working canvas visible. */ }
+                overload.reset();
+                lastRender = 0;
+                previousVisualState = '';
+                setBackend(replacement.backend);
+                setMetrics({ ...replacement.metrics, p95Ms: governor.p95 });
+                notice('Compatibility graphics is active after repeated slow frames. Your quality choice is unchanged.');
+                refresh();
+            } catch {
+                try { replacement?.dispose(); } catch { /* Recovery controls remain available. */ }
+                fail('Graphics could not recover from repeated slow frames. Use compatibility graphics.');
+            } finally {
+                switchingGraphics = false;
+            }
+        };
         const tick = (now: number) => {
             if (cancelled)
                 return;
@@ -107,21 +145,34 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 const moving = state.holding || state.heads.count > 0 || state.trails.count > 0 ||
                     state.smoke.count > 0 || state.embers.count > 0 || state.cues.length > 0 ||
                     state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
-                if (!lastRender || visualState !== previousVisualState ||
-                    ((moving || previouslyMoving) && now - lastRender >= 1000 / targetFps - 1.2)) {
+                if (!switchingGraphics && (!lastRender || visualState !== previousVisualState ||
+                    ((moving || previouslyMoving) && now - lastRender >= 1000 / targetFps - 1.2))) {
                     const continuous = moving && previouslyMoving;
                     previousVisualState = visualState;
                     previouslyMoving = moving;
                     const cadence = lastRender ? now - lastRender : 1000 / targetFps;
                     lastRender = now;
+                    let rendered = false;
                     try {
                         graphics?.render();
+                        rendered = true;
                     }
                     catch {
                         fail('Graphics were interrupted. Try lower quality or restart the scene.');
                     }
                     if (++warmFrames > 60 && continuous && cadence < 500)
                         governor.add(cadence);
+                    let observedMs = Math.max(cadence, graphics?.metrics.submitMs || 0);
+                    if (continuous && qaStallSamplesRemaining > 0) {
+                        observedMs = Math.max(observedMs, qaStallMs);
+                        qaStallSamplesRemaining--;
+                        qaStallSamplesUsed++;
+                    }
+                    if (rendered && graphics && !graphics.backend.startsWith('Canvas') &&
+                        overload.observe(observedMs, continuous))
+                        void recoverOverload();
+                    else if (!continuous)
+                        overload.reset();
                 }
                 if (prefs.current.quality === 'auto' && now - lastQuality > 1500 && warmFrames > 90) {
                     lastQuality = now;
@@ -134,6 +185,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             }
             else {
                 lastRender = 0;
+                overload.reset();
+                previouslyMoving = false;
             }
             if (now - lastReport > 120) {
                 lastReport = now;
@@ -146,6 +199,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const resize = () => {
             // Resizing also redraws an idle/paused canvas. Failures retain recovery controls.
             try {
+                if (switchingGraphics) return;
                 if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive'));
                 graphics?.resize();
                 graphics?.render();
@@ -242,7 +296,15 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics() }),
+                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining }),
+                    injectOverloadSamples: (count: number, milliseconds: number) => {
+                        if (!Number.isInteger(count) || count < 1 || count > 6 || !Number.isFinite(milliseconds) || milliseconds < 100 || milliseconds > 2000)
+                            return false;
+                        qaStallMs = milliseconds;
+                        qaStallSamplesRemaining = count;
+                        qaStallSamplesUsed = 0;
+                        return true;
+                    },
                     freeze: (value: boolean) => { captureFrozen = Boolean(value); last = 0; },
                     advance: (seconds: number) => {
                         if (!Number.isFinite(seconds) || seconds < 0 || seconds > 120)
