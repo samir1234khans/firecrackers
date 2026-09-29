@@ -2,7 +2,7 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Waterfront upgrade: build `2026-09-29.2`.** See [the release receipt](docs/evidence/waterfront-delivery-2026-09-29.md) for deployment and verification status. Main is the canonical application baseline.
+**Live Cloudflare production: Waterfront upgrade, build `2026-09-29.2`.** See [the release receipt](docs/evidence/waterfront-delivery-2026-09-29.md) for deployment and verification status. Main is the canonical application baseline.
 
 [Open Firecrackers](https://firecrackers.mainandmany.com/) · [Compatibility graphics](https://firecrackers.mainandmany.com/?backend=canvas) · [Prior AppDeploy preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 

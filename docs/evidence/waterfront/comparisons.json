@@ -1,0 +1,503 @@
+[
+  {
+    "phase": "before",
+    "name": "Gold Willow",
+    "seed": 20260916,
+    "advance": 4.9,
+    "build": "2026-09-29.1",
+    "snapshot": {
+      "ready": true,
+      "paused": false,
+      "selected": "gold-willow",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 1,
+      "bursts": 1,
+      "active": 1,
+      "particles": 13954,
+      "smoke": 22,
+      "quality": "ultra",
+      "message": "Stay for the falling embers.",
+      "time": 4.899999999999988,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "afterglow",
+      "carriers": 0,
+      "embers": 384,
+      "backend": "WebGL 2",
+      "renderPixels": 1024000,
+      "submitMs": 4.5,
+      "frames": 5,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "flight": null
+    }
+  },
+  {
+    "phase": "before",
+    "name": "Sapphire Saturn",
+    "seed": 20260916,
+    "advance": 4.9,
+    "build": "2026-09-29.1",
+    "snapshot": {
+      "ready": true,
+      "paused": false,
+      "selected": "sapphire-saturn",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 1,
+      "bursts": 1,
+      "active": 1,
+      "particles": 6205,
+      "smoke": 22,
+      "quality": "ultra",
+      "message": "Stay for the color and the falling embers.",
+      "time": 4.899999999999988,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "afterglow",
+      "carriers": 0,
+      "embers": 681,
+      "backend": "WebGL 2",
+      "renderPixels": 1024000,
+      "submitMs": 5.5,
+      "frames": 6,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "flight": null
+    }
+  },
+  {
+    "phase": "before",
+    "name": "Opal Supernova",
+    "seed": 20260916,
+    "advance": 7.8,
+    "build": "2026-09-29.1",
+    "snapshot": {
+      "ready": true,
+      "paused": false,
+      "selected": "opal-supernova",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 1,
+      "bursts": 7,
+      "active": 1,
+      "particles": 19316,
+      "smoke": 19,
+      "quality": "ultra",
+      "message": "Stay for the color and the falling embers.",
+      "time": 7.799999999999978,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "afterglow",
+      "carriers": 1,
+      "embers": 649,
+      "backend": "WebGL 2",
+      "renderPixels": 1024000,
+      "submitMs": 7.5,
+      "frames": 6,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "flight": null
+    }
+  },
+  {
+    "phase": "after",
+    "name": "Gold Willow",
+    "seed": 20260916,
+    "advance": 4.9,
+    "build": "2026-09-29.2",
+    "snapshot": {
+      "ready": true,
+      "paused": false,
+      "selected": "gold-willow",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 1,
+      "bursts": 1,
+      "active": 1,
+      "particles": 13954,
+      "smoke": 22,
+      "quality": "ultra",
+      "message": "Stay for the falling embers.",
+      "time": 5.949999999999984,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "afterglow",
+      "carriers": 0,
+      "embers": 384,
+      "backend": "WebGL 2",
+      "renderPixels": 1024000,
+      "submitMs": 5.100000001490116,
+      "frames": 7,
+      "authoredAssets": "terrace,flame,normal,rocket,paper,smoke",
+      "stageLayout": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 800
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "controls": {
+          "top-left": {
+            "x": 12,
+            "y": 12,
+            "width": 128,
+            "height": 67
+          },
+          "middle-left": {
+            "x": 12,
+            "y": 317.8046875,
+            "width": 128,
+            "height": 164.390625
+          },
+          "bottom-left": {
+            "x": 12,
+            "y": 698,
+            "width": 128,
+            "height": 90
+          },
+          "top-right": {
+            "x": 1212,
+            "y": 12,
+            "width": 56,
+            "height": 90
+          },
+          "middle-right": {
+            "x": 1212,
+            "y": 355,
+            "width": 56,
+            "height": 90
+          },
+          "bottom-right": {
+            "x": 1212,
+            "y": 717,
+            "width": 56,
+            "height": 71
+          }
+        },
+        "heroRect": {
+          "x": 144,
+          "y": 0,
+          "width": 992,
+          "height": 800
+        },
+        "panelOpen": false,
+        "launchArea": {
+          "x": 144,
+          "y": 656,
+          "width": 992,
+          "height": 112.00000000000001
+        },
+        "burstCanopy": {
+          "x": 144,
+          "y": 64,
+          "width": 992,
+          "height": 512
+        },
+        "reflectionBand": {
+          "x": 144,
+          "y": 600,
+          "width": 992,
+          "height": 200
+        }
+      },
+      "reflectionFrames": 3,
+      "reflectionWidth": 512,
+      "reflectionHeight": 320,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "flight": null,
+      "audioVoices": 0,
+      "audioTimers": 0,
+      "recordedSamples": 0,
+      "audioEnabled": false
+    }
+  },
+  {
+    "phase": "after",
+    "name": "Sapphire Saturn",
+    "seed": 20260916,
+    "advance": 4.9,
+    "build": "2026-09-29.2",
+    "snapshot": {
+      "ready": true,
+      "paused": false,
+      "selected": "sapphire-saturn",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 1,
+      "bursts": 1,
+      "active": 1,
+      "particles": 6205,
+      "smoke": 22,
+      "quality": "ultra",
+      "message": "Stay for the color and the falling embers.",
+      "time": 5.899999999999984,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "afterglow",
+      "carriers": 0,
+      "embers": 681,
+      "backend": "WebGL 2",
+      "renderPixels": 1024000,
+      "submitMs": 9.600000001490116,
+      "frames": 7,
+      "authoredAssets": "flame,rocket,normal,paper,terrace,smoke",
+      "stageLayout": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 800
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "controls": {
+          "top-left": {
+            "x": 12,
+            "y": 12,
+            "width": 128,
+            "height": 67
+          },
+          "middle-left": {
+            "x": 12,
+            "y": 317.8046875,
+            "width": 128,
+            "height": 164.390625
+          },
+          "bottom-left": {
+            "x": 12,
+            "y": 698,
+            "width": 128,
+            "height": 90
+          },
+          "top-right": {
+            "x": 1212,
+            "y": 12,
+            "width": 56,
+            "height": 90
+          },
+          "middle-right": {
+            "x": 1212,
+            "y": 355,
+            "width": 56,
+            "height": 90
+          },
+          "bottom-right": {
+            "x": 1212,
+            "y": 717,
+            "width": 56,
+            "height": 71
+          }
+        },
+        "heroRect": {
+          "x": 144,
+          "y": 0,
+          "width": 992,
+          "height": 800
+        },
+        "panelOpen": false,
+        "launchArea": {
+          "x": 144,
+          "y": 656,
+          "width": 992,
+          "height": 112.00000000000001
+        },
+        "burstCanopy": {
+          "x": 144,
+          "y": 64,
+          "width": 992,
+          "height": 512
+        },
+        "reflectionBand": {
+          "x": 144,
+          "y": 600,
+          "width": 992,
+          "height": 200
+        }
+      },
+      "reflectionFrames": 3,
+      "reflectionWidth": 512,
+      "reflectionHeight": 320,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "flight": null,
+      "audioVoices": 0,
+      "audioTimers": 0,
+      "recordedSamples": 0,
+      "audioEnabled": false
+    }
+  },
+  {
+    "phase": "after",
+    "name": "Opal Supernova",
+    "seed": 20260916,
+    "advance": 7.8,
+    "build": "2026-09-29.2",
+    "snapshot": {
+      "ready": true,
+      "paused": false,
+      "selected": "opal-supernova",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 1,
+      "bursts": 7,
+      "active": 1,
+      "particles": 19406,
+      "smoke": 19,
+      "quality": "ultra",
+      "message": "Stay for the color and the falling embers.",
+      "time": 8.800000000000017,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "afterglow",
+      "carriers": 1,
+      "embers": 649,
+      "backend": "WebGL 2",
+      "renderPixels": 1024000,
+      "submitMs": 6.799999997019768,
+      "frames": 7,
+      "authoredAssets": "normal,paper,flame,rocket,terrace,smoke",
+      "stageLayout": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 800
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "controls": {
+          "top-left": {
+            "x": 12,
+            "y": 12,
+            "width": 128,
+            "height": 67
+          },
+          "middle-left": {
+            "x": 12,
+            "y": 317.8046875,
+            "width": 128,
+            "height": 164.390625
+          },
+          "bottom-left": {
+            "x": 12,
+            "y": 698,
+            "width": 128,
+            "height": 90
+          },
+          "top-right": {
+            "x": 1212,
+            "y": 12,
+            "width": 56,
+            "height": 90
+          },
+          "middle-right": {
+            "x": 1212,
+            "y": 355,
+            "width": 56,
+            "height": 90
+          },
+          "bottom-right": {
+            "x": 1212,
+            "y": 717,
+            "width": 56,
+            "height": 71
+          }
+        },
+        "heroRect": {
+          "x": 144,
+          "y": 0,
+          "width": 992,
+          "height": 800
+        },
+        "panelOpen": false,
+        "launchArea": {
+          "x": 144,
+          "y": 656,
+          "width": 992,
+          "height": 112.00000000000001
+        },
+        "burstCanopy": {
+          "x": 144,
+          "y": 64,
+          "width": 992,
+          "height": 512
+        },
+        "reflectionBand": {
+          "x": 144,
+          "y": 600,
+          "width": 992,
+          "height": 200
+        }
+      },
+      "reflectionFrames": 3,
+      "reflectionWidth": 512,
+      "reflectionHeight": 320,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "flight": null,
+      "audioVoices": 0,
+      "audioTimers": 0,
+      "recordedSamples": 0,
+      "audioEnabled": false
+    }
+  }
+]

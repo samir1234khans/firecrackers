@@ -1,0 +1,8 @@
+{
+  "url": "https://firecrackers-waterfront-preview.allygym-api.workers.dev/",
+  "passed": true,
+  "build": "2026-09-29.2",
+  "assets": "normal,flame,terrace,smoke,paper,rocket",
+  "recordedSamples": 3,
+  "bursts": 1
+}

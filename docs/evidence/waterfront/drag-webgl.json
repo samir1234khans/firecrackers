@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "backend": "WebGL 2",
+  "launched": 1,
+  "bursts": 1,
+  "drop": [
+    640,
+    300
+  ],
+  "cleaned": true
+}
