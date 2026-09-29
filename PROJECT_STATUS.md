@@ -8,9 +8,11 @@ Updated: 29 September 2026. Build: `2026-09-29.1`.
 
 The incoming delivery is `feat/grand-collection` at `7b448ee730ba1170149e0a5d7d1e3895862a6ad1`. It already incorporates every current head of the approved V3, ignition, video-flow and viewability-recovery development lines. The separate historical `feat/fireworks-v1-implementation` remains preserved without replacing the tested application. No branch deletion or force push is part of the promotion.
 
-Live site: https://firecrackers-a93nle.v2.appdeploy.ai/
+Cloudflare production: https://firecrackers.mainandmany.com/ . Prior AppDeploy preview: https://firecrackers-a93nle.v2.appdeploy.ai/ . The production deployment of this main application source is recorded in [Cloudflare evidence](docs/evidence/cloudflare-production-2026-09-29.md).
 
 Runtime checkpoint: `9f081db8cf3ca626febb9161ba74c907f9852e65`. Public verification checkpoint: `5b09b195f1f12c54566b3b7ad4339f7261a7f9d7`. Applied hosting snapshot: `1790640515766`. The final delivery and promotion documentation/CI changes do not retune those runtime modules. Promoting the already-published runtime does not require another deployment.
+
+Cloudflare Worker `firecrackers` now serves the same build `2026-09-29.1` from canonical main `63dfff2fcc9e7d46a3b9a9c3f3185a188f92813e`. Its deployed version ID is `c2cbc9f9-e058-4220-9c27-dcd7d32bac9f`. The live release fingerprint is `615d4997ce54ce87812f4bb9b568f24d3057fa374d68f5692d8a74ebbcba4d1a`. The AppDeploy snapshot above remains the previous hosting record.
 
 ## Delivered
 
