@@ -98,3 +98,7 @@ blender --background --factory-startup --disable-autoexec assets-source/blender/
 ```
 
 The first command writes a new v004 master, packed 256-pixel basalt atlases and a terrace-only GLB. The second reopens that master, reimports the GLB and writes `assets-source/blender/verification-v004.json`. Review the browser asset at desktop and portrait sizes because a valid GLB does not prove correct scene scale, horizon position or reflection energy. Preserve the six transparent edge groups and all ten seeded effects when tuning the scene.
+
+## Hardware WebGPU qualification
+
+Run `node tests/webgpu-browser.mjs` with installed Chrome and a real GPU. Set `WEBGPU_URL` to the candidate or public origin; default is port 4180. This headed opt-in test rejects fallback adapters and WebGL masquerading as WebGPU, checks asset activation and effects, and verifies recovery. It is separate from CI software-renderer evidence. See [repair and next graphics work](docs/evidence/webgpu-startup-2026-09-30.md).

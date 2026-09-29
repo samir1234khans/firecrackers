@@ -61,6 +61,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let previouslyMoving = false;
         let graphics: RendererPort | null = null;
         let switchingGraphics = false;
+        let runtimeReady = false;
         // Deterministic browser qualification exercises the real recovery path
         // without depending on the CI machine's GPU speed.
         let qaStallMs = 0;
@@ -92,6 +93,10 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const fail = (message: string) => {
             if (cancelled)
                 return;
+            if (runtimeReady && !switchingGraphics && graphics?.backend === 'WebGPU') {
+                void recoverOverload(message);
+                return;
+            }
             intent.current.block('graphics', true);
             state.setPaused(true);
             sound.setSuspended(true);
@@ -99,17 +104,30 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             setReady(false);
             refresh();
         };
-        const recoverOverload = async () => {
+        const recoverOverload = async (reason = 'repeated slow frames') => {
             const target = host.current;
             const previous = graphics;
             if (cancelled || switchingGraphics || !target || !previous || previous.backend.startsWith('Canvas')) return;
             switchingGraphics = true;
             setBackend('Recovering graphics');
-            let replacement: CompatibilityRenderer | null = null;
+            let replacement: RendererPort | null = null;
             try {
-                replacement = new CompatibilityRenderer(target, state);
-                replacement.setDisplay(display.current.mode);
-                await replacement.init();
+                if (previous.backend === 'WebGPU') {
+                    try {
+                        const module = await import('./Renderer');
+                        replacement = new module.FireworkRenderer(target, state, fail, true);
+                        replacement.setDisplay(display.current.mode);
+                        await withDeadline(replacement.init(), startup.signal, 10000);
+                    } catch {
+                        replacement?.dispose();
+                        replacement = null;
+                    }
+                }
+                if (!replacement) {
+                    replacement = new CompatibilityRenderer(target, state);
+                    replacement.setDisplay(display.current.mode);
+                    await replacement.init();
+                }
                 if (cancelled) { replacement.dispose(); return; }
                 graphics = replacement;
                 renderer.current = replacement;
@@ -120,8 +138,13 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 lastRender = 0;
                 previousVisualState = '';
                 setBackend(replacement.backend);
+                intent.current.block('graphics', false);
+                state.setPaused(intent.current.paused);
+                sound.setSuspended(state.paused || document.hidden);
+                setReady(true);
+                setError('');
                 setMetrics({ ...replacement.metrics, p95Ms: governor.p95 });
-                notice('Compatibility graphics is active after repeated slow frames. Your quality choice is unchanged.');
+                notice(`${replacement.backend} is active after ${reason}. Your quality choice is unchanged.`);
                 refresh();
             } catch {
                 try { replacement?.dispose(); } catch { /* Recovery controls remain available. */ }
@@ -284,6 +307,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             setError('');
             setBackend((graphics as RendererPort).backend);
             setReady(true);
+            runtimeReady = true;
             // Starting a show through an explicit presentation link never activates sound.
             if (display.current.mode !== 'interactive' && display.current.show)
                 state.startShow(display.current.show);
