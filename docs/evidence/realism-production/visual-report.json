@@ -1,0 +1,28 @@
+[
+  {
+    "url": "https://firecrackers.mainandmany.com/?backend=webgl&qa=1&seed=20260916",
+    "width": 1280,
+    "height": 800,
+    "shot": "saturn-production-1280x800.png",
+    "backend": "WebGL 2",
+    "quality": "ultra",
+    "waterline": 0.48453149705819837,
+    "bursts": 1,
+    "particles": 6205,
+    "authoredAssets": "flame,terrace,normal,paper,rocket,smoke",
+    "errors": []
+  },
+  {
+    "url": "https://firecrackers.mainandmany.com/?backend=webgl&qa=1&seed=20260916",
+    "width": 393,
+    "height": 851,
+    "shot": "saturn-production-393x851.png",
+    "backend": "WebGL 2",
+    "quality": "ultra",
+    "waterline": 0.719504712963004,
+    "bursts": 1,
+    "particles": 6205,
+    "authoredAssets": "flame,normal,terrace,paper,rocket,smoke",
+    "errors": []
+  }
+]

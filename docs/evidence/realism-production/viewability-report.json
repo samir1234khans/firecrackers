@@ -1,0 +1,1156 @@
+{
+  "url": "https://firecrackers.mainandmany.com/",
+  "version": "2026-09-29.3",
+  "browser": "Chromium / software graphics; no physical-device claim",
+  "checks": [
+    {
+      "name": "desktop",
+      "result": "passed",
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hero": {
+          "x": 144,
+          "y": 0,
+          "width": 992,
+          "height": 800
+        },
+        "groups": [
+          {
+            "name": "top-left",
+            "x": 12,
+            "y": 12,
+            "width": 128,
+            "height": 67,
+            "right": 140,
+            "bottom": 79
+          },
+          {
+            "name": "middle-left",
+            "x": 12,
+            "y": 317.8046875,
+            "width": 128,
+            "height": 164.390625,
+            "right": 140,
+            "bottom": 482.1953125
+          },
+          {
+            "name": "bottom-left",
+            "x": 12,
+            "y": 698,
+            "width": 128,
+            "height": 90,
+            "right": 140,
+            "bottom": 788
+          },
+          {
+            "name": "top-right",
+            "x": 1212,
+            "y": 12,
+            "width": 56,
+            "height": 90,
+            "right": 1268,
+            "bottom": 102
+          },
+          {
+            "name": "middle-right",
+            "x": 1212,
+            "y": 355,
+            "width": 56,
+            "height": 90,
+            "right": 1268,
+            "bottom": 445
+          },
+          {
+            "name": "bottom-right",
+            "x": 1212,
+            "y": 717,
+            "width": 56,
+            "height": 71,
+            "right": 1268,
+            "bottom": 788
+          }
+        ],
+        "buttons": [
+          {
+            "name": "Choose show mode",
+            "x": 12,
+            "y": 35,
+            "width": 128,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Previous firework",
+            "x": 12,
+            "y": 317.8046875,
+            "width": 128,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Choose firework: Gold Willow",
+            "x": 12,
+            "y": 363.8046875,
+            "width": 128,
+            "height": 72.390625,
+            "hit": true
+          },
+          {
+            "name": "Next firework",
+            "x": 12,
+            "y": 438.1953125,
+            "width": 128,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Position firework",
+            "x": 12,
+            "y": 698,
+            "width": 128,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Help",
+            "x": 12,
+            "y": 744,
+            "width": 128,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Pause scene",
+            "x": 1212,
+            "y": 12,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Enable sound",
+            "x": 1212,
+            "y": 58,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Open settings",
+            "x": 1212,
+            "y": 355,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Enter fullscreen",
+            "x": 1212,
+            "y": 401,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Launch selected firework",
+            "x": 1212,
+            "y": 717,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          }
+        ],
+        "overflow": false,
+        "launch": {
+          "width": 56,
+          "height": 56,
+          "bottom": 773
+        },
+        "hit": true
+      },
+      "renderer": "WebGL 2"
+    },
+    {
+      "name": "tablet",
+      "result": "passed",
+      "layout": {
+        "width": 1024,
+        "height": 768,
+        "hero": {
+          "x": 138.875,
+          "y": 0,
+          "width": 746.25,
+          "height": 768
+        },
+        "groups": [
+          {
+            "name": "top-left",
+            "x": 12,
+            "y": 12,
+            "width": 122.875,
+            "height": 67,
+            "right": 134.875,
+            "bottom": 79
+          },
+          {
+            "name": "middle-left",
+            "x": 12,
+            "y": 301.8046875,
+            "width": 122.875,
+            "height": 164.390625,
+            "right": 134.875,
+            "bottom": 466.1953125
+          },
+          {
+            "name": "bottom-left",
+            "x": 12,
+            "y": 666,
+            "width": 122.875,
+            "height": 90,
+            "right": 134.875,
+            "bottom": 756
+          },
+          {
+            "name": "top-right",
+            "x": 956,
+            "y": 12,
+            "width": 56,
+            "height": 90,
+            "right": 1012,
+            "bottom": 102
+          },
+          {
+            "name": "middle-right",
+            "x": 956,
+            "y": 339,
+            "width": 56,
+            "height": 90,
+            "right": 1012,
+            "bottom": 429
+          },
+          {
+            "name": "bottom-right",
+            "x": 956,
+            "y": 685,
+            "width": 56,
+            "height": 71,
+            "right": 1012,
+            "bottom": 756
+          }
+        ],
+        "buttons": [
+          {
+            "name": "Choose show mode",
+            "x": 12,
+            "y": 35,
+            "width": 122.875,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Previous firework",
+            "x": 12,
+            "y": 301.8046875,
+            "width": 122.875,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Choose firework: Gold Willow",
+            "x": 12,
+            "y": 347.8046875,
+            "width": 122.875,
+            "height": 72.390625,
+            "hit": true
+          },
+          {
+            "name": "Next firework",
+            "x": 12,
+            "y": 422.1953125,
+            "width": 122.875,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Position firework",
+            "x": 12,
+            "y": 666,
+            "width": 122.875,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Help",
+            "x": 12,
+            "y": 712,
+            "width": 122.875,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Pause scene",
+            "x": 956,
+            "y": 12,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Enable sound",
+            "x": 956,
+            "y": 58,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Open settings",
+            "x": 956,
+            "y": 339,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Enter fullscreen",
+            "x": 956,
+            "y": 385,
+            "width": 56,
+            "height": 44,
+            "hit": true
+          },
+          {
+            "name": "Launch selected firework",
+            "x": 956,
+            "y": 685,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          }
+        ],
+        "overflow": false,
+        "launch": {
+          "width": 56,
+          "height": 56,
+          "bottom": 741
+        },
+        "hit": true
+      },
+      "renderer": "WebGL 2"
+    },
+    {
+      "name": "portrait",
+      "result": "passed",
+      "layout": {
+        "width": 393,
+        "height": 851,
+        "hero": {
+          "x": 68,
+          "y": 0,
+          "width": 257,
+          "height": 851
+        },
+        "groups": [
+          {
+            "name": "top-left",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 71,
+            "right": 64,
+            "bottom": 79
+          },
+          {
+            "name": "middle-left",
+            "x": 8,
+            "y": 346.5,
+            "width": 56,
+            "height": 158,
+            "right": 64,
+            "bottom": 504.5
+          },
+          {
+            "name": "bottom-left",
+            "x": 8,
+            "y": 745,
+            "width": 56,
+            "height": 98,
+            "right": 64,
+            "bottom": 843
+          },
+          {
+            "name": "top-right",
+            "x": 329,
+            "y": 8,
+            "width": 56,
+            "height": 98,
+            "right": 385,
+            "bottom": 106
+          },
+          {
+            "name": "middle-right",
+            "x": 329,
+            "y": 401.5,
+            "width": 56,
+            "height": 48,
+            "right": 385,
+            "bottom": 449.5
+          },
+          {
+            "name": "bottom-right",
+            "x": 329,
+            "y": 772,
+            "width": 56,
+            "height": 71,
+            "right": 385,
+            "bottom": 843
+          }
+        ],
+        "buttons": [
+          {
+            "name": "Choose show mode",
+            "x": 8,
+            "y": 31,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Previous firework",
+            "x": 8,
+            "y": 346.5,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Choose firework: Gold Willow",
+            "x": 8,
+            "y": 396.5,
+            "width": 56,
+            "height": 58,
+            "hit": true
+          },
+          {
+            "name": "Next firework",
+            "x": 8,
+            "y": 456.5,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Position firework",
+            "x": 8,
+            "y": 745,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Help",
+            "x": 8,
+            "y": 795,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Pause scene",
+            "x": 329,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Enable sound",
+            "x": 329,
+            "y": 58,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Open settings",
+            "x": 329,
+            "y": 401.5,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Launch selected firework",
+            "x": 329,
+            "y": 772,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          }
+        ],
+        "overflow": false,
+        "launch": {
+          "width": 56,
+          "height": 56,
+          "bottom": 828
+        },
+        "hit": true
+      },
+      "renderer": "WebGL 2"
+    },
+    {
+      "name": "small-phone",
+      "result": "passed",
+      "layout": {
+        "width": 320,
+        "height": 568,
+        "hero": {
+          "x": 68,
+          "y": 0,
+          "width": 184,
+          "height": 568
+        },
+        "groups": [
+          {
+            "name": "top-left",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 71,
+            "right": 64,
+            "bottom": 79
+          },
+          {
+            "name": "middle-left",
+            "x": 8,
+            "y": 205,
+            "width": 56,
+            "height": 158,
+            "right": 64,
+            "bottom": 363
+          },
+          {
+            "name": "bottom-left",
+            "x": 8,
+            "y": 462,
+            "width": 56,
+            "height": 98,
+            "right": 64,
+            "bottom": 560
+          },
+          {
+            "name": "top-right",
+            "x": 256,
+            "y": 8,
+            "width": 56,
+            "height": 98,
+            "right": 312,
+            "bottom": 106
+          },
+          {
+            "name": "middle-right",
+            "x": 256,
+            "y": 260,
+            "width": 56,
+            "height": 48,
+            "right": 312,
+            "bottom": 308
+          },
+          {
+            "name": "bottom-right",
+            "x": 256,
+            "y": 489,
+            "width": 56,
+            "height": 71,
+            "right": 312,
+            "bottom": 560
+          }
+        ],
+        "buttons": [
+          {
+            "name": "Choose show mode",
+            "x": 8,
+            "y": 31,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Previous firework",
+            "x": 8,
+            "y": 205,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Choose firework: Gold Willow",
+            "x": 8,
+            "y": 255,
+            "width": 56,
+            "height": 58,
+            "hit": true
+          },
+          {
+            "name": "Next firework",
+            "x": 8,
+            "y": 315,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Position firework",
+            "x": 8,
+            "y": 462,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Help",
+            "x": 8,
+            "y": 512,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Pause scene",
+            "x": 256,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Enable sound",
+            "x": 256,
+            "y": 58,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Open settings",
+            "x": 256,
+            "y": 260,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Launch selected firework",
+            "x": 256,
+            "y": 489,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          }
+        ],
+        "overflow": false,
+        "launch": {
+          "width": 56,
+          "height": 56,
+          "bottom": 545
+        },
+        "hit": true
+      },
+      "renderer": "WebGL 2"
+    },
+    {
+      "name": "short-phone",
+      "result": "passed",
+      "layout": {
+        "width": 320,
+        "height": 480,
+        "hero": {
+          "x": 68,
+          "y": 0,
+          "width": 184,
+          "height": 480
+        },
+        "groups": [
+          {
+            "name": "top-left",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "right": 64,
+            "bottom": 56
+          },
+          {
+            "name": "middle-left",
+            "x": 8,
+            "y": 212,
+            "width": 56,
+            "height": 56,
+            "right": 64,
+            "bottom": 268
+          },
+          {
+            "name": "bottom-left",
+            "x": 8,
+            "y": 424,
+            "width": 56,
+            "height": 48,
+            "right": 64,
+            "bottom": 472
+          },
+          {
+            "name": "top-right",
+            "x": 256,
+            "y": 8,
+            "width": 56,
+            "height": 98,
+            "right": 312,
+            "bottom": 106
+          },
+          {
+            "name": "middle-right",
+            "x": 256,
+            "y": 216,
+            "width": 56,
+            "height": 48,
+            "right": 312,
+            "bottom": 264
+          },
+          {
+            "name": "bottom-right",
+            "x": 256,
+            "y": 401,
+            "width": 56,
+            "height": 71,
+            "right": 312,
+            "bottom": 472
+          }
+        ],
+        "buttons": [
+          {
+            "name": "Choose show mode",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Choose firework: Gold Willow",
+            "x": 8,
+            "y": 212,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          },
+          {
+            "name": "Position firework",
+            "x": 8,
+            "y": 424,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Pause scene",
+            "x": 256,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Enable sound",
+            "x": 256,
+            "y": 58,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Open settings",
+            "x": 256,
+            "y": 216,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Launch selected firework",
+            "x": 256,
+            "y": 401,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          }
+        ],
+        "overflow": false,
+        "launch": {
+          "width": 56,
+          "height": 56,
+          "bottom": 457
+        },
+        "hit": true
+      },
+      "renderer": "WebGL 2"
+    },
+    {
+      "name": "landscape",
+      "result": "passed",
+      "layout": {
+        "width": 844,
+        "height": 390,
+        "hero": {
+          "x": 68,
+          "y": 0,
+          "width": 708,
+          "height": 390
+        },
+        "groups": [
+          {
+            "name": "top-left",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "right": 64,
+            "bottom": 56
+          },
+          {
+            "name": "middle-left",
+            "x": 8,
+            "y": 167,
+            "width": 56,
+            "height": 56,
+            "right": 64,
+            "bottom": 223
+          },
+          {
+            "name": "bottom-left",
+            "x": 8,
+            "y": 334,
+            "width": 56,
+            "height": 48,
+            "right": 64,
+            "bottom": 382
+          },
+          {
+            "name": "top-right",
+            "x": 780,
+            "y": 8,
+            "width": 56,
+            "height": 98,
+            "right": 836,
+            "bottom": 106
+          },
+          {
+            "name": "middle-right",
+            "x": 780,
+            "y": 171,
+            "width": 56,
+            "height": 48,
+            "right": 836,
+            "bottom": 219
+          },
+          {
+            "name": "bottom-right",
+            "x": 780,
+            "y": 311,
+            "width": 56,
+            "height": 71,
+            "right": 836,
+            "bottom": 382
+          }
+        ],
+        "buttons": [
+          {
+            "name": "Choose show mode",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Choose firework: Gold Willow",
+            "x": 8,
+            "y": 167,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          },
+          {
+            "name": "Position firework",
+            "x": 8,
+            "y": 334,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Pause scene",
+            "x": 780,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Enable sound",
+            "x": 780,
+            "y": 58,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Open settings",
+            "x": 780,
+            "y": 171,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Launch selected firework",
+            "x": 780,
+            "y": 311,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          }
+        ],
+        "overflow": false,
+        "launch": {
+          "width": 56,
+          "height": 56,
+          "bottom": 367
+        },
+        "hit": true
+      },
+      "renderer": "WebGL 2"
+    },
+    {
+      "name": "narrow-landscape",
+      "result": "passed",
+      "layout": {
+        "width": 640,
+        "height": 360,
+        "hero": {
+          "x": 68,
+          "y": 0,
+          "width": 504,
+          "height": 360
+        },
+        "groups": [
+          {
+            "name": "top-left",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "right": 64,
+            "bottom": 56
+          },
+          {
+            "name": "middle-left",
+            "x": 8,
+            "y": 152,
+            "width": 56,
+            "height": 56,
+            "right": 64,
+            "bottom": 208
+          },
+          {
+            "name": "bottom-left",
+            "x": 8,
+            "y": 304,
+            "width": 56,
+            "height": 48,
+            "right": 64,
+            "bottom": 352
+          },
+          {
+            "name": "top-right",
+            "x": 576,
+            "y": 8,
+            "width": 56,
+            "height": 98,
+            "right": 632,
+            "bottom": 106
+          },
+          {
+            "name": "middle-right",
+            "x": 576,
+            "y": 156,
+            "width": 56,
+            "height": 48,
+            "right": 632,
+            "bottom": 204
+          },
+          {
+            "name": "bottom-right",
+            "x": 576,
+            "y": 281,
+            "width": 56,
+            "height": 71,
+            "right": 632,
+            "bottom": 352
+          }
+        ],
+        "buttons": [
+          {
+            "name": "Choose show mode",
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Choose firework: Gold Willow",
+            "x": 8,
+            "y": 152,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          },
+          {
+            "name": "Position firework",
+            "x": 8,
+            "y": 304,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Pause scene",
+            "x": 576,
+            "y": 8,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Enable sound",
+            "x": 576,
+            "y": 58,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Open settings",
+            "x": 576,
+            "y": 156,
+            "width": 56,
+            "height": 48,
+            "hit": true
+          },
+          {
+            "name": "Launch selected firework",
+            "x": 576,
+            "y": 281,
+            "width": 56,
+            "height": 56,
+            "hit": true
+          }
+        ],
+        "overflow": false,
+        "launch": {
+          "width": 56,
+          "height": 56,
+          "bottom": 337
+        },
+        "hit": true
+      },
+      "renderer": "WebGL 2"
+    },
+    {
+      "name": "canvas-complete-launch",
+      "result": "passed",
+      "realUserInput": true,
+      "launched": 1,
+      "bursts": 1,
+      "pausePreserved": true
+    },
+    {
+      "name": "canvas-five-effects",
+      "result": "passed",
+      "families": 5,
+      "method": "same seeded simulation; deterministic rendered phase captures"
+    },
+    {
+      "name": "gpu-unavailable",
+      "result": "passed",
+      "recoveredWithoutReload": true,
+      "fallback": "Canvas",
+      "realBurst": true,
+      "injectedFaultDiagnostics": []
+    },
+    {
+      "name": "gpu-module-unavailable",
+      "result": "passed",
+      "recoveredWithoutReload": true,
+      "injectedFaultDiagnostics": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "context-loss-recovery",
+      "result": "passed",
+      "actualContextLost": true,
+      "playableAfterRecovery": true,
+      "injectedFaultDiagnostics": [
+        "THREE.WebGPURenderer: WebGL Device Lost:\n\nMessage: Unknown reason"
+      ]
+    },
+    {
+      "name": "blocked-entry-keeps-visible-page",
+      "result": "passed",
+      "readableShell": true,
+      "reloadAction": true,
+      "injectedFaultDiagnostics": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "react-error-keeps-recovery-page",
+      "result": "passed",
+      "readableRecovery": true,
+      "injectedFaultDiagnostics": [
+        "Error: Injected preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at ud (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:175:50932)\n    at rm (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:175:51059)\n    at As (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:49:38960)\n    at Object.useState (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:49:46594)\n    at A1.ht.useState (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:18:7476)\n    at Mm (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:175:72091)\n    at ys (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:49:34143)\n    at Ds (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:49:62209)\n    at mo (https://firecrackers.mainandmany.com/assets/main-Bf8PAJYd.js:49:72711)"
+      ]
+    },
+    {
+      "name": "default-backend-launch",
+      "result": "passed",
+      "renderer": "WebGL 2",
+      "realBurst": true
+    }
+  ],
+  "failures": [],
+  "screenshots": [
+    "desktop.png",
+    "tablet.png",
+    "portrait.png",
+    "small-phone.png",
+    "short-phone.png",
+    "landscape.png",
+    "narrow-landscape.png",
+    "canvas-complete-launch.png",
+    "canvas-gold-willow.png",
+    "canvas-multicolor-peony.png",
+    "canvas-chrysanthemum.png",
+    "canvas-silver-crossette-crackle.png",
+    "canvas-grand-finale.png",
+    "canvas-five-effects.png",
+    "gpu-unavailable.png",
+    "gpu-module-unavailable.png",
+    "context-loss-recovery.png",
+    "blocked-entry-keeps-visible-page.png",
+    "react-error-keeps-recovery-page.png",
+    "default-backend-launch.png"
+  ]
+}

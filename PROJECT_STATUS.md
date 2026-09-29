@@ -1,10 +1,10 @@
 # Current status: Waterfront realism refinement
 
-**Production remains at build `2026-09-29.2`:** https://firecrackers.mainandmany.com/. Its verified Worker version is `204d3c26-6c11-485b-9137-2b59a647ad0e`; PR #5 is merged.
+**Production is build `2026-09-29.3`:** https://firecrackers.mainandmany.com/. Worker version `5c39c81a-6b79-49ae-bf50-007a93ee83f6` serves merge commit `e1789db3e4c28cd8f8f55662d7b3e9ec7f6034f6` from PR #7. The previous `.2` Worker version `204d3c26-6c11-485b-9137-2b59a647ad0e` is the rollback reference.
 
-**Preview candidate `2026-09-29.3`:** Branch `feat/realism-refinement` has a new Blender v004 terrace, improved waterline/reflection composition and corrected smoke-atlas family selection. The candidate source fingerprint is `4ae7b48094bad269c0a47655d5d20e6839b71f593100aa052d90e4df63a6a40d`. Final-source unit tests (116), lint, and local and hosted stage-browser checks (22 each, including a missing-v004 fallback) passed. Twelve same-seed WebGL 2 captures compare `.2` production with final `.3` local for Willow, Saturn and Supernova at desktop and portrait sizes. [The separate Cloudflare preview](https://firecrackers-realism-preview.allygym-api.workers.dev/) serves the exact fingerprint. See [the candidate evidence](docs/evidence/realism-refinement-2026-09-29.md). PR/CI and public `.3` verification require separate receipts when they occur.
+The release adds the Blender v004 terrace, improved waterline/reflection composition and corrected smoke-atlas family selection. Production and [the retained preview](https://firecrackers-realism-preview.allygym-api.workers.dev/) serve the same SHA-256 fingerprint `4ae7b48094bad269c0a47655d5d20e6839b71f593100aa052d90e4df63a6a40d`. Main push CI passed all four runtime jobs and documentation validation. Public stage checks passed 22, Grand Collection and original flows passed on desktop/mobile, recovery passed 15, and an offline enhanced-asset reload succeeded. See [the production receipt](docs/evidence/realism-production-release-2026-09-29.md) and [the image-guided comparison record](docs/evidence/realism-refinement-2026-09-29.md).
 
-Physical iPhone/Android performance, Safari and hardware WebGPU are not established by these local browser runs.
+Physical iPhone/Android performance, Safari and hardware WebGPU are not established by these browser runs.
 
 ## Previous waterfront release
 
