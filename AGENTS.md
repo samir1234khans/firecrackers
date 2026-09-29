@@ -2,11 +2,11 @@
 
 ## Current source and scope
 
-Work only in `samir1234khans/firecrackers` and its explicitly selected checkout. Fetch current refs and inspect the worktree, README, PROJECT_STATUS, DEVELOPMENT and docs/README before editing. The current ten-effect application is on `feat/grand-collection`, extending the viewability-recovery and single-press launch work. Main remains a historical documentation baseline; do not infer it is the latest runtime or promote to it without authorization.
+Work only in `samir1234khans/firecrackers` and its explicitly selected checkout. Fetch current refs and inspect the worktree, README, PROJECT_STATUS, DEVELOPMENT and docs/README before editing. Following the owner's authorized Grand Collection promotion, **main is the canonical ten-effect application baseline**. Start new feature/fix branches from current main and submit pull requests back to main. `feat/grand-collection` and the earlier recovery and realism branches preserve delivery history; they are not competing current integration targets.
 
 The initial documentation-only phase is historical. Use the current delivery evidence to distinguish implemented, tested, failed, planned and unrun work. Keep coherent GitHub checkpoints and an accurate handover. Do not promise background execution or erase failing history.
 
-Never reset user changes, force-push, delete branches, move unrelated projects or reapply an old transcript over newer source. Inspect both GitHub and the actual applied deployment when they may differ. A deployment-ready label is not proof of tested source parity.
+Never reset user changes, force-push, delete branches, move unrelated projects or reapply an old transcript over newer source. Inspect both GitHub and the actual applied deployment when they may differ. A deployment-ready label is not proof of tested source parity. The separate `feat/fireworks-v1-implementation` branch is a historical alternate implementation, not a pending current-runtime upgrade; preserve it unless the owner explicitly requests otherwise.
 
 ## Product invariants
 
@@ -24,7 +24,7 @@ Use the pinned Three.js/TSL path. Do not assume a legacy shader plugin works wit
 
 ## Validation and delivery
 
-Follow DEVELOPMENT and the Grand Collection delivery record. Run relevant unit/build, Grand Collection, original launch/platform and viewability/recovery checks. Validate documentation with the declared Python requirements. Keep visual captures tied to source, seed, backend and viewport; distinguish deterministic captures, real-time input, logical soak and physical endurance.
+Follow DEVELOPMENT and the Grand Collection delivery record. Runtime validation on main and pull requests into main calls the complete reusable Grand Collection workflow. Run relevant unit/build, Grand Collection, original launch/platform and viewability/recovery checks. Validate documentation with the declared Python requirements. Keep visual captures tied to source, seed, backend and viewport; distinguish deterministic captures, real-time input, logical soak and physical endurance.
 
 Check push as well as PR workflow runs. The commit-workflow helper may filter to PR-triggered runs; an empty result does not mean no CI exists. Do not weaken a failing visibility or safety assertion simply to obtain green checks.
 

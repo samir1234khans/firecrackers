@@ -2,13 +2,15 @@
 
 Updated: 29 September 2026. Build: `2026-09-29.1`.
 
-## Current delivery
+## Current integration baseline
 
-**Grand Collection implementation and public preview verification are complete for the ten-firework expansion.** Continue on `feat/grand-collection`; do not resume the earlier five-effect recovery or V3 branch.
+**Main is the canonical application baseline for the owner-authorized Grand Collection promotion.** Start new work from main rather than resuming an older five-effect recovery or V3 branch. The promotion pull request and post-merge workflow results record its exact merge and verification status; see [the promotion audit](docs/evidence/main-promotion.md).
+
+The incoming delivery is `feat/grand-collection` at `7b448ee730ba1170149e0a5d7d1e3895862a6ad1`. It already incorporates every current head of the approved V3, ignition, video-flow and viewability-recovery development lines. The separate historical `feat/fireworks-v1-implementation` remains preserved without replacing the tested application. No branch deletion or force push is part of the promotion.
 
 Live site: https://firecrackers-a93nle.v2.appdeploy.ai/
 
-Runtime checkpoint: `9f081db8cf3ca626febb9161ba74c907f9852e65`. Public verification checkpoint: `5b09b195f1f12c54566b3b7ad4339f7261a7f9d7`. Applied hosting snapshot: `1790640515766`. Later documentation-only commits do not change the verified runtime. Main and other branches are preserved.
+Runtime checkpoint: `9f081db8cf3ca626febb9161ba74c907f9852e65`. Public verification checkpoint: `5b09b195f1f12c54566b3b7ad4339f7261a7f9d7`. Applied hosting snapshot: `1790640515766`. The final delivery and promotion documentation/CI changes do not retune those runtime modules. Promoting the already-published runtime does not require another deployment.
 
 ## Delivered
 
@@ -16,28 +18,30 @@ The original five Classics plus Aurora Crown, Ruby Dahlia, Sapphire Saturn, Phoe
 
 The repaired single-press launch, immutable active flight, duplicate prevention, manual takeover, pause/settings ownership, startup recovery, offline caching, protected/transparent output and readable manual deck remain intact. Ultra, the 60 fps target, sound-off startup and reduced-flash default are unchanged.
 
-## Remaining delivery work closed
+## Delivery issues closed
 
-The earlier public build failed at 320×480 because compact CSS was overridden by import order, leaving only about 13 pixels of clear sky. The final selectors already present in the deployed snapshot now leave about 77 pixels in the Grand layout and 68 pixels with the longer recovery message. Launch is hit-testable and 46 pixels tall. The test thresholds were not weakened.
+The earlier public build failed at 320×480 because compact CSS was overridden by import order, leaving only about 13 pixels of clear sky. The final selectors now leave about 77 pixels in the Grand layout and 68 pixels with the longer recovery message. Launch is hit-testable and 46 pixels tall. The test thresholds were not weakened.
 
-A fresh public run now passes both desktop and mobile, original workflows and recovery. The workflow also runs original-flow tests even if a collection test fails, avoiding an incomplete regression report. The source/dependency bundle, completion checklist and final evidence are checkpointed in GitHub.
+The final public delivery run passed desktop and mobile, original workflows and recovery. The workflow attempts original-flow tests even if a collection test fails, avoiding an incomplete regression report. The source/dependency bundle, completion checklist and evidence are checkpointed in GitHub.
 
-The previous status answer overlooked push-triggered CI and relied on an outdated root status document. Live source inspection and all-event workflow results supersede that answer. The ten-effect version and compact fix were already deployed when this completion pass began, so no duplicate deployment was needed.
+An earlier status answer overlooked push-triggered CI and relied on an outdated root status document. Live source inspection and all-event workflow results supersede that answer. The ten-effect version and compact fix were already deployed when the completion pass began, so no duplicate deployment was needed.
 
-## Completed validation
+## Completed delivery validation
 
 - Candidate run `36501591721`: engine/build, desktop, mobile and recovery jobs passed.
 - Public run `36507918339`: source, desktop, mobile and recovery jobs all passed.
-- 105 unit/engine/lifecycle/configuration tests passed locally; typecheck, lint and production build passed.
+- 105 unit/engine/lifecycle/configuration tests passed; typecheck, lint and production build passed.
 - 87 public-browser checks passed: 43 new-collection, 29 original launch/platform and 15 viewability/recovery checks.
 - The public SHA-256 fingerprint matched all 35 normalized modules, with zero mismatches.
 - A 7,200-second accelerated logical run completed with 1,317 launches and 2,875 bursts, bounded resources and no assertion failure.
 - Actual public desktop, portrait, small-phone and landscape captures were reviewed. All five new silhouettes are visible and distinct.
 
-Unexpected application errors were absent in the nominal runs. Host-only preload warnings and two deliberately offline host requests are recorded separately. Injected graphics/interface faults belong to explicit recovery tests, not silent exceptions.
+These are the recorded delivery results. The new promotion checks must be read separately, not assumed to have passed from these historical results. Runtime validation now calls the full Grand Collection workflow for main changes and pull requests into main; the promotion workflow independently verifies ancestry and live source parity.
+
+Unexpected application errors were absent in nominal delivery runs. Host-only preload warnings and two deliberately offline host requests are recorded separately. Injected graphics/interface faults belong to explicit recovery tests, not silent exceptions.
 
 The [delivery record](docs/evidence/grand-collection-delivery.md) and [results JSON](docs/evidence/grand-collection-results.json) contain exact revisions, counts, artifacts, source parity and environment limitations.
 
 ## Qualification boundary
 
-Physical Android/tablet, Safari/iOS, hardware WebGPU comparison, real-time graphics/thermal endurance, OBS composition, comprehensive flash/accessibility assessment and owner visual/audio approval remain open. These are not silently marked complete by Chromium emulation or a logical soak. Future higher-fidelity assets are separate scope; the requested five-effect expansion and its live delivery are complete.
+Physical Android/tablet, Safari/iOS, hardware WebGPU comparison, real-time graphics/thermal endurance, OBS composition, comprehensive flash/accessibility assessment and owner visual/audio approval remain open. These are not silently marked complete by Chromium emulation, a logical soak or promotion to main. Future higher-fidelity assets are separate scope; the requested five-effect expansion and its live delivery are complete.

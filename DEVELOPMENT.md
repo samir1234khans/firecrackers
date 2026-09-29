@@ -2,11 +2,11 @@
 
 ## Source and branches
 
-The active ten-effect application is on `feat/grand-collection`, derived from `fix/viewability-recovery`. The latter preserves the repaired single-press launch. `feat/fireworks-v1` and the alternate implementation branch are historical; main is still the original documentation baseline. Before continuing, fetch all relevant refs, inspect worktree changes and read PROJECT_STATUS plus the latest delivery evidence.
+**Main is the canonical ten-effect Grand Collection baseline after the owner's authorized promotion.** The source incorporates `feat/grand-collection`, the repaired `fix/viewability-recovery` and `fix/video-launch-flow`, ignition reliability and the cinematic V3 work. Those branches remain historical references. The separate `feat/fireworks-v1-implementation` is a competing older implementation, not a missing current-runtime update.
 
-Continue an authorized existing task branch rather than creating a competing integration hierarchy. Do not reset unrelated work, force-push or delete branches. A ref conflict requires refreshing and reconciling, not force. Promotion to main, domain changes and public licensing need separate review/authorization.
+Start new feature/fix branches from freshly fetched main and use pull requests back to main. Continue an explicitly authorized task branch when appropriate. Do not reset unrelated work, force-push or delete branches. A ref conflict requires refreshing and reconciling, not force. The current main promotion is owner-authorized; future merges, domain changes and public licensing still require their applicable review/authorization.
 
-Commit coherent source, tests and documentation together. Explain changed behavior and actual evidence. The original five-effect/hold-ignition specifications remain historical; later owner-approved ten-effect and single-press decisions take precedence as documented in the current plan and evidence.
+Commit coherent source, tests and documentation together. Explain changed behavior and actual evidence. The original five-effect/hold-ignition specifications remain historical; later owner-approved ten-effect and single-press decisions take precedence as documented in the current plan and evidence. See [the main promotion audit](docs/evidence/main-promotion.md) for source-history reconciliation.
 
 ## Reproduce the application
 
@@ -44,13 +44,17 @@ The Grand script supports `GRAND_PROJECT=desktop` or `mobile` and `GRAND_URL`. T
 
 Grand validation covers new recipes, both rendering modes, collection memory, ten shortcuts, child pause/cleanup and small layouts. The original suite protects launch, duplicate rejection, next selection, pause, takeover, preferences and offline/platform behavior. Recovery tests inject missing modules, unavailable/lost graphics and interface failures. Do not remove these guards to simplify an expansion.
 
+`Runtime validation` runs for application/configuration changes pushed to main and for pull requests into main. It calls the complete reusable `Grand collection validation` workflow, which builds once and serves that exact artifact for separate desktop, mobile and recovery jobs. The workflow can also be dispatched manually. Relevant unit, audit, build and logical-soak gates remain included; duplicate unit invocations in the older runtime workflow are unnecessary because `npm test` includes those suites.
+
 GitHub workflows separate candidate build tests from actual public-site verification. Read explicit job results and all event types; the PR-only commit helper is insufficient for push-triggered checks. Inspect failed logs and actual screenshots before repairing. Keep the original-flow step running even when a new-collection check fails.
 
 ## Deployment and source parity
 
-Use the existing app `firecrackers-a93nle` and its published preview. Inspect applied source before updating; send only changed files and preserve hosting/PWA/recovery configuration. If the corrected source is already applied, do not redeploy just to repeat a checkpoint.
+Use the existing app `firecrackers-a93nle` and its published preview. Inspect applied source before updating; send only changed files and preserve hosting/PWA/recovery configuration. If the corrected source is already applied, do not redeploy just to repeat a checkpoint. Promoting already-published source to main is not a separate runtime deployment.
 
 `npm run build` writes `public/release.json`. The public verification workflow compares its 35-module normalized source fingerprint with GitHub. The pinned TypeScript canonicalizer excludes only known static host diagnostic labels; non-JSX code remains byte-exact after newline normalization. Meaningful source changes must not be normalized away. This scope is not an assertion that the entire host wrapper or site is identical.
+
+The initial `Main promotion verification` workflow confirms the approved historical heads are ancestors of main and compares the promoted source fingerprint with the live preview. It is not an automatic publisher. Normal changes must still complete their own test/deployment/verification cycle.
 
 Run public Grand, original-flow and recovery suites after a runtime deployment. Record source SHA, applied snapshot, build version, parity timestamp, artifact IDs and real outcomes. Keep rollback references. Do not state hardware, OBS or accessibility qualification from emulated tests.
 

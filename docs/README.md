@@ -4,7 +4,7 @@ Baseline: 15 September 2026. Audience: Samir, designers, implementation agents, 
 
 ## Current application and delivery
 
-The active application is the ten-effect **Grand Collection**, build `2026-09-29.1`, on `feat/grand-collection`. Use the [current project status](../PROJECT_STATUS.md), [Grand Collection plan](grand-collection/PLAN.md), [completion checklist](grand-collection/DELIVERY_CHECKLIST.md), [verified delivery](evidence/grand-collection-delivery.md) and [machine-readable results](evidence/grand-collection-results.json) before the historical baseline below.
+The active application is the ten-effect **Grand Collection**, build `2026-09-29.1`. Following the owner's authorized promotion, **main is the canonical integration baseline**; `feat/grand-collection` is retained as delivery history. Use the [current project status](../PROJECT_STATUS.md), [main promotion audit](evidence/main-promotion.md), [Grand Collection plan](grand-collection/PLAN.md), [completion checklist](grand-collection/DELIVERY_CHECKLIST.md), [verified delivery](evidence/grand-collection-delivery.md) and [machine-readable results](evidence/grand-collection-results.json) before the historical baseline below.
 
 The original five effects remain under Classics; five newer effects are under Grand collection. The current interaction is single-press launch, not the earlier hold-only prototype. Public-site verification and qualification boundaries are recorded separately from planned acceptance criteria. Older V2/V3 and recovery evidence remains historical rather than proof of a later build.
 

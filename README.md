@@ -2,11 +2,11 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Current verified preview: Grand Collection, build `2026-09-29.1`.**
+**Current verified preview: Grand Collection, build `2026-09-29.1`. Main is the canonical application baseline.**
 
 [Open Firecrackers](https://firecrackers-a93nle.v2.appdeploy.ai/) · [Compatibility graphics](https://firecrackers-a93nle.v2.appdeploy.ai/?backend=canvas)
 
-Continue development on `feat/grand-collection`, which extends `fix/viewability-recovery`. Main and historical feature branches remain preserved; an older V3 checkout is not the current runtime.
+Start new development branches from current `main` and open pull requests back to `main`. The owner-authorized promotion incorporates the Grand Collection, viewability recovery, single-press launch, ignition reliability and cinematic V3 work. Earlier feature branches remain as history. See [the promotion audit](docs/evidence/main-promotion.md); an older V3 or alternate-implementation checkout is not the current runtime.
 
 ## Two collections, ten identities
 
@@ -48,13 +48,13 @@ npm run test:soak
 python scripts/validate_docs.py
 ```
 
-For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies. Development servers bind to loopback; publish production builds only.
+For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies and runs the full ten-effect workflow for main and pull requests into main. Development servers bind to loopback; publish production builds only.
 
 ## Verified delivery
 
 **105 code/regression tests and 87 checks against the actual public website passed.** The live checks comprise 43 Grand Collection checks, 29 original launch/platform checks and 15 viewability/recovery checks. Both desktop and mobile-emulated WebGL/Canvas were exercised. The previously failing 320×480 layout is corrected and passes the unchanged visibility and hit-target assertions.
 
-Public verification run `36507918339` matches all **35 normalized delivered modules** to the reviewed repository. Only audited static host diagnostic labels are excluded from JSX comparison. The fingerprint is scoped; it does not claim the entire hosting wrapper is identical. The 7,200-second accelerated logical soak passed but is not a two-hour GPU endurance test.
+Public verification run `36507918339` matches all **35 normalized delivered modules** to the reviewed repository. Only audited static host diagnostic labels are excluded from JSX comparison. The fingerprint is scoped; it does not claim the entire hosting wrapper is identical. The 7,200-second accelerated logical soak passed but is not a two-hour GPU endurance test. Promotion validation is recorded separately in the promotion pull request and workflow results.
 
 See [delivery evidence](docs/evidence/grand-collection-delivery.md), [machine-readable results](docs/evidence/grand-collection-results.json), [current status](PROJECT_STATUS.md), [Grand Collection plan](docs/grand-collection/PLAN.md), [development workflow](DEVELOPMENT.md) and [documentation map](docs/README.md).
 
