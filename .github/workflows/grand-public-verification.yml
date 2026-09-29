@@ -48,11 +48,18 @@ jobs:
           GRAND_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
           GRAND_PROJECT: ${{ matrix.project }}
         run: node tests/grand-collection-browser.mjs /tmp/grand-public
+      - name: Recheck original launch, offline and platform flows on the live build
+        env:
+          VIDEO_FLOW_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
+          VIDEO_FLOW_PROJECT: ${{ matrix.project }}
+        run: node tests/video-flow-browser.mjs /tmp/grand-original-public
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: grand-public-${{ matrix.project }}
-          path: /tmp/grand-public
+          path: |
+            /tmp/grand-public
+            /tmp/grand-original-public
           retention-days: 7
   viewability:
     needs: source
@@ -67,7 +74,7 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - name: Preserve public recovery and host-toolbar-safe controls
+      - name: Verify recovery and all seven layouts including hosted 320x480
         env:
           VIEWABILITY_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
         run: node tests/viewability-browser.mjs /tmp/grand-public-recovery
