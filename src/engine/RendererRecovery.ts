@@ -19,3 +19,28 @@ export function withDeadline<T>(operation: Promise<T>, signal: AbortSignal, mill
         timer = setTimeout(() => finish(false, new Error('Graphics startup timed out')), milliseconds);
     });
 }
+
+/** A rolling active-frame check. Shader compilation and an isolated OS stall must
+ * not demote a healthy renderer; repeated unusable frames should not strand it. */
+export class RenderOverloadGuard {
+    private readonly samples = new Float32Array(6);
+    private count = 0;
+    private cursor = 0;
+    private verySlowStreak = 0;
+    reset() { this.count = 0; this.cursor = 0; this.verySlowStreak = 0; }
+    observe(frameMs: number, active: boolean): boolean {
+        if (!active) { this.reset(); return false; }
+        if (!Number.isFinite(frameMs) || frameMs <= 0) return false;
+        this.verySlowStreak = frameMs >= 250 ? this.verySlowStreak + 1 : 0;
+        if (this.verySlowStreak >= 3) return true;
+        this.samples[this.cursor++ % this.samples.length] = Math.min(frameMs, 2000);
+        this.count = Math.min(this.count + 1, this.samples.length);
+        if (this.count < this.samples.length) return false;
+        let slow = 0, total = 0;
+        for (const sample of this.samples) {
+            if (sample >= 100) slow++;
+            total += sample;
+        }
+        return slow >= 4 && total / this.samples.length >= 120;
+    }
+}
