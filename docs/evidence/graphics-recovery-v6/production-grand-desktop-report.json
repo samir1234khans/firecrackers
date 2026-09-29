@@ -1,0 +1,640 @@
+{
+  "url": "https://firecrackers.mainandmany.com/",
+  "build": "2026-09-29.6",
+  "source": "local",
+  "checks": [
+    {
+      "name": "desktop-webgl: grand collection visible and launch reachable: six edge groups, clear hero, reachable picker and launch",
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "hero": {
+        "x": 144,
+        "y": 0,
+        "width": 992,
+        "height": 800
+      },
+      "groups": [
+        {
+          "name": "top-left",
+          "x": 12,
+          "y": 12,
+          "width": 128,
+          "height": 67,
+          "right": 140,
+          "bottom": 79
+        },
+        {
+          "name": "middle-left",
+          "x": 12,
+          "y": 202.8046875,
+          "width": 44,
+          "height": 394.390625,
+          "right": 56,
+          "bottom": 597.1953125
+        },
+        {
+          "name": "bottom-left",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 90,
+          "right": 140,
+          "bottom": 788
+        },
+        {
+          "name": "top-right",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 90,
+          "right": 1268,
+          "bottom": 102
+        },
+        {
+          "name": "middle-right",
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 320,
+          "right": 1268,
+          "bottom": 560
+        },
+        {
+          "name": "bottom-right",
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56,
+          "right": 1268,
+          "bottom": 788
+        }
+      ],
+      "buttons": [
+        {
+          "name": "Choose show mode",
+          "x": 12,
+          "y": 35,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Previous firework",
+          "x": 12,
+          "y": 202.8046875,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Choose firework: Aurora Crown",
+          "x": 12,
+          "y": 248.8046875,
+          "width": 44,
+          "height": 72.390625,
+          "hit": true
+        },
+        {
+          "name": "Next firework",
+          "x": 12,
+          "y": 323.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Gold Willow. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 369.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Multicolor Peony. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 415.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Chrysanthemum. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 461.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Silver Crossette Crackle. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 507.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Grand Finale. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 553.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Position firework",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Help",
+          "x": 12,
+          "y": 744,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Pause scene",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enable sound",
+          "x": 1212,
+          "y": 58,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Open settings",
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enter fullscreen",
+          "x": 1224,
+          "y": 286,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Aurora Crown. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 332,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Launch Aurora Crown",
+          "x": 1180,
+          "y": 332,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Ruby Dahlia. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 378,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Sapphire Saturn. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 424,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Phoenix Palm. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 470,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Opal Supernova. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 516,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Launch selected firework",
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56,
+          "hit": true
+        }
+      ],
+      "compactDock": null,
+      "overflow": false,
+      "launch": {
+        "width": 56,
+        "height": 56,
+        "bottom": 788
+      },
+      "hit": true
+    },
+    {
+      "name": "desktop-webgl: real launch, duplicate guard and unchanged committed family",
+      "passed": true
+    },
+    {
+      "name": "desktop-webgl: Aurora Crown complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 18931,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-webgl: Ruby Dahlia complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 19219,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-webgl: Sapphire Saturn complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 6480,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-webgl: Phoenix Palm complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 20293,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-webgl: Opal Supernova complete and cleaned",
+      "passed": true,
+      "bursts": 8,
+      "peakParticles": 19144,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-webgl: composite pause and settings preserve pending children",
+      "passed": true
+    },
+    {
+      "name": "desktop-webgl: noncommitting collection browsing, ten keyboard shortcuts and saved new family",
+      "passed": true
+    },
+    {
+      "name": "desktop-canvas: grand collection visible and launch reachable: six edge groups, clear hero, reachable picker and launch",
+      "passed": true,
+      "width": 1280,
+      "height": 800,
+      "hero": {
+        "x": 144,
+        "y": 0,
+        "width": 992,
+        "height": 800
+      },
+      "groups": [
+        {
+          "name": "top-left",
+          "x": 12,
+          "y": 12,
+          "width": 128,
+          "height": 67,
+          "right": 140,
+          "bottom": 79
+        },
+        {
+          "name": "middle-left",
+          "x": 12,
+          "y": 202.8046875,
+          "width": 44,
+          "height": 394.390625,
+          "right": 56,
+          "bottom": 597.1953125
+        },
+        {
+          "name": "bottom-left",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 90,
+          "right": 140,
+          "bottom": 788
+        },
+        {
+          "name": "top-right",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 90,
+          "right": 1268,
+          "bottom": 102
+        },
+        {
+          "name": "middle-right",
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 320,
+          "right": 1268,
+          "bottom": 560
+        },
+        {
+          "name": "bottom-right",
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56,
+          "right": 1268,
+          "bottom": 788
+        }
+      ],
+      "buttons": [
+        {
+          "name": "Choose show mode",
+          "x": 12,
+          "y": 35,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Previous firework",
+          "x": 12,
+          "y": 202.8046875,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Choose firework: Aurora Crown",
+          "x": 12,
+          "y": 248.8046875,
+          "width": 44,
+          "height": 72.390625,
+          "hit": true
+        },
+        {
+          "name": "Next firework",
+          "x": 12,
+          "y": 323.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Gold Willow. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 369.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Multicolor Peony. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 415.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Chrysanthemum. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 461.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Silver Crossette Crackle. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 507.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Grand Finale. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 553.1953125,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Position firework",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Help",
+          "x": 12,
+          "y": 744,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Pause scene",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enable sound",
+          "x": 1212,
+          "y": 58,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Open settings",
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enter fullscreen",
+          "x": 1224,
+          "y": 286,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Aurora Crown. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 332,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Launch Aurora Crown",
+          "x": 1180,
+          "y": 332,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Ruby Dahlia. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 378,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Sapphire Saturn. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 424,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Phoenix Palm. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 470,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Opal Supernova. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 516,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Launch selected firework",
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56,
+          "hit": true
+        }
+      ],
+      "compactDock": null,
+      "overflow": false,
+      "launch": {
+        "width": 56,
+        "height": 56,
+        "bottom": 788
+      },
+      "hit": true
+    },
+    {
+      "name": "desktop-canvas: real launch, duplicate guard and unchanged committed family",
+      "passed": true
+    },
+    {
+      "name": "desktop-canvas: Aurora Crown complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 18931,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-canvas: Ruby Dahlia complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 19219,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-canvas: Sapphire Saturn complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 6480,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-canvas: Phoenix Palm complete and cleaned",
+      "passed": true,
+      "bursts": 1,
+      "peakParticles": 20293,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-canvas: Opal Supernova complete and cleaned",
+      "passed": true,
+      "bursts": 8,
+      "peakParticles": 19144,
+      "method": "actual renderer, deterministic phase stepping; not FPS evidence"
+    },
+    {
+      "name": "desktop-canvas: composite pause and settings preserve pending children",
+      "passed": true
+    },
+    {
+      "name": "desktop-canvas: noncommitting collection browsing, ten keyboard shortcuts and saved new family",
+      "passed": true
+    },
+    {
+      "name": "No unexpected application errors in the expanded collection",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "screenshots": [
+    "desktop-webgl-collection.png",
+    "desktop-webgl-aurora-crown-peak.png",
+    "desktop-webgl-aurora-crown-fall.png",
+    "desktop-webgl-ruby-dahlia-peak.png",
+    "desktop-webgl-ruby-dahlia-fall.png",
+    "desktop-webgl-sapphire-saturn-peak.png",
+    "desktop-webgl-sapphire-saturn-fall.png",
+    "desktop-webgl-phoenix-palm-peak.png",
+    "desktop-webgl-phoenix-palm-fall.png",
+    "desktop-webgl-opal-supernova-peak.png",
+    "desktop-webgl-opal-supernova-fall.png",
+    "desktop-canvas-collection.png",
+    "desktop-canvas-aurora-crown-peak.png",
+    "desktop-canvas-aurora-crown-fall.png",
+    "desktop-canvas-ruby-dahlia-peak.png",
+    "desktop-canvas-ruby-dahlia-fall.png",
+    "desktop-canvas-sapphire-saturn-peak.png",
+    "desktop-canvas-sapphire-saturn-fall.png",
+    "desktop-canvas-phoenix-palm-peak.png",
+    "desktop-canvas-phoenix-palm-fall.png",
+    "desktop-canvas-opal-supernova-peak.png",
+    "desktop-canvas-opal-supernova-fall.png"
+  ],
+  "failed": null
+}
