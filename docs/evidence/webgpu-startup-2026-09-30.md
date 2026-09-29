@@ -31,4 +31,8 @@ WebGPU is an execution backend, not an automatic realism upgrade. Matched shader
 4. **Compute only when profiling justifies it.** Prototype GPU particle simulation behind an optional WebGPU path if CPU simulation/upload becomes dominant. Preserve deterministic recipes, bounded admission and WebGL functionality; do not rewrite the full engine or change language to chase assumed speed.
 
 Acceptance for each increment: paired captures of Willow/Saturn/Supernova plus all-ten functional checks, no new GPU errors, bounded resource cleanup, offline/recovery checks, and measured device results. Neither generated concepts nor Blender renders count as browser performance evidence.
-`n## Hosted preview`n`nPreview Worker c5bbca9d-a269-4b1d-baf1-ac1230babc1d serves the matching fingerprint at https://firecrackers-graphics-preview.allygym-api.workers.dev/. All six hardware checks passed with zero errors; see [preview report](webgpu-startup-2026-09-30/preview-report.json).
+
+## Hosted preview
+
+Preview Worker c5bbca9d-a269-4b1d-baf1-ac1230babc1d serves the matching fingerprint at https://firecrackers-graphics-preview.allygym-api.workers.dev/. All six hardware checks passed with zero errors; see [preview report](webgpu-startup-2026-09-30/preview-report.json).
+
