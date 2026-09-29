@@ -61,6 +61,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let previouslyMoving = false;
         let graphics: RendererPort | null = null;
         let switchingGraphics = false;
+        // Deterministic browser qualification exercises the real recovery path
+        // without depending on the CI machine's GPU speed.
+        let qaStallMs = 0;
+        let qaStallSamplesRemaining = 0;
+        let qaStallSamplesUsed = 0;
         const startup = new AbortController();
         const governor = new QualityGovernor();
         const overload = new RenderOverloadGuard();
@@ -157,8 +162,14 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     }
                     if (++warmFrames > 60 && continuous && cadence < 500)
                         governor.add(cadence);
+                    let observedMs = Math.max(cadence, graphics?.metrics.submitMs || 0);
+                    if (continuous && qaStallSamplesRemaining > 0) {
+                        observedMs = Math.max(observedMs, qaStallMs);
+                        qaStallSamplesRemaining--;
+                        qaStallSamplesUsed++;
+                    }
                     if (rendered && graphics && !graphics.backend.startsWith('Canvas') &&
-                        overload.observe(Math.max(cadence, graphics.metrics.submitMs), continuous))
+                        overload.observe(observedMs, continuous))
                         void recoverOverload();
                     else if (!continuous)
                         overload.reset();
@@ -285,7 +296,15 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics() }),
+                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining }),
+                    injectOverloadSamples: (count: number, milliseconds: number) => {
+                        if (!Number.isInteger(count) || count < 1 || count > 6 || !Number.isFinite(milliseconds) || milliseconds < 100 || milliseconds > 2000)
+                            return false;
+                        qaStallMs = milliseconds;
+                        qaStallSamplesRemaining = count;
+                        qaStallSamplesUsed = 0;
+                        return true;
+                    },
                     freeze: (value: boolean) => { captureFrozen = Boolean(value); last = 0; },
                     advance: (seconds: number) => {
                         if (!Number.isFinite(seconds) || seconds < 0 || seconds > 120)
