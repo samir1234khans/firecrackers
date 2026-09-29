@@ -1,0 +1,97 @@
+{
+  "blender": "5.2.1 LTS",
+  "masters": [
+    {
+      "path": "smoke-ignition-v003.blend",
+      "objects": 6,
+      "materials": 4,
+      "frames": [
+        1,
+        48
+      ],
+      "missingDependencies": []
+    },
+    {
+      "path": "rocket-materials-v003.blend",
+      "objects": 12,
+      "materials": 4,
+      "frames": [
+        1,
+        48
+      ],
+      "missingDependencies": []
+    },
+    {
+      "path": "waterfront-v003.blend",
+      "objects": 64,
+      "materials": 3,
+      "frames": [
+        1,
+        48
+      ],
+      "missingDependencies": []
+    }
+  ],
+  "roundTrips": [
+    {
+      "file": "rocket.glb",
+      "meshCount": 8,
+      "vertices": 1272,
+      "names": [
+        "Foil band 1.88",
+        "Foil band 2.03",
+        "Foil band 4.40",
+        "Foil band 4.55",
+        "Foil cap",
+        "Paper overlap seam",
+        "Paper shell",
+        "Wooden guide"
+      ],
+      "finite": true
+    },
+    {
+      "file": "terrace.glb",
+      "meshCount": 36,
+      "vertices": 4635,
+      "names": [
+        "Shore coping 0",
+        "Shore coping 1",
+        "Shore coping 2",
+        "Shore coping 3",
+        "Shore coping 4",
+        "Shore coping 5",
+        "Shore coping 6",
+        "Shore coping 7",
+        "Shore coping 8",
+        "Terrace stone 0 0",
+        "Terrace stone 0 1",
+        "Terrace stone 0 2",
+        "Terrace stone 1 0",
+        "Terrace stone 1 1",
+        "Terrace stone 1 2",
+        "Terrace stone 2 0",
+        "Terrace stone 2 1",
+        "Terrace stone 2 2",
+        "Terrace stone 3 0",
+        "Terrace stone 3 1",
+        "Terrace stone 3 2",
+        "Terrace stone 4 0",
+        "Terrace stone 4 1",
+        "Terrace stone 4 2",
+        "Terrace stone 5 0",
+        "Terrace stone 5 1",
+        "Terrace stone 5 2",
+        "Terrace stone 6 0",
+        "Terrace stone 6 1",
+        "Terrace stone 6 2",
+        "Terrace stone 7 0",
+        "Terrace stone 7 1",
+        "Terrace stone 7 2",
+        "Terrace stone 8 0",
+        "Terrace stone 8 1",
+        "Terrace stone 8 2"
+      ],
+      "finite": true
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Current Cloudflare production: Grand Collection, build `2026-09-29.1`. Main is the canonical application baseline.**
+**Waterfront upgrade: build `2026-09-29.2`.** See [the release receipt](docs/evidence/waterfront-delivery-2026-09-29.md) for deployment and verification status. Main is the canonical application baseline.
 
 [Open Firecrackers](https://firecrackers.mainandmany.com/) · [Compatibility graphics](https://firecrackers.mainandmany.com/?backend=canvas) · [Prior AppDeploy preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 
@@ -14,7 +14,7 @@ Start new development branches from current `main` and open pull requests back t
 
 **Grand collection:** Aurora Crown (jade crown and violet heart), Ruby Dahlia (ruby/rose petals and champagne center), Sapphire Saturn (blue sphere inside a tilted golden orbit), Phoenix Palm (amber branches splitting into rose leaves), and Opal Supernova (seven traveling jewels opening into a staggered bouquet).
 
-The two collection buttons keep five readable style targets visible at a time. Switching collections remembers its most recent selection within the session; the selected style survives reload. New styles have their own geometry, timing, palette aging and bounded child effects rather than being five recolors of one burst.
+The side drawer has two collection tabs with five readable style targets each. Browsing a tab does not change the committed selection; selecting a style closes the drawer and the selected style survives reload. New styles have their own geometry, timing, palette aging and bounded child effects rather than being five recolors of one burst.
 
 ## Playback and recovery
 
@@ -24,11 +24,19 @@ The preferred renderer uses the existing perspective 3D scene, stage, paper-wrap
 
 Startup and rendering failures retain readable recovery controls. The app can fall back through compatible WebGL to clearly labelled Canvas graphics. Both renderers support all ten identities. Offline caching, explicit updates, pause ownership, sound cancellation, protected display areas and transparent output remain intact.
 
+## Open central stage
+
+Six compact, transparent control groups frame the left and right edges. The measured central corridor stays clear on desktop and phones. Settings and the firework drawer pause the scene while open and restore the previous pause state on close.
+
+Drag a style from the drawer onto the sky to create one immediate burst at that point. It fades naturally. Invalid drops cancel; keyboard users can choose **Burst selected style in center**. The fixed **Launch** button retains the fuse and ascent sequence.
+
+Original Blender smoke, flame, rocket and terrace assets load progressively over procedural fallbacks. Rippling reflections follow the actual effects, and optional CC0 recordings augment the original sound design. See [asset provenance](assets-source/PROVENANCE.md) and [design review](assets-source/DESIGN.md).
+
 ## Controls
 
 Use **Grand collection** to access styles 06–10, or **Classics** for 01–05. Keyboard keys **1–9 and 0** select the ten styles in order; **L** launches, arrows adjust placement when ready, **Space** pauses/resumes, **M** controls sound and **Escape** closes a panel or reveals presentation controls. Keyboard shortcuts do not replace normal input behavior while editing controls.
 
-The build identifier is shown in the manual deck and Settings → Graphics details. An older cached installation can use its explicit Update & restart action; updates do not silently interrupt an active flight.
+The build identifier is shown in Settings. An older cached installation can use its explicit Update & restart action; updates do not silently interrupt an active flight.
 
 ## Run and test
 
@@ -48,11 +56,11 @@ npm run test:soak
 python scripts/validate_docs.py
 ```
 
-For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies and runs the full ten-effect workflow for main and pull requests into main. Development servers bind to loopback; publish production builds only.
+For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:stage`, `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies and runs the full ten-effect workflow for main and pull requests into main. Development servers bind to loopback; publish production builds only.
 
 Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current Cloudflare release receipt is in [production evidence](docs/evidence/cloudflare-production-2026-09-29.md).
 
-## Verified delivery
+## Historical Grand Collection delivery
 
 **105 code/regression tests and 87 checks against the actual public website passed.** The live checks comprise 43 Grand Collection checks, 29 original launch/platform checks and 15 viewability/recovery checks. Both desktop and mobile-emulated WebGL/Canvas were exercised. The previously failing 320×480 layout is corrected and passes the unchanged visibility and hit-target assertions.
 
@@ -60,4 +68,4 @@ Public verification run `36507918339` matches all **35 normalized delivered modu
 
 See [delivery evidence](docs/evidence/grand-collection-delivery.md), [machine-readable results](docs/evidence/grand-collection-results.json), [current status](PROJECT_STATUS.md), [Grand Collection plan](docs/grand-collection/PLAN.md), [development workflow](DEVELOPMENT.md) and [documentation map](docs/README.md).
 
-Physical Android/tablet, Safari/iOS, hardware WebGPU parity, thermal/endurance, OBS and complete flash/accessibility qualification are not established by browser emulation. Final visual/audio approval remains separate. The current art and audio are original procedural work, not imported production GLBs, Blender fluid bakes or a recorded festival library. No accounts, backend, paid services or physical-firework instructions are introduced.
+Physical Android/tablet, Safari/iOS, hardware WebGPU parity, thermal/endurance, OBS and complete flash/accessibility qualification are not established by browser emulation. Final visual/audio approval remains separate. The waterfront upgrade adds original Blender GLBs and animated procedural-volume atlases plus verified CC0 recordings. The source volumes are not fluid simulations. No accounts, backend, paid services or physical-firework instructions are introduced.

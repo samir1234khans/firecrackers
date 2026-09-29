@@ -9,7 +9,7 @@ function noise(x: number, y: number, z: number) {
     const plane = (k: number) => lerp(lerp(at(ix, iy, k), at(ix + 1, iy, k), fx), lerp(at(ix, iy + 1, k), at(ix + 1, iy + 1, k), fx), fy);
     return lerp(plane(iz), plane(iz + 1), fz);
 }
-export const SMOKE_CELL = 68, SMOKE_INNER = 64, SMOKE_COLS = 4, SMOKE_ROWS = 12;
+export const SMOKE_CELL = 132, SMOKE_INNER = 128, SMOKE_COLS = 4, SMOKE_ROWS = 12;
 /** Original deterministic density + gradient atlas. Not a fluid simulation or imported media. */
 export function makeSmokeAtlas() {
     const width = SMOKE_CELL * SMOKE_COLS, height = SMOKE_CELL * SMOKE_ROWS;
@@ -19,7 +19,7 @@ export function makeSmokeAtlas() {
             const t = frame / 15, density = new Float32Array(SMOKE_CELL * SMOKE_CELL);
             for (let y = 0; y < SMOKE_CELL; y++)
                 for (let x = 0; x < SMOKE_CELL; x++) {
-                    const u = (x - 34) / 31, v = (y - 34) / 31;
+                    const u = (x - SMOKE_CELL / 2) / (SMOKE_INNER / 2 - 1), v = (y - SMOKE_CELL / 2) / (SMOKE_INNER / 2 - 1);
                     const radius = Math.hypot(u, v);
                     const warpX = u + Math.sin(v * 5 + t * 3 + variant) * 0.12;
                     const warpY = v + Math.cos(u * 4 - t * 2) * 0.11;
@@ -35,8 +35,8 @@ export function makeSmokeAtlas() {
             for (let y = 0; y < SMOKE_CELL; y++)
                 for (let x = 0; x < SMOKE_CELL; x++) {
                     const k = y * SMOKE_CELL + x, i = ((oy + y) * width + ox + x) * 4;
-                    const dx = density[y * SMOKE_CELL + Math.min(67, x + 1)] - density[y * SMOKE_CELL + Math.max(0, x - 1)];
-                    const dy = density[Math.min(67, y + 1) * SMOKE_CELL + x] - density[Math.max(0, y - 1) * SMOKE_CELL + x];
+                    const dx = density[y * SMOKE_CELL + Math.min(SMOKE_CELL - 1, x + 1)] - density[y * SMOKE_CELL + Math.max(0, x - 1)];
+                    const dy = density[Math.min(SMOKE_CELL - 1, y + 1) * SMOKE_CELL + x] - density[Math.max(0, y - 1) * SMOKE_CELL + x];
                     data[i] = Math.round(density[k] * 255);
                     data[i + 1] = Math.round(Math.max(0, Math.min(1, 0.5 - dx * 2.5)) * 255);
                     data[i + 2] = Math.round(Math.max(0, Math.min(1, 0.5 - dy * 2.5)) * 255);

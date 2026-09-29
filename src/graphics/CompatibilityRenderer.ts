@@ -1,3 +1,5 @@
+import { measureStage, stageFraming } from '../engine/StageLayout';
+import type { StageLayout } from '../engine/StageLayout';
 import { carrierTint } from '../engine/GrandEffects';
 import { BUDGETS, FAMILIES, clamp, randomStream } from '../engine/catalog';
 import type { Quality } from '../engine/catalog';
@@ -16,6 +18,8 @@ export class CompatibilityRenderer implements RendererPort {
     private readonly canvas = document.createElement('canvas');
     private readonly ctx: CanvasRenderingContext2D;
     private readonly stars: { x: number; y: number; size: number; alpha: number }[];
+    private layout!: StageLayout;
+    setLayout(layout: StageLayout) { this.layout = layout; }
     private mode: DisplayMode = 'interactive';
     private width = 1;
     private height = 1;
@@ -50,13 +54,11 @@ export class CompatibilityRenderer implements RendererPort {
         if (this.disposed) return;
         this.width = Math.max(1, this.host.clientWidth);
         this.height = Math.max(1, this.host.clientHeight);
-        const rect = this.host.getBoundingClientRect();
-        const deck = this.host.parentElement?.querySelector('.flow-deck-wrap')?.getBoundingClientRect();
-        const header = this.host.parentElement?.querySelector('.flow-command')?.getBoundingClientRect();
-        this.baseline = this.mode === 'interactive' && deck ? Math.max(this.height * .35, deck.top - rect.top - 18) : this.height * .88;
-        const top = this.mode === 'interactive' && header ? header.bottom - rect.top + 15 : 20;
-        this.scale = Math.max(.45, Math.min(this.width / 140, (this.baseline - top) / 110));
-        this.sim.setViewport(Math.min(160, this.width / this.scale * .78), 16);
+        this.layout = measureStage(this.host, this.mode === 'interactive');
+        const framing = stageFraming(this.layout);
+        this.baseline = framing.baseline;
+        this.scale = framing.scale;
+        this.sim.setViewport(Math.min(160, this.layout.heroRect.width / this.scale * .9), 16);
         this.setQuality(this.sim.quality);
     }
     setQuality(quality: Quality) {
@@ -80,6 +82,11 @@ export class CompatibilityRenderer implements RendererPort {
     projectPlacement(clientX: number) {
         return clamp(.5 + (clientX - this.host.getBoundingClientRect().left - this.width / 2) / (this.scale * this.sim.launchSpan), .2, .8);
     }
+    projectBurst(clientX: number, clientY: number): [number, number] | null {
+        const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
+        return x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height
+            ? [(x - this.width / 2) / this.scale, this.sim.ground + (this.baseline - y) / this.scale] : null;
+    }
     private tone(r: number, g: number, b: number) {
         return `rgb(${Math.round(clamp(r, 0, 1) * 255)},${Math.round(clamp(g, 0, 1) * 255)},${Math.round(clamp(b, 0, 1) * 255)})`;
     }
@@ -99,6 +106,33 @@ export class CompatibilityRenderer implements RendererPort {
         }
         this.ctx.globalAlpha = clamp(alpha, 0, 1);
         this.ctx.drawImage(sprite, x - radius, y - radius, radius * 2, radius * 2);
+    }
+    private drawWater() {
+        const c = this.ctx, s = this.sim, horizon = this.height * .72;
+        const water = c.createLinearGradient(0, horizon, 0, this.height);
+        water.addColorStop(0, '#0b1d2b'); water.addColorStop(1, '#040b12');
+        c.globalAlpha = 1; c.fillStyle = water; c.fillRect(0, horizon, this.width, this.height - horizon);
+        c.fillStyle = '#090f17'; c.beginPath(); c.moveTo(0, horizon);
+        for (let x = 0; x <= this.width; x += 8) c.lineTo(x, horizon - 4 - Math.sin(x * .013) * 5 - Math.sin(x * .047) * 2);
+        c.lineTo(this.width, horizon + 2); c.lineTo(0, horizon + 2); c.fill();
+        c.fillStyle = '#b7864b';
+        for (let i = 0; i < 15; i++) { const x = (i * 97.3 % this.width); c.globalAlpha = .16; c.fillRect(x, horizon, 1, 1); }
+        c.save(); c.beginPath(); c.rect(0, horizon + 2, this.width, this.height - horizon); c.clip(); c.globalCompositeOperation = 'lighter';
+        const p = s.heads, step = Math.max(1, Math.ceil(p.count / 450));
+        for (let i = 0; i < p.count; i += step) {
+            const point = this.project(p.x[i], p.y[i], p.z[i]);
+            const reflected = horizon + (horizon - point.y) * .38;
+            c.fillStyle = this.tone(p.r[i], p.g[i], p.b[i]);
+            for (let j = 0; j < 3; j++) {
+                const y = reflected + j * 3, ripple = Math.sin(y * .7 + s.time * s.wind * 2);
+                c.globalAlpha = Math.max(0, 1 - p.age[i] / p.life[i]) * (s.reducedFlashes ? .10 : .16) * (1 - j * .2);
+                c.fillRect(point.x + ripple * 4 - 2, y, 3 + (ripple + 1) * 4, 1);
+            }
+        }
+        c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
+        c.fillStyle = '#111c27'; c.fillRect(0, this.height * .92, this.width, this.height * .08);
+        c.strokeStyle = '#293340'; c.lineWidth = .5;
+        for (let x = -this.width; x < this.width * 2; x += 70) { c.beginPath(); c.moveTo(this.width / 2 + (x - this.width / 2) * .75, this.height * .92); c.lineTo(x, this.height); c.stroke(); }
     }
     private drawStage() {
         const c = this.ctx, s = this.sim;
@@ -143,6 +177,7 @@ export class CompatibilityRenderer implements RendererPort {
             for (const star of this.stars) { c.globalAlpha = star.alpha; c.beginPath(); c.arc(star.x * this.width, star.y * this.height, star.size, 0, Math.PI * 2); c.fill(); }
             c.globalAlpha = 1;
         }
+        if (this.mode !== 'transparent') this.drawWater();
         this.staged = this.airborne = this.bodies = 0;
         if (this.mode === 'interactive') {
             this.drawStage();
@@ -177,7 +212,7 @@ export class CompatibilityRenderer implements RendererPort {
             c.globalAlpha = Math.min(1, smoke.age[i] * 1.8) * Math.pow(1 - smoke.age[i] / smoke.life[i], 1.4) * .25;
             c.fillStyle = haze; c.fillRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
         }
-        c.globalCompositeOperation = 'lighter';
+        c.globalCompositeOperation = 'lighter'; c.lineCap = 'round';
         const trails = s.trails;
         const step = Math.max(1, Math.ceil(trails.count / (s.quality === 'low' ? 2500 : 6500)));
         for (let i = 0; i < trails.count; i += step) {
@@ -185,7 +220,7 @@ export class CompatibilityRenderer implements RendererPort {
             if (age > .97) continue;
             const a = this.project(trails.ax[i], trails.ay[i], trails.az[i]), b = this.project(trails.bx[i], trails.by[i], trails.bz[i]);
             c.globalAlpha = Math.pow(1 - age, 1.35) * (s.reducedFlashes ? .58 : .75);
-            c.strokeStyle = this.tone(trails.r[i], trails.g[i], trails.b[i]); c.lineWidth = Math.max(.55, trails.width[i] * this.scale * 2);
+            c.strokeStyle = this.tone(trails.r[i], trails.g[i], trails.b[i]); c.lineWidth = Math.max(.55, trails.width[i] * this.scale * 2 * (1 - age * .65));
             c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
         }
         for (const pool of [s.heads, s.embers]) for (let i = 0; i < pool.count; i++) {
@@ -210,7 +245,7 @@ export class CompatibilityRenderer implements RendererPort {
     diagnostics() {
         const r = this.sim.committed;
         const shell = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
-        return { stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
+        return { stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
             shellScreen: shell ? this.project(...shell) : null,
             flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell } : null };
     }

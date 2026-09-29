@@ -1,3 +1,4 @@
+import { chooseFamily, inspectStage, inspectPicker, openPicker } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -38,22 +39,7 @@ async function check(name, fn, { width = 375, height = 667, touch = true, expect
         await capture(page, `FAILED-${name}`).catch(() => {});
     } finally { await context.close(); }
 }
-const visibleControls = async page => {
-    const layout = await page.evaluate(() => {
-        const rect = document.querySelector('.flow-launch').getBoundingClientRect();
-        const target = document.querySelector('.flow-launch');
-        const header = document.querySelector('.flow-command').getBoundingClientRect();
-        const deck = document.querySelector('.flow-deck-wrap').getBoundingClientRect();
-        return { width: innerWidth, height: innerHeight, overflow: document.documentElement.scrollWidth > innerWidth,
-            launch: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, height: rect.height },
-            hit: target.contains(document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2)), freeSky: deck.top - header.bottom };
-    });
-    assert.equal(layout.overflow, false, JSON.stringify(layout));
-    assert.equal(layout.hit, true, JSON.stringify(layout));
-    assert.ok(layout.launch.left >= 0 && layout.launch.right <= layout.width && layout.launch.bottom <= layout.height && layout.launch.height >= 44, JSON.stringify(layout));
-    assert.ok(layout.freeSky > 45, JSON.stringify(layout));
-    return layout;
-};
+const visibleControls = inspectStage;
 try {
     for (const [name, width, height] of [['desktop',1280,800], ['tablet',1024,768], ['portrait',393,851], ['small-phone',320,568], ['short-phone',320,480], ['landscape',844,390], ['narrow-landscape',640,360]]) {
         await check(name, async page => {
@@ -68,7 +54,11 @@ try {
     await check('canvas-complete-launch', async page => {
         await enter(page, '?backend=canvas&qa=1');
         assert.match(await page.locator('main').getAttribute('data-backend'), /Canvas/);
-        assert.ok(await page.getByText('Compatibility graphics · same ten fireworks', { exact: true }).isVisible());
+        await page.getByRole('button', { name: 'Open settings' }).click();
+        await page.getByRole('button', { name: 'Graphics', exact: true }).click();
+        await page.getByText('Graphics details', { exact: true }).click();
+        assert.ok(await page.locator('.diagnostics dd').filter({ hasText: 'Canvas' }).isVisible());
+        await page.getByRole('button', { name: 'Close panel' }).click();
         await launch(page).tap();
         await page.waitForFunction(() => Number(document.querySelector('main')?.dataset.bursts) >= 1, undefined, { timeout: 20000 });
         await page.waitForFunction(() => !document.querySelector('.flow-launch').disabled);
@@ -86,7 +76,7 @@ try {
         await page.evaluate(() => window.__firecrackersQA.freeze(true));
         for (const family of ['Gold Willow','Multicolor Peony','Chrysanthemum','Silver Crossette Crackle','Grand Finale']) {
             await page.evaluate(() => window.__firecrackersQA.advance(25));
-            await page.getByRole('button', { name: family, exact: true }).click();
+            await chooseFamily(page, family);
             const before = await page.evaluate(() => window.__firecrackersQA.snapshot().bursts);
             await launch(page).click();
             await page.evaluate(() => window.__firecrackersQA.advance(5.3));

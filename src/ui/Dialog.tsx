@@ -6,11 +6,12 @@ type Props = {
   title: string;
   children: ReactNode;
   onClose: () => void;
-  variant?: 'help' | 'show' | 'settings' | 'reset';
+  dragging?: boolean;
+  variant?: 'help' | 'show' | 'settings' | 'reset' | 'picker' | 'position';
 };
 
 /** One native modal: focus containment, Escape and inert background are browser-owned. */
-export function Dialog({ title, children, onClose, variant = 'settings' }: Props) {
+export function Dialog({ title, children, onClose, variant = 'settings', dragging = false }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const close = useRef(onClose);
   const titleId = useId();
@@ -29,7 +30,7 @@ export function Dialog({ title, children, onClose, variant = 'settings' }: Props
   }, []);
   return <dialog
     ref={ref}
-    className={`sheet sheet--${variant}`}
+    className={`sheet sheet--${variant}${dragging ? ' is-dragging' : ''}`}
     aria-labelledby={titleId}
     onClick={event => {
       if (event.target !== event.currentTarget) return;

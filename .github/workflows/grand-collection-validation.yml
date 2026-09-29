@@ -98,6 +98,8 @@ jobs:
           npm run preview -- --port 4173 > /tmp/grand-recovery-server.log 2>&1 &
           for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
           exit 1
+      - name: Waterfront, transparent edges and touch drag regression
+        run: node tests/stage-browser.mjs /tmp/stage-evidence
       - name: Recovery fault injection and smallest layouts
         env:
           VIEWABILITY_URL: http://127.0.0.1:4173/
@@ -106,5 +108,7 @@ jobs:
         if: always()
         with:
           name: grand-recovery-evidence
-          path: /tmp/recovery-evidence
+          path: |
+            /tmp/recovery-evidence
+            /tmp/stage-evidence
           retention-days: 7

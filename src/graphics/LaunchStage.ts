@@ -50,6 +50,7 @@ export class LaunchStage {
   }
   update(sim: Simulation, visible: boolean) {
     this.group.visible = visible;
+    this.group.scale.set(.28, 1, .28);
     this.group.position.set(sim.committed?.padX ?? sim.placementToX(), sim.ground - 9.8, 0);
     const fuse = sim.rockets.find(r => r.stage === 'fuse');
     const contact = sim.holding ? Math.min(1, sim.holdProgress) : fuse ? .75 : 0;

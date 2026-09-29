@@ -1,7 +1,11 @@
 import { randomStream } from './catalog';
 import type { SimEvent } from './Simulation';
-/** Original procedural sound. No samples, requests or autoplay. */
+/** Opt-in CC0 field recordings plus original synthesis. No autoplay or pre-consent fetch. */
 export class AudioEngine {
+    private readonly variation = randomStream(82171);
+    private readonly samples: AudioBuffer[] = [];
+    private loadingSamples = false;
+    private readonly fetches = new AbortController();
     private context: AudioContext | null = null;
     private master: GainNode | null = null;
     private compressor: DynamicsCompressorNode | null = null;
@@ -37,6 +41,7 @@ export class AudioEngine {
             if (this.disposed || request !== this.requestGeneration || this.context!.state !== 'running')
                 return false;
             this.enabled = true;
+            void this.loadSamples();
             if (this.suspended)
                 this.stop();
             else {
@@ -52,6 +57,29 @@ export class AudioEngine {
             }
             return false;
         }
+    }
+    private async loadSamples() {
+        if (this.loadingSamples || this.samples.filter(Boolean).length === 3 || !this.context) return;
+        this.loadingSamples = true;
+        const context = this.context;
+        await Promise.allSettled([1, 2, 3].map(async n => {
+            if (this.samples[n - 1]) return;
+            const response = await fetch(`${import.meta.env.BASE_URL}audio/report-0${n}.wav`, { signal: this.fetches.signal });
+            if (!response.ok) return;
+            const buffer = await context.decodeAudioData(await response.arrayBuffer());
+            if (!this.disposed) this.samples[n - 1] = buffer;
+        }));
+        this.loadingSamples = false;
+    }
+    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled }; }
+    private recordedReport(event: SimEvent, at: number, pan: number, distance: number) {
+        const c = this.context, buffer = this.samples[event.id % 3];
+        if (!c || !buffer) return false;
+        const source = c.createBufferSource(); source.buffer = buffer;
+        source.playbackRate.value = .92 + randomStream(event.id ^ event.family)() * .16;
+        const filter = c.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = Math.max(900, 4500 - distance * 22);
+        this.connect(source, filter, at, buffer.duration / source.playbackRate.value, .27 * event.strength / (1 + distance / 180), pan);
+        return true;
     }
     setOptions(volume: number, haptics: boolean, ambience: boolean) {
         this.volume = Math.max(0, Math.min(.8, Number.isFinite(volume) ? volume : .45));
@@ -124,7 +152,8 @@ export class AudioEngine {
                     this.tone(at, 0.65, 940, 510, 0.018, pan);
             }
             if (e.type === 'burst') {
-                this.noiseVoice(at, 1.6, 310, 0.45 * e.strength, pan, 'lowpass');
+                const recorded = this.recordedReport(e, at, pan, distance);
+                this.noiseVoice(at, 1.6, 310, (recorded ? .12 : .45) * e.strength, pan, 'lowpass');
                 this.noiseVoice(at, 0.28, 1600, 0.13 * e.strength, pan, 'highpass');
                 this.tone(at, 0.8, 72, 32, 0.34 * e.strength, pan);
                 this.noiseVoice(at + 0.21, 1.4, 420, 0.11 * e.strength, -pan * 0.45, 'lowpass');
@@ -162,7 +191,7 @@ export class AudioEngine {
             return;
         const s = this.context.createBufferSource();
         s.buffer = this.noise;
-        s.playbackRate.value = 0.90 + (Math.sin(at * 7.31) + 1) * 0.1;
+        s.playbackRate.value = 0.90 + this.variation() * .2;
         const f = this.context.createBiquadFilter();
         f.type = type;
         f.frequency.value = frequency;
@@ -229,5 +258,5 @@ export class AudioEngine {
             navigator.vibrate(0);
         this.hapticActive = false;
     }
-    dispose() { this.requestGeneration++; this.disposed = true; this.stop(); void this.context?.close(); this.context = null; }
+    dispose() { this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); void this.context?.close(); this.context = null; }
 }

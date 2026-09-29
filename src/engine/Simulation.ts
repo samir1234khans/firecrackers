@@ -197,6 +197,21 @@ export class Simulation {
         this.cancelHold();
         return true;
     }
+    /** Explicit drawer drop: same admission/reservation and seeded recipe as a rocket. */
+    burstAt(id: FamilyId, x: number, y: number) {
+        if (!Number.isFinite(x) || !Number.isFinite(y) || !this.ready) return false;
+        const family = familyIndex(id);
+        if (!this.ignite('manual', family)) return false;
+        const rocket = this.committed!;
+        this.events = this.events.filter(event => event.type !== 'fuse');
+        rocket.x = x; rocket.y = y - SHELL_LOCAL_Y * 3.4; rocket.z = 0;
+        rocket.vx = rocket.vy = rocket.vz = 0;
+        rocket.stage = 'afterglow'; rocket.phase = 'afterglow'; rocket.age = 0;
+        this.selected = id; this.launched++;
+        this.primary(rocket);
+        this.prepared = true;
+        return true;
+    }
     setPaused(value: boolean) {
         this.paused = value;
         this.accumulator = 0;
@@ -540,3 +555,4 @@ export class Simulation {
         }
     }
 }
+

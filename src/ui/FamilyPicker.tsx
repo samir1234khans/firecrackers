@@ -1,21 +1,19 @@
-import { useEffect, useRef } from 'react';
-import type { CSSProperties } from 'react';
+import { useState } from 'react';
+import type { CSSProperties, PointerEvent } from 'react';
 import { FAMILIES, familyIndex } from '../engine/catalog';
 import type { FamilyId } from '../engine/catalog';
 import { FireworkGlyph } from './FireworkGlyph';
 import '../styles/grand-collection.css';
 
-type Props = { selectedId: FamilyId; available: boolean; onSelect: (id: FamilyId) => void };
+type Props = { selectedId: FamilyId; available: boolean; onSelect: (id: FamilyId) => void; onDragStart?: (id: FamilyId, event: PointerEvent<HTMLButtonElement>) => void };
 /** Two sets of five, never ten squeezed touch targets. Selection stays authoritative. */
-export function FamilyPicker({ selectedId, available, onSelect }: Props) {
-    const collection = familyIndex(selectedId) >= 5 ? 1 : 0;
-    const remembered = useRef<FamilyId[]>(['gold-willow', 'aurora-crown']);
-    useEffect(() => { remembered.current[collection] = selectedId; }, [collection, selectedId]);
+export function FamilyPicker({ selectedId, available, onSelect, onDragStart }: Props) {
+    const [collection, setCollection] = useState(familyIndex(selectedId) >= 5 ? 1 : 0);
     return <div className='collection-picker' data-collection={collection ? 'grand' : 'classics'}>
         <div className='collection-switch' role='group' aria-label='Firework collections'>
             {['Classics', 'Grand collection'].map((label, i) => <button
                 key={label} type='button' aria-pressed={collection === i} disabled={!available}
-                onClick={() => onSelect(remembered.current[i])}>
+                onClick={() => setCollection(i)}>
                 <span>{label}</span><small>{i ? '06–10' : '01–05'}</small>
             </button>)}
         </div>
@@ -23,9 +21,9 @@ export function FamilyPicker({ selectedId, available, onSelect }: Props) {
             {FAMILIES.slice(collection * 5, collection * 5 + 5).map(family => <button
                 key={family.id} type='button' className={`flow-family${family.id === selectedId ? ' selected' : ''}`}
                 aria-label={family.name} aria-pressed={family.id === selectedId} title={`${family.name}: ${family.note}`}
-                style={{ '--family-color': family.color } as CSSProperties} disabled={!available} onClick={() => onSelect(family.id)}>
+                style={{ '--family-color': family.color } as CSSProperties} disabled={!available} onPointerDown={event => onDragStart?.(family.id, event)} onClick={() => onSelect(family.id)}>
                 <span className='flow-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
-                <span>{family.id === 'chrysanthemum' ? 'Chrysanth.' : family.short}</span>
+                <span>{family.name}</span>
             </button>)}
         </div>
     </div>;

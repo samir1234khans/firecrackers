@@ -1,3 +1,11 @@
+# Current status: Waterfront upgrade
+
+Build `2026-09-29.2` implements the approved six-zone stage, transparent compact controls, touch/mouse drag-to-burst, Blender assets, event-driven water reflections and optional recorded sound.
+
+Current evidence and deployment identifiers: [waterfront release receipt](docs/evidence/waterfront-delivery-2026-09-29.md). Physical iPhone/Android performance and hardware WebGPU remain unqualified; browser emulation does not establish those targets.
+
+## Earlier status record
+
 # Project status
 
 Updated: 29 September 2026. Build: `2026-09-29.1`.

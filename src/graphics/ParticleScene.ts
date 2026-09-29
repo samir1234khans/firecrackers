@@ -58,6 +58,7 @@ export class ParticleScene {
     private readonly heads: Batch[] = [];
     private readonly trails: Batch[] = [];
     private readonly smoke: Batch[] = [];
+    private readonly smokeOrder: number[] = [];
     readonly uniforms = new ParticleUniforms();
     constructor(scene: THREE.Scene, atlas: THREE.Texture, opaquePass: ReturnType<typeof pass>) {
         const u = this.uniforms;
@@ -74,7 +75,7 @@ export class ParticleScene {
             s.material.positionNode = attribute('iPosition', 'vec3').add(u.right.mul(ox)).add(u.up.mul(oy));
             const frame = attribute('iFrame', 'float'), variant = attribute('iVariant', 'float');
             const frameA = frame.floor(), frameB = frameA.add(1).min(15);
-            const sampleUV = (f: ReturnType<typeof float>) => uv().mul(64 / 68).add(2 / 68).add(vec2(f.mod(4), f.div(4).floor().add(variant.mul(4)))).div(vec2(4, 12));
+            const sampleUV = (f: ReturnType<typeof float>) => uv().mul(128 / 132).add(2 / 132).add(vec2(f.mod(4), f.div(4).floor().add(variant.mul(4)))).div(vec2(4, 12));
             const density = mix(texture(atlas, sampleUV(frameA)), texture(atlas, sampleUV(frameB)), frame.fract());
             const normal = density.gb.mul(2).sub(1);
             const direction = attribute('iLightDir', 'vec2');
@@ -92,10 +93,10 @@ export class ParticleScene {
             this.heads.push(h); scene.add(h.mesh);
             const t = new Batch(24000, { iA: 3, iB: 3, iWidth: 1, iAlpha: 1, iColor: 3 }, 11 + bucket * 3, true);
             const start = attribute('iA', 'vec3'), end = attribute('iB', 'vec3');
-            const middle = mix(start, end, uv().y);
+            const middle = mix(start, end, uv().y.mul(1.05).sub(.025));
             const tangent = end.sub(start).add(vec3(0, .00001, 0));
             const side = tangent.cross(u.camera.sub(middle)).normalize();
-            t.material.positionNode = middle.add(side.mul(positionGeometry.x).mul(attribute('iWidth', 'float')));
+            t.material.positionNode = middle.add(side.mul(positionGeometry.x).mul(attribute('iWidth', 'float')).mul(uv().y.mul(.22).add(.78)));
             const across = uv().x.sub(.5).mul(2).abs();
             const core = across.pow(2).mul(-18).exp();
             const halo = across.pow(2).mul(-3.5).exp().mul(.075);
@@ -105,12 +106,16 @@ export class ParticleScene {
             this.trails.push(t); scene.add(t.mesh);
         }
     }
-    update(sim: Simulation, camera: THREE.PerspectiveCamera, height: number) {
+    orient(camera: THREE.PerspectiveCamera) {
         const u = this.uniforms;
         u.camera.value.copy(camera.position);
         u.right.value.setFromMatrixColumn(camera.matrixWorld, 0);
         u.up.value.setFromMatrixColumn(camera.matrixWorld, 1);
         u.near.value = camera.near; u.far.value = camera.far;
+    }
+    update(sim: Simulation, camera: THREE.PerspectiveCamera, height: number) {
+        this.orient(camera);
+        const u = this.uniforms;
         u.protect.value = sim.protectCenter ? 1 : 0;
         u.safeRect.value.set(...sim.safeRect);
         u.energy.value = sim.reducedFlashes ? .90 : 1.12;
@@ -125,7 +130,7 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
             a.iAlpha.setX(n, fade * (.84 + hash01(p.id[i], 51) * .16));
-            const heat = 3.2 + Math.exp(-p.age[i] * 6) * 2.0;
+            const heat = 2.6 + Math.exp(-p.age[i] * 6) * 1.4;
             a.iColor.setXYZ(n, p.r[i] * heat, p.g[i] * (1 - red) * heat, p.b[i] * (1 - red) * heat);
         }
         const embers = sim.embers;
@@ -168,10 +173,12 @@ export class ParticleScene {
             a.iB.setXYZ(n, t.bx[i], t.by[i], t.bz[i]);
             a.iWidth.setX(n, width);
             a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * (.56 + hash01(t.owner[i], 81) * .36));
-            a.iColor.setXYZ(n, t.r[i] * 3.3, t.g[i] * 3.3, t.b[i] * 3.3);
+            a.iColor.setXYZ(n, t.r[i] * 2.8, t.g[i] * 2.8 * (1 - age * .12), t.b[i] * 2.8 * (1 - age * .24));
         }
         const smoke = sim.smoke;
-        const order = Array.from({ length: smoke.count }, (_, i) => i).sort((a, b) => smoke.z[a] - smoke.z[b]);
+        const order = this.smokeOrder; order.length = smoke.count;
+        for (let i = 0; i < smoke.count; i++) order[i] = i;
+        order.sort((a, b) => smoke.z[a] - smoke.z[b]);
         for (const i of order) {
             const b = this.smoke[bucketFor(smoke.z[i])], n = b.count++, a = b.attrs;
             let lr = 0, lg = 0, lb = 0, dx = 0, dy = 0;

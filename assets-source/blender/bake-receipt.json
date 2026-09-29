@@ -1,0 +1,14 @@
+{
+  "blender": "5.2.1 LTS",
+  "families": [
+    "fuse",
+    "motor",
+    "burst"
+  ],
+  "framesPerFamily": 16,
+  "frameCell": 132,
+  "inner": 128,
+  "channels": "R density, GB density gradients, A opacity",
+  "type": "animated procedural volume rendered in Cycles CPU, not fluid simulation",
+  "colorSpace": "Non-Color"
+}
