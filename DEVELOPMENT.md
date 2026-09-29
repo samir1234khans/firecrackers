@@ -35,6 +35,7 @@ npm run preview -- --port 4173
 In another process:
 
 ```sh
+npm run test:stage
 npm run test:grand
 npm run test:e2e
 npm run test:viewability
@@ -42,7 +43,7 @@ npm run test:viewability
 
 The Grand script supports `GRAND_PROJECT=desktop` or `mobile` and `GRAND_URL`. The original-flow script supports `VIDEO_FLOW_PROJECT` and `VIDEO_FLOW_URL`. The recovery script supports `VIEWABILITY_URL`. Defaults target loopback port 4173. Use the public URL only when deliberately verifying the deployed website.
 
-Grand validation covers new recipes, both rendering modes, collection memory, ten shortcuts, child pause/cleanup and small layouts. The original suite protects launch, duplicate rejection, next selection, pause, takeover, preferences and offline/platform behavior. Recovery tests inject missing modules, unavailable/lost graphics and interface failures. Do not remove these guards to simplify an expansion.
+Grand validation covers new recipes, both rendering modes, collection browsing and saved selection, ten shortcuts, child pause/cleanup and small layouts. The stage suite covers the six-edge layout, drawer drag, pause/focus ownership, audio activation and reflection budgets. The original suite protects launch, duplicate rejection, next selection, pause, takeover, preferences and offline/platform behavior. Recovery tests inject missing modules, unavailable/lost graphics and interface failures. Do not remove these guards to simplify an expansion.
 
 `Runtime validation` runs for application/configuration changes pushed to main and for pull requests into main. It calls the complete reusable `Grand collection validation` workflow, which builds once and serves that exact artifact for separate desktop, mobile and recovery jobs. The workflow can also be dispatched manually. Relevant unit, audit, build and logical-soak gates remain included; duplicate unit invocations in the older runtime workflow are unnecessary because `npm test` includes those suites.
 
@@ -54,7 +55,7 @@ Cloudflare production uses Worker `firecrackers` with the static `dist/` bundle 
 
 The existing AppDeploy app `firecrackers-a93nle` and its published URL remain as a separate preview and historical source-parity target. Inspect applied source before updating it; send only changed files and preserve hosting/PWA/recovery configuration. If the corrected source is already applied, do not redeploy just to repeat a checkpoint. Promoting already-published source to main is not a separate runtime deployment.
 
-`npm run build` writes `public/release.json`. The public verification workflow compares its 35-module normalized source fingerprint with GitHub. The pinned TypeScript canonicalizer excludes only known static host diagnostic labels; non-JSX code remains byte-exact after newline normalization. Meaningful source changes must not be normalized away. This scope is not an assertion that the entire host wrapper or site is identical.
+`npm run build` writes `public/release.json`. The historical AppDeploy verification compared 35 normalized modules with GitHub. Current waterfront releases fingerprint the delivered source modules and binary art/audio assets; local build `.3` reports 49 entries. The pinned TypeScript canonicalizer excludes only known static host diagnostic labels; non-JSX code remains byte-exact after newline normalization. Meaningful source changes must not be normalized away. This scope is not an assertion that the entire host wrapper or site is identical.
 
 The initial `Main promotion verification` workflow confirms the approved historical heads are ancestors of main and compares the promoted source fingerprint with the live preview. It is not an automatic publisher. Normal changes must still complete their own test/deployment/verification cycle.
 
@@ -78,3 +79,16 @@ Run `npm run test:stage` against a production build, or set `STAGE_URL` to the p
 Blender masters and reproducible scripts live under `assets-source/blender/`; see asset provenance before regenerating. Raw projects are excluded from `dist`. The release fingerprint includes delivered source modules and public art/audio binaries.
 
 To publish a separate reviewed preview after building, run `npx wrangler deploy --config wrangler.preview.jsonc`. Production uses `wrangler.jsonc`. Retain the previous Worker version from the release receipt for rollback. Do not equate emulated browser tests or accelerated logical soaks with physical-device performance qualification.
+
+## Realism refinement source and review
+
+Build `.3` has [local candidate evidence](docs/evidence/realism-refinement-2026-09-29.md) that pairs production `.2` and local `.3` at identical seeds and logical times for Willow, Saturn and Supernova. Treat those WebGL 2 captures as composition evidence; generated concepts under `docs/evidence/realism-refinement/concepts/` are target imagery, and neither source establishes real-time device performance. The current release fingerprint includes the new `terrace-v004.glb`; the v003 export remains under `assets-source/blender/exports/` for history.
+
+The editable terrace is regenerated from the preserved v003 master using Blender 5.2.1:
+
+```sh
+blender --background --factory-startup --disable-autoexec assets-source/blender/masters/waterfront-v003.blend --python-exit-code 1 --python assets-source/blender/refine_terrace.py
+blender --background --factory-startup --disable-autoexec assets-source/blender/masters/waterfront-v004.blend --python-exit-code 1 --python assets-source/blender/verify_terrace.py
+```
+
+The first command writes a new v004 master, packed 256-pixel basalt atlases and a terrace-only GLB. The second reopens that master, reimports the GLB and writes `assets-source/blender/verification-v004.json`. Review the browser asset at desktop and portrait sizes because a valid GLB does not prove correct scene scale, horizon position or reflection energy. Preserve the six transparent edge groups and all ten seeded effects when tuning the scene.

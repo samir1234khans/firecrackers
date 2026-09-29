@@ -4,6 +4,8 @@ A single-screen festival night with **ten selectable fireworks**. Choose a style
 
 **Live Cloudflare production: Waterfront upgrade, build `2026-09-29.2`.** See [the release receipt](docs/evidence/waterfront-delivery-2026-09-29.md) for deployment and verification status. Main is the canonical application baseline.
 
+**Realism preview: build `2026-09-29.3`.** The next pass refines portrait water framing, broken effect reflections, smoke-family atlas selection, and an original textured Blender terrace. [Open the separate Cloudflare preview](https://firecrackers-realism-preview.allygym-api.workers.dev/) or [review its image studies and same-seed browser comparisons](docs/evidence/realism-refinement-2026-09-29.md). The comparison is against the currently public `.2` build; it is not a production release receipt for `.3`.
+
 [Open Firecrackers](https://firecrackers.mainandmany.com/) · [Compatibility graphics](https://firecrackers.mainandmany.com/?backend=canvas) · [Prior AppDeploy preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 
 Start new development branches from current `main` and open pull requests back to `main`. The owner-authorized promotion incorporates the Grand Collection, viewability recovery, single-press launch, ignition reliability and cinematic V3 work. Earlier feature branches remain as history. See [the promotion audit](docs/evidence/main-promotion.md); an older V3 or alternate-implementation checkout is not the current runtime.

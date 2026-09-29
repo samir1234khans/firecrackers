@@ -1,6 +1,12 @@
-# Current status: Waterfront upgrade
+# Current status: Waterfront realism refinement
 
-**Production deployed and verified:** https://firecrackers.mainandmany.com/. Worker version `204d3c26-6c11-485b-9137-2b59a647ad0e`; PR #5 merged.
+**Production remains at build `2026-09-29.2`:** https://firecrackers.mainandmany.com/. Its verified Worker version is `204d3c26-6c11-485b-9137-2b59a647ad0e`; PR #5 is merged.
+
+**Preview candidate `2026-09-29.3`:** Branch `feat/realism-refinement` has a new Blender v004 terrace, improved waterline/reflection composition and corrected smoke-atlas family selection. The candidate source fingerprint is `4ae7b48094bad269c0a47655d5d20e6839b71f593100aa052d90e4df63a6a40d`. Final-source unit tests (116), lint, and local and hosted stage-browser checks (22 each, including a missing-v004 fallback) passed. Twelve same-seed WebGL 2 captures compare `.2` production with final `.3` local for Willow, Saturn and Supernova at desktop and portrait sizes. [The separate Cloudflare preview](https://firecrackers-realism-preview.allygym-api.workers.dev/) serves the exact fingerprint. See [the candidate evidence](docs/evidence/realism-refinement-2026-09-29.md). PR/CI and public `.3` verification require separate receipts when they occur.
+
+Physical iPhone/Android performance, Safari and hardware WebGPU are not established by these local browser runs.
+
+## Previous waterfront release
 
 Build `2026-09-29.2` implements the approved six-zone stage, transparent compact controls, touch/mouse drag-to-burst, Blender assets, event-driven water reflections and optional recorded sound.
 

@@ -1,0 +1,66 @@
+{
+  "sourceFingerprint": "4ae7b48094bad269c0a47655d5d20e6839b71f593100aa052d90e4df63a6a40d",
+  "reportSha256": "9649a03ab48841c25a8d0aff3e167248b02c9af159e90b1be7d4f806be0dc39c",
+  "captures": [
+    {
+      "file": "after-saturn-1280x800.png",
+      "bytes": 383552,
+      "sha256": "21bc368b4124f0244a15b4451493ae91a467863b2c79610e63db2c6e4350847c"
+    },
+    {
+      "file": "after-saturn-393x851.png",
+      "bytes": 149731,
+      "sha256": "574077c712bb5dbd964ab1f6ba5b9a26171e3f4698dff3a86ee0856fb6fc507d"
+    },
+    {
+      "file": "after-supernova-1280x800.png",
+      "bytes": 479724,
+      "sha256": "d3278151ec13863bde2a78deb7b3326ce0335a9a790e1b8b3f3d4137b4d41ee6"
+    },
+    {
+      "file": "after-supernova-393x851.png",
+      "bytes": 178175,
+      "sha256": "c0ecb99ef73afb6def80dfa6274ff66d4c323602f4c038babdd579069950ea73"
+    },
+    {
+      "file": "after-willow-1280x800.png",
+      "bytes": 502431,
+      "sha256": "356b8731c0e974d59f5d75c4917679150e31bd6e7bfa968c889430f21de5d7e4"
+    },
+    {
+      "file": "after-willow-393x851.png",
+      "bytes": 185096,
+      "sha256": "880cdbdc8b67079ca5cb69ff6321a7697e525d17b9bf722b7ac9cc76701d6605"
+    },
+    {
+      "file": "before-saturn-1280x800.png",
+      "bytes": 329904,
+      "sha256": "b3272ab72d77ec2a4e1d8f1f1bea9d97c6e7dda84d0ff5f0cb9511faefc7855c"
+    },
+    {
+      "file": "before-saturn-393x851.png",
+      "bytes": 109258,
+      "sha256": "e1139518b4fa049c396971795d5625e358057dae3b05f3a9183549a47da90a2b"
+    },
+    {
+      "file": "before-supernova-1280x800.png",
+      "bytes": 416391,
+      "sha256": "0cc95e4af27ec4dc7f0d51861af4c278232871aba458ed9653199b522705073d"
+    },
+    {
+      "file": "before-supernova-393x851.png",
+      "bytes": 133270,
+      "sha256": "dc5fd5432b3c0779d40ef04534ae180f2e518c49794cbf1ab13baf7616cf4a4d"
+    },
+    {
+      "file": "before-willow-1280x800.png",
+      "bytes": 436201,
+      "sha256": "e3a37bc2014bbe7fc8ac8a0ada8151a2e42438a0908f4906875890716e4060ac"
+    },
+    {
+      "file": "before-willow-393x851.png",
+      "bytes": 135620,
+      "sha256": "b42399c05370798e45b5becfd14d6ed372aac9a95ccc1d6505d07b8f087205a8"
+    }
+  ]
+}

@@ -31,6 +31,8 @@ export function measureStage(host: HTMLElement, interactive = true): StageLayout
 /** Shared world framing, independent of DOM decks and stable for a whole viewport. */
 export function stageFraming(layout: StageLayout) {
   const { heroRect, viewport } = layout;
-  const scale = Math.max(.1, Math.min(heroRect.width / 105, heroRect.height * .70 / 112));
+  // Portrait phones use more of their narrow corridor so the burst reads above the water.
+  const widthSpan = viewport.width / viewport.height < .72 ? 88 : 105;
+  const scale = Math.max(.1, Math.min(heroRect.width / widthSpan, heroRect.height * .70 / 112));
   return { scale, span: viewport.height / scale, baseline: heroRect.y + heroRect.height * .84 };
 }

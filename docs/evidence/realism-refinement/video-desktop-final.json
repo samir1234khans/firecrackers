@@ -1,0 +1,243 @@
+{
+  "url": "http://127.0.0.1:4174/",
+  "build": "2026-09-29.3",
+  "browser": "Chromium / software WebGL 2",
+  "checks": [
+    {
+      "name": "desktop: correct build, meaningful UI and actual canvas",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: six edge groups, clear hero, reachable picker and launch",
+      "result": "passed",
+      "width": 1280,
+      "height": 800,
+      "hero": {
+        "x": 144,
+        "y": 0,
+        "width": 992,
+        "height": 800
+      },
+      "groups": [
+        {
+          "name": "top-left",
+          "x": 12,
+          "y": 12,
+          "width": 128,
+          "height": 67,
+          "right": 140,
+          "bottom": 79
+        },
+        {
+          "name": "middle-left",
+          "x": 12,
+          "y": 317.8046875,
+          "width": 128,
+          "height": 164.390625,
+          "right": 140,
+          "bottom": 482.1953125
+        },
+        {
+          "name": "bottom-left",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 90,
+          "right": 140,
+          "bottom": 788
+        },
+        {
+          "name": "top-right",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 90,
+          "right": 1268,
+          "bottom": 102
+        },
+        {
+          "name": "middle-right",
+          "x": 1212,
+          "y": 355,
+          "width": 56,
+          "height": 90,
+          "right": 1268,
+          "bottom": 445
+        },
+        {
+          "name": "bottom-right",
+          "x": 1212,
+          "y": 717,
+          "width": 56,
+          "height": 71,
+          "right": 1268,
+          "bottom": 788
+        }
+      ],
+      "buttons": [
+        {
+          "name": "Choose show mode",
+          "x": 12,
+          "y": 35,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Previous firework",
+          "x": 12,
+          "y": 317.8046875,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Choose firework: Gold Willow",
+          "x": 12,
+          "y": 363.8046875,
+          "width": 128,
+          "height": 72.390625,
+          "hit": true
+        },
+        {
+          "name": "Next firework",
+          "x": 12,
+          "y": 438.1953125,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Position firework",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Help",
+          "x": 12,
+          "y": 744,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Pause scene",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enable sound",
+          "x": 1212,
+          "y": 58,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Open settings",
+          "x": 1212,
+          "y": 355,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enter fullscreen",
+          "x": 1212,
+          "y": 401,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Launch selected firework",
+          "x": 1212,
+          "y": 717,
+          "width": 56,
+          "height": 56,
+          "hit": true
+        }
+      ],
+      "overflow": false,
+      "launch": {
+        "width": 56,
+        "height": 56,
+        "bottom": 773
+      },
+      "hit": true
+    },
+    {
+      "name": "desktop: real launch, duplicate guard and immutable active family",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: visible burst after real-time input and ready-again state",
+      "result": "passed",
+      "launched": 1,
+      "bursts": 1
+    },
+    {
+      "name": "desktop: second selected family launches after first burst",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: no duplicate staged rocket; continuous body-to-shell handoff and burst",
+      "result": "passed",
+      "method": "labeled deterministic rendered checkpoints, not performance evidence"
+    },
+    {
+      "name": "desktop: all five families produce rendered effects",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: pause freezes exact state, settings preserves pause, same rocket resumes",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: auto show and manual takeover preserve committed effects",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: graphics persistence, silent reload and reset cancellation",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: production offline package cold reload",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: protected transparent display returns to manual controls",
+      "result": "passed"
+    },
+    {
+      "name": "No unexpected page, framework or console errors; separately recorded host-only offline requests",
+      "result": "passed"
+    }
+  ],
+  "consoleErrors": [],
+  "expectedHostOfflineErrors": [],
+  "failedRequests": [],
+  "warnings": [],
+  "screenshots": [
+    "desktop-01-ready.png",
+    "desktop-02-after-real-burst.png",
+    "desktop-03-fuse-frozen.png",
+    "desktop-04-powered-flight-frozen.png",
+    "desktop-05-coast-frozen.png",
+    "desktop-06-burst-frozen.png",
+    "desktop-family-1.png",
+    "desktop-family-2.png",
+    "desktop-family-3.png",
+    "desktop-family-4.png",
+    "desktop-family-5.png",
+    "desktop-settings.png",
+    "desktop-settings-reset-reachable.png"
+  ],
+  "failed": null
+}

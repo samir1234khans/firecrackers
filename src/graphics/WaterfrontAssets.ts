@@ -14,7 +14,7 @@ export async function loadWaterfrontAssets(): Promise<Partial<WaterfrontAssets>>
     new THREE.TextureLoader().loadAsync(url('water-normal.png')).then(t => { t.colorSpace = THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; result.normal = t; }),
     new THREE.TextureLoader().loadAsync(url('ignition-flame.png')).then(t => { t.colorSpace = THREE.SRGBColorSpace; result.flame = t; }),
     loader.loadAsync(url('rocket.glb')).then(g => { result.rocket = g.scene; }),
-    loader.loadAsync(url('terrace.glb')).then(g => { result.terrace = g.scene; }),
+    loader.loadAsync(url('terrace-v004.glb')).then(g => { result.terrace = g.scene; }),
   ]);
   return result;
 }

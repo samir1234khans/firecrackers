@@ -4,6 +4,7 @@ dist/
 .test-build/
 playwright-report/
 test-results/
+*.blend1
 .env*
 !.env.example
 public/icons/

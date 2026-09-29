@@ -197,7 +197,8 @@ export class ParticleScene {
             a.iColor.setXYZ(n, Math.min(1.2, lr), Math.min(1.2, lg), Math.min(1.2, lb));
             a.iLightDir.setXY(n, dx, dy);
             a.iFrame.setX(n, Math.min(14.98, (1 - Math.exp(-smoke.age[i] * .22)) * 15));
-            a.iVariant.setX(n, smoke.id[i] % 3);
+            // The Blender atlas rows are fuse, motor and burst, matching Simulation's kind.
+            a.iVariant.setX(n, smoke.family[i]);
         }
         for (const group of [this.heads, this.trails, this.smoke]) for (const batch of group) batch.upload();
     }

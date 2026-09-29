@@ -11,7 +11,7 @@ All runtime visual assets in `public/art/` are authored for this repository with
 | paper-color.png | Original indigo paper grain, printed gold curves and overlap seam | sRGB color |
 | water-normal.png | Original seamless periodic wave normal field | Linear normal data |
 | rocket.glb | Paper shell, foil cap/bands, guide stick and seam | Scoped geometry export; body/cap integrated with existing family proportions and attachment logic |
-| terrace.glb | Beveled basalt stones and shoreline coping | PBR geometry, material adjusted for browser lighting |
+| terrace-v004.glb | 48 individually laid basalt/coping meshes with embedded color, roughness and normal maps | Scoped PBR terrace geometry; local wet glints and stone/joint variation, adjusted for browser lighting |
 
 Smoke is a baked animated procedural volume rendered in Cycles CPU, not a fluid simulation. No external simulation cache is required. Browser lighting remains dynamic. Blender volume shaders themselves are not exported to glTF. Missing enhanced assets preserve the existing procedural materials and smoke.
 
@@ -28,3 +28,11 @@ The browser uses a selective screen-space reflection of the actual effect layer,
 - Original sound design supplies fuse hiss, launch motor, low boom, echo, crackle and quiet ambience. Recordings are layered with that synthesis, loaded only after explicit Sound activation. No runtime third-party audio requests.
 
 `public/release.json` fingerprints every delivered audio and visual asset, as well as the implementation modules. Asset requests use versioned service-worker caches. Completed optional downloads remain available offline; missing files retain synthesis/procedural fallbacks.
+
+## Terrace v004 refinement
+
+The editable `assets-source/blender/masters/waterfront-v004.blend` preserves the v003 waterfront master. `assets-source/blender/refine_terrace.py` creates four seeded basalt surface variants, cut edges, recessed joints and a contact-scale stone layout. Its three original 256 × 256 atlases are retained as source files in `assets-source/blender/textures/` and packed into the `.blend`; the browser receives them embedded in `public/art/terrace-v004.glb`. Water, shoreline silhouettes and lights remain browser effects and are excluded from this GLB.
+
+`assets-source/blender/verify_terrace.py` reopens the final master and imports the GLB into a fresh Blender scene. [The v004 receipt](blender/verification-v004.json) records 48 source/imported meshes, three packed/embedded texture channels, finite export bounds and the 547,136-byte output. The v003 terrace GLB is retained in `assets-source/blender/exports/terrace-v003.glb` as source history; it is no longer a public runtime asset. No external photographs, material libraries or paid textures were used for the v004 stone.
+
+The three [generated realism studies](../docs/evidence/realism-refinement-2026-09-29.md) are concept art, not material maps or claims about the live browser image. The newer reflection and portrait-framing behavior are browser code, not baked into the terrace asset.

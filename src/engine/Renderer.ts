@@ -122,6 +122,8 @@ export class FireworkRenderer {
         this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
+        this.water.resize(this.camera);
+        this.environment.setPortraitHorizon(aspect < .72);
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / framing.scale * .9), 16);
         this.renderer.setSize(w, h);
         this.setQuality(this.sim.quality);
