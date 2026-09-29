@@ -158,11 +158,13 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         };
         const bounds = typeof ResizeObserver === 'function' ? new ResizeObserver(resize) : null;
         if (host.current) bounds?.observe(host.current);
-        for (const element of host.current?.parentElement?.querySelectorAll('[data-edge]') || []) bounds?.observe(element);
+        for (const element of host.current?.parentElement?.querySelectorAll('[data-edge], [data-family-dock]') || []) bounds?.observe(element);
         window.addEventListener('resize', resize);
         window.visualViewport?.addEventListener('resize', resize);
         const layoutChanges = new MutationObserver(() => { if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive')); });
         if (host.current?.parentElement) layoutChanges.observe(host.current.parentElement, { attributes: true, attributeFilter: ['data-overlay'] });
+        for (const dock of host.current?.parentElement?.querySelectorAll('[data-family-dock]') || [])
+            layoutChanges.observe(dock, { attributes: true, attributeFilter: ['data-open'] });
         document.addEventListener('visibilitychange', onVisibility);
         const startGraphics = async () => {
             const target = host.current;
@@ -325,6 +327,12 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             refresh();
         }
     };
+    const igniteFamily = (id: FamilyId) => {
+        if (!status.current.ready || status.current.error) return false;
+        const admitted = sim.current.igniteFamily(id);
+        refresh();
+        return admitted;
+    };
     const reset = () => {
         audio.current?.stop();
         intent.current.setManual(false);
@@ -349,5 +357,5 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         refresh(); return admitted;
     };
     const positionFromPointer = (clientX: number) => renderer.current?.projectPlacement(clientX) ?? .5;
-    return { sim, ready, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, ignite, reset, refresh, positionFromPointer, heroRect, dropTarget, drop };
+    return { sim, ready, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, ignite, igniteFamily, reset, refresh, positionFromPointer, heroRect, dropTarget, drop };
 }
