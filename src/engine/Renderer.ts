@@ -192,7 +192,7 @@ export class FireworkRenderer {
             prop.group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(vx, vy, vz).normalize());
             prop.update(family, burn, contact, sim.time, sim.wind, bodyOpacity);
         };
-        if (!sim.committed && !sim.rearming && !sim.show) {
+        if (!sim.committed && !sim.show) {
             place(FAMILIES.findIndex(f => f.id === sim.selected), sim.placementToX(), sim.ground, 0, -.01, sim.holding ? sim.holdProgress : 0);
             staged++;
         }

@@ -1,4 +1,10 @@
-# Current status: Waterfront realism refinement
+# Current status: Placed drag-launch candidate
+
+Build `2026-09-29.5` is published only to the [isolated Cloudflare preview](https://firecrackers-pad-preview.allygym-api.workers.dev/), Worker version `6f6ff7d8-dc55-458e-9011-40d5f8554856`. Its hosted 50-entry source/asset fingerprint is `36bebaa351ce233d0c8bab75e57a4cdaa33a587ab977edda5854116c3796034d`. The candidate makes firework and Launch icons borderless, keeps the selected quick Launch visible, removes the next-rocket rearm timer, and makes sky drops burst immediately while terrace-height drops start a normal rocket at the chosen horizontal position.
+
+[Preview evidence](docs/evidence/pad-launch-preview-2026-09-29.md) records 125 unit tests and hosted Chromium stage 34, Grand Collection 42, original flow 28 and recovery 15 checks, with screenshots and the logical-soak boundary. Production remains build `.3` pending the reviewed PR and deployment.
+
+## Previous production: Waterfront realism refinement
 
 **Production is build `2026-09-29.3`:** https://firecrackers.mainandmany.com/. Worker version `5c39c81a-6b79-49ae-bf50-007a93ee83f6` serves merge commit `e1789db3e4c28cd8f8f55662d7b3e9ec7f6034f6` from PR #7. The previous `.2` Worker version `204d3c26-6c11-485b-9137-2b59a647ad0e` is the rollback reference.
 

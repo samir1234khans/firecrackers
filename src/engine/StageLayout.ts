@@ -17,12 +17,26 @@ export function measureStage(host: HTMLElement, interactive = true): StageLayout
     if (key.endsWith('left')) left = Math.max(left, r.right - box.left + 4);
     else right = Math.min(right, r.left - box.left - 4);
   }
+  // An icon's adjacent quick action can extend beyond its edge-group box.
+  // Reserve its full footprint even while hidden so hover/focus never changes
+  // the camera corridor. Only visible actions block a drop.
+  if (interactive) for (const [index, element] of [...parent.querySelectorAll<HTMLElement>('[data-stage-control]')].entries()) {
+    const r = element.getBoundingClientRect();
+    if (!r.width || !r.height) continue;
+    if (r.left + r.width / 2 < box.left + box.width / 2) left = Math.max(left, r.right - box.left + 4);
+    else right = Math.min(right, r.left - box.left - 4);
+    const appearance = getComputedStyle(element);
+    if (appearance.display !== 'none' && appearance.visibility !== 'hidden' && Number(appearance.opacity) >= .01)
+      controls[`quick-${index}`] = { x: r.left - box.left, y: r.top - box.top, width: r.width, height: r.height };
+  }
   // Symmetry keeps the viewing direction stable even when one side has longer labels.
   const inset = Math.max(left, box.width - right);
   const heroRect = { x: inset, y: safe.top, width: Math.max(1, box.width - inset * 2), height: Math.max(1, box.height - safe.top - safe.bottom) };
   // The phone dock is intentionally below the hero. When opened on a short phone,
   // reserve its actual bounds so a release on a dock control cannot count as sky.
-  const dock = interactive ? parent.querySelector<HTMLElement>('[data-family-dock]') : null;
+  // During a drag the dock is visually hidden and the stage accepts the release.
+  const dock = interactive && parent.dataset.dragActive !== 'true'
+    ? parent.querySelector<HTMLElement>('[data-family-dock]') : null;
   const dockBox = dock?.getBoundingClientRect();
   if (dockBox && dockBox.width && dockBox.height) controls.dock = {
     x: dockBox.left - box.left, y: dockBox.top - box.top, width: dockBox.width, height: dockBox.height,
@@ -33,7 +47,10 @@ export function measureStage(host: HTMLElement, interactive = true): StageLayout
     : heroRect.height * .64;
   const layout = { viewport: { x: box.left, y: box.top, width: box.width, height: box.height }, safe, controls, heroRect,
     panelOpen: parent.dataset.overlay !== 'none',
-    launchArea: { ...heroRect, y: heroRect.y + heroRect.height * .82, height: heroRect.height * .14 },
+    // The terrace can be approached from either shelf. The pad marker clamps
+    // to its supported travel while real control bounds remain non-droppable.
+    launchArea: { x: safe.left, y: heroRect.y + heroRect.height * .82,
+      width: Math.max(1, box.width - safe.left - safe.right), height: heroRect.height * .14 },
     burstCanopy: { ...heroRect, y: canopyY, height: canopyHeight },
     reflectionBand: { ...heroRect, y: heroRect.y + heroRect.height * .75, height: heroRect.height * .25 } };
   parent.dataset.heroRect = JSON.stringify(heroRect);

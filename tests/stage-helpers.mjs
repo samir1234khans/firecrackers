@@ -32,7 +32,11 @@ export async function inspectStage(page) {
   assert.ok(data.hero.width/data.width >= (data.width>=1024?.70:data.width<=320?.55:.60),JSON.stringify(data));
   assert.ok(data.launch.width>=56 && data.launch.height>=56 && data.launch.bottom<=data.height);
   for(const b of data.groups) assert.ok(b.right<=data.hero.x || b.x>=data.hero.x+data.hero.width,`Central obstruction: ${JSON.stringify(b)}`);
-  for(const b of data.buttons){assert.ok(b.width>=(data.width<1024?48:44) && b.height>=(data.width<1024?48:44),JSON.stringify(b));assert.ok(b.hit,JSON.stringify(b));}
+  for(const b of data.buttons){
+    assert.ok(b.width>=(data.width<1024?48:44) && b.height>=(data.width<1024?48:44),JSON.stringify(b));
+    assert.ok(b.hit,JSON.stringify(b));
+    assert.ok(b.x+b.width<=data.hero.x+1||b.x>=data.hero.x+data.hero.width-1,`Resting control intrudes into the central stage: ${JSON.stringify(b)}`);
+  }
   if(data.compactDock && data.compactDock.open==='false'){
     const d=data.compactDock,t=d.toggle;
     assert.ok(d.y>=data.height*.75 && d.bottom<=data.height+1,`Collapsed dock must stay at the bottom: ${JSON.stringify(d)}`);
@@ -57,6 +61,23 @@ export async function inspectEdgeShelves(page, minHit=44) {
       assert.equal(await shelf.locator(`[data-family-launch="${id}"]`).count(),1,`${id} local Launch action`);
     }
   }
+}
+
+export async function inspectBorderlessControls(page, minimum=11) {
+  const controls=await page.evaluate(()=>[...document.querySelectorAll('[data-family-icon], [data-family-launch], .edge-launch')]
+    .filter(e=>e.getClientRects().length)
+    .map(e=>{const s=getComputedStyle(e);return {name:e.getAttribute('aria-label'),icon:e.matches('[data-family-icon]'),
+      border:[s.borderTopWidth,s.borderRightWidth,s.borderBottomWidth,s.borderLeftWidth],background:s.backgroundColor,shadow:s.boxShadow,
+      svg:Boolean(e.querySelector('svg')),text:e.textContent.trim()};}));
+  assert.ok(controls.length>=minimum,`Expected visible icon controls: ${controls.length}`);
+  for(const c of controls){
+    assert.deepEqual(c.border,['0px','0px','0px','0px'],`${c.name} should be borderless`);
+    assert.ok(c.background==='transparent'||/^rgba\(.*?,\s*0(?:\.0+)?\)$/.test(c.background),`${c.name} needs a transparent background: ${c.background}`);
+    assert.equal(c.shadow,'none',`${c.name} should not carry a button shadow`);
+    assert.ok(c.svg,`${c.name} needs a distinct SVG icon`);
+    if(!c.icon)assert.equal(c.text,'',`${c.name} is an icon control with an accessible label`);
+  }
+  return controls;
 }
 
 export async function inspectEdgeSeparation(page) {

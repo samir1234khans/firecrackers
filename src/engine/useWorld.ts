@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { measureStage } from './StageLayout';
+import type { StageRect } from './StageLayout';
 import type { FamilyId } from './catalog';
 import { Simulation } from './Simulation';
 import { AudioEngine } from './Audio';
@@ -14,6 +15,9 @@ import type { Preferences } from '../platform/preferences';
 import type { RendererPort } from './RendererPort';
 import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
 import { withDeadline } from './RendererRecovery';
+export type DropTarget = { kind: 'burst'; point: [number, number] } | { kind: 'launch'; placement: number };
+const inside = (x: number, y: number, r: StageRect) =>
+    x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
 /** DOM owns controls; one fixed simulation clock owns all fireworks and their sound events. */
 export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferences: Preferences, epoch: number, notice: (text: string) => void, presentation: Presentation = parsePresentation('')) {
     const prefs = useRef(preferences);
@@ -46,6 +50,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     useEffect(() => {
         let cancelled = false;
         let frame = 0;
+        let layoutFrame = 0;
         let last = 0;
         let lastRender = 0;
         let lastReport = 0;
@@ -161,10 +166,22 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         for (const element of host.current?.parentElement?.querySelectorAll('[data-edge], [data-family-dock]') || []) bounds?.observe(element);
         window.addEventListener('resize', resize);
         window.visualViewport?.addEventListener('resize', resize);
-        const layoutChanges = new MutationObserver(() => { if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive')); });
-        if (host.current?.parentElement) layoutChanges.observe(host.current.parentElement, { attributes: true, attributeFilter: ['data-overlay'] });
+        const updateLayout = () => { if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive')); };
+        const queueLayout = () => {
+            cancelAnimationFrame(layoutFrame);
+            layoutFrame = requestAnimationFrame(updateLayout);
+        };
+        const layoutChanges = new MutationObserver(updateLayout);
+        if (host.current?.parentElement) layoutChanges.observe(host.current.parentElement, { attributes: true, attributeFilter: ['data-overlay', 'data-drag-active'] });
         for (const dock of host.current?.parentElement?.querySelectorAll('[data-family-dock]') || [])
             layoutChanges.observe(dock, { attributes: true, attributeFilter: ['data-open'] });
+        // CSS hover/focus reveals quick actions without changing the edge group
+        // size. Refresh only the measured bounds, never the camera framing.
+        const stage = host.current?.parentElement;
+        stage?.addEventListener('pointerover', queueLayout);
+        stage?.addEventListener('pointerout', queueLayout);
+        stage?.addEventListener('focusin', queueLayout);
+        stage?.addEventListener('focusout', queueLayout);
         document.addEventListener('visibilitychange', onVisibility);
         const startGraphics = async () => {
             const target = host.current;
@@ -252,8 +269,13 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             alive.current = false;
             soundRequest.current++;
             cancelAnimationFrame(frame);
+            cancelAnimationFrame(layoutFrame);
             bounds?.disconnect();
             layoutChanges.disconnect();
+            stage?.removeEventListener('pointerover', queueLayout);
+            stage?.removeEventListener('pointerout', queueLayout);
+            stage?.removeEventListener('focusin', queueLayout);
+            stage?.removeEventListener('focusout', queueLayout);
             window.visualViewport?.removeEventListener('resize', resize);
             window.removeEventListener('resize', resize);
             document.removeEventListener('visibilitychange', onVisibility);
@@ -349,11 +371,29 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const l = measureStage(host.current!, display.current.mode === 'interactive');
         return { ...l.heroRect, x: l.heroRect.x + l.viewport.x, y: l.heroRect.y + l.viewport.y };
     };
-    const dropTarget = (x: number, y: number) => renderer.current?.projectBurst(x, y) ?? null;
+    const dropTarget = (x: number, y: number): DropTarget | null => {
+        const graphics = renderer.current, element = host.current;
+        if (!graphics || !element || display.current.mode !== 'interactive' || !Number.isFinite(x) || !Number.isFinite(y)) return null;
+        const layout = measureStage(element);
+        graphics.setLayout(layout);
+        const localX = x - layout.viewport.x, localY = y - layout.viewport.y;
+        if (Object.values(layout.controls).some(control => inside(localX, localY, control))) return null;
+        if (inside(localX, localY, layout.burstCanopy)) {
+            const point = graphics.projectBurst(x, y);
+            return point ? { kind: 'burst', point } : null;
+        }
+        if (inside(localX, localY, layout.launchArea)) {
+            const placement = graphics.projectPlacement(x);
+            return Number.isFinite(placement) ? { kind: 'launch', placement } : null;
+        }
+        return null;
+    };
     const drop = (id: FamilyId, x: number, y: number) => {
-        const point = dropTarget(x, y);
-        if (!point || !status.current.ready || status.current.error) return false;
-        const admitted = sim.current.burstAt(id, ...point);
+        const target = dropTarget(x, y);
+        if (!target || !status.current.ready || status.current.error) return false;
+        const admitted = target.kind === 'burst'
+            ? sim.current.burstAt(id, ...target.point)
+            : sim.current.igniteFamily(id, target.placement);
         refresh(); return admitted;
     };
     const positionFromPointer = (clientX: number) => renderer.current?.projectPlacement(clientX) ?? .5;

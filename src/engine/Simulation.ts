@@ -114,7 +114,7 @@ export class Simulation {
     get rearming() { return this.rockets.some(r => r.stage === 'afterglow' && r.age < REARM_SECONDS); }
     private launchBlockFor(family: number) {
         if (this.paused) return 'paused';
-        if (this.committed || this.rearming || !this.prepared) return 'busy';
+        if (this.committed || !this.prepared) return 'busy';
         if (!this.canReserve(family)) return 'capacity';
         return '';
     }
@@ -170,7 +170,7 @@ export class Simulation {
     }
     ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement = this.placement) {
         if (this.paused) return false;
-        if (source === 'manual' && (!this.prepared || this.committed || this.rearming)) return false;
+        if (source === 'manual' && (!this.prepared || this.committed)) return false;
         const f = FAMILIES[family];
         const reserve = this.reserveFor(family);
         if (!this.canReserve(family)) {
@@ -202,11 +202,12 @@ export class Simulation {
         this.cancelHold();
         return true;
     }
-    /** Launch one explicit family through the normal fuse and flight, committing selection only on admission. */
-    igniteFamily(id: FamilyId) {
+    /** Launch one explicit family through the normal fuse and flight, committing selection and pad placement only on admission. */
+    igniteFamily(id: FamilyId, placement = this.placement) {
         const family = FAMILIES.findIndex(entry => entry.id === id);
-        if (family < 0 || !this.ignite('manual', family)) return false;
+        if (family < 0 || !Number.isFinite(placement) || !this.ignite('manual', family, placement)) return false;
         this.selected = id;
+        this.placement = clamp(placement, 0.2, 0.8);
         return true;
     }
     /** Explicit drawer drop: same admission/reservation and seeded recipe as a rocket. */
