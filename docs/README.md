@@ -8,6 +8,8 @@ The active application is the ten-effect **Grand Collection**, currently deploye
 
 The [retained `.5` preview](https://firecrackers-pad-preview.allygym-api.workers.dev/) remains available for comparison. [Candidate evidence](evidence/pad-launch-preview-2026-09-29.md) and [production evidence](evidence/pad-launch-production-release-2026-09-29.md) cover transparent icon controls, immediate next-launch readiness and positional drag-to-terrace rockets.
 
+The separate [`.6` graphics recovery preview](https://firecrackers-graphics-preview.allygym-api.workers.dev/) and its [hosted checks](evidence/graphics-recovery-preview-2026-09-29.md) cover independent art loading and sustained-renderer-stall recovery. The [public `.5` diagnosis](evidence/graphics-loading-diagnosis-2026-09-29.md) explains why particle budgets were kept bounded.
+
 The original five effects remain under Classics; five newer effects are under Grand collection. The current interaction is single-press launch, not the earlier hold-only prototype. Public-site verification and qualification boundaries are recorded separately from planned acceptance criteria. Older V2/V3 and recovery evidence remains historical rather than proof of a later build.
 
 ## How to read the specification

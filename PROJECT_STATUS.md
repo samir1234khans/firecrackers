@@ -1,4 +1,6 @@
-# Current status: Placed drag launch in production
+# Current status: Graphics recovery preview; placed drag launch in production
+
+Build `2026-09-29.6` is hosted separately at the [graphics recovery preview](https://firecrackers-graphics-preview.allygym-api.workers.dev/), with a matching 50-entry fingerprint and [candidate evidence](docs/evidence/graphics-recovery-preview-2026-09-29.md). Art loads independently; repeated severe renderer stalls switch to Canvas while preserving the active simulation and saved quality. The [live `.5` diagnosis](docs/evidence/graphics-loading-diagnosis-2026-09-29.md) reproduced a software-WebGL freeze with all art assets loaded. Physical-device cause and performance remain unverified. Production is still `.5` at the custom domain.
 
 Build `2026-09-29.5` is live at [Cloudflare production](https://firecrackers.mainandmany.com/), Worker version `0dd30a40-e7ca-41b1-8723-0bbe6574bcbe`, from main commit `b8174710651dc7424a75551f93bfe317955cdf57` and PR #10. Its 50-entry source/asset fingerprint is `36bebaa351ce233d0c8bab75e57a4cdaa33a587ab977edda5854116c3796034d`, matching the [retained isolated preview](https://firecrackers-pad-preview.allygym-api.workers.dev/). Firework and Launch icons are borderless; the selected quick Launch stays visible; the next rocket appears immediately after the burst; and a terrace-height drag drop starts a normal rocket from the chosen horizontal position while a sky drop bursts immediately.
 
