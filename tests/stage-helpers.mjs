@@ -8,7 +8,14 @@ export async function chooseFamily(page, name) {
   await page.waitForFunction(()=>document.querySelector('main').dataset.overlay==='none');
 }
 export async function inspectStage(page) {
-  await page.waitForTimeout(80);
+  // ResizeObserver and renderer work may span multiple frames on software CI.
+  // Wait for the new viewport measurement, then assert every bound unchanged.
+  await page.waitForFunction(() => {
+    const raw = document.querySelector('main')?.dataset.heroRect;
+    if (!raw) return false;
+    const hero = JSON.parse(raw);
+    return Math.abs(hero.x + hero.width / 2 - innerWidth / 2) < 1;
+  }, undefined, { timeout: 5000 });
   const data=await page.evaluate(()=>{
     const hero=JSON.parse(document.querySelector('main').dataset.heroRect),launch=document.querySelector('.flow-launch'),r=launch.getBoundingClientRect();
     const groups=[...document.querySelectorAll('[data-edge]')].map(e=>{const b=e.getBoundingClientRect();return {name:e.dataset.edge,x:b.x,y:b.y,width:b.width,height:b.height,right:b.right,bottom:b.bottom};});
