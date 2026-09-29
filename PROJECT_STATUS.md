@@ -1,31 +1,43 @@
 # Project status
 
-Updated: 22 September 2026. Build: `2026-09-22.1`.
+Updated: 29 September 2026. Build: `2026-09-29.1`.
 
 ## Current delivery
 
-Viewability and launch recovery is implemented on `fix/viewability-recovery`, based on the newer video-flow branch. Runtime commit: `bbd1cd624e2700b01e8974e83a875bfeb476aa21`. The app is published at https://firecrackers-a93nle.v2.appdeploy.ai/ . Main and older branches were preserved.
+**Grand Collection implementation and public preview verification are complete for the ten-firework expansion.** Continue on `feat/grand-collection`; do not resume the earlier five-effect recovery or V3 branch.
 
-The repair adds a readable initial loading/error page, React recovery boundary, finite graphics-startup deadlines, automatic WebGL/Canvas fallback, explicit compatibility/reload controls and guarded resize/cleanup. It retains the preferred 3D/Ultra experience and provides clearly labelled simpler Canvas graphics when GPU initialization is unavailable. Device feedback is visible inside settings, and small portrait/landscape controls remain reachable. Rocket/ground texture brightness is improved.
+Live site: https://firecrackers-a93nle.v2.appdeploy.ai/
 
-The newer one-press launch, immutable committed rocket, next-family selection, body-to-shell transition and persistent manual deck remain intact. This is not a rollback to the older radial UI. The previously hosted toolbar-safe layout is now normal tracked source rather than a pending CI patch.
+Runtime checkpoint: `9f081db8cf3ca626febb9161ba74c907f9852e65`. Public verification checkpoint: `5b09b195f1f12c54566b3b7ad4339f7261a7f9d7`. Applied hosting snapshot: `1790640515766`. Later documentation-only commits do not change the verified runtime. Main and other branches are preserved.
 
-## Delivery and evidence
+## Delivered
 
-AppDeploy snapshot: `1790036848382`; the host reported ready with empty reported frontend/network/backend errors. The public 31-module source fingerprint matched at 2026-09-22T00:29:21.800Z:
+The original five Classics plus Aurora Crown, Ruby Dahlia, Sapphire Saturn, Phoenix Palm and Opal Supernova are implemented in both 3D and Canvas compatibility graphics. The new collection has authored shapes, distinct palettes and color aging, spatial branching, traveling secondary carriers, conservative child reservations and natural cleanup. Grand Collection/Classics navigation, ten keyboard shortcuts, per-collection session memory and persisted selected styles are integrated.
 
-`46fe64fb3fe5481513e54e1dffe06be790c3953092c98aca9aa898a56aa387da`
+The repaired single-press launch, immutable active flight, duplicate prevention, manual takeover, pause/settings ownership, startup recovery, offline caching, protected/transparent output and readable manual deck remain intact. Ultra, the 60 fps target, sound-off startup and reduced-flash default are unchanged.
 
-Candidate runs `35671283665` and `35671283683` passed typecheck, lint, 70 unit/lifecycle/regression tests, build, audit, structural validation, the accelerated two-hour logical soak, 15 viewability/recovery cases and 28 launch/platform checks. This is not a hardware endurance result.
+## Remaining delivery work closed
 
-**Published verification is complete and passed.** Run `35672636416` verifies the actual public website, not only a local build: all 15 viewability/recovery cases and 28 launch/platform checks passed. The 31-module source fingerprint matched again at 2026-09-22T00:36:30.241Z. No unexpected console errors remained in the nominal launch suite. Intentional fault diagnostics and known host-only requests during deliberate offline testing are recorded separately, not silently discarded.
+The earlier public build failed at 320×480 because compact CSS was overridden by import order, leaving only about 13 pixels of clear sky. The final selectors already present in the deployed snapshot now leave about 77 pixels in the Grand layout and 68 pixels with the longer recovery message. Launch is hit-testable and 46 pixels tall. The test thresholds were not weakened.
 
-Final test-only checkpoint: `8bf5bc298c89df5c75505036bba0b5193856ced1`. It does not change the tested and deployed runtime modules. The initial live run's host-only offline logging failure is retained in the delivery record along with the passing rerun.
+A fresh public run now passes both desktop and mobile, original workflows and recovery. The workflow also runs original-flow tests even if a collection test fails, avoiding an incomplete regression report. The source/dependency bundle, completion checklist and final evidence are checkpointed in GitHub.
 
-The full [delivery and qualification record](docs/evidence/viewability-recovery.md) records exact commits, public verification, actual captures and the handling of deliberately offline host-only requests. Older V3 and video-flow evidence remains historical, not a substitute for these results.
+The previous status answer overlooked push-triggered CI and relied on an outdated root status document. Live source inspection and all-event workflow results supersede that answer. The ten-effect version and compact fix were already deployed when this completion pass began, so no duplicate deployment was needed.
 
-## Remaining qualification boundary
+## Completed validation
 
-Physical Android/tablet, Safari/iOS, hardware WebGPU/WebGL parity, real-time GPU/thermal endurance, OBS and full flash/accessibility assessment remain unverified here. Final visual/audio approval is separate. No new backend, account system, assets provider, native wrapper, public license or domain migration was introduced.
+- Candidate run `36501591721`: engine/build, desktop, mobile and recovery jobs passed.
+- Public run `36507918339`: source, desktop, mobile and recovery jobs all passed.
+- 105 unit/engine/lifecycle/configuration tests passed locally; typecheck, lint and production build passed.
+- 87 public-browser checks passed: 43 new-collection, 29 original launch/platform and 15 viewability/recovery checks.
+- The public SHA-256 fingerprint matched all 35 normalized modules, with zero mismatches.
+- A 7,200-second accelerated logical run completed with 1,317 launches and 2,875 bursts, bounded resources and no assertion failure.
+- Actual public desktop, portrait, small-phone and landscape captures were reviewed. All five new silhouettes are visible and distinct.
 
-Continue from the latest `fix/viewability-recovery`; do not reapply the removed host-toolbar patch or overwrite it with an older V3 snapshot. Promotion to main requires separate review.
+Unexpected application errors were absent in the nominal runs. Host-only preload warnings and two deliberately offline host requests are recorded separately. Injected graphics/interface faults belong to explicit recovery tests, not silent exceptions.
+
+The [delivery record](docs/evidence/grand-collection-delivery.md) and [results JSON](docs/evidence/grand-collection-results.json) contain exact revisions, counts, artifacts, source parity and environment limitations.
+
+## Qualification boundary
+
+Physical Android/tablet, Safari/iOS, hardware WebGPU comparison, real-time graphics/thermal endurance, OBS composition, comprehensive flash/accessibility assessment and owner visual/audio approval remain open. These are not silently marked complete by Chromium emulation or a logical soak. Future higher-fidelity assets are separate scope; the requested five-effect expansion and its live delivery are complete.

@@ -1,29 +1,31 @@
 # Agent instructions — Firecrackers
 
-## Scope and truthfulness
+## Current source and scope
 
-Work only in `samir1234khans/firecrackers` and its explicitly selected local checkout. Inspect current refs, worktree, README, PROJECT_STATUS, DEVELOPMENT, and docs/README before changing anything. Do not resume unrelated workspace migrations, move other projects, reset user changes, or force-push.
+Work only in `samir1234khans/firecrackers` and its explicitly selected checkout. Fetch current refs and inspect the worktree, README, PROJECT_STATUS, DEVELOPMENT and docs/README before editing. The current ten-effect application is on `feat/grand-collection`, extending the viewability-recovery and single-press launch work. Main remains a historical documentation baseline; do not infer it is the latest runtime or promote to it without authorization.
 
-The initial task is documentation. Do not infer that a runnable app, assets, tests, or deployment exist from this baseline. Report implemented, planned, blocked, failed, and unrun work separately. Keep completed work committed in coherent batches and leave a handover; do not promise background execution.
+The initial documentation-only phase is historical. Use the current delivery evidence to distinguish implemented, tested, failed, planned and unrun work. Keep coherent GitHub checkpoints and an accurate handover. Do not promise background execution or erase failing history.
+
+Never reset user changes, force-push, delete branches, move unrelated projects or reapply an old transcript over newer source. Inspect both GitHub and the actual applied deployment when they may differ. A deployment-ready label is not proof of tested source parity.
 
 ## Product invariants
 
-Preserve the single-screen realistic festival-night experience, glass/layered minimal UI, five named identities, deliberate placement/ignition, full lifecycle, shared wind/smoke/light, optional audio/haptics, paced shows, accessibility, resource limits, and web/PWA-first direction. Do not replace it with confetti, a prerecorded video, a dashboard, or an Android-first build.
+Preserve a single-screen festival night, restrained glass UI, all ten named identities, deliberate placement and one ready press to launch. The selected next firework must not mutate the committed rocket. Keep the body-to-shell flight transition, complete burst/residue lifecycle, shared wind/smoke/light, optional audio/haptics, paced shows and manual priority.
 
-Use the decision register's confirmed/default/deferred distinctions. Numeric parameters are proposed tuning values. Begin implementation with a complete Gold Willow vertical slice and renderer parity proof before expanding. No accounts, database, paid runtime API, telemetry provider, or private wedding information in V1.
+Keep two readable collections of five, original catalog index stability, shortcuts 1–9/0, accessible named controls, startup recovery and Canvas fallback, offline play, no autoplay sound, bounded resources and explicit updates. Ultra is the default quality preference, not a hardware performance guarantee. Reduced-flash and motion controls remain independent. Do not regress to the earlier hold-only UI, a video background, confetti demo, dashboard or native-first app.
 
 ## Engineering
 
-Keep simulation and typed-array particle state outside React. Use one fixed clock, seeded independent random streams, bounded pools/reservations, semantic events, idempotent input, and explicit cleanup. Test actual WebGPU/forced-WebGL behavior; do not assume advanced compute fallback. Preserve pause/mute/error controls if rendering fails.
+Keep simulation and typed-array state outside React, using one fixed clock, independent seeded random streams, bounded pools, child reservations, idempotent input and cleanup. Reserve unborn secondary effects before admission. A child burst begins at its carrier's actual position and must not recursively recreate a composite. Lower quality must retain recognizable effect structure.
 
-Browser audio activation, vibration, fullscreen, wake lock, installability, and storage are separate capabilities. Do not claim unsupported actions succeeded. No hidden-page catch-up bursts or audio. Accessibility reductions and hard resource caps override choreography.
+Browser audio, vibration, fullscreen, wake lock, installation and storage are separate capabilities. Report unsupported or denied actions truthfully. Preserve pause/mute/error controls when rendering fails, and avoid hidden-page catch-up effects or sound. Hard resource and comfort limits override choreography.
 
-## Validation and media
+Use the pinned Three.js/TSL path. Do not assume a legacy shader plugin works with WebGPURenderer. Test forced WebGL and Canvas separately, and never relabel software emulation as hardware WebGPU.
 
-Run documentation checks with `python scripts/validate_docs.py`. For JSON Schema validation, install the explicitly declared documentation validation requirement first, then run the same command. Runtime test commands must be added and actually run when code exists. Never fabricate screenshots, benchmarks, safety compliance, or passed device tests.
+## Validation and delivery
 
-Use original/licensed media and record provenance. Reference footage is not reusable footage by default. No secret keys, personal data, local absolute paths, paid purchases, domain changes, or code-license assignment without the necessary authorization.
+Follow DEVELOPMENT and the Grand Collection delivery record. Run relevant unit/build, Grand Collection, original launch/platform and viewability/recovery checks. Validate documentation with the declared Python requirements. Keep visual captures tied to source, seed, backend and viewport; distinguish deterministic captures, real-time input, logical soak and physical endurance.
 
-## Delivery
+Check push as well as PR workflow runs. The commit-workflow helper may filter to PR-triggered runs; an empty result does not mean no CI exists. Do not weaken a failing visibility or safety assertion simply to obtain green checks.
 
-Follow DEVELOPMENT. Update requirements/decisions/specifications together when changing a default. Preserve traceability and actual evidence. A release report includes exact source commit, deployment URL only if verified, tests passed/failed/unrun, and remaining gates.
+Use original/licensed assets and preserve notices. No secrets, personal wedding information, paid purchases, accounts, new backend, telemetry provider, domain changes or application-license assignment without authorization. Source fingerprints exclude only documented static host diagnostic metadata, not meaningful code. Final reports state exact source/deployment, passed/failed/unrun checks and remaining qualification limits.

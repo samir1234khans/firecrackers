@@ -1,26 +1,38 @@
 # Firecrackers
 
-A single-screen festival night: choose a firework, set its position, launch once and follow the fuse, flight, burst and falling embers. Five distinct effects run a seeded simulation rather than a recorded video.
+A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Current build: `2026-09-22.1` — viewability and launch recovery.**
+**Current verified preview: Grand Collection, build `2026-09-29.1`.**
 
-[Open the website](https://firecrackers-a93nle.v2.appdeploy.ai/) · [Open compatibility graphics](https://firecrackers-a93nle.v2.appdeploy.ai/?backend=canvas)
+[Open Firecrackers](https://firecrackers-a93nle.v2.appdeploy.ai/) · [Compatibility graphics](https://firecrackers-a93nle.v2.appdeploy.ai/?backend=canvas)
 
-The current repair is on `fix/viewability-recovery`, based on the newer `fix/video-launch-flow` work. Main and the older V3 branches are preserved. The latest evidence is in [viewability and launch recovery](docs/evidence/viewability-recovery.md); earlier milestones remain historical records.
+Continue development on `feat/grand-collection`, which extends `fix/viewability-recovery`. Main and historical feature branches remain preserved; an older V3 checkout is not the current runtime.
 
-## Current experience
+## Two collections, ten identities
 
-Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale share placement, immutable committed-flight state, wind, smoke and light. A single press admits one rocket. While it flies, the next family can be selected without changing the active effect. The launch action becomes available again after the primary break/rearm transition. The command deck remains visible during manual play.
+**Classics:** Gold Willow, Multicolor Peony, Chrysanthemum, Silver Crossette Crackle and Grand Finale.
 
-The primary renderer uses the existing perspective 3D scene, rocket and stage materials, trails, secondary carriers, smoke, detached embers and bloom. Ultra is still the default graphics preference; sound starts off, reduced flashes stays enabled, and explicitly saved quality/comfort choices remain respected. A 60 fps target is not a device-performance guarantee.
+**Grand collection:** Aurora Crown (jade crown and violet heart), Ruby Dahlia (ruby/rose petals and champagne center), Sapphire Saturn (blue sphere inside a tilted golden orbit), Phoenix Palm (amber branches splitting into rose leaves), and Opal Supernova (seven traveling jewels opening into a staggered bouquet).
 
-A readable initial page and React recovery screen prevent entry/interface failures from becoming a blank root. Graphics startup is bounded and falls back from the primary renderer to forced WebGL and finally clearly labelled Canvas 2D compatibility mode. The compatibility renderer is less detailed but runs the same five effects without requiring GPU context creation. Settings exposes deliberate renderer-switch and reload actions.
+The two collection buttons keep five readable style targets visible at a time. Switching collections remembers its most recent selection within the session; the selected style survives reload. New styles have their own geometry, timing, palette aging and bounded child effects rather than being five recolors of one burst.
 
-The app retains pause/resume, silent startup, opt-in sound/haptics, automatic shows, a finite finale, protected/transparent presentation output, local preferences, offline caching and explicit updates. Device-only actions give support/permission feedback. No accounts, backend, API keys, purchases or new external media were introduced.
+## Playback and recovery
 
-## Run and validate
+One ready press admits one rocket. Repeated input cannot duplicate it. The selected next family can change without mutating the committed flight; launch and position remain locked until the rearm transition. Manual controls stay visible during normal play. Auto show, Festival and the finite Finale remain available.
 
-Use the pinned Node version in `.nvmrc` and the committed dependency lock.
+The preferred renderer uses the existing perspective 3D scene, stage, paper-wrapped rocket, trails, smoke, detached embers and bloom. Ultra remains the default quality, with a 60 fps target, not an FPS guarantee. Reduced flashes stays enabled; sound and haptics start off. Explicitly saved lower quality and comfort preferences are respected.
+
+Startup and rendering failures retain readable recovery controls. The app can fall back through compatible WebGL to clearly labelled Canvas graphics. Both renderers support all ten identities. Offline caching, explicit updates, pause ownership, sound cancellation, protected display areas and transparent output remain intact.
+
+## Controls
+
+Use **Grand collection** to access styles 06–10, or **Classics** for 01–05. Keyboard keys **1–9 and 0** select the ten styles in order; **L** launches, arrows adjust placement when ready, **Space** pauses/resumes, **M** controls sound and **Escape** closes a panel or reveals presentation controls. Keyboard shortcuts do not replace normal input behavior while editing controls.
+
+The build identifier is shown in the manual deck and Settings → Graphics details. An older cached installation can use its explicit Update & restart action; updates do not silently interrupt an active flight.
+
+## Run and test
+
+Use the Node version in `.nvmrc` and the committed dependency lock.
 
 ```sh
 npm ci
@@ -33,21 +45,17 @@ npm run lint
 npm test
 npm run build
 npm run test:soak
-npm run test:e2e
+python scripts/validate_docs.py
 ```
 
-For the extra failure-injection/layout suite, serve the production build with `npm run preview` on port 4173, then run `npm run test:viewability`. Install the configured Chromium runtime with `npx playwright install chromium` when needed. Development servers bind to loopback; only publish production builds.
+For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies. Development servers bind to loopback; publish production builds only.
 
-The public verification workflow computes the 31-module release fingerprint, checks the actual hosted `/release.json`, and runs both browser suites against the public website. JSX comparison excludes only audited static host diagnostic attributes; it does not silently accept application-code differences. `index.html`, hosting wrappers and unrelated historical files are outside the fingerprint's declared module scope and are checked separately where the browser flows exercise them.
+## Verified delivery
 
-## Controls and updates
+**105 code/regression tests and 87 checks against the actual public website passed.** The live checks comprise 43 Grand Collection checks, 29 original launch/platform checks and 15 viewability/recovery checks. Both desktop and mobile-emulated WebGL/Canvas were exercised. The previously failing 320×480 layout is corrected and passes the unchanged visibility and hit-target assertions.
 
-Use the named Launch firework button or L to launch. 1–5 choose a family, arrows adjust placement when ready, Space pauses/resumes, M controls sound, and Escape closes a panel/reveals presentation controls. The launch action is deliberately disabled during a committed flight, pause or resource-capacity hold. Its status text explains the current state.
+Public verification run `36507918339` matches all **35 normalized delivered modules** to the reviewed repository. Only audited static host diagnostic labels are excluded from JSX comparison. The fingerprint is scoped; it does not claim the entire hosting wrapper is identical. The 7,200-second accelerated logical soak passed but is not a two-hour GPU endurance test.
 
-The build identifier appears on the manual deck and in Settings → Graphics details. Use Update & restart when a cached older installation offers an update; a committed flight is not automatically interrupted for it.
+See [delivery evidence](docs/evidence/grand-collection-delivery.md), [machine-readable results](docs/evidence/grand-collection-results.json), [current status](PROJECT_STATUS.md), [Grand Collection plan](docs/grand-collection/PLAN.md), [development workflow](DEVELOPMENT.md) and [documentation map](docs/README.md).
 
-## Evidence and limits
-
-See the [current delivery record](docs/evidence/viewability-recovery.md) for exact commits, deployment snapshot, CI runs, tests, screenshots, source parity and remaining qualification limits. The [original documentation map](docs/README.md), [development workflow](DEVELOPMENT.md), [agent instructions](AGENTS.md), [V3 delivery](docs/evidence/realism-v3-delivery.md) and [video-flow plan](docs/video-flow/PLAN.md) remain available in the repository.
-
-Physical Android/tablet, Safari/iOS, hardware WebGPU parity, real-time thermal/endurance, OBS and complete flash/accessibility qualification are not established by Chromium emulation. Final art/audio approval is separate from a working build. This is a software simulation, not physical firework guidance.
+Physical Android/tablet, Safari/iOS, hardware WebGPU parity, thermal/endurance, OBS and complete flash/accessibility qualification are not established by browser emulation. Final visual/audio approval remains separate. The current art and audio are original procedural work, not imported production GLBs, Blender fluid bakes or a recorded festival library. No accounts, backend, paid services or physical-firework instructions are introduced.

@@ -37,3 +37,7 @@ The Browser plugin/skill is not listed in this session. Use the repository's Pla
 ## Status of this checkpoint
 
 Baseline reads and the candidate-CI inspection are complete. A fresh public run, artifact review and the final status/evidence update are being initiated by this checkpoint, not predeclared as passed. Follow the final delivery record for outcomes.
+
+## Completion result
+
+Public run `36507918339` passed all four jobs. The same runtime passed 105 code/regression tests and 87 public-browser checks, and the 35-module fingerprint matched. Fresh desktop/mobile/short-screen imagery was reviewed. No new runtime patch or duplicate deployment was necessary because the compact correction was already applied. README, PROJECT_STATUS, agent/development guidance and the index are reconciled in the final documentation checkpoint. See the [delivery evidence](../evidence/grand-collection-delivery.md) and [results JSON](../evidence/grand-collection-results.json).

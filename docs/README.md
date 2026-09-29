@@ -2,6 +2,12 @@
 
 Baseline: 15 September 2026. Audience: Samir, designers, implementation agents, engineers, and testers.
 
+## Current application and delivery
+
+The active application is the ten-effect **Grand Collection**, build `2026-09-29.1`, on `feat/grand-collection`. Use the [current project status](../PROJECT_STATUS.md), [Grand Collection plan](grand-collection/PLAN.md), [completion checklist](grand-collection/DELIVERY_CHECKLIST.md), [verified delivery](evidence/grand-collection-delivery.md) and [machine-readable results](evidence/grand-collection-results.json) before the historical baseline below.
+
+The original five effects remain under Classics; five newer effects are under Grand collection. The current interaction is single-press launch, not the earlier hold-only prototype. Public-site verification and qualification boundaries are recorded separately from planned acceptance criteria. Older V2/V3 and recovery evidence remains historical rather than proof of a later build.
+
 ## How to read the specification
 
 **Confirmed** means explicitly requested or accepted in the planning conversation. **Proposed default** means a concrete implementation choice introduced to make the brief buildable. **Validation gate** means evidence is still required. **Deferred** means outside V1. Numbers in the effect and performance specifications are tuning targets, not measurements of a running application or instructions for real fireworks.
@@ -42,4 +48,4 @@ The full baseline also includes machine-readable specifications under `specs/`, 
 
 For the product owner: 01 → 03 → 04 → 06 → 16. For implementation: 02 → 05 → 10 → 11 → 12 → 17 → 20. For designers: 04 → 06 → 07 → 08 → 15. For release review: 14 → 17 → 18 → 21 → 22.
 
-No document is evidence that the application has already been implemented. Planned tests remain unrun until an evidence record identifies the build, environment, and results.
+A planning document alone is not implementation evidence. Planned tests remain unrun until an evidence record identifies the build, environment, and results; current executed results are linked at the top of this index.
