@@ -18,12 +18,14 @@ jobs:
         with:
           node-version-file: .nvmrc
       - run: npm ci
-      - name: Export only tracked source and exact installed dependencies
+      - name: Export current tracked source and exact dependencies for delivery review
         run: |
           mkdir -p /tmp/grand-collection
           git archive HEAD | gzip > /tmp/grand-collection/source.tar.gz
           tar -czf /tmp/grand-collection/dependencies.tar.gz node_modules
           git rev-parse HEAD > /tmp/grand-collection/SOURCE_COMMIT.txt
+          sha256sum package-lock.json > /tmp/grand-collection/LOCK_SHA256.txt
+          node --version > /tmp/grand-collection/NODE_VERSION.txt
       - uses: actions/upload-artifact@v4
         with:
           name: grand-collection-environment

@@ -6,6 +6,9 @@ on:
     paths: [.github/workflows/grand-public-verification.yml]
 permissions:
   contents: read
+concurrency:
+  group: grand-public-verification
+  cancel-in-progress: true
 jobs:
   source:
     runs-on: ubuntu-latest
@@ -43,12 +46,13 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - name: Exercise all new effects on the actual public app
+      - name: Requalify all new effects on the actual public app
         env:
           GRAND_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
           GRAND_PROJECT: ${{ matrix.project }}
         run: node tests/grand-collection-browser.mjs /tmp/grand-public
-      - name: Recheck original launch, offline and platform flows on the live build
+      - name: Recheck original launch, offline and platform flows even after a collection failure
+        if: always()
         env:
           VIDEO_FLOW_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
           VIDEO_FLOW_PROJECT: ${{ matrix.project }}
@@ -74,7 +78,7 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - name: Verify recovery and all seven layouts including hosted 320x480
+      - name: Requalify recovery and all seven layouts including hosted 320x480
         env:
           VIEWABILITY_URL: https://firecrackers-a93nle.v2.appdeploy.ai/
         run: node tests/viewability-browser.mjs /tmp/grand-public-recovery
