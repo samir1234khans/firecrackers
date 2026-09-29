@@ -1,0 +1,8 @@
+{
+  "url": "https://firecrackers-waterfront-preview.allygym-api.workers.dev/?backend=webgl&qa=1",
+  "passed": true,
+  "backend": "WebGL 2",
+  "recordedSamples": 0,
+  "particles": 0,
+  "errors": []
+}

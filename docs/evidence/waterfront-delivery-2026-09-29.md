@@ -1,6 +1,6 @@
 # Waterfront and immediate drag-to-burst delivery
 
-Build **2026-09-29.2**, delivered 2026-09-29. Release status: preview verified; production promotion follows repository validation.
+Build **2026-09-29.2**, delivered 2026-09-29. Release status: **production deployed and live verified** at https://firecrackers.mainandmany.com/.
 
 ## Product changes
 
@@ -13,6 +13,11 @@ Build **2026-09-29.2**, delivered 2026-09-29. Release status: preview verified; 
 
 ## Release identity
 
+- Production Worker version: `204d3c26-6c11-485b-9137-2b59a647ad0e`.
+- Implementation PR: https://github.com/samir1234khans/firecrackers/pull/5, merged as `957829306ae8918c0f1dcbd4a17415f56892b1a8`.
+- All runtime CI gates passed on PR head `a300a61bc045b3ea200227f0d84764392cee917a`: https://github.com/samir1234khans/firecrackers/actions/runs/36574083651.
+- Production, preview and local release fingerprints match. The old cached production client explicitly updated from build .1 to .2; no automatic flight interruption was needed.
+
 - Preview: https://firecrackers-waterfront-preview.allygym-api.workers.dev/
 - Preview Worker version: `1e634b71-7207-4e9f-9189-0d6f31fbcd5c`.
 - Source and asset SHA-256: `4bc2fee2b736c11edacd67ea5d573dac4dada9e8fcdc8613223efbff6795dc03` across 49 entries.
@@ -21,11 +26,14 @@ Build **2026-09-29.2**, delivered 2026-09-29. Release status: preview verified; 
 ## Verified evidence
 
 - 116 unit/regression tests pass; type/lint and production build pass.
-- 20 stage checks locally and 20 on the hosted preview. Seven requested viewport sizes, safe insets, actual CDP touch drag, cancellation, keyboard alternative, focus, pause ownership, rotation/committed-flight identity, silent startup/audio activation, and reflection budgets.
+- 20 stage checks locally, 20 on the hosted preview, and 20 on the actual production custom domain. Seven requested viewport sizes, safe insets, actual CDP touch drag, cancellation, keyboard alternative, focus, pause ownership, rotation/committed-flight identity, silent startup/audio activation, and reflection budgets.
 - 43 Grand Collection checks (19 desktop, 24 mobile emulation) and 28 original launch/platform checks pass with software WebGL and Canvas. Original suite includes offline reload and transparent presentation recovery.
+- Additional hosted checks pass for missing art/audio fallback, WebGL drag-to-burst and cleanup, and offline reload with all six enhanced assets and three recorded samples. Reports are in the evidence directory.
+- CI initially exposed a resize-test race: the test now awaits the measured viewport before running unchanged corridor/hit assertions. The corrected suite passes in CI and production.
 - 15 viewability/recovery checks pass, including fault injection. The removed center renderer label is now verified inside Settings.
 - Accelerated 7,200-second logical soak: 1,317 launches, 2,875 bursts; bounded pools. This is not GPU endurance.
 - JSON reports: [waterfront evidence directory](waterfront/). Blender reopen/round-trip report: [verification](../../assets-source/blender/verification.json).
+- Same-seed before/after comparisons for Willow, Saturn and Supernova are delivered in `outputs/comparisons/index.html`; settings and snapshots are recorded in [comparisons.json](waterfront/comparisons.json). These are phase-stepped visual comparisons, not performance measurements.
 - Twelve image-generation concepts reviewed separately from browser evidence. No model identifier was exposed. Three Blender 5.2.1 LTS editable masters are in `assets-source/blender/masters`. Frames 5 and 14 and a short loop of all three smoke families and flame reviewed; source volumes are procedural animation, not fluid simulations.
 
 ## Budgets and limitations
