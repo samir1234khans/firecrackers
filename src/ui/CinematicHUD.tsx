@@ -2,6 +2,9 @@ import { ChevronUp, ChevronDown, Crosshair, Flame, HelpCircle, Maximize, Minimiz
 import { FAMILIES, familyIndex } from '../engine/catalog';
 import type { FamilyId, ShowPreset } from '../engine/catalog';
 import { FireworkGlyph } from './FireworkGlyph';
+import { FireworkShelf } from './FireworkShelf';
+import type { PointerEvent } from 'react';
+import { useRef } from 'react';
 
 type Props = {
   selected: typeof FAMILIES[number]; available: boolean; phase: string; hidden: boolean;
@@ -10,9 +13,14 @@ type Props = {
   onPause: () => void; onSound: () => void; onFullscreen: () => void;
   onSettings: () => void; onShowDialog: () => void; onPicker: () => void;
   onPosition: () => void; onHelp: () => void; onSelect: (id: FamilyId) => void; onIgnite: () => void;
+  canLaunchFamily: (id: FamilyId) => boolean;
+  onDragStart?: (id: FamilyId, event: PointerEvent<HTMLButtonElement>) => void;
+  onLaunchFamily: (id: FamilyId) => void;
+  dockOpen: boolean; onToggleDock: () => void; onCloseDock?: () => void;
 };
 /** Six independent edge islands. No container captures input over the stage. */
 export function CinematicHUD(p: Props) {
+  const dockToggle = useRef<HTMLButtonElement>(null);
   const next = Boolean(p.committedFamily) && p.selected.name !== p.committedFamily;
   const state = p.paused ? 'Paused' : !p.available ? 'Loading' : p.phase === 'fuse' ? 'Fuse'
     : ['thrust', 'coast'].includes(p.phase) ? 'Flight' : p.canLight ? 'Ready' : 'Busy';
@@ -23,12 +31,13 @@ export function CinematicHUD(p: Props) {
       <div className='edge-brand'><Sparkles size={19}/><h1>Firecrackers<span>.</span></h1></div>
       <button aria-label='Choose show mode' aria-haspopup='dialog' onClick={p.onShowDialog}><span>{p.show === 'calm' ? 'Auto' : p.show ? p.show[0].toUpperCase() + p.show.slice(1) : 'Manual'}</span></button>
     </section>
-    <section {...common} data-edge='middle-left' aria-label='Selected firework'>
+    <section {...common} data-edge='middle-left' aria-label='Classic fireworks and selected firework'>
       <button aria-label='Previous firework' disabled={!p.available} onClick={() => cycle(-1)}><ChevronUp size={16}/></button>
       <button className='edge-selection' aria-label={`Choose firework: ${p.selected.name}${next ? ', next launch' : ''}`} aria-haspopup='dialog' onClick={p.onPicker}>
         <FireworkGlyph family={p.selectedId} color={p.selected.color}/><span>{p.selected.short}</span>
       </button>
       <button aria-label='Next firework' disabled={!p.available} onClick={() => cycle(1)}><ChevronDown size={16}/></button>
+      <FireworkShelf collection='classics' variant='edge' selectedId={p.selectedId} available={p.available} canLaunchFamily={p.canLaunchFamily} onSelect={p.onSelect} onDragStart={p.onDragStart} onLaunchFamily={p.onLaunchFamily}/>
       <span className='sr-only' role='status'>{next ? 'Next: ' : 'Selected: '}{p.selected.name}</span>
     </section>
     <section {...common} data-edge='bottom-left' aria-label='Placement and help'>
@@ -39,14 +48,32 @@ export function CinematicHUD(p: Props) {
       <button aria-label={p.paused ? 'Resume scene' : 'Pause scene'} onClick={p.onPause}>{p.paused ? <Play size={18}/> : <Pause size={18}/>}</button>
       <button aria-label={p.soundActive ? 'Mute sound' : 'Enable sound'} onClick={p.onSound}>{p.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
     </section>
-    <section {...common} data-edge='middle-right' aria-label='Settings and display'>
+    <section {...common} data-edge='middle-right' aria-label='Grand fireworks, settings and display'>
       <button aria-label={p.updateReady ? 'Open settings, update available' : 'Open settings'} aria-haspopup='dialog' onClick={p.onSettings}><Settings2 size={18}/>{p.updateReady && <i className='update-dot'/>}</button>
       <button className='edge-fullscreen' aria-label={p.fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} onClick={p.onFullscreen}>{p.fullscreen ? <Minimize size={18}/> : <Maximize size={18}/>}</button>
+      <FireworkShelf collection='grand' variant='edge' selectedId={p.selectedId} available={p.available} canLaunchFamily={p.canLaunchFamily} onSelect={p.onSelect} onDragStart={p.onDragStart} onLaunchFamily={p.onLaunchFamily}/>
     </section>
     <section {...common} data-edge='bottom-right' aria-label='Launch controls'>
       <button className='edge-launch flow-launch' aria-label='Launch selected firework' aria-describedby='launch-feedback' disabled={!p.canLight} onKeyDown={e => { if (e.repeat && ['Enter', ' '].includes(e.key)) e.preventDefault(); }} onClick={p.onIgnite}><Flame size={21}/><span>Launch</span></button>
       <span className='edge-state' aria-hidden='true'>{state}</span>
       <span id='launch-feedback' className='sr-only' role='status'>{state}. {p.committedFamily ? `${p.committedFamily} is committed; selection affects the next launch.` : 'One press launches one firework.'} {p.notice}</span>
     </section>
+    <div className='family-dock chrome' data-family-dock data-open={p.dockOpen} inert={p.hidden || undefined} onKeyDown={event => {
+      if (event.key === 'Escape' && p.dockOpen) {
+        event.preventDefault(); event.stopPropagation();
+        if (p.onCloseDock) p.onCloseDock(); else p.onToggleDock();
+        requestAnimationFrame(() => dockToggle.current?.focus());
+      }
+    }}>
+      <div className='family-dock-panel' id='family-dock-panel' hidden={!p.dockOpen}>
+        <div className='family-dock-heading'>Classics <span>Drag to burst</span></div>
+        <FireworkShelf collection='classics' variant='dock' selectedId={p.selectedId} available={p.available} canLaunchFamily={p.canLaunchFamily} onSelect={p.onSelect} onDragStart={p.onDragStart} onLaunchFamily={p.onLaunchFamily}/>
+        <div className='family-dock-heading'>Grand collection</div>
+        <FireworkShelf collection='grand' variant='dock' selectedId={p.selectedId} available={p.available} canLaunchFamily={p.canLaunchFamily} onSelect={p.onSelect} onDragStart={p.onDragStart} onLaunchFamily={p.onLaunchFamily}/>
+      </div>
+      <button ref={dockToggle} className='family-dock-toggle' type='button' aria-label={p.dockOpen ? 'Close fireworks dock' : 'Open fireworks dock to drag a style into the sky'} aria-controls='family-dock-panel' aria-expanded={p.dockOpen} onClick={p.onToggleDock}>
+        <FireworkGlyph family={p.selectedId} color={p.selected.color}/><span>Styles</span><ChevronUp size={13} aria-hidden='true'/>
+      </button>
+    </div>
   </>;
 }

@@ -53,7 +53,7 @@ def check_range(value: object, name: str) -> None:
 def main() -> int:
     markdown = sorted(ROOT.rglob("*.md"))
     for path in markdown:
-        if any(part in {"node_modules", ".git", "dist"} for part in path.parts):
+        if any(part in {"node_modules", ".git", "dist", "test-results", "playwright-report", ".test-build"} for part in path.parts):
             continue
         body = path.read_text(encoding="utf-8")
         body_without_fences = re.sub(r"```.*?```", "", body, flags=re.S)

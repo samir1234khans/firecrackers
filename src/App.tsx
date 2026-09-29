@@ -32,6 +32,7 @@ export default function App() {
   const host = useRef<HTMLDivElement>(null);
   const [positionDraft, setPositionDraft] = useState(.5);
   const [pickerReady, setPickerReady] = useState(false);
+  const [dockOpen, setDockOpen] = useState(false);
   const [drag, setDrag] = useState<{ id: FamilyId; x: number; y: number; valid: boolean } | null>(null);
   const dragRef = useRef(drag); dragRef.current = drag;
   const revealTap = useRef(false);
@@ -41,11 +42,11 @@ export default function App() {
   const state = world.snapshot;
   const worldRef = useRef(world);
   worldRef.current = world;
-  const context = useRef({ overlay, prefs, state });
-  context.current = { overlay, prefs, state };
+  const context = useRef({ overlay, prefs, state, dockOpen });
+  context.current = { overlay, prefs, state, dockOpen };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
   const wake = () => setHidden(false);
-  const open = (next: Overlay) => { setPickerReady(world.sim.current.ready && world.ready); setPositionDraft(world.sim.current.placement); world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
+  const open = (next: Overlay) => { setDockOpen(false); setPickerReady(world.sim.current.ready && world.ready); setPositionDraft(world.sim.current.placement); world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
   const close = () => { setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
   const finishPosition = () => { close(); world.sim.current.setPlacement(positionDraft); world.refresh(); };
   const drop = (id: FamilyId, x: number, y: number) => {
@@ -53,8 +54,8 @@ export default function App() {
     close();
     if (world.drop(id, x, y)) change('family', id);
   };
-  const startDrag = (id: FamilyId, event: React.PointerEvent<HTMLButtonElement>) => {
-    if (!pickerReady || event.button !== 0) return;
+  const startDrag = (id: FamilyId, event: React.PointerEvent<HTMLButtonElement>, fromPicker = false) => {
+    if (event.button !== 0 || !(fromPicker ? pickerReady : world.ready && !world.error && !overlay && world.sim.current.canLaunchFamily(id))) return;
     const button = event.currentTarget, startX = event.clientX, startY = event.clientY;
     button.setPointerCapture(event.pointerId);
     let moved = false;
@@ -62,15 +63,22 @@ export default function App() {
       if (e.pointerId !== event.pointerId) return;
       if (!moved && Math.hypot(e.clientX - startX, e.clientY - startY) < 9) return;
       moved = true;
-      const valid = world.dropTarget(e.clientX, e.clientY) !== null;
+      const valid = world.dropTarget(e.clientX, e.clientY) !== null && (fromPicker ? pickerReady : world.sim.current.canLaunchFamily(id));
       const value = { id, x: e.clientX, y: e.clientY, valid }; dragRef.current = value; setDrag(value);
     };
     const end = (e: PointerEvent) => {
       if (e.pointerId !== event.pointerId) return;
       button.removeEventListener('pointermove', move); button.removeEventListener('pointerup', end); button.removeEventListener('pointercancel', cancel);
       const value = dragRef.current; dragRef.current = null; setDrag(null);
-      if (moved && e.type === 'pointerup') { const suppress = (ev: MouseEvent) => { ev.preventDefault(); ev.stopImmediatePropagation(); }; button.addEventListener('click', suppress, { capture: true, once: true }); setTimeout(() => button.removeEventListener('click', suppress, true), 0); }
-      if (value?.valid && e.type === 'pointerup') drop(id, e.clientX, e.clientY);
+      if (moved && e.type === 'pointerup') { const suppress = (ev: MouseEvent) => { ev.preventDefault(); ev.stopImmediatePropagation(); }; button.addEventListener('click', suppress, { capture: true, once: true }); setTimeout(() => button.removeEventListener('click', suppress, true), 600); }
+      if (value?.valid && e.type === 'pointerup') {
+        if (fromPicker) drop(id, e.clientX, e.clientY);
+        else if (!overlay && world.ready && !world.error && world.sim.current.canLaunchFamily(id) && world.drop(id, e.clientX, e.clientY)) {
+          change('family', id);
+          setDockOpen(false);
+          setNotice('');
+        }
+      }
     };
     const cancel = (e: PointerEvent) => end(e);
     button.addEventListener('pointermove', move); button.addEventListener('pointerup', end); button.addEventListener('pointercancel', cancel);
@@ -101,7 +109,7 @@ export default function App() {
       setHidden(false);
       if (c.overlay) return;
       if (event.key === 'Escape') {
-        event.preventDefault();
+        if (c.dockOpen) { event.preventDefault(); setDockOpen(false); }
         return;
       }
       if (event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea')) return;
@@ -134,6 +142,10 @@ export default function App() {
   const toggleSound = async () => { const active = await world.configureSound(!world.soundActive); change('sound', active); };
   const resumeOrPause = () => { world.pause(!state.paused); if (!state.paused) platform.releaseWake(); wake(); };
   const ignite = () => { setNotice(''); world.ignite(); };
+  const igniteFamily = (id: FamilyId) => {
+    setNotice('');
+    if (world.igniteFamily(id)) { change('family', id); setDockOpen(false); }
+  };
   const startShow = (preset: ShowPreset) => {
     change('preset', preset);
     world.start(preset);
@@ -216,7 +228,14 @@ export default function App() {
       onHelp={() => open('help')}
       onSelect={select}
       onIgnite={ignite}
+      canLaunchFamily={id => world.ready && !world.error && !overlay && world.sim.current.canLaunchFamily(id)}
+      onDragStart={(id, event) => startDrag(id, event)}
+      onLaunchFamily={igniteFamily}
+      dockOpen={dockOpen}
+      onToggleDock={() => setDockOpen(open => !open)}
+      onCloseDock={() => setDockOpen(false)}
     />
+    {drag && overlay !== 'picker' && <div className={`burst-drop-target${drag.valid ? ' valid' : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'><Sparkles size={26}/><span>{drag.valid ? 'Release to burst' : 'Move into the sky'}</span></div>}
 
     {!world.ready && !world.error && <div className='loading-state' role='status'><span className='loading-spark'/><span>Preparing the night sky</span><small>Graphics will switch automatically when needed.</small><a href='?backend=canvas'>Open compatibility mode</a></div>}
     {world.error && <section className='recovery glass' role='alert'><h2>The sky needs a fresh start.</h2><p>{world.error}</p><div className='button-row'><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
@@ -228,7 +247,7 @@ export default function App() {
 
     {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} dragging={Boolean(drag)}>
       <p className='intro-copy'>Tap a style for your next rocket. Drag a style into the sky for an instant burst.</p>
-      <FamilyPicker selectedId={state.selected} available={world.ready} onSelect={id => { select(id); close(); }} onDragStart={startDrag}/>
+      <FamilyPicker selectedId={state.selected} available={world.ready} onSelect={id => { select(id); close(); }} onDragStart={(id, event) => startDrag(id, event, true)}/>
       <button className='secondary-button full' disabled={!pickerReady} onClick={() => { const r = world.heroRect(); drop(state.selected, r.x + r.width / 2, r.y + r.height * .38); }}>Burst selected style in center</button>
       {!pickerReady && <p className='fine-print'>Resume the scene and let the current rocket finish to drag a new burst.</p>}
       {drag && <div className={`burst-drop-target${drag.valid ? ' valid' : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'><Sparkles size={26}/><span>{drag.valid ? 'Release to burst' : 'Move into the sky'}</span></div>}
@@ -243,7 +262,7 @@ export default function App() {
 
     {overlay === 'help' && <Dialog variant='help' title='A little spark. A whole night sky.' onClose={close}>
       <p className='intro-copy'>Take a moment out of the everyday. This night is yours to light.</p>
-      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Ten distinct designs across Classics and the Grand collection.</small></span></div><div><Hand/><span><strong>Find its place</strong><small>Use Position for a rocket flight, or drag a style from the drawer into the sky for an instant burst.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>One press lights the fuse. Let the rocket rise and the embers fall.</small></span></div></div>
+      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Classics sit on the left and Grand styles on the right. On a phone, open the small dock at the bottom.</small></span></div><div><Hand/><span><strong>Drag into the sky</strong><small>Drag any style from a side list or the phone dock into the sky for an instant burst. Use Position for a rocket flight.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>Hover or focus a style for its nearby Launch action, or use the main Launch button. One press lights one fuse.</small></span></div></div>
       <Toggle label='Reduced flashes' detail='Softer light, with the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
       <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
       <p className='fine-print'>Flashing visual effects. Sound starts off. Pause is always within reach. This is a digital simulation only.</p>
@@ -295,7 +314,7 @@ export default function App() {
         <div className='button-row'><button className='secondary-button' onClick={() => void platform.installApp()}><Download size={16}/>{platform.installable ? 'Install app' : 'Installation help'}</button><button className='secondary-button' onClick={() => void platform.toggleFullscreen()}><Maximize size={16}/>Fullscreen</button></div>
         {platform.updateReady && <button className='secondary-button full' disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>Update app and restart</button>}
       </div>
-      <details className='diagnostics'><summary>Graphics details</summary><dl><div><dt>Renderer</dt><dd>{world.backend} · Realism V3 / UI V3</dd></div><div><dt>Build</dt><dd>{CONFIG_VERSION}</dd></div><div><dt>Render pixels</dt><dd>{world.metrics.renderPixels.toLocaleString()}</dd></div><div><dt>Active quality</dt><dd>{state.quality}</dd></div><div><dt>Visible particles</dt><dd>{state.particles.toLocaleString()}</dd></div><div><dt>Smoke layers</dt><dd>{state.smoke} / 96</dd></div><div><dt>Launched / bursts</dt><dd>{state.launched} / {state.bursts}</dd></div></dl></details>
+      <details className='diagnostics'><summary>Graphics details</summary><dl><div><dt>Renderer</dt><dd>{world.backend} · Realism V3 / UI V4</dd></div><div><dt>Build</dt><dd>{CONFIG_VERSION}</dd></div><div><dt>Render pixels</dt><dd>{world.metrics.renderPixels.toLocaleString()}</dd></div><div><dt>Active quality</dt><dd>{state.quality}</dd></div><div><dt>Visible particles</dt><dd>{state.particles.toLocaleString()}</dd></div><div><dt>Smoke layers</dt><dd>{state.smoke} / 96</dd></div><div><dt>Launched / bursts</dt><dd>{state.launched} / {state.bursts}</dd></div></dl></details>
       <button className='text-button full' onClick={() => setOverlay('help')}>Help and keyboard controls</button>
       <p className='fine-print'>No accounts, tracking or remote media. Preferences stay in this browser. Your hosting provider may retain access logs. Offline storage can be cleared by your browser.</p>
       <div className='button-row'><button className='text-button' onClick={() => setOverlay('help')}>Replay introduction</button><button className='text-button' onClick={() => setOverlay('reset')}><RotateCcw size={14}/>Reset this sky</button></div>

@@ -112,13 +112,18 @@ export class Simulation {
     get activeUnits() { return this.rockets.reduce((n, r) => n + (r.stage === 'afterglow' ? 0 : r.cost), 0); }
     get committed() { return this.rockets.find(r => r.stage !== 'afterglow'); }
     get rearming() { return this.rockets.some(r => r.stage === 'afterglow' && r.age < REARM_SECONDS); }
-    get launchBlock() {
+    private launchBlockFor(family: number) {
         if (this.paused) return 'paused';
         if (this.committed || this.rearming || !this.prepared) return 'busy';
-        if (!this.canReserve(familyIndex(this.selected))) return 'capacity';
+        if (!this.canReserve(family)) return 'capacity';
         return '';
     }
+    get launchBlock() { return this.launchBlockFor(familyIndex(this.selected)); }
     get ready() { return this.launchBlock === ''; }
+    canLaunchFamily(id: FamilyId) {
+        const family = FAMILIES.findIndex(entry => entry.id === id);
+        return family >= 0 && this.launchBlockFor(family) === '';
+    }
     private reserveFor(family: number) {
         return familyReservation(family);
     }
@@ -164,7 +169,6 @@ export class Simulation {
         return n;
     }
     ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement = this.placement) {
-        if (source === 'manual') this.stopShow(false);
         if (this.paused) return false;
         if (source === 'manual' && (!this.prepared || this.committed || this.rearming)) return false;
         const f = FAMILIES[family];
@@ -174,6 +178,7 @@ export class Simulation {
             this.message = 'Let this burst finish, then light another.';
             return false;
         }
+        if (source === 'manual') this.stopShow(false);
         const rand = this.launchRng;
         const x = this.placementToX(placement), top = 72 + rand() * 6;
         // Solve a powered rise followed by a coast that reaches the apex at zero vertical speed.
@@ -197,9 +202,16 @@ export class Simulation {
         this.cancelHold();
         return true;
     }
+    /** Launch one explicit family through the normal fuse and flight, committing selection only on admission. */
+    igniteFamily(id: FamilyId) {
+        const family = FAMILIES.findIndex(entry => entry.id === id);
+        if (family < 0 || !this.ignite('manual', family)) return false;
+        this.selected = id;
+        return true;
+    }
     /** Explicit drawer drop: same admission/reservation and seeded recipe as a rocket. */
     burstAt(id: FamilyId, x: number, y: number) {
-        if (!Number.isFinite(x) || !Number.isFinite(y) || !this.ready) return false;
+        if (!Number.isFinite(x) || !Number.isFinite(y) || !this.canLaunchFamily(id)) return false;
         const family = familyIndex(id);
         if (!this.ignite('manual', family)) return false;
         const rocket = this.committed!;

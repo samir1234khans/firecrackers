@@ -20,10 +20,21 @@ export function measureStage(host: HTMLElement, interactive = true): StageLayout
   // Symmetry keeps the viewing direction stable even when one side has longer labels.
   const inset = Math.max(left, box.width - right);
   const heroRect = { x: inset, y: safe.top, width: Math.max(1, box.width - inset * 2), height: Math.max(1, box.height - safe.top - safe.bottom) };
+  // The phone dock is intentionally below the hero. When opened on a short phone,
+  // reserve its actual bounds so a release on a dock control cannot count as sky.
+  const dock = interactive ? parent.querySelector<HTMLElement>('[data-family-dock]') : null;
+  const dockBox = dock?.getBoundingClientRect();
+  if (dockBox && dockBox.width && dockBox.height) controls.dock = {
+    x: dockBox.left - box.left, y: dockBox.top - box.top, width: dockBox.width, height: dockBox.height,
+  };
+  const canopyY = heroRect.y + heroRect.height * .08;
+  const canopyHeight = dock?.dataset.open === 'true' && dockBox
+    ? Math.max(1, Math.min(heroRect.height * .64, dockBox.top - box.top - canopyY - 8))
+    : heroRect.height * .64;
   const layout = { viewport: { x: box.left, y: box.top, width: box.width, height: box.height }, safe, controls, heroRect,
     panelOpen: parent.dataset.overlay !== 'none',
     launchArea: { ...heroRect, y: heroRect.y + heroRect.height * .82, height: heroRect.height * .14 },
-    burstCanopy: { ...heroRect, y: heroRect.y + heroRect.height * .08, height: heroRect.height * .64 },
+    burstCanopy: { ...heroRect, y: canopyY, height: canopyHeight },
     reflectionBand: { ...heroRect, y: heroRect.y + heroRect.height * .75, height: heroRect.height * .25 } };
   parent.dataset.heroRect = JSON.stringify(heroRect);
   return layout;
