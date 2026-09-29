@@ -2,7 +2,7 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Live Cloudflare production: cinematic waterfront, build `2026-09-29.6`.** See [the production release receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
+**Live Cloudflare production: hardware WebGPU repair, build `2026-09-30.1`.** See [the production release receipt](docs/evidence/webgpu-production-release-2026-09-30.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
 
 The [30 September branch reconciliation and republish](docs/evidence/branch-reconciliation-2026-09-30.md) confirms that all current feature/fix branches are already incorporated in main and records the current Cloudflare Worker version.
 
@@ -78,4 +78,4 @@ See [delivery evidence](docs/evidence/grand-collection-delivery.md), [machine-re
 
 Physical Android/tablet, Safari/iOS, hardware WebGPU parity, thermal/endurance, OBS and complete flash/accessibility qualification are not established by browser emulation. Final visual/audio approval remains separate. The waterfront upgrade adds original Blender GLBs and animated procedural-volume atlases plus verified CC0 recordings. The source volumes are not fluid simulations. No accounts, backend, paid services or physical-firework instructions are introduced.
 
-The `2026-09-30.1` WebGPU repair candidate and next Three.js/TSL/Blender work are documented in [hardware diagnosis and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).
+The `2026-09-30.1` WebGPU repair and next Three.js/TSL/Blender work are documented in [hardware diagnosis and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).
