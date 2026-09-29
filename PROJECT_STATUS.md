@@ -73,3 +73,7 @@ The [delivery record](docs/evidence/grand-collection-delivery.md) and [results J
 ## Qualification boundary
 
 Physical Android/tablet, Safari/iOS, hardware WebGPU comparison, real-time graphics/thermal endurance, OBS composition, comprehensive flash/accessibility assessment and owner visual/audio approval remain open. These are not silently marked complete by Chromium emulation, a logical soak or promotion to main. Future higher-fidelity assets are separate scope; the requested five-effect expansion and its live delivery are complete.
+
+## WebGPU repair candidate — 30 September
+
+Build `2026-09-30.1` fixes two reproduced WebGPU startup defects. Local hardware Chrome and compatibility checks pass; promotion is pending. See [evidence and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).

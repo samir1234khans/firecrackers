@@ -20,16 +20,22 @@ class Batch {
     readonly geometry = new THREE.InstancedBufferGeometry();
     readonly material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, depthTest: true, side: THREE.DoubleSide });
     readonly mesh: THREE.Mesh;
-    readonly attrs: Record<string, THREE.InstancedBufferAttribute> = {};
+    readonly attrs: Record<string, THREE.InterleavedBufferAttribute> = {};
+    private readonly instances: THREE.InstancedInterleavedBuffer;
     count = 0;
     constructor(capacity: number, layout: Record<string, number>, order: number, additive: boolean) {
         this.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array([-.5, -.5, 0, .5, -.5, 0, .5, .5, 0, -.5, .5, 0]), 3));
         this.geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]), 2));
         this.geometry.setIndex([0, 1, 2, 0, 2, 3]);
         this.geometry.setAttribute('normal', new THREE.BufferAttribute(new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1]), 3));
+        // One instance stream stays within WebGPU's default eight vertex-buffer slots.
+        const stride = Object.values(layout).reduce((sum, size) => sum + size, 0);
+        this.instances = new THREE.InstancedInterleavedBuffer(new Float32Array(capacity * stride), stride);
+        this.instances.setUsage(THREE.DynamicDrawUsage);
+        let offset = 0;
         for (const [name, size] of Object.entries(layout)) {
-            const a = new THREE.InstancedBufferAttribute(new Float32Array(capacity * size), size);
-            a.setUsage(THREE.DynamicDrawUsage);
+            const a = new THREE.InterleavedBufferAttribute(this.instances, size, offset);
+            offset += size;
             this.attrs[name] = a;
             this.geometry.setAttribute(name, a);
         }
@@ -43,12 +49,10 @@ class Batch {
     }
     upload() {
         this.geometry.instanceCount = this.count;
-        for (const a of Object.values(this.attrs)) {
-            a.clearUpdateRanges();
-            if (this.count) {
-                a.addUpdateRange(0, this.count * a.itemSize);
-                a.needsUpdate = true;
-            }
+        this.instances.clearUpdateRanges();
+        if (this.count) {
+            this.instances.addUpdateRange(0, this.count * this.instances.stride);
+            this.instances.needsUpdate = true;
         }
     }
     dispose() { this.geometry.dispose(); this.material.dispose(); }

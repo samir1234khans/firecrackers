@@ -59,3 +59,5 @@ A planning document alone is not implementation evidence. Planned tests remain u
 ## Waterfront upgrade
 
 The deployed `.3` build retains the open central stage and drag-to-burst, and refines the waterfront. See [its release receipt](evidence/realism-production-release-2026-09-29.md), [editable asset provenance](../assets-source/PROVENANCE.md), [concept review](../assets-source/DESIGN.md), and [three image studies with twelve browser comparisons](evidence/realism-refinement-2026-09-29.md). Earlier deck and hold-to-ignite documents describe historical decisions superseded by the approved implementation.
+
+[WebGPU startup repair, hardware evidence and graphics roadmap](evidence/webgpu-startup-2026-09-30.md) records the new `2026-09-30.1` candidate and supersedes the earlier uncertainty about the owner's WebGPU startup failure.

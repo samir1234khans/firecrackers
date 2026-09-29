@@ -55,7 +55,7 @@ export class FireworkRenderer {
     private lossHandler: (event: Event) => void;
     backend = 'Starting';
     constructor(private host: HTMLDivElement, private sim: Simulation, private onFailure: (message: string) => void, forceWebGL = false) {
-        this.renderer = new THREE.WebGPURenderer({ antialias: false, alpha: true, forceWebGL });
+        this.renderer = new THREE.WebGPURenderer({ antialias: false, alpha: true, forceWebGL, powerPreference: 'high-performance' });
         this.renderer.setClearColor(0x020409, 1);
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = .95;
@@ -140,7 +140,10 @@ export class FireworkRenderer {
             this.assetFrame = 0;
             if (this.disposed || !this.pendingAssetCount) return;
             try { this.render(); }
-            catch { this.onFailure('An authored graphic could not be activated. Retry the scene.'); }
+            catch (error) {
+                console.error('Graphics render failed after asset activation', error);
+                this.onFailure('Graphics failed while activating the scene. Try WebGL graphics or retry.');
+            }
         });
     }
     resize() {
@@ -217,7 +220,15 @@ export class FireworkRenderer {
                         const atlas = asset as ImageData;
                         this.smokeAtlas.image = { data: new Uint8Array(atlas.data), width: atlas.width, height: atlas.height };
                         this.smokeAtlas.needsUpdate = true;
-                    } else if (name === 'paper') { this.paper.image = asset as HTMLImageElement; this.paper.needsUpdate = true; }
+                    } else if (name === 'paper') {
+                        // GPU textures have immutable dimensions. Keep the existing canvas
+                        // allocation when replacing the larger procedural paper with authored art.
+                        const canvas = this.paper.image as HTMLCanvasElement;
+                        const context = canvas.getContext('2d');
+                        if (!context) throw new Error('Paper canvas context was unavailable');
+                        context.drawImage(asset as HTMLImageElement, 0, 0, canvas.width, canvas.height);
+                        this.paper.needsUpdate = true;
+                    }
                     else if (name === 'flame') for (const prop of this.props) prop.setFlameTexture(asset as THREE.Texture);
                     else if (name === 'normal') this.water.setNormal(asset as THREE.Texture);
                     else if (name === 'rocket') for (const prop of this.props) prop.setAuthoredGeometry(asset as THREE.Group);
