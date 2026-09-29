@@ -1,27 +1,47 @@
 # Project status
 
-Baseline date: 15 September 2026.
+Updated: 29 September 2026. Build: `2026-09-29.1`.
 
-## Current stage
+## Current integration baseline
 
-**Pre-implementation documentation authored. Final structural validation is pending in this baseline commit.**
+**Main is the canonical application baseline for the owner-authorized Grand Collection promotion.** Start new work from main rather than resuming an older five-effect recovery or V3 branch. The promotion pull request and post-merge workflow results record its exact merge and verification status; see [the promotion audit](docs/evidence/main-promotion.md).
 
-The repository contains the product brief, 30 testable V1 requirements, decision register, five-family effect specifications, interaction journeys, art/realism guide, design/motion tokens, audio/haptics, show director, rendering/simulation architecture, performance/compatibility targets, PWA lifecycle, accessibility/privacy, asset rights plan, implementation roadmap, release tests, deployment runbook, primary-source research, implementation handover, risk register, and traceability.
+The incoming delivery is `feat/grand-collection` at `7b448ee730ba1170149e0a5d7d1e3895862a6ad1`. It already incorporates every current head of the approved V3, ignition, video-flow and viewability-recovery development lines. The separate historical `feat/fireworks-v1-implementation` remains preserved without replacing the tested application. No branch deletion or force push is part of the promotion.
 
-Machine-readable starting points include the five-firework catalog and JSON Schema, quality budgets, show presets, and an empty asset-manifest template. They are proposed configuration, not tuned runtime evidence.
+Live site: https://firecrackers-a93nle.v2.appdeploy.ai/
 
-## Not implemented or verified
+Runtime checkpoint: `9f081db8cf3ca626febb9161ba74c907f9852e65`. Public verification checkpoint: `5b09b195f1f12c54566b3b7ad4339f7261a7f9d7`. Applied hosting snapshot: `1790640515766`. The final delivery and promotion documentation/CI changes do not retune those runtime modules. Promoting the already-published runtime does not require another deployment.
 
-No runnable React/Vite application, simulation renderer, finished visuals/audio, installed PWA, live URL, hosting project, device benchmark, browser regression suite, flash-risk certification, or approved final media pack. No public code license has been selected. No application release is production-ready.
+## Delivered
 
-## Next concrete milestone
+The original five Classics plus Aurora Crown, Ruby Dahlia, Sapphire Saturn, Phoenix Palm and Opal Supernova are implemented in both 3D and Canvas compatibility graphics. The new collection has authored shapes, distinct palettes and color aging, spatial branching, traveling secondary carriers, conservative child reservations and natural cleanup. Grand Collection/Classics navigation, ten keyboard shortcuts, per-collection session memory and persisted selected styles are integrated.
 
-M0/M1: inspect latest refs, create the authorized task branch, establish a reproducible toolchain, and build one full Gold Willow vertical slice. Prove actual WebGPU/WebGL 2 behavior, interaction/accessibility, bounded trails/smoke/light, sound activation, and pause/recovery before expanding.
+The repaired single-press launch, immutable active flight, duplicate prevention, manual takeover, pause/settings ownership, startup recovery, offline caching, protected/transparent output and readable manual deck remain intact. Ultra, the 60 fps target, sound-off startup and reduced-flash default are unchanged.
 
-## Non-blocking owner choices
+## Delivery issues closed
 
-Final brand/icon, domain/hosting target, professional audio budget, public code license/commercial posture, eventual transparent wedding-stream integration, and secondary language. Use the defaults in the decision register until the relevant release milestone.
+The earlier public build failed at 320×480 because compact CSS was overridden by import order, leaving only about 13 pixels of clear sky. The final selectors now leave about 77 pixels in the Grand layout and 68 pixels with the longer recovery message. Launch is hit-testable and 46 pixels tall. The test thresholds were not weakened.
 
-## Evidence policy
+The final public delivery run passed desktop and mobile, original workflows and recovery. The workflow attempts original-flow tests even if a collection test fails, avoiding an incomplete regression report. The source/dependency bundle, completion checklist and evidence are checkpointed in GitHub.
 
-Document-structure validation results will be recorded after running the supplied validator. Application tests remain unrun until a real build/environment record exists. Git commit identifiers are obtained from repository history rather than guessed or treated as static forever.
+An earlier status answer overlooked push-triggered CI and relied on an outdated root status document. Live source inspection and all-event workflow results supersede that answer. The ten-effect version and compact fix were already deployed when the completion pass began, so no duplicate deployment was needed.
+
+## Completed delivery validation
+
+- Candidate run `36501591721`: engine/build, desktop, mobile and recovery jobs passed.
+- Public run `36507918339`: source, desktop, mobile and recovery jobs all passed.
+- 105 unit/engine/lifecycle/configuration tests passed; typecheck, lint and production build passed.
+- 87 public-browser checks passed: 43 new-collection, 29 original launch/platform and 15 viewability/recovery checks.
+- The public SHA-256 fingerprint matched all 35 normalized modules, with zero mismatches.
+- A 7,200-second accelerated logical run completed with 1,317 launches and 2,875 bursts, bounded resources and no assertion failure.
+- Actual public desktop, portrait, small-phone and landscape captures were reviewed. All five new silhouettes are visible and distinct.
+
+These are the recorded delivery results. The new promotion checks must be read separately, not assumed to have passed from these historical results. Runtime validation now calls the full Grand Collection workflow for main changes and pull requests into main; the promotion workflow independently verifies ancestry and live source parity.
+
+Unexpected application errors were absent in nominal delivery runs. Host-only preload warnings and two deliberately offline host requests are recorded separately. Injected graphics/interface faults belong to explicit recovery tests, not silent exceptions.
+
+The [delivery record](docs/evidence/grand-collection-delivery.md) and [results JSON](docs/evidence/grand-collection-results.json) contain exact revisions, counts, artifacts, source parity and environment limitations.
+
+## Qualification boundary
+
+Physical Android/tablet, Safari/iOS, hardware WebGPU comparison, real-time graphics/thermal endurance, OBS composition, comprehensive flash/accessibility assessment and owner visual/audio approval remain open. These are not silently marked complete by Chromium emulation, a logical soak or promotion to main. Future higher-fidelity assets are separate scope; the requested five-effect expansion and its live delivery are complete.

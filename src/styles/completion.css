@@ -1,0 +1,141 @@
+/* UI3-E: a single material language from the command deck to every modal. */
+.hud-brand h1 { margin: 0; font: 500 23px/1 Georgia, 'Times New Roman', serif; letter-spacing: -.45px; }
+.hud-mode-rail button, .hud-utilities button, .hud-placement button, .hud-light-once { min-height: 44px; min-width: 44px; }
+.hud-inspector { width: 250px; padding: 16px 20px 21px; }
+.hud-inspector-preview { height: 104px; display: grid; place-items: center; margin: -6px -10px 14px; border-bottom: 1px solid #d2bd8d12; background: radial-gradient(ellipse, #dcb37309, transparent 68%); }
+.hud-inspector-preview .firework-glyph { width: 105px; height: 105px; }
+.hud-inspector h2 { font-size: 27px; }
+.hud-inspector-copy { margin: 15px 0 17px; line-height: 1.65; }
+.hud-character { display: flex; flex-wrap: wrap; gap: 8px 13px; font-size: 10px; line-height: 1.5; color: #dac7a5; }
+.hud-character span + span::before { content: '·'; margin-right: 10px; color: #737d8a; }
+.hud-family-art .firework-glyph { width: 58px; height: 64px; filter: drop-shadow(0 2px 8px #e9b46d0a); }
+.hud-family { grid-template-columns: 58px minmax(0,1fr); gap: 10px; }
+.hud-family-art { width: 58px; }
+.hud-family-copy strong { font-size: 13px; }
+.hud-ignite-shell { margin-top: 0; height: 104px; }
+.hud-action-row { margin-top: 0; }
+.hud-deck { padding-bottom: 8px; }
+.hud-ignite { width: 108px; height: 108px; touch-action: none; }
+.hud-ignite:active:not(:disabled) { transform: scale(.98); }
+.hud-ignite-core small { max-width: 84px; line-height: 1.3; font-size: 7px; letter-spacing: .1em; }
+.hud-ignite:disabled .hud-ignite-core strong { opacity: .75; }
+.hud-status { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); max-width: 90%; margin: 0; }
+.hud-deck-wrap { width: min(1000px, calc(100% - 44px)); }
+.hud-command { grid-template-columns: minmax(160px, 1fr) auto minmax(210px, 1fr); }
+.hud-command[aria-hidden='true'] { visibility: hidden; }
+.controls-hidden .chrome[inert] { pointer-events: none; }
+.reduced-motion .hud-deck-wrap { transform: translateX(-50%) !important; }
+.reduced-motion .hud-family.selected { transform: none !important; }
+.reveal-controls { z-index: 45; }
+.recovery, .paused-card { z-index: 40; }
+
+.sheet { --panel-gutter: 28px; width: min(540px, calc(100% - 28px)); padding: 0; border-radius: 26px; color: #f5f3ee; background: #0a111bf9; border: 1px solid #c4a77b4a; box-shadow: 0 36px 130px #000a, inset 0 1px 0 #ffdeb412; max-height: calc(100dvh - 36px); }
+.sheet::backdrop { background: #02050bc9; backdrop-filter: blur(9px); }
+.sheet-heading { position: sticky; top: 0; z-index: 4; margin: 0; padding: 23px var(--panel-gutter) 19px; background: linear-gradient(125deg,#1b1d20,#0c1420 70%); border-bottom: 1px solid #edd1a120; align-items: center; }
+.sheet-heading h2 { margin: 0; color: #f3e8d6; font: 400 29px/1.15 Georgia,serif; letter-spacing: -.55px; max-width: 360px; }
+.sheet-heading .icon-button { width: 44px; height: 44px; margin: -3px -8px -3px 6px; border: 1px solid #d6dfed16; background: #090e1680; border-radius: 50%; }
+.sheet-content { padding: 6px var(--panel-gutter) 25px; }
+.sheet .primary-button { min-height: 48px; border: 1px solid #ffe2ad72; color: #22180b; background: linear-gradient(135deg,#f5d49b,#dba65d); box-shadow: inset 0 1px 0 #fff5, 0 5px 18px #0003; }
+.sheet .primary-button:hover { background: #f5d49b; }
+.sheet .secondary-button { min-height: 46px; border-color: #ceb18330; background: #ffffff03; }
+.sheet .text-button { min-height: 44px; color: #c8cbd2; }
+.sheet .intro-copy { font-size: 14px; line-height: 1.65; margin-top: 18px; color: #b8c2d2; }
+.help-steps { counter-reset: steps; gap: 0; margin: 20px 0; }
+.help-steps > div { padding: 16px 0; border-bottom: 1px solid #ffffff0c; gap: 18px; }
+.help-steps > div:last-child { border-bottom: 0; }
+.help-steps svg { width: 26px; height: 26px; color: #e7bb78; }
+.help-steps strong { font: 500 16px/1.35 Georgia,serif; color: #eee5d9; }
+.help-steps small { font-size: 12px; color: #aeb8c7; }
+.panel-nav { position: sticky; top: 87px; z-index: 3; display: flex; gap: 3px; padding: 8px 0; margin: -6px 0 12px; background: #0b131ffd; border-bottom: 1px solid #d6b17722; }
+.panel-nav button { flex: 1; min-height: 44px; border-radius: 10px; background: transparent; color: #aebacb; font: 500 12px/1 system-ui,sans-serif; }
+.panel-nav button[aria-current] { background: #e7b77516; color: #f2d09b; box-shadow: inset 0 -1px #ecc1806b; }
+.settings-group { scroll-margin-top: 155px; padding: 17px 0; }
+.settings-group h3 { color: #ddbf92; font-size: 10px; letter-spacing: .14em; margin-bottom: 10px; }
+.setting-label { font-size: 13px; color: #e5e7ec; }
+.setting-row { gap: 16px; min-height: 62px; }
+.setting-row small { color: #9caabf; font-size: 11px; line-height: 1.65; max-width: 285px; }
+.sheet select { max-width: 185px; min-height: 44px; background: #141f2e; border-color: #bfcbd525; padding-inline: 10px; }
+.sheet .switch { height: 28px; width: 46px; background: #344051; }
+.sheet .switch::before { width: 22px; height: 22px; }
+.sheet .switch:checked { background: #c49a61; }
+.sheet .switch:checked::before { transform: translateX(18px); }
+.preset { padding: 19px; border-color: #becce321; background: #ffffff02; }
+.preset.chosen { border-color: #e7b77591; background: linear-gradient(130deg,#dca76514,#ffffff01); }
+.preset strong { font: 400 21px/1.2 Georgia,serif; }
+.preset small { font-size: 12px; margin-top: 7px; }
+.preset svg { width: 28px; height: 28px; }
+.sheet .fine-print { color: #a0aec1; }
+.sheet--help .sheet-heading { padding-block: 25px; }
+.sheet--help .sheet-heading h2 { max-width: 330px; font-size: 32px; }
+@media (max-width: 1000px) {
+  .hud-family { grid-template-columns: 48px minmax(0,1fr); gap: 6px; }
+  .hud-family-art { width: 48px; }
+  .hud-family-art .firework-glyph { width: 49px; height: 55px; }
+  .hud-inspector { display: none; }
+}
+@media (max-width: 880px) {
+  .hud-command { grid-template-columns: 1fr auto; }
+  .hud-family { grid-template-columns: 1fr; gap: 0; }
+  .hud-family-art { width: 100%; }
+  .hud-family-copy strong { font-size: 10px; }
+  .hud-ignite-shell { height: 88px; margin-top: 0; }
+  .hud-ignite { width: 88px; height: 88px; }
+}
+@media (max-width: 620px) {
+  .hud-command { left: 12px; right: 12px; }
+  .hud-brand h1 { font-size: 19px; }
+  .hud-brand-mark { width: 30px; height: 30px; }
+  .hud-brand { gap: 7px; }
+  .hud-utilities button { width: 44px; min-width: 44px; }
+  .hud-utilities button[aria-label*='fullscreen'] { display: none; }
+  .hud-mode-rail button { min-height: 44px; font-size: 11px; }
+  .hud-deck-wrap { width: calc(100% - 20px); }
+  .hud-family { min-height: 78px; }
+  .hud-family-art .firework-glyph { width: 46px; height: 46px; }
+  .hud-family-art { height: 46px; }
+  .hud-family-copy strong { font-size: 10px; }
+  .hud-action-row { grid-template-columns: 1fr 90px 1fr; gap: 6px; }
+  .hud-placement { display: grid; grid-template-columns: repeat(3,44px); gap: 0; }
+  .hud-placement input { grid-column: 1 / -1; grid-row: 2; width: 100%; height: 18px; margin: 0; }
+  .hud-placement button { width: 44px; min-width: 44px; height: 44px; }
+  .hud-quick-action { justify-content: end; }
+  .hud-light-once { width: auto; min-width: 44px; padding-inline: 7px; min-height: 44px; }
+  .hud-light-once span { display: inline; font-size: 10px; }
+  .hud-ignite-shell { height: 91px; }
+  .hud-ignite { width: 86px; height: 86px; }
+  .hud-ignite-core strong { font-size: 10px; }
+  .hud-ignite-core small { font-size: 6px; max-width: 64px; }
+  .sheet { --panel-gutter: 20px; border-radius: 23px; width: calc(100% - 20px); max-height: calc(100dvh - 20px); }
+  .sheet-heading { padding-block: 19px; }
+  .sheet-heading h2 { font-size: 26px; }
+  .sheet--help .sheet-heading h2 { font-size: 28px; }
+  .panel-nav { top: 101px; }
+  .sheet select { max-width: 155px; font-size: 11px; }
+}
+@media (max-width: 380px) {
+  .hud-brand h1 { font-size: 17px; }
+  .hud-light-once svg { display: none; }
+  .hud-action-row { grid-template-columns: 1fr 86px .72fr; }
+}
+@media (max-height: 480px) and (min-width: 621px) {
+  .hud-command { grid-template-columns: 145px auto auto; grid-template-areas: 'brand modes utility'; }
+  .hud-brand h1 { font-size: 17px; }
+  .hud-utilities button { min-height: 38px; }
+  .hud-mode-rail button { min-height: 38px; }
+  .hud-deck-wrap { width: calc(100% - 28px); }
+  .hud-deck { display: grid; grid-template-columns: 1fr 305px; align-items: center; gap: 10px; padding: 7px 8px; }
+  .hud-family { grid-template-columns: 1fr; min-height: 67px; padding: 1px 2px; text-align: center; }
+  .hud-family-art { width: 100%; height: 38px; }
+  .hud-family-art .firework-glyph { width: 38px; height: 38px; }
+  .hud-family-copy strong { font-size: 9px; }
+  .hud-action-row { grid-template-columns: 132px 80px 74px; gap: 6px; }
+  .hud-placement { display: grid; grid-template-columns: repeat(3,44px); }
+  .hud-placement button { width: 44px; min-width: 44px; height: 44px; min-height: 44px; }
+  .hud-placement input { grid-column: 1/-1; grid-row: 2; width: 100%; height: 16px; }
+  .hud-control-label { display: none; }
+  .hud-ignite-shell { height: 74px; margin: 0; }
+  .hud-ignite { width: 74px; height: 74px; }
+  .hud-light-once { min-width: 64px; font-size: 10px; padding: 0 4px; }
+  .hud-light-once svg { display: none; }
+  .sheet { max-height: calc(100dvh - 16px); }
+}

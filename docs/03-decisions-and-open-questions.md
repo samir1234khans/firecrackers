@@ -65,3 +65,8 @@ Baseline date: 15 September 2026. Source for confirmed items: the owner's planni
 | Secondary UI language? | English strings externalized for later localization | Only if localization enters launch scope |
 
 The implementation should not stall on these choices. Use the stated defaults, record consequences, and keep irreversible external account/domain/license changes separate from normal engineering.
+
+
+## Video-flow repair amendment — 21 September 2026
+
+For build `2026-09-21.2`, the manual primary action is a single press, not a hold gesture. A committed rocket owns the platform through fuse and ascent; a short rearm follows the primary break. Next-family selection is allowed without mutating the current flight. Controls remain visible in interactive mode. Resource admission includes future particle reservations but no fictitious launch occupancy from afterglow-only records. See [the video-flow plan](video-flow/PLAN.md) and [validation contract](video-flow/VALIDATION.md) for acceptance and test scope.

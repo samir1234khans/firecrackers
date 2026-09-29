@@ -1,0 +1,110 @@
+name: Grand collection validation
+on:
+  workflow_call:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: grand-collection-validation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - run: npm run typecheck && npm run lint && npm test && npm run build
+      - run: npm run test:soak
+      - name: Documentation structure
+        run: |
+          python3 -m pip install -r scripts/requirements-docs.txt
+          python3 scripts/validate_docs.py
+      - run: npm audit --audit-level=high
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+          retention-days: 7
+  browser:
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop, mobile]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - name: Serve exact production build
+        run: |
+          npm run preview -- --port 4173 > /tmp/grand-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Grand collection, 3D and compatibility graphics
+        env:
+          GRAND_PROJECT: ${{ matrix.project }}
+        run: node tests/grand-collection-browser.mjs /tmp/grand-evidence
+      - name: Original launch, offline and platform regressions
+        if: always()
+        env:
+          VIDEO_FLOW_URL: http://127.0.0.1:4173/
+          VIDEO_FLOW_PROJECT: ${{ matrix.project }}
+        run: node tests/video-flow-browser.mjs /tmp/original-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grand-${{ matrix.project }}-evidence
+          path: |
+            /tmp/grand-evidence
+            /tmp/original-evidence
+            /tmp/grand-server.log
+          retention-days: 7
+  recovery:
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - name: Serve exact production build
+        run: |
+          npm run preview -- --port 4173 > /tmp/grand-recovery-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Recovery fault injection and smallest layouts
+        env:
+          VIEWABILITY_URL: http://127.0.0.1:4173/
+        run: node tests/viewability-browser.mjs /tmp/recovery-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grand-recovery-evidence
+          path: /tmp/recovery-evidence
+          retention-days: 7

@@ -1,0 +1,72 @@
+{
+  "delivery": "Grand Collection",
+  "build": "2026-09-29.1",
+  "date": "2026-09-29",
+  "runtimeSource": "9f081db8cf3ca626febb9161ba74c907f9852e65",
+  "verificationSource": "5b09b195f1f12c54566b3b7ad4339f7261a7f9d7",
+  "branch": "feat/grand-collection",
+  "url": "https://firecrackers-a93nle.v2.appdeploy.ai/",
+  "appliedSnapshot": "1790640515766",
+  "candidateRun": 36501591721,
+  "publicRun": 36507918339,
+  "unitTests": { "passed": 105, "failed": 0, "skipped": 0 },
+  "publicBrowser": {
+    "passed": 87,
+    "failed": 0,
+    "suites": [
+      { "suite": "grand-desktop", "passed": 19, "failed": 0, "artifactId": 11007549308, "reportSha256": "340ff54b77fb02c197dd2125fc008f3c700f85a6ef3a94c65ac6fd7498b1010e", "warnings": 3 },
+      { "suite": "grand-mobile", "passed": 24, "failed": 0, "artifactId": 11007609044, "reportSha256": "79a135ecc60ac1a7b573647bd53c667c8401197fc4290425bcd998bbe81e340b", "warnings": 3 },
+      { "suite": "original-desktop", "passed": 13, "failed": 0, "artifactId": 11007549308, "reportSha256": "6f086684ca776fae8ba6ef120ce840cfad7e2996be7358f450a1c34eec24046c", "warnings": 5 },
+      { "suite": "original-mobile", "passed": 16, "failed": 0, "artifactId": 11007609044, "reportSha256": "0058507bb2b7b224351da62ea92b5e6d0df3c86247c5695b8557b8ec41882314", "warnings": 3 },
+      { "suite": "viewability-recovery", "passed": 15, "failed": 0, "artifactId": 11007344604, "reportSha256": "74b72299c44c607fff182c73d7696b13e6e42c7b4abed44e087ae7fdf0e6032c", "warnings": 0 }
+    ]
+  },
+  "sourceParity": {
+    "checkedAt": "2026-09-29T01:26:53.830Z",
+    "url": "https://firecrackers-a93nle.v2.appdeploy.ai/",
+    "version": "2026-09-29.1",
+    "expectedSha256": "615d4997ce54ce87812f4bb9b568f24d3057fa374d68f5692d8a74ebbcba4d1a",
+    "actualSha256": "615d4997ce54ce87812f4bb9b568f24d3057fa374d68f5692d8a74ebbcba4d1a",
+    "source": "5b09b195f1f12c54566b3b7ad4339f7261a7f9d7",
+    "matches": true,
+    "scope": "delivered-upgrade-modules",
+    "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+    "mismatchedModules": [],
+    "hostDiagnosticAttributes": 55,
+    "rawByteDifferences": ["src/App.tsx", "src/ui/AppBoundary.tsx", "src/ui/CinematicHUD.tsx", "src/ui/Dialog.tsx", "src/ui/FamilyPicker.tsx", "src/ui/PanelNav.tsx", "src/ui/PresentationSettings.tsx"]
+  },
+  "normalizedModuleCount": 35,
+  "logicalSoak": {
+    "kind": "accelerated logical simulation; not a GPU or physical-device soak",
+    "seconds": 7200,
+    "quality": "standard",
+    "wallSeconds": 49.628583243,
+    "launched": 1317,
+    "bursts": 2875,
+    "maxHeads": 839,
+    "maxTrails": 20000,
+    "maxSmoke": 64,
+    "maxCues": 7,
+    "maxRockets": 4
+  },
+  "environment": "Chromium, forced software WebGL 2 and Canvas; desktop/mobile viewport emulation",
+  "unexpectedApplicationConsoleErrors": 0,
+  "expectedHostOfflineRequests": ["https://api-v2.appdeploy.ai/app/firecrackers-a93nle/_warmup", "https://api-v2.appdeploy.ai/p"],
+  "shortViewport": {
+    "width": 320,
+    "height": 480,
+    "priorFreeSkyCssPixels": 13.21875,
+    "grandFreeSkyCssPixels": 77.21875,
+    "recoveryFreeSkyCssPixels": 68.34375,
+    "launchHeightCssPixels": 46,
+    "launchHitTest": true
+  },
+  "remainingQualification": ["physical Android/tablet", "Safari/iOS", "hardware WebGPU parity", "real-time thermal/endurance", "OBS composition", "comprehensive flash/accessibility assessment", "owner visual/audio approval"],
+  "screenshots": [
+    { "artifactId": 11007609044, "path": "grand-public/mobile-webgl-aurora-crown-peak.png", "sha256": "eb6c07ab34240c784bd2a3ba9b523f50a21779c28372a7b0b333addc3ba96f03", "description": "aurora-crown: actual public renderer, deterministic phase capture; not FPS evidence" },
+    { "artifactId": 11007609044, "path": "grand-public/mobile-webgl-ruby-dahlia-peak.png", "sha256": "c25012deeb3891027160c4b89b2e22781c44947f279f7d0c3078c4186d96a643", "description": "ruby-dahlia: actual public renderer, deterministic phase capture; not FPS evidence" },
+    { "artifactId": 11007609044, "path": "grand-public/mobile-webgl-sapphire-saturn-peak.png", "sha256": "c795bd40588e3f08db93a4207fc9ad99431f88633ed7a8abf5106f4a35fc404a", "description": "sapphire-saturn: actual public renderer, deterministic phase capture; not FPS evidence" },
+    { "artifactId": 11007609044, "path": "grand-public/mobile-webgl-phoenix-palm-peak.png", "sha256": "311b9eb9a24bb02e8a75111778f5b9914868c26f7d1f3e177a3eeccbff7e9fc2", "description": "phoenix-palm: actual public renderer, deterministic phase capture; not FPS evidence" },
+    { "artifactId": 11007609044, "path": "grand-public/mobile-webgl-opal-supernova-peak.png", "sha256": "d16a1c4b7cee9a39797372b8ee1ee9352e42ef3054415ecb72a11ddffaeb43c6", "description": "opal-supernova: actual public renderer, deterministic phase capture; not FPS evidence" }
+  ]
+}

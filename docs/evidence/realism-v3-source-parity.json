@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-09-19T11:10:21.040Z",
+  "url": "https://firecrackers-a93nle.v2.appdeploy.ai/",
+  "version": "2026-09-19.4",
+  "expectedSha256": "6cdf68fd5b8615384b5dc8ebff369278b132136de917886f33b71b6ca6a20109",
+  "actualSha256": "6cdf68fd5b8615384b5dc8ebff369278b132136de917886f33b71b6ca6a20109",
+  "source": "ac942c0b321722dd12b1987c70d6e5b723c671e3",
+  "matches": true,
+  "scope": "delivered-upgrade-modules",
+  "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+  "mismatchedModules": [],
+  "hostDiagnosticAttributes": 49,
+  "rawByteDifferences": [
+    "src/App.tsx",
+    "src/ui/CinematicHUD.tsx",
+    "src/ui/Dialog.tsx",
+    "src/ui/PanelNav.tsx",
+    "src/ui/PresentationSettings.tsx"
+  ]
+}

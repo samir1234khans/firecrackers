@@ -1,0 +1,47 @@
+name: Main promotion verification
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/main-promotion-verification.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-promotion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Verify the approved source histories are retained
+        shell: bash
+        run: |
+          set -euo pipefail
+          for source in \
+            7603a2c63ef1f4e36e4c1d845915632640d83369 \
+            589fe284a097a3dd9b9c691e95a9c15189b0bbc3 \
+            6b1a5fa4c5613e30b5a81ff314a5377d0861c62b \
+            501b346e9624e9c665a19ddcff561e0657c382c0 \
+            f48a8bf4a153ce5077a8901738bb4883aebc456b \
+            7b448ee730ba1170149e0a5d7d1e3895862a6ad1; do
+            git merge-base --is-ancestor "$source" HEAD
+            echo "Preserved ancestor: $source"
+          done
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci --ignore-scripts
+      - name: Verify fingerprint behavior and current published source
+        run: |
+          node --test tests/release-fingerprint.test.mjs
+          node scripts/generate-release.mjs
+          node scripts/verify-preview.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: main-promotion-source-parity
+          path: test-results/deployed-source-parity.json
+          retention-days: 30
+          if-no-files-found: error

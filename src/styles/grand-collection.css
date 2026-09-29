@@ -1,0 +1,37 @@
+/* Collection navigation extends the existing deck without doubling its height. */
+.collection-switch { display: flex; gap: 6px; padding-bottom: 6px; }
+.collection-switch button { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; border: 1px solid transparent; border-radius: 9px; background: transparent; color: #aeb9ca; font: 550 12px/1.25 system-ui, sans-serif; cursor: pointer; }
+.collection-switch button small { font-size: 9px; color: #96a5bb; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.collection-switch button[aria-pressed='true'] { background: #d5bd8d12; border-color: #d5bd8d38; color: #f0dab6; }
+.collection-switch button:hover:not(:disabled) { background: #ffffff08; }
+.collection-switch button:disabled { opacity: .5; cursor: default; }
+.collection-switch button:focus-visible { outline: 2px solid #f0ca8e; outline-offset: 2px; }
+[data-collection='grand'] .flow-family.selected { border-color: var(--family-color, #e5bd80); color: #f5efff; background: #b5c6ff0c; }
+[data-collection='grand'] .flow-family-art { width: 51px; height: 43px; }
+.collection-picker .flow-family > span:last-child { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 700px) {
+  .collection-switch { gap: 3px; padding-bottom: 3px; }
+  .collection-switch button { gap: 7px; font-size: 11px; }
+  [data-collection='grand'] .flow-family-art { width: 41px; height: 33px; }
+}
+@media (max-height: 480px) and (min-width: 600px) {
+  .collection-picker { grid-column: 1; grid-row: 1 / 4; align-self: center; }
+  .collection-switch { padding-bottom: 0; }
+  .collection-switch button { font-size: 11px; }
+  .collection-picker .flow-family { min-height: 48px; }
+  [data-collection='grand'] .flow-family-art { height: 25px; }
+}
+@media (max-width: 599px) and (max-height: 540px) {
+  .collection-switch { padding-bottom: 0; }
+  .collection-switch button { min-height: 44px; font-size: 10px; }
+  [data-collection='grand'] .flow-family-art { height: 23px; }
+  .fireworks-app .flow-deck { padding-block: 4px; }
+  .fireworks-app .flow-selection { min-height: 20px; padding-block: 2px; }
+  /* Preserve the sky even when recovery status wraps above the hosted toolbar. */
+  .fireworks-app .flow-bottom { grid-template-columns: minmax(90px, .85fr) minmax(0, 1.4fr); gap: 8px; }
+  .fireworks-app .flow-placement { grid-template-columns: minmax(0, 1fr) 44px; gap: 0 2px; }
+  .fireworks-app .flow-placement label { grid-column: 1 / -1; grid-row: 1; font-size: 10px; white-space: nowrap; }
+  .fireworks-app .flow-placement input { grid-column: 1; grid-row: 2; height: 32px; }
+  .fireworks-app .flow-placement button { grid-column: 2; grid-row: 2; width: 44px; height: 44px; }
+  .fireworks-app .flow-launch { padding-inline: 7px; gap: 5px; font-size: 12px; }
+}

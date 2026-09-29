@@ -1,0 +1,31 @@
+/* The sky remains recognizable while drivers/chunks are starting or recovering. */
+.scene-host { background: radial-gradient(ellipse at 50% 70%, #122438, #030914 75%); }
+[data-display='transparent'] .scene-host { background: transparent; }
+.loading-state { flex-direction: column; text-align: center; max-width: calc(100% - 32px); }
+.loading-state small { color: #afbbca; font-size: 12px; }
+.loading-state a { color: #f2d2a0; font-size: 13px; padding: 12px; }
+.renderer-note { position: absolute; z-index: 20; left: 50%; top: 82px; transform: translateX(-50%); padding: 5px 10px; max-width: calc(100% - 24px); white-space: nowrap; color: #b3c0d1; background: #081321dd; border-radius: 7px; font: 11px/1.5 system-ui,sans-serif; pointer-events: none; }
+.settings-notice { padding: 12px; border: 1px solid #e5bd8044; border-radius: 10px; color: #f0d5a9; background: #e5bd8010; font-size: 13px; line-height: 1.6; }
+.sheet a.secondary-button, .recovery a.secondary-button { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; min-height: 44px; }
+.flow-status { text-wrap: pretty; }
+@media (max-width: 700px) { .renderer-note { top: 121px; font-size: 10px; } }
+@media (max-height: 480px) and (min-width: 701px) { .renderer-note { top: 64px; } }
+/* Short windows must never lose launch/settings to a clipped fixed layout. */
+@media (max-width: 599px) and (max-height: 540px) {
+  .fireworks-app .flow-command { top: 5px; gap: 4px; }
+  .flow-brand h1 { font-size: 19px; }
+  .flow-modes button { min-height: 40px; }
+  .flow-selection { padding-block: 3px; min-height: 22px; }
+  .flow-family { min-height: 48px; }
+  .flow-family-art { height: 23px; }
+  .flow-placement input { height: 32px; }
+  .flow-placement button { height: 32px; }
+  .flow-launch { min-height: 46px; }
+  .flow-footer { padding-top: 3px; }
+  .flow-status { min-height: 29px; padding-block: 3px; }
+}
+@media (max-width: 360px) { .flow-brand h1 { font-size: 19px; } .flow-brand > svg { width: 19px; } }
+@media (max-height: 480px) and (min-width: 600px) {
+  .fireworks-app .flow-command { grid-template-columns: minmax(100px, 1fr) auto auto; grid-template-areas: 'brand modes utilities'; }
+  .flow-modes button { min-width: 48px; padding-inline: 7px; }
+}
