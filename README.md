@@ -4,6 +4,8 @@ A single-screen festival night with **ten selectable fireworks**. Choose a style
 
 **Live Cloudflare production: cinematic waterfront, build `2026-09-29.6`.** See [the production release receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
 
+The [30 September branch reconciliation and republish](docs/evidence/branch-reconciliation-2026-09-30.md) confirms that all current feature/fix branches are already incorporated in main and records the current Cloudflare Worker version.
+
 Build `.6` loads authored art independently and keeps an active firework moving by switching to compatibility graphics after repeated severe renderer stalls. The [isolated preview](https://firecrackers-graphics-preview.allygym-api.workers.dev/) remains for comparison; see the [diagnosis](docs/evidence/graphics-loading-diagnosis-2026-09-29.md), [preview evidence](docs/evidence/graphics-recovery-preview-2026-09-29.md), and [public release receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md).
 
 Build `.5` adds borderless icon controls, an always-visible selected quick Launch, immediate next-rocket readiness, and drag-to-terrace placement. The [isolated preview](https://firecrackers-pad-preview.allygym-api.workers.dev/) remains for comparison; see [candidate evidence](docs/evidence/pad-launch-preview-2026-09-29.md) and [public release evidence](docs/evidence/pad-launch-production-release-2026-09-29.md).
