@@ -2,9 +2,9 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Live Cloudflare production: cinematic waterfront, build `2026-09-29.5`.** See [the production release receipt](docs/evidence/pad-launch-production-release-2026-09-29.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
+**Live Cloudflare production: cinematic waterfront, build `2026-09-29.6`.** See [the production release receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
 
-Build `.6` is available on an [isolated graphics recovery preview](https://firecrackers-graphics-preview.allygym-api.workers.dev/). It loads authored art independently and keeps an active firework moving by switching to compatibility graphics after repeated severe renderer stalls. See the [diagnosis](docs/evidence/graphics-loading-diagnosis-2026-09-29.md) and [hosted preview evidence](docs/evidence/graphics-recovery-preview-2026-09-29.md). Production remains `.5` until the reviewed candidate is promoted.
+Build `.6` loads authored art independently and keeps an active firework moving by switching to compatibility graphics after repeated severe renderer stalls. The [isolated preview](https://firecrackers-graphics-preview.allygym-api.workers.dev/) remains for comparison; see the [diagnosis](docs/evidence/graphics-loading-diagnosis-2026-09-29.md), [preview evidence](docs/evidence/graphics-recovery-preview-2026-09-29.md), and [public release receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md).
 
 Build `.5` adds borderless icon controls, an always-visible selected quick Launch, immediate next-rocket readiness, and drag-to-terrace placement. The [isolated preview](https://firecrackers-pad-preview.allygym-api.workers.dev/) remains for comparison; see [candidate evidence](docs/evidence/pad-launch-preview-2026-09-29.md) and [public release evidence](docs/evidence/pad-launch-production-release-2026-09-29.md).
 
@@ -64,7 +64,7 @@ python scripts/validate_docs.py
 
 For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:stage`, `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies and runs the full ten-effect workflow for main and pull requests into main. Development servers bind to loopback; publish production builds only.
 
-Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current [Cloudflare production receipt](docs/evidence/pad-launch-production-release-2026-09-29.md) records build `.5` and its rollback version.
+Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current [Cloudflare production receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md) records build `.6` and its rollback version.
 
 ## Historical Grand Collection delivery
 
