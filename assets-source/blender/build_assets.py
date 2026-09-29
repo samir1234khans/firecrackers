@@ -63,7 +63,12 @@ def export(c,name):
     bpy.ops.object.select_all(action='DESELECT')
     for o in c.objects:
         if o.type=='MESH':o.select_set(True)
-    bpy.ops.export_scene.gltf(filepath=str(ART/(name+'.glb')),export_format='GLB',use_selection=True,export_apply=True)
+    # The v003 terrace remains reproducible without replacing the refined
+    # runtime v004 asset. Rocket keeps its original browser output path.
+    archive=ROOT/'assets-source'/'blender'/'exports'
+    if name=='terrace':archive.mkdir(parents=True,exist_ok=True)
+    destination=(archive/'terrace-v003.glb') if name=='terrace' else (ART/(name+'.glb'))
+    bpy.ops.export_scene.gltf(filepath=str(destination),export_format='GLB',use_selection=True,export_apply=True)
 
 def texture(name,array,data=False):
     h,w,_=array.shape;im=bpy.data.images.new(name,width=w,height=h,alpha=True)

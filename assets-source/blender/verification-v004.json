@@ -1,0 +1,71 @@
+{
+  "blender": "5.2.1 LTS",
+  "source": {
+    "blend": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\masters\\waterfront-v004.blend",
+    "meshCount": 48,
+    "collection": "Terrace v004 | hand laid stone",
+    "packedImages": [
+      {
+        "name": "basalt-color",
+        "size": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "name": "basalt-roughness",
+        "size": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "name": "basalt-normal",
+        "size": [
+          256,
+          256
+        ],
+        "packed": true
+      }
+    ],
+    "legacyMasterStillExists": true
+  },
+  "glb": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\public\\art\\terrace-v004.glb",
+  "glbBytes": 547136,
+  "importedMeshCount": 48,
+  "materials": [
+    {
+      "name": "Terrace v004 | cut edge",
+      "images": []
+    },
+    {
+      "name": "Terrace v004 | recessed dark joints",
+      "images": []
+    },
+    {
+      "name": "Terrace v004 | wet weathered basalt",
+      "images": [
+        "terrace-basalt-color-v004",
+        "terrace-basalt-normal-v004",
+        "terrace-basalt-roughness-v004"
+      ]
+    }
+  ],
+  "boundsXYZ": [
+    [
+      -23.5,
+      23.5
+    ],
+    [
+      -6.389999866485596,
+      6.889999866485596
+    ],
+    [
+      -0.7549999952316284,
+      0.21000000834465027
+    ]
+  ],
+  "scope": "Terrace geometry only; no water, shoreline, or lights"
+}

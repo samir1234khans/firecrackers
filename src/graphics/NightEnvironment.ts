@@ -5,8 +5,10 @@ import type { Simulation } from '../engine/Simulation';
 /** Original environment art and light probe, generated locally; no remote textures. */
 export class NightEnvironment {
   readonly group = new THREE.Group();
+  private readonly shoreline = new THREE.Group();
   readonly probe: THREE.DataTexture;
   private terrace: THREE.Group | null = null;
+  private readonly floor: THREE.Mesh;
   private readonly sky: THREE.Mesh;
   private readonly skyTexture: THREE.CanvasTexture;
   private readonly washMaterial = new THREE.MeshBasicMaterial({
@@ -19,6 +21,8 @@ export class NightEnvironment {
 
   constructor() {
     this.group.name = 'Waterfront terrace and distant shoreline';
+    this.shoreline.name = 'Low distant shoreline silhouettes';
+    this.group.add(this.shoreline);
     this.skyTexture = this.makeSky();
     this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 40, 24),
       new THREE.MeshBasicMaterial({ map: this.skyTexture, side: THREE.BackSide, depthWrite: false, fog: false }));
@@ -34,6 +38,7 @@ export class NightEnvironment {
       new THREE.MeshBasicMaterial({ map: this.floorTexture, color: '#a7b5c8' }));
     floor.rotation.x = -Math.PI / 2;
     floor.position.set(0, 4.9, 52);
+    this.floor = floor;
     this.group.add(floor);
     const matrix = new THREE.Matrix4();
 
@@ -56,14 +61,29 @@ export class NightEnvironment {
       for (let i = 0; i <= 64; i++) {
         const x = (i - 32) * 18;
         const y = 8 + Math.sin(i * .21 + layer) * 6 + Math.sin(i * .63) * 3 + rand() * 2;
-        vertices.push(x, y + layer * 2, -180 - layer * 70, x, -110, -180 - layer * 70);
+        // End each silhouette at the water surface. Extending it below the water
+        // hid the reflection band behind an opaque strip on both camera shapes.
+        vertices.push(x, y + layer * 2, -180 - layer * 70, x, 4.55, -180 - layer * 70);
         if (i < 64) indices.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 2, i * 2 + 1, i * 2 + 3);
       }
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
       geo.setIndex(indices); geo.computeVertexNormals();
-      this.group.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: ['#0d1824', '#132131', '#1a2b3d'][layer] })));
+      this.shoreline.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: ['#0d1824', '#132131', '#1a2b3d'][layer], transparent: true, opacity: .46, depthWrite: false })));
     }
+    const lights = new THREE.InstancedMesh(new THREE.SphereGeometry(.48, 8, 6),
+      new THREE.MeshBasicMaterial({ color: '#edac64', toneMapped: false }), 24);
+    const lightTint = new THREE.Color();
+    for (let i = 0; i < 24; i++) {
+      const x = (i - 11.5) * 26 + (rand() - .5) * 10;
+      const z = -174 - rand() * 45;
+      matrix.makeTranslation(x, 6 + rand() * 2.1, z);
+      matrix.scale(new THREE.Vector3(.65 + rand() * .7, .7 + rand() * .7, 1));
+      lights.setMatrixAt(i, matrix);
+      lightTint.setRGB(.30 + rand() * .22, .17 + rand() * .12, .07 + rand() * .05);
+      lights.setColorAt(i, lightTint);
+    }
+    this.shoreline.add(lights);
     this.washTexture = this.makeWash();
     this.washMaterial.map = this.washTexture;
     this.wash = new THREE.Mesh(new THREE.PlaneGeometry(125, 27), this.washMaterial);
@@ -77,8 +97,22 @@ export class NightEnvironment {
     group.scale.set(3.2, 1, 2.2); group.position.set(0, 5.05, 7);
     const materials = new Set<THREE.MeshStandardMaterial>();
     group.traverse(o => { if (o instanceof THREE.Mesh && o.material instanceof THREE.MeshStandardMaterial) materials.add(o.material); });
-    for (const material of materials) { material.color.multiplyScalar(.32); material.roughness = .95; }
+    for (const material of materials) {
+      const authoredStone = Boolean(material.map);
+      material.color.multiplyScalar(authoredStone ? .42 : .32);
+      material.roughness = authoredStone ? .72 : .95;
+    }
+    this.floor.visible = false;
     this.group.add(group);
+  }
+  setPortraitHorizon(phone: boolean) {
+    // Keep the land close to each water plane's far edge. A near shore at
+    // desktop scale covers the reflected water and reads as a black band.
+    const height = phone ? .12 : .55;
+    this.shoreline.scale.y = height;
+    this.shoreline.position.y = 4.65 * (1 - height);
+    this.shoreline.position.z = phone ? 0 : -420;
+    for (let i = 0; i < 3; i++) this.shoreline.children[i].visible = !phone || i === 0;
   }
   update(sim: Simulation, visible: boolean) {
     this.group.visible = visible;
@@ -105,7 +139,7 @@ export class NightEnvironment {
       const x = rand() * 2048, y = 275 + rand() * 230, rx = 50 + rand() * 150;
       c.save(); c.translate(x, y); c.scale(1, .19 + rand() * .17);
       const haze = c.createRadialGradient(0, 0, 0, 0, 0, rx);
-      haze.addColorStop(0, `rgba(101,130,155,${.016 + rand() * .025})`);
+      haze.addColorStop(0, `rgba(101,130,155,${.032 + rand() * .038})`);
       haze.addColorStop(1, 'rgba(101,130,155,0)');
       c.fillStyle = haze; c.fillRect(-rx, -rx, rx * 2, rx * 2); c.restore();
     }
