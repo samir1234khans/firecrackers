@@ -14,10 +14,14 @@
     "test:soak": "tsc -p tsconfig.engine.json && node tests/soak.mjs",
     "test:e2e": "node tests/video-flow-browser.mjs",
     "build": "node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && node scripts/generate-release.mjs && tsc --noEmit && vite build",
+    "cloudflare:deploy": "npm run build && wrangler deploy",
     "preview": "vite preview --host 127.0.0.1",
     "test:video-flow": "tsc -p tsconfig.engine.json && node --test tests/video-flow.test.mjs",
     "test:viewability": "node tests/viewability-browser.mjs",
     "test:grand": "node tests/grand-collection-browser.mjs"
+  },
+  "overrides": {
+    "undici": "7.29.1"
   },
   "dependencies": {
     "lucide-react": "0.469.0",
@@ -37,6 +41,7 @@
     "tailwindcss": "3.4.17",
     "typescript": "5.9.2",
     "vite": "6.4.3",
-    "vite-plugin-pwa": "1.0.3"
+    "vite-plugin-pwa": "1.0.3",
+    "wrangler": "4.143.0"
   }
 }

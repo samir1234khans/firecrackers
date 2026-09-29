@@ -2,9 +2,9 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Current verified preview: Grand Collection, build `2026-09-29.1`. Main is the canonical application baseline.**
+**Current Cloudflare production: Grand Collection, build `2026-09-29.1`. Main is the canonical application baseline.**
 
-[Open Firecrackers](https://firecrackers-a93nle.v2.appdeploy.ai/) · [Compatibility graphics](https://firecrackers-a93nle.v2.appdeploy.ai/?backend=canvas)
+[Open Firecrackers](https://firecrackers.mainandmany.com/) · [Compatibility graphics](https://firecrackers.mainandmany.com/?backend=canvas) · [Prior AppDeploy preview](https://firecrackers-a93nle.v2.appdeploy.ai/)
 
 Start new development branches from current `main` and open pull requests back to `main`. The owner-authorized promotion incorporates the Grand Collection, viewability recovery, single-press launch, ignition reliability and cinematic V3 work. Earlier feature branches remain as history. See [the promotion audit](docs/evidence/main-promotion.md); an older V3 or alternate-implementation checkout is not the current runtime.
 
@@ -49,6 +49,8 @@ python scripts/validate_docs.py
 ```
 
 For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies and runs the full ten-effect workflow for main and pull requests into main. Development servers bind to loopback; publish production builds only.
+
+Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current Cloudflare release receipt is in [production evidence](docs/evidence/cloudflare-production-2026-09-29.md).
 
 ## Verified delivery
 

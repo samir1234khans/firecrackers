@@ -50,7 +50,9 @@ GitHub workflows separate candidate build tests from actual public-site verifica
 
 ## Deployment and source parity
 
-Use the existing app `firecrackers-a93nle` and its published preview. Inspect applied source before updating; send only changed files and preserve hosting/PWA/recovery configuration. If the corrected source is already applied, do not redeploy just to repeat a checkpoint. Promoting already-published source to main is not a separate runtime deployment.
+Cloudflare production uses Worker `firecrackers` with the static `dist/` bundle and `firecrackers.mainandmany.com` custom domain in `wrangler.jsonc`. After testing a clean release candidate with the pinned Node version, run `npm run cloudflare:deploy`. Confirm the returned Worker version, domain response, `/release.json` fingerprint, PWA files, and public browser behavior. Keep the previous version ID for rollback. The first release is documented in [Cloudflare evidence](docs/evidence/cloudflare-production-2026-09-29.md).
+
+The existing AppDeploy app `firecrackers-a93nle` and its published URL remain as a separate preview and historical source-parity target. Inspect applied source before updating it; send only changed files and preserve hosting/PWA/recovery configuration. If the corrected source is already applied, do not redeploy just to repeat a checkpoint. Promoting already-published source to main is not a separate runtime deployment.
 
 `npm run build` writes `public/release.json`. The public verification workflow compares its 35-module normalized source fingerprint with GitHub. The pinned TypeScript canonicalizer excludes only known static host diagnostic labels; non-JSX code remains byte-exact after newline normalization. Meaningful source changes must not be normalized away. This scope is not an assertion that the entire host wrapper or site is identical.
 
