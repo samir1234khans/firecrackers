@@ -1,0 +1,60 @@
+{
+  "purpose": "Byte-exact production browser/HTTP reports, exact-head CI metadata and retained Worker version check. PNGs are separately hashed. Intentional fault diagnostics remain in raw reports.",
+  "files": [
+    {
+      "file": "browser-suites.json",
+      "bytes": 2792,
+      "sha256": "ccf04ec4fe43bd17c0cd8e4c14352d041fcef7afd4a1f00067e7e0c3ccd3a2c6"
+    },
+    {
+      "file": "ci-main.json",
+      "bytes": 10557,
+      "sha256": "22279affbf95ffcd333cbb6f6b3bf2c5ae874e5bafcad98d416d875fd0f2ea30"
+    },
+    {
+      "file": "ci-pr.json",
+      "bytes": 10741,
+      "sha256": "612101fdca868125bc8152bb024cfa0f71d2f698ce6ae0e0587617161fcecfbc"
+    },
+    {
+      "file": "default-realtime.json",
+      "bytes": 26242,
+      "sha256": "22093574d7a5cf721ff6a2f448a61ce32de89709cc18fefd0a852d883fc62754"
+    },
+    {
+      "file": "grand.json",
+      "bytes": 44536,
+      "sha256": "b56881b1bda48658165cc96f889699202494182ce9d7a6a49e188405cf3a4ba4"
+    },
+    {
+      "file": "hardware.json",
+      "bytes": 355607,
+      "sha256": "2cbe87686b642c6b3cd308fba8c9d487deb43c8fc41d384c368eee78bc11a3cd"
+    },
+    {
+      "file": "http.json",
+      "bytes": 3066,
+      "sha256": "f0feece600316315e9e0f3386004a008730f3e86da26d09927a084b7e6590582"
+    },
+    {
+      "file": "original.json",
+      "bytes": 24381,
+      "sha256": "33a090690cde4ceef595d82a07526083ca7ea90ffc2503b06d2e74de22cc2e79"
+    },
+    {
+      "file": "panels.json",
+      "bytes": 172672,
+      "sha256": "1e4769f0de43895e471738706b613c8c753aa09397383db2d182b393437a3dfc"
+    },
+    {
+      "file": "recovery.json",
+      "bytes": 34418,
+      "sha256": "eba2a8b71ef6c7c1ba8c102b19e482a674cd774a70b9b0643f992d7b037102d6"
+    },
+    {
+      "file": "rollback.json",
+      "bytes": 297,
+      "sha256": "8d1b495f1e652a0bed984c52a5dd5e9d9434b03adeddb77808108c2a28c1aadf"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "base": "https://firecrackers.mainandmany.com/",
+  "startedAt": "2026-09-30T14:06:10.833Z",
+  "expectedFingerprint": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+  "method": "Sequential existing public browser suites, bundled software graphics; viewport/touch emulation. Native hardware report is separate.",
+  "suites": [
+    {
+      "name": "panels",
+      "code": 0,
+      "checks": 195,
+      "expectedChecks": 195,
+      "failures": 0,
+      "failed": null,
+      "unexpectedErrors": 0,
+      "seconds": 144.993,
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "report": "panels/panel-report.json"
+    },
+    {
+      "name": "grand",
+      "code": 0,
+      "checks": 42,
+      "expectedChecks": 42,
+      "failures": 0,
+      "failed": null,
+      "unexpectedErrors": 0,
+      "seconds": 82.907,
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "report": "grand/report.json"
+    },
+    {
+      "name": "original",
+      "code": 0,
+      "checks": 28,
+      "expectedChecks": 28,
+      "failures": 0,
+      "failed": null,
+      "unexpectedErrors": 0,
+      "seconds": 93.067,
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "report": "original/browser-report.json"
+    },
+    {
+      "name": "recovery",
+      "code": 0,
+      "checks": 15,
+      "expectedChecks": 15,
+      "failures": 0,
+      "failed": null,
+      "unexpectedErrors": 0,
+      "seconds": 84.813,
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "report": "recovery/viewability-report.json"
+    }
+  ],
+  "failed": null,
+  "finishedAt": "2026-09-30T14:12:59.821Z"
+}

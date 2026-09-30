@@ -1,0 +1,83 @@
+{
+  "origin": "https://firecrackers-panels-preview.allygym-api.workers.dev/",
+  "method": "Installed Chrome headless, hardware WebGPU, no software GPU flags; portrait/touch emulated on PC. Screenshots unmodified.",
+  "expectedFingerprint": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+  "checks": [
+    {
+      "label": "desktop",
+      "hardware": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "fallback": false
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      }
+    },
+    {
+      "label": "portrait",
+      "hardware": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "fallback": false
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      }
+    }
+  ],
+  "captures": [
+    {
+      "file": "desktop-graphics.png",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "backend": "WebGPU",
+      "panel": "graphics",
+      "bytes": 483040,
+      "sha256": "06b0ff615e0d5386d5625c9b2147ef49e86d408323df07f7abca9f1834ad0dc0"
+    },
+    {
+      "file": "desktop-picker.png",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "backend": "WebGPU",
+      "panel": "picker",
+      "bytes": 465821,
+      "sha256": "939e16b34a341e9584e93f747d18a3b43a295001d0b28757d78e9e8d47f8a1e9"
+    },
+    {
+      "file": "portrait-graphics.png",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "backend": "WebGPU",
+      "panel": "graphics",
+      "bytes": 118340,
+      "sha256": "2d786975c264b340da68fc4756dc30aad74cd0eddca5e0fcb6c5f45eb557adea"
+    },
+    {
+      "file": "portrait-picker.png",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "backend": "WebGPU",
+      "panel": "picker",
+      "bytes": 117292,
+      "sha256": "cb4e915a5d0c81bf36f998d3c745ff4001d7277f47db491fab7130e92da9c739"
+    }
+  ],
+  "errors": [],
+  "failed": null,
+  "browserVersion": "154.0.8037.59",
+  "finishedAt": "2026-09-30T13:41:20.951Z"
+}

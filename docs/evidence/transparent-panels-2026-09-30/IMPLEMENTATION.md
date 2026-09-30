@@ -4,6 +4,8 @@ Recorded 30 September 2026 in the isolated `firecrackers-galactic` checkout, bra
 
 This receipt describes inspected source, exact color-token calculations and preserved failed attempts. The final compiled candidate has passed 195 panel checks, 167 existing regression checks, 56 installed-Chrome hardware checks and 17 preview HTTP checks. [Preview qualification](PREVIEW.md) records the exact source and methods. **CI, main promotion and production remain pending at this implementation checkpoint.** Software/browser emulation and mathematical contrast are separate from physical-device performance and production evidence.
 
+The subsequent [production receipt](PRODUCTION.md) records the completed release and supersedes this checkpoint's pending deployment statuses.
+
 ## Source identity and ownership
 
 - `src/engine/catalog.ts` declares candidate version `2026-09-30.6`.

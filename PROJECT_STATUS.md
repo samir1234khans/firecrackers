@@ -1,8 +1,12 @@
-# Current status: Interactive galactic sky in production
+# Current status: Transparent panels in production
+
+Build `2026-09-30.6` is live from app-source main `ed54fe640945fa7de0f4ba3546b3445348bde78b`, merged [PR #22](https://github.com/samir1234khans/firecrackers/pull/22), Worker `d04c14f1-f219-45dd-989e-97569693ac4b`. Its 60-entry fingerprint is `1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0`. Every opened panel/loading/recovery surface now shares compact translucent styling. [Production receipt](docs/evidence/transparent-panels-2026-09-30/PRODUCTION.md), [per-surface plan](docs/evidence/transparent-panels-2026-09-30/PLAN.md), [UI gallery](docs/evidence/transparent-panels-2026-09-30/review.html), and [actual WebGPU panels](docs/evidence/transparent-panels-2026-09-30/hardware-captures/README.md). Final PR CI and source-main CI each passed all four jobs. All 353 public checks passed: panels 195, native hardware 56, Grand 42, original launch/offline 28, recovery 15 and HTTP/source/assets 17. A separate fresh automatic WebGPU/Ultra 60-second Festival observation passed with zero errors. The prior `.5` Worker is retained for rollback. Physical Android/iPhone/Safari, thermal endurance and completed GPU-frame timings remain unqualified.
+
+## Previous production: Interactive galactic sky
 
 Build `2026-09-30.5` is live from main `1648786955a3af10e60f99807236d1676bad6284`, merged [PR #21](https://github.com/samir1234khans/firecrackers/pull/21), Worker `a79b4a3d-89ac-418e-b487-60433885219d`. Its 58-entry source/asset fingerprint is `81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7`. Original native sky layers, gentle pointer/touch response and a faint scheduled meteor are delivered. Final PR CI `36712448955` and main runtime CI `36713664345` passed all four jobs; main documentation CI `36713664018` passed. [Production receipt](docs/evidence/interactive-galactic-sky-2026-09-30/PRODUCTION.md) records public qualification and `.4` rollback. [Matched browser comparison](docs/evidence/interactive-galactic-sky-2026-09-30/comparison.html) distinguishes actual website captures from image-generation studies.
 
-The complete compact transparent-panel redesign `.6` is being implemented in `feat/transparent-edge-panels`; it is **not yet shipped**. Its [per-surface plan](docs/evidence/transparent-panels-2026-09-30/PLAN.md) covers picker, positioning, shows, four Settings tabs, Help, reset, loading, all recovery states and presentation controls. Physical Android/iPhone/Safari, thermal endurance and completed GPU-frame timings remain unqualified.
+The galactic `.5` Worker is the retained rollback for the transparent-panel `.6` release. Physical-device and completed-GPU-frame performance evidence remains separate from desktop browser qualification.
 
 ## Previous production: Living river and candlelit boats
 

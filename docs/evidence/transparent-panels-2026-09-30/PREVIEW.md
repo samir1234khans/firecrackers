@@ -27,4 +27,4 @@ The intermediate reports retain the first 84-check/11-failure panel attempt, tex
 
 The gallery's healthy scenes use Canvas compatibility and show actual native panels. Hardware scene captures are recorded separately in the hardware report. Phone/tablet/landscape and touch are viewport emulation on this PC, not physical Android/iPhone Safari. Reflow emulates a 200% CSS viewport/DPR relationship; it does not claim that Chrome's menu zoom was operated. Local software browser fixtures block service workers, explaining their truthful offline-unavailable notice. Physical-device thermal endurance, completed GPU-frame rates and photographic parity are not qualified by this release.
 
-Production is unchanged at this preview checkpoint; main promotion and the production Worker are recorded in a later receipt.
+Production was unchanged at this preview checkpoint. The subsequent [production receipt](PRODUCTION.md) records main promotion, the production Worker and public qualification.
