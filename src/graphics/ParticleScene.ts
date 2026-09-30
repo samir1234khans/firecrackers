@@ -3,6 +3,7 @@ import { attribute, cos, dot, float, mix, pass, positionGeometry, positionView, 
 import type { Simulation } from '../engine/Simulation';
 import { BUDGETS, hash01 } from '../engine/catalog';
 import { carrierTint } from '../engine/GrandEffects';
+import { signatureTint } from '../engine/FlagshipEffects';
 import { rocketPoint, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, flightBodyOpacity } from '../engine/LaunchGeometry';
 const BUCKETS = 6;
 const bucketFor = (z: number) => Math.max(0, Math.min(BUCKETS - 1, Math.floor((z + 75) / 25)));
@@ -138,14 +139,15 @@ export class ParticleScene {
         const pixelFactor = 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, height);
         const p = sim.heads;
         for (let i = 0; i < p.count; i++) {
+            if (p.age[i] < 0) continue;
             const b = this.heads[bucketFor(p.z[i])], n = b.count++, a = b.attrs, t = p.age[i] / p.life[i];
             const unit = Math.max(.035, (camera.position.z - p.z[i]) * pixelFactor);
             const size = Math.max(p.size[i] * (1 - t * .38), unit * .9) * 5;
             const fade = Math.pow(Math.max(0, 1 - t), .72), red = p.family[i] === 2 ? Math.max(0, (t - .4) * 1.1) : 0;
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
-            a.iAlpha.setX(n, fade * (.84 + hash01(p.id[i], 51) * .16));
-            const heat = 2.35 + Math.exp(-p.age[i] * 4) * 1.3;
+            a.iAlpha.setX(n, fade * p.gain[i] * (.84 + hash01(p.id[i], 51) * .16));
+            const heat = p.family[i] >= 10 ? 1.75 + Math.exp(-p.age[i] * 4) * .45 : 2.35 + Math.exp(-p.age[i] * 4) * 1.3;
             a.iColor.setXYZ(n, p.r[i] * heat, p.g[i] * (1 - red) * heat, p.b[i] * (1 - red) * heat);
         }
         const embers = sim.embers;
@@ -171,8 +173,9 @@ export class ParticleScene {
             const motor = rocketPoint(r, MOTOR_LOCAL_Y);
             const receded = 1 - flightBodyOpacity(r.age, r.ascent);
             // One luminous shell follows exactly the same attachment that will burst.
-            addHead(...shell, 2.2 + receded * .8, 3.6, 2.4, 1.1);
-            if (r.phase === 'thrust') addHead(...motor, 2.8, 4.5, 2.5, .8);
+            const tone = r.family >= 10 ? signatureTint(r.family) : null;
+            addHead(...shell, 2.2 + receded * .8, tone ? tone[0] * 3.6 : 3.6, tone ? tone[1] * 3.6 : 2.4, tone ? tone[2] * 3.6 : 1.1);
+            if (r.phase === 'thrust') addHead(...motor, r.family >= 10 ? 3.3 : 2.8, tone ? tone[0] * 4.5 : 4.5, tone ? tone[1] * 4.5 : 2.5, tone ? tone[2] * 4.5 : .8);
         }
         for (const c of sim.cues) {
             const tone = carrierTint(c.family, c.palette);

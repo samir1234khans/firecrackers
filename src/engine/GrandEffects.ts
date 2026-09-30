@@ -1,6 +1,7 @@
 import { BUDGETS, FAMILIES, randomStream } from './catalog.js';
 import type { Quality } from './catalog.js';
 import type { Pool } from './Pool.js';
+import { signatureTint } from './FlagshipEffects.js';
 
 export type RGB = [number, number, number];
 type Vector = [number, number, number];
@@ -28,6 +29,7 @@ export function coolGrandStar(pool: Pool, i: number, dt: number): void {
 }
 
 export function carrierTint(family: number, palette = 0): RGB {
+    if (family >= 10) return signatureTint(family);
     return family === 9 ? OPAL_PALETTE[Math.abs(palette) % OPAL_PALETTE.length] : [1, .69, .30];
 }
 

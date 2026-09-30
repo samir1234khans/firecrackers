@@ -1,6 +1,6 @@
 /* Stable screen composition: one bottom tray and one compact right rail. */
 .scene-host canvas { touch-action:pinch-zoom; }
-.fireworks-app { --edge-gap:12px; --tray-height:128px; --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px); --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px); }
+.fireworks-app { --edge-gap:12px; --tray-height:188px; --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px); --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px); }
 .stage-brand { position:absolute; z-index:30; top:calc(var(--safe-top) + var(--edge-gap)); left:calc(var(--safe-left) + var(--edge-gap)); display:flex; align-items:center; gap:5px; color:#e4bf85; pointer-events:none; }
 .stage-brand h1 { font:400 15px/1 Georgia,serif; margin:0; color:#efe9df; letter-spacing:-.5px; }
 .stage-brand h1 span { color:#e4bf85; }
@@ -14,6 +14,7 @@
 .burst-drop-target { position:fixed; z-index:55; transform:translate(-50%,-50%); display:grid; place-items:center; width:32px; height:32px; border:1px dashed #d2d8e7; border-radius:50%; color:#e3e5ed; pointer-events:none; }
 .burst-drop-target.valid { color:#f4cb86; border-color:#f4cb86; }
 .burst-drop-target span { position:absolute; top:36px; width:130px; text-align:center; font-size:12px; text-shadow:0 1px 3px #000; }
-@media(min-width:680px) { .fireworks-app { --tray-height:76px; } }
+@media(min-width:680px) { .fireworks-app { --tray-height:136px; } }
+@media(min-width:736px) { .fireworks-app { --tray-height:76px; } }
 @media(max-width:679px) { .fireworks-app { --edge-gap:8px; } .stage-brand h1 { font-size:14px; } }
 @media(prefers-reduced-motion:reduce) { .control-rail button { transition:none; } }

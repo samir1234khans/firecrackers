@@ -1,3 +1,5 @@
+Three-signature candidate: [research and effect contract](evidence/flagships-2026-10-01/DESIGN.md). This branch builds on the isolated moon/water candidate and preserves the ten original effects; production remains unchanged.
+
 Moon and natural water candidate: [research/implementation](evidence/moon-water-2026-10-01/RESEARCH.md), [verified preview](evidence/moon-water-2026-10-01/PREVIEW.md), [matched captures](evidence/moon-water-2026-10-01/comparison.html). This isolated candidate has not replaced production `.8`.
 
 # Current production redesign

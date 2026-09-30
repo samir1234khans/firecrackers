@@ -18,14 +18,14 @@ type Props = {
 export function BottomCollection({ selectedId, available, canLaunchFamily, onLaunchFamily, onDragStart, notice, noticeFamilyId }: Props) {
   return <div className='bottom-collection chrome' data-family-tray>
     <div className='bottom-collection-groups'>
-      {(['classics', 'grand'] as const).map((collection, index) => <div
+      {(['classics', 'grand', 'signature'] as const).map((collection, index) => <div
         key={collection}
         className='bottom-collection-group'
         data-family-shelf={collection}
         role='group'
-        aria-label={index === 0 ? 'Classics fireworks' : 'Grand Collection fireworks'}
+        aria-label={['Classics fireworks', 'Grand Collection fireworks', 'Signature fireworks'][index]}
       >
-        <span className='bottom-collection-caption' aria-hidden='true'>{index === 0 ? 'Classics' : 'Grand'}</span>
+        <span className='bottom-collection-caption' aria-hidden='true'>{['Classics', 'Grand', 'Signature'][index]}</span>
         <div className='bottom-collection-icons'>
           {FAMILIES.slice(index * 5, index * 5 + 5).map(family => {
             const selected = family.id === selectedId;

@@ -38,7 +38,7 @@ export async function generateRelease() {
   const paths = [
     'src/graphics/MoonComposition.ts', 'src/graphics/WaterWaves.ts', 'src/graphics/WaterfrontAssets.ts', 'src/graphics/WaterReflection.ts', 'src/engine/Audio.ts',
     'src/engine/LaunchProfile.ts', 'src/engine/StageLayout.ts', 'src/styles/stage.css', 'src/styles/panels.css', 'index.html',
-    'src/engine/GrandEffects.ts', 'src/ui/FamilyPicker.tsx', 'src/ui/GrandGlyph.tsx', 'src/styles/grand-collection.css',
+    'src/engine/SignatureDiagnostics.ts', 'src/engine/FlagshipEffects.ts', 'src/engine/Pool.ts', 'src/ui/SignatureGlyph.tsx', 'src/engine/GrandEffects.ts', 'src/ui/FamilyPicker.tsx', 'src/ui/GrandGlyph.tsx', 'src/styles/grand-collection.css',
     'src/bootstrap.ts', 'src/main.tsx', 'src/ui/AppBoundary.tsx', 'src/styles/recovery.css',
     'src/engine/RendererPort.ts', 'src/engine/RendererRecovery.ts', 'src/engine/SkyState.ts', 'src/graphics/CompatibilityRenderer.ts',
     'src/App.tsx', 'src/engine/FusePath.ts', 'src/engine/LaunchGeometry.ts', 'src/engine/Renderer.ts',

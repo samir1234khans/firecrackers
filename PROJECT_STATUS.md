@@ -1,3 +1,7 @@
+# Signature candidate — isolated, 1 October 2026
+
+The owner requested exactly three new flagship effects on clean moon/water candidate `b064fe4` (PR #25). Branch `feat/flagship-signatures` implements Imperial Crown, Celestial Aurora and Royal Phoenix with distinct silhouettes, timed breaks, launch treatments, pooled state and admission-time safe composition. The thirteen-icon tray adds a Signature group; original keys 1–9/0 and all ten original effects remain. This candidate is not merged or deployed to production. [Research/design](docs/evidence/flagships-2026-10-01/DESIGN.md).
+
 Moon/water candidate (1 October): `feat/moon-natural-water`, build `2026-10-01.1`, isolated [Cloudflare preview](https://firecrackers-moon-preview.allygym-api.workers.dev/). Adds a NASA LRO gibbous moon, silver reflection and shared natural boat/water waves. [Validation and limitations](docs/evidence/moon-water-2026-10-01/PREVIEW.md) and [matched captures](docs/evidence/moon-water-2026-10-01/comparison.html). Production remains `.8`; the candidate is not promoted.
 
 # Current production: bottom collection and upper canopy

@@ -8,7 +8,7 @@ const original = ['gold-willow','multicolor-peony','chrysanthemum','silver-cross
 
 test('append-only catalogue preserves all original IDs and provides ten safe prop profiles', () => {
     assert.deepEqual(FAMILIES.slice(0, 5).map(f => f.id), original);
-    assert.equal(new Set(FAMILIES.map(f => f.id)).size, 10);
+    assert.equal(new Set(FAMILIES.map(f => f.id)).size, 13);
     assert.equal(ROCKET_PROFILES.length, FAMILIES.length);
     for (const profile of ROCKET_PROFILES) for (const value of profile) assert.ok(Number.isFinite(value) && value > 0);
 });

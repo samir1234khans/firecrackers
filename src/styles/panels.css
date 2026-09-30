@@ -331,7 +331,7 @@
 .sheet.edge-panel .diagnostics dd { margin: 0; color: var(--panel-text); overflow-wrap: anywhere; }
 
 /* The picker uses native, readable small rows rather than framed artwork cards. */
-.sheet.edge-panel .collection-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; padding: 0; margin-bottom: 6px; border: 0; background: transparent; }
+.sheet.edge-panel .collection-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; padding: 0; margin-bottom: 6px; border: 0; background: transparent; }
 .sheet.edge-panel .collection-switch button { min-height: var(--panel-target); padding: 6px; border: 0; border-radius: 6px; background: transparent; color: var(--panel-muted); font: var(--panel-font); box-shadow: none; }
 .sheet.edge-panel .collection-switch button[aria-pressed='true'] { color: var(--panel-accent); background: var(--panel-selected); box-shadow: none; }
 .sheet.edge-panel .collection-switch small { display: none; }

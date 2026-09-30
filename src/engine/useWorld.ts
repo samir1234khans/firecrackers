@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { measureStage } from './StageLayout';
+import { measureStage, stageFraming } from './StageLayout';
+import { signatureCompositionScale } from './LaunchProfile';
 import type { StageLayout, StageRect } from './StageLayout';
 import type { FamilyId } from './catalog';
 import { Simulation } from './Simulation';
@@ -16,7 +17,7 @@ import type { RendererPort } from './RendererPort';
 import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
 import { RenderOverloadGuard, withDeadline } from './RendererRecovery';
 import { SkyInteraction, acceptsSkyPointer, skyCadence, skyMotionAllowed, skyPointFromPointer } from './SkyState';
-export type DropTarget = { kind: 'burst'; point: [number, number] } | { kind: 'launch'; placement: number };
+export type DropTarget = { kind: 'burst'; point: [number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
 /** DOM owns controls; one fixed simulation clock owns all fireworks and their sound events. */
@@ -95,7 +96,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         intent.current.block('hidden', document.hidden);
         const state = new Simulation(presentation.seed);
         sim.current = state;
-        state.setLaunchProfileResolver(id => renderer.current?.resolveLaunchProfile(id));
+        state.setLaunchProfileResolver((id, placement) => renderer.current?.resolveLaunchProfile(id, placement));
         state.selected = prefs.current.family;
         state.reducedFlashes = prefs.current.reducedFlashes;
         state.quality = prefs.current.quality === 'auto' ? 'standard' : prefs.current.quality;
@@ -105,8 +106,10 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const sound = new AudioEngine();
         audio.current = sound;
         sound.setSuspended(intent.current.paused || document.hidden);
-        const motionAllowed = () => skyMotionAllowed(state.quality, prefs.current.reducedMotion,
-            Boolean(osMotion?.matches), display.current.mode);
+        const motionAllowed = () => {
+            state.reducedMotion = prefs.current.reducedMotion || Boolean(osMotion?.matches);
+            return skyMotionAllowed(state.quality, prefs.current.reducedMotion, Boolean(osMotion?.matches), display.current.mode);
+        };
         const responseAllowed = () => !state.paused && !document.hidden && !captureFrozen;
         const publishSky = (respond = responseAllowed(), candidate = graphics) => {
             const value = sky.update(state.time, motionAllowed(), respond);
@@ -612,7 +615,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         if (Object.values(layout.controls).some(control => inside(localX, localY, control))) return null;
         if (inside(localX, localY, layout.burstCanopy)) {
             const point = graphics.projectBurst(x, y);
-            return point ? { kind: 'burst', point } : null;
+            return point ? { kind: 'burst', point, compositionScale: signatureCompositionScale(layout, stageFraming(layout).scale, localX, localY) } : null;
         }
         if (inside(localX, localY, layout.launchArea)) {
             const placement = graphics.projectPlacement(x);
@@ -624,7 +627,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const target = dropTarget(x, y);
         if (!target || !status.current.ready || status.current.error) return false;
         const admitted = target.kind === 'burst'
-            ? sim.current.burstAt(id, ...target.point)
+            ? sim.current.burstAt(id, ...target.point, target.compositionScale)
             : sim.current.igniteFamily(id, target.placement);
         refresh(); return admitted;
     };

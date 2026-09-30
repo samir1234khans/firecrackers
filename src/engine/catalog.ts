@@ -1,5 +1,5 @@
 /** Versioned virtual-animation parameters, not physical firework specifications. */
-export const CONFIG_VERSION = '2026-10-01.1';
+export const CONFIG_VERSION = '2026-10-01.2';
 export const FAMILIES = [
     { id: 'gold-willow', name: 'Gold Willow', short: 'Willow', note: 'A slow-falling canopy of gold.', color: '#eac17a', count: 192, speed: 25, life: 7.8, drag: 0.41, gravity: 4.3, trail: 3.1, cost: 1, ascent: 2.2 },
     { id: 'multicolor-peony', name: 'Multicolor Peony', short: 'Peony', note: 'A crisp sphere of jewel-like stars.', color: '#dd819d', count: 248, speed: 24, life: 2.7, drag: 0.66, gravity: 2.8, trail: 0.14, cost: 1, ascent: 1.9 },
@@ -11,6 +11,9 @@ export const FAMILIES = [
     { id: 'sapphire-saturn', name: 'Sapphire Saturn', short: 'Saturn', note: 'A tilted golden orbit encircles a deep sapphire sphere.', color: '#77aaff', count: 400, speed: 33, life: 4.9, drag: .48, gravity: 2.6, trail: .4, cost: 2, ascent: 2.3 },
     { id: 'phoenix-palm', name: 'Phoenix Palm', short: 'Phoenix', note: 'Eleven amber branches rise, split into rose leaves, and drift down.', color: '#ffad65', count: 220, speed: 31, life: 6.1, drag: .46, gravity: 4.7, trail: 2.2, cost: 2, ascent: 2.3 },
     { id: 'opal-supernova', name: 'Opal Supernova', short: 'Supernova', note: 'Seven traveling jewels unfold into a vast, staggered opal bouquet.', color: '#c8a4ff', count: 168, speed: 24, life: 7.0, drag: .48, gravity: 3.2, trail: 1.2, cost: 3, ascent: 2.4 },
+    { id: 'imperial-crown', name: 'Imperial Crown', short: 'Imperial', note: 'Champagne brocade, an inner coronation and a lingering golden diadem.', color: '#e8c591', count: 300, speed: 34, life: 9, drag: .43, gravity: 2.7, trail: 2.55, cost: 3, ascent: 2.5 },
+    { id: 'celestial-aurora', name: 'Celestial Aurora', short: 'Celestial', note: 'A travelling ice-blue wave opens into violet petals and distant silver flowers.', color: '#92b6e5', count: 260, speed: 32, life: 7.5, drag: .48, gravity: 2.2, trail: 1.3, cost: 3, ascent: 2.4 },
+    { id: 'royal-phoenix', name: 'Royal Phoenix', short: 'Royal', note: 'Unequal copper wings unfold into golden tip blossoms and a final white-gold heart.', color: '#db9063', count: 160, speed: 37, life: 8, drag: .42, gravity: 3.7, trail: 2.0, cost: 3, ascent: 2.5 },
 ] as const;
 export type FamilyId = typeof FAMILIES[number]['id'];
 export type Quality = 'low' | 'standard' | 'ultra';
@@ -40,7 +43,7 @@ export function hash01(id: number, salt = 0) {
 
 /** Peak reservations include still-unborn leaves and composite children at Ultra. */
 export function familyReservation(family: number): number {
-    if (family >= 5) return [420, 480, 520, 420, 980][family - 5] ?? 0;
+    if (family >= 5) return [420, 480, 520, 420, 980, 720, 700, 640][family - 5] ?? 0;
     return family === 4 ? 900 : family === 3 ? 160 : Math.ceil((FAMILIES[family]?.count || 0) * 1.2);
 }
 export const splitChildCount = (family: number) => family === 8 ? 5 : 4;
@@ -49,4 +52,5 @@ export const familyKeyIndex = (key: string) => /^[0-9]$/.test(key) ? (key === '0
 export const ROCKET_PROFILES = [
     [1, 1], [.92, 1.06], [1.08, .96], [.86, 1.13], [1.16, 1.12],
     [1.10, 1.08], [1.13, 1.03], [1.04, 1.12], [1.08, 1.14], [1.18, 1.10],
+    [1.25, 1.19], [.97, 1.22], [1.22, 1.16],
 ] as const;

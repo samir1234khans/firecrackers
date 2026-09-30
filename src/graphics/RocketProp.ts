@@ -75,7 +75,7 @@ export class RocketProp {
         for (const material of this.solids) material.opacity = bodyOpacity;
         if (family !== this.lastFamily) {
             this.lastFamily = family;
-            this.paper.color.set('#e6edf5');
+            this.paper.color.set(['#c5ae81', '#203654', '#64272c'][family - 10] ?? '#e6edf5');
             this.capMaterial.color.set(FAMILIES[family].color).multiplyScalar(.76);
             const [radius, height] = ROCKET_PROFILES[family] ?? ROCKET_PROFILES[0];
             this.body.scale.set(radius, height, radius);

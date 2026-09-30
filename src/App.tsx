@@ -65,7 +65,7 @@ export default function App() {
     button.setPointerCapture(pointerId);
     let moved = false, cancelled = false;
     const suppressClick = () => {
-      const suppress = (ev: MouseEvent) => { ev.preventDefault(); ev.stopImmediatePropagation(); };
+      const suppress = (ev: MouseEvent) => { if (ev.detail === 0) { clear(); return; } ev.preventDefault(); ev.stopImmediatePropagation(); };
       clearSuppressedClick.current?.();
       const clear = () => { button.removeEventListener('click', suppress, true); clearSuppressedClick.current = null; };
       clearSuppressedClick.current = clear;
@@ -259,7 +259,7 @@ export default function App() {
       <ControlsMenu showLabel={state.show ? state.show[0].toUpperCase() + state.show.slice(1) : 'Manual'} fullscreen={platform.fullscreen} canPosition={true} onShow={() => open('show')} onPosition={() => open('position')} onSettings={() => open('settings')} onFullscreen={() => { void platform.toggleFullscreen(); close(); }} onHelp={() => open('help')}/>
     </Dialog>}
     {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} returnFocus={panelInvoker.current}>
-      <p className='panel-note'>Browse the ten effects. The bottom collection launches them.</p>
+      <p className='panel-note'>Browse the thirteen effects. The bottom collection launches them.</p>
       <FamilyPicker selectedId={state.selected} available={world.ready} onSelect={id => { select(id); close(); }}/>
 
     </Dialog>}

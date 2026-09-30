@@ -3,6 +3,7 @@ import type { FamilyId, Quality, ShowPreset } from './catalog.js';
 import type { LaunchProfile } from './LaunchProfile.js';
 import { Pool } from './Pool.js';
 import { grandRecipe, coolGrandStar, carrierTint } from './GrandEffects.js';
+import { signatureRecipe, evolveSignature, signatureTint } from './FlagshipEffects.js';
 import { Trails } from './Trails.js';
 import { fusePointAt, ROCKET_SCALE } from './FusePath.js';
 import { FLIGHT_GRAVITY, REARM_SECONDS, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, rocketPoint } from './LaunchGeometry.js';
@@ -45,6 +46,7 @@ export type Rocket = {
     launchProfile?: Readonly<LaunchProfile>;
 };
 export type Carrier = {
+    gravity?: number;
     palette?: number;
     id: number;
     at: number;
@@ -91,6 +93,8 @@ export class Simulation {
     bursts = 0;
     quality: Quality = 'standard';
     reducedFlashes = true;
+    reducedMotion = false;
+    readonly signatureStages = new Uint16Array(9);
     width = 160;
     ground = 16;
     protectCenter = false;
@@ -106,8 +110,8 @@ export class Simulation {
     private launchRng: () => number;
     private showRng: () => number;
     private smokeRng: () => number;
-    private launchProfileResolver: ((id: FamilyId) => LaunchProfile | undefined) | null = null;
-    setLaunchProfileResolver(resolver: ((id: FamilyId) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
+    private launchProfileResolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null = null;
+    setLaunchProfileResolver(resolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
     constructor(readonly seed = 20260916) {
         this.launchRng = randomStream(seed);
         this.showRng = randomStream(seed ^ 0x5bf03635);
@@ -185,7 +189,7 @@ export class Simulation {
         if (source === 'manual') this.stopShow(false);
         const rand = this.launchRng;
         const heightDraw = rand();
-        const resolved = this.launchProfileResolver?.(f.id);
+        const resolved = this.launchProfileResolver?.(f.id, placement);
         const launchProfile = resolved && Number.isFinite(resolved.apexMin) && Number.isFinite(resolved.apexMax)
             ? Object.freeze({ ...resolved }) : undefined;
         const x = this.placementToX(placement), top = launchProfile
@@ -193,7 +197,7 @@ export class Simulation {
             : 72 + heightDraw * 6;
         // Solve a powered rise followed by a coast that reaches the apex at zero vertical speed.
         // All families share virtual gravity; height changes flight duration, not the viewport.
-        const thrustFraction = .24;
+        const thrustFraction = family >= 10 ? [.28, .22, .31][family - 10] : .24;
         const ascent = Math.sqrt(2 * (top - this.ground) / (FLIGHT_GRAVITY * (1 - thrustFraction)));
         const thrust = ascent * thrustFraction, coast = ascent - thrust;
         const acceleration = FLIGHT_GRAVITY * coast / thrust;
@@ -221,11 +225,12 @@ export class Simulation {
         return true;
     }
     /** Explicit drawer drop: same admission/reservation and seeded recipe as a rocket. */
-    burstAt(id: FamilyId, x: number, y: number) {
-        if (!Number.isFinite(x) || !Number.isFinite(y) || !this.canLaunchFamily(id)) return false;
+    burstAt(id: FamilyId, x: number, y: number, effectScale = 1) {
+        if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(effectScale) || effectScale <= 0 || effectScale > 1 || !this.canLaunchFamily(id)) return false;
         const family = familyIndex(id);
         if (!this.ignite('manual', family)) return false;
         const rocket = this.committed!;
+        if (family >= 10) rocket.launchProfile = Object.freeze({ ...(rocket.launchProfile ?? { apex: y, apexMin: y, apexMax: y, centerFraction: .34 }), effectScale });
         this.events = this.events.filter(event => event.type !== 'fuse');
         rocket.x = x; rocket.y = y - SHELL_LOCAL_Y * 3.4; rocket.z = 0;
         rocket.vx = rocket.vy = rocket.vz = 0;
@@ -254,6 +259,7 @@ export class Simulation {
         this.show = null;
     }
     reset() {
+        this.signatureStages.fill(0);
         this.heads.clear();
         this.trails.clear();
         this.smoke.clear();
@@ -299,6 +305,7 @@ export class Simulation {
             committedFamily: this.committed ? FAMILIES[this.committed.family].name : '',
             flightProgress: this.committed?.stage === 'ascent' ? Math.min(1, this.committed.age / this.committed.ascent) : 0,
             fuse: this.rockets.some(r => r.stage === 'fuse'), phase: this.phase, carriers: this.cues.length, embers: this.embers.count,
+            signatureStages: Array.from(this.signatureStages), reducedMotion: this.reducedMotion, reducedFlashes: this.reducedFlashes,
         };
     }
     private emit(type: SimEvent['type'], x: number, y: number, z: number, family: number, strength = 1, duration?: number) {
@@ -358,7 +365,7 @@ export class Simulation {
         for (let i = this.cues.length - 1; i >= 0; i--) {
             const c = this.cues[i];
             const px = c.x, py = c.y, pz = c.z;
-            c.vy -= 3.2 * dt;
+            c.vy -= (c.gravity ?? 3.2) * dt;
             c.x += c.vx * dt;
             c.y += c.vy * dt;
             c.z += c.vz * dt;
@@ -384,8 +391,9 @@ export class Simulation {
         r.x += r.vx * dt;
         r.z += r.vz * dt;
         const motor = rocketPoint(r, MOTOR_LOCAL_Y), poweredTail = r.phase === 'thrust';
-        this.trails.add(...previousMotor, ...motor, poweredTail ? .56 : .25,
-            poweredTail ? .13 : .045, 1, poweredTail ? .66 : .37, .11, r.id, 0, BUDGETS[this.quality].trails);
+        const tone = r.family >= 10 ? signatureTint(r.family) : null;
+        this.trails.add(...previousMotor, ...motor, poweredTail ? (r.family >= 10 ? .72 : .56) : .25,
+            poweredTail ? (r.family >= 10 ? .18 : .13) : .045, tone?.[0] ?? 1, tone?.[1] ?? (poweredTail ? .66 : .37), tone?.[2] ?? .11, r.id, r.family >= 10 ? r.family : 0, BUDGETS[this.quality].trails);
         r.px = r.x; r.py = r.y; r.pz = r.z;
         if (hash01(Math.floor(r.age * 60), r.seed ^ 9) > (poweredTail ? .68 : .94)) {
             this.addSmoke(motor[0], motor[1] - .35, motor[2], poweredTail ? 1.3 : .65, poweredTail ? .48 : .15, 1);
@@ -399,7 +407,7 @@ export class Simulation {
         }
         if (this.time < this.nextCue) return;
         const rand = this.showRng, mode = this.show;
-        const eligible = FAMILIES.map((_, index) => index).filter(index => mode !== 'calm' || (index !== 4 && index !== 9));
+        const eligible = FAMILIES.map((_, index) => index).filter(index => mode !== 'calm' || (index !== 4 && index !== 9 && index < 10));
         let pick = Math.floor(rand() * eligible.length);
         if (eligible[pick] === this.previousFamily) pick = (pick + 1) % eligible.length;
         const family = eligible[pick];
@@ -415,7 +423,7 @@ export class Simulation {
     private primary(r: Rocket) {
         const [x, y, z] = rocketPoint(r, SHELL_LOCAL_Y);
         if (r.family !== 4) {
-            this.burst(r.family, x, y, z, 1, r.seed, r.vx * .13, r.vy * .08, r.vz * .13);
+            this.burst(r.family, x, y, z, r.launchProfile?.effectScale ?? 1, r.seed, r.vx * .13, r.vy * .08, r.vz * .13);
             return;
         }
         const rand = randomStream(r.seed);
@@ -466,17 +474,25 @@ export class Simulation {
         if (!this.show) this.message = 'Stay for the falling embers.';
     }
     private grandBurst(family: number, x: number, y: number, z: number, scale: number, seed: number, mx: number, my: number, mz: number, palette: number) {
-        const recipe = grandRecipe(family, this.quality, seed, scale, palette);
+        const stage = Math.max(0, palette);
+        const recipe = family >= 10 ? signatureRecipe(family, this.quality, seed, scale, stage) : grandRecipe(family, this.quality, seed, scale, palette);
+        if (family >= 10) this.signatureStages[(family - 10) * 3 + stage]++;
         for (const star of recipe.stars) {
             const [vx, vy, vz] = star.velocity;
-            this.heads.add(x, y, z, vx + mx, vy + my, vz + mz, star.life, ...star.color,
+            const index = this.heads.add(x, y, z, vx + mx, vy + my, vz + mz, star.life, ...star.color,
                 star.size, star.drag, star.gravity, star.trail, star.split, family);
+            if (family >= 10 && index >= 0 && 'delay' in star) {
+                const signature = star as import('./FlagshipEffects.js').SignatureStar;
+                this.heads.age[index] = -signature.delay; this.heads.gain[index] = 0;
+                this.heads.role[index] = signature.role; this.heads.wave[index] = signature.wave; this.heads.curve[index] = signature.curve;
+            }
         }
         this.bursts++;
         // Staggered colored reports, never a full-screen strobe or amplified volume.
-        this.emit('burst', x, y, z, family, Math.min(1, scale));
+        const energy = family >= 10 ? (stage ? .30 : .70) : 1;
+        this.emit('burst', x, y, z, family, Math.min(1, scale) * energy);
         if (this.lights.length < 12) this.lights.push({ x, y, z, age: 0,
-            r: recipe.light[0], g: recipe.light[1], b: recipe.light[2], strength: Math.min(1, scale) });
+            r: recipe.light[0], g: recipe.light[1], b: recipe.light[2], strength: Math.min(1, scale) * energy });
         const random = randomStream(seed ^ 0x49e);
         const layers = palette >= 0 ? 2 : this.quality === 'low' ? 4 : 7;
         for (let j = 0; j < layers; j++) this.addSmoke(x + (random() - .5) * 14 * scale,
@@ -484,7 +500,7 @@ export class Simulation {
             (4 + random() * 4) * scale, .53, 2);
         for (const carrier of recipe.carriers) this.cues.push({ id: this.nextObjectId++,
             at: this.time + carrier.delay, family, x, y, z, vx: carrier.velocity[0],
-            vy: carrier.velocity[1], vz: carrier.velocity[2], scale: .72,
+            vy: carrier.velocity[1], vz: carrier.velocity[2], scale: family >= 10 ? scale : .72, gravity: family >= 10 ? 3.2 * scale : undefined,
             seed: carrier.seed, reserve: carrier.reserve, palette: carrier.palette });
         if (!this.show) this.message = 'Stay for the color and the falling embers.';
     }
@@ -492,8 +508,10 @@ export class Simulation {
         const p = this.heads, budget = BUDGETS[this.quality];
         for (let i = p.count - 1; i >= 0; i--) {
             p.age[i] += dt;
+            if (p.age[i] < 0) continue;
             if (p.age[i] >= p.life[i] || p.y[i] < -18) { p.remove(i); continue; }
             coolGrandStar(p, i, dt);
+            if (p.family[i] >= 10) evolveSignature(p, i, dt, this.reducedFlashes, this.reducedMotion);
             const drag = Math.exp(-p.drag[i] * dt);
             p.vx[i] = p.vx[i] * drag + this.wind * 0.09 * dt;
             p.vy[i] = p.vy[i] * drag - p.gravity[i] * dt;
@@ -516,7 +534,7 @@ export class Simulation {
             if (p.trail[i] > 0 && (distance > 0.75 || p.carry[i] >= 1 / budget.trailRate)) {
                 const age = p.age[i] / p.life[i], red = p.family[i] === 2 ? clamp((age - 0.4) * 1.6, 0, 0.75) : 0;
                 const life = p.trail[i] * (0.90 + hash01(p.id[i], 7) * 0.1);
-                this.trails.add(p.px[i], p.py[i], p.pz[i], p.x[i], p.y[i], p.z[i], life, p.size[i] * 0.55 * (1 - age * 0.45), p.r[i], p.g[i] * (1 - red), p.b[i] * (1 - red), p.id[i], p.family[i], budget.trails);
+                this.trails.add(p.px[i], p.py[i], p.pz[i], p.x[i], p.y[i], p.z[i], life, p.size[i] * 0.55 * (1 - age * 0.45), p.r[i] * p.gain[i], p.g[i] * (1 - red) * p.gain[i], p.b[i] * (1 - red) * p.gain[i], p.id[i], p.family[i], budget.trails);
                 p.px[i] = p.x[i];
                 p.py[i] = p.y[i];
                 p.pz[i] = p.z[i];
