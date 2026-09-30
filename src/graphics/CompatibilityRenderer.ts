@@ -9,6 +9,8 @@ import type { RendererPort } from '../engine/RendererPort';
 import { flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from '../engine/LaunchGeometry';
 import { fusePointAt } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
+import { updateMoonFrame } from './MoonComposition';
+import { sampleWater } from './WaterWaves';
 import { makeGalaxySky } from './GalaxySky';
 import type { SkyState } from '../engine/SkyState';
 import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
@@ -23,6 +25,10 @@ type RiverBoat = { image: HTMLCanvasElement; x: number; depth: number; width: nu
 export class CompatibilityRenderer implements RendererPort {
     readonly backend = 'Canvas 2D · compatibility';
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
+    private readonly moonImage = new Image();
+    private moonReady = false;
+    private readonly moonFrame = { x: 0, y: 0, radius: 15 };
+    private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
     private readonly canvas = document.createElement('canvas');
     private readonly ctx: CanvasRenderingContext2D;
     private readonly celestialArt = makeGalaxySky();
@@ -155,8 +161,9 @@ export class CompatibilityRenderer implements RendererPort {
             const width = clamp(this.width * boat.width, i === 0 ? 32 : i === 1 ? 25 : 66,
                 i === 0 ? 74 : i === 1 ? 56 : 138), scale = width / boat.image.width;
             boat.screenX = this.width * boat.x + Math.sin(time * .28 + boat.phase) * wind * 1.1;
-            boat.screenY = horizon + this.height * boat.depth + Math.sin(time * .7 + boat.phase) * Math.min(1.3, this.height * .0014);
-            boat.screenWidth = width; boat.roll = Math.sin(time * .56 + boat.phase) * .009;
+            sampleWater(boat.x * 160, -boat.depth * 600, time * this.sim.wind, this.waterSample);
+            boat.screenY = horizon + this.height * boat.depth + this.waterSample.height * 22;
+            boat.screenWidth = width; boat.roll = this.waterSample.slopeX * 2.5;
             for (const source of boat.lampPixels) {
                 const lamp = this.riverArt.lamps[lampIndex++];
                 const localX = (source.x - boat.image.width / 2) * scale * boat.facing, localY = (source.y - boat.waterline) * scale;
@@ -220,6 +227,8 @@ export class CompatibilityRenderer implements RendererPort {
     }
     async init() {
         if (this.disposed) return;
+        this.moonImage.onload = () => { if (!this.disposed) { this.moonReady = true; this.render(); } };
+        this.moonImage.src = `${import.meta.env.BASE_URL}art/moon-lro-v001.png`;
         this.initialized = true;
         this.host.replaceChildren(this.canvas);
         this.host.dataset.backend = this.backend;
@@ -232,6 +241,7 @@ export class CompatibilityRenderer implements RendererPort {
         if (this.disposed) return;
         this.width = Math.max(1, this.host.clientWidth);
         this.height = Math.max(1, this.host.clientHeight);
+        updateMoonFrame(this.width, this.height, .72, this.moonFrame);
         this.layout = measureStage(this.host, this.mode === 'interactive');
         const framing = stageFraming(this.layout);
         this.baseline = framing.baseline;
@@ -300,6 +310,20 @@ export class CompatibilityRenderer implements RendererPort {
         const shoreHeight = clamp(this.height * .028, 16, 26);
         c.globalAlpha = 1; c.drawImage(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
         c.save(); c.beginPath(); c.rect(0, horizon + 2, this.width, this.height - horizon); c.clip(); c.globalCompositeOperation = 'lighter';
+        // Finite perspective ripples: independently advected, broken moonlight,
+        // with smaller/softer fragments at the horizon. No extra canvas or pass.
+        const moonX = this.moonFrame.x;
+        for (let i = 0; i < 96; i++) {
+            const depth = (i + .5) / 96, y = horizon + depth * (this.height-horizon);
+            const crossing = Math.sin(i*2.399 + riverTime*.67) * Math.sin(i*.79-riverTime*.43);
+            const drift = Math.sin(i*.37+riverTime*.21) * (2+depth*12);
+            const halfWidth = (2+depth*this.width*.055) * (.55+crossing*.32);
+            c.fillStyle = '#8ca4b8'; c.globalAlpha = this.moonReady ? (.014+depth*.037) * (.6+crossing*.4) : .008;
+            c.fillRect(moonX+drift-halfWidth,y,halfWidth*2,.5+depth*.6);
+            c.fillStyle = '#35556d'; c.globalAlpha = .05+depth*.05;
+            const x = ((i * .61803398875 + riverTime*.002) % 1)*this.width;
+            c.fillRect(x,y,3+depth*18,.45+depth*.45);
+        }
         this.drawRiverReflections(riverTime);
         const p = s.heads, step = Math.max(1, Math.ceil(p.count / 450));
         for (let i = 0; i < p.count; i += step) {
@@ -409,6 +433,11 @@ export class CompatibilityRenderer implements RendererPort {
             c.drawImage(this.celestialArt.nearStars, celestialLeft + frame.nearX, celestialTop + frame.nearY, celestialWidth, celestialHeight);
             this.drawCelestialResponse(celestialLeft, celestialTop, celestialWidth, celestialHeight, nearStrength);
             c.restore(); this.drawCelestialMeteor();
+            if (this.moonReady) {
+                const m = this.moonFrame, diameter = m.radius * 2 / .95;
+                this.glow(m.x, m.y, m.radius * 2.5, '#a8bfd8', .065);
+                c.globalAlpha = .90; c.drawImage(this.moonImage, m.x-diameter/2, m.y-diameter/2, diameter, diameter);
+            }
             c.globalAlpha = 1;
         }
         if (this.mode !== 'transparent') this.drawWater();
@@ -479,7 +508,7 @@ export class CompatibilityRenderer implements RendererPort {
     diagnostics() {
         const r = this.sim.committed;
         const shell = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
-        return { stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
+        return { moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
             ...celestialDiagnostics(this.celestialFrame), skyHorizon: .72, skyLayers: 3, skyTextures: 0,
             skyArtWidth: this.celestialArt.stars.width, skyArtHeight: this.celestialArt.stars.height,
             skyCelestialCrop: Math.max(.6, Math.min(1.35, this.width / this.height / 2)), skyResponseCachePixels: 32768,
@@ -497,7 +526,7 @@ export class CompatibilityRenderer implements RendererPort {
     }
     dispose() {
         if (this.disposed) return;
-        this.disposed = true; this.canvas.remove(); this.glows.clear();
+        this.disposed = true; this.moonImage.onload = null; this.moonImage.src = ""; this.canvas.remove(); this.glows.clear();
         this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
         this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
         this.celestialArt.nearStars.width = this.celestialArt.nearStars.height = 1;

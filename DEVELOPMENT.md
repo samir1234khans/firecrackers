@@ -123,3 +123,9 @@ Run the focused hardware suite with `GALAXY_URL` set to the candidate and a new 
 ## Bottom collection and upper canopy
 
 `node tests/stage-browser.mjs` checks all seven target sizes plus the 679/680px boundary, ten direct launches, drag cancellation, terrace placement, upper-apex profiles, rotation, panels and audio. `STAGE_HARDWARE=1` uses installed Chrome and checks WebGPU, forced WebGL and Canvas separately. `tests/launch-composition.test.mjs` is part of `npm test`. Capture same-seed before/after via `CAPTURE_URL` and `CAPTURE_PHASE` with `node tests/redesign-capture.mjs`. Publish isolated preview with `npx wrangler deploy --config wrangler.redesign-preview.jsonc`; production retains the documented clean-main `npm run cloudflare:deploy` path.
+
+## Fixed moon and shared water waves
+
+`python scripts/generate-moon.py` (NumPy/Pillow) generates the local lunar disc from the credited maps in [moon provenance](assets-source/moon/PROVENANCE.md). GPU loads `moon` as the ninth independent enhancement; Canvas loads the same delivered PNG. `MoonComposition` uses CSS-pixel coordinates, and `WaterWaves` provides fixed directional wave coefficients and allocation-free analytic buoyancy/slopes. Future water changes must retain pause, Low and reduced-motion stillness and existing reflection budgets.
+
+`node tests/moon-water-browser.mjs` uses installed hardware Chrome across WebGPU, WebGL and Canvas; `MOON_URL` selects a hosted origin. `tests/moon-water.test.mjs` is part of `npm test`. `CAPTURE_URL`/`CAPTURE_PHASE` select the matched-source capture through `tests/moon-water-capture.mjs`. Short PC performance comparisons use `tests/moon-water-performance.mjs`; they do not qualify physical mobile endurance. Publish an isolated candidate with `npx wrangler deploy --config wrangler.moon-preview.jsonc`. See [preview evidence](docs/evidence/moon-water-2026-10-01/PREVIEW.md).

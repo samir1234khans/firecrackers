@@ -1,3 +1,4 @@
+import { sampleWater } from './WaterWaves';
 import * as THREE from 'three/webgpu';
 import type { Simulation } from '../engine/Simulation';
 import { randomStream } from '../engine/catalog';
@@ -206,14 +207,16 @@ export class RiverLife {
     this.villageBounds.setFromObject(this.village);
   }
 
+  private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
   update(sim: Simulation, visible: boolean, motionAllowed = true) {
     this.group.visible = visible;
     const moving = motionAllowed && !this.reducedMotion?.matches && sim.quality !== 'low';
     const time = moving ? sim.time : 0; this.lastTime = time;
     for (const boat of this.boats) {
-      boat.object.position.y = WATER_Y + Math.sin(time * .62 * sim.wind + boat.phase) * .040;
-      boat.object.rotation.x = Math.sin(time * .47 * sim.wind + boat.phase) * .006;
-      boat.object.rotation.z = Math.sin(time * .39 * sim.wind + boat.phase) * .004;
+      sampleWater(boat.object.position.x, boat.object.position.z, time * sim.wind, this.waterSample);
+      boat.object.position.y = WATER_Y + this.waterSample.height;
+      boat.object.rotation.x = this.waterSample.slopeZ;
+      boat.object.rotation.z = -this.waterSample.slopeX;
     }
     if (!visible) { this.fragments.count = 0; this.waterContact.count = 0; this.flames.count = 0; this.candleLight.intensity = 0; return; }
     this.group.updateMatrixWorld(true);
