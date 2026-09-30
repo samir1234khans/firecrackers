@@ -11,7 +11,7 @@ type Props = {
   returnFocus?: HTMLElement | null;
   initialFocusId?: string;
   dragging?: boolean;
-  variant?: 'help' | 'show' | 'settings' | 'reset' | 'picker' | 'position';
+  variant?: 'help' | 'show' | 'settings' | 'reset' | 'picker' | 'position' | 'controls';
 };
 
 const FOCUSABLES = 'button, a[href], input, select, textarea, summary, [tabindex], [contenteditable="true"]';

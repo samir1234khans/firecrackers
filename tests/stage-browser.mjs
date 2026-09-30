@@ -1,129 +1,58 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-import fs from 'node:fs/promises';
-import { inspectStage, inspectEdgeShelves, inspectEdgeSeparation, inspectBorderlessControls, inspectOpenDock, edgeShelf, dockShelf, openPicker, chooseFamily } from './stage-helpers.mjs';
-const base=process.env.STAGE_URL||'http://127.0.0.1:4173/';const out=process.argv[2]||'test-results/stage-full';await fs.mkdir(out,{recursive:true});
-const report={url:base,checks:[],errors:[],physicalDevice:false};const pass=(name,data={})=>{report.checks.push({name,...data});console.log('PASS',name)};
-const browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
-const context=await browser.newContext({viewport:{width:393,height:851},hasTouch:true,isMobile:true});const p=await context.newPage();p.on('pageerror',e=>report.errors.push(e.message));
-const snap=()=>p.evaluate(()=>window.__firecrackersQA.snapshot());
-const advance=async t=>{await p.evaluate(t=>window.__firecrackersQA.advance(t),t);await p.waitForTimeout(50);await p.evaluate(()=>window.__firecrackersQA.render())};
-const enter=async backend=>{await p.goto(`${base}?backend=${backend}&qa=1`);await p.waitForSelector('main[data-ready="true"]',{timeout:90000});};
-const dockToggle=page=>page.locator('[data-family-dock] .family-dock-toggle');
-const touchDrag=async(cdp,icon,x,y,end='touchEnd')=>{
- const r=await icon.boundingBox();assert.ok(r,`Missing drag source: ${icon}`);const sx=r.x+r.width/2,sy=r.y+r.height/2;
- await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:sx,y:sy}]});
- for(let i=1;i<=8;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:sx+(x-sx)*i/8,y:sy+(y-sy)*i/8}]});
- await cdp.send('Input.dispatchTouchEvent',{type:end,touchPoints:[]});await p.waitForTimeout(50);
+import { mkdir,writeFile } from 'node:fs/promises';
+import { inspectStage, inspectBorderlessControls, openPanel, chooseFamily, settingsTab, selectedLaunch, classicIds, grandIds } from './stage-helpers.mjs';
+const base=process.env.STAGE_URL||'http://127.0.0.1:4173/',out=process.argv[2]||'test-results/stage-full';await mkdir(out,{recursive:true});
+const report={url:base,checks:[],errors:[],physicalDevice:false,method:'Bundled Chromium, software WebGL and Canvas; DOM mouse/touch input; emulated viewports'};
+const browser=await chromium.launch({channel:process.env.STAGE_HARDWARE?'chrome':undefined,headless:true,args:process.env.STAGE_HARDWARE?[]:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
+const context=await browser.newContext({viewport:{width:393,height:851},hasTouch:true,isMobile:true});const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
+const snap=()=>page.evaluate(()=>window.__firecrackersQA.snapshot());
+const advance=async t=>{await page.evaluate(t=>{window.__firecrackersQA.advance(t);window.__firecrackersQA.render();},t);};
+const pass=(name,data={})=>{report.checks.push({name,...data});console.log('PASS',name);};
+const icon=id=>page.locator(`[data-family-icon="${id}"]`);
+const enter=async backend=>{await page.goto(`${base}?backend=${backend}&qa=1&seed=20260916`);await page.waitForSelector('main[data-ready="true"]',{timeout:90000});await page.evaluate(()=>window.__firecrackersQA.freeze(true));
+ if(process.env.STAGE_HARDWARE){
+  const actual=(await snap()).backend;assert.equal(actual,backend==='webgpu'?'WebGPU':backend==='webgl'?'WebGL 2':'Canvas 2D · compatibility');
+  if(backend==='webgpu'){const adapter=await page.evaluate(async()=>{const a=await navigator.gpu.requestAdapter();return {vendor:a.info.vendor,architecture:a.info.architecture,fallback:a.info.isFallbackAdapter};});assert.equal(adapter.fallback,false);pass('Native WebGPU adapter',{adapter});}
+  if(backend==='webgl'){const renderer=await page.evaluate(()=>{const gl=document.querySelector('canvas').getContext('webgl2'),e=gl.getExtension('WEBGL_debug_renderer_info');return gl.getParameter(e.UNMASKED_RENDERER_WEBGL);});assert.doesNotMatch(renderer,/SwiftShader|software|llvmpipe/i);pass('Hardware forced WebGL',{renderer});}
+ }
 };
-const mouseDrag=async(page,icon,x,y)=>{
- const r=await icon.boundingBox();assert.ok(r,`Missing drag source: ${icon}`);const sx=r.x+r.width/2,sy=r.y+r.height/2;
- await page.mouse.move(sx,sy);await page.mouse.down();await page.mouse.move(x,y,{steps:8});await page.mouse.up();await page.waitForTimeout(50);
-};
+const drag=async(id,x,y,end='up')=>{const r=await icon(id).boundingBox();await page.mouse.move(r.x+24,r.y+24);await page.mouse.down();await page.mouse.move(x,y,{steps:10});if(end==='escape')await page.keyboard.press('Escape');if(end==='cancel')await icon(id).dispatchEvent('pointercancel',{pointerId:1});await page.mouse.up();};
 try{
- await enter('canvas');
- for(const [width,height] of [[320,480],[375,667],[393,851],[768,1024],[844,390],[1280,800],[1920,1080]]){await p.setViewportSize({width,height});const result=await inspectStage(p);if(width>=768&&height>=621)await inspectEdgeShelves(p,width<1024?48:44);await p.screenshot({path:`${out}/layout-${width}x${height}.png`});pass(`${width}x${height}: center clearance, direct shelves or compact dock, and hit targets`,{ratio:result.hero.width/width});}
- const cdp=await context.newCDPSession(p);
- await p.setViewportSize({width:768,height:1024});await inspectStage(p);await inspectEdgeShelves(p,48);
- for(const [collection,id] of [['classics','gold-willow'],['grand','sapphire-saturn']]){
-  const before=await snap(),hero=JSON.parse(await p.locator('main').getAttribute('data-hero-rect')||await p.locator('main').evaluate(e=>e.dataset.heroRect));
-  await touchDrag(cdp,edgeShelf(p,collection).locator(`[data-family-icon="${id}"]`),hero.x+hero.width/2,hero.y+hero.height*.3);
-  const after=await snap();assert.equal(after.launched,before.launched+1);assert.equal(after.bursts,before.bursts+1);assert.equal(after.selected,id);
-  await advance(35);assert.equal((await snap()).particles,0);
+ for(const backend of (process.env.STAGE_HARDWARE?['webgpu','webgl','canvas']:['canvas','webgl'])){
+  await enter(backend);
+  for(const [width,height] of [[320,480],[375,667],[393,851],[679,800],[680,800],[768,1024],[844,390],[1280,800],[1920,1080]]){
+   await page.setViewportSize({width,height});const layout=await inspectStage(page);await page.mouse.move(1,1);await inspectBorderlessControls(page);await page.screenshot({path:`${out}/${backend}-${width}x${height}.png`});pass(`${backend} ${width}x${height}: ten reachable icons, responsive groups, tray/rail separation`,{layout});
+  }
+  await page.setViewportSize({width:393,height:851});await inspectStage(page);
+  for(const id of [...classicIds,...grandIds]){
+   await advance(40);const before=await snap();await icon(id).click();const committed=await snap();assert.equal(committed.phase,'fuse');assert.equal(committed.selected,id);assert.ok(committed.committedId);assert.ok(committed.launchProfile);
+   await icon(id).dispatchEvent('click');assert.equal((await snap()).committedId,committed.committedId);
+   const fraction=(committed.apexScreen.y-committed.stageLayout.unobstructedScene.y)/committed.stageLayout.unobstructedScene.height;
+   assert.ok(fraction>=.30&&fraction<=.38,`Upper canopy ${id}: ${fraction}`);
+   await advance(10);const after=await snap();assert.equal(after.launched,before.launched+1);assert.ok(after.bursts>before.bursts);pass(`${backend} ${id}: one immediate admission, immutable duplicate guard, upper canopy`,{fraction});
+  }
+  await advance(40);let before=await snap();const l=before.stageLayout,x=l.heroRect.x+l.heroRect.width*.4,y=l.heroRect.y+l.heroRect.height*.32;
+  const geometry=JSON.stringify(l.heroRect),r=await icon('gold-willow').boundingBox();await page.mouse.move(r.x+24,r.y+24);await page.mouse.down();await page.mouse.move(x,y,{steps:10});assert.equal(await page.locator('main').getAttribute('data-drag-active'),'true');assert.equal(JSON.stringify((await snap()).stageLayout.heroRect),geometry);await page.mouse.up();
+  assert.equal((await snap()).bursts,before.bursts+1);assert.equal((await snap()).launched,before.launched+1);assert.equal((await snap()).active,1);pass(`${backend}: sky release bursts once, geometry remains reserved`);
+  await advance(40);
+  for(const [name,end,tx,ty] of [['water','up',196,(await snap()).stageLayout.heroRect.height*.77],['tray','up',196,810],['rail','up',365,330],['outside','up',-5,-5],['escape','escape',196,180],['pointercancel','cancel',196,180]]){
+   before=await snap();await drag('ruby-dahlia',tx,ty,end);const after=await snap();assert.equal(after.launched,before.launched,name);assert.equal(after.bursts,before.bursts,name);assert.equal(after.committedId,before.committedId,name);pass(`${backend}: ${name} cancels without accidental click`);
+  }
+  before=await snap();await icon('ruby-dahlia').click();assert.equal((await snap()).phase,'fuse');await advance(40);pass(`${backend}: fresh tap immediately after cancellation launches`);
+  const cdp=await context.newCDPSession(page),t=await icon('sapphire-saturn').boundingBox();before=await snap();await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:t.x+24,y:t.y+24}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:196,y:180}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});assert.equal((await snap()).launched,before.launched);pass(`${backend}: native touch cancellation`);
+  for(const placement of [.2,.8]){
+   await advance(40);before=await snap();const area=before.stageLayout.launchArea;await drag('sapphire-saturn',placement===.2?20:373,area.y+area.height*.5);const after=await snap();assert.equal(after.phase,'fuse');assert.equal(after.bursts,before.bursts);assert.ok(Math.abs(after.placement-placement)<.02);await advance(1);assert.equal((await snap()).launched,before.launched+1);pass(`${backend}: terrace drop maps ${placement} into normal rocket`);
+  }
+  await advance(40);await openPanel(page,'position');await page.getByRole('button',{name:'Right',exact:true}).click();await page.getByRole('button',{name:'Apply',exact:true}).click();assert.equal((await snap()).placement,.8);
+  await icon('gold-willow').click();const flight=await snap();await chooseFamily(page,'Sapphire Saturn');assert.equal((await snap()).committedId,flight.committedId);await page.setViewportSize({width:844,height:390});assert.equal((await snap()).committedId,flight.committedId);assert.deepEqual((await snap()).launchProfile,flight.launchProfile);await advance(40);pass(`${backend}: rotation and next-family selection preserve committed flight`);
+  await page.setViewportSize({width:393,height:851});await page.getByRole('button',{name:'Pause scene',exact:true}).click();await openPanel(page,'settings');const stopped=await snap();await page.evaluate(()=>window.__firecrackersQA.freeze(false));await page.waitForTimeout(250);assert.equal((await snap()).time,stopped.time);await page.evaluate(()=>window.__firecrackersQA.freeze(true));
+  for(let i=0;i<12;i++){await page.keyboard.press(i<6?'Tab':'Shift+Tab');assert.ok(await page.evaluate(()=>!!document.activeElement.closest('dialog:modal')));}
+  await page.keyboard.press('Escape');assert.equal((await snap()).paused,true);assert.ok(await page.getByRole('button',{name:'Controls',exact:true}).evaluate(e=>e===document.activeElement));await page.getByRole('button',{name:'Resume scene',exact:true}).click();pass(`${backend}: panel focus, Escape, restoration and manual pause ownership`);
+  await openPanel(page,'show');await page.getByRole('button',{name:'Festival',exact:true}).click();assert.equal((await snap()).show,'festival');await page.setViewportSize({width:844,height:390});assert.equal((await snap()).show,'festival');await advance(5);assert.ok((await snap()).launched>0);await openPanel(page,'show');await page.getByRole('button',{name:'Manual',exact:true}).click();await advance(40);pass(`${backend}: show profiles and rotation preserve show state`);
+  await page.setViewportSize({width:393,height:851});await page.locator('body').click({position:{x:10,y:150}});for(const [i,key] of ['1','2','3','4','5','6','7','8','9','0'].entries()){await page.keyboard.press(key);assert.equal((await snap()).selected,[...classicIds,...grandIds][i]);}await page.keyboard.press('l');assert.equal((await snap()).phase,'fuse');await advance(40);await selectedLaunch(page).focus();await page.keyboard.press('Enter');assert.equal((await snap()).phase,'fuse');await advance(40);pass(`${backend}: ten shortcuts and accessible keyboard launch`);
  }
- pass('tablet: drag from both edge collections bursts immediately and exactly once');
- await p.setViewportSize({width:393,height:851});
- assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
- await dockToggle(p).click();await inspectOpenDock(p);await inspectBorderlessControls(p,11);await p.screenshot({path:`${out}/dock-open-393x851.png`});
- let dockBefore=await snap();await touchDrag(cdp,dockShelf(p,'classics').locator('[data-family-icon="multicolor-peony"]'),10,10);
- assert.equal((await snap()).launched,dockBefore.launched);assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'true');
- await touchDrag(cdp,dockShelf(p,'grand').locator('[data-family-icon="ruby-dahlia"]'),196,240,'touchCancel');
- assert.equal((await snap()).launched,dockBefore.launched);assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'true');
- await touchDrag(cdp,dockShelf(p,'classics').locator('[data-family-icon="gold-willow"]'),196,240);
- let dockAfter=await snap();assert.equal(dockAfter.launched,dockBefore.launched+1);assert.equal(dockAfter.bursts,dockBefore.bursts+1);assert.equal(dockAfter.selected,'gold-willow');assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
- await advance(35);assert.equal((await snap()).particles,0);pass('mobile: expanded dock drag, invalid drop, cancel, and auto-close');
- await dockToggle(p).click();await inspectOpenDock(p);
- const mobilePadBefore=await snap(),mobileHero=await p.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));
- await touchDrag(cdp,dockShelf(p,'grand').locator('[data-family-icon="ruby-dahlia"]'),mobileHero.x+mobileHero.width/2,mobileHero.y+mobileHero.height*.89);
- const mobilePadAfter=await snap();assert.equal(mobilePadAfter.phase,'fuse');assert.equal(mobilePadAfter.committedFamily,'Ruby Dahlia');assert.equal(mobilePadAfter.bursts,mobilePadBefore.bursts);assert.equal(mobilePadAfter.launched,mobilePadBefore.launched);assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
- await advance(1);assert.equal((await snap()).launched,mobilePadBefore.launched+1);await advance(35);assert.equal((await snap()).particles,0);pass('mobile: dock drag to terrace lights one normal rocket at the drop position');
- await p.setViewportSize({width:320,height:480});await inspectStage(p);await dockToggle(p).click();await inspectOpenDock(p);
- await dockShelf(p,'grand').locator('[data-family-icon="opal-supernova"]').focus();await p.keyboard.press('Escape');assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
- await p.waitForFunction(()=>document.activeElement===document.querySelector('.family-dock-toggle'));pass('320px phone: ten touch targets fit and Escape restores dock focus');
- await p.setViewportSize({width:844,height:390});await inspectStage(p);await dockToggle(p).click();
- const landscapeDock=await inspectOpenDock(p);assert.ok(landscapeDock.y>=200,`Expanded landscape dock must leave an upper sky: ${JSON.stringify(landscapeDock)}`);await p.screenshot({path:`${out}/dock-open-844x390.png`});
- const landscapeBefore=await snap(),landscapeHero=await p.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));
- await touchDrag(cdp,dockShelf(p,'grand').locator('[data-family-icon="phoenix-palm"]'),landscapeHero.x+landscapeHero.width/2,landscapeHero.y+landscapeHero.height*.28);
- const landscapeAfter=await snap();assert.equal(landscapeAfter.launched,landscapeBefore.launched+1);assert.equal(landscapeAfter.bursts,landscapeBefore.bursts+1);assert.equal(await p.locator('[data-family-dock]').getAttribute('data-open'),'false');
- await advance(35);assert.equal((await snap()).particles,0);await p.setViewportSize({width:393,height:851});pass('short landscape: open dock preserves upper sky and drag bursts exactly once');
- const desktopContext=await browser.newContext({viewport:{width:1280,height:800}}),desktop=await desktopContext.newPage();desktop.on('pageerror',e=>report.errors.push(e.message));
- await desktop.goto(`${base}?backend=canvas&qa=1`);await desktop.waitForSelector('main[data-ready="true"]',{timeout:90000});await inspectStage(desktop);await inspectEdgeShelves(desktop,44);
- const desktopSnap=()=>desktop.evaluate(()=>window.__firecrackersQA.snapshot());
- const desktopAdvance=async t=>{await desktop.evaluate(t=>window.__firecrackersQA.advance(t),t);await desktop.waitForTimeout(50);};
- await inspectBorderlessControls(desktop,21);
- const fixedHero=await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));
- const rubyIcon=edgeShelf(desktop,'grand').locator('[data-family-icon="ruby-dahlia"]'),rubyQuick=edgeShelf(desktop,'grand').locator('[data-family-launch="ruby-dahlia"]');
- const selectBefore=await desktopSnap();await rubyIcon.click();await desktop.mouse.move(640,300);await desktop.waitForTimeout(150);
- assert.equal((await desktopSnap()).selected,'ruby-dahlia');assert.equal((await desktopSnap()).launched,selectBefore.launched);
- assert.equal(await rubyQuick.evaluate(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return Number(s.opacity)>.9&&s.visibility==='visible'&&s.pointerEvents!=='none'&&e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}),true,'Selected quick Launch stays visible without hover');
- await inspectStage(desktop);assert.deepEqual(await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect)),fixedHero);pass('borderless SVG controls and selected quick Launch are immediately visible at rest');
- const leftIcon=edgeShelf(desktop,'classics').locator('[data-family-icon="multicolor-peony"]'),leftQuick=edgeShelf(desktop,'classics').locator('[data-family-launch="multicolor-peony"]');
- assert.equal(await leftQuick.evaluate(e=>{const s=getComputedStyle(e);return Number(s.opacity)<.1||s.visibility==='hidden'||s.pointerEvents==='none';}),true,'Quick Launch is hidden at rest');
- await leftIcon.hover();await desktop.waitForFunction(()=>{const e=document.querySelector('[data-edge="middle-left"] [data-family-launch="multicolor-peony"]'),s=getComputedStyle(e);return Number(s.opacity)>.9&&s.visibility==='visible'&&s.pointerEvents!=='none';});
- await desktop.waitForTimeout(80);assert.deepEqual(await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect)),fixedHero,'Hover must not reframe the fireworks');
- await leftQuick.focus();await desktop.waitForTimeout(80);assert.deepEqual(await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect)),fixedHero,'Quick Launch focus must not reframe the fireworks');await inspectStage(desktop);
- const iconBox=await leftIcon.boundingBox(),quickBox=await leftQuick.boundingBox();assert.ok(Math.hypot(iconBox.x+iconBox.width/2-quickBox.x-quickBox.width/2,iconBox.y+iconBox.height/2-quickBox.y-quickBox.height/2)<150,'Quick Launch stays near its hovered icon');
- let quickBefore=await desktopSnap();await leftQuick.click();let quickAfter=await desktopSnap();assert.equal(quickAfter.committedFamily,'Multicolor Peony');assert.equal(quickAfter.phase,'fuse');assert.equal(quickAfter.bursts,quickBefore.bursts);await leftQuick.evaluate(e=>e.click());assert.equal((await desktopSnap()).committedId,quickAfter.committedId);await desktopAdvance(1);assert.equal((await desktopSnap()).launched,quickBefore.launched+1);await desktopAdvance(35);pass('desktop: hovered Classic offers nearby Launch and admits one normal flight');
- const rightIcon=edgeShelf(desktop,'grand').locator('[data-family-icon="sapphire-saturn"]'),rightQuick=edgeShelf(desktop,'grand').locator('[data-family-launch="sapphire-saturn"]');
- await rightIcon.focus();await desktop.waitForFunction(()=>{const e=document.querySelector('[data-edge="middle-right"] [data-family-launch="sapphire-saturn"]'),s=getComputedStyle(e);return Number(s.opacity)>.9&&s.visibility==='visible'&&s.pointerEvents!=='none';});
- await rightQuick.focus();quickBefore=await desktopSnap();await desktop.keyboard.press('Enter');quickAfter=await desktopSnap();assert.equal(quickAfter.committedFamily,'Sapphire Saturn');assert.equal(quickAfter.phase,'fuse');assert.equal(quickAfter.bursts,quickBefore.bursts);await desktopAdvance(1);assert.equal((await desktopSnap()).launched,quickBefore.launched+1);await desktopAdvance(35);pass('desktop: focused Grand offers keyboard Launch through a normal flight');
- for(const [collection,id] of [['classics','gold-willow'],['grand','opal-supernova']]){
-  const before=await desktopSnap(),hero=await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));
-  await mouseDrag(desktop,edgeShelf(desktop,collection).locator(`[data-family-icon="${id}"]`),hero.x+hero.width/2,hero.y+hero.height*.3);
-  const after=await desktopSnap();assert.equal(after.launched,before.launched+1);assert.equal(after.bursts,before.bursts+1);assert.equal(after.selected,id);
-  await desktopAdvance(35);assert.equal((await desktopSnap()).particles,0);
- }
- pass('desktop: dragging either edge collection into the sky bursts exactly once');
- const padHero=await desktop.locator('main').evaluate(e=>JSON.parse(e.dataset.heroRect));let leftPlacement=0;
- for(const [collection,id,name,fraction] of [['classics','chrysanthemum','Chrysanthemum',.25],['grand','sapphire-saturn','Sapphire Saturn',.75]]){
-  const before=await desktopSnap();await mouseDrag(desktop,edgeShelf(desktop,collection).locator(`[data-family-icon="${id}"]`),padHero.x+padHero.width*fraction,padHero.y+padHero.height*.89);
-  const after=await desktopSnap();assert.equal(after.phase,'fuse');assert.equal(after.committedFamily,name);assert.equal(after.bursts,before.bursts);assert.equal(after.launched,before.launched);assert.equal(after.selected,id);assert.ok(after.placement>=.2&&after.placement<=.8);
-  if(collection==='classics'){leftPlacement=after.placement;assert.ok(leftPlacement<.5,`Left terrace placement: ${leftPlacement}`);}else assert.ok(after.placement>leftPlacement+.2,`Right terrace placement: ${after.placement} vs ${leftPlacement}`);
-  await desktopAdvance(1);assert.equal((await desktopSnap()).launched,before.launched+1);await desktopAdvance(35);assert.equal((await desktopSnap()).particles,0);
- }
- pass('desktop: launchpad-height drops produce a normal rocket at distinct horizontal positions');
- const rejectedBefore=await desktopSnap();await mouseDrag(desktop,edgeShelf(desktop,'classics').locator('[data-family-icon="multicolor-peony"]'),padHero.x+padHero.width/2,padHero.y+padHero.height*.77);
- const rejectedAfter=await desktopSnap();assert.equal(rejectedAfter.launched,rejectedBefore.launched);assert.equal(rejectedAfter.bursts,rejectedBefore.bursts);assert.equal(rejectedAfter.selected,rejectedBefore.selected);assert.equal(rejectedAfter.placement,rejectedBefore.placement);
- pass('desktop: gap between sky and launchpad rejects a drop without changing selection or placement');
- await desktop.setViewportSize({width:1280,height:560});await inspectStage(desktop);await desktop.evaluate(()=>document.activeElement?.blur());await desktop.keyboard.press('3');
- assert.equal((await desktopSnap()).selected,'chrysanthemum');await inspectStage(desktop);await inspectEdgeShelves(desktop,44);await inspectEdgeSeparation(desktop);
- await desktop.screenshot({path:`${out}/layout-1280x560-long-caption.png`});await desktop.setViewportSize({width:1280,height:800});await inspectStage(desktop);await desktopContext.close();
- pass('1280x560: long selected caption keeps six edge groups separate and inside viewport');
- await p.evaluate(()=>{const m=document.querySelector('main');m.style.setProperty('--safe-top','30px');m.style.setProperty('--safe-bottom','24px');m.style.setProperty('--safe-left','4px');m.style.setProperty('--safe-right','4px')});await inspectStage(p);pass('safe insets preserve clear center');
- await p.evaluate(()=>document.querySelector('main').removeAttribute('style'));
- const before=await snap();await p.mouse.click(196,240);assert.equal((await snap()).launched,before.launched);assert.equal(await p.locator('main').getAttribute('data-overlay'),'none');pass('blank sky input is inert');
- await p.getByRole('button',{name:'Pause scene',exact:true}).click();await openPicker(p);await p.keyboard.press('Escape');assert.equal((await snap()).paused,true);await p.getByRole('button',{name:'Resume scene',exact:true}).click();pass('drawer close preserves manual pause');
- await p.getByRole('button',{name:'Open settings',exact:true}).click();const time=(await snap()).time;await p.waitForTimeout(250);assert.equal((await snap()).time,time);
- for(let i=0;i<22;i++){await p.keyboard.press('Tab');assert.ok(await p.evaluate(()=>document.activeElement?.closest('dialog')))}
- await p.keyboard.press('Escape');assert.equal(await p.getByRole('button',{name:'Open settings',exact:true}).evaluate(e=>e===document.activeElement),true);pass('panel pauses, traps focus, Escape restores invoker');
- await p.getByRole('button',{name:'Position firework'}).click();await p.getByRole('button',{name:'Right',exact:true}).click();await p.getByRole('button',{name:'Set position',exact:true}).click();assert.equal((await snap()).placement,.8);pass('position draft commits after overlay pause removal');
- await openPicker(p);await p.getByRole('button',{name:'Classics',exact:false}).click();let r=await p.getByRole('button',{name:'Gold Willow',exact:true}).boundingBox();
- await p.mouse.move(r.x+25,r.y+25);await p.mouse.down();await p.mouse.move(10,10,{steps:8});await p.mouse.up();assert.equal(await p.locator('main').getAttribute('data-overlay'),'picker');assert.equal((await snap()).launched,before.launched);pass('invalid drop cancels without launching');
- assert.equal(await p.getByRole('button',{name:'Burst selected style in center'}).isEnabled(),true,`Picker should be launch-ready: ${JSON.stringify(await snap())}`);
- r=await p.getByRole('button',{name:'Gold Willow',exact:true}).boundingBox();
- await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:r.x+25,y:r.y+25}]});
- for(let i=1;i<=8;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:r.x+25+(200-r.x-25)*i/8,y:r.y+25+(250-r.y-25)*i/8}]});
- await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await p.waitForTimeout(50);const dropped=await snap();assert.equal(dropped.launched,before.launched+1);assert.equal(dropped.bursts,before.bursts+1);assert.equal(await p.locator('main').getAttribute('data-overlay'),'none');pass('touch drag produces exactly one immediate burst');
- await p.evaluate(()=>window.__firecrackersQA.freeze(true));await advance(35);assert.equal((await snap()).particles,0);
- await openPicker(p);await p.getByRole('button',{name:'Burst selected style in center'}).click();assert.equal((await snap()).launched,dropped.launched+1);await advance(35);pass('keyboard-accessible instant burst and complete cleanup');
- await p.getByRole('button',{name:'Launch selected firework',exact:true}).click();const committed=(await snap()).committedId;await chooseFamily(p,'Sapphire Saturn');assert.equal((await snap()).committedId,committed);assert.equal((await snap()).committedFamily,'Gold Willow');await p.setViewportSize({width:844,height:390});assert.equal((await snap()).committedId,committed);await advance(35);pass('drawer selection and rotation preserve committed rocket');
- const requests=[];p.on('request',r=>{if(r.url().includes('/audio/'))requests.push(r.url())});await enter('canvas');assert.equal(requests.length,0);await p.getByRole('button',{name:'Enable sound',exact:true}).click();await p.waitForFunction(()=>window.__firecrackersQA.snapshot().recordedSamples===3);assert.equal(requests.length,3);await p.getByRole('button',{name:'Launch selected firework',exact:true}).click();await p.waitForTimeout(200);await p.getByRole('button',{name:'Pause scene',exact:true}).click();assert.equal((await snap()).audioVoices,0);pass('recordings load after explicit sound activation; pause cancels voices');
- await p.getByRole('button',{name:'Mute sound',exact:true}).click();await enter('webgl');assert.match((await snap()).backend,/WebGL/);await p.waitForFunction(()=>document.querySelector('.scene-host').dataset.assets?.includes('smoke'));
- const phoneWaterlines=[];for(const [width,height] of [[320,480],[375,667],[393,851]]){await p.setViewportSize({width,height});await inspectStage(p);const waterline=(await snap()).waterline;assert.ok(waterline>=.68&&waterline<=.77,`Portrait waterline ${width}x${height}: ${waterline}`);phoneWaterlines.push(waterline);}
- await p.setViewportSize({width:1280,height:800});await inspectStage(p);const desktopWaterline=(await snap()).waterline;assert.ok(desktopWaterline>=.44&&desktopWaterline<=.55,`Desktop waterline ${desktopWaterline}`);
- pass('projected phone waterline sits below the burst and desktop shoreline stays stable',{phoneWaterlines,desktopWaterline});
- for(const quality of ['ultra','standard','low']){await p.getByRole('button',{name:'Open settings',exact:true}).click();await p.getByLabel('Graphics quality',{exact:true}).selectOption(quality);await p.getByRole('button',{name:'Close panel'}).click();await p.evaluate(()=>window.__firecrackersQA.freeze(true));await advance(35);await chooseFamily(p,'Sapphire Saturn');await p.getByRole('button',{name:'Launch selected firework',exact:true}).click();await advance(4.9);const s=await snap();assert.equal(s.quality,quality);if(quality!=='low')assert.ok(Math.max(s.reflectionWidth,s.reflectionHeight)<=(quality==='ultra'?512:256));await p.screenshot({path:`${out}/saturn-${quality}.png`});pass(`${quality}: authored assets and reflection budget`,{width:s.reflectionWidth,height:s.reflectionHeight});}
- const fallback=await browser.newContext({viewport:{width:393,height:851},serviceWorkers:'block'});await fallback.route('**/art/terrace-v008.glb',route=>route.abort());const fp=await fallback.newPage();fp.on('pageerror',e=>report.errors.push(e.message));await fp.goto(`${base}?backend=webgl&qa=1`);await fp.waitForSelector('main[data-ready="true"]',{timeout:90000});await fp.waitForFunction(()=>document.querySelector('.scene-host')?.dataset.assets);assert.ok(!(await fp.locator('.scene-host').getAttribute('data-assets')).includes('terrace'));await fp.getByRole('button',{name:'Launch selected firework',exact:true}).click();await fp.evaluate(()=>window.__firecrackersQA.advance(5));assert.ok((await fp.evaluate(()=>window.__firecrackersQA.snapshot())).bursts>0);await fallback.close();pass('missing v008 terrace retains procedural stage and launches');
+ await enter('canvas');await page.setViewportSize({width:393,height:851});await page.evaluate(()=>{document.querySelector('main').style.setProperty('--safe-top','24px');document.querySelector('main').style.setProperty('--safe-bottom','20px');});await page.setViewportSize({width:393,height:750});await inspectStage(page);assert.equal((await snap()).stageLayout.safe.top,24);await page.setViewportSize({width:640,height:400});await inspectStage(page);pass('safe inset and browser-bar resize; 200% CSS reflow geometry');
+ await enter('canvas');const audio=[];page.on('request',r=>{if(r.url().includes('/audio/'))audio.push(r.url());});await page.getByRole('button',{name:'Enable sound',exact:true}).click();await page.waitForFunction(()=>window.__firecrackersQA.snapshot().recordedSamples===3);assert.equal(audio.length,3);await page.evaluate(()=>window.__firecrackersQA.freeze(false));await icon('gold-willow').click();await page.waitForFunction(()=>window.__firecrackersQA.snapshot().audioVoices>0);assert.ok((await snap()).audioVoices>0);await page.getByRole('button',{name:'Pause scene',exact:true}).click();assert.equal((await snap()).audioVoices,0);await page.getByRole('button',{name:'Mute sound',exact:true}).click();pass('sound opt-in samples and pause voice cleanup');
  assert.deepEqual(report.errors,[]);
-}catch(e){report.failed=e.stack;console.error(e);process.exitCode=1;await p.screenshot({path:`${out}/FAILED.png`}).catch(()=>{});}finally{await browser.close();await fs.writeFile(`${out}/report.json`,JSON.stringify(report,null,2));}
-
+}catch(e){report.failed=e.stack;process.exitCode=1;console.error(e);await page.screenshot({path:`${out}/FAILED.png`}).catch(()=>{});}finally{await writeFile(`${out}/report.json`,JSON.stringify(report,null,2));await browser.close();}

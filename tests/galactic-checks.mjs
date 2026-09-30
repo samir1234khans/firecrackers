@@ -1,10 +1,11 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import assert from 'node:assert/strict';
 import { settingsTab } from './stage-helpers.mjs';
 
 const snapshot = page => page.evaluate(() => window.__firecrackersQA.snapshot());
 async function reset(page) {
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Reset this sky', exact: true }).click();
   await page.getByRole('button', { name: 'Reset sky and preferences', exact: true }).click();
@@ -62,11 +63,11 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   check(`${label}: QA freeze holds shared phase, pointer response and render count`);
 
   await page.evaluate(() => window.__firecrackersQA.freeze(false));
-  await page.getByRole('button', { name: 'Open settings', exact: true }).hover();
+  await page.getByRole('button', { name: 'Controls', exact: true }).hover();
   await page.waitForFunction(() => window.__firecrackersQA.snapshot().skyEngagement < .01);
   assert.equal((await snapshot(page)).launched, 0);
   check(`${label}: hovering a control releases sky interaction without activating it`);
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   const panel = await snapshot(page);
   await page.mouse.move(width * .5, height * .16); await page.waitForTimeout(350);
   const panelAfter = await snapshot(page);
@@ -94,19 +95,19 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   assert.equal((await snapshot(page)).skyActiveMeteors, 0);
   check(`${label}: one faint deterministic meteor ends without firework or audio events`, { time: meteor.skyMotionTime, opacity: meteor.skyMeteorOpacity });
 
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   await page.getByLabel('Graphics quality', { exact: true }).selectOption('low');
   await page.getByRole('button', { name: 'Close panel', exact: true }).click();
   await page.evaluate(() => window.__firecrackersQA.freeze(false));
   await page.mouse.move(width * .6, height * .18);
   check(`${label}: explicit Low quality holds a static noninteractive sky`, await staticIdle(page));
 
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   await page.getByLabel('Graphics quality', { exact: true }).selectOption('ultra');
   await page.getByRole('checkbox', { name: 'Reduced interface motion', exact: true }).check();
   await page.getByRole('button', { name: 'Close panel', exact: true }).click();
   check(`${label}: saved app reduced motion holds static Ultra sky`, await staticIdle(page));
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   await page.getByRole('checkbox', { name: 'Reduced interface motion', exact: true }).uncheck();
   await page.getByRole('button', { name: 'Close panel', exact: true }).click();
   await page.emulateMedia({ reducedMotion: 'reduce' });

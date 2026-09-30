@@ -1,11 +1,12 @@
-import { measureStage, stageFraming } from './StageLayout';
+import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
+import { resolveScreenLaunchProfile } from './LaunchProfile';
 import * as THREE from 'three/webgpu';
 import { float, mix, pass, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 import { BUDGETS, FAMILIES } from './catalog';
 import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from './LaunchGeometry';
-import type { Quality } from './catalog';
+import type { FamilyId, Quality } from './catalog';
 import type { Simulation } from './Simulation';
 import type { SkyState } from './SkyState';
 import { ParticleScene } from '../graphics/ParticleScene';
@@ -155,12 +156,9 @@ export class FireworkRenderer {
         if (this.disposed) return;
         const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight), aspect = w / h;
         this.layout = measureStage(this.host, this.mode === 'interactive');
-        const framing = stageFraming(this.layout);
-        const span = framing.span;
-        const centerY = this.sim.ground + (framing.baseline / h - .5) * span;
+        const framing = stageCameraFrame(this.layout, this.sim.ground, this.camera.fov);
+        const { centerY, distance, pitch } = framing;
         this.camera.aspect = aspect;
-        const distance = span / (2 * Math.tan(this.camera.fov * Math.PI / 360));
-        const pitch = .08;
         this.camera.position.set(0, centerY + Math.sin(pitch) * distance, Math.cos(pitch) * distance);
         this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
@@ -188,6 +186,16 @@ export class FireworkRenderer {
         this.renderer.setPixelRatio(ratio);
         this.bloomPass.strength.value = budget.bloom * (this.sim.reducedFlashes ? .7 : 1);
         this.metrics.renderPixels = Math.round(w * h * ratio * ratio);
+    }
+    resolveLaunchProfile(id: FamilyId) {
+        const l = this.layout;
+        const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+        const point = new THREE.Vector3(), ndc = new THREE.Vector2(0, 0);
+        return resolveScreenLaunchProfile(l, id, stageFraming(l).scale, y => {
+            ndc.y = 1 - y / l.viewport.height * 2;
+            ray.setFromCamera(ndc, this.camera);
+            return ray.ray.intersectPlane(plane, point)?.y ?? this.sim.ground + 72;
+        });
     }
     projectPlacement(clientX: number) {
         const rect = this.host.getBoundingClientRect();
@@ -311,6 +319,7 @@ export class FireworkRenderer {
         const r = this.sim.committed;
         const point = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         const projected = point ? new THREE.Vector3(...point).project(this.camera) : null;
+        const apex = r ? new THREE.Vector3(r.x, r.top + SHELL_LOCAL_Y * 3.4, r.z).project(this.camera) : null;
         return {
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
             authoredAssetStates: { ...this.assetStates },
@@ -320,6 +329,8 @@ export class FireworkRenderer {
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,
             shellScreen: projected ? { x: (projected.x + 1) * this.host.clientWidth / 2, y: (1 - projected.y) * this.host.clientHeight / 2 } : null,
+            apexScreen: apex ? { x: (apex.x + 1) * this.host.clientWidth / 2, y: (1 - apex.y) * this.host.clientHeight / 2 } : null,
+            launchProfile: r?.launchProfile ?? null,
             flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell: point } : null,
         };
     }

@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -69,7 +70,7 @@ async function activeAssets(page) {
 }
 async function resetFrozen(page) {
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Reset this sky', exact: true }).click();
   await page.getByRole('button', { name: 'Reset sky and preferences', exact: true }).click();
@@ -209,7 +210,7 @@ try {
       colorMaps: initial.riverPbrColorMaps, dataMaps: initial.riverPbrDataMaps,
       estimatedDecodedTextureBytes: initial.riverTextureMemoryEstimateBytes,
       estimateMethod: 'Unique loaded RGBA8 maps plus full mip chain; not measured GPU allocation' };
-    await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+    await openPanel(page, 'settings');
     assert.equal(await page.getByRole('checkbox', { name: 'Reduced flashes', exact: true }).isChecked(), true);
     await page.getByRole('button', { name: 'Close panel', exact: true }).click();
     check(`${project.label}: all eight assets, default Ultra and reduced flashes on actual hardware`);
@@ -217,15 +218,15 @@ try {
       await qualifyGalacticSky(page, project.label, check, phase => capture(page, project, phase), { touch: device.mobile });
     await resetFrozen(page); await capture(page, project, 'idle'); await riverDetail(page, project);
     await chooseFamily(page, 'Gold Willow');
-    await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+    await selectedLaunch(page).click();
     await advance(page, 4.9); await capture(page, project, 'willow-peak');
     await pauseAndIdle(page, project.label);
     await resetFrozen(page); await chooseFamily(page, 'Sapphire Saturn');
-    await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+    await selectedLaunch(page).click();
     await advance(page, 4.9); await capture(page, project, 'saturn-peak');
     assert.equal((await snap(page)).backend, project.actualBackend);
     await resetFrozen(page); await chooseFamily(page, 'Opal Supernova');
-    await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+    await selectedLaunch(page).click();
     await advance(page, 7.8); await capture(page, project, 'supernova-peak');
     assert.equal((await snap(page)).backend, project.actualBackend);
     await advance(page, 40);
@@ -235,7 +236,7 @@ try {
     check(`${project.label}: Supernova traveling children and residue completely clean up`);
     check(`${project.label}: seeded Willow, Saturn and Supernova captures retain the requested renderer`);
     if (device.name === 'desktop' && backend === 'webgl') {
-      await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+      await openPanel(page, 'settings');
       await page.getByLabel('Graphics quality', { exact: true }).selectOption('standard');
       await page.getByRole('button', { name: 'Close panel', exact: true }).click();
       await enter(page, backend); await activeAssets(page);
@@ -250,7 +251,7 @@ try {
       await enter(fallback, 'webgl');
       await fallback.waitForFunction(() => window.__firecrackersQA.snapshot().authoredAssetStates.sky === 'failed');
       await fallback.evaluate(() => window.__firecrackersQA.freeze(true));
-      await fallback.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+      await selectedLaunch(fallback).click();
       await advance(fallback, 5);
       const state = await snap(fallback); assert.ok(state.bursts > 0); assert.ok(state.authoredAssetErrors.sky);
       assert.equal(state.backend, 'WebGL 2'); assert.equal(state.quality, 'ultra');
@@ -265,7 +266,7 @@ try {
         return states.river === 'failed' && states.sky === 'active';
       });
       await riverFallback.evaluate(() => window.__firecrackersQA.freeze(true));
-      await riverFallback.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+      await selectedLaunch(riverFallback).click();
       await advance(riverFallback, 5);
       const riverState = await snap(riverFallback);
       assert.ok(riverState.bursts > 0); assert.ok(riverState.authoredAssetErrors.river);
@@ -283,7 +284,7 @@ try {
   const page = current = await context.newPage(); instrument(page, 'canvas');
   const project = { label: 'portrait-canvas', viewport: { width: 393, height: 851 }, requestedBackend: 'canvas', captures: [] };
   report.projects.push(project); project.actualBackend = await enter(page, 'canvas');
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   assert.equal(await page.getByRole('checkbox', { name: 'Reduced interface motion', exact: true }).isChecked(), true);
   await page.getByRole('button', { name: 'Close panel', exact: true }).click();
   check('OS reduced-motion preference initializes the existing comfort control');
@@ -292,11 +293,11 @@ try {
   assert.equal(canvasRiver.riverBoats, 3); assert.equal(canvasRiver.riverLampAnchors, 10);
   assert.equal(canvasRiver.riverMotionTime, 0, 'OS reduced motion keeps the Canvas river static');
   check('Canvas retains three boats and ten lamp anchors under the static reduced-motion preference');
-  await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+  await selectedLaunch(page).click();
   await advance(page, 4.9); await capture(page, project, 'willow-peak');
   assert.ok((await snap(page)).bursts > 0);
   check('Canvas portrait fallback retains the celestial scene and functional fireworks');
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   await page.getByLabel('Graphics quality', { exact: true }).selectOption('low');
   await page.getByRole('button', { name: 'Close panel', exact: true }).click();
   await page.evaluate(() => window.__firecrackersQA.render());

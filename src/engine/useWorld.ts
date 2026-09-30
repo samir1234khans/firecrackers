@@ -95,6 +95,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         intent.current.block('hidden', document.hidden);
         const state = new Simulation(presentation.seed);
         sim.current = state;
+        state.setLaunchProfileResolver(id => renderer.current?.resolveLaunchProfile(id));
         state.selected = prefs.current.family;
         state.reducedFlashes = prefs.current.reducedFlashes;
         state.quality = prefs.current.quality === 'auto' ? 'standard' : prefs.current.quality;
@@ -322,7 +323,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         };
         const bounds = typeof ResizeObserver === 'function' ? new ResizeObserver(resize) : null;
         if (host.current) bounds?.observe(host.current);
-        for (const element of host.current?.parentElement?.querySelectorAll('[data-edge], [data-family-dock]') || []) bounds?.observe(element);
+        for (const element of host.current?.parentElement?.querySelectorAll('[data-control-rail], [data-family-tray]') || []) bounds?.observe(element);
         window.addEventListener('resize', resize);
         window.visualViewport?.addEventListener('resize', resize);
         const updateLayout = () => {
@@ -607,6 +608,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const layout = measureStage(element);
         graphics.setLayout(layout);
         const localX = x - layout.viewport.x, localY = y - layout.viewport.y;
+        if (localX < 0 || localY < 0 || localX > layout.viewport.width || localY > layout.viewport.height) return null;
         if (Object.values(layout.controls).some(control => inside(localX, localY, control))) return null;
         if (inside(localX, localY, layout.burstCanopy)) {
             const point = graphics.projectBurst(x, y);

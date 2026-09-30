@@ -1,3 +1,7 @@
+# Candidate: bottom collection and upper canopy
+
+Build `2026-09-30.8` implements the approved bottom collection, right control rail, compact panels and admission-time upper canopy. See [implementation](docs/evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md). Release gates and production receipt will record actual completion; `.7` remains current until deployment.
+
 # Current status: Waterfront v008 in production
 
 ## Current production: Waterfront v008

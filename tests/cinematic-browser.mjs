@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -38,7 +39,7 @@ async function advance(page, seconds) {
 }
 async function resetFrozen(page) {
     await page.evaluate(() => window.__firecrackersQA.freeze(true));
-    await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+    await openPanel(page, 'settings');
     await settingsTab(page, 'Device');
     await page.getByRole('button', { name: 'Reset this sky', exact: true }).click();
     await page.getByRole('button', { name: 'Reset sky and preferences', exact: true }).click();
@@ -107,7 +108,7 @@ try {
             await chooseFamily(page, family.name);
             const initial = await snapshot(page);
             assert.equal(initial.quality, 'ultra', 'Use identical default Ultra quality for comparison');
-            await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+            await selectedLaunch(page).click();
             let prior = 0;
             for (const [phase, elapsed] of family.phases) {
                 await advance(page, elapsed - prior); prior = elapsed;
@@ -135,7 +136,7 @@ try {
             };
             requestAnimationFrame(sample);
         });
-        await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+        await selectedLaunch(page).click();
         await page.waitForTimeout(profileMs);
         project.realtime = await page.evaluate(() => {
             const profile = window.__rafProfile; profile.running = false;

@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import { chooseFamily, inspectStage, inspectPicker, openPicker, settingsTab } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import { strict as assert } from 'node:assert';
@@ -34,7 +35,7 @@ async function enter(page, suffix = '?backend=webgl&qa=1') {
 async function waitBurst(page, number) {
   await page.waitForFunction(n => Number(document.querySelector('main')?.dataset.bursts) >= n, number, { timeout: 90000 });
 }
-async function layout(page, label) { const data = await inspectStage(page); await inspectPicker(page); record(label + ': six edge groups, clear hero, reachable picker and launch', data); }
+async function layout(page, label) { const data = await inspectStage(page); await inspectPicker(page); record(label + ': bottom collection, clear scene, reachable catalog and launch', data); }
 
 try {
   if (!process.env.VIDEO_FLOW_URL) {
@@ -72,10 +73,10 @@ try {
     record(`${v.name}: correct build, meaningful UI and actual canvas`);
     await layout(page, v.name);
     await shot(page, `${v.name}-01-ready`);
-    const launch = page.getByRole('button', { name: 'Launch selected firework', exact: true });
+    const launch = selectedLaunch(page);
     if (v.mobile) await launch.tap(); else await launch.click();
     await page.waitForFunction(() => document.querySelector('main')?.dataset.launchBlock === 'busy');
-    assert.equal(await launch.isDisabled(), true);
+    assert.equal((await launch.getAttribute('data-launchable')) === 'false', true);
     // An immediate second pointer action must not add another rocket.
     await launch.dispatchEvent('click');
     await chooseFamily(page, 'Multicolor Peony');
@@ -85,7 +86,7 @@ try {
     assert.equal(committed.active, 1);
     record(`${v.name}: real launch, duplicate guard and immutable active family`);
     await waitBurst(page, 1);
-    await page.waitForFunction(() => !document.querySelector('.flow-launch').disabled, undefined, { timeout: 15000 });
+    await page.waitForFunction(() => document.querySelector('[data-family-icon][aria-pressed="true"]')?.dataset.launchable==='true', undefined, { timeout: 15000 });
     assert.equal(await page.locator('main').evaluate(e => e.classList.contains('controls-hidden')), false);
     const after = await qa(page, 'snapshot');
     assert.equal(after.launched, 1); assert.equal(after.stagedRockets, 1); assert.equal(after.airborneRockets, 0);
@@ -105,11 +106,11 @@ try {
     await advance(page, .80); frame = await qa(page, 'snapshot');
     assert.equal(frame.stagedRockets, 0); assert.equal(frame.airborneRockets, 1); assert.equal(frame.visibleRocketBodies, 1);
     await shot(page, `${v.name}-04-powered-flight-frozen`);
-    await advance(page, 1.3); frame = await qa(page, 'snapshot');
+    await advance(page, frame.flight.ascent * .76 - frame.flight.age); frame = await qa(page, 'snapshot');
     assert.equal(frame.stagedRockets, 0); assert.equal(frame.airborneRockets, 1); assert.equal(frame.visibleRocketBodies, 0);
     assert.ok(frame.shellScreen.y > 0 && frame.shellScreen.y < v.height);
     await shot(page, `${v.name}-05-coast-frozen`);
-    await advance(page, 1.4); frame = await qa(page, 'snapshot');
+    await advance(page, frame.flight.ascent - frame.flight.age + .2); frame = await qa(page, 'snapshot');
     assert.ok(frame.bursts > 0); assert.equal(frame.stagedRockets, 1);
     await shot(page, `${v.name}-06-burst-frozen`);
     record(`${v.name}: no duplicate staged rocket; continuous body-to-shell handoff and burst`, { method: 'labeled deterministic rendered checkpoints, not performance evidence' });
@@ -128,8 +129,8 @@ try {
     const stopped = await qa(page, 'snapshot'); await qa(page, 'freeze', false);
     await page.waitForTimeout(700);
     assert.equal((await qa(page, 'snapshot')).time, stopped.time);
-    assert.equal(await launch.isDisabled(), true);
-    await page.getByRole('button', { name: 'Open settings' }).click();
+    assert.equal((await launch.getAttribute('data-launchable')) === 'false', true);
+    await openPanel(page, 'settings');
     await page.getByRole('button', { name: 'Close panel' }).click();
     assert.equal(await page.locator('main').getAttribute('data-paused'), 'true');
     await page.getByRole('button', { name: 'Resume scene', exact: true }).first().click();
@@ -137,19 +138,19 @@ try {
     record(`${v.name}: pause freezes exact state, settings preserves pause, same rocket resumes`);
 
     await qa(page, 'freeze', true); await advance(page, 24);
-    await page.getByRole('button', { name: 'Choose show mode' }).click(); await page.getByRole('radio', { name: /Festival/ }).check(); await page.getByRole('button', { name: 'Start show' }).click(); await advance(page, 1);
+    await openPanel(page, 'show'); await page.getByRole('button',{name:'Festival',exact:true}).click(); await advance(page, 1);
     assert.equal((await qa(page, 'snapshot')).show, 'festival');
     await chooseFamily(page, 'Gold Willow');
     assert.equal((await qa(page, 'snapshot')).show, null); await advance(page, 8);
-    assert.equal(await launch.isEnabled(), true);
+    assert.equal((await launch.getAttribute('data-launchable')) === 'true', true);
     record(`${v.name}: auto show and manual takeover preserve committed effects`);
 
-    await page.getByRole('button', { name: 'Open settings' }).click();
+    await openPanel(page, 'settings');
     await page.getByLabel('Graphics quality', { exact: true }).selectOption('low');
     await shot(page, `${v.name}-settings`);
     await page.getByRole('button', { name: 'Close panel' }).click();
     await enter(page);
-    await page.getByRole('button', { name: 'Open settings' }).click();
+    await openPanel(page, 'settings');
     assert.equal(await page.getByLabel('Graphics quality', { exact: true }).inputValue(), 'low');
     await settingsTab(page, 'Sound');
     assert.equal(await page.getByRole('checkbox', { name: 'Sound', exact: true }).isChecked(), false);
@@ -172,7 +173,7 @@ try {
       await page.setViewportSize({ width: 360, height: 640 }); await layout(page, 'mobile360'); await shot(page, 'mobile360-ready');
       await page.setViewportSize({ width: 393, height: 760 }); await layout(page, 'mobile393'); await shot(page, 'mobile393-ready');
       await page.setViewportSize({ width: 844, height: 390 }); await layout(page, 'landscape'); await shot(page, 'landscape-ready');
-      await page.getByRole('button', { name: 'Open settings' }).click();
+      await openPanel(page, 'settings');
       await page.getByLabel('Graphics quality', { exact: true }).selectOption('standard');
       await page.getByRole('button', { name: 'Close panel' }).click();
       record('short landscape: settings and return remain reachable');
@@ -182,7 +183,7 @@ try {
       deliberatelyOffline = true;
       await context.setOffline(true); await page.reload({ waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true', undefined, { timeout: 60000 });
-      assert.ok(await page.locator('.flow-launch').isEnabled());
+      assert.ok((await selectedLaunch(page).getAttribute('data-launchable')) === 'true');
       await context.setOffline(false); deliberatelyOffline = false;
       record('desktop: production offline package cold reload');
     }
@@ -191,7 +192,7 @@ try {
     await qa(page, 'freeze', true); await advance(page, 4);
     assert.equal(await page.locator('main').getAttribute('data-display'), 'transparent');
     await page.keyboard.press('Escape');
-    await page.getByRole('button', { name: 'Open settings' }).click();
+    await openPanel(page, 'settings');
     await settingsTab(page, 'Display');
     await page.getByRole('button', { name: 'Return to interactive sky' }).click();
     await page.getByRole('button', { name: 'Close panel' }).click();

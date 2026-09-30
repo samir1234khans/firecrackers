@@ -1,3 +1,7 @@
+# Current redesign candidate
+
+[Bottom collection implementation and evidence](evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md) records build `.8`; prior waterfront `.7` receipt below remains the production baseline until the new release is verified.
+
 # Documentation map
 
 Baseline: 15 September 2026. Audience: Samir, designers, implementation agents, engineers, and testers.
