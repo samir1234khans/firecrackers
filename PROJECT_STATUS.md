@@ -1,4 +1,8 @@
-# Current status: WebGPU startup repair in production
+# Current status: Cinematic realism in production
+
+Build `2026-09-30.2` is live from main commit `9debc8914a6428b0d2ef005674de0214526ed9ca`, Worker `2bd3e2bd-c4bb-418b-9ca6-ce11ebef9d5a`. Its 53-entry fingerprint `33b9adcc18a310caad61077fd479dbee09ac77fad98fb48c11534c1af90b57a0` matches the retained cinematic preview. Original generated scenery, Blender v005 smoke and water maps, continuous TSL trails and reflection/material refinement are deployed. PR and main runtime CI pass all four jobs. Public hardware WebGPU six, Grand Collection 42, original launch/offline 28, recovery 15 and HTTP/source/asset 16 checks pass. [Production receipt](docs/evidence/cinematic-realism-2026-09-30/PRODUCTION.md) records rollback and qualification boundaries; [comparison viewer](docs/evidence/cinematic-realism-2026-09-30/comparison.html) shows matched browser evidence. Physical phone/thermal targets and photographic parity remain unqualified.
+
+## Previous production: WebGPU startup repair
 
 Build `2026-09-30.1` is live from main commit `f10a441896fc5f41f1965759f3d5e9e2bdee900b`, Worker `d5143fe3-0290-44b2-ac2d-bff384963d33`. It fixes interleaved buffer limits and immutable texture sizing, adds same-quality recovery through WebGL, and exposes active-renderer controls. [Production receipt](docs/evidence/webgpu-production-release-2026-09-30.md) records release CI, actual hardware WebGPU and rollback; [graphics roadmap](docs/evidence/webgpu-startup-2026-09-30.md) records next Three.js/TSL/Blender work. Older release sections below are historical.
 ## Previous production: Graphics recovery
@@ -81,6 +85,6 @@ Physical Android/tablet, Safari/iOS, hardware WebGPU comparison, real-time graph
 
 Build `2026-09-30.1` fixes two reproduced WebGPU startup defects. Local hardware Chrome and compatibility checks passed; production promotion and public checks are recorded at the top of this status. See [evidence and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).
 
-## Cinematic realism candidate
+## Earlier cinematic candidate checkpoint
 
-Build `2026-09-30.2` follows the original generated photographic studies. Atmospheric scenery, original smokev005 and continuous TSL trails are integrated; matched hardware captures and visual refinement are in progress. [Plan](docs/evidence/cinematic-realism-2026-09-30/PLAN.md). Production remains `2026-09-30.1` until this candidate passes release gates.
+Before release, build `2026-09-30.2` followed the original generated photographic studies as a candidate. Atmospheric scenery, original smoke v005 and continuous TSL trails were integrated while matched hardware captures and visual refinement ran. [Plan](docs/evidence/cinematic-realism-2026-09-30/PLAN.md). The production receipt at the top now supersedes this checkpoint.

@@ -2,7 +2,7 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Live Cloudflare production: hardware WebGPU repair, build `2026-09-30.1`.** See [the production release receipt](docs/evidence/webgpu-production-release-2026-09-30.md) for the deployed version, public checks, and rollback reference. Main is the canonical application baseline.
+**Live Cloudflare production: cinematic realism, build `2026-09-30.2`.** Original atmospheric scenery, Blender smoke/water and continuous trails are live. See [the production receipt](docs/evidence/cinematic-realism-2026-09-30/PRODUCTION.md) for hardware WebGPU, public regression checks and rollback; [same-seed comparisons](docs/evidence/cinematic-realism-2026-09-30/comparison.html) show the actual visual changes. Main is the canonical application baseline. [Retained preview](https://firecrackers-cinematic-preview.allygym-api.workers.dev/).
 
 The [30 September branch reconciliation and republish](docs/evidence/branch-reconciliation-2026-09-30.md) confirms that all current feature/fix branches are already incorporated in main and records the current Cloudflare Worker version.
 
@@ -80,4 +80,4 @@ Physical Android/tablet, Safari/iOS, hardware WebGPU parity, thermal/endurance, 
 
 The `2026-09-30.1` WebGPU repair and next Three.js/TSL/Blender work are documented in [hardware diagnosis and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).
 
-The next `2026-09-30.2` cinematic candidate adds original atmospheric scenery, Blender smoke and continuous trails. [Implementation plan and acceptance gates](docs/evidence/cinematic-realism-2026-09-30/PLAN.md).
+The `2026-09-30.2` cinematic release adds original atmospheric scenery, Blender smoke and continuous trails. [Implementation plan and acceptance gates](docs/evidence/cinematic-realism-2026-09-30/PLAN.md), [implementation evidence](docs/evidence/cinematic-realism-2026-09-30/IMPLEMENTATION.md), and [production receipt](docs/evidence/cinematic-realism-2026-09-30/PRODUCTION.md) retain separate design, browser, performance and deployment evidence.

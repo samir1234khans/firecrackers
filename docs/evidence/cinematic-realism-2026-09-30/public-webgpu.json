@@ -1,0 +1,22 @@
+{
+  "url": "https://firecrackers.mainandmany.com/",
+  "errors": [],
+  "checks": [
+    "All authored assets activate on hardware WebGPU at default Ultra",
+    "Real-time Willow launch stays on WebGPU through burst",
+    "Gold Willow: deterministic rendered burst and cleanup",
+    "Sapphire Saturn: deterministic rendered burst and cleanup",
+    "Opal Supernova: deterministic rendered burst and cleanup",
+    "WebGPU overload retains active rocket and Ultra through WebGL recovery"
+  ],
+  "adapter": {
+    "vendor": "intel",
+    "architecture": "gen-12lp",
+    "fallback": false
+  },
+  "screenshots": [
+    "Gold-Willow.png",
+    "Sapphire-Saturn.png",
+    "Opal-Supernova.png"
+  ]
+}
