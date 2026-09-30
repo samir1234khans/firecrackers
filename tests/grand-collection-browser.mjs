@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import { chooseFamily, inspectStage, inspectPicker, openPicker } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
@@ -29,7 +30,7 @@ async function enter(page, backend = 'webgl') {
     assert.match(await page.title(), /Firecrackers/);
     assert.equal(await page.locator('.scene-host canvas').count(), 1);
 }
-async function layout(page, label) { const data = await inspectStage(page); await inspectPicker(page); record(label + ': six edge groups, clear hero, reachable picker and launch', data); }
+async function layout(page, label) { const data = await inspectStage(page); await inspectPicker(page); record(label + ': bottom collection, clear scene, reachable catalog and launch', data); }
 let browser, current;
 try {
     browser = await chromium.launch({ headless: true, args: ['--enable-webgl', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
@@ -46,7 +47,7 @@ try {
             assert.equal((await snapshot(page)).selected, ids[0]);
             await layout(page, `${label}: grand collection visible and launch reachable`);
             await shot(page, `${label}-collection`);
-            const launch = page.getByRole('button', { name: 'Launch selected firework', exact: true });
+            const launch = selectedLaunch(page);
             // Exercise real user input and wall-clock completion, not just the diagnostic adapter.
             if (device.mobile) await launch.tap(); else await launch.click();
             await launch.dispatchEvent('click');
@@ -55,7 +56,7 @@ try {
             assert.equal(committed.committedFamily, names[0]); assert.equal(committed.active, 1);
             assert.equal(committed.selected, ids[1]);
             await page.waitForFunction(() => Number(document.querySelector('main').dataset.bursts) >= 1, undefined, { timeout: 90000 });
-            await page.waitForFunction(() => !document.querySelector('.flow-launch').disabled, undefined, { timeout: 15000 });
+            await page.waitForFunction(() => document.querySelector('[data-family-icon][aria-pressed="true"]')?.dataset.launchable==='true', undefined, { timeout: 15000 });
             assert.equal((await snapshot(page)).launched, 1);
             record(`${label}: real launch, duplicate guard and unchanged committed family`);
             await freeze(page, true);
@@ -74,7 +75,7 @@ try {
                 const done = await snapshot(page);
                 assert.equal(done.bursts - before, i === 4 ? 8 : 1);
                 assert.equal(done.particles, 0); assert.equal(done.carriers, 0); assert.equal(done.active, 0);
-                assert.equal(await launch.isEnabled(), true);
+                assert.equal((await launch.getAttribute('data-launchable')) === 'true', true);
                 record(`${label}: ${names[i]} complete and cleaned`, { bursts: done.bursts - before, peakParticles: active.particles, method: 'actual renderer, deterministic phase stepping; not FPS evidence' });
             }
             // Seven delayed Opal children must pause with their parent show, not escape as timers.
@@ -83,7 +84,7 @@ try {
             await page.getByRole('button', { name: 'Pause scene', exact: true }).first().click();
             const paused = await snapshot(page); await freeze(page, false); await page.waitForTimeout(550);
             assert.equal((await snapshot(page)).time, paused.time);
-            await page.getByRole('button', { name: 'Open settings' }).click();
+            await openPanel(page, 'settings');
             await page.getByRole('button', { name: 'Close panel' }).click();
             assert.equal(await page.locator('main').getAttribute('data-paused'), 'true');
             await freeze(page, true); await page.getByRole('button', { name: 'Resume scene', exact: true }).first().click();

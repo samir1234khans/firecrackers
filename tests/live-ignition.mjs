@@ -1,3 +1,4 @@
+import { openPanel } from './stage-helpers.mjs';
 import { chromium } from '@playwright/test';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
@@ -56,7 +57,7 @@ for (const spec of cases) {
     if (loaded.version !== expectedVersion) throw new Error(`Wrong published build: expected ${expectedVersion}, found ${loaded.version}`);
     if (!loaded.canvas) throw new Error('The scene renderer did not mount a canvas.');
     if (spec.low) {
-      await activate(page.getByRole('button', { name: 'Open settings', exact: true }));
+      await openPanel(page,'settings');
       await page.getByLabel('Graphics quality', { exact: true }).selectOption('low');
       await activate(page.getByRole('button', { name: 'Close panel', exact: true }));
     }

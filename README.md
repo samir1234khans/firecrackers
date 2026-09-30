@@ -1,9 +1,11 @@
+Candidate **bottom collection and upper canopy**, build `2026-09-30.8`. [Implementation and validation](docs/evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md). Production remains `.7` until the authorized release gates pass.
+
 # Firecrackers
 
 Current release: **waterfront v008 / `2026-09-30.7`** at [firecrackers.mainandmany.com](https://firecrackers.mainandmany.com/). Corrected shoreline homes, a full-width original Blender stone quay, refined canoe materials and bounded water contact are deployed from main. [Production receipt](docs/evidence/waterfront-realism-2026-09-30/PRODUCTION.md) and [actual before/after gallery](docs/evidence/waterfront-realism-2026-09-30/comparison.html) supersede the historical release notes below.
 
 
-A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
+A single-screen festival night with **ten selectable fireworks**. Tap any bottom firework to launch from the saved terrace position, or drag into the sky for an immediate burst and onto the terrace for a normal rocket. The effects run a seeded simulation, not prerecorded video.
 
 **Previous release: transparent panels, build `2026-09-30.6`.** Compact translucent Picker, Position, Shows, four Settings tabs, Help, reset and recovery screens now match the borderless playback controls. Desktop sheets sit at the edges; phone sheets scroll within 60% of viewport height. Native focus, pause ownership, all ten styles and sky/terrace dragging remain. See [the prior panel production receipt](docs/evidence/transparent-panels-2026-09-30/PRODUCTION.md), [per-surface plan](docs/evidence/transparent-panels-2026-09-30/PLAN.md), [actual UI gallery](docs/evidence/transparent-panels-2026-09-30/review.html), [WebGPU panel captures](docs/evidence/transparent-panels-2026-09-30/hardware-captures/README.md), or [try the retained preview](https://firecrackers-panels-preview.allygym-api.workers.dev/). Main is the canonical shipped baseline. The [prior galactic release](docs/evidence/interactive-galactic-sky-2026-09-30/PRODUCTION.md) and [same-seed sky comparisons](docs/evidence/interactive-galactic-sky-2026-09-30/comparison.html) retain the authored waterfront, CC0 boats, smoke, continuous trails and interactive sky evidence.
 
@@ -25,7 +27,7 @@ Start new development branches from current `main` and open pull requests back t
 
 **Grand collection:** Aurora Crown (jade crown and violet heart), Ruby Dahlia (ruby/rose petals and champagne center), Sapphire Saturn (blue sphere inside a tilted golden orbit), Phoenix Palm (amber branches splitting into rose leaves), and Opal Supernova (seven traveling jewels opening into a staggered bouquet).
 
-The detailed picker has two collections of five readable style targets each. The candidate also keeps all five Classics in the left desktop rail and all five Grand styles in the right rail, with a compact expandable phone dock. Browsing does not change the committed selection; choosing a style persists across reload. New styles have their own geometry, timing, palette aging and bounded child effects rather than being five recolors of one burst.
+The bottom collection exposes all ten styles in catalog order: two rows of five below 680 CSS pixels of available width, otherwise one row with separated Classics and Grand groups. Each icon is a 48px touch target. Names appear on hover/focus, and a small gold marker identifies selection. The optional catalog lives inside Help.
 
 ## Playback and recovery
 
@@ -37,9 +39,9 @@ Startup and rendering failures retain readable recovery controls. The app can fa
 
 ## Open central stage
 
-Six compact, transparent control groups frame the left and right edges. The measured central corridor stays clear on desktop and phones. Settings and the firework drawer pause the scene while open and restore the previous pause state on close.
+The bottom tray reserves 128px on phones and 76px on wider screens, plus safe insets. Pause, Sound and Controls sit on the right. Controls opens Show mode, Position, Settings, Fullscreen and Help; modal panels preserve manual pause and restore focus.
 
-Drag a style into the sky to create one immediate burst at that point. Drop it near the terrace to light a normal rocket at that horizontal position. Invalid drops cancel; keyboard users can choose **Burst selected style in center** or use a labelled Launch control. The main and adjacent Launch controls use borderless flame icons with full hit areas; the selected style's adjacent action stays visible. Normal launches retain the fuse and ascent sequence.
+A tap launches once when admission permits. Drag begins at 8px: sky release bursts at that point; terrace release launches from the corresponding position. Water, controls, tray, outside release and cancellation launch nothing. Normal rockets resolve a 31–37% upper-sky apex at admission. Resizing updates future profiles without changing a committed flight; fixed camera anchors keep the waterfront stable.
 
 Original Blender smoke, flame, rocket and terrace assets load progressively over procedural fallbacks. The CC0 wooden canoe supplies real textured hull geometry for three boats, with original canopy/candles and distant homes. Rippling reflections follow the actual effects and practical lamp positions, and optional CC0 recordings augment the original sound design. See [asset provenance](assets-source/PROVENANCE.md), [river implementation](docs/evidence/living-river-2026-09-30/IMPLEMENTATION.md) and [design review](assets-source/DESIGN.md).
 

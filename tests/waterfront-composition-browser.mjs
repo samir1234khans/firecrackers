@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -50,7 +51,7 @@ try {
       const served=await page.evaluate(async()=>fetch('/release.json',{cache:'no-store'}).then(r=>r.json()));
       if(phase==='after') assert.equal(served.sha256,release.sha256);
       await page.evaluate(()=>window.__firecrackersQA.freeze(true));
-      await page.getByRole('button',{name:'Open settings',exact:true}).click();await settingsTab(page,'Device');
+      await openPanel(page, 'settings');await settingsTab(page,'Device');
       await page.getByRole('button',{name:'Reset this sky',exact:true}).click();
       await page.getByRole('button',{name:'Reset sky and preferences',exact:true}).click();
       await page.waitForFunction(()=>document.querySelector('main').dataset.overlay==='none');
@@ -66,7 +67,7 @@ try {
         report.checks.push(`${label}: far-bank contact, readable homes, full-width quay and bounded boats`);
       }
       await page.screenshot({path:path.join(output,`${label}-idle.png`)});
-      await chooseFamily(page,'Sapphire Saturn');await page.getByRole('button',{name:'Launch selected firework',exact:true}).click();
+      await chooseFamily(page,'Sapphire Saturn');await selectedLaunch(page).click();
       await page.evaluate(()=>{window.__firecrackersQA.advance(4.9);window.__firecrackersQA.render();});
       const burst=await snapshot();assert.ok(burst.particles>0);
       await page.screenshot({path:path.join(output,`${label}-saturn.png`)});

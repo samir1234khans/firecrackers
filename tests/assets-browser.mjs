@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
@@ -19,7 +20,7 @@ try {
   await page.goto(new URL('?backend=webgl&qa=1', base).href, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('main[data-ready="true"]', { timeout: 60000 });
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
-  await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+  await selectedLaunch(page).click();
   assert.ok((await page.evaluate(() => window.__firecrackersQA.snapshot())).committedId,
     'The rocket should already be in flight while shell assets remain held');
 

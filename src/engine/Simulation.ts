@@ -1,5 +1,6 @@
 import { BUDGETS, FAMILIES, clamp, familyIndex, familyReservation, splitChildCount, hash01, randomStream } from './catalog.js';
 import type { FamilyId, Quality, ShowPreset } from './catalog.js';
+import type { LaunchProfile } from './LaunchProfile.js';
 import { Pool } from './Pool.js';
 import { grandRecipe, coolGrandStar, carrierTint } from './GrandEffects.js';
 import { Trails } from './Trails.js';
@@ -41,6 +42,7 @@ export type Rocket = {
     cost: number;
     seed: number;
     reserve: number;
+    launchProfile?: Readonly<LaunchProfile>;
 };
 export type Carrier = {
     palette?: number;
@@ -104,6 +106,8 @@ export class Simulation {
     private launchRng: () => number;
     private showRng: () => number;
     private smokeRng: () => number;
+    private launchProfileResolver: ((id: FamilyId) => LaunchProfile | undefined) | null = null;
+    setLaunchProfileResolver(resolver: ((id: FamilyId) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
     constructor(readonly seed = 20260916) {
         this.launchRng = randomStream(seed);
         this.showRng = randomStream(seed ^ 0x5bf03635);
@@ -180,7 +184,13 @@ export class Simulation {
         }
         if (source === 'manual') this.stopShow(false);
         const rand = this.launchRng;
-        const x = this.placementToX(placement), top = 72 + rand() * 6;
+        const heightDraw = rand();
+        const resolved = this.launchProfileResolver?.(f.id);
+        const launchProfile = resolved && Number.isFinite(resolved.apexMin) && Number.isFinite(resolved.apexMax)
+            ? Object.freeze({ ...resolved }) : undefined;
+        const x = this.placementToX(placement), top = launchProfile
+            ? Math.max(this.ground + 10, launchProfile.apexMin + heightDraw * (launchProfile.apexMax - launchProfile.apexMin))
+            : 72 + heightDraw * 6;
         // Solve a powered rise followed by a coast that reaches the apex at zero vertical speed.
         // All families share virtual gravity; height changes flight duration, not the viewport.
         const thrustFraction = .24;
@@ -191,7 +201,7 @@ export class Simulation {
             id: this.nextObjectId++, family, x, y: this.ground, z: 0, px: x, py: this.ground, pz: 0,
             vx: (rand() - 0.5) * 1.0, vy: 0, vz: (rand() - 0.5) * 1.1, ground: this.ground, padX: x, top, age: 0,
             fuse: 0.58 + rand() * 0.18, ascent, thrust, acceleration, phase: 'fuse', stage: 'fuse',
-            cost: f.cost, seed: Math.floor(rand() * 0xffffffff), reserve,
+            cost: f.cost, seed: Math.floor(rand() * 0xffffffff), reserve, launchProfile,
         };
         this.rockets.push(rocket);
         this.emit('fuse', x, this.ground, 0, family, 0.5, rocket.fuse);

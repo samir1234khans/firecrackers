@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -29,7 +30,7 @@ try {
   report.adapter = await page.evaluate(() => window.__testedAdapter);
   assert.equal(report.adapter.fallback, false, 'Hardware evidence must not use a fallback adapter');
   report.checks.push('All authored assets activate on hardware WebGPU at default Ultra');
-  await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+  await selectedLaunch(page).click();
   await page.waitForFunction(() => window.__firecrackersQA.snapshot().bursts > 0, null, { timeout: 30000 });
   assert.equal(await page.locator('main').getAttribute('data-backend'), 'WebGPU');
   report.checks.push('Real-time Willow launch stays on WebGPU through burst');
@@ -37,7 +38,7 @@ try {
   await page.evaluate(() => window.__firecrackersQA.advance(35));
   for (const name of ['Gold Willow', 'Sapphire Saturn', 'Opal Supernova']) {
     await chooseFamily(page, name);
-    await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+    await selectedLaunch(page).click();
     await page.evaluate(() => window.__firecrackersQA.advance(4.5));
     await page.screenshot({ path: `${out}/${name.replaceAll(' ', '-')}.png` });
     report.screenshots.push(`${name.replaceAll(' ', '-')}.png`);
@@ -46,7 +47,7 @@ try {
     report.checks.push(`${name}: deterministic rendered burst and cleanup`);
   }
   await page.evaluate(() => { window.__firecrackersQA.freeze(false); window.__firecrackersQA.injectOverloadSamples(3, 400); });
-  await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+  await selectedLaunch(page).click();
   const id = await page.evaluate(() => window.__firecrackersQA.snapshot().committedId);
   await page.waitForFunction(() => window.__firecrackersQA.snapshot().backend === 'WebGL 2');
   const recovered = await page.evaluate(() => window.__firecrackersQA.snapshot());

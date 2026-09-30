@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { openPicker, settingsTab } from './stage-helpers.mjs';
+import { openPicker, settingsTab, openPanel, selectedLaunch } from './stage-helpers.mjs';
 
 // Rendered browser acceptance checks. No source-style snapshots or hardware claims.
 const base = process.env.PANEL_URL || 'http://127.0.0.1:4173/';
@@ -47,7 +47,7 @@ report.browserVersion = browser.version();
 const snap = page => page.evaluate(() => window.__firecrackersQA.snapshot());
 const record = (name, details = {}) => { report.checks.push({ name, ...details }); console.log('PASS', name); };
 const close = page => page.getByRole('button', { name: 'Close panel', exact: true });
-const settings = page => page.getByRole('button', { name: 'Open settings', exact: true });
+const settings = page => ({click:()=>openPanel(page,'settings'),evaluate:fn=>page.getByRole('button',{name:'Controls',exact:true}).evaluate(fn)});
 async function capture(page, name) {
   const file = `${name}.png`;
   await page.screenshot({ path: path.join(output, file) }); report.screenshots.push(file);
@@ -102,13 +102,11 @@ async function inspectPanel(page, variant, spec, name) {
   assert.ok(r.x >= 8 && r.right <= v.width - 8 + .5 && r.y >= 8 && r.bottom <= v.height - 8 + .5,
     `${name}: panel must stay inside safe viewport gutters: ${JSON.stringify(geometry)}`);
   assert.ok(r.width <= 360.5, `${name}: width cap ${r.width}`);
-  assert.ok(r.height <= v.height * (compact ? .60 : .78) + .5, `${name}: height cap ${r.height}`);
-  if (compact) assert.ok(Math.abs(r.bottom - (v.height - 8)) <= 1, `${name}: compact bottom anchor`);
+  assert.ok(r.height <= v.height - (compact ? (v.width < 680 ? 128 : 76) + 16 : 24) + .5, `${name}: height cap ${r.height}`);
+  if (compact) { const tray=await page.locator('[data-family-tray]').boundingBox(); assert.ok(r.bottom<=tray.y-7, `${name}: panel stays above tray`); }
   else {
-    assert.ok(r.width >= 320 && r.width <= 360, `${name}: desktop panel width`);
-    const left = ['help','show','picker','position'].includes(variant);
-    assert.ok(Math.abs(left ? r.x - 12 : r.right - (v.width - 12)) <= 1, `${name}: authored edge anchor`);
-    assert.ok(Math.abs(r.y + r.height / 2 - v.height / 2) <= 1, `${name}: desktop vertical center`);
+    assert.ok(r.width >= (variant==='controls'?240:320) && r.width <= 360, `${name}: desktop panel width`);
+    assert.ok(Math.abs(r.right - (v.width - 72)) <= 1, `${name}: panel adjacent to right rail`);
   }
   const alpha = color => color.startsWith('rgba') ? Number(color.match(/,\s*([\d.]+)\)$/)?.[1]) : 1;
   assert.ok(alpha(geometry.background) > 0 && alpha(geometry.background) <= .8, `${name}: transparent panel material`);
@@ -188,29 +186,15 @@ async function settingsKeyboard(page, name) {
 }
 async function matrix(page, spec) {
   await enter(page);
-  const help = page.getByRole('button',{ name:'Help',exact:true });
-  if (await help.isVisible()) {
-    await openFrom(page,help,'help',spec,`${spec.name}-help`); await escapeTo(page,help);
-  } else {
-    // Short-window HUD intentionally hides its duplicate Help shortcut.
-    // The visible Settings → Device path must still reach the full Help panel.
-    await settings(page).click(); await settingsTab(page,'Device');
-    await openFrom(page,page.getByRole('button',{ name:'Help and keyboard controls',exact:true }),
-      'help',spec,`${spec.name}-help`);
-    await escapeTo(page,settings(page));
-    record(`${spec.name}: Help remains reachable through Device in the compact HUD`);
+  const invoker=page.getByRole('button',{name:'Controls',exact:true});
+  await invoker.click();await inspectPanel(page,'controls',spec,`${spec.name}-controls`);await escapeTo(page,invoker);
+  for(const variant of ['help','show','position']) {
+    await openPanel(page,variant);await inspectPanel(page,variant,spec,`${spec.name}-${variant}`);await escapeTo(page,invoker);
   }
-  for (const [variant, label] of [['show','Choose show mode'],['position','Position firework']]) {
-    const trigger = page.getByRole('button', { name:label,exact:true });
-    await openFrom(page, trigger, variant, spec, `${spec.name}-${variant}`);
-    await escapeTo(page, trigger);
-  }
-  const pickerTrigger = page.getByRole('button', { name:/^Choose firework:/ });
-  await openFrom(page, pickerTrigger, 'picker', spec, `${spec.name}-picker-classics`);
-  await page.getByRole('button', { name:'Grand collection',exact:true }).click();
-  assert.equal(await page.getByRole('group', { name:'Grand firework styles' }).getByRole('button').count(), 5);
-  await inspectPanel(page, 'picker', spec, `${spec.name}-picker-grand`);
-  await escapeTo(page, pickerTrigger);
+  await openPicker(page);await inspectPanel(page,'picker',spec,`${spec.name}-picker-classics`);
+  await page.getByRole('button',{name:'Grand collection',exact:true}).click();
+  assert.equal(await page.getByRole('group',{name:'Grand firework styles'}).getByRole('button').count(),5);
+  await inspectPanel(page,'picker',spec,`${spec.name}-picker-grand`);await escapeTo(page,invoker);
   await openFrom(page, settings(page), 'settings', spec, `${spec.name}-settings-graphics`);
   assert.equal(await page.getByRole('tab', { name:'Graphics',exact:true }).getAttribute('aria-selected'), 'true');
   assert.equal(await page.getByRole('tabpanel').count(), 1);
@@ -242,7 +226,7 @@ async function matrix(page, spec) {
   assert.equal((await snap(page)).paused, true, 'Reset dismissal keeps the Settings overlay pause owner');
   await settingsTab(page, 'Device');
   await page.getByRole('button', { name:'Reset this sky',exact:true }).click();
-  await page.getByRole('button', { name:'Keep my sky',exact:true }).click();
+  await page.getByRole('button', { name:'Cancel reset',exact:true }).click();
   assert.equal((await snap(page)).paused, true);
   await escapeTo(page, settings(page));
   assert.equal((await snap(page)).paused, false, 'Closing only an overlay resumes the original running scene');
@@ -255,10 +239,10 @@ async function matrix(page, spec) {
   await page.getByRole('button', { name:'Pause scene',exact:true }).click();
   await settings(page).click(); await settingsTab(page, 'Device');
   await page.getByRole('button', { name:'Reset this sky',exact:true }).click();
-  await page.getByRole('button', { name:'Keep my sky',exact:true }).click();
+  await page.getByRole('button', { name:'Cancel reset',exact:true }).click();
   await close(page).click();
   assert.equal((await snap(page)).paused, true, 'Panel and reset cancellation preserve the manual pause owner');
-  assert.equal(await page.getByRole('button', { name:'Launch selected firework',exact:true }).isDisabled(), true);
+  assert.equal(await selectedLaunch(page).getAttribute('data-launchable'), 'false');
   await page.getByRole('button', { name:'Resume scene',exact:true }).click();
   record(`${spec.name}: backdrop close, reset cancellation and independent pause owners`);
 }
@@ -294,52 +278,16 @@ async function run(name, spec, fn, expectedErrors = []) {
 }
 try {
   for (const spec of viewports) await run(spec.name, spec, page => matrix(page, spec));
-  await run('picker-drag-and-position', { width:393,height:851 }, async page => {
-    await enter(page); const before = await snap(page);
-    await openPicker(page);
-    const card = page.getByRole('button', { name:'Gold Willow',exact:true }); await card.scrollIntoViewIfNeeded();
-    let r = await card.boundingBox();
-    await page.mouse.move(r.x+r.width/2,r.y+r.height/2); await page.mouse.down(); await page.mouse.move(4,4,{ steps:8 });
-    assert.equal(await page.locator('dialog.is-dragging').isVisible(), true);
-    assert.equal(await page.locator('dialog .panel-header').isVisible(), false);
-    assert.equal(await page.locator('dialog').evaluate(element => getComputedStyle(element).backgroundColor), 'rgba(0, 0, 0, 0)');
-    await capture(page, 'picker-drag-transparent'); await page.mouse.up();
-    assert.equal((await snap(page)).launched,before.launched); assert.equal((await snap(page)).selected,before.selected);
-    assert.equal(await page.locator('main').getAttribute('data-overlay'),'picker');
-    await card.scrollIntoViewIfNeeded(); r = await card.boundingBox();
-    const hero = await page.locator('main').evaluate(element => JSON.parse(element.dataset.heroRect));
-    await page.evaluate(() => {
-      window.__panelPointerReceipt=[];
-      for (const type of ['pointerdown','pointermove','pointerup','pointercancel','gotpointercapture','lostpointercapture'])
-        document.addEventListener(type,event=>window.__panelPointerReceipt.push({ type:event.type,id:event.pointerId,pointerType:event.pointerType,
-          button:event.button,x:event.clientX,y:event.clientY,target:event.target.tagName,
-          family:event.target.closest?.('.flow-family')?.getAttribute('aria-label'),
-          overlay:document.querySelector('main').dataset.overlay,drag:document.querySelector('main').dataset.dragActive }),true);
-    });
-    report.dragBefore = await card.evaluate(element=>({ selection:document.getSelection()?.toString(),
-      userSelect:getComputedStyle(element).userSelect,touchAction:getComputedStyle(element).touchAction }));
-    assert.equal(report.dragBefore.selection,'','A completed/cancelled firework drag must not leave selected text for a native text drag');
-    const startX=process.env.PANEL_DRAG_ORIGIN==='glyph'?r.x+16:r.x+r.width/2;
-    await page.mouse.move(startX,r.y+r.height/2); await page.mouse.down();
-    await page.mouse.move(hero.x+hero.width/2,hero.y+hero.height*.32,{ steps:12 });
-    const dragReceipt=await page.evaluate(()=>({ events:window.__panelPointerReceipt,
-      snapshot:window.__firecrackersQA.snapshot(),active:document.querySelector('main').dataset.dragActive,
-      target:document.querySelector('.burst-drop-target')?.className }));
-    report.dragReceipt=dragReceipt;
-    assert.equal(dragReceipt.active,'true',`The real second gesture must acquire a firework drag: ${JSON.stringify(dragReceipt)}`);
-    assert.match(dragReceipt.target || '',/valid burst/,`The sky point must admit a burst: ${JSON.stringify(dragReceipt)}`);
-    await page.mouse.up();
-    await page.waitForFunction(() => document.querySelector('main').dataset.overlay === 'none');
-    const dropped = await snap(page); assert.equal(dropped.launched,before.launched+1); assert.equal(dropped.bursts,before.bursts+1);
-    await page.evaluate(() => window.__firecrackersQA.advance(35));
-    await page.getByRole('button', { name:'Position firework',exact:true }).click();
-    await page.getByRole('button', { name:'Right',exact:true }).click();
-    await page.getByRole('button', { name:'Set position',exact:true }).click();
-    assert.equal((await snap(page)).placement,.8);
-    await openPicker(page); await page.getByRole('button',{ name:'Grand collection',exact:true }).click();
-    await page.getByRole('button',{ name:'Sapphire Saturn',exact:true }).click();
-    assert.equal((await snap(page)).selected,'sapphire-saturn'); assert.equal((await snap(page)).launched,dropped.launched);
-    record('Real picker drag cancellation/one sky burst, position commit and selection keep their original behavior');
+  await run('tray-drag-and-position', { width:393,height:851 }, async page => {
+    await enter(page); const before=await snap(page),card=page.locator('[data-family-icon="gold-willow"]');
+    const r=await card.boundingBox();await page.mouse.move(r.x+r.width/2,r.y+r.height/2);await page.mouse.down();await page.mouse.move(4,4,{steps:8});await page.mouse.up();
+    assert.equal((await snap(page)).launched,before.launched);
+    await page.mouse.move(r.x+r.width/2,r.y+r.height/2);await page.mouse.down();await page.mouse.move(196,180,{steps:12});
+    assert.equal(await page.locator('main').getAttribute('data-drag-active'),'true');await page.mouse.up();
+    assert.equal((await snap(page)).bursts,before.bursts+1);await page.evaluate(()=>window.__firecrackersQA.advance(35));
+    await openPanel(page,'position');await page.getByRole('button',{name:'Right',exact:true}).click();await page.getByRole('button',{name:'Apply',exact:true}).click();assert.equal((await snap(page)).placement,.8);
+    await openPicker(page);await page.getByRole('button',{name:'Grand collection',exact:true}).click();await page.getByRole('button',{name:'Sapphire Saturn',exact:true}).click();assert.equal((await snap(page)).selected,'sapphire-saturn');assert.equal((await snap(page)).launched,before.launched+1);
+    record('Real tray drag cancellation/one sky burst, position commit and catalog selection');
   });
   await run('presentation', { width:375,height:667 }, async page => {
     await enter(page); await settings(page).click(); await settingsTab(page,'Display');
@@ -354,7 +302,7 @@ try {
     await inspectPanel(page,'settings',{ width:375,height:667 },'presentation-return-controls');
     await page.getByRole('button',{ name:'Return to interactive sky',exact:true }).click(); await close(page).click();
     assert.equal(await page.locator('main').getAttribute('data-display'),'interactive');
-    assert.equal((await snap(page)).show,null); assert.equal(await page.getByRole('button',{ name:'Launch selected firework',exact:true }).isEnabled(),true);
+    assert.equal((await snap(page)).show,null); assert.equal(await selectedLaunch(page).getAttribute('data-launchable'),'true');
     record('Protected transparent presentation retains reachable controls and returns to interactive manual sky');
   });
   // Holding real chunks exposes startup surfaces without rewriting app state.
@@ -412,7 +360,7 @@ try {
     await page.getByRole('link',{ name:'Use compatibility graphics',exact:true }).click();
     await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true',undefined,{ timeout:65000 });
     assert.match(await page.locator('main').getAttribute('data-backend'),/^Canvas/);
-    await page.getByRole('button',{ name:'Launch selected firework',exact:true }).click();
+    await selectedLaunch(page).click();
     await page.waitForFunction(() => Number(document.querySelector('main').dataset.bursts)>0,undefined,{ timeout:25000 });
     record('Real delayed renderer loading and context-loss recovery keep visible actions and a playable fallback');
   },[/^THREE\.WebGPURenderer: WebGL Device Lost:\s+Message: Unknown reason$/]);

@@ -10,7 +10,7 @@
   --panel-accent: #efd0a0;
   --panel-line: rgba(210, 222, 239, .09);
   --panel-font: 400 14px/1.45 system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --panel-target: 44px;
+  --panel-target: 48px;
   --panel-gutter: 12px;
   --panel-safe-top: env(safe-area-inset-top, 0px);
   --panel-safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -21,12 +21,12 @@
 .fireworks-app .sheet.edge-panel {
   --panel-gutter: 12px;
   position: fixed;
-  inset: 0;
+  inset: calc(8px + var(--panel-safe-top)) calc(72px + var(--panel-safe-right)) calc(var(--tray-height, 76px) + 8px + var(--panel-safe-bottom)) calc(8px + var(--panel-safe-left));
   width: min(340px, calc(100vw - 24px - var(--panel-safe-left) - var(--panel-safe-right)));
   max-width: 360px;
-  max-height: min(78dvh, calc(100dvh - 24px - var(--panel-safe-top) - var(--panel-safe-bottom)));
+  max-height: calc(100dvh - var(--tray-height, 76px) - 16px - var(--panel-safe-top) - var(--panel-safe-bottom));
   min-height: 0;
-  margin: auto calc(12px + var(--panel-safe-right)) auto auto;
+  margin: auto 0 auto auto;
   padding: 0;
   overflow: hidden;
   border: 0;
@@ -41,10 +41,6 @@
   overscroll-behavior: contain;
 }
 .fireworks-app .sheet.edge-panel[open] { display: flex; flex-direction: column; }
-.fireworks-app .sheet.edge-panel:is(.sheet--help, .sheet--show, .sheet--picker, .sheet--position) {
-  margin-right: auto;
-  margin-left: calc(12px + var(--panel-safe-left));
-}
 .fireworks-app .sheet.edge-panel::backdrop {
   background: rgba(2, 6, 12, .12);
   backdrop-filter: none;
@@ -340,7 +336,7 @@
 .sheet.edge-panel .collection-switch button[aria-pressed='true'] { color: var(--panel-accent); background: var(--panel-selected); box-shadow: none; }
 .sheet.edge-panel .collection-switch small { display: none; }
 .sheet.edge-panel .flow-families { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 0; margin: 0; }
-.sheet.edge-panel .flow-family { display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 9px; min-height: max(48px, var(--panel-target)); height: auto; padding: 6px 7px; border: 0; border-radius: 6px; background: transparent; color: var(--panel-text); font: var(--panel-font); box-shadow: none; touch-action: none; user-select: none; -webkit-user-select: none; }
+.sheet.edge-panel .flow-family { display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 9px; min-height: max(48px, var(--panel-target)); height: auto; padding: 6px 7px; border: 0; border-radius: 6px; background: transparent; color: var(--panel-text); font: var(--panel-font); box-shadow: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .sheet.edge-panel .flow-family.selected { background: var(--panel-selected); border: 0; box-shadow: none; }
 .sheet.edge-panel :is(.flow-family-art, .flow-family-art svg, .flow-family-art .firework-glyph) { width: 32px; height: 32px; min-width: 32px; min-height: 32px; filter: none; }
 .sheet.edge-panel .flow-family > .family-copy { min-width: 0; text-align: left; overflow: visible; white-space: normal; text-overflow: clip; }
@@ -361,13 +357,13 @@
   position: fixed;
   z-index: 45;
   left: auto;
-  right: calc(12px + var(--panel-safe-right));
-  top: 50%;
+  right: calc(72px + var(--panel-safe-right));
+  top: calc(var(--panel-safe-top) + (100dvh - var(--panel-safe-top) - var(--panel-safe-bottom) - var(--tray-height, 76px)) / 2);
   bottom: auto;
   transform: translateY(-50%);
   width: min(340px, calc(100vw - 24px - var(--panel-safe-left) - var(--panel-safe-right)));
   max-width: 360px;
-  max-height: min(78dvh, calc(100dvh - 24px - var(--panel-safe-top) - var(--panel-safe-bottom)));
+  max-height: calc(100dvh - var(--tray-height, 76px) - 16px - var(--panel-safe-top) - var(--panel-safe-bottom));
   min-height: 0;
   margin: 0;
   padding: 12px;
@@ -395,8 +391,8 @@
 .fireworks-app .reveal-controls .icon-button { width: var(--panel-target); height: var(--panel-target); min-width: var(--panel-target); min-height: var(--panel-target); border: 0; border-radius: 6px; background: rgba(7, 15, 25, .38); color: var(--panel-text); box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
 
 /* Native modal inertness owns input; quiet only its background controls. */
-.fireworks-app[data-overlay]:not([data-overlay='none']) .edge-group { opacity: .18; }
-.fireworks-app[data-overlay]:not([data-overlay='none']):not([data-drag-active='true']) .family-dock { opacity: .18; }
+.fireworks-app[data-overlay]:not([data-overlay='none']) .control-rail { opacity: .18; }
+.fireworks-app[data-overlay]:not([data-overlay='none']) .collection-chrome { opacity: .18; }
 
 /* Drag coordinates remain scene coordinates; hide the panel material, not the target. */
 .fireworks-app .sheet.edge-panel.is-dragging { background: transparent; border: 0; box-shadow: none; overflow: visible; }
@@ -406,28 +402,28 @@
 .sheet.edge-panel.is-dragging .burst-drop-target { visibility: visible; }
 
 @media (max-width: 1023px), (pointer: coarse) { :root { --panel-target: 48px; } }
-@media (max-width: 767px), (max-height: 540px) {
-  .fireworks-app .sheet.edge-panel,
-  .fireworks-app .sheet.edge-panel:is(.sheet--help, .sheet--show, .sheet--picker, .sheet--position) {
+@media (max-width: 679px) {
+  .fireworks-app .sheet.edge-panel {
     top: auto;
-    bottom: calc(8px + var(--panel-safe-bottom));
+    bottom: calc(var(--tray-height, 128px) + 8px + var(--panel-safe-bottom));
     left: calc(8px + var(--panel-safe-left));
     right: calc(8px + var(--panel-safe-right));
     width: min(360px, calc(100vw - 16px - var(--panel-safe-left) - var(--panel-safe-right)));
-    max-height: min(60dvh, calc(100dvh - 16px - var(--panel-safe-top) - var(--panel-safe-bottom)));
     margin: 0 auto;
     border-radius: 10px;
   }
   .fireworks-app :is(.recovery, .loading-state), .boot-shell {
     top: auto;
-    bottom: calc(8px + var(--panel-safe-bottom));
+    bottom: calc(var(--tray-height, 128px) + 8px + var(--panel-safe-bottom));
     left: calc(8px + var(--panel-safe-left));
     right: calc(8px + var(--panel-safe-right));
     width: min(360px, calc(100vw - 16px - var(--panel-safe-left) - var(--panel-safe-right)));
-    max-height: min(60dvh, calc(100dvh - 16px - var(--panel-safe-top) - var(--panel-safe-bottom)));
     margin-inline: auto;
     transform: none;
   }
+}
+@media (min-width: 680px) and (max-height: 540px) {
+  .fireworks-app .sheet.edge-panel { margin-block: 0; top: auto; }
 }
 @media (max-height: 540px) {
   .sheet.edge-panel .panel-header { min-height: calc(var(--panel-target) + 8px); padding-block: 4px; }
@@ -436,3 +432,13 @@
 @media (prefers-reduced-motion: reduce) {
   .sheet.edge-panel *, .recovery *, .loading-state *, .boot-shell *, .reveal-controls * { transition: none; animation: none; }
 }
+
+/* The adjacent controls menu uses the same material and target dimensions. */
+.sheet.edge-panel.sheet--controls { width: min(260px, calc(100vw - 24px - var(--panel-safe-left) - var(--panel-safe-right))); }
+.controls-menu { display: grid; gap: 2px; }
+.sheet.edge-panel .controls-menu button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 7px 8px; border: 0; border-radius: 6px; background: transparent; color: var(--panel-text); text-align: left; font: var(--panel-font); box-shadow: none; }
+.controls-menu button svg { flex: 0 0 18px; color: var(--panel-accent); }
+.controls-menu button small { margin-left: auto; color: var(--panel-muted); font-size: 12px; }
+
+.controls-menu button span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.controls-menu button small { max-width: 40%; overflow-wrap: anywhere; }

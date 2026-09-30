@@ -1,8 +1,9 @@
 import { measureStage, stageFraming } from '../engine/StageLayout';
 import type { StageLayout } from '../engine/StageLayout';
+import { resolveScreenLaunchProfile } from '../engine/LaunchProfile';
 import { carrierTint } from '../engine/GrandEffects';
 import { BUDGETS, FAMILIES, clamp, randomStream } from '../engine/catalog';
-import type { Quality } from '../engine/catalog';
+import type { FamilyId, Quality } from '../engine/catalog';
 import type { Simulation, Rocket } from '../engine/Simulation';
 import type { RendererPort } from '../engine/RendererPort';
 import { flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from '../engine/LaunchGeometry';
@@ -256,6 +257,9 @@ export class CompatibilityRenderer implements RendererPort {
         const depth = 240 / Math.max(140, 240 - z);
         return { x: this.width / 2 + x * this.scale * depth, y: this.baseline - (y - this.sim.ground) * this.scale * depth };
     }
+    resolveLaunchProfile(id: FamilyId) {
+        return resolveScreenLaunchProfile(this.layout, id, this.scale, y => this.sim.ground + (this.baseline - y) / this.scale);
+    }
     projectPlacement(clientX: number) {
         return clamp(.5 + (clientX - this.host.getBoundingClientRect().left - this.width / 2) / (this.scale * this.sim.launchSpan), .2, .8);
     }
@@ -487,6 +491,8 @@ export class CompatibilityRenderer implements RendererPort {
             riverReflectionFragments: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length * (this.sim.quality === 'low' ? 4 : 8),
             riverMotionTime: this.riverTime(), riverPositions: this.riverArt.boats.map(boat => ({ x: boat.screenX, y: boat.screenY, roll: boat.roll })),
             shellScreen: shell ? this.project(...shell) : null,
+            apexScreen: r ? this.project(r.x, r.top + SHELL_LOCAL_Y * 3.4, r.z) : null,
+            launchProfile: r?.launchProfile ?? null,
             flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell } : null };
     }
     dispose() {

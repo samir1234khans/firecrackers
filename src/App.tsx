@@ -14,6 +14,7 @@ import './styles/hud-v3.css';
 import { parsePresentation } from './platform/presentation';
 import { PresentationSettings } from './ui/PresentationSettings';
 import { FamilyPicker } from './ui/FamilyPicker';
+import { ControlsMenu } from './ui/ControlsMenu';
 import { PanelNav } from './ui/PanelNav';
 import type { SettingsSection } from './ui/PanelNav';
 import './styles/completion.css';
@@ -22,7 +23,7 @@ import './styles/recovery.css';
 import './styles/stage.css';
 import './styles/panels.css';
 
-type Overlay = 'help' | 'settings' | 'show' | 'reset' | 'picker' | 'position' | null;
+type Overlay = 'help' | 'settings' | 'show' | 'reset' | 'picker' | 'position' | 'controls' | null;
 
 export default function App() {
   const [presentation, setPresentation] = useState(() => parsePresentation(location.search));
@@ -34,64 +35,74 @@ export default function App() {
   const [epoch, setEpoch] = useState(0);
   const [hidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
   const [notice, setNotice] = useState('');
+  const [noticeFamily, setNoticeFamily] = useState<FamilyId | null>(null);
   const host = useRef<HTMLDivElement>(null);
   const [positionDraft, setPositionDraft] = useState(.5);
-  const [pickerReady, setPickerReady] = useState(false);
-  const [dockOpen, setDockOpen] = useState(false);
+  const cancelDrag = useRef<(() => void) | null>(null);
+  const clearSuppressedClick = useRef<(() => void) | null>(null);
   const [drag, setDrag] = useState<{ id: FamilyId; x: number; y: number; kind: 'burst' | 'launch' | null } | null>(null);
   const dragRef = useRef(drag); dragRef.current = drag;
   const revealTap = useRef(false);
-  const notify = useCallback((text: string) => setNotice(text), []);
+  const notify = useCallback((text: string) => { setNoticeFamily(null); setNotice(text); }, []);
   const world = useWorld(host, prefs, epoch, notify, presentation);
   const platform = usePlatform(notify);
   const state = world.snapshot;
   const worldRef = useRef(world);
   worldRef.current = world;
-  const context = useRef({ overlay, prefs, state, dockOpen });
-  context.current = { overlay, prefs, state, dockOpen };
+  const context = useRef({ overlay, prefs, state });
+  context.current = { overlay, prefs, state };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
   const wake = () => setHidden(false);
-  const open = (next: Overlay) => { panelInvoker.current = document.activeElement instanceof HTMLElement ? document.activeElement : null; setDockOpen(false); if (next === 'settings') { setSettingsSection('graphics'); setSettingsReturnFocus(false); } setPickerReady(world.sim.current.ready && world.ready); setPositionDraft(world.sim.current.placement); world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
-  const close = () => { setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
+  const open = (next: Overlay) => { cancelDrag.current?.(); if (!overlay) panelInvoker.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;  if (next === 'settings') { setSettingsSection('graphics'); setSettingsReturnFocus(false); } setPositionDraft(world.sim.current.placement); world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
+  const close = () => { cancelDrag.current?.(); setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
   const cancelReset = () => { setSettingsReturnFocus(true); setOverlay('settings'); };
   const finishPosition = () => { close(); world.sim.current.setPlacement(positionDraft); world.refresh(); };
-  const drop = (id: FamilyId, x: number, y: number) => {
-    if (!pickerReady) return;
-    close();
-    if (world.drop(id, x, y)) change('family', id);
-  };
-  const startDrag = (id: FamilyId, event: React.PointerEvent<HTMLButtonElement>, fromPicker = false) => {
-    if (event.button !== 0 || !(fromPicker ? pickerReady : world.ready && !world.error && !overlay && world.sim.current.canLaunchFamily(id))) return;
-    const button = event.currentTarget, startX = event.clientX, startY = event.clientY;
-    button.setPointerCapture(event.pointerId);
-    let moved = false;
+  const startDrag = (id: FamilyId, event: React.PointerEvent<HTMLButtonElement>) => {
+    clearSuppressedClick.current?.();
+    if (event.button !== 0 || !event.isPrimary || !world.ready || world.error || overlay) return;
+    cancelDrag.current?.();
+    const button = event.currentTarget, pointerId = event.pointerId, startX = event.clientX, startY = event.clientY;
+    button.setPointerCapture(pointerId);
+    let moved = false, cancelled = false;
+    const suppressClick = () => {
+      const suppress = (ev: MouseEvent) => { ev.preventDefault(); ev.stopImmediatePropagation(); };
+      clearSuppressedClick.current?.();
+      const clear = () => { button.removeEventListener('click', suppress, true); clearSuppressedClick.current = null; };
+      clearSuppressedClick.current = clear;
+      button.addEventListener('click', suppress, { capture: true, once: true });
+      setTimeout(() => { if (clearSuppressedClick.current === clear) clear(); }, 600);
+    };
+    const cleanup = () => {
+      button.removeEventListener('pointermove', move); button.removeEventListener('pointerup', end);
+      button.removeEventListener('pointercancel', cancel); button.removeEventListener('lostpointercapture', cancel);
+      window.removeEventListener('keydown', escape);
+      cancelDrag.current = null;
+      if (button.hasPointerCapture(pointerId)) button.releasePointerCapture(pointerId);
+      dragRef.current = null; setDrag(null);
+    };
     const move = (e: PointerEvent) => {
-      if (e.pointerId !== event.pointerId) return;
-      if (!moved && Math.hypot(e.clientX - startX, e.clientY - startY) < 9) return;
+      if (e.pointerId !== pointerId || cancelled) return;
+      if (!moved && Math.hypot(e.clientX - startX, e.clientY - startY) < 8) return;
       moved = true;
-      const target = world.dropTarget(e.clientX, e.clientY);
-      const kind = (fromPicker ? pickerReady : world.sim.current.canLaunchFamily(id)) ? target?.kind ?? null : null;
+      const target = worldRef.current.dropTarget(e.clientX, e.clientY);
+      const kind = worldRef.current.sim.current.canLaunchFamily(id) ? target?.kind ?? null : null;
       const value = { id, x: e.clientX, y: e.clientY, kind }; dragRef.current = value; setDrag(value);
     };
     const end = (e: PointerEvent) => {
-      if (e.pointerId !== event.pointerId) return;
-      button.removeEventListener('pointermove', move); button.removeEventListener('pointerup', end); button.removeEventListener('pointercancel', cancel);
-      const value = dragRef.current;
-      const releasedKind = moved && e.type === 'pointerup' && (fromPicker ? pickerReady : world.sim.current.canLaunchFamily(id))
-        ? world.dropTarget(e.clientX, e.clientY)?.kind : null;
-      dragRef.current = null; setDrag(null);
-      if (moved && e.type === 'pointerup') { const suppress = (ev: MouseEvent) => { ev.preventDefault(); ev.stopImmediatePropagation(); }; button.addEventListener('click', suppress, { capture: true, once: true }); setTimeout(() => button.removeEventListener('click', suppress, true), 600); }
-      if (value && releasedKind) {
-        if (fromPicker) drop(id, e.clientX, e.clientY);
-        else if (!overlay && world.ready && !world.error && world.sim.current.canLaunchFamily(id) && world.drop(id, e.clientX, e.clientY)) {
-          change('family', id);
-          setDockOpen(false);
-          setNotice('');
-        }
-      }
+      if (e.pointerId !== pointerId) return;
+      const commit = moved && !cancelled && e.type === 'pointerup';
+      if (moved || cancelled) suppressClick();
+      cleanup();
+      if (!commit) return;
+      if (!context.current.overlay && worldRef.current.drop(id, e.clientX, e.clientY)) { change('family', id); setNotice(''); }
     };
-    const cancel = (e: PointerEvent) => end(e);
-    button.addEventListener('pointermove', move); button.addEventListener('pointerup', end); button.addEventListener('pointercancel', cancel);
+    const abort = () => { cancelled = true; suppressClick(); cleanup(); };
+    const cancel = (e: PointerEvent) => { if (e.pointerId === pointerId) abort(); };
+    const escape = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.preventDefault(); abort(); } };
+    cancelDrag.current = abort;
+    button.addEventListener('pointermove', move); button.addEventListener('pointerup', end);
+    button.addEventListener('pointercancel', cancel); button.addEventListener('lostpointercapture', cancel);
+    window.addEventListener('keydown', escape);
   };
   const select = (id: FamilyId) => {
     if (world.sim.current.select(id)) change('family', id);
@@ -100,6 +111,7 @@ export default function App() {
     wake();
   };
 
+  useEffect(() => () => { cancelDrag.current?.(); clearSuppressedClick.current?.(); }, []);
   useEffect(() => { savePreferences(prefs); }, [prefs]);
   useEffect(() => { if (state.paused) platform.releaseWake(); }, [state.paused, platform.releaseWake]);
   useEffect(() => { world.setOverlay(Boolean(overlay)); }, [overlay, world.setOverlay]);
@@ -119,7 +131,7 @@ export default function App() {
       setHidden(false);
       if (c.overlay) return;
       if (event.key === 'Escape') {
-        if (c.dockOpen) { event.preventDefault(); setDockOpen(false); }
+        cancelDrag.current?.();
         return;
       }
       if (event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea')) return;
@@ -147,14 +159,13 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, [change]);
 
-  const selected = FAMILIES.find(f => f.id === state.selected) || FAMILIES[0];
   const canLight = world.ready && !world.error && state.ready && !overlay;
   const toggleSound = async () => { const active = await world.configureSound(!world.soundActive); change('sound', active); };
   const resumeOrPause = () => { world.pause(!state.paused); if (!state.paused) platform.releaseWake(); wake(); };
-  const ignite = () => { setNotice(''); world.ignite(); };
   const igniteFamily = (id: FamilyId) => {
-    setNotice('');
-    if (world.igniteFamily(id)) { change('family', id); setDockOpen(false); }
+    setNotice(''); setNoticeFamily(null);
+    if (world.igniteFamily(id)) change('family', id);
+    else { setNoticeFamily(id); setNotice(world.sim.current.paused ? 'Resume to launch' : world.sim.current.launchBlock === 'capacity' ? 'Let the sparks clear' : 'Rocket in flight'); }
   };
   const startShow = (preset: ShowPreset) => {
     change('preset', preset);
@@ -216,35 +227,23 @@ export default function App() {
   >
     <div ref={host} className='scene-host' aria-hidden='true'/>
     <CinematicHUD
-      selected={selected}
       available={world.ready && !world.error && !overlay}
       phase={state.phase}
       hidden={hidden}
       selectedId={state.selected}
-      show={state.show}
       paused={state.paused}
       soundActive={world.soundActive}
-      fullscreen={platform.fullscreen}
       canLight={canLight}
       notice={notice}
+      noticeFamily={noticeFamily ?? undefined}
       committedFamily={state.committedFamily}
       updateReady={platform.updateReady}
       onPause={resumeOrPause}
       onSound={() => void toggleSound()}
-      onFullscreen={() => void platform.toggleFullscreen()}
-      onSettings={() => open('settings')}
-      onShowDialog={() => open('show')}
-      onPicker={() => open('picker')}
-      onPosition={() => open('position')}
-      onHelp={() => open('help')}
-      onSelect={select}
-      onIgnite={ignite}
       canLaunchFamily={id => world.ready && !world.error && !overlay && world.sim.current.canLaunchFamily(id)}
       onDragStart={(id, event) => startDrag(id, event)}
       onLaunchFamily={igniteFamily}
-      dockOpen={dockOpen}
-      onToggleDock={() => setDockOpen(open => !open)}
-      onCloseDock={() => setDockOpen(false)}
+      onControls={() => open('controls')}
     />
     {drag && overlay !== 'picker' && <div className={`burst-drop-target${drag.kind ? ` valid ${drag.kind}` : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'>{drag.kind === 'launch' ? <Flame size={26}/> : <Sparkles size={26}/>}<span>{drag.kind === 'launch' ? 'Release to launch' : drag.kind === 'burst' ? 'Release to burst' : 'Move over the sky or terrace'}</span></div>}
 
@@ -256,12 +255,13 @@ export default function App() {
       <button className='icon-button' aria-label={world.soundActive ? 'Mute sound' : 'Enable sound'} data-always='true' onClick={() => void toggleSound()}>{world.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
     </>}</div>
 
-    {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} returnFocus={panelInvoker.current} dragging={Boolean(drag)}>
-      <p className='panel-note'>Tap to select. Drag to sky for a burst; to terrace for a rocket.</p>
-      <FamilyPicker selectedId={state.selected} available={world.ready} onSelect={id => { select(id); close(); }} onDragStart={(id, event) => startDrag(id, event, true)}/>
-      <div className='panel-actions'><button className='secondary-button' disabled={!pickerReady} onClick={() => { const r = world.heroRect(); drop(state.selected, r.x + r.width / 2, r.y + r.height * .38); }}><Sparkles size={16} aria-hidden='true'/>Burst selected style in center</button></div>
-      {!pickerReady && <p className='fine-print'>Resume and let the current rocket finish before dragging.</p>}
-      {drag && <div className={`burst-drop-target${drag.kind ? ` valid ${drag.kind}` : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'>{drag.kind === 'launch' ? <Flame size={26}/> : <Sparkles size={26}/>}<span>{drag.kind === 'launch' ? 'Release to launch' : drag.kind === 'burst' ? 'Release to burst' : 'Move over the sky or terrace'}</span></div>}
+    {overlay === 'controls' && <Dialog variant='controls' title='Controls' onClose={close} returnFocus={panelInvoker.current}>
+      <ControlsMenu showLabel={state.show ? state.show[0].toUpperCase() + state.show.slice(1) : 'Manual'} fullscreen={platform.fullscreen} canPosition={true} onShow={() => open('show')} onPosition={() => open('position')} onSettings={() => open('settings')} onFullscreen={() => { void platform.toggleFullscreen(); close(); }} onHelp={() => open('help')}/>
+    </Dialog>}
+    {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} returnFocus={panelInvoker.current}>
+      <p className='panel-note'>Browse the ten effects. The bottom collection launches them.</p>
+      <FamilyPicker selectedId={state.selected} available={world.ready} onSelect={id => { select(id); close(); }}/>
+
     </Dialog>}
     {overlay === 'position' && <Dialog variant='position' title='Position' onClose={close} returnFocus={panelInvoker.current}>
       <p className='panel-note'><MapPin size={16} aria-hidden='true'/>Place the next rocket on the terrace.</p>
@@ -269,27 +269,26 @@ export default function App() {
       <label className='position-value' htmlFor='firework-position'><span>Left → right</span><output htmlFor='firework-position'>{Math.round(positionDraft * 100)}%</output></label>
       <input id='firework-position' className='position-slider' aria-label='Firework position' type='range' min='.2' max='.8' step='.01' value={positionDraft} onChange={e => setPositionDraft(Number(e.target.value))}/>
       <div className='position-presets'>{[['Left', .2], ['Center', .5], ['Right', .8]].map(([label, value]) => <button key={label} aria-pressed={Math.abs(positionDraft - Number(value)) < .005} onClick={() => setPositionDraft(Number(value))}>{label}</button>)}</div>
-      <div className='panel-actions'><button className='primary-button' onClick={finishPosition}><MapPin size={16} aria-hidden='true'/>Set position</button><button className='text-button' onClick={() => setOverlay('help')}><CircleHelp size={16} aria-hidden='true'/>Help</button></div>
+      <div className='panel-actions'><button className='primary-button' onClick={finishPosition}><MapPin size={16} aria-hidden='true'/>Apply</button><button className='text-button' onClick={() => setOverlay('help')}><CircleHelp size={16} aria-hidden='true'/>Help</button></div>
     </Dialog>}
 
     {overlay === 'help' && <Dialog variant='help' title='Quick help' onClose={close} returnFocus={panelInvoker.current}>
-      <div className='help-steps'><div><Sparkles size={18} aria-hidden='true'/><span><strong>Choose</strong><small>Classics left, Grand right. On phones, open Styles.</small></span></div><div><Hand size={18} aria-hidden='true'/><span><strong>Drop</strong><small>Sky: instant burst. Terrace: a rocket at your drop position.</small></span></div><div><Flame size={18} aria-hidden='true'/><span><strong>Launch</strong><small>A flame icon uses your saved position. One press lights one fuse.</small></span></div></div>
+      <div className='help-steps'><div><Sparkles size={18} aria-hidden='true'/><span><strong>Choose</strong><small>Tap any bottom icon to launch at your saved position.</small></span></div><div><Hand size={18} aria-hidden='true'/><span><strong>Drop</strong><small>Sky: instant burst. Terrace: a rocket at your drop position.</small></span></div><div><Flame size={18} aria-hidden='true'/><span><strong>Launch</strong><small>One tap lights one fuse. Focus an icon and press Enter, or select with 1–9/0 and launch with L.</small></span></div></div>
       <Toggle label='Reduced flashes' detail='Softer light, with the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
       <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
       <p className='fine-print'>Flashing effects; digital simulation. Sound starts off. Pause stays available.</p>
       <div className='panel-actions'><button className='primary-button' onClick={close}><Play size={16} aria-hidden='true'/>Enter the night</button><button className='text-button' onClick={() => { change('onboarded', true); close(); }}>Skip introduction</button></div>
+      <button className='secondary-button' aria-label='Browse firework catalog' onClick={() => { setOverlay('picker'); }}>Firework catalog</button>
       <details className='keyboard-help panel-detail'><summary><Keyboard size={16} aria-hidden='true'/>Keyboard controls</summary><p>1–5: Classics · 6–9, 0: Grand · ←/→: position · L: launch · Space: pause · M: sound · Escape: close. Tab reaches every control.</p></details>
     </Dialog>}
 
     {overlay === 'show' && <Dialog variant='show' title='Show mode' onClose={close} returnFocus={panelInvoker.current}>
       <button className='compact-choice show-manual' aria-label='Manual' onClick={() => { returnToManual(); close(); }}><Hand size={18} aria-hidden='true'/><span><strong>Manual</strong><small>Choose and launch yourself.</small></span></button>
-      <fieldset className='show-presets'><legend className='sr-only'>Show pacing</legend>{([
+      <div className='show-presets'>{([
         { id: 'calm', name: 'Calm', description: 'Space between bursts.', icon: <Wind size={18} aria-hidden='true'/> },
         { id: 'festival', name: 'Festival', description: 'Rhythm and color.', icon: <Sparkles size={18} aria-hidden='true'/> },
         { id: 'finale', name: 'Finale', description: '32 seconds, then quiet.', icon: <Flame size={18} aria-hidden='true'/> },
-      ] as const).map(p => <label key={p.id} className={`preset compact-choice${prefs.preset === p.id ? ' chosen' : ''}`}><input type='radio' aria-label={p.name} name='preset' value={p.id} checked={prefs.preset === p.id} onChange={() => change('preset', p.id as ShowPreset)}/>{p.icon}<span><strong>{p.name}</strong><small>{p.description}</small></span></label>)}</fieldset>
-      <p className='fine-print'>Selecting a firework stops future auto launches. The current effect continues.</p>
-      <div className='panel-actions'><button className='primary-button' disabled={!world.ready || Boolean(world.error)} onClick={() => startShow(prefs.preset)}><Play size={16} aria-hidden='true'/>Start show</button>{state.show && <button className='text-button' onClick={() => { world.sim.current.stopShow(); close(); }}>Stop automatic show</button>}</div>
+      ] as const).map(p => <button type='button' aria-label={p.name} aria-pressed={state.show===p.id} key={p.id} className='compact-choice' onClick={() => startShow(p.id)}>{p.icon}<span><strong>{p.name}</strong><small>{p.description}</small></span></button>)}</div>
     </Dialog>}
 
     {overlay === 'settings' && <Dialog variant='settings' title='Settings' onClose={close} returnFocus={panelInvoker.current} initialFocusId={settingsReturnFocus ? 'settings-reset-trigger' : undefined} navigation={<PanelNav value={settingsSection} onChange={setSettingsSection}/>}>
@@ -336,6 +335,6 @@ export default function App() {
       </section>
     </Dialog>}
 
-    {overlay === 'reset' && <Dialog variant='reset' title='Reset sky?' onClose={cancelReset} returnFocus={panelInvoker.current}><p className='panel-note'>Stops the display and clears this device’s preferences and introduction progress.</p><div className='panel-actions'><button className='primary-button' onClick={reset}><RotateCcw size={16} aria-hidden='true'/>Reset sky and preferences</button><button className='text-button' onClick={cancelReset}>Keep my sky</button></div></Dialog>}
+    {overlay === 'reset' && <Dialog variant='reset' title='Reset sky?' onClose={cancelReset} returnFocus={panelInvoker.current}><p className='panel-note'>Stops the display and clears this device’s preferences and introduction progress.</p><div className='panel-actions'><button className='primary-button' aria-label='Reset sky and preferences' onClick={reset}><RotateCcw size={16} aria-hidden='true'/>Reset</button><button className='text-button' aria-label='Cancel reset' onClick={cancelReset}>Cancel</button></div></Dialog>}
   </main>;
 }

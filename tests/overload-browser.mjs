@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { chromium } from 'playwright';
@@ -33,7 +34,7 @@ try {
   const page = await context.newPage();
   await enter(page);
   assert.equal((await snap(page)).quality, 'ultra', 'Ultra remains the default');
-  await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await openPanel(page, 'settings');
   await page.getByLabel('Graphics quality', { exact: true }).selectOption('standard');
   await page.getByRole('button', { name: 'Close panel' }).click();
   assert.equal((await snap(page)).quality, 'standard');
@@ -41,7 +42,7 @@ try {
   pass('saved non-default quality is active before overload');
 
   assert.equal(await page.evaluate(() => window.__firecrackersQA.injectOverloadSamples(3, 600)), true);
-  await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
+  await selectedLaunch(page).click();
   const committed = await snap(page);
   assert.ok(committed.committedId > 0);
   assert.equal(committed.selected, 'gold-willow');
@@ -93,9 +94,8 @@ try {
   const showPage = await showContext.newPage();
   await enter(showPage);
   assert.equal((await snap(showPage)).quality, 'ultra');
-  await showPage.getByRole('button', { name: 'Choose show mode' }).click();
-  await showPage.getByRole('radio', { name: /Festival/ }).check();
-  await showPage.getByRole('button', { name: 'Start show' }).click();
+  await openPanel(showPage, 'show');
+  await showPage.getByRole('button',{name:'Festival',exact:true}).click();
   assert.equal((await snap(showPage)).show, 'festival');
   assert.equal(await showPage.evaluate(() => window.__firecrackersQA.injectOverloadSamples(3, 600)), true);
   await showPage.waitForFunction(() => document.querySelector('main')?.dataset.backend?.includes('Canvas'), null, { timeout: 30000 });

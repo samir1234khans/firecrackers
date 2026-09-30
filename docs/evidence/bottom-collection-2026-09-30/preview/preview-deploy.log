@@ -1,0 +1,46 @@
+
+ ⛅️ wrangler 4.143.0 (update available 4.145.0)
+───────────────────────────────────────────────
+🌀 Building list of assets...
+✨ Read 33 files from the assets directory C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\dist
+🌀 Starting asset upload...
+🌀 Found 29 new or modified static assets to upload. Proceeding with upload...
++ /manifest.webmanifest
++ /sw.js
++ /icons/icon-512.png
++ /workbox-35e397ac.js
++ /art/ignition-flame.png
++ /audio/report-03.wav
++ /art/paper-color.png
++ /assets/main-i0zLMOvF.js
++ /art/smoke-density-light.png
++ /art/river-life-v007.glb
++ /icon.svg
++ /index.html
++ /assets/workbox-window.prod.es5-BBnX5xw4.js
++ /THIRD_PARTY_NOTICES.txt
++ /audio/report-02.wav
++ /assets/main-r3052RpS.css
++ /art/water-normal-v005.png
++ /art/terrace-v004.glb
++ /assets/Renderer-tC1ChNTy.js
++ /art/river-life-v008.glb
++ /icons/icon-192.png
++ /assets/index-Bqqqtb98.js
++ /release.json
++ /art/waterfront-night-v005.webp
++ /audio/report-01.wav
++ /art/water-normal.png
++ /art/rocket.glb
++ /art/smoke-density-light-v005.png
++ /art/terrace-v008.glb
+Uploaded 9 of 29 assets
+Uploaded 19 of 29 assets
+Uploaded 29 of 29 assets
+✨ Success! Uploaded 29 files (6.63 sec)
+
+Total Upload: 0.31 KiB / gzip: 0.22 KiB
+Uploaded firecrackers-redesign-preview (11.64 sec)
+Deployed firecrackers-redesign-preview triggers (2.39 sec)
+  https://firecrackers-redesign-preview.allygym-api.workers.dev
+Current Version ID: 08c6035e-1498-45d9-af2a-55e9e1468b90

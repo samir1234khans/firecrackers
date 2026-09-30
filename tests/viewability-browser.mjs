@@ -1,3 +1,4 @@
+import { selectedLaunch, openPanel } from './stage-helpers.mjs';
 import { chooseFamily, inspectStage, inspectPicker, openPicker, settingsTab } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
@@ -10,7 +11,7 @@ const version = (await readFile('src/engine/catalog.ts', 'utf8')).match(/CONFIG_
 await mkdir(output, { recursive: true });
 const report = { url, version, browser: 'Chromium / software graphics; no physical-device claim', checks: [], failures: [], screenshots: [] };
 const browser = await chromium.launch({ headless: true, args: ['--enable-webgl', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
-const launch = page => page.getByRole('button', { name: 'Launch selected firework', exact: true });
+const launch = page => selectedLaunch(page);
 async function enter(page, query = '?backend=webgl&qa=1') {
     await page.goto(new URL(query, url).href, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true', undefined, { timeout: 65000 });
@@ -44,7 +45,7 @@ try {
     for (const [name, width, height] of [['desktop',1280,800], ['tablet',1024,768], ['portrait',393,851], ['small-phone',320,568], ['short-phone',320,480], ['landscape',844,390], ['narrow-landscape',640,360]]) {
         await check(name, async page => {
             await enter(page); const layout = await visibleControls(page);
-            await page.getByRole('button', { name: 'Open settings' }).click();
+            await openPanel(page, 'settings');
             await settingsTab(page, 'Graphics');
             await page.getByLabel('Graphics quality', { exact: true }).selectOption('ultra');
             await page.getByRole('button', { name: 'Close panel' }).click();
@@ -54,18 +55,18 @@ try {
     await check('canvas-complete-launch', async page => {
         await enter(page, '?backend=canvas&qa=1');
         assert.match(await page.locator('main').getAttribute('data-backend'), /Canvas/);
-        await page.getByRole('button', { name: 'Open settings' }).click();
+        await openPanel(page, 'settings');
         await settingsTab(page, 'Device');
         await page.getByText('Graphics details', { exact: true }).click();
         assert.ok(await page.locator('.diagnostics dd').filter({ hasText: 'Canvas' }).isVisible());
         await page.getByRole('button', { name: 'Close panel' }).click();
         await launch(page).tap();
         await page.waitForFunction(() => Number(document.querySelector('main')?.dataset.bursts) >= 1, undefined, { timeout: 20000 });
-        await page.waitForFunction(() => !document.querySelector('.flow-launch').disabled);
+        await page.waitForFunction(() => document.querySelector('[data-family-icon][aria-pressed="true"]')?.dataset.launchable==='true');
         assert.equal(await page.locator('main').getAttribute('data-launched'), '1');
         await page.getByRole('button', { name: 'Pause scene' }).first().click();
-        assert.equal(await launch(page).isDisabled(), true);
-        await page.getByRole('button', { name: 'Open settings' }).click();
+        assert.equal(await launch(page).getAttribute('data-launchable'), 'false');
+        await openPanel(page, 'settings');
         await page.getByRole('button', { name: 'Close panel' }).click();
         assert.equal(await page.locator('main').getAttribute('data-paused'), 'true');
         await page.getByRole('button', { name: 'Resume scene' }).first().click();
