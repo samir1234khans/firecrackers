@@ -125,7 +125,7 @@
     {
       "path": "index.html",
       "status": 200,
-      "sha256": "64669543297cd28c17c3a1565f2349a58d35f566586ac20ed157de76724fe71d"
+      "sha256": "118d619661ddc376e7d510a418869e680e18e6f694bf433c4aa8c3b07fe57e42"
     },
     {
       "path": "manifest.webmanifest",
@@ -135,12 +135,12 @@
     {
       "path": "release.json",
       "status": 200,
-      "sha256": "1248d937ad84bbcc69ecf69a1029df24870120a87dd12d0d8b2387d81023a541"
+      "sha256": "8b5db7e02bb4895e607d22f6c801518234c04e0bed9a9e205055688627b863d2"
     },
     {
       "path": "sw.js",
       "status": 200,
-      "sha256": "f09e0395c5dc306fb156d688bf54d226effa8bceb048d16a194e82d79962389a"
+      "sha256": "e817736e50f1f821c955a5b9f003f2067903e3d013f7712c52305a4309058fef"
     },
     {
       "path": "THIRD_PARTY_NOTICES.txt",

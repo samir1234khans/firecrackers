@@ -4,9 +4,9 @@ Build `2026-10-01.3` is available at the [isolated Cloudflare preview](https://f
 
 ## Source and deployment
 
-- App source: `f7e13b3aad4833c499d3901e528b50d0f05f8812`.
-- Delivered source fingerprint: `f361634f9edf900ef6530810ffb084c0537c29c955f4b2e7d840e55ce57551a0`.
-- Preview Worker version: `f9002f71-c8f3-4163-9624-b0229d9c33ed`.
+- App source: `2d4d7f18364eb175ab8c5e8cc6b3398d4f7afcde`.
+- Delivered source fingerprint: `c12b1d0bde59ba1e0967c9bbda00768d8c645078267ade88c9f42a7b60af0637`.
+- Preview Worker version: `15f3c3a7-b056-4929-89de-b4754a93d5a6`.
 - Preview configuration: `wrangler.open-sky-preview.jsonc`, with no production route.
 - Baseline: selected candidate `7946153`; retained flagship preview build `.2`, fingerprint `68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d`.
 - Production retained: `2026-09-30.8`, fingerprint `5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535`, Worker `5a577d62-1deb-4770-b780-784d03574c7a`.
@@ -62,3 +62,7 @@ Tests caught a missing reset of the independent Random placement stream and nati
 Captures use emulated CSS viewport sizes and an actual desktop GPU, seed `20260916`, with matching relative burst times. The moon video uses fresh default startup with a deliberately held rocket asset to show real progress. They are not physical phones or Safari. Projected envelopes verify geometry contracts; visual inspection separately checks rendered ground contact and appearance. The support uses real-time materials and geometry, not a claim of universal 4K rendering.
 
 Physical Android/iPhone, Safari, real browser/OS 200% zoom, mobile browser-bar behavior, sustained GPU/thermal performance and completed GPU-frame timing remain untested. Short desktop submission/rAF samples cannot certify those conditions. Production promotion remains a separate decision.
+
+The first full CI pass found three obsolete fixture assumptions (focus before its restoration frame, engine readiness before presentation, and the former compatibility-link label) plus an actual Linux short-landscape recovery-card overflow. The fixtures now wait for the required observable states and exact current label; the error card is capped to 60dvh with scrollable 48px actions. Its test forces wrapped actions on every platform. Existing limits and launch/focus assertions remain intact. Captures and performance samples retain their recorded f361 source; the final c12b source differs only in the error-card height cap. Subsequent full CI checks cover the complete final build.
+
+Post-repair local checks passed: 16 software WebGL/Canvas control cases, 48 software endpoint cases, three targeted viewability/recovery cases, and four forced-wrap entry-recovery assertions. The final c12b build again passed all eight startup cases and all 32 hosted byte-parity/default-startup checks. Detailed repair receipts are in checks/ci-controls-fixed.json, checks/ci-software-edges.json, checks/ci-viewability-fixed.json and checks/ci-error-cap-fixed.json.

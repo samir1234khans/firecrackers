@@ -1,0 +1,39 @@
+{
+  "url": "http://127.0.0.1:4288/",
+  "version": "2026-10-01.3",
+  "browser": "Chromium / software graphics; no physical-device claim",
+  "checks": [
+    {
+      "name": "gpu-module-unavailable",
+      "result": "passed",
+      "recoveredWithoutReload": true,
+      "injectedFaultDiagnostics": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "context-loss-recovery",
+      "result": "passed",
+      "actualContextLost": true,
+      "playableAfterRecovery": true,
+      "injectedFaultDiagnostics": [
+        "THREE.WebGPURenderer: WebGL Device Lost:\n\nMessage: Unknown reason"
+      ]
+    },
+    {
+      "name": "blocked-entry-keeps-visible-page",
+      "result": "passed",
+      "readableShell": true,
+      "reloadAction": true,
+      "injectedFaultDiagnostics": [
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    }
+  ],
+  "failures": [],
+  "screenshots": [
+    "gpu-module-unavailable.png",
+    "context-loss-recovery.png",
+    "blocked-entry-keeps-visible-page.png"
+  ]
+}
