@@ -1,0 +1,200 @@
+{
+  "description": "All report fields retained; final interaction byte-exact; other JSON compacted without value changes; debug trace is plain Node console text, not JSON despite its original filename.",
+  "version": "2026-09-30.5",
+  "sha256": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+  "entries": 58,
+  "copies": [
+    {
+      "source": "test-results/galactic-local-final-interaction/report.json",
+      "copy": "final-interaction.json",
+      "rawBytes": 101831,
+      "copyBytes": 101831,
+      "rawSha256": "f41d546baa8e8ff2c4c16c27dd1d1f791eb4f3392534f0414bc69ec8e9dcad39",
+      "copySha256": "f41d546baa8e8ff2c4c16c27dd1d1f791eb4f3392534f0414bc69ec8e9dcad39",
+      "copyMode": "byte-exact",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-local-interaction/report.json",
+      "copy": "first-frozen-input-failure.json",
+      "rawBytes": 777,
+      "copyBytes": 720,
+      "rawSha256": "375aac68b57e883810bda53ada64afbceac7d4fd8433e39f97fd9e7377da48c8",
+      "copySha256": "98989fb330dc8d45c6739938325a3803c1f965df5dac7762429a92b2638a4603",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-local-interaction-retry/report.json",
+      "copy": "second-native-touch-failure.json",
+      "rawBytes": 71234,
+      "copyBytes": 40973,
+      "rawSha256": "79f4679610796bc939b9049228f72eba3efbb0fb793117549119d40f46f72d62",
+      "copySha256": "4f00d61d113f9159b9cdae623fe662e23603a7b3a907c213fcee782b9eaea381",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/report.json",
+      "copy": "final-regression-summary.json",
+      "rawBytes": 4878,
+      "copyBytes": 3624,
+      "rawSha256": "0b3bae98f60e088311c975f632065361066b03f2bbbfa4d5b5133d9d6b774b85",
+      "copySha256": "635e9dbb5f6b1eb2048ecbc167c15fc5b44ff84a3bcc07731a936403a01f7bdd",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/grand/report.json",
+      "copy": "final-grand.json",
+      "rawBytes": 44521,
+      "copyBytes": 25156,
+      "rawSha256": "d6ab88cbb3633491be040f81e478ca9de64c3692ab92ec058b73c453948cbe2c",
+      "copySha256": "bcf6f00d5eee35d97ae2d3c5c36cafc4826c39c8753d5d9125d08c1a07525c30",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/original/browser-report.json",
+      "copy": "final-original.json",
+      "rawBytes": 24066,
+      "copyBytes": 13295,
+      "rawSha256": "906a2e54cc6bff9462601ac194b580ff9292cdf650bfaeb769c349985c1c7762",
+      "copySha256": "b46ba98d73e2390a483d3a63e241768048b0f09c372039e814d4e28b017d6756",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/stage/report.json",
+      "copy": "final-stage.json",
+      "rawBytes": 3762,
+      "copyBytes": 2977,
+      "rawSha256": "b2fa2e891d49c637eb21ebd956e1e85c8aa79e8b17ce501ed8dd0b96a826569b",
+      "copySha256": "7f294c42f7bd515cdce0d0330f92d3ba1804063e038dfaf3b028259828d73c8f",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/recovery/viewability-report.json",
+      "copy": "final-recovery.json",
+      "rawBytes": 34268,
+      "copyBytes": 16957,
+      "rawSha256": "3ea938783eeb31a1e3462a93607da686edf4b1045d07228d45a03982ee0fb0c6",
+      "copySha256": "6fec5a0cc798591cc75d79c268982d03218b4c099ff09dd65386deb6c6fde88f",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/assets/report.json",
+      "copy": "final-assets.json",
+      "rawBytes": 194,
+      "copyBytes": 161,
+      "rawSha256": "522675c50761a9cbf44f345ca72072a9476d666598eee79c1324ad780305adb0",
+      "copySha256": "a4b22b50bf0050d25975d650464ff3445892c196ca4144aa4d25f447aafb4c54",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/lifecycle/report.json",
+      "copy": "final-lifecycle.json",
+      "rawBytes": 2653,
+      "copyBytes": 2265,
+      "rawSha256": "6eec2a05ce0679e2a6ee5fe2fc454b2faab93dc3a990a9a42343f7264305e188",
+      "copySha256": "bb304c9c317c2d8030c92422f54ef7822a203a1b345366a853b73609ae2ac039",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-final-regression/overload/report.json",
+      "copy": "final-overload.json",
+      "rawBytes": 519,
+      "copyBytes": 471,
+      "rawSha256": "fac47f34f72df1a16cf18a3596148fbbe604b900dc07f8e888a82ae466f08788",
+      "copySha256": "260c6dd9aeef1e48be889ed5d2c7bd56517b05f2b8e233d1729801fa82c0445e",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-preview-http.json",
+      "copy": "preview-http.json",
+      "rawBytes": 3091,
+      "copyBytes": 2401,
+      "rawSha256": "0b0110c62fbf6ed5f07d9e6af2e29fb0fe058f47187d6902311b7503eeb67f09",
+      "copySha256": "ea7c61bd707dc4d3fc0faa192a157f0f40ab6267e78fc165b9acc03b5405d18f",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "public/release.json",
+      "copy": "release.json",
+      "rawBytes": 15374,
+      "copyBytes": 12910,
+      "rawSha256": "80247b737cc4a7f87fc4e94f26bf7a03f48b98f69f8cd3afa49ade10d53dd4fe",
+      "copySha256": "fb41566322942a13bf9643e27462c00c1ea84474e80e56b7575873fbc286fb57",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/galactic-local-checks.json",
+      "copy": "coordinator-terminal-checks.json",
+      "rawBytes": 1053,
+      "copyBytes": 884,
+      "rawSha256": "8a64ad83f5a30f1cf37ebc9890f4304ed546250abbd8807ee238266e9b741f4a",
+      "copySha256": "19c36011f740df16b123f948b09aa91ec2d5aae0821fe60bd57d09f1a092aa4c",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/river-budgets.json",
+      "copy": "budgets.json",
+      "rawBytes": 831,
+      "copyBytes": 604,
+      "rawSha256": "77857903591f3d2c72d9afe3c0ba718f7c6c1193ec490af65264c78acdb7ea15",
+      "copySha256": "e6246b4f5c53df085932cbb0fecaea3b288dda3f20f1d03ced5e5e68bc2ea36b",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    },
+    {
+      "source": "test-results/debug-touch.json",
+      "copy": "debug-touch.txt",
+      "rawBytes": 5534,
+      "copyBytes": 5534,
+      "rawSha256": "a67f9aa37ae4b1c4c455d398402ff6ef77f9d6e2441735d601937ad3842456e6",
+      "copySha256": "a67f9aa37ae4b1c4c455d398402ff6ef77f9d6e2441735d601937ad3842456e6",
+      "copyMode": "byte-exact-text",
+      "decodedJsonIdentical": null
+    },
+    {
+      "source": "test-results/galactic-preview-deploy.txt",
+      "copy": "preview-deploy.txt",
+      "rawBytes": 1559,
+      "copyBytes": 1559,
+      "rawSha256": "9ba5475c87b2f731a9f5a50661ee31e7b81c23cd1404a0831c655ad4e0c8992b",
+      "copySha256": "9ba5475c87b2f731a9f5a50661ee31e7b81c23cd1404a0831c655ad4e0c8992b",
+      "copyMode": "byte-exact-text",
+      "decodedJsonIdentical": null
+    },
+    {
+      "source": "test-results/galactic-offline/report.json",
+      "copy": "offline.json",
+      "rawBytes": 43857,
+      "copyBytes": 32513,
+      "rawSha256": "1f972e9bf789df990cb02867401b785ac7284da67452c26db423bd41953dcf99",
+      "copySha256": "d094b18a5f904b6ad01f3fb64cc44e50b4affc154702a2757561fb8ff5585a80",
+      "copyMode": "compact-full-json",
+      "decodedJsonIdentical": true
+    }
+  ],
+  "completedChecks": {
+    "interaction": 35,
+    "regressions": 132,
+    "previewHTTP": 17,
+    "offline": 7
+  },
+  "pendingAtReceipt": [
+    "hardware-browser-qualification",
+    "CI",
+    "production-promotion"
+  ],
+  "failedAttemptsExcludedFromPassTotals": true
+}

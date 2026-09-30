@@ -1,0 +1,268 @@
+{
+  "matchedPairs": 8,
+  "matchedPngFiles": 16,
+  "optionalPngFiles": 2,
+  "before": {
+    "url": "https://firecrackers.mainandmany.com/",
+    "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+    "reportSha256": "8f9d1175252f51b0299e1ba41a8d094f56d3296f3fe4fda26dd521a5a848f20d",
+    "checks": 33
+  },
+  "after": {
+    "url": "https://firecrackers-galactic-preview.allygym-api.workers.dev/",
+    "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+    "reportSha256": "c673cbc3b83fb5a4cec8cb74eb93f3952d0891a8c70bbda239bdcc57e80a9344",
+    "checks": 56
+  },
+  "browser": "154.0.8037.59",
+  "seed": 20260916,
+  "limitations": "Portrait is viewport/touch emulation on this PC. No physical-phone, thermal, completed-GPU-frame timing or long-duration performance claim.",
+  "pairs": [
+    {
+      "project": "desktop-webgpu",
+      "phase": "idle",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "seed": 20260916,
+      "time": 0,
+      "selected": "gold-willow",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-desktop-webgpu-idle.png",
+        "sha256": "b6a50519e3270b0632c10e8a3c408b65845f52267d43c78a6b08fc6fef559b47",
+        "bytes": 416772
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-desktop-webgpu-idle.png",
+        "sha256": "d792d66f85ea69ced1747d479f9f6ca88cd0cd4261698f2cdc88df6a5039429e",
+        "bytes": 511123
+      }
+    },
+    {
+      "project": "desktop-webgpu",
+      "phase": "willow-peak",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "seed": 20260916,
+      "time": 4.899999999999988,
+      "selected": "gold-willow",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-desktop-webgpu-willow-peak.png",
+        "sha256": "1b885ce3b4cf6a62d1aa02ab8ba51ff684b960edd54df71e6c6f30897947bb0e",
+        "bytes": 690108
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-desktop-webgpu-willow-peak.png",
+        "sha256": "19a20346346740ff87da75c1481a8679420d981c3f985a7990db3b583c169d22",
+        "bytes": 784969
+      }
+    },
+    {
+      "project": "desktop-webgpu",
+      "phase": "saturn-peak",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "seed": 20260916,
+      "time": 4.899999999999988,
+      "selected": "sapphire-saturn",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-desktop-webgpu-saturn-peak.png",
+        "sha256": "920564f177790126b77e6fa247fe5212dcaced0730bc337955961759fa56d900",
+        "bytes": 554818
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-desktop-webgpu-saturn-peak.png",
+        "sha256": "b9f17f447b0c3369238a570110b0a9008620472fa9f8b5458021c38ea6ee9c0f",
+        "bytes": 649113
+      }
+    },
+    {
+      "project": "desktop-webgpu",
+      "phase": "supernova-peak",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "seed": 20260916,
+      "time": 7.799999999999978,
+      "selected": "opal-supernova",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-desktop-webgpu-supernova-peak.png",
+        "sha256": "7568ec386de6ce002c5be03649b76195c41257242c04fd4d67041451bd91ebb2",
+        "bytes": 654318
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-desktop-webgpu-supernova-peak.png",
+        "sha256": "4abb95e11462e473e0b33d581929385b45b4f4b01ba5a23371b285cffe9b4268",
+        "bytes": 746990
+      }
+    },
+    {
+      "project": "portrait-webgpu",
+      "phase": "idle",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "seed": 20260916,
+      "time": 0,
+      "selected": "gold-willow",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-portrait-webgpu-idle.png",
+        "sha256": "d0bc95a2d28a022901bbb78da49fb206b97807999d2323e1352b4b859a266f4e",
+        "bytes": 145010
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-portrait-webgpu-idle.png",
+        "sha256": "f612dc65f3cc6f55d50cf5aa526fbcd090f0e6ae829b4db36499b674035e476f",
+        "bytes": 137028
+      }
+    },
+    {
+      "project": "portrait-webgpu",
+      "phase": "willow-peak",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "seed": 20260916,
+      "time": 4.899999999999988,
+      "selected": "gold-willow",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-portrait-webgpu-willow-peak.png",
+        "sha256": "72b05e54fc322c3344e4d774460453525a6352b0fe0ac29a571f5916033ff8de",
+        "bytes": 218794
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-portrait-webgpu-willow-peak.png",
+        "sha256": "2f46e47e64a5c22683b613c8ca35b158f0e7da5d5f30444e7881cb00bab781e0",
+        "bytes": 210206
+      }
+    },
+    {
+      "project": "portrait-webgpu",
+      "phase": "saturn-peak",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "seed": 20260916,
+      "time": 4.899999999999988,
+      "selected": "sapphire-saturn",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-portrait-webgpu-saturn-peak.png",
+        "sha256": "3bac9affa401cda7e3c7b2b425da66d03ae0d099523c04b652eb24cde125706e",
+        "bytes": 184718
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-portrait-webgpu-saturn-peak.png",
+        "sha256": "68ebebb57a736d81e1beec2dbce606ea5a4607899d4f39aa23bcc58862f6979f",
+        "bytes": 176687
+      }
+    },
+    {
+      "project": "portrait-webgpu",
+      "phase": "supernova-peak",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "seed": 20260916,
+      "time": 7.799999999999978,
+      "selected": "opal-supernova",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "before": {
+        "version": "2026-09-30.4",
+        "source": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "file": "before-portrait-webgpu-supernova-peak.png",
+        "sha256": "4c90ae3453a5e5abf0c607d5aa7dc0f53bd6bfb8ed344c6e1738d4d706ebd6be",
+        "bytes": 213414
+      },
+      "after": {
+        "version": "2026-09-30.5",
+        "source": "81bf4e1160df0f21a10e29b04c9b1428128dc44be16216e1fe3a4352c06242c7",
+        "file": "after-portrait-webgpu-supernova-peak.png",
+        "sha256": "d9072048680c5e4a8112612f91923bf492d72d30876b293c57156dd3b4a9b81c",
+        "bytes": 205108
+      }
+    }
+  ],
+  "optional": [
+    {
+      "phase": "sky-pointer",
+      "file": "after-desktop-webgpu-sky-pointer.png",
+      "time": 0.41666666666666663,
+      "skyState": {
+        "time": 0.41666666666666663,
+        "pointerX": 0.6235693536631259,
+        "pointerY": 0.17585838780212443,
+        "engagement": 0.823795691087506,
+        "motionAllowed": true
+      },
+      "sha256": "07480ddbfadb2d077237b239d439c061a4c4eca74d287c96767cc8c16016156d",
+      "bytes": 510771
+    },
+    {
+      "phase": "sky-meteor",
+      "file": "after-desktop-webgpu-sky-meteor.png",
+      "time": 9.700000000000061,
+      "skyState": {
+        "time": 9.700000000000061,
+        "pointerX": 0.5,
+        "pointerY": 0.25,
+        "engagement": 0,
+        "motionAllowed": true
+      },
+      "sha256": "cf11a3842876edae56f75876f72141d4f4b54bf2e40adb0fb0b8356f0d02b83c",
+      "bytes": 511319
+    }
+  ]
+}

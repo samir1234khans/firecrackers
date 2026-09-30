@@ -1,0 +1,44 @@
+
+ ⛅️ wrangler 4.143.0 (update available 4.144.0)
+───────────────────────────────────────────────
+🌀 Building list of assets...
+✨ Read 31 files from the assets directory C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\dist
+🌀 Starting asset upload...
+🌀 Found 27 new or modified static assets to upload. Proceeding with upload...
++ /manifest.webmanifest
++ /sw.js
++ /icons/icon-512.png
++ /workbox-35e397ac.js
++ /art/ignition-flame.png
++ /audio/report-03.wav
++ /art/paper-color.png
++ /assets/main-LhFwtGCT.js
++ /art/smoke-density-light.png
++ /icon.svg
++ /index.html
++ /assets/workbox-window.prod.es5-BBnX5xw4.js
++ /THIRD_PARTY_NOTICES.txt
++ /audio/report-02.wav
++ /assets/main-UMPCLPmA.css
++ /art/water-normal-v005.png
++ /art/terrace-v004.glb
++ /assets/Renderer-B9gkZYD-.js
++ /icons/icon-192.png
++ /assets/index-DBU0l7Ti.js
++ /release.json
++ /art/waterfront-night-v005.webp
++ /audio/report-01.wav
++ /art/water-normal.png
++ /art/rocket.glb
++ /art/smoke-density-light-v005.png
++ /art/river-life-v007.glb
+Uploaded 9 of 27 assets
+Uploaded 18 of 27 assets
+Uploaded 27 of 27 assets
+✨ Success! Uploaded 27 files (4.83 sec)
+
+Total Upload: 0.32 KiB / gzip: 0.23 KiB
+Uploaded firecrackers-galactic-preview (9.96 sec)
+Deployed firecrackers-galactic-preview triggers (2.41 sec)
+  https://firecrackers-galactic-preview.allygym-api.workers.dev
+Current Version ID: 47e85c05-2c70-4b5b-a606-788eca71536c

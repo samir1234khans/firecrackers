@@ -103,8 +103,15 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   await page.getByRole('checkbox', { name: 'Reduced interface motion', exact: true }).uncheck();
   await page.getByRole('button', { name: 'Close panel', exact: true }).click();
   await page.emulateMedia({ reducedMotion: 'reduce' });
+  // CDP media emulation can precede the page's style/media-query change dispatch.
+  // Await the actual OS-query policy and its rendered result before timing idle.
+  await page.waitForFunction(() => matchMedia('(prefers-reduced-motion: reduce)').matches &&
+    window.__firecrackersQA.snapshot().skyState.motionAllowed === false &&
+    window.__firecrackersQA.snapshot().skyMotionAllowed === false, undefined, { polling: 100 });
   check(`${label}: live OS reduced-motion changes stop ambient rendering`, await staticIdle(page));
   await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.waitForFunction(() => !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+    window.__firecrackersQA.snapshot().skyState.motionAllowed === true, undefined, { polling: 100 });
   await page.mouse.move(width * .5, height * .9);
 
   if (touch) {
