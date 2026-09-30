@@ -1,7 +1,7 @@
 import { MOON_X } from './MoonComposition';
 import { WATER_WAVES } from './WaterWaves';
 import * as THREE from 'three/webgpu';
-import { float, positionWorld, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
+import { float, positionWorld, screenUV, sin, smoothstep, texture, uniform, varying, vec2, vec3 } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
 
 /** Selective screen-space waterfront reflection, throttled and composition-aware. Layer 1 contains effects only. */
@@ -9,8 +9,8 @@ export class WaterReflection {
   readonly target = new THREE.RenderTarget(1, 1, { type: THREE.HalfFloatType, depthBuffer: true });
   readonly camera = new THREE.PerspectiveCamera();
   readonly mesh: THREE.Mesh;
-  private readonly wideSurface = new THREE.PlaneGeometry(1400, 1200);
-  private readonly phoneSurface = new THREE.PlaneGeometry(1400, 380);
+  private readonly wideSurface = new THREE.PlaneGeometry(1400, 1200, 128, 96);
+  private readonly phoneSurface = new THREE.PlaneGeometry(1400, 380, 128, 48);
   private readonly projectedEdge = new THREE.Vector3();
   private readonly normalTexture = new THREE.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1);
   private readonly shoreTexture = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1);
@@ -45,7 +45,8 @@ export class WaterReflection {
       const slope = phase.cos().mul(w.amplitude);
       slopeX = slopeX.add(slope.mul(w.x)); slopeZ = slopeZ.add(slope.mul(w.z));
     }
-    const swell = vec2(slopeX, slopeZ).mul(3.5);
+    const waterSlope = varying(vec2(slopeX, slopeZ));
+    const swell = waterSlope.mul(3.5);
     const distance = depth.mul(.65).add(.35);
     const offset = vec2(wave.mul(.008).add(detail.mul(.003)), detail.mul(.003)).add(normal.mul(.016)).add(swell).mul(distance);
     const center = texture(this.target.texture, uv.add(offset)).rgb;
@@ -75,7 +76,7 @@ export class WaterReflection {
     const pathWidth = depth.mul(.075).add(.008);
     const pathX = screenUV.x.sub(MOON_X).add(normal.x.mul(.016)).add(broadNormal.x.mul(.025)).div(pathWidth);
     const path = pathX.mul(pathX).mul(-2.2).exp();
-    const facets = smoothstep(.01, .13, normal.y.add(crossNormal.x.mul(.65)).add(slopeZ.mul(8)));
+    const facets = smoothstep(.01, .13, normal.y.add(crossNormal.x.mul(.65)).add(waterSlope.y.mul(8)));
     const grazing = depth.oneMinus().pow(5).mul(.72).add(.08);
     const moonlight = vec3(.40, .48, .58).mul(path).mul(facets.pow(1.5).mul(.82).add(.018)).mul(grazing.add(depth.mul(.35))).mul(band).mul(this.moonActive).mul(.52);
     material.colorNode = surface.max(0).add(moonlight).add(microGlints).add(reflectedSky.mul(this.shoreActive).mul(.34)).add(shoreGlints).add(center.mul(.60).add(blur.mul(.20)).mul(fragments).mul(this.strength).mul(this.enabled).mul(band).mul(depth.mul(.25).add(.75)));

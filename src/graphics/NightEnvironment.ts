@@ -1,5 +1,5 @@
 import * as THREE from 'three/webgpu';
-import { cos, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
+import { Fn, If, cos, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
 import { makeGalaxySky } from './GalaxySky';
@@ -98,13 +98,21 @@ export class NightEnvironment {
     const distance = fragment.sub(this.meteorTail.add(direction.mul(projection))).length();
     const meteor = smoothstep(.16, .85, distance).oneMinus().mul(projection.pow(2)).mul(this.meteorOpacity);
     this.moonTexture.colorSpace = THREE.SRGBColorSpace; this.moonTexture.needsUpdate = true;
-    const moonDelta = fragment.sub(this.moonCenter).div(this.moonRadius.mul(2 / .95));
-    const lunar = this.moonNode.sample(vec2(moonDelta.x.add(.5), moonDelta.y.add(.5)).clamp(0, 1));
-    const lunarInside = smoothstep(.499, .501, moonDelta.x.abs().max(moonDelta.y.abs())).oneMinus();
-    const lunarAlpha = lunar.a.mul(lunarInside).mul(this.moonActive);
-    const halo = moonDelta.length().mul(2 / .95).sub(1).max(0).mul(-4.8).exp().mul(.018).mul(this.moonActive);
     const night = texture(this.skyTexture, skyUV).rgb.add(celestial).add(nearLight).add(vec3(.34, .45, .62).mul(meteor));
-    skyMaterial.colorNode = night.add(vec3(.62, .70, .82).mul(halo)).mul(lunarAlpha.oneMinus()).add(lunar.rgb.mul(lunarAlpha).mul(.90));
+    // Only this small coherent pixel region samples/shades the lunar texture.
+    // Avoid a fourth texture sample and exponential at every sky pixel.
+    skyMaterial.colorNode = Fn(() => {
+      const result = night.toVar();
+      const delta = fragment.sub(this.moonCenter).div(this.moonRadius.mul(2 / .95));
+      If(delta.x.abs().lessThan(1.3).and(delta.y.abs().lessThan(1.3)).and(this.moonActive.greaterThan(.5)), () => {
+        const lunar = this.moonNode.sample(delta.add(.5).clamp(0, 1));
+        const inside = smoothstep(.499, .501, delta.x.abs().max(delta.y.abs())).oneMinus();
+        const alpha = lunar.a.mul(inside);
+        const halo = delta.length().mul(2 / .95).sub(1).max(0).mul(-4.8).exp().mul(.018);
+        result.assign(result.add(vec3(.62, .70, .82).mul(halo)).mul(alpha.oneMinus()).add(lunar.rgb.mul(alpha).mul(.90)));
+      });
+      return result;
+    })();
     this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 32, 16), skyMaterial);
     this.sky.rotation.y = Math.PI * .5;
     this.sky.renderOrder = -100;
