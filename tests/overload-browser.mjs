@@ -79,7 +79,7 @@ try {
   await page.screenshot({ path: `${out}/recovered-sky-burst.png` });
   await page.evaluate(() => { window.__firecrackersQA.freeze(true); window.__firecrackersQA.advance(35); window.__firecrackersQA.freeze(false); });
   const beforePad = await snap(page);
-  await drag(page, edgeShelf(page, 'grand').locator('[data-family-icon="sapphire-saturn"]'), hero.x + hero.width * .75, hero.y + hero.height * .89);
+  await drag(page, edgeShelf(page, 'grand').locator('[data-family-icon="sapphire-saturn"]'), hero.x + hero.width * .75, beforePad.stageLayout.launchArea.y + beforePad.stageLayout.launchArea.height * .5);
   const pad = await snap(page);
   assert.equal(pad.phase, 'fuse', 'A terrace drop starts a normal rocket');
   assert.equal(pad.committedFamily, 'Sapphire Saturn');

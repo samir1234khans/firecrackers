@@ -3,37 +3,51 @@ export type StageLayout = {
   viewport: StageRect; safe: { top: number; right: number; bottom: number; left: number };
   controls: Record<string, StageRect>; heroRect: StageRect; panelOpen: boolean;
   unobstructedScene: StageRect; tray: StageRect | null; rail: StageRect | null;
+  collection?: StageRect | null; mode?: StageRect | null; position?: StageRect | null;
   launchArea: StageRect; burstCanopy: StageRect; reflectionBand: StageRect;
 };
 /** Layout measurement is shared by camera, Canvas, drag placement and browser assertions. */
 export function measureStage(host: HTMLElement, interactive = true): StageLayout {
   const box = host.getBoundingClientRect(), parent = host.parentElement!;
   const style = getComputedStyle(parent);
-  const safe = { top: parseFloat(style.getPropertyValue('--safe-top')) || 0, right: parseFloat(style.getPropertyValue('--safe-right')) || 0, bottom: parseFloat(style.getPropertyValue('--safe-bottom')) || 0, left: parseFloat(style.getPropertyValue('--safe-left')) || 0 };
+  // Custom properties can retain env() syntax. The invisible CSS ruler's
+  // computed padding resolves those insets to pixels without new DOM per move.
+  const ruler = parent.querySelector('.collection-space-measure');
+  const rulerStyle = ruler ? getComputedStyle(ruler) : null;
+  const safe = { top: parseFloat(rulerStyle?.paddingTop ?? style.getPropertyValue('--safe-top')) || 0,
+    right: parseFloat(rulerStyle?.paddingRight ?? style.getPropertyValue('--safe-right')) || 0,
+    bottom: parseFloat(rulerStyle?.paddingBottom ?? style.getPropertyValue('--safe-bottom')) || 0,
+    left: parseFloat(rulerStyle?.paddingLeft ?? style.getPropertyValue('--safe-left')) || 0 };
   const controls: Record<string, StageRect> = {};
   const bounds = (element: HTMLElement | null): StageRect | null => {
     if (!element) return null;
     const r = element.getBoundingClientRect();
     return r.width && r.height ? { x: r.left - box.left, y: r.top - box.top, width: r.width, height: r.height } : null;
   };
-  // Keep the tray footprint during drags. A right rail never creates a mirrored left gutter.
+  // Keep real footprints during drags without reserving a full-height left gutter.
   const tray = interactive ? bounds(parent.querySelector('[data-family-tray]')) : null;
   const rail = interactive ? bounds(parent.querySelector('[data-control-rail]')) : null;
   if (tray) controls.tray = tray;
   if (rail) controls.rail = rail;
-  const brand = interactive ? bounds(parent.querySelector('.stage-brand')) : null;
-  if (brand) controls.brand = brand;
+  const mode = interactive ? bounds(parent.querySelector('[data-mode-control]')) : null;
+  const position = interactive ? bounds(parent.querySelector('[data-position-control]')) : null;
+  if (mode) controls.mode = mode;
+  if (position) controls.position = position;
   if (interactive) for (const [index, element] of [...parent.querySelectorAll<HTMLElement>('[data-stage-control]')].entries()) {
     const r = bounds(element), appearance = getComputedStyle(element);
     if (r && appearance.display !== 'none' && appearance.visibility !== 'hidden' && Number(appearance.opacity) >= .01)
       controls[`control-${index}`] = r;
   }
-  const reservedBottom = interactive ? (box.width - safe.left - safe.right < 680 ? 188 : box.width - safe.left - safe.right < 736 ? 136 : 76) + safe.bottom : safe.bottom;
-  const sceneBottom = Math.min(box.height - reservedBottom, tray?.y ?? box.height);
+  if (interactive) for (const [index, element] of [...parent.querySelectorAll<HTMLElement>('[data-control-popup]')].entries()) {
+    const r = bounds(element), appearance = getComputedStyle(element);
+    if (r && appearance.display !== 'none' && appearance.visibility !== 'hidden') controls[`popup-${index}`] = r;
+  }
+  const reservedBottom = (interactive ? 76 : 0) + safe.bottom;
+  const sceneBottom = box.height - reservedBottom;
   const heroRect = { x: safe.left, y: safe.top, width: Math.max(1, box.width - safe.left - safe.right), height: Math.max(1, sceneBottom - safe.top) };
   const framing = stageFraming({ heroRect, viewport: { width: box.width, height: box.height } });
   const layout: StageLayout = { viewport: { x: box.left, y: box.top, width: box.width, height: box.height }, safe, controls, heroRect,
-    unobstructedScene: heroRect, tray, rail, panelOpen: Boolean(parent.dataset.overlay && parent.dataset.overlay !== 'none'),
+    unobstructedScene: heroRect, tray, collection: tray, rail, mode, position, panelOpen: Boolean(parent.dataset.overlay && parent.dataset.overlay !== 'none'),
     launchArea: { x: safe.left, y: framing.baseline - Math.max(12, heroRect.height * .045),
       width: heroRect.width, height: Math.max(1, sceneBottom - (framing.baseline - Math.max(12, heroRect.height * .045))) },
     burstCanopy: { ...heroRect, y: heroRect.y + heroRect.height * .06, height: heroRect.height * .64 },

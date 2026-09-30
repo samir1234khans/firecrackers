@@ -94,7 +94,7 @@ try {
             await openPicker(page); await page.getByRole('button', { name: 'Grand collection', exact: false }).click();
             assert.equal((await snapshot(page)).selected, 'gold-willow', 'Browsing tabs does not commit a selection');
             await page.getByRole('button', { name: 'Close panel' }).click();
-            await page.locator('body').click({ position: { x: 10, y: 160 } });
+            await page.locator('body').click({ position: { x: device.width / 2, y: 24 } });
             for (const [i, key] of ['6', '7', '8', '9', '0'].entries()) { await page.keyboard.press(key); assert.equal((await snapshot(page)).selected, ids[i]); }
             await page.keyboard.press('1'); assert.equal((await snapshot(page)).selected, 'gold-willow');
             await page.keyboard.press('8');

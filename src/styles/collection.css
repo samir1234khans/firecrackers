@@ -1,33 +1,26 @@
+/* The invisible ruler measures usable CSS space, including resolved safe insets. */
+.collection-space-measure {
+  position: fixed;
+  inset: max(8px, var(--safe-top, env(safe-area-inset-top, 0px))) var(--safe-right, env(safe-area-inset-right, 0px)) calc(84px + var(--safe-bottom, env(safe-area-inset-bottom, 0px))) var(--safe-left, env(safe-area-inset-left, 0px));
+  visibility: hidden;
+  pointer-events: none;
+  padding: var(--safe-top, env(safe-area-inset-top, 0px)) var(--safe-right, env(safe-area-inset-right, 0px)) var(--safe-bottom, env(safe-area-inset-bottom, 0px)) var(--safe-left, env(safe-area-inset-left, 0px));
+}
 .bottom-collection {
   position: fixed;
   z-index: 8;
-  inset-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
-  bottom: 0;
-  container-type: inline-size;
+  left: max(8px, var(--safe-left, env(safe-area-inset-left, 0px)));
+  bottom: calc(84px + var(--safe-bottom, env(safe-area-inset-bottom, 0px)));
+  display: grid;
+  grid-template-columns: repeat(var(--collection-columns, 2), 48px);
+  width: max-content;
+  padding: 0;
+  gap: 0;
   pointer-events: auto;
   background: transparent;
   border: 0;
   box-shadow: none;
 }
-.bottom-collection-groups {
-  display: grid;
-  justify-content: center;
-  gap: 0;
-  padding: 4px 8px calc(4px + env(safe-area-inset-bottom, 0px));
-}
-.bottom-collection-group { width: 240px; min-width: 240px; }
-.bottom-collection-caption {
-  display: block;
-  height: 12px;
-  color: rgba(240, 227, 200, .76);
-  font-size: 9px;
-  line-height: 12px;
-  letter-spacing: .08em;
-  text-align: center;
-}
-.bottom-collection-icons { display: grid; grid-template-columns: repeat(5, 48px); }
-.bottom-collection-group[data-family-shelf='signature'] { width: 144px; min-width: 144px; justify-self: center; }
-.bottom-collection-group[data-family-shelf='signature'] .bottom-collection-icons { grid-template-columns: repeat(3, 48px); }
 .bottom-collection-item { position: relative; width: 48px; height: 48px; }
 .bottom-collection-icon {
   display: flex;
@@ -68,11 +61,10 @@
 .bottom-collection-notice {
   position: absolute;
   z-index: 1;
-  bottom: calc(100% + 4px);
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: calc(100% + 2px);
+  left: 0;
   width: max-content;
-  max-width: 190px;
+  max-width: 170px;
   padding: 5px 8px;
   border-radius: 5px;
   background: rgba(12, 17, 29, .94);
@@ -83,23 +75,9 @@
   pointer-events: none;
 }
 .bottom-collection-name { visibility: hidden; }
-.bottom-collection-item:first-child .bottom-collection-name,
-.bottom-collection-item:first-child .bottom-collection-notice { left: 0; transform: none; }
-.bottom-collection-item:last-child .bottom-collection-name,
-.bottom-collection-item:last-child .bottom-collection-notice { left: auto; right: 0; transform: none; }
+/* First row names open to the side so tall collections preserve the safe top. */
+.bottom-collection[data-collection-columns='1'] .bottom-collection-item:first-child .bottom-collection-name,
+.bottom-collection[data-collection-columns='1'] .bottom-collection-item:first-child .bottom-collection-notice { bottom: 0; left: calc(100% + 4px); }
 .bottom-collection-icon:hover .bottom-collection-name,
 .bottom-collection-icon:focus-visible .bottom-collection-name { visibility: visible; }
 .bottom-collection-item:has(.bottom-collection-notice) .bottom-collection-name { visibility: hidden; }
-@container (min-width: 680px) {
-  .bottom-collection-groups {
-    grid-template-columns: repeat(2, 240px);
-    column-gap: 32px;
-    padding-top: 8px;
-    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
-  }
-  .bottom-collection-group[data-family-shelf='signature'] { grid-column: 1 / -1; }
-}
-@container (min-width: 736px) {
-  .bottom-collection-groups { grid-template-columns: 240px 240px 144px; column-gap: 24px; }
-  .bottom-collection-group[data-family-shelf='signature'] { grid-column: auto; }
-}

@@ -140,3 +140,14 @@ Run the focused hardware suite with `GALAXY_URL` set to the candidate and a new 
 Run `npm test`, `node tests/flagship-browser.mjs <output>` (software CI), `FLAGSHIP_HARDWARE=1` with installed Chrome for native backend evidence, and `node tests/flagship-offline-recovery.mjs <output>`. Native tests cover all seven target sizes. `tests/flagship-performance.mjs` runs a sequential fixed-state comparison against the retained moon preview. CPU/rAF timings are not physical-device or completed GPU timings. Cloudflare candidate deployment uses only `wrangler deploy --config wrangler.flagship-preview.jsonc`; there is no production route in that configuration.
 
 `node tests/flagship-touch-browser.mjs <output>` exercises native touch dispatch and is included in mobile CI. `FLAGSHIP_URL` selects the hosted origin; `FLAGSHIP_HARDWARE=1` selects installed Chrome across all three backends. Performance reports include a counterbalanced repeat; see [both runs and limits](docs/evidence/flagships-2026-10-01/PREVIEW.md). [The gallery](docs/evidence/flagships-2026-10-01/comparison.html) stays outside public assets/precache.
+
+
+## Open sky candidate regression
+
+`node tests/open-sky-browser.mjs test-results/open-sky` exercises all thirteen responsive props, the left collection, four-direction mode knob, modal focus/pause ownership, fixed/random position, saved settings and immutable flight profiles. Set `OPEN_SKY_URL` to the served production build; `OPEN_SKY_HARDWARE=1` uses installed Chrome and verifies WebGPU, WebGL and Canvas independently. Without it, bundled Chromium exercises software WebGL and Canvas. `OPEN_SKY_QUICK=1` reduces the viewport matrix for CI while retaining the behaviors.
+
+`node tests/open-sky-capture.mjs test-results/open-sky-captures` records native WebGPU ready and Willow views at phone/tablet/desktop sizes. Set `CAPTURE_URL` and `CAPTURE_PHASE=before` or `after`; the JSON records source fingerprint, seed and actual backend.
+
+`node tests/open-sky-performance.mjs test-results/open-sky-performance` compares the retained flagship preview with `OPEN_SKY_URL` using counterbalanced runs. Close other test browsers first. Its CPU submission and rAF timings do not measure completed GPU work or physical-phone endurance.
+
+The isolated configuration is `wrangler.open-sky-preview.jsonc`; it has no production routes. Run `npx wrangler deploy --config wrangler.open-sky-preview.jsonc` only after building and checking the candidate fingerprint. This candidate does not authorize replacing production.

@@ -1,3 +1,7 @@
+# Open sky controls and launch support — 1 October 2026
+
+The latest owner-approved marked layout is implemented on `feat/open-sky-controls`, based on the existing thirteen-effect moon/water candidate at `7946153`. Build `2026-10-01.3` removes the visible brand, moves all thirteen icons left, places utility controls lower right, adds a four-direction mode knob and a precise fixed/random next-launch track, and scales the grounded rocket to the viewport. [Implementation and interfaces](docs/evidence/control-layout-2026-10-01/IMPLEMENTATION.md) · [current validation and limitations](docs/evidence/control-layout-2026-10-01/PREVIEW.md). Production and existing previews are retained.
+
 # Signature candidate — isolated, 1 October 2026
 
 The owner requested exactly three new flagship effects on clean moon/water candidate `b064fe4` (PR #25). Branch `feat/flagship-signatures` implements Imperial Crown, Celestial Aurora and Royal Phoenix with distinct silhouettes, timed breaks, launch treatments, pooled state and admission-time safe composition. The thirteen-icon tray adds a Signature group; original keys 1–9/0 and all ten original effects remain. This candidate is not merged or deployed to production. [Research/design](docs/evidence/flagships-2026-10-01/DESIGN.md).

@@ -32,6 +32,7 @@ export type Rocket = {
     pz: number;
     ground: number;
     padX: number;
+    normalizedPlacement?: number;
     top: number;
     age: number;
     fuse: number;
@@ -85,6 +86,7 @@ export class Simulation {
     paused = false;
     selected: FamilyId = 'gold-willow';
     placement = 0.5;
+    placementMode: 'fixed' | 'random' = 'fixed';
     prepared = true;
     holding = false;
     holdProgress = 0;
@@ -110,12 +112,14 @@ export class Simulation {
     private launchRng: () => number;
     private showRng: () => number;
     private smokeRng: () => number;
+    private placementRng: () => number;
     private launchProfileResolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null = null;
     setLaunchProfileResolver(resolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
     constructor(readonly seed = 20260916) {
         this.launchRng = randomStream(seed);
         this.showRng = randomStream(seed ^ 0x5bf03635);
         this.smokeRng = randomStream(seed ^ 0x34167829);
+        this.placementRng = randomStream(seed ^ 0x1f923bc1);
     }
     get activeUnits() { return this.rockets.reduce((n, r) => n + (r.stage === 'afterglow' ? 0 : r.cost), 0); }
     get committed() { return this.rockets.find(r => r.stage !== 'afterglow'); }
@@ -148,11 +152,14 @@ export class Simulation {
         if (this.rearming) return 'burst';
         return this.heads.count || this.trails.count || this.embers.count || this.cues.length ? 'afterglow' : 'ready';
     }
-    placementToX(value = this.placement) { return (clamp(value, 0.2, 0.8) - 0.5) * this.launchSpan; }
+    placementToX(value = this.placement) { return (clamp(value, 0, 1) - 0.5) * this.launchSpan; }
     setViewport(width: number, _ground: number) { this.launchSpan = clamp(width, 65, 160); }
     setPlacement(value: number) {
-        if (!this.holding && this.ready) this.placement = clamp(value, 0.2, 0.8);
+        if (!Number.isFinite(value)) return;
+        this.placement = clamp(value, 0, 1);
+        this.placementMode = 'fixed';
     }
+    setPlacementMode(mode: 'fixed' | 'random') { if (mode === 'fixed' || mode === 'random') this.placementMode = mode; }
     select(id: FamilyId) {
         this.stopShow(false);
         const burning = Boolean(this.committed);
@@ -176,7 +183,8 @@ export class Simulation {
         for (let i = 0; i < this.heads.count; i++) if (this.heads.split[i] > 0) n += splitChildCount(this.heads.family[i]) - 1;
         return n;
     }
-    ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement = this.placement) {
+    ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement?: number) {
+        if (placement !== undefined && !Number.isFinite(placement)) return false;
         if (this.paused) return false;
         if (source === 'manual' && (!this.prepared || this.committed)) return false;
         const f = FAMILIES[family];
@@ -187,28 +195,31 @@ export class Simulation {
             return false;
         }
         if (source === 'manual') this.stopShow(false);
+        // Independent placement randomness is consumed only after admission succeeds.
+        const chosenPlacement = placement === undefined ? (this.placementMode === 'random' ? this.placementRng() : this.placement) : clamp(placement, 0, 1);
         const rand = this.launchRng;
         const heightDraw = rand();
-        const resolved = this.launchProfileResolver?.(f.id, placement);
+        const resolved = this.launchProfileResolver?.(f.id, chosenPlacement);
         const launchProfile = resolved && Number.isFinite(resolved.apexMin) && Number.isFinite(resolved.apexMax)
             ? Object.freeze({ ...resolved }) : undefined;
-        const x = this.placementToX(placement), top = launchProfile
-            ? Math.max(this.ground + 10, launchProfile.apexMin + heightDraw * (launchProfile.apexMax - launchProfile.apexMin))
+        const ground = launchProfile?.ground ?? this.ground;
+        const x = launchProfile?.padX ?? this.placementToX(chosenPlacement), top = launchProfile
+            ? Math.max(ground + 10, launchProfile.apexMin + heightDraw * (launchProfile.apexMax - launchProfile.apexMin))
             : 72 + heightDraw * 6;
         // Solve a powered rise followed by a coast that reaches the apex at zero vertical speed.
         // All families share virtual gravity; height changes flight duration, not the viewport.
         const thrustFraction = family >= 10 ? [.28, .22, .31][family - 10] : .24;
-        const ascent = Math.sqrt(2 * (top - this.ground) / (FLIGHT_GRAVITY * (1 - thrustFraction)));
+        const ascent = Math.sqrt(2 * (top - ground) / (FLIGHT_GRAVITY * (1 - thrustFraction)));
         const thrust = ascent * thrustFraction, coast = ascent - thrust;
         const acceleration = FLIGHT_GRAVITY * coast / thrust;
         const rocket: Rocket = {
-            id: this.nextObjectId++, family, x, y: this.ground, z: 0, px: x, py: this.ground, pz: 0,
-            vx: (rand() - 0.5) * 1.0, vy: 0, vz: (rand() - 0.5) * 1.1, ground: this.ground, padX: x, top, age: 0,
+            id: this.nextObjectId++, family, x, y: ground, z: 0, px: x, py: ground, pz: 0,
+            vx: (rand() - 0.5) * 1.0, vy: 0, vz: (rand() - 0.5) * 1.1, ground, padX: x, normalizedPlacement: chosenPlacement, top, age: 0,
             fuse: 0.58 + rand() * 0.18, ascent, thrust, acceleration, phase: 'fuse', stage: 'fuse',
             cost: f.cost, seed: Math.floor(rand() * 0xffffffff), reserve, launchProfile,
         };
         this.rockets.push(rocket);
-        this.emit('fuse', x, this.ground, 0, family, 0.5, rocket.fuse);
+        this.emit('fuse', x, ground, 0, family, 0.5, rocket.fuse);
         if (source === 'manual') {
             this.prepared = false;
             this.message = 'Fuse lit. Watch the sky.';
@@ -217,22 +228,22 @@ export class Simulation {
         return true;
     }
     /** Launch one explicit family through the normal fuse and flight, committing selection and pad placement only on admission. */
-    igniteFamily(id: FamilyId, placement = this.placement) {
+    igniteFamily(id: FamilyId, placement?: number) {
         const family = FAMILIES.findIndex(entry => entry.id === id);
-        if (family < 0 || !Number.isFinite(placement) || !this.ignite('manual', family, placement)) return false;
+        if (family < 0 || (placement !== undefined && !Number.isFinite(placement)) || !this.ignite('manual', family, placement)) return false;
         this.selected = id;
-        this.placement = clamp(placement, 0.2, 0.8);
+        if (placement !== undefined) this.placement = clamp(placement, 0, 1);
         return true;
     }
     /** Explicit drawer drop: same admission/reservation and seeded recipe as a rocket. */
     burstAt(id: FamilyId, x: number, y: number, effectScale = 1) {
         if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(effectScale) || effectScale <= 0 || effectScale > 1 || !this.canLaunchFamily(id)) return false;
         const family = familyIndex(id);
-        if (!this.ignite('manual', family)) return false;
+        if (!this.ignite('manual', family, this.placement)) return false;
         const rocket = this.committed!;
         if (family >= 10) rocket.launchProfile = Object.freeze({ ...(rocket.launchProfile ?? { apex: y, apexMin: y, apexMax: y, centerFraction: .34 }), effectScale });
         this.events = this.events.filter(event => event.type !== 'fuse');
-        rocket.x = x; rocket.y = y - SHELL_LOCAL_Y * 3.4; rocket.z = 0;
+        rocket.x = x; rocket.y = y - (rocket.launchProfile?.prop?.shellOffset ?? SHELL_LOCAL_Y * ROCKET_SCALE[1]); rocket.z = 0;
         rocket.vx = rocket.vy = rocket.vz = 0;
         rocket.stage = 'afterglow'; rocket.phase = 'afterglow'; rocket.age = 0;
         this.selected = id; this.launched++;
@@ -280,8 +291,10 @@ export class Simulation {
         this.launchRng = randomStream(this.seed);
         this.showRng = randomStream(this.seed ^ 0x5bf03635);
         this.smokeRng = randomStream(this.seed ^ 0x34167829);
+        this.placementRng = randomStream(this.seed ^ 0x1f923bc1);
         this.selected = 'gold-willow';
         this.placement = 0.5;
+        this.placementMode = 'fixed';
         this.prepared = true;
         this.cancelHold();
         this.message = 'A fresh, quiet sky.';
@@ -298,6 +311,7 @@ export class Simulation {
     snapshot() {
         return {
             ready: this.ready, paused: this.paused, selected: this.selected, placement: this.placement,
+            placementMode: this.placementMode, nextPlacement: this.placement, committedPlacement: this.committed?.normalizedPlacement ?? null,
             holding: this.holding, holdProgress: this.holdProgress, show: this.show, launched: this.launched,
             bursts: this.bursts, active: this.rockets.length, particles: this.heads.count + this.trails.count + this.embers.count,
             smoke: this.smoke.count, quality: this.quality, message: this.message, time: this.time,
@@ -334,12 +348,14 @@ export class Simulation {
                 const t = r.age / r.fuse;
                 if (hash01(Math.floor(r.age * 60), r.seed) > 0.58) {
                     const fp = fusePointAt(t);
-                    const fx = r.x + fp[0] * ROCKET_SCALE[0], fy = r.ground + fp[1] * ROCKET_SCALE[1];
+                    const scale = r.launchProfile?.prop?.modelScale ?? ROCKET_SCALE;
+                    const fx = r.x + fp[0] * scale[0], fy = r.ground + fp[1] * scale[1];
                     this.trails.add(fx, fy, 0, fx + 0.2, fy + 0.32, 0, 0.19, 0.026, 1, 0.48, 0.11, r.id, 0, BUDGETS[this.quality].trails);
                 }
                 if (Math.floor(r.age * 12) !== Math.floor((r.age - dt) * 12)) {
                     const fp = fusePointAt(t);
-                    this.addSmoke(r.x + fp[0] * ROCKET_SCALE[0], r.ground + fp[1] * ROCKET_SCALE[1], .8, .50, .40, 0);
+                    const scale = r.launchProfile?.prop?.modelScale ?? ROCKET_SCALE;
+                    this.addSmoke(r.x + fp[0] * scale[0], r.ground + fp[1] * scale[1], .8, .50, .40, 0);
                 }
                 if (r.age >= r.fuse) {
                     r.age = 0;
@@ -386,9 +402,15 @@ export class Simulation {
             peakVelocity * coast - .5 * FLIGHT_GRAVITY * coast * coast;
         r.vy = r.age < r.thrust ? r.acceleration * powered : Math.max(0, peakVelocity - FLIGHT_GRAVITY * coast);
         r.phase = r.age < r.thrust ? 'thrust' : 'coast';
+        if (r.launchProfile?.aimX !== undefined) {
+            const t = clamp(r.age / r.ascent, 0, 1), distance = r.launchProfile.aimX - r.padX;
+            r.x = r.padX + distance * t * t * (3 - 2 * t);
+            r.vx = distance * 6 * t * (1 - t) / r.ascent;
+        } else {
         r.vx = r.vx * Math.exp(-.42 * dt) + this.wind * dt * .10;
-        r.vz *= Math.exp(-.55 * dt);
         r.x += r.vx * dt;
+        }
+        r.vz *= Math.exp(-.55 * dt);
         r.z += r.vz * dt;
         const motor = rocketPoint(r, MOTOR_LOCAL_Y), poweredTail = r.phase === 'thrust';
         const tone = r.family >= 10 ? signatureTint(r.family) : null;
@@ -412,8 +434,9 @@ export class Simulation {
         if (eligible[pick] === this.previousFamily) pick = (pick + 1) % eligible.length;
         const family = eligible[pick];
         const side = rand() < 0.5;
-        const position = this.protectCenter ? (side ? 0.23 : 0.77) : (0.29 + rand() * 0.42);
-        const admitted = this.ignite('auto', family, position);
+        // Retain the choreography stream's draw order; positioning now has its independent policy.
+        void (this.protectCenter ? (side ? 0.23 : 0.77) : (0.29 + rand() * 0.42));
+        const admitted = this.ignite('auto', family);
         if (admitted) this.previousFamily = family;
         const cycle = 0.5 + 0.5 * Math.sin((this.time - this.showStart) * 0.18);
         const spacing = mode === 'calm' ? 7 + rand() * 3 : mode === 'festival' ? 3.2 + cycle * 2 + rand() : 1.5 + rand();

@@ -1,5 +1,6 @@
 import type { Rocket } from './Simulation.js';
 import { ROCKET_SCALE } from './FusePath.js';
+import type { LaunchProfile } from './LaunchProfile.js';
 
 /** Shared virtual model attachments; these are not physical firework specifications. */
 export const FLIGHT_GRAVITY = 32;
@@ -15,8 +16,8 @@ export function flightAxis(r: Pick<Rocket, 'stage' | 'vx' | 'vy' | 'vz'>): [numb
     return [r.vx / length, y / length, r.vz / length];
 }
 
-export function rocketPoint(r: Pick<Rocket, 'stage' | 'x' | 'y' | 'z' | 'vx' | 'vy' | 'vz'>, localY: number): [number, number, number] {
-    const axis = flightAxis(r), offset = localY * ROCKET_SCALE[1];
+export function rocketPoint(r: Pick<Rocket, 'stage' | 'x' | 'y' | 'z' | 'vx' | 'vy' | 'vz'> & { launchProfile?: Readonly<LaunchProfile> }, localY: number): [number, number, number] {
+    const axis = flightAxis(r), offset = localY * (r.launchProfile?.prop?.modelScale[1] ?? ROCKET_SCALE[1]);
     return [r.x + axis[0] * offset, r.y + axis[1] * offset, r.z + axis[2] * offset];
 }
 

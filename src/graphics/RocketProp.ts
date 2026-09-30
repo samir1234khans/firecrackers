@@ -2,7 +2,7 @@ import * as THREE from 'three/webgpu';
 import { color, mix, smoothstep, texture, uniform, uv, vec2 } from 'three/tsl';
 import { FAMILIES, ROCKET_PROFILES } from '../engine/catalog';
 import { FUSE_POINTS, fusePointAt } from '../engine/FusePath';
-/** Shared materials/geometry; ten authored silhouettes, with a real arc-length fuse. */
+/** Shared materials/geometry; thirteen authored silhouettes and arc-length fuse. */
 export class RocketProp {
     readonly group = new THREE.Group();
     private readonly flameFrame = uniform(0);
@@ -20,7 +20,7 @@ export class RocketProp {
     private readonly solids: THREE.Material[] = [];
     constructor(paperTexture: THREE.Texture) {
         this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, bumpMap: paperTexture, bumpScale: .012, color: 0xffffff, roughness: .78, metalness: .02 });
-        this.capMaterial = new THREE.MeshStandardMaterial({ color: 0xb19a74, roughness: .29, metalness: .62 });
+        this.capMaterial = new THREE.MeshStandardMaterial({ color: 0xb19a74, roughness: .58, metalness: .42 });
         this.body = new THREE.Mesh(new THREE.CylinderGeometry(.50, .51, 3.25, 48, 1), this.paper);
         this.body.position.y = 3.25;
         this.cap = new THREE.Mesh(new THREE.ConeGeometry(.61, 1.22, 48), this.capMaterial);
@@ -30,7 +30,7 @@ export class RocketProp {
         const bottom = new THREE.Mesh(new THREE.CylinderGeometry(.51, .50, .11, 24), new THREE.MeshStandardMaterial({ color: 0x3b3024, roughness: 1 }));
         bottom.position.y = 1.57;
         this.stripes = new THREE.Group();
-        const bandMaterial = new THREE.MeshStandardMaterial({ color: 0xc39a62, roughness: .26, metalness: .62 });
+        const bandMaterial = new THREE.MeshStandardMaterial({ color: 0xa0865b, roughness: .64, metalness: .48 });
         for (const y of [1.88, 2.03, 4.40, 4.55]) {
             const band = new THREE.Mesh(new THREE.CylinderGeometry(.512, .512, .14, 24), bandMaterial);
             band.position.y = y;
@@ -94,7 +94,7 @@ export class RocketProp {
         this.flame.scale.set(.60, .95 + Math.sin(time * 12) * .08, .30);
         this.flame.rotation.z = -wind * .10;
         this.lamp.position.copy(point).add(new THREE.Vector3(0, .2, .9));
-        this.lamp.intensity = glowing ? (burnProgress >= 0 ? 6.0 : contact * 4.4) : 0;
+        this.lamp.intensity = glowing ? (burnProgress >= 0 ? 4.0 : contact * 3.0) : 0;
         this.paper.emissive.set(0x281403);
         this.paper.emissiveIntensity = glowing ? .11 : 0;
     }

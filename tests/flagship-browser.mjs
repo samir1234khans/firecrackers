@@ -33,7 +33,7 @@ try{
    await page.evaluate(()=>window.__firecrackersQA.freeze(true));
    const actual=(await snap()).backend;assert.equal(actual,backend==='webgpu'?'WebGPU':backend==='webgl'?'WebGL 2':'Canvas 2D · compatibility');
    if(hardware&&backend==='webgpu'){const a=await page.evaluate(async()=>{const a=await navigator.gpu.requestAdapter();return {vendor:a.info.vendor,architecture:a.info.architecture,fallback:a.info.isFallbackAdapter};});assert.equal(a.fallback,false);pass('Native WebGPU adapter',a);}
-   const layout=await inspectStage(page);assert.ok((await snap()).skyHorizon*height<=layout.tray.y-30);pass(`${backend}/${width}x${height}: thirteen independent 48px targets and clear waterfront`,{layout});
+   const layout=await inspectStage(page);assert.ok((await snap()).skyHorizon*height<=layout.hero.y+layout.hero.height-30);pass(`${backend}/${width}x${height}: thirteen independent 48px targets and clear waterfront`,{layout});
    for(const [j,id]of ids.entries()){
     await advance(40);await icon(id).click();let s=await snap();assert.equal(s.phase,'fuse');assert.equal(s.selected,id);const committed=s.committedId,profile=s.launchProfile;
     await icon(id).dispatchEvent('click');assert.equal((await snap()).committedId,committed);
@@ -53,7 +53,7 @@ try{
    for(const [j,id]of ids.entries()){
     await advance(40);let before=await snap(),l=before.stageLayout,x=l.heroRect.width*.45,y=l.heroRect.height*.30;
     await drag(id,x,y);let after=await snap();assert.equal(after.launched,before.launched+1);assert.equal(after.bursts,before.bursts+1);assert.equal(after.signatureStages[j*3],before.signatureStages[j*3]+1);await advance(.75);await stageBounds(id,'sky drop');
-    await advance(40);before=await snap();await drag(id,l.heroRect.width*.5,l.launchArea.y+l.launchArea.height*.5);after=await snap();assert.equal(after.phase,'fuse');assert.equal(after.selected,id);assert.ok(Math.abs(after.placement-.5)<.025);assert.equal(after.bursts,before.bursts);
+    await advance(40);before=await snap();await drag(id,l.heroRect.width*.5,l.launchArea.y+l.launchArea.height*.5);after=await snap();assert.equal(after.phase,'fuse');assert.equal(after.selected,id);const expectedX=Math.min(after.launchBounds.screenMax,Math.max(after.launchBounds.screenMin,l.heroRect.width*.5));assert.ok(Math.abs(after.padContact.x-expectedX)<2,'Terrace drop preserves requested position within the usable prop-safe terrace');assert.equal(after.bursts,before.bursts);
     await advance(.8);after=await snap();const original=after.launchProfile;
     if(width===393){await page.setViewportSize({width:844,height:390});assert.deepEqual((await snap()).launchProfile,original);await page.setViewportSize({width,height});}
     await advance(after.flight.ascent-after.flight.age+7);pass(`${backend}/${width}/${id}: sky/terrace pointer launches and committed profile`);

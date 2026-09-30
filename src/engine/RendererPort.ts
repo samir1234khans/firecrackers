@@ -16,7 +16,8 @@ export interface RendererPort {
     setDisplay(mode: DisplayMode): void;
     setQuality(quality: Quality): void;
     setSkyState(state: Readonly<SkyState>): void;
-    projectPlacement(clientX: number): number;
+    projectPlacement(clientX: number, id?: FamilyId): number;
+    projectLaunchPosition(placement: number): [number, number];
     render(): void;
     diagnostics(): Record<string, unknown>;
     dispose(): void;

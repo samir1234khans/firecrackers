@@ -65,6 +65,11 @@ jobs:
         env:
           FLAGSHIP_PROJECT: ${{ matrix.project }}
         run: node tests/flagship-browser.mjs /tmp/flagship-evidence
+      - name: Open sky controls, placement and responsive rocket contracts
+        if: matrix.project == 'desktop'
+        env:
+          OPEN_SKY_QUICK: '1'
+        run: node tests/open-sky-browser.mjs /tmp/open-sky-evidence
       - name: Signature native touch tap, drag and cancellation
         if: matrix.project == 'mobile'
         run: node tests/flagship-touch-browser.mjs /tmp/flagship-touch-evidence
@@ -87,6 +92,7 @@ jobs:
             /tmp/flagship-evidence
             /tmp/flagship-offline-evidence
             /tmp/flagship-touch-evidence
+            /tmp/open-sky-evidence
             /tmp/grand-server.log
           retention-days: 7
   recovery:

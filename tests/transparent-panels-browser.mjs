@@ -102,8 +102,8 @@ async function inspectPanel(page, variant, spec, name) {
   assert.ok(r.x >= 8 && r.right <= v.width - 8 + .5 && r.y >= 8 && r.bottom <= v.height - 8 + .5,
     `${name}: panel must stay inside safe viewport gutters: ${JSON.stringify(geometry)}`);
   assert.ok(r.width <= 360.5, `${name}: width cap ${r.width}`);
-  assert.ok(r.height <= v.height - (compact ? (v.width < 680 ? 188 : v.width < 736 ? 136 : 76) + 16 : 24) + .5, `${name}: height cap ${r.height}`);
-  if (compact) { const tray=await page.locator('[data-family-tray]').boundingBox(); assert.ok(r.bottom<=tray.y-7, `${name}: panel stays above tray`); }
+  assert.ok(r.height <= v.height - (compact ? 76 + 16 : 24) + .5, `${name}: height cap ${r.height}`);
+  if (compact) { const footer=await page.locator('[data-position-control]').boundingBox(); assert.ok(r.bottom<=v.height-76-7, `${name}: panel stays above footer`);assert.ok(r.bottom<=footer.y,`${name}: position remains below panel`); }
   else {
     assert.ok(r.width >= (variant==='controls'?240:320) && r.width <= 360, `${name}: desktop panel width`);
     assert.ok(Math.abs(r.right - (v.width - 72)) <= 1, `${name}: panel adjacent to right rail`);
@@ -116,7 +116,7 @@ async function inspectPanel(page, variant, spec, name) {
   assert.ok(geometry.scrollables.every(value => value.includes('panel-body')), `${name}: only panel body may scroll`);
   // Reach every rendered action through the actual scroll container and test its effective target.
   const targets = dialog.locator('button, a[href], select, input:not([type="hidden"]), summary');
-  const minimum = v.width <= 1023 ? 48 : 44;
+  const minimum = 48;
   let targetCount = 0;
   for (const target of await targets.all()) {
     if (!await target.isVisible()) continue;
@@ -188,7 +188,7 @@ async function matrix(page, spec) {
   await enter(page);
   const invoker=page.getByRole('button',{name:'Controls',exact:true});
   await invoker.click();await inspectPanel(page,'controls',spec,`${spec.name}-controls`);await escapeTo(page,invoker);
-  for(const variant of ['help','show','position']) {
+  for(const variant of ['help']) {
     await openPanel(page,variant);await inspectPanel(page,variant,spec,`${spec.name}-${variant}`);await escapeTo(page,invoker);
   }
   await openPicker(page);await inspectPanel(page,'picker',spec,`${spec.name}-picker-classics`);
@@ -285,7 +285,7 @@ try {
     await page.mouse.move(r.x+r.width/2,r.y+r.height/2);await page.mouse.down();await page.mouse.move(196,180,{steps:12});
     assert.equal(await page.locator('main').getAttribute('data-drag-active'),'true');await page.mouse.up();
     assert.equal((await snap(page)).bursts,before.bursts+1);await page.evaluate(()=>window.__firecrackersQA.advance(35));
-    await openPanel(page,'position');await page.getByRole('button',{name:'Right',exact:true}).click();await page.getByRole('button',{name:'Apply',exact:true}).click();assert.equal((await snap(page)).placement,.8);
+    await page.getByRole('slider',{name:'Next rocket position'}).focus();await page.keyboard.press('End');assert.equal((await snap(page)).placement,1);
     await openPicker(page);await page.getByRole('button',{name:'Grand collection',exact:true}).click();await page.getByRole('button',{name:'Sapphire Saturn',exact:true}).click();assert.equal((await snap(page)).selected,'sapphire-saturn');assert.equal((await snap(page)).launched,before.launched+1);
     record('Real tray drag cancellation/one sky burst, position commit and catalog selection');
   });
