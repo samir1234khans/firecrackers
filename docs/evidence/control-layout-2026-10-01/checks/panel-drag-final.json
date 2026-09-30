@@ -1,0 +1,29 @@
+{
+  "url": "http://127.0.0.1:4288/",
+  "expectedVersion": "2026-10-01.3",
+  "expectedFingerprint": "b2d7720cc630da8f5b9a00be95cb22ad63cd133452eec4712dbf795382ee5f86",
+  "expectedSourceCount": 80,
+  "startedAt": "2026-09-30T23:13:08.922Z",
+  "selectedCases": [
+    "tray-drag-and-position"
+  ],
+  "dragOrigin": "row-center",
+  "method": "Bundled Chromium headless, software WebGL/Canvas. Real native dialogs and DOM input; viewport/touch emulation.",
+  "limitations": "No installed-Chrome hardware, physical phone, OS accessibility setting or endurance claim. Zoom method is explicitly emulated.",
+  "checks": [
+    {
+      "name": "Real tray drag cancellation/one sky burst, position commit and catalog selection"
+    },
+    {
+      "name": "tray-drag-and-position: no unexpected application errors"
+    }
+  ],
+  "failures": [],
+  "screenshots": [],
+  "errors": [],
+  "expectedFaults": [],
+  "browserClosed": true,
+  "browserVersion": "140.0.7339.186",
+  "remainingContexts": 0,
+  "finishedAt": "2026-09-30T23:13:12.459Z"
+}

@@ -1,0 +1,171 @@
+{
+  "base": "https://firecrackers-open-sky-preview.allygym-api.workers.dev/",
+  "method": "HTTP byte parity and default no-QA startup in installed Chrome; emulated viewports, native WebGPU",
+  "checks": [
+    {
+      "path": "art/ignition-flame.png",
+      "status": 200,
+      "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e"
+    },
+    {
+      "path": "art/moon-lro-v001.png",
+      "status": 200,
+      "sha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8"
+    },
+    {
+      "path": "art/paper-color.png",
+      "status": 200,
+      "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a"
+    },
+    {
+      "path": "art/river-life-v007.glb",
+      "status": 200,
+      "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258"
+    },
+    {
+      "path": "art/river-life-v008.glb",
+      "status": 200,
+      "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5"
+    },
+    {
+      "path": "art/rocket.glb",
+      "status": 200,
+      "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3"
+    },
+    {
+      "path": "art/smoke-density-light-v005.png",
+      "status": 200,
+      "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8"
+    },
+    {
+      "path": "art/smoke-density-light.png",
+      "status": 200,
+      "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f"
+    },
+    {
+      "path": "art/terrace-v004.glb",
+      "status": 200,
+      "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48"
+    },
+    {
+      "path": "art/terrace-v008.glb",
+      "status": 200,
+      "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f"
+    },
+    {
+      "path": "art/water-normal-v005.png",
+      "status": 200,
+      "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb"
+    },
+    {
+      "path": "art/water-normal.png",
+      "status": 200,
+      "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2"
+    },
+    {
+      "path": "art/waterfront-night-v005.webp",
+      "status": 200,
+      "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784"
+    },
+    {
+      "path": "assets/index-CsB3ZM6O.js",
+      "status": 200,
+      "sha256": "de5de94cbc8c7bd016e23a98bae3b79a904897777d509c13ed22f0beaae9a3e5"
+    },
+    {
+      "path": "assets/main-C9t-qsCu.css",
+      "status": 200,
+      "sha256": "6609d53a6cf840bc7b9afd6f123fe36dfc31c801c4bf4227aafdd221c91b5773"
+    },
+    {
+      "path": "assets/main-rqDUNSVo.js",
+      "status": 200,
+      "sha256": "8629dc39c5fbff2156f39c984b24c0bf7f3c9105136af1c1fc2d47a97a051012"
+    },
+    {
+      "path": "assets/Renderer-DmjIrZTY.js",
+      "status": 200,
+      "sha256": "042cb768f05c2b60969633c9e573a0881284721a387873eae73fd3e6955f3abb"
+    },
+    {
+      "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557"
+    },
+    {
+      "path": "audio/report-01.wav",
+      "status": 200,
+      "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e"
+    },
+    {
+      "path": "audio/report-02.wav",
+      "status": 200,
+      "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c"
+    },
+    {
+      "path": "audio/report-03.wav",
+      "status": 200,
+      "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e"
+    },
+    {
+      "path": "icon.svg",
+      "status": 200,
+      "sha256": "a1d1fc6c0494889de59a60003b99674932de1a6a93a15161322c05ed3a8ada49"
+    },
+    {
+      "path": "icons/icon-192.png",
+      "status": 200,
+      "sha256": "b131db8470526082476710c00af26c4ea745968fefdc43b1d04861c268a9c513"
+    },
+    {
+      "path": "icons/icon-512.png",
+      "status": 200,
+      "sha256": "bb5d0d5da7a19af5f0006b0aa030d99b811c8c37fbb1024bd7b638153c3f7d73"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "64669543297cd28c17c3a1565f2349a58d35f566586ac20ed157de76724fe71d"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "sha256": "d165b107228a7e84a5bceba3f50fd94fb73495e07dd2ed3fbd06077ccc49a2dd"
+    },
+    {
+      "path": "release.json",
+      "status": 200,
+      "sha256": "1248d937ad84bbcc69ecf69a1029df24870120a87dd12d0d8b2387d81023a541"
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "sha256": "f09e0395c5dc306fb156d688bf54d226effa8bceb048d16a194e82d79962389a"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.txt",
+      "status": 200,
+      "sha256": "226742f78ef9026ffbe2b2decad17d18c3c7895f5333a8f64b2a12f91f93a5d1"
+    },
+    {
+      "path": "workbox-35e397ac.js",
+      "status": 200,
+      "sha256": "13414e5aadee63156102efd53f785aebdbae5bb5432f30723c3eb9d36b3e47a8"
+    },
+    {
+      "name": "Default startup, real-time launch, modal and mode pause ownership",
+      "width": 393,
+      "height": 851,
+      "backend": "WebGPU"
+    },
+    {
+      "name": "Default startup, real-time launch, modal and mode pause ownership",
+      "width": 1280,
+      "height": 800,
+      "backend": "WebGPU"
+    }
+  ],
+  "errors": [],
+  "failed": null,
+  "production": "5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535"
+}

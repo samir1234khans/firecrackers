@@ -1,0 +1,6908 @@
+{
+  "url": "http://127.0.0.1:4288/",
+  "checks": [
+    {
+      "name": "Native WebGPU adapter",
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "fallback": false
+      }
+    },
+    {
+      "name": "webgpu 320x480: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 320,
+        "height": 480,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 404
+        },
+        "rail": {
+          "x": 256,
+          "y": 248,
+          "width": 48,
+          "height": 148,
+          "right": 304,
+          "bottom": 396
+        },
+        "tray": {
+          "x": 8,
+          "y": 156,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 396
+        },
+        "mode": {
+          "x": 248,
+          "y": 408,
+          "width": 64,
+          "height": 64,
+          "right": 312,
+          "bottom": 472
+        },
+        "position": {
+          "x": 8,
+          "y": 416,
+          "width": 216,
+          "height": 48,
+          "right": 224,
+          "bottom": 464
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 256,
+            "y": 248,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 296,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 298,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 346,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 396,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 204,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 204,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 204,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 252,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 252,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 252,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 300,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 300,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 300,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 348,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 348,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 348,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 396,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 375x667: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 375,
+        "height": 667,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 591
+        },
+        "rail": {
+          "x": 311,
+          "y": 435,
+          "width": 48,
+          "height": 148,
+          "right": 359,
+          "bottom": 583
+        },
+        "tray": {
+          "x": 8,
+          "y": 247,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 583
+        },
+        "mode": {
+          "x": 303,
+          "y": 595,
+          "width": 64,
+          "height": 64,
+          "right": 367,
+          "bottom": 659
+        },
+        "position": {
+          "x": 8,
+          "y": 603,
+          "width": 271,
+          "height": 48,
+          "right": 279,
+          "bottom": 651
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 311,
+            "y": 435,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 483,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 311,
+            "y": 485,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 533,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 311,
+            "y": 535,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 583,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 247,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 295,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 247,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 295,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 295,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 343,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 295,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 343,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 343,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 391,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 343,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 391,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 391,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 439,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 391,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 439,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 439,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 487,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 439,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 487,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 487,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 535,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 487,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 535,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 535,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 583,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 393x851: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 393,
+        "height": 851,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 393,
+          "height": 775
+        },
+        "rail": {
+          "x": 329,
+          "y": 619,
+          "width": 48,
+          "height": 148,
+          "right": 377,
+          "bottom": 767
+        },
+        "tray": {
+          "x": 8,
+          "y": 431,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 767
+        },
+        "mode": {
+          "x": 321,
+          "y": 779,
+          "width": 64,
+          "height": 64,
+          "right": 385,
+          "bottom": 843
+        },
+        "position": {
+          "x": 8,
+          "y": 787,
+          "width": 289,
+          "height": 48,
+          "right": 297,
+          "bottom": 835
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 667,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 329,
+            "y": 669,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 717,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 329,
+            "y": 719,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 767,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 431,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 479,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 431,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 479,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 479,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 527,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 479,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 527,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 527,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 575,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 527,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 575,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 575,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 623,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 575,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 623,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 623,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 671,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 623,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 671,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 671,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 719,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 671,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 719,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 719,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 767,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 679x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 679,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 679,
+          "height": 724
+        },
+        "rail": {
+          "x": 615,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 663,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 380,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 607,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 671,
+          "bottom": 792
+        },
+        "position": {
+          "x": 8,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 328,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 615,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 615,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 615,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 428,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 476,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 524,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 572,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 620,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 680x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 680,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 680,
+          "height": 724
+        },
+        "rail": {
+          "x": 616,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 664,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 92,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 608,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 672,
+          "bottom": 792
+        },
+        "position": {
+          "x": 144,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 464,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 616,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 140,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 140,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 188,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 188,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 236,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 236,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 284,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 332,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 332,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 380,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 768x1024: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 768,
+        "height": 1024,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 948
+        },
+        "rail": {
+          "x": 704,
+          "y": 792,
+          "width": 48,
+          "height": 148,
+          "right": 752,
+          "bottom": 940
+        },
+        "tray": {
+          "x": 8,
+          "y": 316,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 940
+        },
+        "mode": {
+          "x": 696,
+          "y": 952,
+          "width": 64,
+          "height": 64,
+          "right": 760,
+          "bottom": 1016
+        },
+        "position": {
+          "x": 188,
+          "y": 960,
+          "width": 320,
+          "height": 48,
+          "right": 508,
+          "bottom": 1008
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 840,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 704,
+            "y": 842,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 890,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 704,
+            "y": 892,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 940,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 364,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 364,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 412,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 412,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 460,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 460,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 508,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 508,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 556,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 556,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 604,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 604,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 652,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 652,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 700,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 700,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 748,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 748,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 796,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 796,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 844,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 844,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 892,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 892,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 940,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 844x390: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 844,
+        "height": 390,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 844,
+          "height": 314
+        },
+        "rail": {
+          "x": 780,
+          "y": 158,
+          "width": 48,
+          "height": 148,
+          "right": 828,
+          "bottom": 306
+        },
+        "tray": {
+          "x": 8,
+          "y": 66,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 306
+        },
+        "mode": {
+          "x": 772,
+          "y": 318,
+          "width": 64,
+          "height": 64,
+          "right": 836,
+          "bottom": 382
+        },
+        "position": {
+          "x": 226,
+          "y": 326,
+          "width": 320,
+          "height": 48,
+          "right": 546,
+          "bottom": 374
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 780,
+            "y": 158,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 206,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 780,
+            "y": 208,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 256,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 780,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 306,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 114,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 114,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 114,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 162,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 162,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 162,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 210,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 210,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 210,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 258,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 258,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 258,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 306,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 1280x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "rail": {
+          "x": 1216,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 1264,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 92,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 1208,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 1272,
+          "bottom": 792
+        },
+        "position": {
+          "x": 444,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 764,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1216,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1216,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 140,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 140,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 188,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 188,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 236,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 236,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 284,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 332,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 332,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 380,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu 1920x1080: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 1920,
+        "height": 1080,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1004
+        },
+        "rail": {
+          "x": 1856,
+          "y": 848,
+          "width": 48,
+          "height": 148,
+          "right": 1904,
+          "bottom": 996
+        },
+        "tray": {
+          "x": 8,
+          "y": 372,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 996
+        },
+        "mode": {
+          "x": 1848,
+          "y": 1008,
+          "width": 64,
+          "height": 64,
+          "right": 1912,
+          "bottom": 1072
+        },
+        "position": {
+          "x": 764,
+          "y": 1016,
+          "width": 320,
+          "height": 48,
+          "right": 1084,
+          "bottom": 1064
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 1856,
+            "y": 848,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 896,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1856,
+            "y": 898,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 946,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1856,
+            "y": 948,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 996,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 372,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 420,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 420,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 468,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 468,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 516,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 516,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 564,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 564,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 612,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 612,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 660,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 660,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 708,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 708,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 756,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 756,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 804,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 804,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 852,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 852,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 900,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 900,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 948,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 948,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 996,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu gold-willow: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3332825999148578
+    },
+    {
+      "name": "webgpu multicolor-peony: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.362495141653301
+    },
+    {
+      "name": "webgpu chrysanthemum: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.357781562299425
+    },
+    {
+      "name": "webgpu silver-crossette-crackle: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.34316979128694347
+    },
+    {
+      "name": "webgpu grand-finale: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3398701323945785
+    },
+    {
+      "name": "webgpu aurora-crown: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3664570491451802
+    },
+    {
+      "name": "webgpu ruby-dahlia: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.32349219656876743
+    },
+    {
+      "name": "webgpu sapphire-saturn: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.32028675297761533
+    },
+    {
+      "name": "webgpu phoenix-palm: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.35843703020061135
+    },
+    {
+      "name": "webgpu opal-supernova: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3252520895345631
+    },
+    {
+      "name": "webgpu: sky release bursts once, geometry remains reserved"
+    },
+    {
+      "name": "webgpu: water cancels without accidental click"
+    },
+    {
+      "name": "webgpu: collection cancels without accidental click"
+    },
+    {
+      "name": "webgpu: rail cancels without accidental click"
+    },
+    {
+      "name": "webgpu: outside cancels without accidental click"
+    },
+    {
+      "name": "webgpu: escape cancels without accidental click"
+    },
+    {
+      "name": "webgpu: pointercancel cancels without accidental click"
+    },
+    {
+      "name": "webgpu: fresh tap immediately after cancellation launches"
+    },
+    {
+      "name": "webgpu: native touch cancellation"
+    },
+    {
+      "name": "webgpu: terrace drop maps 0 into normal rocket"
+    },
+    {
+      "name": "webgpu: terrace drop maps 1 into normal rocket"
+    },
+    {
+      "name": "webgpu: rotation and next-family selection preserve committed flight"
+    },
+    {
+      "name": "webgpu: panel focus, Escape, restoration and manual pause ownership"
+    },
+    {
+      "name": "webgpu: show profiles and rotation preserve show state"
+    },
+    {
+      "name": "webgpu: ten shortcuts and accessible keyboard launch"
+    },
+    {
+      "name": "Hardware forced WebGL",
+      "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 770 (0x0000A780) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "name": "webgl 320x480: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 320,
+        "height": 480,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 404
+        },
+        "rail": {
+          "x": 256,
+          "y": 248,
+          "width": 48,
+          "height": 148,
+          "right": 304,
+          "bottom": 396
+        },
+        "tray": {
+          "x": 8,
+          "y": 156,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 396
+        },
+        "mode": {
+          "x": 248,
+          "y": 408,
+          "width": 64,
+          "height": 64,
+          "right": 312,
+          "bottom": 472
+        },
+        "position": {
+          "x": 8,
+          "y": 416,
+          "width": 216,
+          "height": 48,
+          "right": 224,
+          "bottom": 464
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 256,
+            "y": 248,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 296,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 298,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 346,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 396,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 204,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 204,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 204,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 252,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 252,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 252,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 300,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 300,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 300,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 348,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 348,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 348,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 396,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 375x667: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 375,
+        "height": 667,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 591
+        },
+        "rail": {
+          "x": 311,
+          "y": 435,
+          "width": 48,
+          "height": 148,
+          "right": 359,
+          "bottom": 583
+        },
+        "tray": {
+          "x": 8,
+          "y": 247,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 583
+        },
+        "mode": {
+          "x": 303,
+          "y": 595,
+          "width": 64,
+          "height": 64,
+          "right": 367,
+          "bottom": 659
+        },
+        "position": {
+          "x": 8,
+          "y": 603,
+          "width": 271,
+          "height": 48,
+          "right": 279,
+          "bottom": 651
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 311,
+            "y": 435,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 483,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 311,
+            "y": 485,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 533,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 311,
+            "y": 535,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 583,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 247,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 295,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 247,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 295,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 295,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 343,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 295,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 343,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 343,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 391,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 343,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 391,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 391,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 439,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 391,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 439,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 439,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 487,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 439,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 487,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 487,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 535,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 487,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 535,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 535,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 583,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 393x851: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 393,
+        "height": 851,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 393,
+          "height": 775
+        },
+        "rail": {
+          "x": 329,
+          "y": 619,
+          "width": 48,
+          "height": 148,
+          "right": 377,
+          "bottom": 767
+        },
+        "tray": {
+          "x": 8,
+          "y": 431,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 767
+        },
+        "mode": {
+          "x": 321,
+          "y": 779,
+          "width": 64,
+          "height": 64,
+          "right": 385,
+          "bottom": 843
+        },
+        "position": {
+          "x": 8,
+          "y": 787,
+          "width": 289,
+          "height": 48,
+          "right": 297,
+          "bottom": 835
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 667,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 329,
+            "y": 669,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 717,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 329,
+            "y": 719,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 767,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 431,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 479,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 431,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 479,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 479,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 527,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 479,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 527,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 527,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 575,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 527,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 575,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 575,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 623,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 575,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 623,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 623,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 671,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 623,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 671,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 671,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 719,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 671,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 719,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 719,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 767,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 679x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 679,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 679,
+          "height": 724
+        },
+        "rail": {
+          "x": 615,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 663,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 380,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 607,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 671,
+          "bottom": 792
+        },
+        "position": {
+          "x": 8,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 328,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 615,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 615,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 615,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 428,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 476,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 524,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 572,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 620,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 680x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 680,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 680,
+          "height": 724
+        },
+        "rail": {
+          "x": 616,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 664,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 92,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 608,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 672,
+          "bottom": 792
+        },
+        "position": {
+          "x": 144,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 464,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 616,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 140,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 140,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 188,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 188,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 236,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 236,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 284,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 332,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 332,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 380,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 768x1024: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 768,
+        "height": 1024,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 948
+        },
+        "rail": {
+          "x": 704,
+          "y": 792,
+          "width": 48,
+          "height": 148,
+          "right": 752,
+          "bottom": 940
+        },
+        "tray": {
+          "x": 8,
+          "y": 316,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 940
+        },
+        "mode": {
+          "x": 696,
+          "y": 952,
+          "width": 64,
+          "height": 64,
+          "right": 760,
+          "bottom": 1016
+        },
+        "position": {
+          "x": 188,
+          "y": 960,
+          "width": 320,
+          "height": 48,
+          "right": 508,
+          "bottom": 1008
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 840,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 704,
+            "y": 842,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 890,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 704,
+            "y": 892,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 940,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 364,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 364,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 412,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 412,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 460,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 460,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 508,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 508,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 556,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 556,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 604,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 604,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 652,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 652,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 700,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 700,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 748,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 748,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 796,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 796,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 844,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 844,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 892,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 892,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 940,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 844x390: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 844,
+        "height": 390,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 844,
+          "height": 314
+        },
+        "rail": {
+          "x": 780,
+          "y": 158,
+          "width": 48,
+          "height": 148,
+          "right": 828,
+          "bottom": 306
+        },
+        "tray": {
+          "x": 8,
+          "y": 66,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 306
+        },
+        "mode": {
+          "x": 772,
+          "y": 318,
+          "width": 64,
+          "height": 64,
+          "right": 836,
+          "bottom": 382
+        },
+        "position": {
+          "x": 226,
+          "y": 326,
+          "width": 320,
+          "height": 48,
+          "right": 546,
+          "bottom": 374
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 780,
+            "y": 158,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 206,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 780,
+            "y": 208,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 256,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 780,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 306,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 114,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 114,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 114,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 162,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 162,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 162,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 210,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 210,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 210,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 258,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 258,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 258,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 306,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 1280x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "rail": {
+          "x": 1216,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 1264,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 92,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 1208,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 1272,
+          "bottom": 792
+        },
+        "position": {
+          "x": 444,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 764,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1216,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1216,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 140,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 140,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 188,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 188,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 236,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 236,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 284,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 332,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 332,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 380,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl 1920x1080: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 1920,
+        "height": 1080,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1004
+        },
+        "rail": {
+          "x": 1856,
+          "y": 848,
+          "width": 48,
+          "height": 148,
+          "right": 1904,
+          "bottom": 996
+        },
+        "tray": {
+          "x": 8,
+          "y": 372,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 996
+        },
+        "mode": {
+          "x": 1848,
+          "y": 1008,
+          "width": 64,
+          "height": 64,
+          "right": 1912,
+          "bottom": 1072
+        },
+        "position": {
+          "x": 764,
+          "y": 1016,
+          "width": 320,
+          "height": 48,
+          "right": 1084,
+          "bottom": 1064
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 1856,
+            "y": 848,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 896,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1856,
+            "y": 898,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 946,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1856,
+            "y": 948,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 996,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 372,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 420,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 420,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 468,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 468,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 516,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 516,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 564,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 564,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 612,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 612,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 660,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 660,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 708,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 708,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 756,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 756,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 804,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 804,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 852,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 852,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 900,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 900,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 948,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 948,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 996,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl gold-willow: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3332825999148571
+    },
+    {
+      "name": "webgl multicolor-peony: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.36249514165329866
+    },
+    {
+      "name": "webgl chrysanthemum: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3577815622994231
+    },
+    {
+      "name": "webgl silver-crossette-crackle: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3431697912869423
+    },
+    {
+      "name": "webgl grand-finale: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.33987013239457736
+    },
+    {
+      "name": "webgl aurora-crown: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3664570491451777
+    },
+    {
+      "name": "webgl ruby-dahlia: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.32349219656876727
+    },
+    {
+      "name": "webgl sapphire-saturn: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.32028675297761533
+    },
+    {
+      "name": "webgl phoenix-palm: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3584370302006092
+    },
+    {
+      "name": "webgl opal-supernova: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3252520895345628
+    },
+    {
+      "name": "webgl: sky release bursts once, geometry remains reserved"
+    },
+    {
+      "name": "webgl: water cancels without accidental click"
+    },
+    {
+      "name": "webgl: collection cancels without accidental click"
+    },
+    {
+      "name": "webgl: rail cancels without accidental click"
+    },
+    {
+      "name": "webgl: outside cancels without accidental click"
+    },
+    {
+      "name": "webgl: escape cancels without accidental click"
+    },
+    {
+      "name": "webgl: pointercancel cancels without accidental click"
+    },
+    {
+      "name": "webgl: fresh tap immediately after cancellation launches"
+    },
+    {
+      "name": "webgl: native touch cancellation"
+    },
+    {
+      "name": "webgl: terrace drop maps 0 into normal rocket"
+    },
+    {
+      "name": "webgl: terrace drop maps 1 into normal rocket"
+    },
+    {
+      "name": "webgl: rotation and next-family selection preserve committed flight"
+    },
+    {
+      "name": "webgl: panel focus, Escape, restoration and manual pause ownership"
+    },
+    {
+      "name": "webgl: show profiles and rotation preserve show state"
+    },
+    {
+      "name": "webgl: ten shortcuts and accessible keyboard launch"
+    },
+    {
+      "name": "canvas 320x480: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 320,
+        "height": 480,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 404
+        },
+        "rail": {
+          "x": 256,
+          "y": 248,
+          "width": 48,
+          "height": 148,
+          "right": 304,
+          "bottom": 396
+        },
+        "tray": {
+          "x": 8,
+          "y": 156,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 396
+        },
+        "mode": {
+          "x": 248,
+          "y": 408,
+          "width": 64,
+          "height": 64,
+          "right": 312,
+          "bottom": 472
+        },
+        "position": {
+          "x": 8,
+          "y": 416,
+          "width": 216,
+          "height": 48,
+          "right": 224,
+          "bottom": 464
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 256,
+            "y": 248,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 296,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 298,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 346,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 396,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 204,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 204,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 204,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 252,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 252,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 252,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 300,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 300,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 300,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 348,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 348,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 348,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 396,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 375x667: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 375,
+        "height": 667,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 591
+        },
+        "rail": {
+          "x": 311,
+          "y": 435,
+          "width": 48,
+          "height": 148,
+          "right": 359,
+          "bottom": 583
+        },
+        "tray": {
+          "x": 8,
+          "y": 247,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 583
+        },
+        "mode": {
+          "x": 303,
+          "y": 595,
+          "width": 64,
+          "height": 64,
+          "right": 367,
+          "bottom": 659
+        },
+        "position": {
+          "x": 8,
+          "y": 603,
+          "width": 271,
+          "height": 48,
+          "right": 279,
+          "bottom": 651
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 311,
+            "y": 435,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 483,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 311,
+            "y": 485,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 533,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 311,
+            "y": 535,
+            "width": 48,
+            "height": 48,
+            "right": 359,
+            "bottom": 583,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 247,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 295,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 247,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 295,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 295,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 343,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 295,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 343,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 343,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 391,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 343,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 391,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 391,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 439,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 391,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 439,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 439,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 487,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 439,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 487,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 487,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 535,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 487,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 535,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 535,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 583,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 393x851: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 393,
+        "height": 851,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 393,
+          "height": 775
+        },
+        "rail": {
+          "x": 329,
+          "y": 619,
+          "width": 48,
+          "height": 148,
+          "right": 377,
+          "bottom": 767
+        },
+        "tray": {
+          "x": 8,
+          "y": 431,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 767
+        },
+        "mode": {
+          "x": 321,
+          "y": 779,
+          "width": 64,
+          "height": 64,
+          "right": 385,
+          "bottom": 843
+        },
+        "position": {
+          "x": 8,
+          "y": 787,
+          "width": 289,
+          "height": 48,
+          "right": 297,
+          "bottom": 835
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 667,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 329,
+            "y": 669,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 717,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 329,
+            "y": 719,
+            "width": 48,
+            "height": 48,
+            "right": 377,
+            "bottom": 767,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 431,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 479,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 431,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 479,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 479,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 527,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 479,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 527,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 527,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 575,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 527,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 575,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 575,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 623,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 575,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 623,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 623,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 671,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 623,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 671,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 671,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 719,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 671,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 719,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 719,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 767,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 679x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 679,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 679,
+          "height": 724
+        },
+        "rail": {
+          "x": 615,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 663,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 380,
+          "width": 96,
+          "height": 336,
+          "right": 104,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 607,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 671,
+          "bottom": 792
+        },
+        "position": {
+          "x": 8,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 328,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 615,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 615,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 615,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 663,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 428,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 476,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 524,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 572,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 620,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 680x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 680,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 680,
+          "height": 724
+        },
+        "rail": {
+          "x": 616,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 664,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 92,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 608,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 672,
+          "bottom": 792
+        },
+        "position": {
+          "x": 144,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 464,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 616,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 140,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 140,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 188,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 188,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 236,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 236,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 284,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 332,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 332,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 380,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 768x1024: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 768,
+        "height": 1024,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 768,
+          "height": 948
+        },
+        "rail": {
+          "x": 704,
+          "y": 792,
+          "width": 48,
+          "height": 148,
+          "right": 752,
+          "bottom": 940
+        },
+        "tray": {
+          "x": 8,
+          "y": 316,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 940
+        },
+        "mode": {
+          "x": 696,
+          "y": 952,
+          "width": 64,
+          "height": 64,
+          "right": 760,
+          "bottom": 1016
+        },
+        "position": {
+          "x": 188,
+          "y": 960,
+          "width": 320,
+          "height": 48,
+          "right": 508,
+          "bottom": 1008
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 840,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 704,
+            "y": 842,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 890,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 704,
+            "y": 892,
+            "width": 48,
+            "height": 48,
+            "right": 752,
+            "bottom": 940,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 364,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 364,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 412,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 412,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 460,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 460,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 508,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 508,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 556,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 556,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 604,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 604,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 652,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 652,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 700,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 700,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 748,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 748,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 796,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 796,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 844,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 844,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 892,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 892,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 940,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 844x390: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 844,
+        "height": 390,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 844,
+          "height": 314
+        },
+        "rail": {
+          "x": 780,
+          "y": 158,
+          "width": 48,
+          "height": 148,
+          "right": 828,
+          "bottom": 306
+        },
+        "tray": {
+          "x": 8,
+          "y": 66,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 306
+        },
+        "mode": {
+          "x": 772,
+          "y": 318,
+          "width": 64,
+          "height": 64,
+          "right": 836,
+          "bottom": 382
+        },
+        "position": {
+          "x": 226,
+          "y": 326,
+          "width": 320,
+          "height": 48,
+          "right": 546,
+          "bottom": 374
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 780,
+            "y": 158,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 206,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 780,
+            "y": 208,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 256,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 780,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "right": 828,
+            "bottom": 306,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 114,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 114,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 66,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 114,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 162,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 162,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 114,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 162,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 210,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 210,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 162,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 210,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 258,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 258,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 210,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 258,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 258,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 306,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 1280x800: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "rail": {
+          "x": 1216,
+          "y": 568,
+          "width": 48,
+          "height": 148,
+          "right": 1264,
+          "bottom": 716
+        },
+        "tray": {
+          "x": 8,
+          "y": 92,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 716
+        },
+        "mode": {
+          "x": 1208,
+          "y": 728,
+          "width": 64,
+          "height": 64,
+          "right": 1272,
+          "bottom": 792
+        },
+        "position": {
+          "x": 444,
+          "y": 736,
+          "width": 320,
+          "height": 48,
+          "right": 764,
+          "bottom": 784
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 616,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1216,
+            "y": 618,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 666,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1216,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 1264,
+            "bottom": 716,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 140,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 140,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 188,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 188,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 236,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 236,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 284,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 284,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 332,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 332,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 380,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 380,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 428,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 428,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 476,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 476,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 524,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 524,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 572,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 572,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 620,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 620,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 668,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 668,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 716,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas 1920x1080: thirteen reachable icons, responsive left collection and separated lower controls",
+      "layout": {
+        "width": 1920,
+        "height": 1080,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1004
+        },
+        "rail": {
+          "x": 1856,
+          "y": 848,
+          "width": 48,
+          "height": 148,
+          "right": 1904,
+          "bottom": 996
+        },
+        "tray": {
+          "x": 8,
+          "y": 372,
+          "width": 48,
+          "height": 624,
+          "right": 56,
+          "bottom": 996
+        },
+        "mode": {
+          "x": 1848,
+          "y": 1008,
+          "width": 64,
+          "height": 64,
+          "right": 1912,
+          "bottom": 1072
+        },
+        "position": {
+          "x": 764,
+          "y": 1016,
+          "width": 320,
+          "height": 48,
+          "right": 1084,
+          "bottom": 1064
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 1856,
+            "y": 848,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 896,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1856,
+            "y": 898,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 946,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1856,
+            "y": 948,
+            "width": 48,
+            "height": 48,
+            "right": 1904,
+            "bottom": 996,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 372,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 420,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 420,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 468,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 468,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 516,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 516,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 564,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 564,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 612,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 612,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 660,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 660,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 708,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 708,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 756,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 756,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 804,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 804,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 852,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 852,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 900,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 900,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 948,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 948,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 996,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas gold-willow: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.33327106837183235
+    },
+    {
+      "name": "canvas multicolor-peony: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3624898252636195
+    },
+    {
+      "name": "canvas chrysanthemum: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3577736845239997
+    },
+    {
+      "name": "canvas silver-crossette-crackle: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.34315778499934824
+    },
+    {
+      "name": "canvas grand-finale: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3398579913238063
+    },
+    {
+      "name": "canvas aurora-crown: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.36645434977952396
+    },
+    {
+      "name": "canvas ruby-dahlia: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3234837333578616
+    },
+    {
+      "name": "canvas sapphire-saturn: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.32027985600754616
+    },
+    {
+      "name": "canvas phoenix-palm: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.35842947269789877
+    },
+    {
+      "name": "canvas opal-supernova: one immediate admission, immutable duplicate guard, upper canopy",
+      "fraction": 0.3252428842103108
+    },
+    {
+      "name": "canvas: sky release bursts once, geometry remains reserved"
+    },
+    {
+      "name": "canvas: water cancels without accidental click"
+    },
+    {
+      "name": "canvas: collection cancels without accidental click"
+    },
+    {
+      "name": "canvas: rail cancels without accidental click"
+    },
+    {
+      "name": "canvas: outside cancels without accidental click"
+    },
+    {
+      "name": "canvas: escape cancels without accidental click"
+    },
+    {
+      "name": "canvas: pointercancel cancels without accidental click"
+    },
+    {
+      "name": "canvas: fresh tap immediately after cancellation launches"
+    },
+    {
+      "name": "canvas: native touch cancellation"
+    },
+    {
+      "name": "canvas: terrace drop maps 0 into normal rocket"
+    },
+    {
+      "name": "canvas: terrace drop maps 1 into normal rocket"
+    },
+    {
+      "name": "canvas: rotation and next-family selection preserve committed flight"
+    },
+    {
+      "name": "canvas: panel focus, Escape, restoration and manual pause ownership"
+    },
+    {
+      "name": "canvas: show profiles and rotation preserve show state"
+    },
+    {
+      "name": "canvas: ten shortcuts and accessible keyboard launch"
+    },
+    {
+      "name": "safe inset and browser-bar resize; 200% CSS reflow geometry"
+    },
+    {
+      "name": "sound opt-in samples and pause voice cleanup"
+    }
+  ],
+  "errors": [],
+  "physicalDevice": false,
+  "method": "Installed Chrome, verified native WebGPU and hardware WebGL plus Canvas; DOM mouse/touch input; emulated viewports",
+  "release": {
+    "formatVersion": 2,
+    "version": "2026-10-01.3",
+    "scope": "delivered-upgrade-modules",
+    "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+    "sha256": "1c56e9b07f3ab2d9d4d72fbf89e4964337c2647811f8cc793a1bf515677a26d0",
+    "modules": [
+      {
+        "path": "index.html",
+        "sha256": "a451affb2343a06501422f789a763a3a76d106c10b0dd970dc764222e623344c",
+        "rawSha256": "a451affb2343a06501422f789a763a3a76d106c10b0dd970dc764222e623344c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/ignition-flame.png",
+        "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+        "rawSha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/moon-lro-v001.png",
+        "sha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+        "rawSha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/paper-color.png",
+        "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+        "rawSha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/river-life-v007.glb",
+        "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+        "rawSha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/river-life-v008.glb",
+        "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+        "rawSha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/rocket.glb",
+        "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+        "rawSha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/smoke-density-light-v005.png",
+        "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+        "rawSha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/smoke-density-light.png",
+        "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+        "rawSha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/terrace-v004.glb",
+        "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+        "rawSha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/terrace-v008.glb",
+        "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+        "rawSha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/water-normal-v005.png",
+        "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+        "rawSha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/water-normal.png",
+        "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+        "rawSha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/waterfront-night-v005.webp",
+        "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+        "rawSha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-01.wav",
+        "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+        "rawSha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-02.wav",
+        "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+        "rawSha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-03.wav",
+        "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+        "rawSha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/App.tsx",
+        "sha256": "6df7d4032acf7ba860d3a0bebd86e4e84e2c3300fb702a81e894ccece6900bb6",
+        "rawSha256": "940da99cfcc26d10469ead5f63651fc4b01390dd8a1f9713bc35d902852ab735",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/bootstrap.ts",
+        "sha256": "6a2c9bb301b8fda3eea23e8dfce59f223b46f76259475a01101b6fc9d0f8c409",
+        "rawSha256": "6a2c9bb301b8fda3eea23e8dfce59f223b46f76259475a01101b6fc9d0f8c409",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Audio.ts",
+        "sha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+        "rawSha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/catalog.ts",
+        "sha256": "16e1f22eaedc882ca818cf2bd2458234b9f7fac76399c1f81efd45c89508cd94",
+        "rawSha256": "16e1f22eaedc882ca818cf2bd2458234b9f7fac76399c1f81efd45c89508cd94",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/FlagshipEffects.ts",
+        "sha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+        "rawSha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/FusePath.ts",
+        "sha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+        "rawSha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/GrandEffects.ts",
+        "sha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+        "rawSha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/LaunchComposition.ts",
+        "sha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+        "rawSha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/LaunchGeometry.ts",
+        "sha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+        "rawSha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/LaunchProfile.ts",
+        "sha256": "4033de80575c5acf2ea87c6be00883b767be5ed3f23fd07f66b48d6aeae47a8f",
+        "rawSha256": "4033de80575c5acf2ea87c6be00883b767be5ed3f23fd07f66b48d6aeae47a8f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Pool.ts",
+        "sha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+        "rawSha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Renderer.ts",
+        "sha256": "65983b8f461d680c0e31746e99ef1701800ddfff6cb68f01319f1f1ad745d793",
+        "rawSha256": "65983b8f461d680c0e31746e99ef1701800ddfff6cb68f01319f1f1ad745d793",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/RendererPort.ts",
+        "sha256": "b93d03cf9fdde74a9d48b4bc2a264641c5cf8fdcf64a1f4471f9dab6209c5d70",
+        "rawSha256": "b93d03cf9fdde74a9d48b4bc2a264641c5cf8fdcf64a1f4471f9dab6209c5d70",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/RendererRecovery.ts",
+        "sha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+        "rawSha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/SignatureDiagnostics.ts",
+        "sha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+        "rawSha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Simulation.ts",
+        "sha256": "c5db60e9d9b4d84bc8aaa9883761b1a1c436d66657834680f37b8b2db4cc9792",
+        "rawSha256": "c5db60e9d9b4d84bc8aaa9883761b1a1c436d66657834680f37b8b2db4cc9792",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/SkyState.ts",
+        "sha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+        "rawSha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/StageLayout.ts",
+        "sha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+        "rawSha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/useWorld.ts",
+        "sha256": "71cdbf289b270aaed27c88690f7ebfe1b66e56a031b61cf302875a4e3d793cf1",
+        "rawSha256": "71cdbf289b270aaed27c88690f7ebfe1b66e56a031b61cf302875a4e3d793cf1",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/VisibleFrame.ts",
+        "sha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+        "rawSha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/CelestialScene.ts",
+        "sha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+        "rawSha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/CompatibilityRenderer.ts",
+        "sha256": "87555573c0bf7b7a70f5038b4e02c791d8705ca0884689cc0ef79654cbe9669b",
+        "rawSha256": "87555573c0bf7b7a70f5038b4e02c791d8705ca0884689cc0ef79654cbe9669b",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/GalaxySky.ts",
+        "sha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+        "rawSha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/LaunchStage.ts",
+        "sha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+        "rawSha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/MoonComposition.ts",
+        "sha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+        "rawSha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/NightEnvironment.ts",
+        "sha256": "0bd71d0b9d4e83f36a85ab6f72190cf09f98b41c4eb347c51ccbfd0cfcb8a074",
+        "rawSha256": "0bd71d0b9d4e83f36a85ab6f72190cf09f98b41c4eb347c51ccbfd0cfcb8a074",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/OpaqueDepth.ts",
+        "sha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+        "rawSha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/ParticleScene.ts",
+        "sha256": "2e28056cd7f9d7e601357266f102430fbc5a4cb9aa681aa2fd805845ac1c1fdc",
+        "rawSha256": "2e28056cd7f9d7e601357266f102430fbc5a4cb9aa681aa2fd805845ac1c1fdc",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/RiverLife.ts",
+        "sha256": "d43dec6bc9af976c1e55610c0e5decad795cba320ca63d4e7c67b02d8f5f0411",
+        "rawSha256": "d43dec6bc9af976c1e55610c0e5decad795cba320ca63d4e7c67b02d8f5f0411",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/RocketProp.ts",
+        "sha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+        "rawSha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/textures.ts",
+        "sha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+        "rawSha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/WaterfrontAssets.ts",
+        "sha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+        "rawSha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/WaterReflection.ts",
+        "sha256": "503282fe329d317cd1e6f249d2cc5802f404b52ca360763225cdec0fb41e0ad0",
+        "rawSha256": "503282fe329d317cd1e6f249d2cc5802f404b52ca360763225cdec0fb41e0ad0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/WaterWaves.ts",
+        "sha256": "38788b90c23229bc44c8a6f38f032c18396ddfea685a32c1bb15f8a212ba5018",
+        "rawSha256": "38788b90c23229bc44c8a6f38f032c18396ddfea685a32c1bb15f8a212ba5018",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/main.tsx",
+        "sha256": "cc4dfafa95000c56ddbc210b2d7836fe2ab7c178072823a6193e45c6a343b407",
+        "rawSha256": "e1b67a93c2c90ec50a3d9d902c8da9bd52ab34ae22f2823edf046df2564bb3d8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/platform/preferences.ts",
+        "sha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+        "rawSha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/platform/usePlatform.ts",
+        "sha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+        "rawSha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/collection.css",
+        "sha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+        "rawSha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/completion.css",
+        "sha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+        "rawSha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/flow.css",
+        "sha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+        "rawSha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/grand-collection.css",
+        "sha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+        "rawSha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/hud-v3-art.css",
+        "sha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+        "rawSha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/hud-v3.css",
+        "sha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+        "rawSha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/panels.css",
+        "sha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+        "rawSha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/recovery.css",
+        "sha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+        "rawSha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/stage.css",
+        "sha256": "67bd977b47caeb1734e1e7551bc1997adb68204ad1b2c7572f247dde68b19b68",
+        "rawSha256": "67bd977b47caeb1734e1e7551bc1997adb68204ad1b2c7572f247dde68b19b68",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/AppBoundary.tsx",
+        "sha256": "d7f874a88892cc415c3653ea3e72877bfbe81dfba2a0dd8013a44c490449a8df",
+        "rawSha256": "0ca1587470000467f26be51e63072887b010ae1819cb8e163505e940278933ba",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/BottomCollection.tsx",
+        "sha256": "eb19c7466462dbe8a9e740bebab6db596ad238ce997799e3a11eb5bfe83a2c72",
+        "rawSha256": "b8b9ea4b409077f2aa2381ca7e222d5aade274ddceab8628d7deb438efa77a80",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/CinematicHUD.tsx",
+        "sha256": "da8d78c5c9e0d2850cc0087fe8ac23f0c063d43c12d73021da4ad1bfbd2fe1dd",
+        "rawSha256": "1a272326ced8bf3e50e453e181fb82b6ebbc482f9a735075a7af95b2e9d60671",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/ControlsMenu.tsx",
+        "sha256": "87f806035b53e3b48794a6e694d11475b3c834d58132f1c56263a033239a71d0",
+        "rawSha256": "de82ea508062c290da78a7359f74498076e5534c527ad4a2c5ddc21b3c59da9c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/Dialog.tsx",
+        "sha256": "d229d37a2a32994d2b75f20c02c314832752c7cffe577c5337b812ad027aa9e3",
+        "rawSha256": "73b1ec3e58fdfafabeea3a9f328c90cc5a86ead50e84c9d16c175cac9375408c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FamilyPicker.tsx",
+        "sha256": "88515f34c91f7aa17041ada5bdf0c88d19506d80caaa9cc7aca0f367dac4cde2",
+        "rawSha256": "e9570da9b36deb41437b4edfaa9b5cef5b50b318fa842c4d5e101d1d3c886740",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FireworkGlyph.tsx",
+        "sha256": "cd95c79b9c865736cc3a52defb41e4a616494cbe5c9031d04baafd71d6138f69",
+        "rawSha256": "afb0b9c9e83e99ed45536846b091515955cb43a4b111402c990e817f89fdd9ab",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FireworkShelf.tsx",
+        "sha256": "50f36b417e75908cd2b7ba7975dc8b00f864db6d2b13ab6196f6a32c1694ded7",
+        "rawSha256": "282f2a3cf3cdcd5a246144a985d07b2c816c874694f99bd08ef00af3e2cf38c0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/GrandGlyph.tsx",
+        "sha256": "d4e3a1228455b6402829e8aa84eb231826c5a68ac5e6bb7950c574411e0a7dfa",
+        "rawSha256": "a376d9ed9aadbfbb6be57583115fd86ec26ad6eb6e1884e1f0bd49c13871f098",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/LaunchPositionControl.tsx",
+        "sha256": "0bc4b60ae0daecae4dedf24d15eafb0f855e4ad75461150c133bda9010b00021",
+        "rawSha256": "f62b172a84cc63b1ae3f01b2559fd502364114c23e8ab5373192c9d2d1be0c09",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/PanelNav.tsx",
+        "sha256": "c0fb96d449a86ec3502c42429289d4f6dbaf39eb6598bf1c0fda70e95d8867a3",
+        "rawSha256": "7f2ef57fe58c3975e9220ee62fb9751f3443a0566f1a2b4dc17b51830909cfe1",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/PresentationSettings.tsx",
+        "sha256": "41146b03974d0bd7f9e12e51ac31a837eb464b3512456f0f27da9ec3e1fee95c",
+        "rawSha256": "8c5b23c0002b4021f368d68d26ee58244af9e4b70c715a60ba5bcc725805bd70",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/ShowModeKnob.tsx",
+        "sha256": "bf606a902cb22fb0c2d26cfbe0dc7649e3dbf0c003bace7bce935d40ee797205",
+        "rawSha256": "6320957816d3d0d572223fd8a360b53f6c1411aebd1386e7ba3efa5c9c2780fc",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/SignatureGlyph.tsx",
+        "sha256": "d51524f1fcbb143c1a56aab1fb39020413db29220644ec73f0675b8626131fdd",
+        "rawSha256": "aff5bdaf3c15ce39a39e8b7567fae5cac0e7f29aed947f922fc3fc10227b6ed4",
+        "removedHostAttributes": 0
+      }
+    ]
+  }
+}

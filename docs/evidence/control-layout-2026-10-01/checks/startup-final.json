@@ -1,0 +1,32 @@
+{
+  "url": "http://127.0.0.1:4288/",
+  "method": "Production bundle; headless Chromium / software WebGL and Canvas, controlled real request delays; emulation only",
+  "checks": [
+    {
+      "name": "Real held production entry retains readable loading and recovery before React"
+    },
+    {
+      "name": "Loaded authored moon rotates while actual rocket asset remains pending"
+    },
+    {
+      "name": "Actual cold asset counts, inert mounted controls, no keyboard launches and renderer-aligned moon travel"
+    },
+    {
+      "name": "Explicit immediate continuation keeps unfinished count truthful and later detail activates"
+    },
+    {
+      "name": "Real failed authored assets settle automatically with playable reduced detail"
+    },
+    {
+      "name": "Cached reload settles real assets without premature scene or surprise launch"
+    },
+    {
+      "name": "Linked automatic show waits through preparation and transition, then resumes its mode"
+    },
+    {
+      "name": "OS reduced motion skips rotation and travel while completing actual preparation"
+    }
+  ],
+  "errors": [],
+  "failed": null
+}

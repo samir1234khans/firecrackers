@@ -1,0 +1,9 @@
+{
+  "base": "https://firecrackers-open-sky-preview.allygym-api.workers.dev/",
+  "checks": [
+    "Actual service-worker cold offline reload: all three signatures play completely",
+    "Actual WebGL context loss: explicit Canvas recovery and real-time three-stage signature replay"
+  ],
+  "errors": [],
+  "failed": null
+}
