@@ -11,10 +11,11 @@ type Props = {
   onLaunchFamily: (id: FamilyId) => void;
   onDragStart: (id: FamilyId, event: PointerEvent<HTMLButtonElement>) => void;
   notice?: string;
+  noticeFamilyId?: FamilyId;
 };
 
 /** The launch collection keeps its geometry throughout pointer dragging. */
-export function BottomCollection({ selectedId, available, canLaunchFamily, onLaunchFamily, onDragStart, notice }: Props) {
+export function BottomCollection({ selectedId, available, canLaunchFamily, onLaunchFamily, onDragStart, notice, noticeFamilyId }: Props) {
   return <div className='bottom-collection chrome' data-family-tray>
     <div className='bottom-collection-groups'>
       {(['classics', 'grand'] as const).map((collection, index) => <div
@@ -47,7 +48,7 @@ export function BottomCollection({ selectedId, available, canLaunchFamily, onLau
                 <FireworkGlyph family={family.id} color={family.color}/>
                 <span className='bottom-collection-name' aria-hidden='true'>{family.name}</span>
               </button>
-              {selected && notice && <span className='bottom-collection-notice' role='status'>{notice}</span>}
+              {(noticeFamilyId ?? selectedId) === family.id && notice && <span className='bottom-collection-notice' role='status'>{notice}</span>}
             </div>;
           })}
         </div>

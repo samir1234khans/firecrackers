@@ -6,7 +6,7 @@ import type { PointerEvent } from 'react';
 type Props = {
   available: boolean; phase: string; hidden: boolean;
   selectedId: FamilyId; paused: boolean; soundActive: boolean;
-  canLight: boolean; notice: string; committedFamily: string; updateReady: boolean;
+  canLight: boolean; notice: string; noticeFamily?: FamilyId; committedFamily: string; updateReady: boolean;
   onPause: () => void; onSound: () => void; onControls: () => void;
   canLaunchFamily: (id: FamilyId) => boolean;
   onDragStart: (id: FamilyId, event: PointerEvent<HTMLButtonElement>) => void;
@@ -24,7 +24,7 @@ export function CinematicHUD(p: Props) {
       <button type='button' aria-label={'Controls'} title='Controls' aria-haspopup='dialog' onClick={p.onControls}><SlidersHorizontal size={19}/>{p.updateReady && <i className='update-dot'/>}</button>
     </section>
     <div className='collection-chrome chrome' inert={p.hidden || undefined}>
-      <BottomCollection selectedId={p.selectedId} available={p.available} canLaunchFamily={p.canLaunchFamily} onLaunchFamily={p.onLaunchFamily} onDragStart={p.onDragStart} notice={p.notice}/>
+      <BottomCollection selectedId={p.selectedId} available={p.available} canLaunchFamily={p.canLaunchFamily} onLaunchFamily={p.onLaunchFamily} onDragStart={p.onDragStart} notice={p.notice} noticeFamilyId={p.noticeFamily}/>
     </div>
     <span id='launch-feedback' className='sr-only' role='status'>{state}. {p.committedFamily ? `${p.committedFamily} is committed; selection affects the next launch.` : 'Tap a firework to launch it.'} {p.notice}</span>
   </>;

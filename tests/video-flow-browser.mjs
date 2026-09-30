@@ -163,7 +163,7 @@ try {
     }), 'Reset action must be reachable with host preview toolbar present');
     await shot(page, `${v.name}-settings-reset-reachable`);
     await resetAction.click();
-    await page.getByRole('button', { name: 'Keep my sky' }).click();
+    await page.getByRole('button', { name: 'Cancel reset' }).click();
     await settingsTab(page, 'Graphics');
     assert.equal(await page.getByLabel('Graphics quality', { exact: true }).inputValue(), 'low');
     await page.getByRole('button', { name: 'Close panel' }).click();

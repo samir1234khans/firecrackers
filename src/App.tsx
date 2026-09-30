@@ -35,6 +35,7 @@ export default function App() {
   const [epoch, setEpoch] = useState(0);
   const [hidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
   const [notice, setNotice] = useState('');
+  const [noticeFamily, setNoticeFamily] = useState<FamilyId | null>(null);
   const host = useRef<HTMLDivElement>(null);
   const [positionDraft, setPositionDraft] = useState(.5);
   const cancelDrag = useRef<(() => void) | null>(null);
@@ -42,7 +43,7 @@ export default function App() {
   const [drag, setDrag] = useState<{ id: FamilyId; x: number; y: number; kind: 'burst' | 'launch' | null } | null>(null);
   const dragRef = useRef(drag); dragRef.current = drag;
   const revealTap = useRef(false);
-  const notify = useCallback((text: string) => setNotice(text), []);
+  const notify = useCallback((text: string) => { setNoticeFamily(null); setNotice(text); }, []);
   const world = useWorld(host, prefs, epoch, notify, presentation);
   const platform = usePlatform(notify);
   const state = world.snapshot;
@@ -162,9 +163,9 @@ export default function App() {
   const toggleSound = async () => { const active = await world.configureSound(!world.soundActive); change('sound', active); };
   const resumeOrPause = () => { world.pause(!state.paused); if (!state.paused) platform.releaseWake(); wake(); };
   const igniteFamily = (id: FamilyId) => {
-    setNotice('');
+    setNotice(''); setNoticeFamily(null);
     if (world.igniteFamily(id)) change('family', id);
-    else { world.sim.current.select(id); world.refresh(); change('family', id); setNotice(world.sim.current.paused ? 'Resume to launch' : world.sim.current.launchBlock === 'capacity' ? 'Let the sparks clear' : 'Rocket in flight'); }
+    else { setNoticeFamily(id); setNotice(world.sim.current.paused ? 'Resume to launch' : world.sim.current.launchBlock === 'capacity' ? 'Let the sparks clear' : 'Rocket in flight'); }
   };
   const startShow = (preset: ShowPreset) => {
     change('preset', preset);
@@ -234,6 +235,7 @@ export default function App() {
       soundActive={world.soundActive}
       canLight={canLight}
       notice={notice}
+      noticeFamily={noticeFamily ?? undefined}
       committedFamily={state.committedFamily}
       updateReady={platform.updateReady}
       onPause={resumeOrPause}
@@ -333,6 +335,6 @@ export default function App() {
       </section>
     </Dialog>}
 
-    {overlay === 'reset' && <Dialog variant='reset' title='Reset sky?' onClose={cancelReset} returnFocus={panelInvoker.current}><p className='panel-note'>Stops the display and clears this device’s preferences and introduction progress.</p><div className='panel-actions'><button className='primary-button' onClick={reset}><RotateCcw size={16} aria-hidden='true'/>Reset sky and preferences</button><button className='text-button' onClick={cancelReset}>Keep my sky</button></div></Dialog>}
+    {overlay === 'reset' && <Dialog variant='reset' title='Reset sky?' onClose={cancelReset} returnFocus={panelInvoker.current}><p className='panel-note'>Stops the display and clears this device’s preferences and introduction progress.</p><div className='panel-actions'><button className='primary-button' aria-label='Reset sky and preferences' onClick={reset}><RotateCcw size={16} aria-hidden='true'/>Reset</button><button className='text-button' aria-label='Cancel reset' onClick={cancelReset}>Cancel</button></div></Dialog>}
   </main>;
 }

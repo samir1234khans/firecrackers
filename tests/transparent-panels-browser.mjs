@@ -226,7 +226,7 @@ async function matrix(page, spec) {
   assert.equal((await snap(page)).paused, true, 'Reset dismissal keeps the Settings overlay pause owner');
   await settingsTab(page, 'Device');
   await page.getByRole('button', { name:'Reset this sky',exact:true }).click();
-  await page.getByRole('button', { name:'Keep my sky',exact:true }).click();
+  await page.getByRole('button', { name:'Cancel reset',exact:true }).click();
   assert.equal((await snap(page)).paused, true);
   await escapeTo(page, settings(page));
   assert.equal((await snap(page)).paused, false, 'Closing only an overlay resumes the original running scene');
@@ -239,7 +239,7 @@ async function matrix(page, spec) {
   await page.getByRole('button', { name:'Pause scene',exact:true }).click();
   await settings(page).click(); await settingsTab(page, 'Device');
   await page.getByRole('button', { name:'Reset this sky',exact:true }).click();
-  await page.getByRole('button', { name:'Keep my sky',exact:true }).click();
+  await page.getByRole('button', { name:'Cancel reset',exact:true }).click();
   await close(page).click();
   assert.equal((await snap(page)).paused, true, 'Panel and reset cancellation preserve the manual pause owner');
   assert.equal(await selectedLaunch(page).getAttribute('data-launchable'), 'false');
