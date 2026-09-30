@@ -14,7 +14,7 @@ export function FamilyPicker({ selectedId, available, onSelect, onDragStart }: P
             {['Classics', 'Grand collection'].map((label, i) => <button
                 key={label} type='button' aria-pressed={collection === i} disabled={!available}
                 onClick={() => setCollection(i)}>
-                <span>{label}</span><small>{i ? '06–10' : '01–05'}</small>
+                <span>{label}</span>
             </button>)}
         </div>
         <div className='flow-families' role='group' aria-label={collection ? 'Grand firework styles' : 'Classic firework styles'}>
@@ -23,7 +23,7 @@ export function FamilyPicker({ selectedId, available, onSelect, onDragStart }: P
                 aria-label={family.name} aria-pressed={family.id === selectedId} title={`${family.name}: ${family.note}`}
                 style={{ '--family-color': family.color } as CSSProperties} disabled={!available} onPointerDown={event => onDragStart?.(family.id, event)} onClick={() => onSelect(family.id)}>
                 <span className='flow-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
-                <span>{family.name}</span>
+                <span className='family-copy'><strong>{family.name}</strong></span>
             </button>)}
         </div>
     </div>;

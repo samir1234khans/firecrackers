@@ -1,4 +1,4 @@
-import { chooseFamily, inspectStage, inspectPicker, openPicker } from './stage-helpers.mjs';
+import { chooseFamily, inspectStage, inspectPicker, openPicker, settingsTab } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import { strict as assert } from 'node:assert';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -151,7 +151,9 @@ try {
     await enter(page);
     await page.getByRole('button', { name: 'Open settings' }).click();
     assert.equal(await page.getByLabel('Graphics quality', { exact: true }).inputValue(), 'low');
+    await settingsTab(page, 'Sound');
     assert.equal(await page.getByLabel('Sound', { exact: true }).isChecked(), false);
+    await settingsTab(page, 'Device');
     const resetAction = page.getByRole('button', { name: 'Reset this sky' });
     await resetAction.scrollIntoViewIfNeeded();
     assert.ok(await resetAction.evaluate(element => {
@@ -161,6 +163,7 @@ try {
     await shot(page, `${v.name}-settings-reset-reachable`);
     await resetAction.click();
     await page.getByRole('button', { name: 'Keep my sky' }).click();
+    await settingsTab(page, 'Graphics');
     assert.equal(await page.getByLabel('Graphics quality', { exact: true }).inputValue(), 'low');
     await page.getByRole('button', { name: 'Close panel' }).click();
     record(`${v.name}: graphics persistence, silent reload and reset cancellation`);
@@ -189,6 +192,7 @@ try {
     assert.equal(await page.locator('main').getAttribute('data-display'), 'transparent');
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: 'Open settings' }).click();
+    await settingsTab(page, 'Display');
     await page.getByRole('button', { name: 'Return to interactive sky' }).click();
     await page.getByRole('button', { name: 'Close panel' }).click();
     assert.equal(await page.locator('main').getAttribute('data-display'), 'interactive');

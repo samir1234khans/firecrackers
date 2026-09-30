@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { enterSky } from './enter';
+import { enterSky, settingsTab } from './enter';
 
 async function enter(page: Page, backend = 'webgl') {
   await enterSky(page, `backend=${backend}`);
@@ -7,6 +7,7 @@ async function enter(page: Page, backend = 'webgl') {
 async function counts(page: Page) {
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Open settings' }).click();
+  await settingsTab(page, 'Device');
   await page.getByText('Graphics details', { exact: true }).click();
   const row = page.locator('dl div').filter({ hasText: 'Launched / bursts' });
   const values = (await row.locator('dd').innerText()).split('/').map(Number);
@@ -65,11 +66,13 @@ test('five choices, automatic show, manual priority, pause and reset are connect
   await page.getByRole('button', { name: 'Pause scene', exact: true }).first().click();
   await expect(page.getByRole('button', { name: 'Resume scene' })).toBeVisible();
   await page.getByRole('button', { name: 'Open settings' }).click();
+  await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Reset this sky' }).click();
   await page.getByRole('button', { name: 'Keep my sky' }).click();
+  await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Reset this sky' }).click();
   await page.getByRole('button', { name: 'Reset sky and preferences' }).click();
-  await expect(page.getByRole('heading', { name: 'A little spark. A whole night sky.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Quick help', exact: true })).toBeVisible();
 });
 
 test('comfort preferences persist; scene and audio do not resume on refresh', async ({ page }) => {

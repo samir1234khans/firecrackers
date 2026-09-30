@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
+import { settingsTab } from './stage-helpers.mjs';
 
 const snapshot = page => page.evaluate(() => window.__firecrackersQA.snapshot());
 async function reset(page) {
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
   await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Reset this sky', exact: true }).click();
   await page.getByRole('button', { name: 'Reset sky and preferences', exact: true }).click();
   await page.waitForFunction(() => document.querySelector('main').dataset.overlay === 'none');
@@ -14,6 +16,11 @@ async function staticIdle(page) {
   const before = await snapshot(page);
   await page.waitForTimeout(650);
   const after = await snapshot(page);
+  const environment = await page.evaluate(() => ({ osReducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+    hidden: document.hidden, visibility: document.visibilityState,
+    activeElement: document.activeElement?.getAttribute('aria-label') || document.activeElement?.tagName,
+    documentFocused: document.hasFocus() }));
+  console.log('Comfort idle sample', JSON.stringify({ frameDelta: after.frames - before.frames, before, after, environment }));
   assert.ok(after.frames - before.frames <= 2, 'Comfort idle must remain static');
   assert.equal(after.skyMotionAllowed, false);
   assert.equal(after.skyActiveMeteors, 0);

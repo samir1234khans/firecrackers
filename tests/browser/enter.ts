@@ -1,5 +1,12 @@
 import { expect, type Page } from '@playwright/test';
 
+export async function settingsTab(page: Page, name: 'Graphics' | 'Sound' | 'Display' | 'Device') {
+  const tab = page.getByRole('tablist', { name: 'Settings sections' }).getByRole('tab', { name, exact: true });
+  await tab.click();
+  await expect(tab).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByRole('tabpanel', { name, exact: true })).toBeVisible();
+}
+
 /** Wait for the actual app/renderer state, then exercise the real, visible onboarding button. */
 export async function enterSky(page: Page, query = 'backend=webgl') {
   await page.goto(`/?${query}`);

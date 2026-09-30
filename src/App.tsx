@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Download, Flame, Hand, Maximize, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX, Wind } from 'lucide-react';
+import { AlertCircle, CircleHelp, Download, Flame, Hand, Keyboard, MapPin, Maximize, Monitor, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX, Wind } from 'lucide-react';
 import { FAMILIES, CONFIG_VERSION, familyKeyIndex } from './engine/catalog';
 import type { FamilyId, ShowPreset } from './engine/catalog';
 import { useWorld } from './engine/useWorld';
@@ -15,10 +15,12 @@ import { parsePresentation } from './platform/presentation';
 import { PresentationSettings } from './ui/PresentationSettings';
 import { FamilyPicker } from './ui/FamilyPicker';
 import { PanelNav } from './ui/PanelNav';
+import type { SettingsSection } from './ui/PanelNav';
 import './styles/completion.css';
 import './styles/flow.css';
 import './styles/recovery.css';
 import './styles/stage.css';
+import './styles/panels.css';
 
 type Overlay = 'help' | 'settings' | 'show' | 'reset' | 'picker' | 'position' | null;
 
@@ -26,6 +28,9 @@ export default function App() {
   const [presentation, setPresentation] = useState(() => parsePresentation(location.search));
   const [prefs, setPrefs] = useState(loadPreferences);
   const [overlay, setOverlay] = useState<Overlay>(null);
+  const [settingsSection, setSettingsSection] = useState<SettingsSection>('graphics');
+  const [settingsReturnFocus, setSettingsReturnFocus] = useState(false);
+  const panelInvoker = useRef<HTMLElement | null>(null);
   const [epoch, setEpoch] = useState(0);
   const [hidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
   const [notice, setNotice] = useState('');
@@ -46,8 +51,9 @@ export default function App() {
   context.current = { overlay, prefs, state, dockOpen };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
   const wake = () => setHidden(false);
-  const open = (next: Overlay) => { setDockOpen(false); setPickerReady(world.sim.current.ready && world.ready); setPositionDraft(world.sim.current.placement); world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
+  const open = (next: Overlay) => { panelInvoker.current = document.activeElement instanceof HTMLElement ? document.activeElement : null; setDockOpen(false); if (next === 'settings') { setSettingsSection('graphics'); setSettingsReturnFocus(false); } setPickerReady(world.sim.current.ready && world.ready); setPositionDraft(world.sim.current.placement); world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
   const close = () => { setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
+  const cancelReset = () => { setSettingsReturnFocus(true); setOverlay('settings'); };
   const finishPosition = () => { close(); world.sim.current.setPlacement(positionDraft); world.refresh(); };
   const drop = (id: FamilyId, x: number, y: number) => {
     if (!pickerReady) return;
@@ -242,71 +248,73 @@ export default function App() {
     />
     {drag && overlay !== 'picker' && <div className={`burst-drop-target${drag.kind ? ` valid ${drag.kind}` : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'>{drag.kind === 'launch' ? <Flame size={26}/> : <Sparkles size={26}/>}<span>{drag.kind === 'launch' ? 'Release to launch' : drag.kind === 'burst' ? 'Release to burst' : 'Move over the sky or terrace'}</span></div>}
 
-    {!world.ready && !world.error && <div className='loading-state' role='status'><span className='loading-spark'/><span>Preparing the night sky</span><small>Graphics will switch automatically when needed.</small><a href='?backend=canvas'>Open compatibility mode</a></div>}
-    {world.error && <section className='recovery glass' role='alert'><h2>The sky needs a fresh start.</h2><p>{world.error}</p><div className='button-row'><button className='secondary-button' onClick={() => { world.reset(); setEpoch(e => e + 1); }}>Retry current quality</button><a className='secondary-button' href='?backend=webgl'>Try WebGL graphics</a><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
+    {!world.ready && !world.error && <div className='loading-state' role='status'><Sparkles size={18} aria-hidden='true'/><span>Preparing the night sky</span><small>Graphics switch automatically if needed.</small><a href='?backend=canvas'>Open compatibility mode</a></div>}
+    {world.error && <section className='recovery' role='alert'><div className='panel-heading'><AlertCircle size={18} aria-hidden='true'/><h2>Graphics interrupted</h2></div><p>{world.error}</p><div className='button-row panel-actions'><button className='secondary-button' onClick={() => { world.reset(); setEpoch(e => e + 1); }}><RotateCcw size={16} aria-hidden='true'/>Retry current quality</button><a className='secondary-button' href='?backend=webgl'><Monitor size={16} aria-hidden='true'/>Try WebGL graphics</a><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}><Settings2 size={16} aria-hidden='true'/>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'><Monitor size={16} aria-hidden='true'/>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
     <div className='reveal-controls' aria-hidden={!hidden}>{hidden && <>
-      <button className='icon-button glass' aria-label='Show controls' onClick={wake}><Settings2 size={18}/></button>
-      <button className='icon-button glass' aria-label={state.paused ? 'Resume scene' : 'Pause scene'} data-always='true' onClick={resumeOrPause}>{state.paused ? <Play size={18}/> : <Pause size={18}/>}</button>
-      <button className='icon-button glass' aria-label={world.soundActive ? 'Mute sound' : 'Enable sound'} data-always='true' onClick={() => void toggleSound()}>{world.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
+      <button className='icon-button' aria-label='Show controls' onClick={wake}><Settings2 size={18}/></button>
+      <button className='icon-button' aria-label={state.paused ? 'Resume scene' : 'Pause scene'} data-always='true' onClick={resumeOrPause}>{state.paused ? <Play size={18}/> : <Pause size={18}/>}</button>
+      <button className='icon-button' aria-label={world.soundActive ? 'Mute sound' : 'Enable sound'} data-always='true' onClick={() => void toggleSound()}>{world.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
     </>}</div>
 
-    {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} dragging={Boolean(drag)}>
-      <p className='intro-copy'>Tap a style for your next rocket. Drag into the sky for an instant burst, or down to the terrace for a placed rocket launch.</p>
+    {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} returnFocus={panelInvoker.current} dragging={Boolean(drag)}>
+      <p className='panel-note'>Tap to select. Drag to sky for a burst; to terrace for a rocket.</p>
       <FamilyPicker selectedId={state.selected} available={world.ready} onSelect={id => { select(id); close(); }} onDragStart={(id, event) => startDrag(id, event, true)}/>
-      <button className='secondary-button full' disabled={!pickerReady} onClick={() => { const r = world.heroRect(); drop(state.selected, r.x + r.width / 2, r.y + r.height * .38); }}>Burst selected style in center</button>
-      {!pickerReady && <p className='fine-print'>Resume the scene and let the current rocket finish to drag a new burst.</p>}
+      <div className='panel-actions'><button className='secondary-button' disabled={!pickerReady} onClick={() => { const r = world.heroRect(); drop(state.selected, r.x + r.width / 2, r.y + r.height * .38); }}><Sparkles size={16} aria-hidden='true'/>Burst selected style in center</button></div>
+      {!pickerReady && <p className='fine-print'>Resume and let the current rocket finish before dragging.</p>}
       {drag && <div className={`burst-drop-target${drag.kind ? ` valid ${drag.kind}` : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'>{drag.kind === 'launch' ? <Flame size={26}/> : <Sparkles size={26}/>}<span>{drag.kind === 'launch' ? 'Release to launch' : drag.kind === 'burst' ? 'Release to burst' : 'Move over the sky or terrace'}</span></div>}
     </Dialog>}
-    {overlay === 'position' && <Dialog variant='position' title='Place the next rocket' onClose={close}>
-      <p className='intro-copy'>Choose a position along the launch terrace.</p>
-      <input className='position-slider' aria-label='Firework position' type='range' min='.2' max='.8' step='.01' value={positionDraft} onChange={e => setPositionDraft(Number(e.target.value))}/>
-      <div className='position-presets'>{[['Left', .2], ['Center', .5], ['Right', .8]].map(([label, value]) => <button key={label} onClick={() => setPositionDraft(Number(value))}>{label}</button>)}</div>
-      <button className='primary-button full' onClick={finishPosition}>Set position</button>
-      <button className='text-button full' onClick={() => setOverlay('help')}>Help</button>
+    {overlay === 'position' && <Dialog variant='position' title='Position' onClose={close} returnFocus={panelInvoker.current}>
+      <p className='panel-note'><MapPin size={16} aria-hidden='true'/>Place the next rocket on the terrace.</p>
+      <div className='position-preview' role='img' aria-label={`Next rocket position: ${Math.round(positionDraft * 100)} percent`}><span className='position-marker' style={{ left: `${(positionDraft - .2) / .6 * 100}%` }}><Flame size={18} aria-hidden='true'/></span></div>
+      <label className='position-value' htmlFor='firework-position'><span>Left → right</span><output htmlFor='firework-position'>{Math.round(positionDraft * 100)}%</output></label>
+      <input id='firework-position' className='position-slider' aria-label='Firework position' type='range' min='.2' max='.8' step='.01' value={positionDraft} onChange={e => setPositionDraft(Number(e.target.value))}/>
+      <div className='position-presets'>{[['Left', .2], ['Center', .5], ['Right', .8]].map(([label, value]) => <button key={label} aria-pressed={Math.abs(positionDraft - Number(value)) < .005} onClick={() => setPositionDraft(Number(value))}>{label}</button>)}</div>
+      <div className='panel-actions'><button className='primary-button' onClick={finishPosition}><MapPin size={16} aria-hidden='true'/>Set position</button><button className='text-button' onClick={() => setOverlay('help')}><CircleHelp size={16} aria-hidden='true'/>Help</button></div>
     </Dialog>}
 
-    {overlay === 'help' && <Dialog variant='help' title='A little spark. A whole night sky.' onClose={close}>
-      <p className='intro-copy'>Take a moment out of the everyday. This night is yours to light.</p>
-      <div className='help-steps'><div><Sparkles/><span><strong>Choose your firework</strong><small>Classics sit on the left and Grand styles on the right. On a phone, open the small dock at the bottom.</small></span></div><div><Hand/><span><strong>Drag to place it</strong><small>Release a style in the sky for an instant burst. Release near the launch terrace to light a rocket from that horizontal position.</small></span></div><div><Flame/><span><strong>Launch it. Look up.</strong><small>Use the flame beside a style or the main flame control to launch it from your saved position. One press lights one fuse.</small></span></div></div>
+    {overlay === 'help' && <Dialog variant='help' title='Quick help' onClose={close} returnFocus={panelInvoker.current}>
+      <div className='help-steps'><div><Sparkles size={18} aria-hidden='true'/><span><strong>Choose</strong><small>Classics left, Grand right. On phones, open Styles.</small></span></div><div><Hand size={18} aria-hidden='true'/><span><strong>Drop</strong><small>Sky: instant burst. Terrace: a rocket at your drop position.</small></span></div><div><Flame size={18} aria-hidden='true'/><span><strong>Launch</strong><small>A flame icon uses your saved position. One press lights one fuse.</small></span></div></div>
       <Toggle label='Reduced flashes' detail='Softer light, with the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
       <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
-      <p className='fine-print'>Flashing visual effects. Sound starts off. Pause is always within reach. This is a digital simulation only.</p>
-      <button className='primary-button full' onClick={close}>Enter the night</button>
-      <button className='text-button full' onClick={() => { change('onboarded', true); close(); }}>Skip introduction</button>
-      <details className='keyboard-help'><summary>Keyboard controls</summary><p>1–5: classics · 6–9, 0: grand collection · Left/Right: place · L: launch · Space: pause · M: sound · Escape: close a panel. Tab moves through every control.</p></details>
+      <p className='fine-print'>Flashing effects; digital simulation. Sound starts off. Pause stays available.</p>
+      <div className='panel-actions'><button className='primary-button' onClick={close}><Play size={16} aria-hidden='true'/>Enter the night</button><button className='text-button' onClick={() => { change('onboarded', true); close(); }}>Skip introduction</button></div>
+      <details className='keyboard-help panel-detail'><summary><Keyboard size={16} aria-hidden='true'/>Keyboard controls</summary><p>1–5: Classics · 6–9, 0: Grand · ←/→: position · L: launch · Space: pause · M: sound · Escape: close. Tab reaches every control.</p></details>
     </Dialog>}
 
-    {overlay === 'show' && <Dialog variant='show' title='Let the sky take over.' onClose={close}>
-      <p className='intro-copy'>A gently directed display. No two nights quite the same.</p>
-      <button className='secondary-button full' onClick={() => { returnToManual(); close(); }}>Manual</button>
+    {overlay === 'show' && <Dialog variant='show' title='Show mode' onClose={close} returnFocus={panelInvoker.current}>
+      <button className='compact-choice show-manual' aria-label='Manual' onClick={() => { returnToManual(); close(); }}><Hand size={18} aria-hidden='true'/><span><strong>Manual</strong><small>Choose and launch yourself.</small></span></button>
       <fieldset className='show-presets'><legend className='sr-only'>Show pacing</legend>{([
-        { id: 'calm', name: 'Calm', description: 'Room to breathe between every burst.', icon: <Wind size={21}/> },
-        { id: 'festival', name: 'Festival', description: 'A gathering of colour, rhythm and light.', icon: <Sparkles size={21}/> },
-        { id: 'finale', name: 'Finale', description: 'A 32-second flourish, then a quiet sky.', icon: <Flame size={21}/> },
-      ] as const).map(p => <label key={p.id} className={`preset${prefs.preset === p.id ? ' chosen' : ''}`}><input type='radio' name='preset' value={p.id} checked={prefs.preset === p.id} onChange={() => change('preset', p.id as ShowPreset)}/>{p.icon}<span><strong>{p.name}</strong><small>{p.description}</small></span></label>)}</fieldset>
-      <p className='fine-print'>Choosing a firework yourself stops future automatic launches. Manual controls stay available while you watch.</p>
-      <button className='primary-button full' disabled={!world.ready || Boolean(world.error)} onClick={() => startShow(prefs.preset)}>Start show <Play size={17}/></button>
-      {state.show && <button className='text-button full' onClick={() => { world.sim.current.stopShow(); close(); }}>Stop automatic show</button>}
+        { id: 'calm', name: 'Calm', description: 'Space between bursts.', icon: <Wind size={18} aria-hidden='true'/> },
+        { id: 'festival', name: 'Festival', description: 'Rhythm and color.', icon: <Sparkles size={18} aria-hidden='true'/> },
+        { id: 'finale', name: 'Finale', description: '32 seconds, then quiet.', icon: <Flame size={18} aria-hidden='true'/> },
+      ] as const).map(p => <label key={p.id} className={`preset compact-choice${prefs.preset === p.id ? ' chosen' : ''}`}><input type='radio' aria-label={p.name} name='preset' value={p.id} checked={prefs.preset === p.id} onChange={() => change('preset', p.id as ShowPreset)}/>{p.icon}<span><strong>{p.name}</strong><small>{p.description}</small></span></label>)}</fieldset>
+      <p className='fine-print'>Selecting a firework stops future auto launches. The current effect continues.</p>
+      <div className='panel-actions'><button className='primary-button' disabled={!world.ready || Boolean(world.error)} onClick={() => startShow(prefs.preset)}><Play size={16} aria-hidden='true'/>Start show</button>{state.show && <button className='text-button' onClick={() => { world.sim.current.stopShow(); close(); }}>Stop automatic show</button>}</div>
     </Dialog>}
 
-    {overlay === 'settings' && <Dialog variant='settings' title='Make yourself comfortable.' onClose={close}>
-      <PanelNav reducedMotion={prefs.reducedMotion}/>
+    {overlay === 'settings' && <Dialog variant='settings' title='Settings' onClose={close} returnFocus={panelInvoker.current} initialFocusId={settingsReturnFocus ? 'settings-reset-trigger' : undefined} navigation={<PanelNav value={settingsSection} onChange={setSettingsSection}/>}>
       {notice && <p className='settings-notice' role='status'>{notice}</p>}
-      <div className='settings-group' id='settings-sound'><h3>Sound & feel</h3>
-        <Toggle label='Sound' detail='Original spatial booms, hiss and crackle.' checked={world.soundActive} onChange={() => void toggleSound()}/>
-        <label className='volume-setting'><span>Volume</span><input aria-label='Volume' type='range' min='0' max='0.8' step='0.01' value={prefs.volume} onChange={event => change('volume', Number(event.target.value))}/></label>
+      <section className='panel-pane settings-tab-panel' role='tabpanel' id='settings-graphics' aria-labelledby='settings-tab-graphics' hidden={settingsSection !== 'graphics'} tabIndex={0}>
+        <div className='settings-group'><h3>Rendering</h3>
+          <p className='panel-status'><Monitor size={16} aria-hidden='true'/>Active renderer: {world.backend}</p>
+          <label className='setting-row'><span className='setting-label'>Graphics quality</span><select aria-label='Graphics quality' value={prefs.quality} onChange={event => change('quality', event.target.value as Preferences['quality'])}><option value='auto'>Automatic</option><option value='low'>Low</option><option value='standard'>Standard</option><option value='ultra'>Ultra</option></select></label>
+          <div className='button-row renderer-options'><a className='secondary-button' aria-label='Automatic renderer' href='?'><RotateCcw size={16} aria-hidden='true'/>Auto</a><a className='secondary-button' aria-label='Try WebGPU graphics' href='?backend=webgpu'><Sparkles size={16} aria-hidden='true'/>WebGPU</a><a className='secondary-button' aria-label='Try WebGL graphics' href='?backend=webgl'><Monitor size={16} aria-hidden='true'/>WebGL</a><a className='secondary-button' aria-label='Compatibility mode' href='?backend=canvas'><Monitor size={16} aria-hidden='true'/>Canvas</a></div>
+          <p className='fine-print'>WebGPU and WebGL use 3D; Canvas uses simpler 2D. Switching starts a fresh sky and keeps saved quality.</p>
+        </div>
+        <div className='settings-group'><h3>Comfort</h3>
+          <Toggle label='Reduced flashes' detail='Softer light; the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
+          <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
+        </div>
+      </section>
+      <section className='panel-pane settings-tab-panel' role='tabpanel' id='settings-sound' aria-labelledby='settings-tab-sound' hidden={settingsSection !== 'sound'} tabIndex={0}>
+        <div className='settings-group'><h3>Sound & feel</h3>
+        <Toggle label='Sound' detail='Fuse, launch and spatial reports.' checked={world.soundActive} onChange={() => void toggleSound()}/>
+        <label className='volume-setting'><span>Volume</span><input aria-label='Volume' type='range' min='0' max='0.8' step='0.01' value={prefs.volume} onChange={event => change('volume', Number(event.target.value))}/><output>{Math.round(prefs.volume * 100)}%</output></label>
         <Toggle label='Quiet night ambience' checked={prefs.ambience} onChange={v => change('ambience', v)}/>
-        <Toggle label='Gentle haptics' detail={typeof navigator.vibrate === 'function' ? 'Short pulses on compatible devices.' : 'Not supported in this browser.'} disabled={typeof navigator.vibrate !== 'function'} checked={prefs.haptics && typeof navigator.vibrate === 'function'} onChange={v => change('haptics', v)}/>
-      </div>
-      <div className='settings-group' id='settings-graphics'><h3>Comfort & graphics</h3>
-        <p className='fine-print'>Active renderer: {world.backend}. Compatibility mode uses simpler graphics without a GPU.</p>
-        <p>Active renderer: {world.backend}. Renderer selection keeps your graphics quality choice.</p>
-        <div className='button-row'><a className='secondary-button' href='?'>Automatic renderer</a><a className='secondary-button' href='?backend=webgpu'>Try WebGPU graphics</a><a className='secondary-button' href='?backend=webgl'>Try WebGL graphics</a><a className='secondary-button' href='?backend=canvas'>Compatibility mode</a></div>
-        <p className='fine-print'>Switching renderer opens a fresh sky and keeps your saved preferences.</p>
-        <Toggle label='Reduced flashes' detail='Softens the light that catches the smoke.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
-        <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
-        <label className='setting-row'><span className='setting-label'>Graphics quality</span><select aria-label='Graphics quality' value={prefs.quality} onChange={event => change('quality', event.target.value as Preferences['quality'])}><option value='auto'>Automatic</option><option value='low'>Low</option><option value='standard'>Standard</option><option value='ultra'>Ultra</option></select></label>
-      </div>
+        <Toggle label='Gentle haptics' detail={typeof navigator.vibrate === 'function' ? 'Short pulses on supported devices.' : 'Not supported in this browser.'} disabled={typeof navigator.vibrate !== 'function'} checked={prefs.haptics && typeof navigator.vibrate === 'function'} onChange={v => change('haptics', v)}/>
+        </div>
+      </section>
+      <section className='panel-pane settings-tab-panel' role='tabpanel' id='settings-display' aria-labelledby='settings-tab-display' hidden={settingsSection !== 'display'} tabIndex={0}>
       <PresentationSettings value={presentation} onChange={setPresentation} disabled={!world.ready || Boolean(world.error)} onStart={() => {
         setPresentation(p => ({ ...p, mode: p.mode === 'interactive' ? 'scene' : p.mode, show: p.show || 'calm' }));
         world.start(presentation.show || 'calm');
@@ -314,18 +322,20 @@ export default function App() {
         setOverlay(null);
         setHidden(true);
           }} onExit={() => { setPresentation(p => ({ ...p, mode: 'interactive', show: null })); world.sim.current.stopShow(); world.refresh(); wake(); }}/>
-      <div className='settings-group' id='settings-device'><h3>This device</h3>
+      </section>
+      <section className='panel-pane settings-tab-panel' role='tabpanel' id='settings-device' aria-labelledby='settings-tab-device' hidden={settingsSection !== 'device'} tabIndex={0}>
+        <div className='settings-group'><h3>This device</h3>
         <Toggle label='Keep screen awake' detail={platform.awake ? 'Active while this page stays visible.' : 'Optional; released on pause or tab switch.'} checked={platform.awake} onChange={() => void platform.toggleWake()}/>
         <div className='setting-row'><span><span className='setting-label'>Offline play</span><small>{platform.offline ? 'Offline package cached on this device.' : 'Available after the offline package finishes caching.'}</small></span><span className={`status-dot${platform.offline ? ' available' : ''}`}/></div>
-        <div className='button-row'><button className='secondary-button' onClick={() => void platform.installApp()}><Download size={16}/>{platform.installable ? 'Install app' : 'Installation help'}</button><button className='secondary-button' onClick={() => void platform.toggleFullscreen()}><Maximize size={16}/>Fullscreen</button></div>
-        {platform.updateReady && <button className='secondary-button full' disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>Update app and restart</button>}
-      </div>
-      <details className='diagnostics'><summary>Graphics details</summary><dl><div><dt>Renderer</dt><dd>{world.backend} · Realism V3 / UI V5</dd></div><div><dt>Build</dt><dd>{CONFIG_VERSION}</dd></div><div><dt>Render pixels</dt><dd>{world.metrics.renderPixels.toLocaleString()}</dd></div><div><dt>Active quality</dt><dd>{state.quality}</dd></div><div><dt>Visible particles</dt><dd>{state.particles.toLocaleString()}</dd></div><div><dt>Smoke layers</dt><dd>{state.smoke} / 96</dd></div><div><dt>Launched / bursts</dt><dd>{state.launched} / {state.bursts}</dd></div></dl></details>
-      <button className='text-button full' onClick={() => setOverlay('help')}>Help and keyboard controls</button>
-      <p className='fine-print'>No accounts, tracking or remote media. Preferences stay in this browser. Your hosting provider may retain access logs. Offline storage can be cleared by your browser.</p>
-      <div className='button-row'><button className='text-button' onClick={() => setOverlay('help')}>Replay introduction</button><button className='text-button' onClick={() => setOverlay('reset')}><RotateCcw size={14}/>Reset this sky</button></div>
+        <div className='button-row'><button className='secondary-button' onClick={() => void platform.installApp()}><Download size={16} aria-hidden='true'/>{platform.installable ? 'Install app' : 'Installation help'}</button><button className='secondary-button' onClick={() => void platform.toggleFullscreen()}><Maximize size={16} aria-hidden='true'/>Fullscreen</button></div>
+        {platform.updateReady && <button className='secondary-button' disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>Update app and restart</button>}
+        </div>
+        <details className='diagnostics panel-detail'><summary>Graphics details</summary><dl><div><dt>Renderer</dt><dd>{world.backend} · Realism V3 / edge panels</dd></div><div><dt>Build</dt><dd>{CONFIG_VERSION}</dd></div><div><dt>Render pixels</dt><dd>{world.metrics.renderPixels.toLocaleString()}</dd></div><div><dt>Active quality</dt><dd>{state.quality}</dd></div><div><dt>Visible particles</dt><dd>{state.particles.toLocaleString()}</dd></div><div><dt>Smoke layers</dt><dd>{state.smoke} / 96</dd></div><div><dt>Launched / bursts</dt><dd>{state.launched} / {state.bursts}</dd></div></dl></details>
+        <div className='panel-actions'><button className='text-button' onClick={() => setOverlay('help')}><Keyboard size={16} aria-hidden='true'/>Help and keyboard controls</button><button className='text-button' onClick={() => setOverlay('help')}>Replay introduction</button><button id='settings-reset-trigger' className='text-button' onClick={() => { setSettingsReturnFocus(false); setOverlay('reset'); }}><RotateCcw size={16} aria-hidden='true'/>Reset this sky</button></div>
+        <details className='panel-detail'><summary>Privacy & storage</summary><p className='fine-print'>No accounts or remote media. Preferences stay in this browser. Hosting may collect access and performance data. Your browser can clear offline storage.</p></details>
+      </section>
     </Dialog>}
 
-    {overlay === 'reset' && <Dialog variant='reset' title='Begin with a quiet sky?' onClose={() => setOverlay('settings')}><p className='intro-copy'>This stops the display and clears your saved preferences and introduction progress on this device.</p><button className='primary-button full' onClick={reset}>Reset sky and preferences</button><button className='text-button full' onClick={() => setOverlay('settings')}>Keep my sky</button></Dialog>}
+    {overlay === 'reset' && <Dialog variant='reset' title='Reset sky?' onClose={cancelReset} returnFocus={panelInvoker.current}><p className='panel-note'>Stops the display and clears this device’s preferences and introduction progress.</p><div className='panel-actions'><button className='primary-button' onClick={reset}><RotateCcw size={16} aria-hidden='true'/>Reset sky and preferences</button><button className='text-button' onClick={cancelReset}>Keep my sky</button></div></Dialog>}
   </main>;
 }

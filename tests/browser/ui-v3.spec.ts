@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { enterSky as enter } from './enter';
+import { enterSky as enter, settingsTab } from './enter';
 
 test('desktop command deck exposes the new hierarchy without covering the sky', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
@@ -33,7 +33,7 @@ test('mode rail starts shows directly and manual returns control to the user', a
   await page.getByRole('button', { name: 'Manual', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Manual', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'Automatic show' }).click();
-  await expect(page.getByRole('heading', { name: 'Let the sky take over.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Show mode', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Close panel' }).click();
 });
 
@@ -81,7 +81,7 @@ test('settings navigation, reset and reduced-motion keep the deck centered', asy
   await page.getByRole('button', { name: 'Open settings' }).click();
   const panel = page.getByRole('dialog');
   await expect(panel).toHaveClass(/sheet--settings/);
-  await page.getByRole('navigation', { name: 'Settings sections' }).getByRole('button', { name: 'Graphics', exact: true }).click();
+  await settingsTab(page, 'Graphics');
   await page.getByLabel('Reduced interface motion', { exact: true }).check();
   await page.getByLabel('Graphics quality', { exact: true }).selectOption('low');
   await page.screenshot({ path: test.info().outputPath('ui-v3-settings.png') });
@@ -91,9 +91,10 @@ test('settings navigation, reset and reduced-motion keep the deck centered', asy
   const width = page.viewportSize()!.width;
   expect(Math.abs(deck!.x + deck!.width / 2 - width / 2)).toBeLessThan(2);
   await page.getByRole('button', { name: 'Open settings' }).click();
-  await page.getByRole('navigation', { name: 'Settings sections' }).getByRole('button', { name: 'Device', exact: true }).click();
+  await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Reset this sky' }).click();
   await page.getByRole('button', { name: 'Keep my sky' }).click();
+  await settingsTab(page, 'Graphics');
   await expect(page.getByLabel('Graphics quality')).toHaveValue('low');
   await page.getByRole('button', { name: 'Close panel' }).click();
   await page.getByRole('button', { name: 'Resume scene', exact: true }).click();
@@ -109,6 +110,7 @@ test('small phone retains visible quick light and can operate every modal', asyn
   await page.screenshot({ path: test.info().outputPath('ui-v3-show-small-phone.png') });
   await page.getByRole('button', { name: 'Close panel' }).click();
   await page.getByRole('button', { name: 'Open settings' }).click();
+  await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Replay introduction' }).click();
   await expect(page.locator('dialog')).toHaveClass(/sheet--help/);
   await page.getByRole('button', { name: 'Enter the night', exact: true }).click();

@@ -1,0 +1,438 @@
+/* Shared opened-panel foundation. Resting stage controls keep their own styles. */
+:root {
+  /* Over pure white, muted text is 5.58:1; selected/hover states remain
+     4.62:1/4.64:1. .76 is the smallest hundredth clearing all three states. */
+  --panel-surface: rgba(7, 15, 25, .76);
+  --panel-hover: rgba(204, 220, 241, .08);
+  --panel-selected: rgba(218, 190, 143, .10);
+  --panel-text: #edf1f6;
+  --panel-muted: #c1cbd8;
+  --panel-accent: #efd0a0;
+  --panel-line: rgba(210, 222, 239, .09);
+  --panel-font: 400 14px/1.45 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --panel-target: 44px;
+  --panel-gutter: 12px;
+  --panel-safe-top: env(safe-area-inset-top, 0px);
+  --panel-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --panel-safe-left: env(safe-area-inset-left, 0px);
+  --panel-safe-right: env(safe-area-inset-right, 0px);
+}
+
+.fireworks-app .sheet.edge-panel {
+  --panel-gutter: 12px;
+  position: fixed;
+  inset: 0;
+  width: min(340px, calc(100vw - 24px - var(--panel-safe-left) - var(--panel-safe-right)));
+  max-width: 360px;
+  max-height: min(78dvh, calc(100dvh - 24px - var(--panel-safe-top) - var(--panel-safe-bottom)));
+  min-height: 0;
+  margin: auto calc(12px + var(--panel-safe-right)) auto auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 12px;
+  background: var(--panel-surface);
+  color: var(--panel-text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .20);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  font: var(--panel-font);
+  text-align: left;
+  overscroll-behavior: contain;
+}
+.fireworks-app .sheet.edge-panel[open] { display: flex; flex-direction: column; }
+.fireworks-app .sheet.edge-panel:is(.sheet--help, .sheet--show, .sheet--picker, .sheet--position) {
+  margin-right: auto;
+  margin-left: calc(12px + var(--panel-safe-left));
+}
+.fireworks-app .sheet.edge-panel::backdrop {
+  background: rgba(2, 6, 12, .12);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.sheet.edge-panel .panel-header {
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  gap: 8px;
+  min-height: calc(var(--panel-target) + 12px);
+  padding: 6px 6px 6px var(--panel-gutter);
+  margin: 0;
+  background: transparent;
+  border: 0;
+}
+.panel-heading-copy { min-width: 0; }
+.sheet.edge-panel .panel-title {
+  max-width: none;
+  margin: 0;
+  font: 600 16px/1.3 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--panel-text);
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+.sheet.edge-panel .panel-description {
+  margin: 4px 0 0;
+  font: var(--panel-font);
+  color: var(--panel-muted);
+}
+.sheet.edge-panel .panel-header .panel-close {
+  width: var(--panel-target);
+  height: var(--panel-target);
+  min-width: var(--panel-target);
+  min-height: var(--panel-target);
+  flex: 0 0 var(--panel-target);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--panel-muted);
+  background: transparent;
+  box-shadow: none;
+}
+.sheet.edge-panel .panel-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 var(--panel-gutter) var(--panel-gutter);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #8493a14d transparent;
+  scroll-padding-block: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.sheet.edge-panel .panel-navigation { flex: 0 0 auto; min-height: 0; padding: 0 var(--panel-gutter) 8px; }
+.sheet.edge-panel .panel-navigation .settings-tabs { margin: 0; }
+.sheet.edge-panel :is(button, a, summary) { min-width: var(--panel-target); min-height: var(--panel-target); }
+.sheet.edge-panel a { display: inline-flex; align-items: center; }
+.sheet.edge-panel :is(button, a, input, select, summary):focus-visible,
+:is(.recovery, .loading-state, .boot-shell, .reveal-controls) :is(button, a, input):focus-visible {
+  outline: 2px solid var(--panel-accent);
+  outline-offset: 2px;
+}
+.sheet.edge-panel :is(button, a, summary) { -webkit-tap-highlight-color: transparent; }
+.sheet.edge-panel :is(button, input, select):disabled { opacity: .50; }
+.sheet.edge-panel :is(.intro-copy, .panel-detail, .fine-print, .panel-note) {
+  margin: 4px 0 10px;
+  color: var(--panel-muted);
+  font: var(--panel-font);
+  text-transform: none;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+.sheet.edge-panel .panel-detail { display: block; margin-block: 3px 0; }
+.sheet.edge-panel p:last-child { margin-bottom: 0; }
+.sheet.edge-panel :is(.settings-group, .panel-setting-group) {
+  margin: 0;
+  padding: 4px 0 8px;
+  border: 0;
+  scroll-margin-top: 8px;
+}
+.sheet.edge-panel :is(.settings-group h3, .panel-section-title) {
+  margin: 8px 0 4px;
+  color: var(--panel-text);
+  font: 600 14px/1.4 system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* True tabs select a single content pane; no stacked settings navigation. */
+.sheet.edge-panel .settings-tabs {
+  position: relative;
+  top: auto;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+  margin: 0 0 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+.sheet.edge-panel .settings-tab {
+  min-width: 0;
+  min-height: var(--panel-target);
+  padding: 5px 2px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--panel-muted);
+  font: 500 14px/1.25 system-ui, sans-serif;
+  overflow-wrap: anywhere;
+  box-shadow: none;
+}
+.sheet.edge-panel .settings-tab[aria-selected='true'] {
+  color: var(--panel-accent);
+  background: var(--panel-selected);
+  box-shadow: none;
+}
+.sheet.edge-panel :is(.settings-tab-panel, .panel-pane)[hidden] { display: none !important; }
+.sheet.edge-panel :is(.settings-tab-panel, .panel-pane) { min-width: 0; outline-offset: -2px; }
+
+/* Native control hit areas remain generous; their visual treatment stays quiet. */
+.sheet.edge-panel :is(.setting-row, .panel-setting, .volume-setting) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: var(--panel-target);
+  margin: 0;
+  padding: 5px 0;
+  border: 0;
+  font: var(--panel-font);
+}
+.sheet.edge-panel :is(.setting-row, .panel-setting) > span:first-child { flex: 1 1 auto; min-width: 0; }
+.sheet.edge-panel :is(.setting-label, .setting-row small, .panel-setting small) {
+  display: block;
+  font: var(--panel-font);
+  color: var(--panel-text);
+  line-height: 1.4;
+}
+.sheet.edge-panel :is(.setting-row small, .panel-setting small) { color: var(--panel-muted); margin-top: 3px; }
+.sheet.edge-panel select {
+  flex: 0 1 48%;
+  min-width: 0;
+  max-width: 160px;
+  min-height: var(--panel-target);
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--panel-text);
+  background: rgba(196, 215, 239, .07);
+  font: var(--panel-font);
+}
+.sheet.edge-panel select option { color: #edf1f6; background: #111c29; }
+.sheet.edge-panel .switch {
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 var(--panel-target);
+  width: var(--panel-target);
+  height: var(--panel-target);
+  min-width: var(--panel-target);
+  min-height: var(--panel-target);
+  margin: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.sheet.edge-panel .switch::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 2px;
+  right: 2px;
+  top: calc(50% - 11px);
+  height: 22px;
+  border-radius: 14px;
+  background: #b6c7de2a;
+}
+.sheet.edge-panel .switch::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 5px;
+  top: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #c7d1dd;
+  transform: none;
+  transition: none;
+}
+.sheet.edge-panel .switch:checked { background: transparent; }
+.sheet.edge-panel .switch:checked::after { background: #d5b68155; }
+.sheet.edge-panel .switch:checked::before { transform: translateX(calc(var(--panel-target) - 26px)); background: var(--panel-accent); }
+.sheet.edge-panel :is(input[type='range'], .position-slider) {
+  min-width: 0;
+  height: var(--panel-target);
+  min-height: var(--panel-target);
+  margin: 0;
+  accent-color: #d6b788;
+  touch-action: pan-y;
+}
+.sheet.edge-panel .volume-setting input { width: 60%; }
+.sheet.edge-panel .position-slider { width: 100%; }
+.sheet.edge-panel .position-preview { position: relative; height: 22px; margin: 4px 8px; }
+.sheet.edge-panel .position-preview::before { content: ''; position: absolute; left: 0; right: 0; top: 10px; height: 1px; background: #c6d3e342; }
+.sheet.edge-panel .position-marker { position: absolute; top: 7px; width: 7px; height: 7px; border-radius: 50%; transform: translateX(-50%); background: var(--panel-accent); }
+.sheet.edge-panel .position-value { display: block; color: var(--panel-muted); font: var(--panel-font); text-align: center; margin: 3px 0; }
+
+.sheet.edge-panel :is(.button-row, .panel-actions) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin: 6px 0; }
+.sheet.edge-panel :is(.button-row, .panel-actions) > :only-child { grid-column: 1 / -1; }
+.sheet.edge-panel :is(.primary-button, .secondary-button, .text-button, .position-presets button),
+:is(.recovery, .loading-state, .boot-shell) :is(button, a) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: var(--panel-target);
+  min-height: var(--panel-target);
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(196, 215, 239, .05);
+  color: var(--panel-text);
+  font: 500 14px/1.3 system-ui, sans-serif;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  box-shadow: none;
+  overflow-wrap: anywhere;
+}
+.sheet.edge-panel .primary-button { background: var(--panel-selected); color: var(--panel-accent); }
+.sheet.edge-panel .text-button { background: transparent; color: var(--panel-muted); }
+.sheet.edge-panel :is(button, a):hover:not(:disabled),
+:is(.recovery, .loading-state, .boot-shell, .reveal-controls) :is(button, a):hover:not(:disabled) { background: var(--panel-hover); color: var(--panel-text); }
+.sheet.edge-panel .position-presets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-block: 6px; }
+.sheet.edge-panel .position-presets button { padding-inline: 3px; }
+.sheet.edge-panel :is(.settings-notice, .panel-notice, .panel-status) {
+  margin: 4px 0 8px;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--panel-accent);
+  font: var(--panel-font);
+  box-shadow: none;
+}
+
+.sheet.edge-panel .show-presets { display: grid; gap: 3px; margin: 6px 0; padding: 0; border: 0; }
+.sheet.edge-panel :is(.preset, .compact-choice) {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: var(--panel-target);
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--panel-text);
+  background: transparent;
+  text-align: left;
+  font: var(--panel-font);
+  box-shadow: none;
+}
+.sheet.edge-panel :is(.preset strong, .compact-choice strong) { font: 500 14px/1.4 system-ui, sans-serif; }
+.sheet.edge-panel :is(.preset small, .compact-choice small) { display: block; font: var(--panel-font); color: var(--panel-muted); margin-top: 2px; }
+.sheet.edge-panel :is(.preset, .compact-choice) > svg { width: 18px; height: 18px; color: var(--panel-muted); }
+.sheet.edge-panel :is(.preset.chosen, .compact-choice[aria-pressed='true']) { background: var(--panel-selected); color: var(--panel-accent); }
+.sheet.edge-panel .preset.chosen svg { color: var(--panel-accent); }
+.sheet.edge-panel .preset:focus-within { outline: 2px solid var(--panel-accent); outline-offset: 0; }
+.sheet.edge-panel .help-steps { display: grid; gap: 10px; margin: 8px 0 12px; }
+.sheet.edge-panel .help-steps > div { display: flex; align-items: flex-start; gap: 9px; }
+.sheet.edge-panel .help-steps svg { width: 18px; height: 18px; margin-top: 2px; color: var(--panel-accent); }
+.sheet.edge-panel .help-steps strong { font: 500 14px/1.4 system-ui, sans-serif; }
+.sheet.edge-panel .help-steps small { display: block; margin-top: 2px; color: var(--panel-muted); font: var(--panel-font); }
+.sheet.edge-panel :is(.keyboard-help, .diagnostics) { margin: 6px 0 0; padding: 0; border: 0; font: var(--panel-font); }
+.sheet.edge-panel :is(.keyboard-help, .diagnostics) summary { display: flex; align-items: center; min-height: var(--panel-target); padding: 6px 0; color: var(--panel-muted); }
+.sheet.edge-panel :is(.keyboard-help, .diagnostics) p { font: var(--panel-font); color: var(--panel-muted); margin: 2px 0 8px; }
+.sheet.edge-panel .diagnostics dl { margin: 4px 0; font: var(--panel-font); }
+.sheet.edge-panel .diagnostics dl > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 8px; padding: 4px 0; }
+.sheet.edge-panel .diagnostics dd { margin: 0; color: var(--panel-text); overflow-wrap: anywhere; }
+
+/* The picker uses native, readable small rows rather than framed artwork cards. */
+.sheet.edge-panel .collection-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; padding: 0; margin-bottom: 6px; border: 0; background: transparent; }
+.sheet.edge-panel .collection-switch button { min-height: var(--panel-target); padding: 6px; border: 0; border-radius: 6px; background: transparent; color: var(--panel-muted); font: var(--panel-font); box-shadow: none; }
+.sheet.edge-panel .collection-switch button[aria-pressed='true'] { color: var(--panel-accent); background: var(--panel-selected); box-shadow: none; }
+.sheet.edge-panel .collection-switch small { display: none; }
+.sheet.edge-panel .flow-families { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 0; margin: 0; }
+.sheet.edge-panel .flow-family { display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 9px; min-height: max(48px, var(--panel-target)); height: auto; padding: 6px 7px; border: 0; border-radius: 6px; background: transparent; color: var(--panel-text); font: var(--panel-font); box-shadow: none; touch-action: none; user-select: none; -webkit-user-select: none; }
+.sheet.edge-panel .flow-family.selected { background: var(--panel-selected); border: 0; box-shadow: none; }
+.sheet.edge-panel :is(.flow-family-art, .flow-family-art svg, .flow-family-art .firework-glyph) { width: 32px; height: 32px; min-width: 32px; min-height: 32px; filter: none; }
+.sheet.edge-panel .flow-family > .family-copy { min-width: 0; text-align: left; overflow: visible; white-space: normal; text-overflow: clip; }
+.sheet.edge-panel .family-copy strong { display: block; font: 500 14px/1.35 system-ui, sans-serif; }
+.sheet.edge-panel .family-copy small { display: block; color: var(--panel-muted); font: var(--panel-font); }
+.sheet.edge-panel .safe-area-settings { margin: 6px 0; }
+.sheet.edge-panel .safe-area-preview { height: 68px; border: 0; border-radius: 5px; background: #a2bed010; }
+.sheet.edge-panel .safe-area-preview span { border: 1px dashed #d5bd9366; background: transparent; }
+.sheet.edge-panel .safe-area-settings > label { display: grid; grid-template-columns: 48px minmax(0, 1fr) 42px; align-items: center; gap: 6px; min-height: var(--panel-target); font: var(--panel-font); }
+.sheet.edge-panel .safe-area-settings > label input { width: 100%; }
+.sheet.edge-panel .safe-area-settings output { text-align: right; color: var(--panel-muted); }
+.sheet.edge-panel .display-link-result { margin-top: 6px; font: var(--panel-font); }
+.sheet.edge-panel .display-link-result p { margin: 3px 0; }
+.sheet.edge-panel .display-link-result input { width: 100%; min-height: var(--panel-target); padding: 7px; border: 0; border-radius: 5px; color: var(--panel-text); background: #a2bed010; font: var(--panel-font); }
+
+/* Startup/recovery uses the same unobtrusive material once app styles exist. */
+.fireworks-app :is(.recovery, .loading-state), .boot-shell {
+  position: fixed;
+  z-index: 45;
+  left: auto;
+  right: calc(12px + var(--panel-safe-right));
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  width: min(340px, calc(100vw - 24px - var(--panel-safe-left) - var(--panel-safe-right)));
+  max-width: 360px;
+  max-height: min(78dvh, calc(100dvh - 24px - var(--panel-safe-top) - var(--panel-safe-bottom)));
+  min-height: 0;
+  margin: 0;
+  padding: 12px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--panel-surface);
+  color: var(--panel-text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .20);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  overflow: auto;
+  font: var(--panel-font);
+  text-align: left;
+}
+.fireworks-app .loading-state { display: flex; align-items: flex-start; gap: 7px; }
+.fireworks-app .loading-spark { display: none; }
+:is(.recovery, .boot-shell) :is(h1, h2) { margin: 0 0 7px; color: var(--panel-text); font: 600 16px/1.3 system-ui, sans-serif; letter-spacing: 0; }
+:is(.recovery, .loading-state, .boot-shell) :is(p, small) { max-width: none; margin: 3px 0 8px; color: var(--panel-muted); font: var(--panel-font); }
+.boot-shell { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 4px; }
+.boot-shell .boot-label { text-transform: none; letter-spacing: 0; margin: 0; font: 500 14px/1.3 system-ui, sans-serif; color: var(--panel-accent); }
+:is(.recovery .button-row, .boot-actions) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin: 6px 0 0; }
+.boot-actions[hidden] { display: none; }
+.fireworks-app .recovery .primary-button { color: var(--panel-accent); background: var(--panel-selected); }
+.fireworks-app .reveal-controls { right: calc(12px + var(--panel-safe-right)); bottom: calc(12px + var(--panel-safe-bottom)); gap: 4px; opacity: 1; }
+.fireworks-app .reveal-controls .icon-button { width: var(--panel-target); height: var(--panel-target); min-width: var(--panel-target); min-height: var(--panel-target); border: 0; border-radius: 6px; background: rgba(7, 15, 25, .38); color: var(--panel-text); box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+
+/* Native modal inertness owns input; quiet only its background controls. */
+.fireworks-app[data-overlay]:not([data-overlay='none']) .edge-group { opacity: .18; }
+.fireworks-app[data-overlay]:not([data-overlay='none']):not([data-drag-active='true']) .family-dock { opacity: .18; }
+
+/* Drag coordinates remain scene coordinates; hide the panel material, not the target. */
+.fireworks-app .sheet.edge-panel.is-dragging { background: transparent; border: 0; box-shadow: none; overflow: visible; }
+.fireworks-app .sheet.edge-panel.is-dragging::backdrop { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.sheet.edge-panel.is-dragging > .panel-header, .sheet.edge-panel.is-dragging .panel-body > :not(.burst-drop-target) { visibility: hidden; }
+.sheet.edge-panel.is-dragging .panel-body { overflow: visible; }
+.sheet.edge-panel.is-dragging .burst-drop-target { visibility: visible; }
+
+@media (max-width: 1023px), (pointer: coarse) { :root { --panel-target: 48px; } }
+@media (max-width: 767px), (max-height: 540px) {
+  .fireworks-app .sheet.edge-panel,
+  .fireworks-app .sheet.edge-panel:is(.sheet--help, .sheet--show, .sheet--picker, .sheet--position) {
+    top: auto;
+    bottom: calc(8px + var(--panel-safe-bottom));
+    left: calc(8px + var(--panel-safe-left));
+    right: calc(8px + var(--panel-safe-right));
+    width: min(360px, calc(100vw - 16px - var(--panel-safe-left) - var(--panel-safe-right)));
+    max-height: min(60dvh, calc(100dvh - 16px - var(--panel-safe-top) - var(--panel-safe-bottom)));
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+  .fireworks-app :is(.recovery, .loading-state), .boot-shell {
+    top: auto;
+    bottom: calc(8px + var(--panel-safe-bottom));
+    left: calc(8px + var(--panel-safe-left));
+    right: calc(8px + var(--panel-safe-right));
+    width: min(360px, calc(100vw - 16px - var(--panel-safe-left) - var(--panel-safe-right)));
+    max-height: min(60dvh, calc(100dvh - 16px - var(--panel-safe-top) - var(--panel-safe-bottom)));
+    margin-inline: auto;
+    transform: none;
+  }
+}
+@media (max-height: 540px) {
+  .sheet.edge-panel .panel-header { min-height: calc(var(--panel-target) + 8px); padding-block: 4px; }
+  .sheet.edge-panel .panel-body { padding-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet.edge-panel *, .recovery *, .loading-state *, .boot-shell *, .reveal-controls * { transition: none; animation: none; }
+}
