@@ -1,0 +1,71 @@
+{
+  "purpose": "Byte-exact preserved reports: intermediate failures remain separate from final software UI and HTTP results. No screenshots are copied by this receipt task.",
+  "files": [
+    {
+      "source": "test-results/transparent-panels-local/panel-report.json",
+      "copy": "first-local-panel-report.json",
+      "bytes": 73408,
+      "sha256": "fbe5ed9ae870e27bd811354f140a5ca67fb824492596bdce057fed96df542f01",
+      "completedChecks": 84,
+      "failureRecords": 11,
+      "failure": null,
+      "unexpectedErrors": 1,
+      "sourceFingerprint": "9f68f1c94c8c996e7abd2a27d72c3cbe6b7ceab3b01bec6afb30cbd69aae92d9"
+    },
+    {
+      "source": "test-results/transparent-panels-drag-probe/panel-report.json",
+      "copy": "text-origin-drag-probe-report.json",
+      "bytes": 11698,
+      "sha256": "7422a9e0e6757b7b3edcdd8852b5ea338fa23662f51ab45da25497209904440b",
+      "completedChecks": 0,
+      "failureRecords": 1,
+      "failure": null,
+      "unexpectedErrors": 0,
+      "sourceFingerprint": "9f68f1c94c8c996e7abd2a27d72c3cbe6b7ceab3b01bec6afb30cbd69aae92d9"
+    },
+    {
+      "source": "test-results/panels-preview-hardware/report.json",
+      "copy": "first-preview-hardware-report.json",
+      "bytes": 39556,
+      "sha256": "72583b68a5948402e8afbae6749e9e91a6b65a0a3f2a8a892f07974235f7eed0",
+      "completedChecks": 10,
+      "failureRecords": 0,
+      "failure": "AssertionError [ERR_ASSERTION]: Comfort idle must remain static\n    at staticIdle (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/galactic-checks.mjs:19:10)\n    at async qualifyGalacticSky (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/galactic-checks.mjs:113:76)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/galaxy-browser.mjs:199:7",
+      "unexpectedErrors": 0,
+      "sourceFingerprint": null
+    },
+    {
+      "source": "test-results/panels-motion-probe/report.json",
+      "copy": "motion-probe-report.json",
+      "bytes": 74696,
+      "sha256": "4671436dd2b37c4dc6fbd558a3991fd97691840342706f9fe080eba4112b00a0",
+      "completedChecks": 11,
+      "failureRecords": 0,
+      "failure": null,
+      "unexpectedErrors": 0,
+      "sourceFingerprint": "9f68f1c94c8c996e7abd2a27d72c3cbe6b7ceab3b01bec6afb30cbd69aae92d9"
+    },
+    {
+      "source": "test-results/transparent-panels-final-local/panel-report.json",
+      "copy": "final-local-panel-report.json",
+      "bytes": 171335,
+      "sha256": "e678bf82785d68bb403bff4e2234df46f43f16bdfd985a5aaffbe011b81e58ed",
+      "completedChecks": 195,
+      "failureRecords": 0,
+      "failure": null,
+      "unexpectedErrors": 0,
+      "sourceFingerprint": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0"
+    },
+    {
+      "source": "test-results/panels-preview-http-reviewed.json",
+      "copy": "final-preview-http-report.json",
+      "bytes": 3089,
+      "sha256": "e7073fbafd97f794f8f4e1afb610f10827050c0585c3adc30d7505226a526e62",
+      "completedChecks": 17,
+      "failureRecords": 0,
+      "failure": null,
+      "unexpectedErrors": 0,
+      "sourceFingerprint": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0"
+    }
+  ]
+}

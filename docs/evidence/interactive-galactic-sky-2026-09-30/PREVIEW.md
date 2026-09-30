@@ -9,7 +9,7 @@ Preview: [Firecrackers galactic sky](https://firecrackers-galactic-preview.allyg
 - **7 hosted cold-offline checks passed**, including all eight actual cached assets, exact v007 GLB with three embedded 2K maps, the three native sky layers, mouse response without page/service-worker fetches and a newly selected Saturn launch/burst. No console/page errors or offline request failures. [Offline receipt](intermediate/offline.json).
 - **35 new local sky checks and 132 existing local regression checks passed**, with deliberate decoder/recovery fault diagnostics recorded separately. **144 unit tests**, typecheck, lint, build, audit and accelerated logical soak passed. [Implementation and exact boundaries](IMPLEMENTATION.md).
 
-During idle the Ultra hardware samples rendered 13–15 frames in750ms, inside the20Hz cap. This proves the bounded redraw policy; it does not measure completed GPU frames or promise60fps during fireworks. Pause, freeze, Low and reduced motion retain static checks. Touch tests reproduced the original browser `pointercancel`, then passed after the scoped canvas `pinch-zoom` policy.
+During idle the Ultra hardware samples rendered 15 frames in 750 ms, inside the 20 Hz cap. This proves the bounded redraw policy; it does not measure completed GPU frames or promise 60 fps during fireworks. Pause, freeze, Low and reduced motion retain static checks. Touch tests reproduced the original browser `pointercancel`, then passed after the scoped canvas `pinch-zoom` policy.
 
 ## Visual review
 
