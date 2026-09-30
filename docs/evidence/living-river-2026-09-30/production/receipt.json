@@ -1,0 +1,50 @@
+{
+  "recordedAt": "2026-09-30T11:36:04.574362+00:00",
+  "production": "https://firecrackers.mainandmany.com/",
+  "version": "2026-09-30.4",
+  "mainCommit": "edbc0acc4024e334b05334d978baeb51dc0a7045",
+  "pullRequest": 19,
+  "productionWorker": "534323b7-e2e8-4935-a161-b86bdfb3f2b0",
+  "releaseSha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+  "fingerprintedModules": 56,
+  "rollback": {
+    "version": "2026-09-30.2",
+    "worker": "2bd3e2bd-c4bb-418b-9ca6-ce11ebef9d5a"
+  },
+  "mainCI": {
+    "runId": 36705577730,
+    "conclusion": "success",
+    "jobs": 4
+  },
+  "docsCI": {
+    "runId": 36705577354,
+    "conclusion": "success"
+  },
+  "publicChecks": {
+    "hardware": 33,
+    "grand": 42,
+    "original": 28,
+    "recovery": 15,
+    "http": 17,
+    "total": 135
+  },
+  "firstHardwareAttempt": {
+    "successfulChecks": 1,
+    "failure": "Screenshot capture exceeded30000ms",
+    "cause": "Not established; software suites were concurrently running. Unchanged retry passed."
+  },
+  "analyticsRequestFailures": [
+    {
+      "url": "https://firecrackers.mainandmany.com/cdn-cgi/rum?",
+      "error": "net::ERR_ABORTED",
+      "deliberatelyOffline": false
+    },
+    {
+      "url": "https://firecrackers.mainandmany.com/cdn-cgi/rum?",
+      "error": "net::ERR_ABORTED",
+      "deliberatelyOffline": false
+    }
+  ],
+  "qualification": "Actual installed Chrome154 on PC hardware Intel gen-12lp / UHD770; portrait/touch emulation. Software/headless suites separately identified. No physical-phone, thermal/endurance or completed GPU-frame timing qualification.",
+  "nextWork": "Interactive galactic sky .5 in isolated worktree, not shipped."
+}
