@@ -1,6 +1,6 @@
 {
   "base": "https://firecrackers-redesign-preview.allygym-api.workers.dev/",
-  "checkedAt": "2026-09-30T17:28:20.762Z",
+  "checkedAt": "2026-09-30T17:44:11.760Z",
   "files": [
     {
       "path": "icon.svg",
@@ -12,7 +12,7 @@
       "path": "index.html",
       "status": 200,
       "bytes": 2516,
-      "sha256": "3674a66851074e0ab9aba14148179b38f70bc60bc4e28b149e1eb0f7ded42701"
+      "sha256": "24fe34a7cdeb3201789fa3af036cbba028ea54975c4b2c73131a7a2e9a09f406"
     },
     {
       "path": "manifest.webmanifest",
@@ -24,13 +24,13 @@
       "path": "release.json",
       "status": 200,
       "bytes": 17444,
-      "sha256": "f6c18bf04f50d4c97581460822ec67dc38d9c7155144b3b0d5f227786f61142c"
+      "sha256": "7c9fc4e587913504f71328c6ce4fec1236391710deeed4258b708c4153f2fa92"
     },
     {
       "path": "sw.js",
       "status": 200,
       "bytes": 2171,
-      "sha256": "0689d639a3b719345aa9c7c2d4be874582d8c5b04fdd0a4216b36c131284be9c"
+      "sha256": "72b8c316d5591dc2748356b2d2d040b2fab4f848ac03c4973042c965e991599f"
     },
     {
       "path": "THIRD_PARTY_NOTICES.txt",
@@ -75,16 +75,16 @@
       "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e"
     },
     {
-      "path": "assets/index-Bqqqtb98.js",
+      "path": "assets/index-cJjyES-h.js",
       "status": 200,
       "bytes": 2665,
-      "sha256": "8af3cd8c3f51f0c101e173e42c1646df88041172ca87428d4477e2ed4b1caea5"
+      "sha256": "76a01d4029435fc76b4e93729a19a422221fecbf8ca6413c9f8ad7e8cb70d174"
     },
     {
-      "path": "assets/main-i0zLMOvF.js",
+      "path": "assets/main-B7TpepQb.js",
       "status": 200,
-      "bytes": 323796,
-      "sha256": "4403227dd7934ae137066bf38b8ac8bd548d4bb4d0b0f42a070dad3032c50eef"
+      "bytes": 323953,
+      "sha256": "fc87f0f5019d89dd7699415d3cba09e122a9c1f34ded59c3f8bec24906d7e5a7"
     },
     {
       "path": "assets/main-r3052RpS.css",
@@ -93,10 +93,10 @@
       "sha256": "3ad0d1c5ff7e80ebeda42db0b192fa961410d9012fcd873a63ad7951670e1cbd"
     },
     {
-      "path": "assets/Renderer-tC1ChNTy.js",
+      "path": "assets/Renderer-BV26Xpro.js",
       "status": 200,
       "bytes": 918653,
-      "sha256": "0a16a8b3564f8e8984a620d48ab5bb91aa5e95a306e31dc3733db08ba0478448"
+      "sha256": "04aa31b76d008510ae7dc174ecb0b990bf3b95f847390e949d9eda42e9d5fa62"
     },
     {
       "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
@@ -183,7 +183,7 @@
     "version": "2026-09-30.8",
     "scope": "delivered-upgrade-modules",
     "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
-    "sha256": "4b17e6fe7b6519271b35ffdefd1dab940441c6842ef39b6a42f184b8ba7b8e85",
+    "sha256": "5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535",
     "modules": [
       {
         "path": "index.html",
@@ -283,8 +283,8 @@
       },
       {
         "path": "src/App.tsx",
-        "sha256": "7e2921843df141eb142ec161be0f73df6055b5b953488a78232b3e4ef2de2956",
-        "rawSha256": "27be7682d1c36df000ed714c411cd8ae7ff301d0404bd392c759821a210c2973",
+        "sha256": "e9809ab877f8a77084e1bba8270f59e441995bec9a2b279cc8570e449e792abe",
+        "rawSha256": "bce634b4599baa17f09421e484ddd8c5d2fd02fa735fc1ab68200f62bf64dbab",
         "removedHostAttributes": 0
       },
       {
@@ -523,14 +523,14 @@
       },
       {
         "path": "src/ui/BottomCollection.tsx",
-        "sha256": "858ac895aa7a92ba15eb706b6beb89b61c5573e47f5104d6d179f663b6690a95",
-        "rawSha256": "4b2540527357443cf5d04ac402288042239038ea23f33d2b7035372f39ca77d9",
+        "sha256": "35548611fcc5d8cc11177250a98d538ff2711008b35b5f60e2443465d9f1f716",
+        "rawSha256": "6f1569961d7bb086103433a6689a1225d3de322d50ee5b773e8d4e03ba53a01c",
         "removedHostAttributes": 0
       },
       {
         "path": "src/ui/CinematicHUD.tsx",
-        "sha256": "6880bb6d668ead0faf4365411c542e286340360136126f614ca5dc1cf948074d",
-        "rawSha256": "7f0fe50370112f626f543dafacb428540923d550e303ed8ded8fb2d6631f35ab",
+        "sha256": "87aaace07bece01244602faeb1ffe975069f86ccfd680901faa8caec6f71da89",
+        "rawSha256": "4dcc7665b8dbb2e03a65ffc2e2296af3b091b0f86da8d3a0c1e0e73da5fc0f61",
         "removedHostAttributes": 0
       },
       {

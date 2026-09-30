@@ -1,9 +1,9 @@
 {
   "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/",
   "expectedVersion": "2026-09-30.8",
-  "expectedFingerprint": "4b17e6fe7b6519271b35ffdefd1dab940441c6842ef39b6a42f184b8ba7b8e85",
+  "expectedFingerprint": "5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535",
   "expectedSourceCount": 66,
-  "startedAt": "2026-09-30T17:23:55.687Z",
+  "startedAt": "2026-09-30T17:39:09.847Z",
   "selectedCases": "all",
   "dragOrigin": "row-center",
   "method": "Bundled Chromium headless, software WebGL/Canvas. Real native dialogs and DOM input; viewport/touch emulation.",
@@ -480,7 +480,7 @@
         "scrollables": [
           "sheet-content panel-body"
         ],
-        "bodyScrollHeight": 820,
+        "bodyScrollHeight": 801,
         "bodyClientHeight": 224,
         "overflow": false
       },
@@ -587,27 +587,27 @@
       "geometry": {
         "box": {
           "x": 8,
-          "y": 169.03125,
+          "y": 171.40625,
           "width": 304,
-          "height": 174.96875,
+          "height": 172.59375,
           "right": 312,
           "bottom": 344
         },
         "body": {
           "x": 8,
-          "y": 225.03125,
+          "y": 227.40625,
           "width": 304,
-          "height": 118.96875,
+          "height": 116.59375,
           "right": 312,
           "bottom": 344
         },
         "header": {
           "x": 8,
-          "y": 169.03125,
+          "y": 171.40625,
           "width": 304,
           "height": 56,
           "right": 312,
-          "bottom": 225.03125
+          "bottom": 227.40625
         },
         "open": true,
         "modal": true,
@@ -622,8 +622,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 119,
-        "bodyClientHeight": 119,
+        "bodyScrollHeight": 117,
+        "bodyClientHeight": 117,
         "overflow": false
       },
       "targetCount": 3
@@ -1206,27 +1206,27 @@
       "geometry": {
         "box": {
           "x": 8,
-          "y": 348.03125,
+          "y": 350.40625,
           "width": 359,
-          "height": 182.96875,
+          "height": 180.59375,
           "right": 367,
           "bottom": 531
         },
         "body": {
           "x": 8,
-          "y": 408.03125,
+          "y": 410.40625,
           "width": 359,
-          "height": 122.96875,
+          "height": 120.59375,
           "right": 367,
           "bottom": 531
         },
         "header": {
           "x": 8,
-          "y": 348.03125,
+          "y": 350.40625,
           "width": 359,
           "height": 60,
           "right": 367,
-          "bottom": 408.03125
+          "bottom": 410.40625
         },
         "open": true,
         "modal": true,
@@ -1241,8 +1241,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 123,
-        "bodyClientHeight": 123,
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
         "overflow": false
       },
       "targetCount": 3
@@ -1819,27 +1819,27 @@
       "geometry": {
         "box": {
           "x": 16.5,
-          "y": 532.03125,
+          "y": 534.40625,
           "width": 360,
-          "height": 182.96875,
+          "height": 180.59375,
           "right": 376.5,
           "bottom": 715
         },
         "body": {
           "x": 16.5,
-          "y": 592.03125,
+          "y": 594.40625,
           "width": 360,
-          "height": 122.96875,
+          "height": 120.59375,
           "right": 376.5,
           "bottom": 715
         },
         "header": {
           "x": 16.5,
-          "y": 532.03125,
+          "y": 534.40625,
           "width": 360,
           "height": 60,
           "right": 376.5,
-          "bottom": 592.03125
+          "bottom": 594.40625
         },
         "open": true,
         "modal": true,
@@ -1854,8 +1854,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 123,
-        "bodyClientHeight": 123,
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
         "overflow": false
       },
       "targetCount": 3
@@ -2426,27 +2426,27 @@
       "geometry": {
         "box": {
           "x": 356,
-          "y": 382.515625,
+          "y": 383.703125,
           "width": 340,
-          "height": 182.96875,
+          "height": 180.59375,
           "right": 696,
-          "bottom": 565.484375
+          "bottom": 564.296875
         },
         "body": {
           "x": 356,
-          "y": 442.515625,
+          "y": 443.703125,
           "width": 340,
-          "height": 122.96875,
+          "height": 120.59375,
           "right": 696,
-          "bottom": 565.484375
+          "bottom": 564.296875
         },
         "header": {
           "x": 356,
-          "y": 382.515625,
+          "y": 383.703125,
           "width": 340,
           "height": 60,
           "right": 696,
-          "bottom": 442.515625
+          "bottom": 443.703125
         },
         "open": true,
         "modal": true,
@@ -2461,8 +2461,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 123,
-        "bodyClientHeight": 123,
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
         "overflow": false
       },
       "targetCount": 3
@@ -3057,27 +3057,27 @@
       "geometry": {
         "box": {
           "x": 432,
-          "y": 131.03125,
+          "y": 133.40625,
           "width": 340,
-          "height": 174.96875,
+          "height": 172.59375,
           "right": 772,
           "bottom": 306
         },
         "body": {
           "x": 432,
-          "y": 187.03125,
+          "y": 189.40625,
           "width": 340,
-          "height": 118.96875,
+          "height": 116.59375,
           "right": 772,
           "bottom": 306
         },
         "header": {
           "x": 432,
-          "y": 131.03125,
+          "y": 133.40625,
           "width": 340,
           "height": 56,
           "right": 772,
-          "bottom": 187.03125
+          "bottom": 189.40625
         },
         "open": true,
         "modal": true,
@@ -3092,8 +3092,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 119,
-        "bodyClientHeight": 119,
+        "bodyScrollHeight": 117,
+        "bodyClientHeight": 117,
         "overflow": false
       },
       "targetCount": 3
@@ -3565,7 +3565,7 @@
         "scrollables": [
           "sheet-content panel-body"
         ],
-        "bodyScrollHeight": 824,
+        "bodyScrollHeight": 805,
         "bodyClientHeight": 592,
         "overflow": false
       },
@@ -3670,27 +3670,27 @@
       "geometry": {
         "box": {
           "x": 868,
-          "y": 270.515625,
+          "y": 271.703125,
           "width": 340,
-          "height": 182.96875,
+          "height": 180.59375,
           "right": 1208,
-          "bottom": 453.484375
+          "bottom": 452.296875
         },
         "body": {
           "x": 868,
-          "y": 330.515625,
+          "y": 331.703125,
           "width": 340,
-          "height": 122.96875,
+          "height": 120.59375,
           "right": 1208,
-          "bottom": 453.484375
+          "bottom": 452.296875
         },
         "header": {
           "x": 868,
-          "y": 270.515625,
+          "y": 271.703125,
           "width": 340,
           "height": 60,
           "right": 1208,
-          "bottom": 330.515625
+          "bottom": 331.703125
         },
         "open": true,
         "modal": true,
@@ -3705,8 +3705,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 123,
-        "bodyClientHeight": 123,
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
         "overflow": false
       },
       "targetCount": 3
@@ -4277,27 +4277,27 @@
       "geometry": {
         "box": {
           "x": 1508,
-          "y": 410.515625,
+          "y": 411.703125,
           "width": 340,
-          "height": 182.96875,
+          "height": 180.59375,
           "right": 1848,
-          "bottom": 593.484375
+          "bottom": 592.296875
         },
         "body": {
           "x": 1508,
-          "y": 470.515625,
+          "y": 471.703125,
           "width": 340,
-          "height": 122.96875,
+          "height": 120.59375,
           "right": 1848,
-          "bottom": 593.484375
+          "bottom": 592.296875
         },
         "header": {
           "x": 1508,
-          "y": 410.515625,
+          "y": 411.703125,
           "width": 340,
           "height": 60,
           "right": 1848,
-          "bottom": 470.515625
+          "bottom": 471.703125
         },
         "open": true,
         "modal": true,
@@ -4312,8 +4312,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 123,
-        "bodyClientHeight": 123,
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
         "overflow": false
       },
       "targetCount": 3
@@ -4908,27 +4908,27 @@
       "geometry": {
         "box": {
           "x": 140,
-          "y": 89.03125,
+          "y": 91.40625,
           "width": 360,
-          "height": 174.96875,
+          "height": 172.59375,
           "right": 500,
           "bottom": 264
         },
         "body": {
           "x": 140,
-          "y": 145.03125,
+          "y": 147.40625,
           "width": 360,
-          "height": 118.96875,
+          "height": 116.59375,
           "right": 500,
           "bottom": 264
         },
         "header": {
           "x": 140,
-          "y": 89.03125,
+          "y": 91.40625,
           "width": 360,
           "height": 56,
           "right": 500,
-          "bottom": 145.03125
+          "bottom": 147.40625
         },
         "open": true,
         "modal": true,
@@ -4943,8 +4943,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 119,
-        "bodyClientHeight": 119,
+        "bodyScrollHeight": 117,
+        "bodyClientHeight": 117,
         "overflow": false
       },
       "targetCount": 3
@@ -5536,27 +5536,27 @@
       "geometry": {
         "box": {
           "x": 8,
-          "y": 117,
+          "y": 226.21875,
           "width": 359,
-          "height": 414,
+          "height": 304.78125,
           "right": 367,
           "bottom": 531
         },
         "body": {
           "x": 8,
-          "y": 177,
+          "y": 286.21875,
           "width": 359,
-          "height": 354,
+          "height": 244.78125,
           "right": 367,
           "bottom": 531
         },
         "header": {
           "x": 8,
-          "y": 117,
+          "y": 226.21875,
           "width": 359,
           "height": 60,
           "right": 367,
-          "bottom": 177
+          "bottom": 286.21875
         },
         "open": true,
         "modal": true,
@@ -5571,8 +5571,8 @@
         "border": "0px",
         "blur": "none",
         "scrollables": [],
-        "bodyScrollHeight": 354,
-        "bodyClientHeight": 354,
+        "bodyScrollHeight": 245,
+        "bodyClientHeight": 245,
         "overflow": false
       },
       "targetCount": 3
@@ -6324,7 +6324,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6333,8 +6333,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6344,7 +6344,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6353,8 +6353,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6364,7 +6364,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6373,8 +6373,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6384,7 +6384,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6393,8 +6393,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6404,7 +6404,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6413,8 +6413,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6424,7 +6424,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6433,8 +6433,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6444,7 +6444,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6453,8 +6453,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6464,7 +6464,7 @@
         {
           "type": "console",
           "message": "Failed to load resource: net::ERR_FAILED",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6473,8 +6473,8 @@
       "errors": [
         {
           "type": "console",
-          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79464)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:79591)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:46591)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:18:7529)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:190:103058)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:62264)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js:49:72767)",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-i0zLMOvF.js"
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Gd (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79529)\n    at Zm (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:79656)\n    at sc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:38957)\n    at Object.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:46587)\n    at P1.pt.useState (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:18:7526)\n    at sy (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:190:103186)\n    at Pu (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:34141)\n    at vc (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:62260)\n    at Vf (https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js:49:72763)",
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/main-B7TpepQb.js"
         }
       ]
     },
@@ -6484,7 +6484,7 @@
         {
           "type": "console",
           "message": "THREE.WebGPURenderer: WebGL Device Lost:\n\nMessage: Unknown reason",
-          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/Renderer-tC1ChNTy.js"
+          "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/assets/Renderer-BV26Xpro.js"
         }
       ]
     }
@@ -6492,5 +6492,5 @@
   "browserClosed": true,
   "browserVersion": "140.0.7339.186",
   "remainingContexts": 0,
-  "finishedAt": "2026-09-30T17:26:39.730Z"
+  "finishedAt": "2026-09-30T17:41:48.402Z"
 }

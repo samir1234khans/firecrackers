@@ -1,12 +1,14 @@
-# Candidate: bottom collection and upper canopy
+# Current production: bottom collection and upper canopy
 
-Build `2026-09-30.8` implements the approved bottom collection, right control rail, compact panels and admission-time upper canopy. See [implementation](docs/evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md). Release gates and production receipt will record actual completion; `.7` remains current until deployment.
+Build `2026-09-30.8` is live at [production](https://firecrackers.mainandmany.com/) from source main `585d82e5aa135cf6f6ef7729b81a6f40f8798ef9`, merged [PR #24](https://github.com/samir1234khans/firecrackers/pull/24). Worker `5a577d62-1deb-4770-b780-784d03574c7a`; exact 66-module fingerprint `5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535`. The [isolated preview](https://firecrackers-redesign-preview.allygym-api.workers.dev/) delivers the same source. [Production receipt](docs/evidence/bottom-collection-2026-09-30/PRODUCTION.md), [matched captures](docs/evidence/bottom-collection-2026-09-30/comparison.html) and [implementation](docs/evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md) record the completed release.
 
-# Current status: Waterfront v008 in production
+All ten icons now launch from the bottom; compact Pause/Sound/Controls sit on the right and all panels share translucent styling. Tap and sky/terrace drag behavior, upper-sky profiles and immutable airborne trajectories are implemented. 154 units, required PR/main push CI, 427 production browser checks, 29 exact HTTP/assets checks and two native default-startup/Festival cases passed. Initial startup/timing failures and their resolution are retained in the receipt; no unresolved test failures remain. Physical phones/Safari, real safe areas/browser bars/OS zoom and sustained GPU/thermal performance remain NOT TESTED. Previous `.7` Worker remains available for rollback. Canonical main contains the shipped source; prior branches and release history are preserved.
 
-## Current production: Waterfront v008
+# Previous release: Waterfront v008
 
-Build `2026-09-30.7` is live at [Firecrackers](https://firecrackers.mainandmany.com/) from source-main `947f0c57e679a34d35e00b550aae625eba845672` / [PR #23](https://github.com/samir1234khans/firecrackers/pull/23), Worker `e167225e-e463-41f6-897d-e6f5b59aa03c`. Exact 62-entry fingerprint: `6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b`.
+## Previous production: Waterfront v008
+
+Build `2026-09-30.7` was deployed at [Firecrackers](https://firecrackers.mainandmany.com/) from source-main `947f0c57e679a34d35e00b550aae625eba845672` / [PR #23](https://github.com/samir1234khans/firecrackers/pull/23), Worker `e167225e-e463-41f6-897d-e6f5b59aa03c`. Exact 62-entry fingerprint: `6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b`.
 
 The far-bank village stays attached to the desktop/tablet horizon, the original Blender stone quay fills the foreground, and the CC0 canoe-derived boats gain woven shelter detail, two seated silhouettes, restrained contact/wakes and improved scale/lighting. All ten effects and the compact transparent interface remain. [Production receipt](docs/evidence/waterfront-realism-2026-09-30/PRODUCTION.md), [public before/after gallery](docs/evidence/waterfront-realism-2026-09-30/comparison.html), [plan](docs/evidence/waterfront-realism-2026-09-30/PLAN.md), and [implementation/provenance](docs/evidence/waterfront-realism-2026-09-30/IMPLEMENTATION.md).
 

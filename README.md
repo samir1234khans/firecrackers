@@ -1,8 +1,10 @@
-Candidate **bottom collection and upper canopy**, build `2026-09-30.8`. [Implementation and validation](docs/evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md). Production remains `.7` until the authorized release gates pass.
+Released **bottom collection and upper canopy**, build `2026-09-30.8`. [Verified production receipt](docs/evidence/bottom-collection-2026-09-30/PRODUCTION.md) · [isolated Cloudflare preview](https://firecrackers-redesign-preview.allygym-api.workers.dev/) · [matched before/after](docs/evidence/bottom-collection-2026-09-30/comparison.html).
 
 # Firecrackers
 
-Current release: **waterfront v008 / `2026-09-30.7`** at [firecrackers.mainandmany.com](https://firecrackers.mainandmany.com/). Corrected shoreline homes, a full-width original Blender stone quay, refined canoe materials and bounded water contact are deployed from main. [Production receipt](docs/evidence/waterfront-realism-2026-09-30/PRODUCTION.md) and [actual before/after gallery](docs/evidence/waterfront-realism-2026-09-30/comparison.html) supersede the historical release notes below.
+Current release: **bottom collection and upper canopy / `2026-09-30.8`** at [firecrackers.mainandmany.com](https://firecrackers.mainandmany.com/), from main `585d82e` / [PR #24](https://github.com/samir1234khans/firecrackers/pull/24), Worker `5a577d62-1deb-4770-b780-784d03574c7a`. All ten icons launch directly from the bottom, with a right control rail, compact shared panels and higher admission-time burst profiles. PR/main CI, 427 production browser checks, exact HTTP/assets and native default startup passed. Physical phones/Safari, real OS zoom and sustained GPU/thermal qualification remain untested. [Production evidence](docs/evidence/bottom-collection-2026-09-30/PRODUCTION.md) records the exact source, fingerprint and rollback.
+
+Previous release: **waterfront v008 / `2026-09-30.7`**. Its shoreline homes, original Blender stone quay, canoe materials and bounded water contact remain in the current app. [Previous production receipt](docs/evidence/waterfront-realism-2026-09-30/PRODUCTION.md) and [waterfront gallery](docs/evidence/waterfront-realism-2026-09-30/comparison.html) retain that release history.
 
 
 A single-screen festival night with **ten selectable fireworks**. Tap any bottom firework to launch from the saved terrace position, or drag into the sky for an immediate burst and onto the terrace for a normal rocket. The effects run a seeded simulation, not prerecorded video.

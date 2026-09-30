@@ -1,0 +1,335 @@
+{
+  "url": "http://127.0.0.1:4173/",
+  "expectedVersion": "2026-09-30.8",
+  "method": "Headless software WebGL and Canvas; real DOM mouse/CDP touch, controlled visibility and QA shared time; no hardware/mobile performance claim",
+  "checks": [
+    {
+      "name": "desktop-webgl: three bounded 2K celestial layers and immutable resource limits",
+      "layers": 3
+    },
+    {
+      "name": "desktop-webgl: blank-sky mouse response is bounded and cannot launch or change selection",
+      "engagement": 0.8916319767781041
+    },
+    {
+      "name": "desktop-webgl: QA freeze holds shared phase, pointer response and render count"
+    },
+    {
+      "name": "desktop-webgl: hovering a control releases sky interaction without activating it"
+    },
+    {
+      "name": "desktop-webgl: open panels hold sky phase and frames with the existing overlay pause"
+    }
+  ],
+  "errors": [],
+  "failed": "AssertionError [ERR_ASSERTION]: Ambient cadence must remain bounded: {\"frameDelta\":0,\"cap\":20}\n    at qualifyGalacticSky (file:///home/runner/work/firecrackers/firecrackers/tests/galactic-checks.mjs:83:10)\n    at async file:///home/runner/work/firecrackers/firecrackers/tests/galactic-interaction-browser.mjs:27:5",
+  "failureState": {
+    "snapshot": {
+      "ready": true,
+      "paused": false,
+      "selected": "gold-willow",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 0,
+      "bursts": 0,
+      "active": 0,
+      "particles": 0,
+      "smoke": 0,
+      "quality": "ultra",
+      "message": "A fresh, quiet sky.",
+      "time": 4.549999999999989,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "ready",
+      "carriers": 0,
+      "embers": 0,
+      "backend": "WebGL 2",
+      "renderPixels": 1024000,
+      "submitMs": 5.7999999999883585,
+      "frames": 38,
+      "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+      "authoredAssetStates": {
+        "smoke": "active",
+        "paper": "active",
+        "normal": "active",
+        "flame": "active",
+        "rocket": "active",
+        "terrace": "active",
+        "sky": "active",
+        "river": "active"
+      },
+      "authoredAssetErrors": {},
+      "stageLayout": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 800
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "controls": {
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "brand": {
+            "x": 12,
+            "y": 12,
+            "width": 93.375,
+            "height": 17
+          },
+          "control-0": {
+            "x": 384,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-1": {
+            "x": 432,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-2": {
+            "x": 480,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-3": {
+            "x": 528,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-4": {
+            "x": 576,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-5": {
+            "x": 656,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-6": {
+            "x": 704,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-7": {
+            "x": 752,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-8": {
+            "x": 800,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          },
+          "control-9": {
+            "x": 848,
+            "y": 744,
+            "width": 48,
+            "height": 48
+          }
+        },
+        "heroRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "unobstructedScene": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "tray": {
+          "x": 0,
+          "y": 724,
+          "width": 1280,
+          "height": 76
+        },
+        "rail": {
+          "x": 1220,
+          "y": 288,
+          "width": 48,
+          "height": 148
+        },
+        "panelOpen": false,
+        "launchArea": {
+          "x": 0,
+          "y": 633.5,
+          "width": 1280,
+          "height": 90.5
+        },
+        "burstCanopy": {
+          "x": 0,
+          "y": 43.44,
+          "width": 1280,
+          "height": 463.36
+        },
+        "reflectionBand": {
+          "x": 0,
+          "y": 506.79999999999995,
+          "width": 1280,
+          "height": 130.32
+        }
+      },
+      "reflectionFrames": 20,
+      "reflectionWidth": 512,
+      "reflectionHeight": 320,
+      "waterline": 0.49999999999991196,
+      "riverBankScreen": {
+        "x": 0.5268040784825556,
+        "y": 0.5013743798117566
+      },
+      "riverVillageScreenBounds": {
+        "left": 0.38931568527958726,
+        "top": 0.46887938020298947,
+        "right": 0.670452500110684,
+        "bottom": 0.5119606796253192
+      },
+      "riverScenery": "Blender river-life-v008",
+      "riverBoats": 3,
+      "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+      "riverPbrTextures": 6,
+      "riverTextureMemoryEstimateBytes": 71303172,
+      "riverPbrColorMaps": 2,
+      "riverPbrDataMaps": 4,
+      "riverPbrColorSpacesCorrect": true,
+      "riverLampAnchors": 10,
+      "riverReflectionFragments": 80,
+      "riverMotionTime": 4.549999999999989,
+      "riverCandleFlames": 4,
+      "riverPointLights": 1,
+      "riverCandleGlows": 4,
+      "riverWaterContactInstances": 21,
+      "riverSeatedFigures": 2,
+      "riverVillageHomes": 12,
+      "riverVillagePosition": {
+        "x": 40,
+        "y": 4.65,
+        "z": -982
+      },
+      "riverVillageBounds": {
+        "min": {
+          "x": -152.0400006933779,
+          "y": 2.409999275207518,
+          "z": -1092.7739600398713
+        },
+        "max": {
+          "x": 234.13975413299434,
+          "y": 29.730001440786644,
+          "z": -886.9334798153523
+        }
+      },
+      "riverPositions": [
+        {
+          "x": -48,
+          "y": 4.665287934015406,
+          "z": -115
+        },
+        {
+          "x": 62,
+          "y": 4.6122503559787935,
+          "z": -165
+        },
+        {
+          "x": -76,
+          "y": 4.685015431230953,
+          "z": -85
+        }
+      ],
+      "terraceScreenBounds": {
+        "left": -0.26960811902604676,
+        "top": 0.8625179699643964,
+        "right": 1.269133712579251,
+        "bottom": 1.05188569624592
+      },
+      "skyMotionTime": 4.549999999999989,
+      "skyMotionAllowed": true,
+      "skyPointerX": 0.5,
+      "skyPointerY": 0.25,
+      "skyEngagement": 0,
+      "skyNearParallaxX": 0,
+      "skyNearParallaxY": 0,
+      "skyMaximumParallaxPixels": 3,
+      "skyActiveMeteors": 0,
+      "skyMaximumMeteors": 1,
+      "skyMeteorOpacity": 0,
+      "skyMeteorIntervalSeconds": 36,
+      "skyHorizon": 0.49999999999991196,
+      "skyLayers": 3,
+      "skyTextures": 3,
+      "skyArtWidth": 2048,
+      "skyArtHeight": 1024,
+      "skyCelestialCrop": 0.8,
+      "skyFieldStars": 5200,
+      "skyClusterStars": 3400,
+      "skyNearStars": 128,
+      "skyDustSpecks": 23721,
+      "skyArtRgbaBytes": 25165824,
+      "skyTextureBytesWithMipmaps": 33554432,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "apexScreen": null,
+      "launchProfile": null,
+      "flight": null,
+      "audioVoices": 0,
+      "audioTimers": 0,
+      "recordedSamples": 0,
+      "audioEnabled": false,
+      "qaStallSamplesUsed": 0,
+      "qaStallSamplesRemaining": 0,
+      "skyState": {
+        "time": 4.549999999999989,
+        "pointerX": 0.5,
+        "pointerY": 0.25,
+        "engagement": 0,
+        "motionAllowed": true
+      },
+      "skyAmbientCadence": 20,
+      "skyResponding": false,
+      "skyAmbientFrames": 9,
+      "skyResponseFrames": 10,
+      "skyOneOffFrames": 14,
+      "skyLastRenderedTime": 4.549999999999989,
+      "skyFrozen": false
+    },
+    "osReducedMotion": false,
+    "visibility": "visible",
+    "hidden": false,
+    "activeElement": "<button type=\"button\" aria-label=\"Controls\" title=\"Controls\" aria-haspopup=\"dialog\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-sliders-horizontal\"><line x1=\"21\" x2=\"14\" y1=\"4\" y2=\"4\"></line><line x1=\"10\" x2=\"3\" y1=\"4\" y2=\"4\"></line><line x1=\"21\" x2=\"12\" y1=\"12\" y2=\"12\"></line><line x1=\"8\" x2=\"3\" y1=\"12\" y2=\"12\"></line><line x1=\"21\" x2=\"16\" y1=\"20\" y2=\"20\"></line><line x1=\"12\" x2=\"3\" y1=\"20\" y2=\"20\"></line><line x1=\"14\" x2=\"14\" y1=\"2\" y2=\"6\"></line><line x1=\"8\" x2=\"8\" y1=\"10\" y2=\"14\"></line><line x1=\"16\" x2=\"16\" y1=\"18\" y2=\"22\"></line></svg></button>",
+    "overlay": "none",
+    "preferences": "{\"version\":2,\"family\":\"gold-willow\",\"quality\":\"ultra\",\"sound\":false,\"volume\":0.45,\"haptics\":false,\"ambience\":false,\"reducedMotion\":false,\"reducedFlashes\":true,\"onboarded\":false,\"preset\":\"festival\"}"
+  },
+  "finishedAt": "2026-09-30T17:44:00.008Z"
+}

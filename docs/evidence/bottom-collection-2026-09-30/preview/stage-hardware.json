@@ -4954,7 +4954,7 @@
     "version": "2026-09-30.8",
     "scope": "delivered-upgrade-modules",
     "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
-    "sha256": "4b17e6fe7b6519271b35ffdefd1dab940441c6842ef39b6a42f184b8ba7b8e85",
+    "sha256": "5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535",
     "modules": [
       {
         "path": "index.html",
@@ -5054,8 +5054,8 @@
       },
       {
         "path": "src/App.tsx",
-        "sha256": "7e2921843df141eb142ec161be0f73df6055b5b953488a78232b3e4ef2de2956",
-        "rawSha256": "27be7682d1c36df000ed714c411cd8ae7ff301d0404bd392c759821a210c2973",
+        "sha256": "e9809ab877f8a77084e1bba8270f59e441995bec9a2b279cc8570e449e792abe",
+        "rawSha256": "bce634b4599baa17f09421e484ddd8c5d2fd02fa735fc1ab68200f62bf64dbab",
         "removedHostAttributes": 0
       },
       {
@@ -5294,14 +5294,14 @@
       },
       {
         "path": "src/ui/BottomCollection.tsx",
-        "sha256": "858ac895aa7a92ba15eb706b6beb89b61c5573e47f5104d6d179f663b6690a95",
-        "rawSha256": "4b2540527357443cf5d04ac402288042239038ea23f33d2b7035372f39ca77d9",
+        "sha256": "35548611fcc5d8cc11177250a98d538ff2711008b35b5f60e2443465d9f1f716",
+        "rawSha256": "6f1569961d7bb086103433a6689a1225d3de322d50ee5b773e8d4e03ba53a01c",
         "removedHostAttributes": 0
       },
       {
         "path": "src/ui/CinematicHUD.tsx",
-        "sha256": "6880bb6d668ead0faf4365411c542e286340360136126f614ca5dc1cf948074d",
-        "rawSha256": "7f0fe50370112f626f543dafacb428540923d550e303ed8ded8fb2d6631f35ab",
+        "sha256": "87aaace07bece01244602faeb1ffe975069f86ccfd680901faa8caec6f71da89",
+        "rawSha256": "4dcc7665b8dbb2e03a65ffc2e2296af3b091b0f86da8d3a0c1e0e73da5fc0f61",
         "removedHostAttributes": 0
       },
       {

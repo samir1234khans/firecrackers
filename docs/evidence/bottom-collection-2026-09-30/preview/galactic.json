@@ -1,0 +1,5182 @@
+{
+  "url": "https://firecrackers-redesign-preview.allygym-api.workers.dev/",
+  "expectedVersion": "2026-09-30.8",
+  "method": "Headless software WebGL and Canvas; real DOM mouse/CDP touch, controlled visibility and QA shared time; no hardware/mobile performance claim",
+  "checks": [
+    {
+      "name": "desktop-webgl: three bounded 2K celestial layers and immutable resource limits",
+      "layers": 3
+    },
+    {
+      "name": "desktop-webgl: blank-sky mouse response is bounded and cannot launch or change selection",
+      "engagement": 0.6471339185411511
+    },
+    {
+      "name": "desktop-webgl: QA freeze holds shared phase, pointer response and render count"
+    },
+    {
+      "name": "desktop-webgl: hovering a control releases sky interaction without activating it"
+    },
+    {
+      "name": "desktop-webgl: open panels hold sky phase and frames with the existing overlay pause"
+    },
+    {
+      "name": "desktop-webgl: empty sky redraws at its bounded ambient cadence",
+      "frameDelta": 7,
+      "cap": 20,
+      "elapsedMs": 820.6000000014901
+    },
+    {
+      "name": "desktop-webgl: one faint deterministic meteor ends without firework or audio events",
+      "time": 9.700000000000061,
+      "opacity": 0.07700000000000001
+    },
+    {
+      "name": "desktop-webgl: explicit Low quality holds a static noninteractive sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.050000000000129,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 1000000,
+        "submitMs": 4.9000000059604645,
+        "frames": 91,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 384,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 432,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 480,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 528,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 576,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 656,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 704,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 752,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 800,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 848,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 51,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.050000000000129,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 23,
+        "skyResponseFrames": 28,
+        "skyOneOffFrames": 32,
+        "skyLastRenderedTime": 10.716666666666779,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.750000000000163,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 1000000,
+        "submitMs": 4.9000000059604645,
+        "frames": 91,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 384,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 432,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 480,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 528,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 576,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 656,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 704,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 752,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 800,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 848,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 51,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.750000000000163,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 23,
+        "skyResponseFrames": 28,
+        "skyOneOffFrames": 32,
+        "skyLastRenderedTime": 10.716666666666779,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "desktop-webgl: saved app reduced motion holds static Ultra sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.23333333333352,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 1024000,
+        "submitMs": 98,
+        "frames": 101,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 384,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 432,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 480,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 528,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 576,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 656,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 704,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 752,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 800,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 848,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 53,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.23333333333352,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 24,
+        "skyResponseFrames": 28,
+        "skyOneOffFrames": 40,
+        "skyLastRenderedTime": 11.933333333333506,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.916666666666888,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 1024000,
+        "submitMs": 98,
+        "frames": 101,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 384,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 432,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 480,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 528,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 576,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 656,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 704,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 752,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 800,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 848,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 53,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.916666666666888,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 24,
+        "skyResponseFrames": 28,
+        "skyOneOffFrames": 40,
+        "skyLastRenderedTime": 11.933333333333506,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "desktop-webgl: live OS reduced-motion changes stop ambient rendering",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 13.43333333333358,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 1024000,
+        "submitMs": 1.9000000059604645,
+        "frames": 111,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 384,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 432,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 480,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 528,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 576,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 656,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 704,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 752,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 800,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 848,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 55,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 13.43333333333358,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 25,
+        "skyResponseFrames": 28,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 13.050000000000228,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 14.10000000000028,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 1024000,
+        "submitMs": 1.9000000059604645,
+        "frames": 111,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 384,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 432,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 480,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 528,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 576,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 656,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 704,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 752,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 800,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 848,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 55,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 14.10000000000028,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 25,
+        "skyResponseFrames": 28,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 13.050000000000228,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "desktop-webgl: controlled visibility event holds sky and retains explicit resume",
+      "method": "document.hidden override and visibilitychange; not OS endurance"
+    },
+    {
+      "name": "portrait-webgl: three bounded 2K celestial layers and immutable resource limits",
+      "layers": 3
+    },
+    {
+      "name": "portrait-webgl: blank-sky mouse response is bounded and cannot launch or change selection",
+      "engagement": 0.6708070121920944
+    },
+    {
+      "name": "portrait-webgl: QA freeze holds shared phase, pointer response and render count"
+    },
+    {
+      "name": "portrait-webgl: hovering a control releases sky interaction without activating it"
+    },
+    {
+      "name": "portrait-webgl: open panels hold sky phase and frames with the existing overlay pause"
+    },
+    {
+      "name": "portrait-webgl: empty sky redraws at its bounded ambient cadence",
+      "frameDelta": 15,
+      "cap": 20,
+      "elapsedMs": 806.7000000029802
+    },
+    {
+      "name": "portrait-webgl: one faint deterministic meteor ends without firework or audio events",
+      "time": 9.700000000000061,
+      "opacity": 0.07700000000000001
+    },
+    {
+      "name": "portrait-webgl: explicit Low quality holds a static noninteractive sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.100000000000131,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 334443,
+        "submitMs": 3.2999999970197678,
+        "frames": 123,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "reflectionFrames": 80,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7200000000001452,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7207881259379003
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.014094173353396966,
+          "top": 0.6818653525229308,
+          "right": 0.9912186907746339,
+          "bottom": 0.7377186819628461
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.7186827628363814,
+          "top": 0.8230117336748695,
+          "right": 2.7173151091174783,
+          "bottom": 1.0679716574049896
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7200000000001452,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.100000000000131,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 42,
+        "skyResponseFrames": 41,
+        "skyOneOffFrames": 32,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.750000000000163,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 334443,
+        "submitMs": 3.2999999970197678,
+        "frames": 123,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "reflectionFrames": 80,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7200000000001452,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7207881259379003
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.014094173353396966,
+          "top": 0.6818653525229308,
+          "right": 0.9912186907746339,
+          "bottom": 0.7377186819628461
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.7186827628363814,
+          "top": 0.8230117336748695,
+          "right": 2.7173151091174783,
+          "bottom": 1.0679716574049896
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7200000000001452,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.750000000000163,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 42,
+        "skyResponseFrames": 41,
+        "skyOneOffFrames": 32,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "portrait-webgl: saved app reduced motion holds static Ultra sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.183333333333518,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 334443,
+        "submitMs": 4.200000002980232,
+        "frames": 133,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "reflectionFrames": 82,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7200000000001452,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7207881259379003
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.014094173353396966,
+          "top": 0.6818653525229308,
+          "right": 0.9912186907746339,
+          "bottom": 0.7377186819628461
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.7186827628363814,
+          "top": 0.8230117336748695,
+          "right": 2.7173151091174783,
+          "bottom": 1.0679716574049896
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7200000000001452,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.183333333333518,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 43,
+        "skyResponseFrames": 41,
+        "skyOneOffFrames": 40,
+        "skyLastRenderedTime": 11.850000000000168,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.83333333333355,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 334443,
+        "submitMs": 4.200000002980232,
+        "frames": 133,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "reflectionFrames": 82,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7200000000001452,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7207881259379003
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.014094173353396966,
+          "top": 0.6818653525229308,
+          "right": 0.9912186907746339,
+          "bottom": 0.7377186819628461
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.7186827628363814,
+          "top": 0.8230117336748695,
+          "right": 2.7173151091174783,
+          "bottom": 1.0679716574049896
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7200000000001452,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.83333333333355,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 43,
+        "skyResponseFrames": 41,
+        "skyOneOffFrames": 40,
+        "skyLastRenderedTime": 11.850000000000168,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "portrait-webgl: live OS reduced-motion changes stop ambient rendering",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 13.383333333333578,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 334443,
+        "submitMs": 2.8000000044703484,
+        "frames": 143,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "reflectionFrames": 84,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7200000000001452,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7207881259379003
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.014094173353396966,
+          "top": 0.6818653525229308,
+          "right": 0.9912186907746339,
+          "bottom": 0.7377186819628461
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.7186827628363814,
+          "top": 0.8230117336748695,
+          "right": 2.7173151091174783,
+          "bottom": 1.0679716574049896
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7200000000001452,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 13.383333333333578,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 44,
+        "skyResponseFrames": 41,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 12.916666666666888,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 14.03333333333361,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGL 2",
+        "renderPixels": 334443,
+        "submitMs": 2.8000000044703484,
+        "frames": 143,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "reflectionFrames": 84,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7200000000001452,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7207881259379003
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.014094173353396966,
+          "top": 0.6818653525229308,
+          "right": 0.9912186907746339,
+          "bottom": 0.7377186819628461
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.65,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.679828208487069,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.610252359854662,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.7186827628363814,
+          "top": 0.8230117336748695,
+          "right": 2.7173151091174783,
+          "bottom": 1.0679716574049896
+        },
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7200000000001452,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 14.03333333333361,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 44,
+        "skyResponseFrames": 41,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 12.916666666666888,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "portrait-webgl: native touch brush responds and releases without launching"
+    },
+    {
+      "name": "portrait-webgl: controlled visibility event holds sky and retains explicit resume",
+      "method": "document.hidden override and visibilitychange; not OS endurance"
+    },
+    {
+      "name": "portrait-canvas: three bounded 2K celestial layers and immutable resource limits",
+      "layers": 3
+    },
+    {
+      "name": "portrait-canvas: blank-sky mouse response is bounded and cannot launch or change selection",
+      "engagement": 0.6708070121920947
+    },
+    {
+      "name": "portrait-canvas: QA freeze holds shared phase, pointer response and render count"
+    },
+    {
+      "name": "portrait-canvas: hovering a control releases sky interaction without activating it"
+    },
+    {
+      "name": "portrait-canvas: open panels hold sky phase and frames with the existing overlay pause"
+    },
+    {
+      "name": "portrait-canvas: empty sky redraws at its bounded ambient cadence",
+      "frameDelta": 8,
+      "cap": 10,
+      "elapsedMs": 818.1999999955297
+    },
+    {
+      "name": "portrait-canvas: one faint deterministic meteor ends without firework or audio events",
+      "time": 9.700000000000061,
+      "opacity": 0.07700000000000001
+    },
+    {
+      "name": "portrait-canvas: explicit Low quality holds a static noninteractive sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.083333333333464,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 0.30000000447034836,
+        "frames": 102,
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 675.6976580466977,
+            "roll": 0.006456204818095705
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 643.2180197124854,
+            "roll": 0.005386249296935608
+          },
+          {
+            "x": 62.88,
+            "y": 713.8016046247465,
+            "roll": -0.007844181951722293
+          }
+        ],
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.083333333333464,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 21,
+        "skyResponseFrames": 43,
+        "skyOneOffFrames": 32,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.750000000000163,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 0.30000000447034836,
+        "frames": 102,
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 675.6976580466977,
+            "roll": 0.006456204818095705
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 643.2180197124854,
+            "roll": 0.005386249296935608
+          },
+          {
+            "x": 62.88,
+            "y": 713.8016046247465,
+            "roll": -0.007844181951722293
+          }
+        ],
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.750000000000163,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 21,
+        "skyResponseFrames": 43,
+        "skyOneOffFrames": 32,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "portrait-canvas: saved app reduced motion holds static Ultra sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.200000000000186,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 0.19999999552965164,
+        "frames": 112,
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 675.6976580466977,
+            "roll": 0.006456204818095705
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 643.2180197124854,
+            "roll": 0.005386249296935608
+          },
+          {
+            "x": 62.88,
+            "y": 713.8016046247465,
+            "roll": -0.007844181951722293
+          }
+        ],
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.200000000000186,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 22,
+        "skyResponseFrames": 43,
+        "skyOneOffFrames": 40,
+        "skyLastRenderedTime": 11.833333333333501,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.866666666666886,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 0.19999999552965164,
+        "frames": 112,
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 675.6976580466977,
+            "roll": 0.006456204818095705
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 643.2180197124854,
+            "roll": 0.005386249296935608
+          },
+          {
+            "x": 62.88,
+            "y": 713.8016046247465,
+            "roll": -0.007844181951722293
+          }
+        ],
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.866666666666886,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 22,
+        "skyResponseFrames": 43,
+        "skyOneOffFrames": 40,
+        "skyLastRenderedTime": 11.833333333333501,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "portrait-canvas: live OS reduced-motion changes stop ambient rendering",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 13.416666666666913,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 0.19999999552965164,
+        "frames": 122,
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 675.6976580466977,
+            "roll": 0.006456204818095705
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 643.2180197124854,
+            "roll": 0.005386249296935608
+          },
+          {
+            "x": 62.88,
+            "y": 713.8016046247465,
+            "roll": -0.007844181951722293
+          }
+        ],
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 13.416666666666913,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 23,
+        "skyResponseFrames": 43,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 12.933333333333556,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 14.066666666666945,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 0.19999999552965164,
+        "frames": 122,
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 723,
+              "width": 393,
+              "height": 128
+            },
+            "rail": {
+              "x": 337,
+              "y": 287.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 723
+          },
+          "tray": {
+            "x": 0,
+            "y": 723,
+            "width": 393,
+            "height": 128
+          },
+          "rail": {
+            "x": 337,
+            "y": 287.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 632.6250000000001,
+            "width": 393,
+            "height": 90.37499999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.379999999999995,
+            "width": 393,
+            "height": 462.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.09999999999997,
+            "width": 393,
+            "height": 130.14
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 675.6976580466977,
+            "roll": 0.006456204818095705
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 643.2180197124854,
+            "roll": 0.005386249296935608
+          },
+          {
+            "x": 62.88,
+            "y": 713.8016046247465,
+            "roll": -0.007844181951722293
+          }
+        ],
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 14.066666666666945,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 23,
+        "skyResponseFrames": 43,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 12.933333333333556,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "portrait-canvas: native touch brush responds and releases without launching"
+    },
+    {
+      "name": "portrait-canvas: controlled visibility event holds sky and retains explicit resume",
+      "method": "document.hidden override and visibilitychange; not OS endurance"
+    }
+  ],
+  "errors": [],
+  "failed": null,
+  "finishedAt": "2026-09-30T17:55:33.297Z"
+}
