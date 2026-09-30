@@ -77,13 +77,22 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   check(`${label}: open panels hold sky phase and frames with the existing overlay pause`);
 
   await page.mouse.move(width * .55, height * .9); await page.waitForTimeout(1800);
-  const idle = await snapshot(page); await page.waitForTimeout(800); const idleAfter = await snapshot(page);
+  const idle = await snapshot(page);
+  const sampleStart = await page.evaluate(() => performance.now());
+  await page.waitForTimeout(800);
+  // Software CI can stall the browser across the entire initial interval.
+  // Require an actual resumed frame within a bounded timeout, then measure
+  // the unchanged cadence cap against the observed browser-clock interval.
+  await page.waitForFunction(frames => window.__firecrackersQA.snapshot().frames > frames,
+    idle.frames, { polling: 100, timeout: 10000 });
+  const idleAfter = await snapshot(page);
+  const elapsedMs = await page.evaluate(start => performance.now() - start, sampleStart);
   const frameDelta = idleAfter.frames - idle.frames;
   const cap = idle.backend.startsWith('Canvas') ? 10 : 20;
-  assert.ok(frameDelta > 0 && frameDelta <= Math.ceil(cap * .8) + 3,
-    `Ambient cadence must remain bounded: ${JSON.stringify({ frameDelta, cap })}`);
+  assert.ok(frameDelta > 0 && frameDelta <= Math.ceil(cap * elapsedMs / 1000) + 3,
+    `Ambient cadence must remain bounded: ${JSON.stringify({ frameDelta, cap, elapsedMs, idle, idleAfter })}`);
   assert.equal(idleAfter.launched, 0); assert.equal(idleAfter.particles, 0);
-  check(`${label}: empty sky redraws at its bounded ambient cadence`, { frameDelta, cap });
+  check(`${label}: empty sky redraws at its bounded ambient cadence`, { frameDelta, cap, elapsedMs });
 
   await reset(page);
   await page.evaluate(() => { window.__firecrackersQA.advance(9.7); window.__firecrackersQA.render(); });
