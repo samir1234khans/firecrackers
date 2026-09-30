@@ -44,7 +44,7 @@ export async function generateRelease() {
     'src/App.tsx', 'src/engine/FusePath.ts', 'src/engine/LaunchGeometry.ts', 'src/engine/Renderer.ts',
     'src/engine/Simulation.ts', 'src/engine/VisibleFrame.ts', 'src/engine/catalog.ts',
     'src/engine/useWorld.ts', 'src/platform/usePlatform.ts', 'src/graphics/LaunchStage.ts',
-    'src/graphics/NightEnvironment.ts', 'src/graphics/OpaqueDepth.ts',
+    'src/graphics/NightEnvironment.ts', 'src/graphics/GalaxySky.ts', 'src/graphics/RiverLife.ts', 'src/graphics/OpaqueDepth.ts',
     'src/graphics/ParticleScene.ts', 'src/graphics/RocketProp.ts', 'src/graphics/textures.ts',
     'src/styles/completion.css', 'src/styles/flow.css', 'src/styles/hud-v3-art.css', 'src/styles/hud-v3.css',
     'src/ui/CinematicHUD.tsx', 'src/ui/Dialog.tsx', 'src/ui/FireworkGlyph.tsx', 'src/ui/FireworkShelf.tsx',

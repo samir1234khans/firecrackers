@@ -1,0 +1,28 @@
+00:01.734  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\masters\river-life-v007.blend"
+15:11:58 | INFO: Data are loaded, start creating Blender stuff
+15:11:58 | INFO: Blender create Mesh node Cube.065
+15:11:58 | INFO: Blender create Mesh node Cube.064
+15:11:58 | INFO: Blender create Mesh node Cube.283
+15:11:58 | INFO: Blender create Mesh node Cube.285
+15:11:58 | INFO: Blender create Mesh node Cube.284
+15:11:58 | INFO: Blender create Mesh node Cube.291
+15:11:58 | INFO: Blender create Mesh node Cube.296
+15:11:58 | INFO: Blender create Mesh node Cube.336
+15:11:58 | INFO: Blender create Mesh node Boat_C | bent canopy rib 00 | editable path
+15:11:58 | INFO: Blender create Mesh node Boat_C | candle 01 wick | editable path
+15:11:58 | INFO: Blender create Mesh node Cylinder.004
+15:11:58 | INFO: Blender create Mesh node Cone.004
+15:11:58 | INFO: Blender create Mesh node Cube.292
+15:11:58 | INFO: Blender create Mesh node Boat_C | canopy edge cord -1 | editable path
+15:11:58 | INFO: Blender create Mesh node Boat_C | low arched woven canopy | editable geometry.001
+15:11:58 | INFO: Blender create Mesh node Shore village | house 00 pitched roof | editable geometry.001
+15:11:58 | INFO: Blender create Mesh node Cube.340
+15:11:58 | INFO: Blender create Mesh node Cube.337
+15:11:58 | INFO: Blender create Mesh node Cube.338
+15:11:58 | INFO: Blender create Mesh node Cube.353
+15:11:58 | INFO: Blender create Mesh node Cube.339
+15:11:58 | INFO: glTF import finished in 0.08s
+RIVER_V007_VERIFIED {"blender": "5.2.1 LTS", "masterReopened": true, "sourceObjects": 314, "missingDependencies": [], "freshGLBImport": true, "bytes": 7620280, "meshCount": 21, "vertices": 16266, "materials": ["CC0 Canoe | baked weathered wood and fittings PBR", "RiverLife | aged dark fittings", "RiverLife | charcoal pitched roofs", "RiverLife | dark inactive windows", "RiverLife | nauka weathered dark timber", "RiverLife | old quay granite", "RiverLife | pitch and dark worn timber", "RiverLife | quiet ivory candle wax", "RiverLife | quiet weathered plaster", "RiverLife | restrained amber emission", "RiverLife | thin amber candle glass", "RiverLife | undyed mooring rope", "RiverLife | weathered warm timber", "RiverLife | woven muted flax canopy"], "images": [{"name": "canoe-color-web-2k", "size": [2048, 2048], "packed": true, "colorspace": "sRGB"}, {"name": "canoe-normal-web-2k", "size": [2048, 2048], "packed": true, "colorspace": "Non-Color"}, {"name": "canoe-roughness-web-2k", "size": [2048, 2048], "packed": true, "colorspace": "Non-Color"}], "roots": {"Boat_A": {"browserMin": [-2.749999761581421, -0.23000000417232513, -0.875], "browserMax": [2.749999761581421, 1.3899999856948853, 0.875], "browserSize": [5.499999523162842, 1.6199999898672104, 1.75], "lampAnchors": {"Boat_A_Lamp": [0.18000000715255737, 1.2200000286102295, -0.23999999463558197]}, "meshes": 3}, "Boat_B": {"browserMin": [-2.749999761581421, -0.23000000417232513, -0.875], "browserMax": [2.749999761581421, 1.3200000524520874, 0.875], "browserSize": [5.499999523162842, 1.5500000566244125, 1.75], "lampAnchors": {"Boat_B_Lamp": [-0.30000001192092896, 1.149999976158142, 0.20999999344348907]}, "meshes": 3}, "Boat_C": {"browserMin": [-4.75, -0.30000001192092896, -1.5], "browserMax": [4.75, 2.2880001068115234, 1.5], "browserSize": [9.5, 2.5880001187324524, 3.0], "lampAnchors": {"Boat_C_Candle_01": [-3.0999999046325684, 1.0, 0.7756749987602234], "Boat_C_Candle_02": [-3.0999999046325684, 1.0, -0.7756749987602234], "Boat_C_Candle_03": [3.0999999046325684, 1.0, 0.7558109760284424], "Boat_C_Candle_04": [3.0999999046325684, 1.0, -0.7558109760284424], "Boat_C_Lamp": [-3.0999999046325684, 1.0, 0.7756749987602234]}, "meshes": 9}, "Shore_Village": {"browserMin": [-45.00000762939453, -0.5600001811981201, -8.941936492919922], "browserMax": [45.0000114440918, 4.282441139221191, 4.068778991699219], "browserSize": [90.00001907348633, 4.8424413204193115, 13.01071548461914], "lampAnchors": {"Shore_Village_Warm_Lamp_01": [-31.829832077026367, 1.3300000429153442, 3.1507530212402344], "Shore_Village_Warm_Lamp_02": [-6.592139720916748, 1.2200000286102295, -0.7861418724060059], "Shore_Village_Warm_Lamp_03": [20.6160945892334, 1.3300000429153442, -2.824061393737793], "Shore_Village_Warm_Lamp_04": [37.481571197509766, 1.2200000286102295, -1.615821123123169]}, "meshes": 6}}, "finite": true, "pointLightsExported": false}
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

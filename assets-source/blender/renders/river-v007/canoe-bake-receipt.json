@@ -1,0 +1,43 @@
+{
+  "master": "canoe-materials-v007.blend",
+  "source": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\source-2k.blend",
+  "sourceLicense": "CC0-1.0",
+  "bakedVertices": 2146,
+  "bakedTriangles": 4332,
+  "uvLayers": [
+    "UVMap",
+    "automap",
+    "UV_WebAtlas2K"
+  ],
+  "bakeSamples": 8,
+  "renderer": "Cycles CPU",
+  "maps": {
+    "color": {
+      "name": "Canoe v007 | color 2K",
+      "size": [
+        2048,
+        2048
+      ],
+      "bytes": 4485128,
+      "colorspace": "sRGB"
+    },
+    "roughness": {
+      "name": "Canoe v007 | roughness 2K",
+      "size": [
+        2048,
+        2048
+      ],
+      "bytes": 2860014,
+      "colorspace": "Non-Color"
+    },
+    "normal": {
+      "name": "Canoe v007 | normal 2K",
+      "size": [
+        2048,
+        2048
+      ],
+      "bytes": 3767266,
+      "colorspace": "Non-Color"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "blender": "5.2.1 LTS",
+  "seed": 630427,
+  "master": "river-life-v006.blend",
+  "export": "river-life-v006.glb",
+  "bytes": 486964,
+  "meshCount": 24,
+  "rootNames": [
+    "Boat_A",
+    "Boat_B",
+    "Boat_C",
+    "Shore_Village"
+  ],
+  "sourceChildCounts": {
+    "Boat_A": 55,
+    "Boat_B": 55,
+    "Boat_C": 134,
+    "Shore_Village": 195
+  },
+  "coordinates": "Blender Z-up to glTF Y-up; waterline browserY0; boat lengthX; beamZ",
+  "houseCount": 12,
+  "villageClusters": [
+    4,
+    3,
+    5
+  ],
+  "windows": {
+    "warm": 4,
+    "dark": 20
+  },
+  "naukaCandles": 4,
+  "externalTextures": false,
+  "glTFPointLights": false
+}

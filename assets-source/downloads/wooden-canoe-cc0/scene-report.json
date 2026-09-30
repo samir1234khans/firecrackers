@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "blender_version": "5.2.1 LTS",
+  "filepath": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\source-2k.blend",
+  "active_scene": "upload",
+  "scenes": [
+    {
+      "name": "upload",
+      "objects": [
+        "WoodenPaddle",
+        "Wooden Canoe with Paddle",
+        "Wooden Canoe"
+      ],
+      "camera": null,
+      "engine": "BLENDER_EEVEE",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "resolution_percentage": 100,
+      "frame_range": [
+        1,
+        250
+      ],
+      "frame_current": 1,
+      "fps": 24.0,
+      "unit_system": "METRIC",
+      "unit_scale": 1.0,
+      "view_transform": "Raw",
+      "output_path": "//"
+    }
+  ],
+  "objects": [
+    {
+      "name": "Wooden Canoe",
+      "type": "EMPTY",
+      "collections": [
+        "Wooden Canoe",
+        "Scene Collection"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": null,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    },
+    {
+      "name": "Wooden Canoe with Paddle",
+      "type": "MESH",
+      "collections": [
+        "Wooden Canoe",
+        "Scene Collection"
+      ],
+      "parent": "Wooden Canoe",
+      "location": [
+        -0.012932944111526012,
+        -0.0422210656106472,
+        1.6703506708145142
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "weathered_brown_planks",
+        "Leather",
+        "Balsa wood",
+        "Wooden surface"
+      ],
+      "modifiers": [
+        {
+          "name": "Dynamic Paint",
+          "type": "DYNAMIC_PAINT",
+          "show_render": true
+        },
+        {
+          "name": "Auto Smooth",
+          "type": "NODES",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 1066,
+        "polygons": 1100,
+        "uv_layers": [
+          "UVMap",
+          "automap"
+        ]
+      }
+    },
+    {
+      "name": "WoodenPaddle",
+      "type": "MESH",
+      "collections": [
+        "Wooden Canoe",
+        "Scene Collection"
+      ],
+      "parent": "Wooden Canoe with Paddle",
+      "location": [
+        0.09744705259799957,
+        -0.054531000554561615,
+        1.674543857574463
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "spruce wood"
+      ],
+      "modifiers": [
+        {
+          "name": "Auto Smooth",
+          "type": "NODES",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 1080,
+        "polygons": 1060,
+        "uv_layers": [
+          "UVMap",
+          "automap"
+        ]
+      }
+    }
+  ],
+  "collections": [
+    {
+      "name": "Wooden Canoe",
+      "objects": 3
+    }
+  ],
+  "materials": [
+    {
+      "name": "Balsa wood",
+      "users": 2,
+      "nodes": 13
+    },
+    {
+      "name": "Leather",
+      "users": 1,
+      "nodes": 11
+    },
+    {
+      "name": "spruce wood",
+      "users": 1,
+      "nodes": 6
+    },
+    {
+      "name": "weathered_brown_planks",
+      "users": 2,
+      "nodes": 13
+    },
+    {
+      "name": "Wooden surface",
+      "users": 2,
+      "nodes": 17
+    }
+  ],
+  "node_groups": [
+    {
+      "name": "Auto Smooth",
+      "type": "GeometryNodeTree"
+    },
+    {
+      "name": "NodeGroup",
+      "type": "ShaderNodeTree"
+    },
+    {
+      "name": "Vector multiply.001",
+      "type": "ShaderNodeTree"
+    },
+    {
+      "name": "wood.001",
+      "type": "ShaderNodeTree"
+    }
+  ],
+  "dependencies": [
+    {
+      "kind": "image",
+      "name": "Balsa wood_Base Color.jpg.001",
+      "path": "//textures_2k\\Balsa wood_Base Color.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\Balsa wood_Base Color.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Balsa wood_Normal.jpg.001",
+      "path": "//textures_2k\\Balsa wood_Normal.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\Balsa wood_Normal.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Balsa wood_Roughness.jpg.001",
+      "path": "//textures_2k\\Balsa wood_Roughness.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\Balsa wood_Roughness.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Balsa wood_Specular Level.jpg.001",
+      "path": "//textures_2k\\Balsa wood_Specular Level.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\Balsa wood_Specular Level.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Leather032_2K_Color.jpg.001",
+      "path": "//textures_2k\\Leather032_2K_Color.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\Leather032_2K_Color.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Leather032_2K_Normal.jpg.001",
+      "path": "//textures_2k\\Leather032_2K_Normal.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\Leather032_2K_Normal.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Leather032_2K_Roughness.jpg.001",
+      "path": "//textures_2k\\Leather032_2K_Roughness.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\Leather032_2K_Roughness.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "weathered_brown_planks_diff_16k.png.001",
+      "path": "//textures_2k\\weathered_brown_planks_diff_16k.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\weathered_brown_planks_diff_16k.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "weathered_brown_planks_disp_16k.jpg.001",
+      "path": "//textures_2k\\weathered_brown_planks_disp_16k.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\weathered_brown_planks_disp_16k.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "weathered_brown_planks_nor_gl_16k.png.001",
+      "path": "//textures_2k\\weathered_brown_planks_nor_gl_16k.exr",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\weathered_brown_planks_nor_gl_16k.exr",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "weathered_brown_planks_rough_16k.png.001",
+      "path": "//textures_2k\\weathered_brown_planks_rough_16k.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\weathered_brown_planks_rough_16k.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "WoodenSurface1_ambientocclusion.jpg.001",
+      "path": "//textures_2k\\WoodenSurface1_ambientocclusion.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\WoodenSurface1_ambientocclusion.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "WoodenSurface1_basecolor.jpg.001",
+      "path": "//textures_2k\\WoodenSurface1_basecolor.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\WoodenSurface1_basecolor.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "WoodenSurface1_height.jpg.001",
+      "path": "//textures_2k\\WoodenSurface1_height.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\WoodenSurface1_height.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "WoodenSurface1_normal.jpg.001",
+      "path": "//textures_2k\\WoodenSurface1_normal.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\WoodenSurface1_normal.jpg",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "WoodenSurface1_roughness.jpg.001",
+      "path": "//textures_2k\\WoodenSurface1_roughness.jpg",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\textures_2k\\WoodenSurface1_roughness.jpg",
+      "status": "packed"
+    }
+  ],
+  "warnings": [
+    "Base mesh counts exclude evaluated modifiers and instances.",
+    "Sequences, tiles, simulation caches, drivers and add-on dependencies require task-specific checks.",
+    "One or more scenes have no active camera."
+  ]
+}

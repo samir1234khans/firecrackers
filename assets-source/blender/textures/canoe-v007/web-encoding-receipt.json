@@ -1,0 +1,26 @@
+{
+  "size": [
+    2048,
+    2048
+  ],
+  "albedo": {
+    "format": "JPEG",
+    "quality": 94,
+    "chromaSubsampling": 0,
+    "colorspace": "sRGB"
+  },
+  "normal": {
+    "format": "RGB lossless PNG",
+    "colorspace": "linear"
+  },
+  "roughness": {
+    "format": "L lossless PNG",
+    "colorspace": "linear",
+    "allOriginalRGBChannelsIdentical": true
+  },
+  "files": {
+    "canoe-color-web-2k.jpg": 1318835,
+    "canoe-normal-web-2k.png": 3002267,
+    "canoe-roughness-web-2k.png": 1556101
+  }
+}

@@ -106,3 +106,13 @@ Run `node tests/webgpu-browser.mjs` with installed Chrome and a real GPU. Set `W
 ## Cinematic comparison capture
 
 `node tests/cinematic-browser.mjs test-results/cinematic-candidate` captures hardware WebGPU and WebGL at desktop and portrait viewport sizes. Set `CINEMATIC_URL` (default port 4180) and `CINEMATIC_PREFIX`. It resets each independent seeded launch to time zero and records early/peak/late frames, actual backend, asset states, cleanup and short real-time rAF/submission cadence. Portrait is emulation and cadence is not GPU completion or thermal endurance. [Implementation plan](docs/evidence/cinematic-realism-2026-09-30/PLAN.md).
+
+## Celestial sky qualification
+
+Run `node tests/galaxy-browser.mjs test-results/galaxy-candidate` with installed hardware Chrome. `GALAXY_URL` defaults to port 4183; the test checks actual WebGPU/WebGL desktop and portrait, paused/idle render counts, missing scenery, saved quality, Canvas and transparent output. It retains source fingerprints and screenshots. [Reference research](docs/evidence/galaxy-sky-2026-09-30/RESEARCH.md) and [implementation plan](docs/evidence/galaxy-sky-2026-09-30/PLAN.md) document the original cached sky art and shared-clock motion. The isolated candidate deploys through `npx wrangler deploy --config wrangler.sky-preview.jsonc`; production remains `wrangler.jsonc`.
+
+## Living river and candlelit nauka
+
+The combined `.4` candidate adds independently loaded original Blender boats and a clustered village through the eighth authored asset, `river`. Source and export inspection are documented in [RIVER-V006](assets-source/blender/RIVER-V006.md); [river plan](docs/evidence/living-river-2026-09-30/PLAN.md) records the larger nauka and candle-light steering. Runtime uses the same simulation clock, bounded fragmented reflections, and one shadowless local candle light. Canvas has a procedural counterpart. Missing river geometry keeps its own fallback; it does not block the other seven assets.
+
+Run the focused hardware suite with `GALAXY_URL` set to the candidate and a new evidence folder: it includes desktop/portrait WebGPU and WebGL, short landscape, seeded Willow/Saturn/Supernova, three boats, light-anchor bounds, pause/idle, missing-river recovery and transparent output. `ASSET_URL` selects the target for `node tests/assets-browser.mjs`, which aborts river/sky/terrace independently while holding shell assets during flight. Publish the reviewed combined candidate with `npx wrangler deploy --config wrangler.river-preview.jsonc`. Production continues to use `npm run cloudflare:deploy` from qualified canonical main.

@@ -1,0 +1,18 @@
+{
+  "canoe-normal-web-2k": {
+    "removedChunks": [],
+    "originalBytes": 3002267,
+    "dataOnlyBytes": 3002267,
+    "pixelPayloadUnchanged": true
+  },
+  "canoe-roughness-web-2k": {
+    "removedChunks": [
+      "sRGB",
+      "gAMA",
+      "cHRM"
+    ],
+    "originalBytes": 2753871,
+    "dataOnlyBytes": 2753798,
+    "pixelPayloadUnchanged": true
+  }
+}

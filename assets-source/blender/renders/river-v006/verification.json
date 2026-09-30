@@ -1,0 +1,169 @@
+{
+  "blender": "5.2.1 LTS",
+  "masterReopened": true,
+  "sourceObjects": 443,
+  "missingDependencies": [],
+  "freshGLBImport": true,
+  "bytes": 486964,
+  "meshCount": 24,
+  "materials": [
+    "RiverLife | aged dark fittings",
+    "RiverLife | charcoal pitched roofs",
+    "RiverLife | dark inactive windows",
+    "RiverLife | nauka weathered dark timber",
+    "RiverLife | old quay granite",
+    "RiverLife | pitch and dark worn timber",
+    "RiverLife | quiet ivory candle wax",
+    "RiverLife | quiet weathered plaster",
+    "RiverLife | restrained amber emission",
+    "RiverLife | thin amber candle glass",
+    "RiverLife | undyed mooring rope",
+    "RiverLife | weathered warm timber",
+    "RiverLife | woven muted flax canopy"
+  ],
+  "imageCount": 0,
+  "vertices": 14690,
+  "mutedVillageColorMeshes": [
+    "Shore_Village | charcoal pitched roofs",
+    "Shore_Village | quiet weathered plaster"
+  ],
+  "roots": {
+    "Boat_A": {
+      "browserMin": [
+        -2.7899999618530273,
+        -0.38610005378723145,
+        -0.9317924380302429
+      ],
+      "browserMax": [
+        2.7811906337738037,
+        1.3899999856948853,
+        0.9273223876953125
+      ],
+      "browserSize": [
+        5.571190595626831,
+        1.7761000394821167,
+        1.8591148257255554
+      ],
+      "lampAnchors": {
+        "Boat_A_Lamp": [
+          0.18000000715255737,
+          1.2200000286102295,
+          -0.23999999463558197
+        ]
+      },
+      "meshes": 5
+    },
+    "Boat_B": {
+      "browserMin": [
+        -2.7899999618530273,
+        -0.38610005378723145,
+        -0.9317924380302429
+      ],
+      "browserMax": [
+        2.7811906337738037,
+        1.3200000524520874,
+        0.9273223876953125
+      ],
+      "browserSize": [
+        5.571190595626831,
+        1.7061001062393188,
+        1.8591148257255554
+      ],
+      "lampAnchors": {
+        "Boat_B_Lamp": [
+          -0.30000001192092896,
+          1.149999976158142,
+          0.20999999344348907
+        ]
+      },
+      "meshes": 5
+    },
+    "Boat_C": {
+      "browserMin": [
+        -4.798799991607666,
+        -0.5019300580024719,
+        -1.509503722190857
+      ],
+      "browserMax": [
+        4.7836480140686035,
+        2.2880001068115234,
+        1.5022624731063843
+      ],
+      "browserSize": [
+        9.58244800567627,
+        2.7899301648139954,
+        3.011766195297241
+      ],
+      "lampAnchors": {
+        "Boat_C_Candle_01": [
+          -3.0999999046325684,
+          1.0,
+          1.0399999618530273
+        ],
+        "Boat_C_Candle_02": [
+          -3.0999999046325684,
+          1.0,
+          -1.0399999618530273
+        ],
+        "Boat_C_Candle_03": [
+          3.0999999046325684,
+          1.0,
+          0.7599999904632568
+        ],
+        "Boat_C_Candle_04": [
+          3.0999999046325684,
+          1.0,
+          -0.7599999904632568
+        ],
+        "Boat_C_Lamp": [
+          -3.0999999046325684,
+          1.0,
+          1.0399999618530273
+        ]
+      },
+      "meshes": 8
+    },
+    "Shore_Village": {
+      "browserMin": [
+        -45.00000762939453,
+        -0.5600001811981201,
+        -8.941936492919922
+      ],
+      "browserMax": [
+        45.0000114440918,
+        4.282441139221191,
+        4.068778991699219
+      ],
+      "browserSize": [
+        90.00001907348633,
+        4.8424413204193115,
+        13.01071548461914
+      ],
+      "lampAnchors": {
+        "Shore_Village_Warm_Lamp_01": [
+          -31.829832077026367,
+          1.3300000429153442,
+          3.1507530212402344
+        ],
+        "Shore_Village_Warm_Lamp_02": [
+          -6.592139720916748,
+          1.2200000286102295,
+          -0.7861418724060059
+        ],
+        "Shore_Village_Warm_Lamp_03": [
+          20.6160945892334,
+          1.3300000429153442,
+          -2.824061393737793
+        ],
+        "Shore_Village_Warm_Lamp_04": [
+          37.481571197509766,
+          1.2200000286102295,
+          -1.615821123123169
+        ]
+      },
+      "meshes": 6
+    }
+  },
+  "finite": true,
+  "pointLightsExported": false
+}

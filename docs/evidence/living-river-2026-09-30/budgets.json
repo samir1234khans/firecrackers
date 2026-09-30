@@ -1,0 +1,39 @@
+{
+  "method": "Local gzip estimate for HTML plus all compiled JS/CSS; raw bytes of eight selected enhancements. This is not a measured network or total GPU-memory result.",
+  "visualAssets": [
+    {
+      "file": "smoke-density-light-v005.png",
+      "bytes": 555389
+    },
+    {
+      "file": "paper-color.png",
+      "bytes": 188989
+    },
+    {
+      "file": "water-normal-v005.png",
+      "bytes": 230518
+    },
+    {
+      "file": "ignition-flame.png",
+      "bytes": 42893
+    },
+    {
+      "file": "rocket.glb",
+      "bytes": 240240
+    },
+    {
+      "file": "terrace-v004.glb",
+      "bytes": 547136
+    },
+    {
+      "file": "waterfront-night-v005.webp",
+      "bytes": 36060
+    },
+    {
+      "file": "river-life-v007.glb",
+      "bytes": 7620280
+    }
+  ],
+  "visualBytes": 9461505,
+  "htmlJsCssGzipBytes": 370003
+}

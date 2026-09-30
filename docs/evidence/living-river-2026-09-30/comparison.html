@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firecrackers — living river browser comparison</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #070b12; color: #edf0f4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header, main, footer { max-width: 1400px; margin: auto; padding: 24px; }
+    header { padding-top: 42px; }
+    h1 { margin: 0 0 18px; font: 500 clamp(30px, 4vw, 48px)/1.1 Georgia, serif; }
+    h2 { margin: 0; font: 500 25px/1.25 Georgia, serif; }
+    p { max-width: 100ch; color: #bac5d1; line-height: 1.6; margin: 12px 0; }
+    strong { color: #ecd197; font-weight: 600; }
+    a { color: #ecd197; text-underline-offset: 3px; }
+    code { font-size: 12px; overflow-wrap: anywhere; }
+    .meta { font-size: 14px; }
+    .sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 20px 0; }
+    .sources p { margin: 0; }
+    .filters, .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    button { font: inherit; color: #e6edf5; background: #111c29; border: 1px solid #354455; border-radius: 6px; padding: 10px 14px; min-height: 44px; cursor: pointer; }
+    button[aria-pressed="true"] { color: #ecd197; border-color: #b79a61; }
+    button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid #ecd197; outline-offset: 4px; }
+    article { margin: 0 0 36px; padding: 0 0 32px; border-bottom: 1px solid #263442; }
+    article[hidden] { display: none; }
+    .compare { --reveal: 50%; position: relative; background: #02050b; overflow: hidden; touch-action: pan-y; cursor: ew-resize; }
+    .compare img { display: block; width: 100%; height: auto; user-select: none; pointer-events: none; }
+    .compare .before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--reveal)) 0 0); }
+    .divider { position: absolute; top: 0; bottom: 0; left: var(--reveal); width: 1px; background: #e6d5af; pointer-events: none; }
+    .divider::after { content: "↔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #101923e8; color: #f2dba9; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid #b79a61; border-radius: 50%; }
+    .image-label { position: absolute; top: 10px; padding: 6px 9px; background: #08101bd9; color: #e4eaf1; font-size: 12px; pointer-events: none; }
+    .image-label.old { left: 10px; } .image-label.new { right: 10px; }
+    .controls { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 18px; margin-top: 12px; }
+    .slider-label { display: block; margin-bottom: 6px; color: #c7d1dd; font-size: 14px; }
+    input[type="range"] { display: block; width: 100%; min-height: 44px; margin: 0; accent-color: #d7b46f; }
+    .links { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; font-size: 14px; }
+    .portrait .comparison-body { max-width: 480px; }
+    details { margin: 22px 0; border: 1px solid #263442; border-radius: 8px; padding: 16px; }
+    summary { cursor: pointer; min-height: 44px; color: #ecd197; }
+    .idle { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; margin-top: 14px; }
+    figure { margin: 0; }
+    figure img { display: block; width: 100%; height: auto; }
+    figcaption { color: #bac5d1; font-size: 14px; padding-bottom: 10px; }
+    footer { padding-top: 0; padding-bottom: 42px; }
+    @media (max-width: 650px) { header, main, footer { padding-left: 16px; padding-right: 16px; } .sources, .controls, .idle { grid-template-columns: 1fr; } .controls { gap: 8px; } h2 { font-size: 22px; } .image-label { font-size: 11px; } }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A living river beneath the fireworks.</h1>
+    <p>Compare <strong>actual browser captures</strong> before and after the celestial sky, wooden nauka, small boats, distant homes and warm river lighting. Drag across an image, move its slider with the arrow keys, or choose Before and After.</p>
+    <p class="meta">Seed <strong>20260916</strong> · Ultra · actual hardware WebGPU on this Intel PC · Chrome 154.0.8037.59 · device scale factor 1. Every effect starts from a reset world and advances in deterministic 1/60-second steps.</p>
+    <div class="sources">
+      <p class="meta"><strong>Before: cinematic 2026-09-30.2 captures</strong><br><code>27d5a802c1521a7589c0094e0cc296c57bd6098c4fcc226a7018a541e71b7040</code><br><a href="../cinematic-realism-2026-09-30/captures/candidate/report.json">Previous capture report</a></p>
+      <p class="meta"><strong>After: living river 2026-09-30.4 captures</strong><br><code id="current-fingerprint">1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a</code><br><a href="captures/report.json">Current capture report</a></p>
+    </div>
+    <p class="meta">The published .2 fingerprint was <code>33b9adcc18a310caad61077fd479dbee09ac77fad98fb48c11534c1af90b57a0</code>. Its compiled app was identical to the earlier captures: one redundant source newline changed the exact fingerprint. <a href="../cinematic-realism-2026-09-30/PRODUCTION.md#preview-and-capture-fingerprints">Recorded reconciliation</a>.</p>
+    <div class="filters" role="group" aria-label="Viewport filter">
+      <button type="button" data-filter="all" aria-pressed="true">All comparisons</button>
+      <button type="button" data-filter="desktop" aria-pressed="false">Desktop</button>
+      <button type="button" data-filter="portrait" aria-pressed="false">Portrait</button>
+    </div>
+  </header>
+  <main>
+    <div id="comparisons"></div>
+    <details>
+      <summary>Inspect the current river before a launch</summary>
+      <div class="idle">
+        <figure><figcaption>Desktop · 1280 × 800 · actual WebGPU</figcaption><a href="captures/desktop-webgpu-idle.png"><img src="captures/desktop-webgpu-idle.png" alt="Current desktop river scene at rest, with the wooden nauka and exposed warm lanterns" width="1280" height="800" loading="lazy"></a></figure>
+        <figure><figcaption>Portrait emulation · 393 × 851 · actual WebGPU on the PC</figcaption><a href="captures/portrait-webgpu-idle.png"><img src="captures/portrait-webgpu-idle.png" alt="Current portrait river scene at rest, with the smaller responsive nauka" width="393" height="851" loading="lazy"></a></figure>
+      </div>
+    </details>
+  </main>
+  <footer>
+    <p class="meta">These six matched peak comparisons document the rendered website. The portrait captures use viewport and touch emulation on this PC; they are not physical-phone evidence. Deterministic screenshots establish appearance, composition and effect state, not frame rate, GPU completion time or thermal endurance.</p>
+    <p class="meta">The original generated concepts remain art direction. This comparison makes no claim of photographic parity. Open the full-resolution PNGs to inspect fine trails, lantern cores, material detail and reflections.</p>
+  </footer>
+  <script>
+    const families = [
+      { before: 'gold-willow', after: 'willow', name: 'Gold Willow', time: '4.9' },
+      { before: 'sapphire-saturn', after: 'saturn', name: 'Sapphire Saturn', time: '4.9' },
+      { before: 'opal-supernova', after: 'supernova', name: 'Opal Supernova', time: '7.8' },
+    ];
+    const devices = [
+      { id: 'desktop', name: 'Desktop', width: 1280, height: 800 },
+      { id: 'portrait', name: 'Portrait emulation', width: 393, height: 851 },
+    ];
+    const gallery = document.querySelector('#comparisons');
+    for (const device of devices) for (const family of families) {
+      const key = `${device.id}-${family.after}`;
+      const before = `../cinematic-realism-2026-09-30/captures/candidate/candidate-${device.id}-webgpu-${family.before}-peak.png`;
+      const after = `captures/${device.id}-webgpu-${family.after}-peak.png`;
+      const article = document.createElement('article'); article.dataset.device = device.id; article.className = device.id;
+      const heading = document.createElement('h2'); heading.id = `heading-${key}`; heading.textContent = `${family.name} · ${device.name}`;
+      const metadata = document.createElement('p'); metadata.className = 'meta';
+      metadata.textContent = `${device.width} × ${device.height} · ${family.time} seconds after the launch press · seed 20260916 · actual WebGPU`;
+      const body = document.createElement('div'); body.className = 'comparison-body';
+      const stage = document.createElement('div'); stage.className = 'compare'; stage.setAttribute('role', 'group'); stage.setAttribute('aria-labelledby', heading.id);
+      for (const [src, className, label] of [[after, 'after', 'After — living river .4'], [before, 'before', 'Before — cinematic .2']]) {
+        const img = document.createElement('img'); img.src = src; img.className = className;
+        img.width = device.width; img.height = device.height; img.loading = 'lazy';
+        img.alt = `${family.name}, ${device.name}, ${label}, at ${family.time} seconds`;
+        stage.append(img);
+      }
+      const divider = document.createElement('span'); divider.className = 'divider'; divider.setAttribute('aria-hidden', 'true'); stage.append(divider);
+      for (const [className, label] of [['old', 'Before .2'], ['new', 'After .4']]) {
+        const tag = document.createElement('span'); tag.className = `image-label ${className}`; tag.textContent = label; tag.setAttribute('aria-hidden', 'true'); stage.append(tag);
+      }
+      const controls = document.createElement('div'); controls.className = 'controls';
+      const field = document.createElement('div');
+      const label = document.createElement('label'); label.className = 'slider-label'; label.htmlFor = `reveal-${key}`;
+      label.textContent = 'Reveal previous build: 50%';
+      const range = document.createElement('input'); range.id = label.htmlFor; range.type = 'range'; range.min = '0'; range.max = '100'; range.value = '50';
+      range.setAttribute('aria-label', `${family.name}, ${device.name}: percentage of previous build visible`);
+      const setReveal = value => {
+        const percent = Math.max(0, Math.min(100, Math.round(value))); range.value = String(percent);
+        stage.style.setProperty('--reveal', `${percent}%`); label.textContent = `Reveal previous build: ${percent}%`;
+        range.setAttribute('aria-valuetext', `${percent} percent previous build, ${100 - percent} percent current build`);
+      };
+      range.addEventListener('input', () => setReveal(Number(range.value))); setReveal(50);
+      field.append(label, range); controls.append(field);
+      const actions = document.createElement('div'); actions.className = 'actions'; actions.setAttribute('role', 'group'); actions.setAttribute('aria-label', `${family.name}, ${device.name}: comparison view`);
+      for (const [name, value] of [['Before', 100], ['Split', 50], ['After', 0]]) {
+        const button = document.createElement('button'); button.type = 'button'; button.textContent = name;
+        button.addEventListener('click', () => setReveal(value)); actions.append(button);
+      }
+      controls.append(actions);
+      let dragging = false;
+      const revealAtPointer = event => { const bounds = stage.getBoundingClientRect(); setReveal((event.clientX - bounds.left) / bounds.width * 100); };
+      stage.addEventListener('pointerdown', event => {
+        if (event.button !== 0) return; dragging = true; stage.setPointerCapture(event.pointerId);
+        range.focus({ preventScroll: true }); revealAtPointer(event);
+      });
+      stage.addEventListener('pointermove', event => { if (dragging) revealAtPointer(event); });
+      stage.addEventListener('pointerup', () => { dragging = false; }); stage.addEventListener('pointercancel', () => { dragging = false; });
+      const links = document.createElement('div'); links.className = 'links';
+      for (const [href, name] of [[before, 'Open previous PNG'], [after, 'Open current PNG']]) {
+        const link = document.createElement('a'); link.href = href; link.textContent = name; links.append(link);
+      }
+      body.append(stage, controls, links); article.append(heading, metadata, body); gallery.append(article);
+    }
+    for (const button of document.querySelectorAll('[data-filter]')) button.addEventListener('click', () => {
+      for (const other of document.querySelectorAll('[data-filter]')) other.setAttribute('aria-pressed', String(other === button));
+      for (const article of document.querySelectorAll('[data-device]')) article.hidden = button.dataset.filter !== 'all' && article.dataset.device !== button.dataset.filter;
+    });
+    // When served over HTTP, keep the displayed receipt tied to the adjacent
+    // capture report. Local file viewers still have the explicit report link.
+    if (location.protocol === 'http:' || location.protocol === 'https:') fetch('captures/report.json').then(response => response.json()).then(report => {
+      const receipt = report.projects?.find(project => project.label === 'desktop-webgpu')?.release;
+      if (receipt?.sha256) document.querySelector('#current-fingerprint').textContent = receipt.sha256;
+    }).catch(() => {});
+  </script>
+</body>
+</html>

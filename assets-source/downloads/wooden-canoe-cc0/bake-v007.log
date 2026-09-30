@@ -1,0 +1,16 @@
+00:02.063  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\downloads\wooden-canoe-cc0\source-2k.blend"
+Info: Saved as "canoe-materials-v007.blend"
+BAKE_START color
+Info: Baking map saved to internal image, save it externally or pack it
+BAKE_READY color 4485128
+BAKE_START roughness
+Info: Baking map saved to internal image, save it externally or pack it
+BAKE_READY roughness 2860014
+BAKE_START normal
+Info: Baking map saved to internal image, save it externally or pack it
+BAKE_READY normal 3767266
+Info: Saved as "canoe-materials-v007.blend"
+CANOE_BAKE_READY {"master": "canoe-materials-v007.blend", "source": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\downloads\\wooden-canoe-cc0\\source-2k.blend", "sourceLicense": "CC0-1.0", "bakedVertices": 2146, "bakedTriangles": 4332, "uvLayers": ["UVMap", "automap", "UV_WebAtlas2K"], "bakeSamples": 8, "renderer": "Cycles CPU", "maps": {"color": {"name": "Canoe v007 | color 2K", "size": [2048, 2048], "bytes": 4485128, "colorspace": "sRGB"}, "roughness": {"name": "Canoe v007 | roughness 2K", "size": [2048, 2048], "bytes": 2860014, "colorspace": "Non-Color"}, "normal": {"name": "Canoe v007 | normal 2K", "size": [2048, 2048], "bytes": 3767266, "colorspace": "Non-Color"}}}
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

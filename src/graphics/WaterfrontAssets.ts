@@ -9,8 +9,9 @@ export type WaterfrontAssets = {
   rocket: THREE.Group;
   terrace: THREE.Group;
   sky: HTMLImageElement;
+  river: THREE.Group;
 };
-export const WATERFRONT_ASSET_NAMES = ['smoke', 'paper', 'normal', 'flame', 'rocket', 'terrace', 'sky'] as const;
+export const WATERFRONT_ASSET_NAMES = ['smoke', 'paper', 'normal', 'flame', 'rocket', 'terrace', 'sky', 'river'] as const;
 export type WaterfrontAssetName = typeof WATERFRONT_ASSET_NAMES[number];
 const ASSET_LOAD_DEADLINE_MS = 60_000;
 
@@ -50,6 +51,7 @@ export async function loadWaterfrontAssets(
     { name: 'rocket', load: async () => (await loader.loadAsync(url('rocket.glb'))).scene },
     { name: 'terrace', load: async () => (await loader.loadAsync(url('terrace-v004.glb'))).scene },
     { name: 'sky', load: () => image('waterfront-night-v005.webp') },
+    { name: 'river', load: async () => (await loader.loadAsync(url('river-life-v007.glb'))).scene },
   ];
   await Promise.all(tasks.map(({ name, load }) => new Promise<void>(resolve => {
     let settled = false;
@@ -74,10 +76,27 @@ export async function loadWaterfrontAssets(
 }
 
 export function disposeWaterfrontAsset(name: WaterfrontAssetName, asset: WaterfrontAssets[WaterfrontAssetName]) {
-  if (name === 'rocket' || name === 'terrace') disposeAssetGroup(asset as THREE.Group);
+  if (name === 'rocket' || name === 'terrace' || name === 'river') disposeAssetGroup(asset as THREE.Group);
   else if (name === 'normal' || name === 'flame') (asset as THREE.Texture).dispose();
 }
 
 export function disposeAssetGroup(group?: THREE.Group) {
-  group?.traverse(o => { if (o instanceof THREE.Mesh) { o.geometry.dispose(); for (const m of Array.isArray(o.material) ? o.material : [o.material]) { for (const value of Object.values(m)) if (value instanceof THREE.Texture) value.dispose(); m.dispose(); } } });
+  const geometries = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>();
+  const textures = new Set<THREE.Texture>(), bitmaps = new Set<ImageBitmap>();
+  group?.traverse(o => {
+    if (!(o instanceof THREE.Mesh)) return;
+    geometries.add(o.geometry);
+    for (const material of Array.isArray(o.material) ? o.material : [o.material]) materials.add(material);
+  });
+  for (const material of materials) for (const value of Object.values(material)) {
+    if (!(value instanceof THREE.Texture)) continue;
+    textures.add(value);
+    // GLTFLoader can use ImageBitmap for embedded PBR maps. Texture.dispose()
+    // releases GPU storage; the decoded bitmap also needs an explicit close.
+    if (typeof ImageBitmap !== 'undefined' && value.image instanceof ImageBitmap) bitmaps.add(value.image);
+  }
+  for (const geometry of geometries) geometry.dispose();
+  for (const material of materials) material.dispose();
+  for (const texture of textures) texture.dispose();
+  for (const bitmap of bitmaps) bitmap.close();
 }

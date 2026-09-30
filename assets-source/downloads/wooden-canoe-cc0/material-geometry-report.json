@@ -1,0 +1,6030 @@
+{
+  "objects": [
+    {
+      "name": "Wooden Canoe with Paddle",
+      "boundsMin": [
+        -2.0670876502990723,
+        -0.4153458774089813,
+        -0.0003549903631210327
+      ],
+      "boundsMax": [
+        2.058220148086548,
+        0.4195115864276886,
+        0.43658584356307983
+      ],
+      "polys": 1100,
+      "materials": {
+        "weathered_brown_planks": 593,
+        "Leather": 348,
+        "Balsa wood": 135,
+        "Wooden surface": 24
+      },
+      "uvActive": "automap"
+    },
+    {
+      "name": "WoodenPaddle",
+      "boundsMin": [
+        -0.7420464754104614,
+        -0.11898943781852722,
+        0.20213164389133453
+      ],
+      "boundsMax": [
+        0.8161552548408508,
+        0.09436946362257004,
+        0.2385025918483734
+      ],
+      "polys": 1060,
+      "materials": {
+        "spruce wood": 1060
+      },
+      "uvActive": "automap"
+    }
+  ],
+  "images": [
+    {
+      "name": "Balsa wood_Base Color.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "sRGB",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "Balsa wood_Normal.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "Balsa wood_Roughness.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "sRGB",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "Balsa wood_Specular Level.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "sRGB",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "Leather032_2K_Color.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "sRGB",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "Leather032_2K_Normal.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "Leather032_2K_Roughness.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "weathered_brown_planks_diff_16k.png.001",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "weathered_brown_planks_disp_16k.jpg.001",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "weathered_brown_planks_nor_gl_16k.png.001",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color",
+      "format": "OPEN_EXR",
+      "packed": true
+    },
+    {
+      "name": "weathered_brown_planks_rough_16k.png.001",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "WoodenSurface1_ambientocclusion.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "WoodenSurface1_basecolor.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "sRGB",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "WoodenSurface1_height.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "WoodenSurface1_normal.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    },
+    {
+      "name": "WoodenSurface1_roughness.jpg.001",
+      "size": [
+        1024,
+        1024
+      ],
+      "colorspace": "Non-Color",
+      "format": "JPEG",
+      "packed": true
+    }
+  ],
+  "materials": {
+    "Balsa wood": {
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.10196968913078308,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.06666666269302368,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 1.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Normal Map",
+          "type": "ShaderNodeNormalMap",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Combine XYZ",
+          "type": "ShaderNodeCombineXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Math",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "ShaderNodeTexImage",
+          "image": "Balsa wood_Roughness.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "ShaderNodeTexImage",
+          "image": "Balsa wood_Specular Level.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Gamma",
+          "type": "ShaderNodeGamma",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Gamma": 1.0
+          }
+        },
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "image": "Balsa wood_Base Color.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Gamma.001",
+          "type": "ShaderNodeGamma",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Gamma": 1.0
+          }
+        },
+        {
+          "name": "Gamma.002",
+          "type": "ShaderNodeGamma",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Gamma": 1.0
+          }
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "ShaderNodeTexImage",
+          "image": "Balsa wood_Normal.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Combine XYZ",
+            "Vector"
+          ],
+          "to": [
+            "Normal Map",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Gamma",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Roughness"
+          ]
+        },
+        {
+          "from": [
+            "Gamma.002",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.001",
+            "Color"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "X"
+          ],
+          "to": [
+            "Combine XYZ",
+            "X"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Combine XYZ",
+            "Z"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Y"
+          ],
+          "to": [
+            "Math",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ",
+            "Y"
+          ]
+        },
+        {
+          "from": [
+            "Gamma.001",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Specular IOR Level"
+          ]
+        },
+        {
+          "from": [
+            "Normal Map",
+            "Normal"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.002",
+            "Color"
+          ],
+          "to": [
+            "Gamma",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.003",
+            "Color"
+          ],
+          "to": [
+            "Gamma.001",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture",
+            "Color"
+          ],
+          "to": [
+            "Gamma.002",
+            "Color"
+          ]
+        }
+      ]
+    },
+    "Leather": {
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.5,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 1.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "image": "Leather032_2K_Color.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "ShaderNodeTexImage",
+          "image": "Leather032_2K_Normal.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Normal Map",
+          "type": "ShaderNodeNormalMap",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Separate RGB",
+          "type": "ShaderNodeSeparateColor",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Math",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.0
+          }
+        },
+        {
+          "name": "Combine RGB",
+          "type": "ShaderNodeCombineColor",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Red": 0.0,
+            "Green": 0.0,
+            "Blue": 0.0
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mapping",
+          "type": "ShaderNodeMapping",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Texture Coordinate",
+          "type": "ShaderNodeTexCoord",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "ShaderNodeTexImage",
+          "image": "Leather032_2K_Roughness.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.001",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Roughness"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.002",
+            "Color"
+          ],
+          "to": [
+            "Separate RGB",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Normal Map",
+            "Normal"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Separate RGB",
+            "Green"
+          ],
+          "to": [
+            "Math",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Combine RGB",
+            "Color"
+          ],
+          "to": [
+            "Normal Map",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Math",
+            "Value"
+          ],
+          "to": [
+            "Combine RGB",
+            "Green"
+          ]
+        },
+        {
+          "from": [
+            "Separate RGB",
+            "Red"
+          ],
+          "to": [
+            "Combine RGB",
+            "Red"
+          ]
+        },
+        {
+          "from": [
+            "Separate RGB",
+            "Blue"
+          ],
+          "to": [
+            "Combine RGB",
+            "Blue"
+          ]
+        },
+        {
+          "from": [
+            "Mapping",
+            "Vector"
+          ],
+          "to": [
+            "Image Texture",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Mapping",
+            "Vector"
+          ],
+          "to": [
+            "Image Texture.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Mapping",
+            "Vector"
+          ],
+          "to": [
+            "Image Texture.002",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Texture Coordinate",
+            "UV"
+          ],
+          "to": [
+            "Mapping",
+            "Vector"
+          ]
+        }
+      ]
+    },
+    "spruce wood": {
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.20000000298023224,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 1.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Emission",
+          "type": "ShaderNodeEmission",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "RGB Curves",
+          "type": "ShaderNodeRGBCurve",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 1.0,
+            "Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Texture Coordinate",
+          "type": "ShaderNodeTexCoord",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Group",
+          "type": "ShaderNodeGroup",
+          "image": null,
+          "group": "wood.001",
+          "inputs": {
+            "lines density": 150.0,
+            "lines intensity": 0.8216374516487122,
+            "distorsion": 0.004999999888241291,
+            "knot line density": 5.0,
+            "knot density": 15.0,
+            "knot threshold": 0.25,
+            "fine noise": 0.5,
+            "primary color": [
+              1.0,
+              0.7142047882080078,
+              0.2907317578792572,
+              1.0
+            ],
+            "secondary lines": [
+              1.0,
+              0.7448733448982239,
+              0.35181140899658203,
+              1.0
+            ],
+            "tint1": [
+              1.0,
+              0.5104771852493286,
+              0.1891365945339203,
+              1.0
+            ],
+            "tint2": [
+              0.3754892945289612,
+              0.13053900003433228,
+              0.04316817596554756,
+              1.0
+            ],
+            "knot darken tint": [
+              1.0,
+              0.010738135315477848,
+              0.17841504514217377,
+              1.0
+            ],
+            "knot darkening": 0.6000000238418579,
+            "knot lines darken": 0.1906432956457138,
+            "primary vs secondary veins ": 0.16959063708782196,
+            "tinting": 1.0,
+            "tint contrast": 0.0,
+            "per piece variation": 0.25,
+            "final multiplier": 2.5,
+            "Vector": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Group",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Group",
+            "Color"
+          ],
+          "to": [
+            "Emission",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Group",
+            "Color"
+          ],
+          "to": [
+            "RGB Curves",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "RGB Curves",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Roughness"
+          ]
+        },
+        {
+          "from": [
+            "Group",
+            "Normal"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Texture Coordinate",
+            "Generated"
+          ],
+          "to": [
+            "Group",
+            "Vector"
+          ]
+        }
+      ]
+    },
+    "weathered_brown_planks": {
+      "nodes": [
+        {
+          "name": "Frame",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Frame.001",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "image": "weathered_brown_planks_disp_16k.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Displacement",
+          "type": "ShaderNodeDisplacement",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Height": 0.0,
+            "Midlevel": 0.4300000071525574,
+            "Scale": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "ShaderNodeTexImage",
+          "image": "weathered_brown_planks_diff_16k.png.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "ShaderNodeTexImage",
+          "image": "weathered_brown_planks_rough_16k.png.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Normal Map",
+          "type": "ShaderNodeNormalMap",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Mapping",
+          "type": "ShaderNodeMapping",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": [
+              2.0,
+              2.0,
+              2.0
+            ]
+          }
+        },
+        {
+          "name": "Reroute",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Texture Coordinate",
+          "type": "ShaderNodeTexCoord",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.5,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 1.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "ShaderNodeTexImage",
+          "image": "weathered_brown_planks_nor_gl_16k.png.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture",
+            "Color"
+          ],
+          "to": [
+            "Displacement",
+            "Height"
+          ]
+        },
+        {
+          "from": [
+            "Displacement",
+            "Displacement"
+          ],
+          "to": [
+            "Material Output",
+            "Displacement"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.001",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.002",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Roughness"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.003",
+            "Color"
+          ],
+          "to": [
+            "Normal Map",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Normal Map",
+            "Normal"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture.002",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture.003",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Mapping",
+            "Vector"
+          ],
+          "to": [
+            "Reroute",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "Texture Coordinate",
+            "UV"
+          ],
+          "to": [
+            "Mapping",
+            "Vector"
+          ]
+        }
+      ]
+    },
+    "Wooden surface": {
+      "nodes": [
+        {
+          "name": "Frame",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Frame.001",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Displacement",
+          "type": "ShaderNodeDisplacement",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Height": 0.0,
+            "Midlevel": 0.5,
+            "Scale": 0.05000000074505806,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Normal Map",
+          "type": "ShaderNodeNormalMap",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Strength": 1.0,
+            "Color": [
+              0.5,
+              0.5,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Texture Coordinate",
+          "type": "ShaderNodeTexCoord",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "image": "WoodenSurface1_height.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "ShaderNodeTexImage",
+          "image": "WoodenSurface1_normal.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Reroute",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "ShaderNodeTexImage",
+          "image": "WoodenSurface1_roughness.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "ShaderNodeTexImage",
+          "image": "WoodenSurface1_basecolor.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Image Texture.004",
+          "type": "ShaderNodeTexImage",
+          "image": "WoodenSurface1_ambientocclusion.jpg.001",
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Diffuse BSDF",
+          "type": "ShaderNodeBsdfDiffuse",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Roughness": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Gamma",
+          "type": "ShaderNodeGamma",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Gamma": 0.30000001192092896
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mapping",
+          "type": "ShaderNodeMapping",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Location": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.5,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.05000000074505806,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "Emission Strength": 1.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Mix Shader",
+          "type": "ShaderNodeMixShader",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Image Texture",
+            "Color"
+          ],
+          "to": [
+            "Displacement",
+            "Height"
+          ]
+        },
+        {
+          "from": [
+            "Displacement",
+            "Displacement"
+          ],
+          "to": [
+            "Material Output",
+            "Displacement"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.001",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Roughness"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.002",
+            "Color"
+          ],
+          "to": [
+            "Normal Map",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Normal Map",
+            "Normal"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture.002",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Texture Coordinate",
+            "UV"
+          ],
+          "to": [
+            "Mapping",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.003",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Mapping",
+            "Vector"
+          ],
+          "to": [
+            "Reroute",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Image Texture.003",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Image Texture.004",
+            "Color"
+          ],
+          "to": [
+            "Gamma",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Mix Shader",
+            "Shader"
+          ]
+        },
+        {
+          "from": [
+            "Diffuse BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Mix Shader",
+            "Shader"
+          ]
+        },
+        {
+          "from": [
+            "Gamma",
+            "Color"
+          ],
+          "to": [
+            "Mix Shader",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix Shader",
+            "Shader"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ]
+    }
+  },
+  "nodeGroups": {
+    "NodeGroup": {
+      "nodes": [
+        {
+          "name": "Math.011",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "ColorRamp.005",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Separate XYZ.002",
+          "type": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Group Output",
+          "type": "NodeGroupOutput",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.0
+          }
+        },
+        {
+          "name": "Group Input",
+          "type": "NodeGroupInput",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Vector Transform",
+          "type": "ShaderNodeVectorTransform",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Normal"
+          ],
+          "to": [
+            "Vector Transform",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ.002",
+            "Z"
+          ],
+          "to": [
+            "ColorRamp.005",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Math.011",
+            "Value"
+          ],
+          "to": [
+            "Group Output",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.005",
+            "Color"
+          ],
+          "to": [
+            "Math.011",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Vector Transform",
+            "Vector"
+          ],
+          "to": [
+            "Separate XYZ.002",
+            "Vector"
+          ]
+        }
+      ]
+    },
+    "Vector multiply.001": {
+      "nodes": [
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Group Input",
+          "type": "NodeGroupInput",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Group Output",
+          "type": "NodeGroupOutput",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Combine XYZ",
+          "type": "ShaderNodeCombineXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        {
+          "name": "Math.002",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.001",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.003",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.004",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.005",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Group Input",
+            "Vector"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "X"
+          ],
+          "to": [
+            "Math",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Y"
+          ],
+          "to": [
+            "Math.001",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Math.002",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math",
+            "Value"
+          ],
+          "to": [
+            "Math.003",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.001",
+            "Value"
+          ],
+          "to": [
+            "Math.004",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.002",
+            "Value"
+          ],
+          "to": [
+            "Math.005",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Combine XYZ",
+            "Vector"
+          ],
+          "to": [
+            "Group Output",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "common"
+          ],
+          "to": [
+            "Math.001",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "common"
+          ],
+          "to": [
+            "Math.002",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "common"
+          ],
+          "to": [
+            "Math",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.003",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ",
+            "X"
+          ]
+        },
+        {
+          "from": [
+            "Math.004",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ",
+            "Y"
+          ]
+        },
+        {
+          "from": [
+            "Math.005",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ",
+            "Z"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "x"
+          ],
+          "to": [
+            "Math.003",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "y"
+          ],
+          "to": [
+            "Math.004",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "z"
+          ],
+          "to": [
+            "Math.005",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "wood.001": {
+      "nodes": [
+        {
+          "name": "Frame.001",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "KNOTS VECTOR",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Frame.003",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Frame",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Frame.002",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "COLORIZATIOn",
+          "type": "NodeFrame",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Reroute",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Reroute.004",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": 0.0
+          }
+        },
+        {
+          "name": "Vector Math.006",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Group Input",
+          "type": "NodeGroupInput",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Math.003",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.005",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.006",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Reroute.001",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Reroute.005",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": 0.0
+          }
+        },
+        {
+          "name": "Vector Math.003",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Bump",
+          "type": "ShaderNodeBump",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Strength": 0.10000000149011612,
+            "Distance": 1.0,
+            "Filter Width": 1.0,
+            "Height": 1.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Combine XYZ",
+          "type": "ShaderNodeCombineXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        {
+          "name": "Math",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.008",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.002",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.001",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Separate XYZ.001",
+          "type": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Vector Math.008",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Vector Transform",
+          "type": "ShaderNodeVectorTransform",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Emission",
+          "type": "ShaderNodeEmission",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Mix.006",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Reroute.002",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Object Info",
+          "type": "ShaderNodeObjectInfo",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Object Info.003",
+          "type": "ShaderNodeObjectInfo",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "ColorRamp.009",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Math.020",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.021",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Noise Texture.003",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 20.0,
+            "Detail": 2.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Vector Math.007",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Noise Texture.005",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 5.0,
+            "Detail": 2.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Reroute.006",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": 0.0
+          }
+        },
+        {
+          "name": "Wave Texture",
+          "type": "ShaderNodeTexWave",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 50.0,
+            "Distortion": 1.0,
+            "Detail": 4.0,
+            "Detail Scale": 1.0,
+            "Detail Roughness": 0.5,
+            "Phase Offset": 0.0
+          }
+        },
+        {
+          "name": "Math.019",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Wave Texture.001",
+          "type": "ShaderNodeTexWave",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 5.0,
+            "Distortion": 5.0,
+            "Detail": 2.0,
+            "Detail Scale": 1.0,
+            "Detail Roughness": 0.5,
+            "Phase Offset": 0.0
+          }
+        },
+        {
+          "name": "Math.014",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Noise Texture.004",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 20.0,
+            "Detail": 2.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Vector Math.011",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Group",
+          "type": "ShaderNodeGroup",
+          "image": null,
+          "group": "Vector multiply.001",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "common": 0.25,
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        {
+          "name": "Mix.019",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Noise Texture.008",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 20.0,
+            "Detail": 5.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Noise Texture.009",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 50.0,
+            "Detail": 4.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Noise Texture.007",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 200.0,
+            "Detail": 4.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Mix.003",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Noise Texture.002",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 10.0,
+            "Detail": 5.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Noise Texture.006",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 20.0,
+            "Detail": 2.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Vector Math.010",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Bright/Contrast.002",
+          "type": "ShaderNodeBrightContrast",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Brightness": 0.0,
+            "Contrast": 2.0
+          }
+        },
+        {
+          "name": "Mix.001",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Math.004",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Vector Math.002",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Noise Texture",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 5.0,
+            "Detail": 3.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Vector Math.001",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Mapping",
+          "type": "ShaderNodeMapping",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Location": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "Rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": [
+              80.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Gradient Texture",
+          "type": "ShaderNodeTexGradient",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Vector multiply",
+          "type": "ShaderNodeGroup",
+          "image": null,
+          "group": "Vector multiply.001",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "common": 0.0,
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        {
+          "name": "Group Input.002",
+          "type": "NodeGroupInput",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Group Input.004",
+          "type": "NodeGroupInput",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Combine XYZ.001",
+          "type": "ShaderNodeCombineXYZ",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        {
+          "name": "Group Input.003",
+          "type": "NodeGroupInput",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Vector multiply.002",
+          "type": "ShaderNodeGroup",
+          "image": null,
+          "group": "Vector multiply.001",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "common": 0.25,
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          }
+        },
+        {
+          "name": "Math.018",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Object Info.002",
+          "type": "ShaderNodeObjectInfo",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Vector Math.009",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Vector Math.004",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Reroute.003",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "ColorRamp",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Noise Texture.001",
+          "type": "ShaderNodeTexNoise",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 5.0,
+            "Detail": 1.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Offset": 0.0,
+            "Gain": 1.0,
+            "Distortion": 0.0
+          }
+        },
+        {
+          "name": "Vector Math.005",
+          "type": "ShaderNodeVectorMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Math.007",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "RGB Curves",
+          "type": "ShaderNodeRGBCurve",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 1.0,
+            "Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "RGB Curves.002",
+          "type": "ShaderNodeRGBCurve",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 1.0,
+            "Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Z Blend",
+          "type": "ShaderNodeGroup",
+          "image": null,
+          "group": "NodeGroup",
+          "inputs": {}
+        },
+        {
+          "name": "RGB Curves.001",
+          "type": "ShaderNodeRGBCurve",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 1.0,
+            "Color": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Math.011",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.009",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.016",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.010",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.012",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.013",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Reroute.007",
+          "type": "NodeReroute",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Input": 0.0
+          }
+        },
+        {
+          "name": "Math.015",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.022",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Bump.001",
+          "type": "ShaderNodeBump",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Strength": 0.10000000149011612,
+            "Distance": 0.10000000149011612,
+            "Filter Width": 1.0,
+            "Height": 1.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "ColorRamp.006",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "ColorRamp.005",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Mix.007",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.013",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.004",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "ColorRamp.007",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Mix.009",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "ColorRamp.008",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Mix.015",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Object Info.001",
+          "type": "ShaderNodeObjectInfo",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "ColorRamp.002",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Bright/Contrast",
+          "type": "ShaderNodeBrightContrast",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Brightness": 0.0,
+            "Contrast": 0.0
+          }
+        },
+        {
+          "name": "Mix.016",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.018",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.017",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.005",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "ColorRamp.001",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "ColorRamp.003",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "ColorRamp.010",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Mix.020",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.002",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.021",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Group Input.001",
+          "type": "NodeGroupInput",
+          "image": null,
+          "group": null,
+          "inputs": {}
+        },
+        {
+          "name": "Math.017",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Mix.008",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.022",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.012",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Mix.011",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Bright/Contrast.001",
+          "type": "ShaderNodeBrightContrast",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Brightness": 0.0,
+            "Contrast": 0.0
+          }
+        },
+        {
+          "name": "Mix.010",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "ColorRamp.004",
+          "type": "ShaderNodeValToRGB",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": 0.5
+          }
+        },
+        {
+          "name": "Mix.014",
+          "type": "ShaderNodeMix",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Factor": [
+              0.5,
+              0.5,
+              0.5
+            ],
+            "A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "B": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Hue Saturation Value",
+          "type": "ShaderNodeHueSaturation",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Hue": 0.5,
+            "Saturation": 1.0,
+            "Value": 4.0,
+            "Factor": 1.0,
+            "Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Group Output",
+          "type": "NodeGroupOutput",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Color": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "waves": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Voronoi Texture.001",
+          "type": "ShaderNodeTexVoronoi",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "W": 0.0,
+            "Scale": 10.0,
+            "Detail": 0.0,
+            "Roughness": 0.5,
+            "Lacunarity": 2.0,
+            "Smoothness": 1.0,
+            "Exponent": 0.5,
+            "Randomness": 1.0
+          }
+        },
+        {
+          "name": "Math.023",
+          "type": "ShaderNodeMath",
+          "image": null,
+          "group": null,
+          "inputs": {
+            "Value": 0.5
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Mapping",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Mapping",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Noise Texture",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math",
+            "Vector"
+          ],
+          "to": [
+            "Gradient Texture",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture",
+            "Color"
+          ],
+          "to": [
+            "Vector Math.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Gradient Texture",
+            "Color"
+          ],
+          "to": [
+            "Reroute.002",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.001",
+            "Vector"
+          ],
+          "to": [
+            "Vector multiply",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Object Info",
+            "Random"
+          ],
+          "to": [
+            "Math.003",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.003",
+            "Value"
+          ],
+          "to": [
+            "Math.004",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.002",
+            "Vector"
+          ],
+          "to": [
+            "Reroute",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "Math.004",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ.001",
+            "X"
+          ]
+        },
+        {
+          "from": [
+            "Math.003",
+            "Value"
+          ],
+          "to": [
+            "Math.005",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.005",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ.001",
+            "Y"
+          ]
+        },
+        {
+          "from": [
+            "Math.003",
+            "Value"
+          ],
+          "to": [
+            "Math.006",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.006",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ.001",
+            "Z"
+          ]
+        },
+        {
+          "from": [
+            "Reroute",
+            "Output"
+          ],
+          "to": [
+            "Reroute.003",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "RGB Curves",
+            "Color"
+          ],
+          "to": [
+            "Math.013",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "RGB Curves",
+            "Color"
+          ],
+          "to": [
+            "RGB Curves.002",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Wave Texture.001",
+            "Color"
+          ],
+          "to": [
+            "Mix.001",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Math.009",
+            "Value"
+          ],
+          "to": [
+            "Math.013",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Vector multiply",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp",
+            "Color"
+          ],
+          "to": [
+            "Math.014",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "RGB Curves",
+            "Color"
+          ],
+          "to": [
+            "ColorRamp",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Math.014",
+            "Value"
+          ],
+          "to": [
+            "Mix.001",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.004",
+            "Vector"
+          ],
+          "to": [
+            "Voronoi Texture.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.001",
+            "Color"
+          ],
+          "to": [
+            "Vector Math.005",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.005",
+            "Vector"
+          ],
+          "to": [
+            "Vector multiply.002",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.003",
+            "Output"
+          ],
+          "to": [
+            "Noise Texture.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Math.007",
+            "Value"
+          ],
+          "to": [
+            "RGB Curves",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Math.013",
+            "Value"
+          ],
+          "to": [
+            "Math.015",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math",
+            "Vector"
+          ],
+          "to": [
+            "Separate XYZ.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Math.001",
+            "Value"
+          ],
+          "to": [
+            "Math.008",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Y"
+          ],
+          "to": [
+            "Math.002",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Y"
+          ],
+          "to": [
+            "Math.001",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.008",
+            "Value"
+          ],
+          "to": [
+            "Math.002",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math",
+            "Value"
+          ],
+          "to": [
+            "Math.008",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ.001",
+            "Y"
+          ],
+          "to": [
+            "Math",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.010",
+            "Value"
+          ],
+          "to": [
+            "RGB Curves.001",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "RGB Curves.002",
+            "Color"
+          ],
+          "to": [
+            "Wave Texture.001",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.004",
+            "Color"
+          ],
+          "to": [
+            "Vector Math.011",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.002",
+            "Factor"
+          ],
+          "to": [
+            "Mix.003",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.001",
+            "Output"
+          ],
+          "to": [
+            "Wave Texture",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.007",
+            "Factor"
+          ],
+          "to": [
+            "Mix.003",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.008",
+            "Result"
+          ],
+          "to": [
+            "Mix.022",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "RGB Curves.001",
+            "Color"
+          ],
+          "to": [
+            "Math.011",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.011",
+            "Value"
+          ],
+          "to": [
+            "ColorRamp.005",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.004",
+            "Output"
+          ],
+          "to": [
+            "Math.009",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.004",
+            "Output"
+          ],
+          "to": [
+            "Reroute.006",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "knot density"
+          ],
+          "to": [
+            "Voronoi Texture.001",
+            "Scale"
+          ]
+        },
+        {
+          "from": [
+            "Math.016",
+            "Value"
+          ],
+          "to": [
+            "Math.007",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "knot threshold"
+          ],
+          "to": [
+            "Math.016",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.016",
+            "Value"
+          ],
+          "to": [
+            "Math.012",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.012",
+            "Value"
+          ],
+          "to": [
+            "Math.010",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Mix.001",
+            "Result"
+          ],
+          "to": [
+            "ColorRamp.001",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp",
+            "Color"
+          ],
+          "to": [
+            "Mix.006",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.006",
+            "Result"
+          ],
+          "to": [
+            "Vector Math.006",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Mix.006",
+            "Result"
+          ],
+          "to": [
+            "Vector Math.007",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Mix.006",
+            "Result"
+          ],
+          "to": [
+            "Noise Texture.004",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.006",
+            "Vector"
+          ],
+          "to": [
+            "Noise Texture.003",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.007",
+            "Vector"
+          ],
+          "to": [
+            "Noise Texture.005",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Mix.002",
+            "Result"
+          ],
+          "to": [
+            "Mix.021",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.002",
+            "Color"
+          ],
+          "to": [
+            "Bright/Contrast",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.004",
+            "Color"
+          ],
+          "to": [
+            "Bright/Contrast.001",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Mix",
+            "Result"
+          ],
+          "to": [
+            "Mix.008",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.001",
+            "Result"
+          ],
+          "to": [
+            "ColorRamp.006",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.004",
+            "Result"
+          ],
+          "to": [
+            "Mix.005",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.005",
+            "Color"
+          ],
+          "to": [
+            "Mix.013",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Math.011",
+            "Value"
+          ],
+          "to": [
+            "ColorRamp.007",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.006",
+            "Color"
+          ],
+          "to": [
+            "Mix.007",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.007",
+            "Color"
+          ],
+          "to": [
+            "Mix.007",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.007",
+            "Result"
+          ],
+          "to": [
+            "Mix.004",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.009",
+            "Result"
+          ],
+          "to": [
+            "Mix.002",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "primary color"
+          ],
+          "to": [
+            "Mix.009",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.010",
+            "Result"
+          ],
+          "to": [
+            "Mix",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Mix.013",
+            "Result"
+          ],
+          "to": [
+            "Mix.005",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "knot darken tint"
+          ],
+          "to": [
+            "Mix.013",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.005",
+            "Alpha"
+          ],
+          "to": [
+            "Math.017",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Mix.005",
+            "Result"
+          ],
+          "to": [
+            "Mix.014",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Math.017",
+            "Value"
+          ],
+          "to": [
+            "Mix.005",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "knot darkening"
+          ],
+          "to": [
+            "Math.017",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Object Info.001",
+            "Random"
+          ],
+          "to": [
+            "ColorRamp.008",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "knot lines darken"
+          ],
+          "to": [
+            "Mix.004",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.014",
+            "Result"
+          ],
+          "to": [
+            "Hue Saturation Value",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Group Input",
+            "lines density"
+          ],
+          "to": [
+            "Math.020",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.002",
+            "knot line density"
+          ],
+          "to": [
+            "Wave Texture.001",
+            "Scale"
+          ]
+        },
+        {
+          "from": [
+            "Combine XYZ",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math.003",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.003",
+            "distorsion"
+          ],
+          "to": [
+            "Vector multiply",
+            "common"
+          ]
+        },
+        {
+          "from": [
+            "Wave Texture",
+            "Color"
+          ],
+          "to": [
+            "Mix.001",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.003",
+            "Vector"
+          ],
+          "to": [
+            "Reroute.001",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.002",
+            "Output"
+          ],
+          "to": [
+            "Vector Math.003",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Z Blend",
+            "Value"
+          ],
+          "to": [
+            "Math.015",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.002",
+            "Value"
+          ],
+          "to": [
+            "Combine XYZ",
+            "Y"
+          ]
+        },
+        {
+          "from": [
+            "Geometry",
+            "Normal"
+          ],
+          "to": [
+            "Vector Math.008",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.008",
+            "Vector"
+          ],
+          "to": [
+            "Vector Transform",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Bump",
+            "Normal"
+          ],
+          "to": [
+            "Vector Math.008",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Transform",
+            "Vector"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.003",
+            "Factor"
+          ],
+          "to": [
+            "ColorRamp.004",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.006",
+            "Result"
+          ],
+          "to": [
+            "Emission",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.002",
+            "Output"
+          ],
+          "to": [
+            "Mix.006",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "primary vs secondary veins "
+          ],
+          "to": [
+            "Mix.002",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "tinting"
+          ],
+          "to": [
+            "Mix.008",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "tint1"
+          ],
+          "to": [
+            "Mix.010",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "tint2"
+          ],
+          "to": [
+            "Mix.011",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.005",
+            "Factor"
+          ],
+          "to": [
+            "ColorRamp.002",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Bright/Contrast",
+            "Color"
+          ],
+          "to": [
+            "Mix.011",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "tint contrast"
+          ],
+          "to": [
+            "Bright/Contrast.001",
+            "Contrast"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "tint contrast"
+          ],
+          "to": [
+            "Bright/Contrast",
+            "Contrast"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.008",
+            "Color"
+          ],
+          "to": [
+            "Mix.015",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "per piece variation"
+          ],
+          "to": [
+            "Mix.015",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.015",
+            "Result"
+          ],
+          "to": [
+            "Mix.014",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.016",
+            "Result"
+          ],
+          "to": [
+            "Mix.009",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.001",
+            "Color"
+          ],
+          "to": [
+            "Mix.016",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "lines intensity"
+          ],
+          "to": [
+            "Mix.016",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.003",
+            "Output"
+          ],
+          "to": [
+            "Vector Math.009",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Object Info.002",
+            "Random"
+          ],
+          "to": [
+            "Math.018",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Mix.002",
+            "Result"
+          ],
+          "to": [
+            "Mix.017",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Mix",
+            "Result"
+          ],
+          "to": [
+            "Mix.017",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "tinting"
+          ],
+          "to": [
+            "Mix.017",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.018",
+            "Result"
+          ],
+          "to": [
+            "Mix.004",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Mix.017",
+            "Result"
+          ],
+          "to": [
+            "Mix.018",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.006",
+            "Output"
+          ],
+          "to": [
+            "Wave Texture",
+            "Scale"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.006",
+            "Output"
+          ],
+          "to": [
+            "Math.019",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.019",
+            "Value"
+          ],
+          "to": [
+            "Noise Texture.004",
+            "Scale"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.010",
+            "Vector"
+          ],
+          "to": [
+            "Noise Texture.002",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.010",
+            "Vector"
+          ],
+          "to": [
+            "Noise Texture.007",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.011",
+            "Vector"
+          ],
+          "to": [
+            "Group",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Group",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math.010",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.008",
+            "Factor"
+          ],
+          "to": [
+            "Mix.019",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.009",
+            "Factor"
+          ],
+          "to": [
+            "Mix.019",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.006",
+            "Result"
+          ],
+          "to": [
+            "Noise Texture.006",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.006",
+            "Color"
+          ],
+          "to": [
+            "Noise Texture.009",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Noise Texture.006",
+            "Color"
+          ],
+          "to": [
+            "Noise Texture.008",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Object Info.003",
+            "Random"
+          ],
+          "to": [
+            "ColorRamp.009",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Math.020",
+            "Value"
+          ],
+          "to": [
+            "Reroute.004",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.009",
+            "Color"
+          ],
+          "to": [
+            "Math.021",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.021",
+            "Value"
+          ],
+          "to": [
+            "Math.020",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Mix.003",
+            "Result"
+          ],
+          "to": [
+            "Bright/Contrast.002",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Bright/Contrast.002",
+            "Color"
+          ],
+          "to": [
+            "ColorRamp.003",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.010",
+            "Color"
+          ],
+          "to": [
+            "Mix.020",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "secondary lines"
+          ],
+          "to": [
+            "Mix.020",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.019",
+            "Result"
+          ],
+          "to": [
+            "ColorRamp.010",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.020",
+            "Result"
+          ],
+          "to": [
+            "Mix.002",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix.021",
+            "Result"
+          ],
+          "to": [
+            "Mix.008",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "ColorRamp.003",
+            "Color"
+          ],
+          "to": [
+            "Mix.021",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "fine noise"
+          ],
+          "to": [
+            "Mix.021",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.011",
+            "Result"
+          ],
+          "to": [
+            "Mix",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Mix",
+            "Result"
+          ],
+          "to": [
+            "Mix.012",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "tinting"
+          ],
+          "to": [
+            "Mix.012",
+            "Factor"
+          ]
+        },
+        {
+          "from": [
+            "Mix.021",
+            "Result"
+          ],
+          "to": [
+            "Mix.012",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Mix.022",
+            "Result"
+          ],
+          "to": [
+            "Mix.018",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Mix.012",
+            "Result"
+          ],
+          "to": [
+            "Mix.022",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Bright/Contrast.001",
+            "Color"
+          ],
+          "to": [
+            "Mix.010",
+            "A"
+          ]
+        },
+        {
+          "from": [
+            "Hue Saturation Value",
+            "Color"
+          ],
+          "to": [
+            "Group Output",
+            "Color"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.001",
+            "final multiplier"
+          ],
+          "to": [
+            "Hue Saturation Value",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Mix.001",
+            "Result"
+          ],
+          "to": [
+            "Group Output",
+            "waves"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.003",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math.002",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Group Input.004",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math.010",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector multiply.002",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math.004",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math.009",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math.004",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Math.018",
+            "Value"
+          ],
+          "to": [
+            "Vector Math.009",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Combine XYZ.001",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math.002",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.007",
+            "Output"
+          ],
+          "to": [
+            "Bump",
+            "Height"
+          ]
+        },
+        {
+          "from": [
+            "Math.013",
+            "Value"
+          ],
+          "to": [
+            "Math.022",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Reroute.007",
+            "Output"
+          ],
+          "to": [
+            "Mix.006",
+            "B"
+          ]
+        },
+        {
+          "from": [
+            "Math.022",
+            "Value"
+          ],
+          "to": [
+            "Reroute.007",
+            "Input"
+          ]
+        },
+        {
+          "from": [
+            "Hue Saturation Value",
+            "Color"
+          ],
+          "to": [
+            "Bump.001",
+            "Height"
+          ]
+        },
+        {
+          "from": [
+            "Bump.001",
+            "Normal"
+          ],
+          "to": [
+            "Group Output",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Math.023",
+            "Value"
+          ],
+          "to": [
+            "Math.010",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Math.023",
+            "Value"
+          ],
+          "to": [
+            "Math.007",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Voronoi Texture.001",
+            "Distance"
+          ],
+          "to": [
+            "Math.023",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Voronoi Texture.001",
+            "Distance"
+          ],
+          "to": [
+            "Math.023",
+            "Value"
+          ]
+        }
+      ]
+    }
+  }
+}
