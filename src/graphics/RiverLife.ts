@@ -10,6 +10,7 @@ export class RiverLife {
   readonly group = new THREE.Group();
   private readonly fallback = new THREE.Group();
   private village: THREE.Object3D;
+  private readonly villageBounds = new THREE.Box3();
   private boats: BoatPlacement[] = [];
   private lamps: THREE.Object3D[] = [];
   private candles: THREE.Object3D[] = [];
@@ -18,9 +19,13 @@ export class RiverLife {
   private readonly glowMaterial: THREE.SpriteMaterial;
   private readonly candleLight = new THREE.PointLight('#ffbe76', 0, 31, 2);
   private readonly fragments: THREE.InstancedMesh;
+  private readonly waterContact: THREE.InstancedMesh;
   private readonly reflectionTexture: THREE.CanvasTexture;
   private readonly matrix = new THREE.Matrix4();
   private readonly surfaceRotation = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 2);
+  private readonly footprintRotation = new THREE.Quaternion();
+  private readonly yawRotation = new THREE.Quaternion();
+  private readonly planeAxis = new THREE.Vector3(0, 0, 1);
   private readonly point = new THREE.Vector3();
   private readonly candleCenter = new THREE.Vector3();
   private readonly size = new THREE.Vector3();
@@ -57,7 +62,7 @@ export class RiverLife {
       const canopy = new THREE.Mesh(roofGeometry, roof); canopy.position.set(-.3, .86, 0); canopy.rotation.z = i ? -.06 : .04;
       const bulb = new THREE.Mesh(bulbGeometry, lamp); bulb.position.set(.60, .82, .52);
       boat.add(body, cabin, canopy, bulb); this.fallback.add(boat); this.lamps.push(bulb);
-      this.boats.push({ object: boat, x: i ? 62 : -48, z: i ? -165 : -105, scale: i ? 3.2 : 3.8, yaw: i ? -.26 : .18, phase: i * 2.3 });
+      this.boats.push({ object: boat, x: i ? 62 : -48, z: i ? -165 : -115, scale: i ? 3.2 : 3.5, yaw: i ? -.26 : .18, phase: i * 2.3 });
     }
     const nauka = new THREE.Group(); nauka.name = 'Fallback wooden nauka with four candle lanterns';
     const naukaHull = new THREE.Mesh(hullGeometry, hull); naukaHull.scale.set(1.72, 1, 1.65);
@@ -72,7 +77,7 @@ export class RiverLife {
       nauka.add(anchor); this.candles.push(anchor); this.lamps.push(anchor);
     }
     this.fallback.add(nauka);
-    this.boats.push({ object: nauka, x: -85, z: -65, scale: 5.5, yaw: .10, phase: 4.6, foreground: true });
+    this.boats.push({ object: nauka, x: -76, z: -85, scale: 4.1, yaw: .16, phase: 4.6, foreground: true });
     this.village = this.makeVillage(lamp);
     this.fallback.add(this.village);
     this.reflectionTexture = this.makeReflectionTexture();
@@ -82,6 +87,16 @@ export class RiverLife {
     this.fragments.name = 'Bounded reflections from actual boat and home lamps';
     this.fragments.count = 0; this.fragments.frustumCulled = false;
     this.group.add(this.fragments);
+    // One bounded draw provides a dark immersed hull footprint and very faint
+    // stretched ripple rings. These sit on the water, never bob with the hull.
+    // Normal blending preserves darkness instead of adding an artificial halo.
+    this.waterContact = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({ map: this.reflectionTexture, color: 0xffffff,
+        transparent: true, opacity: .26, depthWrite: false, side: THREE.DoubleSide,
+        toneMapped: false, polygonOffset: true, polygonOffsetFactor: -1 }), 21);
+    this.waterContact.name = 'Three immersed hull footprints and eighteen soft river ripples';
+    this.waterContact.frustumCulled = false;
+    this.group.add(this.waterContact);
     this.flames = new THREE.InstancedMesh(new THREE.ConeGeometry(.08, .28, 5),
       new THREE.MeshBasicMaterial({ color: new THREE.Color(.82, .35, .065), toneMapped: false }), 4);
     this.flames.name = 'Four small steady nauka candle flames'; this.flames.frustumCulled = false;
@@ -120,7 +135,13 @@ export class RiverLife {
       }
     });
     for (const material of materials) {
-      material.envMapIntensity = material.map ? .25 : .12;
+      material.envMapIntensity = material.map ? .20 : .12;
+      // The shelter shares physically rough original woven maps. Keep its
+      // surface neutral: warmth comes from the actual lantern, not bright tan.
+      if (/v008 finely woven/.test(material.name)) {
+        material.normalScale.set(.65, .65);
+        material.envMapIntensity = .16;
+      }
       if (!material.map && /timber|rope|fittings/.test(material.name)) material.color.multiplyScalar(.57);
       if (material.name === 'RiverLife | restrained amber emission') {
           // Solid architecture retains distance fog, while tiny steady practical
@@ -141,10 +162,29 @@ export class RiverLife {
       if (image?.width && image?.height) this.authoredTextureMemoryEstimateBytes += Math.ceil(image.width * image.height * 4 * (texture.generateMipmaps ? 4 / 3 : 1));
     }
     this.fallback.visible = false;
+    // The village is anchored at the actual far-water edge. A fixed, restrained
+    // haze tint keeps architecture readable there without changing boat fog.
+    const villageMaterials = new Map<THREE.Material, THREE.Material>();
+    village.traverse(object => {
+      if (!(object instanceof THREE.Mesh)) return;
+      const isolateHaze = (original: THREE.Material) => {
+        if (!(original instanceof THREE.MeshStandardMaterial) || original.name === 'RiverLife | restrained amber emission') return original;
+        let material = villageMaterials.get(original);
+        if (!material) {
+          // Rope/timber materials are shared with boats in the GLB. Isolate
+          // shore treatment while keeping the original texture allocations.
+          const clone = original.clone();
+          clone.fog = false; clone.color.multiplyScalar(.24); clone.envMapIntensity = .08;
+          villageMaterials.set(original, clone); material = clone;
+        }
+        return material;
+      };
+      object.material = Array.isArray(object.material) ? object.material.map(isolateHaze) : isolateHaze(object.material);
+    });
     this.group.add(source); this.village = village; this.authored = true;
-    this.boats = [{ object: boatA, x: -48, z: -105, scale: 3.8, yaw: .18, phase: 0 },
+    this.boats = [{ object: boatA, x: -48, z: -115, scale: 3.5, yaw: .18, phase: 0 },
       { object: boatB, x: 62, z: -165, scale: 3.2, yaw: -.26, phase: 2.3 },
-      { object: boatC, x: -85, z: -65, scale: 5.5, yaw: .10, phase: 4.6, foreground: true }];
+      { object: boatC, x: -76, z: -85, scale: 4.1, yaw: .16, phase: 4.6, foreground: true }];
     this.candles = candles as THREE.Object3D[];
     this.lamps = [lampA, lampB, ...this.candles, ...windows as THREE.Object3D[]];
     this.resize(this.phone);
@@ -153,17 +193,17 @@ export class RiverLife {
   resize(phone: boolean) {
     this.phone = phone;
     for (const boat of this.boats) {
-      boat.object.position.set(phone ? boat.foreground ? -36 : boat.x * .62 : boat.x, WATER_Y, boat.z);
-      boat.object.scale.setScalar(phone && boat.foreground ? 3.5 : boat.scale);
+      boat.object.position.set(phone ? boat.foreground ? -34 : boat.x * .62 : boat.x, WATER_Y, boat.z);
+      boat.object.scale.setScalar(phone && boat.foreground ? 3.1 : boat.scale);
       boat.object.rotation.set(0, boat.yaw, 0);
     }
-    // The phone water plane ends at z=-180; desktop ends at z=-1000.
-    // Homes belong to that far bank, with a different scale rather than a
-    // foreground row of boxes. Their local terrain and roof variation remains.
-    this.village.position.set(phone ? 0 : 96, WATER_Y, phone ? -178 : -970);
-    this.village.scale.setScalar(phone ? 1.4 : 3.1);
+    // Match the bank to the water edge and panorama horizon at each aspect.
+    // Village-specific haze prevents the old exponential-fog disappearance.
+    this.village.position.set(phone ? 0 : 40, WATER_Y, phone ? -178 : -982);
+    this.village.scale.setScalar(phone ? 1.4 : 4.0);
     this.village.rotation.y = -.025;
     this.group.updateMatrixWorld(true);
+    this.villageBounds.setFromObject(this.village);
   }
 
   update(sim: Simulation, visible: boolean, motionAllowed = true) {
@@ -171,11 +211,46 @@ export class RiverLife {
     const moving = motionAllowed && !this.reducedMotion?.matches && sim.quality !== 'low';
     const time = moving ? sim.time : 0; this.lastTime = time;
     for (const boat of this.boats) {
-      boat.object.position.y = WATER_Y + Math.sin(time * .62 * sim.wind + boat.phase) * .065;
-      boat.object.rotation.x = Math.sin(time * .47 * sim.wind + boat.phase) * .012;
+      boat.object.position.y = WATER_Y + Math.sin(time * .62 * sim.wind + boat.phase) * .040;
+      boat.object.rotation.x = Math.sin(time * .47 * sim.wind + boat.phase) * .006;
+      boat.object.rotation.z = Math.sin(time * .39 * sim.wind + boat.phase) * .004;
     }
-    if (!visible) { this.fragments.count = 0; this.flames.count = 0; this.candleLight.intensity = 0; return; }
+    if (!visible) { this.fragments.count = 0; this.waterContact.count = 0; this.flames.count = 0; this.candleLight.intensity = 0; return; }
     this.group.updateMatrixWorld(true);
+    let contacts = 0;
+    for (const boat of this.boats) {
+      const scale = boat.object.scale.x;
+      const length = (boat.foreground ? 9.5 : 5.5) * scale;
+      const beam = (boat.foreground ? 3 : 1.75) * scale;
+      const x = boat.object.position.x, z = boat.object.position.z;
+      this.point.set(x, WATER_Y + .018, z);
+      this.size.set(length * .92, beam * 1.04, 1);
+      // The footprint follows yaw while remaining flush with horizontal water.
+      this.footprintRotation.copy(this.surfaceRotation).multiply(this.yawRotation.setFromAxisAngle(this.planeAxis, boat.yaw));
+      this.matrix.compose(this.point, this.footprintRotation, this.size);
+      this.waterContact.setMatrixAt(contacts, this.matrix);
+      this.color.setRGB(.008, .013, .020);
+      this.waterContact.setColorAt(contacts++, this.color);
+      for (let j = 0; j < 6; j++) {
+        const phase = (time * .08 * sim.wind + j / 6 + boat.phase * .03) % 1;
+        const spread = .95 + phase * .55;
+        // Two soft sides of a displacement wake, naturally staggered. It is
+        // restrained while idle and locked to sim.time during pause/comfort.
+        const side = j % 2 ? -1 : 1;
+        const along = Math.sin(j * 1.7) * length * .25;
+        const across = side * beam * (.40 + phase * .40);
+        this.point.set(x + along * Math.cos(boat.yaw) + across * Math.sin(boat.yaw),
+          WATER_Y + .014, z - along * Math.sin(boat.yaw) + across * Math.cos(boat.yaw));
+        this.size.set(length * .34 * spread, .16 + phase * .16, 1);
+        this.matrix.compose(this.point, this.footprintRotation, this.size);
+        this.waterContact.setMatrixAt(contacts, this.matrix);
+        const energy = .12 * (1 - phase) * Math.sin(Math.PI * phase);
+        this.color.setRGB(energy * .22, energy * .34, energy * .46);
+        this.waterContact.setColorAt(contacts++, this.color);
+      }
+    }
+    this.waterContact.count = contacts; this.waterContact.instanceMatrix.needsUpdate = true;
+    if (this.waterContact.instanceColor) this.waterContact.instanceColor.needsUpdate = true;
     this.candleCenter.set(0, 0, 0);
     for (let i = 0; i < this.candles.length; i++) {
       this.candles[i].getWorldPosition(this.point); this.candleCenter.add(this.point);
@@ -188,7 +263,7 @@ export class RiverLife {
     this.flames.count = this.candles.length; this.flames.instanceMatrix.needsUpdate = true;
     if (this.candles.length) this.candleCenter.multiplyScalar(1 / this.candles.length);
     this.candleLight.position.copy(this.candleCenter);
-    this.candleLight.intensity = (sim.reducedFlashes ? 12 : 16) * (moving && !sim.reducedFlashes ? 1 + Math.sin(time * 2.1) * .025 : 1);
+    this.candleLight.intensity = (sim.reducedFlashes ? 10 : 13) * (moving && !sim.reducedFlashes ? 1 + Math.sin(time * 2.1) * .025 : 1);
     const segments = sim.quality === 'low' ? 4 : 8;
     let count = 0;
     for (let i = 0; i < this.lamps.length; i++) {
@@ -208,8 +283,20 @@ export class RiverLife {
     if (this.fragments.instanceColor) this.fragments.instanceColor.needsUpdate = true;
   }
 
-  diagnostics() {
-    return { riverScenery: this.authored ? 'Blender river-life-v007' : 'procedural river fallback', riverBoats: this.boats.length,
+  diagnostics(camera: THREE.PerspectiveCamera) {
+    this.point.copy(this.village.position).project(camera);
+    const riverBankScreen = { x: (this.point.x + 1) / 2, y: (1 - this.point.y) / 2 };
+    let left = Infinity, top = Infinity, right = -Infinity, bottom = -Infinity;
+    for (let i = 0; i < 8; i++) {
+      this.point.set(i & 1 ? this.villageBounds.max.x : this.villageBounds.min.x,
+        i & 2 ? this.villageBounds.max.y : this.villageBounds.min.y,
+        i & 4 ? this.villageBounds.max.z : this.villageBounds.min.z).project(camera);
+      const x = (this.point.x + 1) / 2, y = (1 - this.point.y) / 2;
+      left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y);
+    }
+    const riverVillageScreenBounds = { left, top, right, bottom };
+
+    return { riverBankScreen, riverVillageScreenBounds, riverScenery: this.authored ? 'Blender river-life-v008' : 'procedural river fallback', riverBoats: this.boats.length,
       riverBoatSource: this.authored ? 'Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0' : 'original procedural boats',
       riverPbrTextures: this.authoredTextureCount, riverTextureMemoryEstimateBytes: this.authoredTextureMemoryEstimateBytes,
       riverPbrColorMaps: this.authoredColorMapCount, riverPbrDataMaps: this.authoredDataMapCount,
@@ -217,6 +304,14 @@ export class RiverLife {
       riverLampAnchors: this.lamps.length, riverReflectionFragments: this.fragments.count, riverMotionTime: this.lastTime,
       riverCandleFlames: this.flames.count, riverPointLights: 1,
       riverCandleGlows: this.candleGlows.length,
+      riverWaterContactInstances: this.waterContact.count,
+      riverSeatedFigures: this.authored ? 2 : 0,
+      riverVillageHomes: this.authored ? 12 : 9,
+      riverVillagePosition: { x: this.village.position.x, y: this.village.position.y, z: this.village.position.z },
+      riverVillageBounds: {
+        min: { x: this.villageBounds.min.x, y: this.villageBounds.min.y, z: this.villageBounds.min.z },
+        max: { x: this.villageBounds.max.x, y: this.villageBounds.max.y, z: this.villageBounds.max.z }
+      },
       riverPositions: this.boats.map(boat => ({ x: boat.object.position.x, y: boat.object.position.y, z: boat.object.position.z })) };
   }
 
@@ -268,6 +363,7 @@ export class RiverLife {
     for (const geometry of this.fallbackGeometries) geometry.dispose();
     for (const material of this.fallbackMaterials) material.dispose();
     this.reflectionTexture.dispose(); this.fragments.geometry.dispose(); (this.fragments.material as THREE.Material).dispose();
+    this.waterContact.geometry.dispose(); (this.waterContact.material as THREE.Material).dispose();
     this.flames.geometry.dispose(); (this.flames.material as THREE.Material).dispose(); this.candleLight.dispose();
     this.glowMaterial.dispose();
   }

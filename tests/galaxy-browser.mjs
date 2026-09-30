@@ -179,15 +179,32 @@ try {
     });
     if (backend === 'webgpu') assert.equal(project.hardware.adapter?.fallback, false, 'Require hardware WebGPU');
     else { assert.ok(project.hardware.webgl); assert.doesNotMatch(project.hardware.webgl.renderer, /SwiftShader|llvmpipe|software/i); }
+    await page.evaluate(() => window.__firecrackersQA.render());
     const initial = await snap(page); assert.equal(initial.quality, 'ultra');
-    assert.equal(initial.riverScenery, 'Blender river-life-v007');
+    assert.equal(initial.riverScenery, 'Blender river-life-v008');
     assert.match(initial.riverBoatSource, /Wooden Canoe by OuterSpaceSimon.*CC0/);
     assert.equal(initial.riverBoats, 3); assert.equal(initial.riverLampAnchors, 10);
     assert.ok(initial.riverReflectionFragments <= 80);
-    assert.ok(initial.riverPbrTextures > 0, 'The authored river must activate real PBR texture maps');
-    assert.ok(initial.riverPbrColorMaps > 0 && initial.riverPbrDataMaps > 0, 'Require both albedo and material data maps');
+    assert.equal(initial.riverPbrTextures, 6, 'Activate the three retained hull maps and three original shelter maps');
+    assert.equal(initial.riverPbrColorMaps, 2, 'Hull and woven shelter each have one shared sRGB color map');
+    assert.equal(initial.riverPbrDataMaps, 4, 'Retain linear normal and roughness maps for both materials');
     assert.equal(initial.riverPbrColorSpacesCorrect, true, 'PBR albedo is sRGB; normal/roughness/metallic maps remain linear data');
     assert.ok(initial.riverTextureMemoryEstimateBytes > 0, 'Record decoded texture storage rather than only compressed download size');
+    assert.equal(initial.riverVillageHomes, 12);
+    assert.equal(initial.riverSeatedFigures, 2);
+    assert.equal(initial.riverWaterContactInstances, 21, 'Exactly three waterline footprints and eighteen bounded wake fragments after render');
+    assert.ok(initial.riverVillageBounds?.min && initial.riverVillageBounds?.max, 'Expose actual resized village bounds');
+    for (const axis of ['x', 'y', 'z']) {
+      assert.ok(Number.isFinite(initial.riverVillageBounds.min[axis]) && Number.isFinite(initial.riverVillageBounds.max[axis]),
+        `Village ${axis} bounds must be finite`);
+      assert.ok(initial.riverVillageBounds.max[axis] > initial.riverVillageBounds.min[axis], `Village ${axis} bounds must contain real geometry`);
+      assert.ok(Number.isFinite(initial.riverVillagePosition[axis]), `Village ${axis} position must be finite`);
+    }
+    check(`${project.label}: v008 homes, seated figures and bounded water contact activate with finite scene bounds`, {
+      homes: initial.riverVillageHomes, figures: initial.riverSeatedFigures,
+      waterContactInstances: initial.riverWaterContactInstances,
+      villagePosition: initial.riverVillagePosition, villageBounds: initial.riverVillageBounds
+    });
     project.riverResources = { source: initial.riverBoatSource, textureCount: initial.riverPbrTextures,
       colorMaps: initial.riverPbrColorMaps, dataMaps: initial.riverPbrDataMaps,
       estimatedDecodedTextureBytes: initial.riverTextureMemoryEstimateBytes,
@@ -240,8 +257,8 @@ try {
       await fallback.screenshot({ path: path.join(output, 'portrait-webgl-missing-sky.png') });
       check('Missing authored sky retains a playable original procedural/celestial fallback', { error: state.authoredAssetErrors.sky });
       await context.unroute('**/art/waterfront-night-v005.webp');
-      await context.route('**/art/river-life-v007.glb', route => route.abort());
-      const riverFallback = current = await context.newPage(); instrument(riverFallback, 'missing-river', 'river-life-v007.glb');
+      await context.route('**/art/river-life-v008.glb', route => route.abort());
+      const riverFallback = current = await context.newPage(); instrument(riverFallback, 'missing-river', 'river-life-v008.glb');
       await enter(riverFallback, 'webgl');
       await riverFallback.waitForFunction(() => {
         const states = window.__firecrackersQA.snapshot().authoredAssetStates;

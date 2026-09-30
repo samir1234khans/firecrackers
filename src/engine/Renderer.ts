@@ -67,11 +67,13 @@ export class FireworkRenderer {
         this.water.setShore(this.environment.skyTexture);
         this.scene.fog = new THREE.FogExp2('#07111e', .0021);
         this.scene.environment = this.environment.probe;
-        this.scene.environmentIntensity = .85;
-        this.scene.add(new THREE.HemisphereLight(0xa6bfdc, 0x34261a, 1.25));
-        const key = new THREE.DirectionalLight(0xffdcaf, 1.9);
+        this.scene.environmentIntensity = .65;
+        this.scene.add(new THREE.HemisphereLight(0x9fb7d3, 0x202027, .70));
+        const key = new THREE.DirectionalLight(0xffdcaf, .85);
         key.position.set(-8, 35, 45);
-        this.scene.add(key, this.blastLight);
+        const moon = new THREE.DirectionalLight(0x8eafd1, .8);
+        moon.position.set(-80, 150, -180);
+        this.scene.add(key, moon, this.blastLight);
         this.scene.add(this.stage.group);
         for (const prop of this.props) {
             prop.group.visible = false;
@@ -163,6 +165,7 @@ export class FireworkRenderer {
         this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
+        this.environment.frameTerrace(this.camera);
         this.water.resize(this.camera);
         this.environment.setPortraitHorizon(aspect < .72, this.water.diagnostics().waterline, aspect);
         this.environment.setViewport(w, h);
@@ -312,7 +315,7 @@ export class FireworkRenderer {
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
             authoredAssetStates: { ...this.assetStates },
             authoredAssetErrors: { ...this.assetErrors },
-            stageLayout: this.layout, ...this.water.diagnostics(), ...this.environment.riverDiagnostics(), ...this.environment.skyDiagnostics(),
+            stageLayout: this.layout, ...this.water.diagnostics(), ...this.environment.riverDiagnostics(this.camera), ...this.environment.skyDiagnostics(),
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,

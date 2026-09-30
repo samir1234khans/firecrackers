@@ -1,0 +1,72 @@
+00:01.437  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\masters\river-life-v007.blend"
+Info: Saved as "river-life-v008.blend"
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+20:06:26 | INFO: Starting glTF 2.0 export
+20:06:26 | INFO: Extracting primitive: Cube.021
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.013
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.027
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Sphere.004
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Boat_A | bent seated leg -1 | editable path
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.029
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.028
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.035
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.040
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.299
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Boat_C | bent canopy rib 00 | editable path
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Boat_C | candle 01 wick | editable path
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cylinder.008
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cone.004
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.036
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Boat_C | canopy edge cord -1 | editable path
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: V008 curved woven canopy | UV and editable sag.001
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Sphere.006
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Boat_C | bent seated leg -1 | editable path
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Shore village | house 00 pitched roof | editable geometry.001
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.303
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.300
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.301
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.316
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: V008 coiled mooring rope | editable path
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Extracting primitive: Cube.302
+20:06:26 | INFO: Primitives created: 1
+20:06:26 | INFO: Finished glTF 2.0 export in 0.40688180923461914 s
+
+RIVER_V008_READY {"blender": "5.2.1 LTS", "sourceObjects": 344, "meshCount": 26, "bytes": 7989864, "roots": ["Boat_A", "Boat_B", "Boat_C", "Shore_Village"], "houseCount": 12, "seatedFigures": 2, "originalShared512Maps": 3, "preservedShared2KMaps": 3, "externalTextures": false, "exportedLights": false}
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

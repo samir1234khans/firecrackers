@@ -130,7 +130,7 @@ export class CompatibilityRenderer implements RendererPort {
             n.fillStyle = '#f1c980'; n.beginPath(); n.ellipse(candle.x, candle.y - 1, 1.5, 3, 0, 0, Math.PI * 2); n.fill();
             n.strokeStyle = '#59462c'; n.strokeRect(candle.x - 5, candle.y - 7, 10, 15);
         }
-        boats.push({ image: nauka, x: .16, depth: .13, width: .13, phase: 4.2, facing: 1,
+        boats.push({ image: nauka, x: .16, depth: .12, width: .105, phase: 4.2, facing: 1,
             lampPixels: candlePixels, waterline: 104, screenX: 0, screenY: 0, screenWidth: 0, roll: 0 });
         const lamps: RiverLamp[] = Array.from({ length: 10 }, (_, i) => ({ x: 0, y: 0, waterline: 0, width: 1,
             phase: i * 1.37, strength: i < 4 ? .13 : i < 6 ? .24 : .21, flicker: 1 }));
@@ -152,7 +152,7 @@ export class CompatibilityRenderer implements RendererPort {
         for (let i = 0; i < this.riverArt.boats.length; i++) {
             const boat = this.riverArt.boats[i];
             const width = clamp(this.width * boat.width, i === 0 ? 32 : i === 1 ? 25 : 66,
-                i === 0 ? 74 : i === 1 ? 56 : 166), scale = width / boat.image.width;
+                i === 0 ? 74 : i === 1 ? 56 : 138), scale = width / boat.image.width;
             boat.screenX = this.width * boat.x + Math.sin(time * .28 + boat.phase) * wind * 1.1;
             boat.screenY = horizon + this.height * boat.depth + Math.sin(time * .7 + boat.phase) * Math.min(1.3, this.height * .0014);
             boat.screenWidth = width; boat.roll = Math.sin(time * .56 + boat.phase) * .009;
@@ -185,6 +185,15 @@ export class CompatibilityRenderer implements RendererPort {
         for (const boat of this.riverArt.boats) {
             const scale = boat.screenWidth / boat.image.width;
             c.save(); c.translate(boat.screenX, boat.screenY); c.rotate(boat.roll); c.scale(boat.facing, 1);
+            // A bounded contact shadow and two subdued ripples anchor the cached
+            // silhouette to the water without adding another animated canvas.
+            c.globalAlpha = .32; c.fillStyle = '#02060a'; c.beginPath();
+            c.ellipse(0, 1, boat.screenWidth * .46, Math.max(1, boat.screenWidth * .016), 0, 0, Math.PI * 2); c.fill();
+            c.strokeStyle = '#294050'; c.lineWidth = .6; c.globalAlpha = .25;
+            for (let side = -1; side <= 1; side += 2) {
+                c.beginPath(); c.ellipse(side * boat.screenWidth * .08, 2, boat.screenWidth * .51,
+                    Math.max(1.5, boat.screenWidth * .035), 0, side < 0 ? 0 : Math.PI, side < 0 ? Math.PI : Math.PI * 2); c.stroke();
+            }
             c.globalAlpha = 1; c.drawImage(boat.image, -boat.screenWidth / 2, -boat.waterline * scale, boat.screenWidth, boat.image.height * scale); c.restore();
         }
         // Only a small lamp halo; the cached hulls and windows remain darker than firework heads.

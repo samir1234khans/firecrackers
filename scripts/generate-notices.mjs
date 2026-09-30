@@ -12,8 +12,9 @@ notices.push([
   'Source: https://www.blendkit.com/asset-gallery-detail/a6a39894-5474-47c4-a657-dc8b7a1a5a44/',
   'License: CC0 1.0 Universal — https://creativecommons.org/publicdomain/zero/1.0/',
   'Publisher license: https://www.blendkit.com/docs/licenses/',
-  'Modified for Firecrackers: scaled riverboat forms, exported PBR materials, canopy and candle lanterns.',
-  'Download receipt and modifications: assets-source/PROVENANCE.md and assets-source/blender/RIVER-V007.md.',
+  'Modified for Firecrackers: scaled riverboat forms and exported PBR materials; original canopy, candles and v008 scenery additions.',
+  'Download receipt and modifications: assets-source/PROVENANCE.md, assets-source/blender/RIVER-V007.md and assets-source/blender/RIVER-V008.md.',
+  'CC0 applies to the downloaded canoe and its adaptation. Original canopy, figures, bank scenery and terrace retain the owner\'s licensing decisions.',
 ].join('\n'));
 for (const name of names) {
   const directory = join('node_modules', name);
