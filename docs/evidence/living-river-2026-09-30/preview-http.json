@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-09-30T09:46:06.587Z",
+  "checkedAt": "2026-09-30T10:31:43.459Z",
   "url": "https://firecrackers-river-preview.allygym-api.workers.dev/",
   "version": "2026-09-30.4",
-  "sha256": "1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a",
+  "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
   "source": "local",
   "checks": [
     {
       "path": "release.json",
       "entries": 56,
-      "sha256": "1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a"
+      "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609"
     },
     {
       "path": "art/ignition-flame.png",

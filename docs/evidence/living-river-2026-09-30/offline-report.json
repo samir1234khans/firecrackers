@@ -1,0 +1,1048 @@
+{
+  "url": "http://127.0.0.1:4183/",
+  "startedAt": "2026-09-30T10:31:42.972Z",
+  "expectedSource": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+  "expectedModel": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+  "method": "Bundled headless Chromium; forced SwiftShader WebGL; real production service worker and CacheStorage, no mocked responses.",
+  "limitations": "Software-rendered behavior/cache evidence only; no hardware GPU, phone, FPS or endurance claim.",
+  "checks": [
+    {
+      "name": "The real service worker caches all eight assets and exact v007 GLB bytes with three embedded 2K maps"
+    },
+    {
+      "name": "Cold offline reload activates the authored textured river and all eight assets on software WebGL"
+    },
+    {
+      "name": "A newly selected Saturn firework launches and bursts after the cold offline reload"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "expectedOfflineNetworkFailures": [],
+  "offlineArtResponses": [
+    {
+      "url": "http://127.0.0.1:4183/art/paper-color.png",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4183/art/water-normal-v005.png",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4183/art/ignition-flame.png",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4183/art/waterfront-night-v005.webp",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4183/art/smoke-density-light-v005.png",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4183/art/rocket.glb",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4183/art/terrace-v004.glb",
+      "status": 200,
+      "fromServiceWorker": true
+    },
+    {
+      "url": "http://127.0.0.1:4183/art/river-life-v007.glb",
+      "status": 200,
+      "fromServiceWorker": true
+    }
+  ],
+  "failed": null,
+  "browserVersion": "140.0.7339.186",
+  "release": {
+    "formatVersion": 2,
+    "version": "2026-09-30.4",
+    "scope": "delivered-upgrade-modules",
+    "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+    "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+    "modules": [
+      {
+        "path": "public/art/ignition-flame.png",
+        "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+        "rawSha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/paper-color.png",
+        "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+        "rawSha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/river-life-v007.glb",
+        "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+        "rawSha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/rocket.glb",
+        "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+        "rawSha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/smoke-density-light-v005.png",
+        "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+        "rawSha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/smoke-density-light.png",
+        "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+        "rawSha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/terrace-v004.glb",
+        "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+        "rawSha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/water-normal-v005.png",
+        "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+        "rawSha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/water-normal.png",
+        "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+        "rawSha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/waterfront-night-v005.webp",
+        "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+        "rawSha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-01.wav",
+        "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+        "rawSha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-02.wav",
+        "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+        "rawSha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-03.wav",
+        "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+        "rawSha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/App.tsx",
+        "sha256": "e99c8b2062d6719fd800caf216c42628c8cca0f111b1c1691b5995b64468e6fa",
+        "rawSha256": "97deecc380c9a4ee5711d28e2097a935f2009d90c3825c445c63cc91951b0b93",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/bootstrap.ts",
+        "sha256": "6a2c9bb301b8fda3eea23e8dfce59f223b46f76259475a01101b6fc9d0f8c409",
+        "rawSha256": "6a2c9bb301b8fda3eea23e8dfce59f223b46f76259475a01101b6fc9d0f8c409",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Audio.ts",
+        "sha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+        "rawSha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/catalog.ts",
+        "sha256": "45592c197120511c2f4dd2a33cb141a5fea36c9501a4911df1689cfaaa2f23f3",
+        "rawSha256": "45592c197120511c2f4dd2a33cb141a5fea36c9501a4911df1689cfaaa2f23f3",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/FusePath.ts",
+        "sha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+        "rawSha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/GrandEffects.ts",
+        "sha256": "24619f821e2d3f43d23b5d23204c72fe96aca874a0746f7fd4d65f42c7da1881",
+        "rawSha256": "24619f821e2d3f43d23b5d23204c72fe96aca874a0746f7fd4d65f42c7da1881",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/LaunchGeometry.ts",
+        "sha256": "0f848ffd529ec28fcb7ecdae11a888cb41abbae62256cb28d08f534d1d7e674f",
+        "rawSha256": "0f848ffd529ec28fcb7ecdae11a888cb41abbae62256cb28d08f534d1d7e674f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Renderer.ts",
+        "sha256": "8dc3265da680d0eb326b7ab1660958a056b773cd5db04489fa0bffdec4d4d7ac",
+        "rawSha256": "8dc3265da680d0eb326b7ab1660958a056b773cd5db04489fa0bffdec4d4d7ac",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/RendererPort.ts",
+        "sha256": "f4fceab7ac1f14e59dcad4eac81178bdc6be320a19669abef7967f0fce7b428c",
+        "rawSha256": "f4fceab7ac1f14e59dcad4eac81178bdc6be320a19669abef7967f0fce7b428c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/RendererRecovery.ts",
+        "sha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+        "rawSha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Simulation.ts",
+        "sha256": "d530862b9600ea5246ca2d466b2c3b0d2fa7584ad5d95fa45ead9b111ddac6a4",
+        "rawSha256": "d530862b9600ea5246ca2d466b2c3b0d2fa7584ad5d95fa45ead9b111ddac6a4",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/StageLayout.ts",
+        "sha256": "588abe566006a1a203c1d16584a08712f7216cd35c4f71b7598e03ff5052f7db",
+        "rawSha256": "588abe566006a1a203c1d16584a08712f7216cd35c4f71b7598e03ff5052f7db",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/useWorld.ts",
+        "sha256": "169da48c7de0f2968be456eae7ad549d263b8eea74d2395507732bef15f9cb5b",
+        "rawSha256": "169da48c7de0f2968be456eae7ad549d263b8eea74d2395507732bef15f9cb5b",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/VisibleFrame.ts",
+        "sha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+        "rawSha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/CompatibilityRenderer.ts",
+        "sha256": "ed41e817d1363167886eb2d22de6a6009165b91fac90d7344ef1f63a70ec3052",
+        "rawSha256": "ed41e817d1363167886eb2d22de6a6009165b91fac90d7344ef1f63a70ec3052",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/GalaxySky.ts",
+        "sha256": "59c427a98f8a02ce6ab30cada8ef5952838f99380814569abe32a2c1e473b6a4",
+        "rawSha256": "59c427a98f8a02ce6ab30cada8ef5952838f99380814569abe32a2c1e473b6a4",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/LaunchStage.ts",
+        "sha256": "aa4a2a698a8c7dbc9208af27cbe6bfdf2049ea7d01e3441e802b3b4b15b35a87",
+        "rawSha256": "aa4a2a698a8c7dbc9208af27cbe6bfdf2049ea7d01e3441e802b3b4b15b35a87",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/NightEnvironment.ts",
+        "sha256": "99c6dade3829a4709f10a548c8479676c885806d1147c64b922a5cff2e4ecd8d",
+        "rawSha256": "99c6dade3829a4709f10a548c8479676c885806d1147c64b922a5cff2e4ecd8d",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/OpaqueDepth.ts",
+        "sha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+        "rawSha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/ParticleScene.ts",
+        "sha256": "254e02066628812ca50dc65513bb352d6c42b4b6dda1e4f9401a3dbb69bf3b31",
+        "rawSha256": "254e02066628812ca50dc65513bb352d6c42b4b6dda1e4f9401a3dbb69bf3b31",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/RiverLife.ts",
+        "sha256": "e6e6ff5f883ec4920fd47bd9a655eed2daa0681b3632fdaeba13067c9366dd3c",
+        "rawSha256": "e6e6ff5f883ec4920fd47bd9a655eed2daa0681b3632fdaeba13067c9366dd3c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/RocketProp.ts",
+        "sha256": "44074d26e4052b231d8b06c57016b94321c8464615359e314440ab08e73642e8",
+        "rawSha256": "44074d26e4052b231d8b06c57016b94321c8464615359e314440ab08e73642e8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/textures.ts",
+        "sha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+        "rawSha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/WaterfrontAssets.ts",
+        "sha256": "e35c2a34d3b834b9b67ef4dac3b878b37f864e8c7da49173c448e5046233078c",
+        "rawSha256": "e35c2a34d3b834b9b67ef4dac3b878b37f864e8c7da49173c448e5046233078c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/WaterReflection.ts",
+        "sha256": "3c0217346edc14d1b69cd714bbd8c41e807463d11cf28b24a3c83a525a965616",
+        "rawSha256": "3c0217346edc14d1b69cd714bbd8c41e807463d11cf28b24a3c83a525a965616",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/main.tsx",
+        "sha256": "cc4dfafa95000c56ddbc210b2d7836fe2ab7c178072823a6193e45c6a343b407",
+        "rawSha256": "e1b67a93c2c90ec50a3d9d902c8da9bd52ab34ae22f2823edf046df2564bb3d8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/platform/usePlatform.ts",
+        "sha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+        "rawSha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/completion.css",
+        "sha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+        "rawSha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/flow.css",
+        "sha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+        "rawSha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/grand-collection.css",
+        "sha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+        "rawSha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/hud-v3-art.css",
+        "sha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+        "rawSha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/hud-v3.css",
+        "sha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+        "rawSha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/recovery.css",
+        "sha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+        "rawSha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/stage.css",
+        "sha256": "478085e3b1e3b78eb6918c3bf62e497bbaccaecef2562b785d1eb14e908a84f2",
+        "rawSha256": "478085e3b1e3b78eb6918c3bf62e497bbaccaecef2562b785d1eb14e908a84f2",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/AppBoundary.tsx",
+        "sha256": "52f236a3f1938913e2f82d5ec70496b5455c2be24eff1002b82f8ed5bf0d82f1",
+        "rawSha256": "2dbc29869c86c2c0666ba0ff4fd92ced6affe00ea33fd217853868b8e961a61a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/CinematicHUD.tsx",
+        "sha256": "f6b52c23111e096fe92248a5cc51695ea91fef083febb91ac803793a159feada",
+        "rawSha256": "8d9735422c31039f6abcb2c18d95da3afe0f3cbbdf90d5e1477c17e34a86c988",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/Dialog.tsx",
+        "sha256": "63565662dea0cc6f3e6cf45c147577ac92c7e3d44336547c0304ee5f4e9b8831",
+        "rawSha256": "2ebc4fbd11fa00f00f6caf9d4fb7637c7c46d7c25148671c56db38fe7c200d31",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FamilyPicker.tsx",
+        "sha256": "a3e6f63d7a9157598f195b4e2d9fc92457eef22580d8e4628711f20c1d39f4d7",
+        "rawSha256": "14d2a4223d0ba7881cdacd3524d5da21966392814690ce0d14f7ab4e3e5ae73a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FireworkGlyph.tsx",
+        "sha256": "77f0d29c384f0ec06341e1719992f61e1bfa8c22debafc862a6725ec8f8dded6",
+        "rawSha256": "fed3c5decac8e53ed35221391ae3b8bee1ddcf15b2c59e27a6882ec2fb93c896",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FireworkShelf.tsx",
+        "sha256": "50f36b417e75908cd2b7ba7975dc8b00f864db6d2b13ab6196f6a32c1694ded7",
+        "rawSha256": "282f2a3cf3cdcd5a246144a985d07b2c816c874694f99bd08ef00af3e2cf38c0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/GrandGlyph.tsx",
+        "sha256": "d4e3a1228455b6402829e8aa84eb231826c5a68ac5e6bb7950c574411e0a7dfa",
+        "rawSha256": "a376d9ed9aadbfbb6be57583115fd86ec26ad6eb6e1884e1f0bd49c13871f098",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/PanelNav.tsx",
+        "sha256": "9f7da6e1690a85834fcdbe7637a3333dda0cdf79efea92ef7389360b8422303f",
+        "rawSha256": "10e630c87fcbb694d2688f561aa9294ecf01710a46dd4fe06d1ac4c2d8260b69",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/PresentationSettings.tsx",
+        "sha256": "18f13484d0000f0feedd7fa36456f722c0c310fed147252d70c8ac6d20882867",
+        "rawSha256": "36e24afc4551f6ba76d0a29581e0daebe697276c826def5be264937dbda62ccd",
+        "removedHostAttributes": 0
+      }
+    ]
+  },
+  "online": {
+    "ready": true,
+    "paused": false,
+    "selected": "gold-willow",
+    "placement": 0.5,
+    "holding": false,
+    "holdProgress": 0,
+    "show": null,
+    "launched": 0,
+    "bursts": 0,
+    "active": 0,
+    "particles": 0,
+    "smoke": 0,
+    "quality": "ultra",
+    "message": "Choose a firework. Make the night yours.",
+    "time": 1.9333333333333313,
+    "launchBlock": "",
+    "committedId": null,
+    "committedFamily": "",
+    "flightProgress": 0,
+    "fuse": false,
+    "phase": "ready",
+    "carriers": 0,
+    "embers": 0,
+    "backend": "WebGL 2",
+    "renderPixels": 1024000,
+    "submitMs": 229.30000000074506,
+    "frames": 5,
+    "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+    "authoredAssetStates": {
+      "smoke": "active",
+      "paper": "active",
+      "normal": "active",
+      "flame": "active",
+      "rocket": "active",
+      "terrace": "active",
+      "sky": "active",
+      "river": "active"
+    },
+    "authoredAssetErrors": {},
+    "stageLayout": {
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 800
+      },
+      "safe": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": {
+        "top-left": {
+          "x": 12,
+          "y": 12,
+          "width": 128,
+          "height": 67
+        },
+        "middle-left": {
+          "x": 12,
+          "y": 202.8046875,
+          "width": 44,
+          "height": 394.390625
+        },
+        "bottom-left": {
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 90
+        },
+        "top-right": {
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 90
+        },
+        "middle-right": {
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 320
+        },
+        "bottom-right": {
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56
+        },
+        "quick-0": {
+          "x": 56,
+          "y": 369.1953125,
+          "width": 44,
+          "height": 44
+        }
+      },
+      "heroRect": {
+        "x": 144,
+        "y": 0,
+        "width": 992,
+        "height": 800
+      },
+      "panelOpen": false,
+      "launchArea": {
+        "x": 0,
+        "y": 656,
+        "width": 1280,
+        "height": 112.00000000000001
+      },
+      "burstCanopy": {
+        "x": 144,
+        "y": 64,
+        "width": 992,
+        "height": 512
+      },
+      "reflectionBand": {
+        "x": 144,
+        "y": 600,
+        "width": 992,
+        "height": 200
+      }
+    },
+    "reflectionFrames": 4,
+    "reflectionWidth": 512,
+    "reflectionHeight": 320,
+    "waterline": 0.48453149705819837,
+    "riverScenery": "Blender river-life-v007",
+    "riverBoats": 3,
+    "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+    "riverPbrTextures": 3,
+    "riverTextureMemoryEstimateBytes": 67108866,
+    "riverPbrColorMaps": 1,
+    "riverPbrDataMaps": 2,
+    "riverPbrColorSpacesCorrect": true,
+    "riverLampAnchors": 10,
+    "riverReflectionFragments": 80,
+    "riverMotionTime": 1.6999999999999988,
+    "riverCandleFlames": 4,
+    "riverPointLights": 1,
+    "riverCandleGlows": 4,
+    "riverPositions": [
+      {
+        "x": -48,
+        "y": 4.702763909644391,
+        "z": -105
+      },
+      {
+        "x": 62,
+        "y": 4.643151722994976,
+        "z": -165
+      },
+      {
+        "x": -85,
+        "y": 4.606361775866668,
+        "z": -65
+      }
+    ],
+    "stagedRockets": 1,
+    "airborneRockets": 0,
+    "visibleRocketBodies": 1,
+    "shellScreen": null,
+    "flight": null,
+    "audioVoices": 0,
+    "audioTimers": 0,
+    "recordedSamples": 0,
+    "audioEnabled": false,
+    "qaStallSamplesUsed": 0,
+    "qaStallSamplesRemaining": 0
+  },
+  "cacheBeforeOffline": {
+    "cacheNames": [
+      "workbox-precache-v2-http://127.0.0.1:4183/",
+      "firecrackers-art-v2"
+    ],
+    "artURLs": [
+      "http://127.0.0.1:4183/art/rocket.glb",
+      "http://127.0.0.1:4183/art/ignition-flame.png",
+      "http://127.0.0.1:4183/art/waterfront-night-v005.webp",
+      "http://127.0.0.1:4183/art/paper-color.png",
+      "http://127.0.0.1:4183/art/water-normal-v005.png",
+      "http://127.0.0.1:4183/art/terrace-v004.glb",
+      "http://127.0.0.1:4183/art/smoke-density-light-v005.png",
+      "http://127.0.0.1:4183/art/river-life-v007.glb"
+    ],
+    "model": {
+      "bytes": 7620280,
+      "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+      "magic": 1179937895,
+      "version": 2,
+      "declaredLength": 7620280,
+      "images": [
+        {
+          "mimeType": "image/png",
+          "bytes": 3002267,
+          "width": 2048,
+          "height": 2048,
+          "validatedDecode": true
+        },
+        {
+          "mimeType": "image/jpeg",
+          "bytes": 1318835,
+          "width": 2048,
+          "height": 2048,
+          "validatedDecode": true
+        },
+        {
+          "mimeType": "image/png",
+          "bytes": 2753798,
+          "width": 2048,
+          "height": 2048,
+          "validatedDecode": true
+        }
+      ],
+      "textures": 3,
+      "materials": [
+        "RiverLife | aged dark fittings",
+        "CC0 Canoe | baked weathered wood and fittings PBR",
+        "RiverLife | restrained amber emission",
+        "RiverLife | nauka weathered dark timber",
+        "RiverLife | pitch and dark worn timber",
+        "RiverLife | quiet ivory candle wax",
+        "RiverLife | thin amber candle glass",
+        "RiverLife | undyed mooring rope",
+        "RiverLife | woven muted flax canopy",
+        "RiverLife | charcoal pitched roofs",
+        "RiverLife | dark inactive windows",
+        "RiverLife | old quay granite",
+        "RiverLife | quiet weathered plaster",
+        "RiverLife | weathered warm timber"
+      ]
+    }
+  },
+  "offline": {
+    "ready": true,
+    "paused": false,
+    "selected": "gold-willow",
+    "placement": 0.5,
+    "holding": false,
+    "holdProgress": 0,
+    "show": null,
+    "launched": 0,
+    "bursts": 0,
+    "active": 0,
+    "particles": 0,
+    "smoke": 0,
+    "quality": "ultra",
+    "message": "Choose a firework. Make the night yours.",
+    "time": 1.7833333333333319,
+    "launchBlock": "",
+    "committedId": null,
+    "committedFamily": "",
+    "flightProgress": 0,
+    "fuse": false,
+    "phase": "ready",
+    "carriers": 0,
+    "embers": 0,
+    "backend": "WebGL 2",
+    "renderPixels": 1024000,
+    "submitMs": 367.6000000014901,
+    "frames": 4,
+    "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+    "authoredAssetStates": {
+      "smoke": "active",
+      "paper": "active",
+      "normal": "active",
+      "flame": "active",
+      "rocket": "active",
+      "terrace": "active",
+      "sky": "active",
+      "river": "active"
+    },
+    "authoredAssetErrors": {},
+    "stageLayout": {
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 800
+      },
+      "safe": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": {
+        "top-left": {
+          "x": 12,
+          "y": 12,
+          "width": 128,
+          "height": 67
+        },
+        "middle-left": {
+          "x": 12,
+          "y": 202.8046875,
+          "width": 44,
+          "height": 394.390625
+        },
+        "bottom-left": {
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 90
+        },
+        "top-right": {
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 90
+        },
+        "middle-right": {
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 320
+        },
+        "bottom-right": {
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56
+        },
+        "quick-0": {
+          "x": 56,
+          "y": 369.1953125,
+          "width": 44,
+          "height": 44
+        }
+      },
+      "heroRect": {
+        "x": 144,
+        "y": 0,
+        "width": 992,
+        "height": 800
+      },
+      "panelOpen": false,
+      "launchArea": {
+        "x": 0,
+        "y": 656,
+        "width": 1280,
+        "height": 112.00000000000001
+      },
+      "burstCanopy": {
+        "x": 144,
+        "y": 64,
+        "width": 992,
+        "height": 512
+      },
+      "reflectionBand": {
+        "x": 144,
+        "y": 600,
+        "width": 992,
+        "height": 200
+      }
+    },
+    "reflectionFrames": 3,
+    "reflectionWidth": 512,
+    "reflectionHeight": 320,
+    "waterline": 0.48453149705819837,
+    "riverScenery": "Blender river-life-v007",
+    "riverBoats": 3,
+    "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+    "riverPbrTextures": 3,
+    "riverTextureMemoryEstimateBytes": 67108866,
+    "riverPbrColorMaps": 1,
+    "riverPbrDataMaps": 2,
+    "riverPbrColorSpacesCorrect": true,
+    "riverLampAnchors": 10,
+    "riverReflectionFragments": 80,
+    "riverMotionTime": 1.4333333333333331,
+    "riverCandleFlames": 4,
+    "riverPointLights": 1,
+    "riverCandleGlows": 4,
+    "riverPositions": [
+      {
+        "x": -48,
+        "y": 4.696258444218093,
+        "z": -105
+      },
+      {
+        "x": 62,
+        "y": 4.653230626824958,
+        "z": -165
+      },
+      {
+        "x": -85,
+        "y": 4.599436577407562,
+        "z": -65
+      }
+    ],
+    "stagedRockets": 1,
+    "airborneRockets": 0,
+    "visibleRocketBodies": 1,
+    "shellScreen": null,
+    "flight": null,
+    "audioVoices": 0,
+    "audioTimers": 0,
+    "recordedSamples": 0,
+    "audioEnabled": false,
+    "qaStallSamplesUsed": 0,
+    "qaStallSamplesRemaining": 0
+  },
+  "cacheAfterOffline": {
+    "cacheNames": [
+      "workbox-precache-v2-http://127.0.0.1:4183/",
+      "firecrackers-art-v2"
+    ],
+    "artURLs": [
+      "http://127.0.0.1:4183/art/rocket.glb",
+      "http://127.0.0.1:4183/art/ignition-flame.png",
+      "http://127.0.0.1:4183/art/waterfront-night-v005.webp",
+      "http://127.0.0.1:4183/art/paper-color.png",
+      "http://127.0.0.1:4183/art/water-normal-v005.png",
+      "http://127.0.0.1:4183/art/terrace-v004.glb",
+      "http://127.0.0.1:4183/art/smoke-density-light-v005.png",
+      "http://127.0.0.1:4183/art/river-life-v007.glb"
+    ],
+    "model": {
+      "bytes": 7620280,
+      "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+      "magic": 1179937895,
+      "version": 2,
+      "declaredLength": 7620280,
+      "images": [
+        {
+          "mimeType": "image/png",
+          "bytes": 3002267,
+          "width": 2048,
+          "height": 2048,
+          "validatedDecode": true
+        },
+        {
+          "mimeType": "image/jpeg",
+          "bytes": 1318835,
+          "width": 2048,
+          "height": 2048,
+          "validatedDecode": true
+        },
+        {
+          "mimeType": "image/png",
+          "bytes": 2753798,
+          "width": 2048,
+          "height": 2048,
+          "validatedDecode": true
+        }
+      ],
+      "textures": 3,
+      "materials": [
+        "RiverLife | aged dark fittings",
+        "CC0 Canoe | baked weathered wood and fittings PBR",
+        "RiverLife | restrained amber emission",
+        "RiverLife | nauka weathered dark timber",
+        "RiverLife | pitch and dark worn timber",
+        "RiverLife | quiet ivory candle wax",
+        "RiverLife | thin amber candle glass",
+        "RiverLife | undyed mooring rope",
+        "RiverLife | woven muted flax canopy",
+        "RiverLife | charcoal pitched roofs",
+        "RiverLife | dark inactive windows",
+        "RiverLife | old quay granite",
+        "RiverLife | quiet weathered plaster",
+        "RiverLife | weathered warm timber"
+      ]
+    }
+  },
+  "offlineBurst": {
+    "ready": true,
+    "paused": false,
+    "selected": "sapphire-saturn",
+    "placement": 0.5,
+    "holding": false,
+    "holdProgress": 0,
+    "show": null,
+    "launched": 1,
+    "bursts": 1,
+    "active": 1,
+    "particles": 6205,
+    "smoke": 22,
+    "quality": "ultra",
+    "message": "Stay for the color and the falling embers.",
+    "time": 6.816666666666648,
+    "launchBlock": "",
+    "committedId": null,
+    "committedFamily": "",
+    "flightProgress": 0,
+    "fuse": false,
+    "phase": "afterglow",
+    "carriers": 0,
+    "embers": 681,
+    "backend": "WebGL 2",
+    "renderPixels": 1024000,
+    "submitMs": 6.400000002235174,
+    "frames": 6,
+    "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+    "authoredAssetStates": {
+      "smoke": "active",
+      "paper": "active",
+      "normal": "active",
+      "flame": "active",
+      "rocket": "active",
+      "terrace": "active",
+      "sky": "active",
+      "river": "active"
+    },
+    "authoredAssetErrors": {},
+    "stageLayout": {
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 800
+      },
+      "safe": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "controls": {
+        "top-left": {
+          "x": 12,
+          "y": 12,
+          "width": 128,
+          "height": 67
+        },
+        "middle-left": {
+          "x": 12,
+          "y": 202.8046875,
+          "width": 44,
+          "height": 394.390625
+        },
+        "bottom-left": {
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 90
+        },
+        "top-right": {
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 90
+        },
+        "middle-right": {
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 320
+        },
+        "bottom-right": {
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56
+        },
+        "quick-7": {
+          "x": 1180,
+          "y": 424,
+          "width": 44,
+          "height": 44
+        }
+      },
+      "heroRect": {
+        "x": 144,
+        "y": 0,
+        "width": 992,
+        "height": 800
+      },
+      "panelOpen": false,
+      "launchArea": {
+        "x": 0,
+        "y": 656,
+        "width": 1280,
+        "height": 112.00000000000001
+      },
+      "burstCanopy": {
+        "x": 144,
+        "y": 64,
+        "width": 992,
+        "height": 512
+      },
+      "reflectionBand": {
+        "x": 144,
+        "y": 600,
+        "width": 992,
+        "height": 200
+      }
+    },
+    "reflectionFrames": 4,
+    "reflectionWidth": 512,
+    "reflectionHeight": 320,
+    "waterline": 0.48453149705819837,
+    "riverScenery": "Blender river-life-v007",
+    "riverBoats": 3,
+    "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+    "riverPbrTextures": 3,
+    "riverTextureMemoryEstimateBytes": 67108866,
+    "riverPbrColorMaps": 1,
+    "riverPbrDataMaps": 2,
+    "riverPbrColorSpacesCorrect": true,
+    "riverLampAnchors": 10,
+    "riverReflectionFragments": 80,
+    "riverMotionTime": 6.816666666666648,
+    "riverCandleFlames": 4,
+    "riverPointLights": 1,
+    "riverCandleGlows": 4,
+    "riverPositions": [
+      {
+        "x": -48,
+        "y": 4.58963138207184,
+        "z": -105
+      },
+      {
+        "x": 62,
+        "y": 4.672253452429732,
+        "z": -165
+      },
+      {
+        "x": -85,
+        "y": 4.680714734438919,
+        "z": -65
+      }
+    ],
+    "stagedRockets": 1,
+    "airborneRockets": 0,
+    "visibleRocketBodies": 1,
+    "shellScreen": null,
+    "flight": null,
+    "audioVoices": 0,
+    "audioTimers": 0,
+    "recordedSamples": 0,
+    "audioEnabled": false,
+    "qaStallSamplesUsed": 0,
+    "qaStallSamplesRemaining": 0
+  },
+  "finishedAt": "2026-09-30T10:31:59.591Z"
+}

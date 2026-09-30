@@ -103,6 +103,9 @@ jobs:
       - name: Progressive artwork loading and fallback
         if: always()
         run: node tests/assets-browser.mjs
+      - name: Embedded texture navigation and failed-decode lifecycle
+        if: always()
+        run: node tests/asset-lifecycle-browser.mjs /tmp/asset-lifecycle-evidence
       - name: Runtime graphics overload recovery
         if: always()
         run: node tests/overload-browser.mjs /tmp/overload-evidence
@@ -119,4 +122,5 @@ jobs:
             /tmp/recovery-evidence
             /tmp/stage-evidence
             /tmp/overload-evidence
+            /tmp/asset-lifecycle-evidence
           retention-days: 7

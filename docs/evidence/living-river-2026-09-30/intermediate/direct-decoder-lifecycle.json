@@ -1,0 +1,28 @@
+{
+  "url": "http://127.0.0.1:4183/",
+  "method": "Headless Chromium / software WebGL 2; controlled decode and navigation timing",
+  "checks": [
+    {
+      "name": "All eight enhancements and three shared PBR maps load without a second embedded-image fetch"
+    },
+    {
+      "name": "Navigating while all three large maps are decoding leaves the next scene intact without aborted blob requests"
+    },
+    {
+      "name": "One failed embedded map rejects the whole river enhancement and closes the other two decoded maps",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 2
+      }
+    },
+    {
+      "name": "Strict console and page-error gates remain clear"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "blobRequests": [],
+  "failed": null
+}

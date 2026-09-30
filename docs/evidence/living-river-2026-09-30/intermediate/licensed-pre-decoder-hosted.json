@@ -1,9 +1,9 @@
 {
-  "url": "http://127.0.0.1:4183/",
+  "url": "https://firecrackers-river-preview.allygym-api.workers.dev/",
   "expectedVersion": "2026-09-30.4",
   "expectedAssetCount": 8,
   "seed": 20260916,
-  "startedAt": "2026-09-30T10:30:33.454Z",
+  "startedAt": "2026-09-30T09:46:02.465Z",
   "method": "Installed Chrome headed; no software GPU flags. Hardware WebGPU and WebGL are asserted separately. Independent seeded captures use deterministic 60 Hz stepping.",
   "limitations": "Portrait is viewport/touch emulation on this PC. No physical-phone, thermal, completed-GPU-frame timing or long-duration performance claim.",
   "projects": [
@@ -44,8 +44,8 @@
             "embers": 0,
             "backend": "WebGPU",
             "renderPixels": 1024000,
-            "submitMs": 9,
-            "frames": 8,
+            "submitMs": 7.700000002980232,
+            "frames": 7,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -141,7 +141,7 @@
                 "height": 200
               }
             },
-            "reflectionFrames": 7,
+            "reflectionFrames": 6,
             "reflectionWidth": 512,
             "reflectionHeight": 320,
             "waterline": 0.48453149705819837,
@@ -224,8 +224,182 @@
             "embers": 0,
             "backend": "WebGPU",
             "renderPixels": 1024000,
-            "submitMs": 9,
-            "frames": 8,
+            "submitMs": 7.700000002980232,
+            "frames": 7,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 6,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 0,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -48,
+                "y": 4.65,
+                "z": -105
+              },
+              {
+                "x": 62,
+                "y": 4.698470838791487,
+                "z": -165
+              },
+              {
+                "x": -85,
+                "y": 4.585410084763825,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "willow-peak",
+          "file": "desktop-webgpu-willow-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 13954,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 384,
+            "backend": "WebGPU",
+            "renderPixels": 1024000,
+            "submitMs": 5,
+            "frames": 9,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -335,24 +509,24 @@
             "riverPbrColorSpacesCorrect": true,
             "riverLampAnchors": 10,
             "riverReflectionFragments": 80,
-            "riverMotionTime": 0,
+            "riverMotionTime": 4.899999999999988,
             "riverCandleFlames": 4,
             "riverPointLights": 1,
             "riverCandleGlows": 4,
             "riverPositions": [
               {
                 "x": -48,
-                "y": 4.65,
+                "y": 4.660025151965079,
                 "z": -105
               },
               {
                 "x": 62,
-                "y": 4.698470838791487,
+                "y": 4.595429621267821,
                 "z": -165
               },
               {
                 "x": -85,
-                "y": 4.585410084763825,
+                "y": 4.71269271767774,
                 "z": -65
               }
             ],
@@ -370,12 +544,12 @@
           }
         },
         {
-          "phase": "willow-peak",
-          "file": "desktop-webgpu-willow-peak.png",
+          "phase": "saturn-peak",
+          "file": "desktop-webgpu-saturn-peak.png",
           "snapshot": {
             "ready": true,
             "paused": false,
-            "selected": "gold-willow",
+            "selected": "sapphire-saturn",
             "placement": 0.5,
             "holding": false,
             "holdProgress": 0,
@@ -383,10 +557,10 @@
             "launched": 1,
             "bursts": 1,
             "active": 1,
-            "particles": 13954,
+            "particles": 6205,
             "smoke": 22,
             "quality": "ultra",
-            "message": "Stay for the falling embers.",
+            "message": "Stay for the color and the falling embers.",
             "time": 4.899999999999988,
             "launchBlock": "",
             "committedId": null,
@@ -395,10 +569,392 @@
             "fuse": false,
             "phase": "afterglow",
             "carriers": 0,
-            "embers": 384,
+            "embers": 681,
             "backend": "WebGPU",
             "renderPixels": 1024000,
-            "submitMs": 5.899999998509884,
+            "submitMs": 3.599999997764826,
+            "frames": 15,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-7": {
+                  "x": 1180,
+                  "y": 424,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 10,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 4.899999999999988,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -48,
+                "y": 4.660025151965079,
+                "z": -105
+              },
+              {
+                "x": 62,
+                "y": 4.595429621267821,
+                "z": -165
+              },
+              {
+                "x": -85,
+                "y": 4.71269271767774,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "supernova-peak",
+          "file": "desktop-webgpu-supernova-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "opal-supernova",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 7,
+            "active": 1,
+            "particles": 19316,
+            "smoke": 19,
+            "quality": "ultra",
+            "message": "Stay for the color and the falling embers.",
+            "time": 7.799999999999978,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 1,
+            "embers": 649,
+            "backend": "WebGPU",
+            "renderPixels": 1024000,
+            "submitMs": 4.099999997764826,
+            "frames": 19,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 195.875,
+                  "width": 44,
+                  "height": 408.25
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-9": {
+                  "x": 1180,
+                  "y": 516,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 12,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 7.799999999999978,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -48,
+                "y": 4.588565395080211,
+                "z": -105
+              },
+              {
+                "x": 62,
+                "y": 4.706765067832377,
+                "z": -165
+              },
+              {
+                "x": -85,
+                "y": 4.6357921978337195,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        }
+      ],
+      "actualBackend": "WebGPU",
+      "release": {
+        "version": "2026-09-30.4",
+        "sha256": "1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a",
+        "formatVersion": 2
+      },
+      "hardware": {
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "fallback": false
+        },
+        "webgl": null
+      },
+      "riverResources": {
+        "source": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "textureCount": 3,
+        "colorMaps": 1,
+        "dataMaps": 2,
+        "estimatedDecodedTextureBytes": 67108866,
+        "estimateMethod": "Unique loaded RGBA8 maps plus full mip chain; not measured GPU allocation"
+      }
+    },
+    {
+      "label": "desktop-webgl",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "requestedBackend": "webgl",
+      "captures": [
+        {
+          "phase": "idle",
+          "file": "desktop-webgl-idle.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 0,
+            "bursts": 0,
+            "active": 0,
+            "particles": 0,
+            "smoke": 0,
+            "quality": "ultra",
+            "message": "A fresh, quiet sky.",
+            "time": 0,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "ready",
+            "carriers": 0,
+            "embers": 0,
+            "backend": "WebGL 2",
+            "renderPixels": 1024000,
+            "submitMs": 6.100000001490116,
             "frames": 10,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
@@ -496,562 +1052,6 @@
               }
             },
             "reflectionFrames": 8,
-            "reflectionWidth": 512,
-            "reflectionHeight": 320,
-            "waterline": 0.48453149705819837,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 4.899999999999988,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -48,
-                "y": 4.660025151965079,
-                "z": -105
-              },
-              {
-                "x": 62,
-                "y": 4.595429621267821,
-                "z": -165
-              },
-              {
-                "x": -85,
-                "y": 4.71269271767774,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        },
-        {
-          "phase": "saturn-peak",
-          "file": "desktop-webgpu-saturn-peak.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "sapphire-saturn",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 1,
-            "bursts": 1,
-            "active": 1,
-            "particles": 6205,
-            "smoke": 22,
-            "quality": "ultra",
-            "message": "Stay for the color and the falling embers.",
-            "time": 4.899999999999988,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "afterglow",
-            "carriers": 0,
-            "embers": 681,
-            "backend": "WebGPU",
-            "renderPixels": 1024000,
-            "submitMs": 3.699999999254942,
-            "frames": 16,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 1280,
-                "height": 800
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 12,
-                  "y": 12,
-                  "width": 128,
-                  "height": 67
-                },
-                "middle-left": {
-                  "x": 12,
-                  "y": 203.07386779785156,
-                  "width": 44,
-                  "height": 393.852294921875
-                },
-                "bottom-left": {
-                  "x": 12,
-                  "y": 698,
-                  "width": 128,
-                  "height": 90
-                },
-                "top-right": {
-                  "x": 1212,
-                  "y": 12,
-                  "width": 56,
-                  "height": 90
-                },
-                "middle-right": {
-                  "x": 1224,
-                  "y": 240,
-                  "width": 44,
-                  "height": 320
-                },
-                "bottom-right": {
-                  "x": 1212,
-                  "y": 732,
-                  "width": 56,
-                  "height": 56
-                },
-                "quick-7": {
-                  "x": 1180,
-                  "y": 424,
-                  "width": 44,
-                  "height": 44
-                }
-              },
-              "heroRect": {
-                "x": 144,
-                "y": 0,
-                "width": 992,
-                "height": 800
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 656,
-                "width": 1280,
-                "height": 112.00000000000001
-              },
-              "burstCanopy": {
-                "x": 144,
-                "y": 64,
-                "width": 992,
-                "height": 512
-              },
-              "reflectionBand": {
-                "x": 144,
-                "y": 600,
-                "width": 992,
-                "height": 200
-              }
-            },
-            "reflectionFrames": 11,
-            "reflectionWidth": 512,
-            "reflectionHeight": 320,
-            "waterline": 0.48453149705819837,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 4.899999999999988,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -48,
-                "y": 4.660025151965079,
-                "z": -105
-              },
-              {
-                "x": 62,
-                "y": 4.595429621267821,
-                "z": -165
-              },
-              {
-                "x": -85,
-                "y": 4.71269271767774,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        },
-        {
-          "phase": "supernova-peak",
-          "file": "desktop-webgpu-supernova-peak.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "opal-supernova",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 1,
-            "bursts": 7,
-            "active": 1,
-            "particles": 19316,
-            "smoke": 19,
-            "quality": "ultra",
-            "message": "Stay for the color and the falling embers.",
-            "time": 7.799999999999978,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "afterglow",
-            "carriers": 1,
-            "embers": 649,
-            "backend": "WebGPU",
-            "renderPixels": 1024000,
-            "submitMs": 6.800000000745058,
-            "frames": 20,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 1280,
-                "height": 800
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 12,
-                  "y": 12,
-                  "width": 128,
-                  "height": 67
-                },
-                "middle-left": {
-                  "x": 12,
-                  "y": 195.875,
-                  "width": 44,
-                  "height": 408.25
-                },
-                "bottom-left": {
-                  "x": 12,
-                  "y": 698,
-                  "width": 128,
-                  "height": 90
-                },
-                "top-right": {
-                  "x": 1212,
-                  "y": 12,
-                  "width": 56,
-                  "height": 90
-                },
-                "middle-right": {
-                  "x": 1224,
-                  "y": 240,
-                  "width": 44,
-                  "height": 320
-                },
-                "bottom-right": {
-                  "x": 1212,
-                  "y": 732,
-                  "width": 56,
-                  "height": 56
-                },
-                "quick-9": {
-                  "x": 1180,
-                  "y": 516,
-                  "width": 44,
-                  "height": 44
-                }
-              },
-              "heroRect": {
-                "x": 144,
-                "y": 0,
-                "width": 992,
-                "height": 800
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 656,
-                "width": 1280,
-                "height": 112.00000000000001
-              },
-              "burstCanopy": {
-                "x": 144,
-                "y": 64,
-                "width": 992,
-                "height": 512
-              },
-              "reflectionBand": {
-                "x": 144,
-                "y": 600,
-                "width": 992,
-                "height": 200
-              }
-            },
-            "reflectionFrames": 13,
-            "reflectionWidth": 512,
-            "reflectionHeight": 320,
-            "waterline": 0.48453149705819837,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 7.799999999999978,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -48,
-                "y": 4.588565395080211,
-                "z": -105
-              },
-              {
-                "x": 62,
-                "y": 4.706765067832377,
-                "z": -165
-              },
-              {
-                "x": -85,
-                "y": 4.6357921978337195,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        }
-      ],
-      "actualBackend": "WebGPU",
-      "release": {
-        "version": "2026-09-30.4",
-        "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
-        "formatVersion": 2
-      },
-      "hardware": {
-        "adapter": {
-          "vendor": "intel",
-          "architecture": "gen-12lp",
-          "device": "",
-          "description": "",
-          "fallback": false
-        },
-        "webgl": null
-      },
-      "riverResources": {
-        "source": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-        "textureCount": 3,
-        "colorMaps": 1,
-        "dataMaps": 2,
-        "estimatedDecodedTextureBytes": 67108866,
-        "estimateMethod": "Unique loaded RGBA8 maps plus full mip chain; not measured GPU allocation"
-      }
-    },
-    {
-      "label": "desktop-webgl",
-      "viewport": {
-        "width": 1280,
-        "height": 800
-      },
-      "requestedBackend": "webgl",
-      "captures": [
-        {
-          "phase": "idle",
-          "file": "desktop-webgl-idle.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "gold-willow",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 0,
-            "bursts": 0,
-            "active": 0,
-            "particles": 0,
-            "smoke": 0,
-            "quality": "ultra",
-            "message": "A fresh, quiet sky.",
-            "time": 0,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "ready",
-            "carriers": 0,
-            "embers": 0,
-            "backend": "WebGL 2",
-            "renderPixels": 1024000,
-            "submitMs": 15,
-            "frames": 8,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 1280,
-                "height": 800
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 12,
-                  "y": 12,
-                  "width": 128,
-                  "height": 67
-                },
-                "middle-left": {
-                  "x": 12,
-                  "y": 203.07386779785156,
-                  "width": 44,
-                  "height": 393.852294921875
-                },
-                "bottom-left": {
-                  "x": 12,
-                  "y": 698,
-                  "width": 128,
-                  "height": 90
-                },
-                "top-right": {
-                  "x": 1212,
-                  "y": 12,
-                  "width": 56,
-                  "height": 90
-                },
-                "middle-right": {
-                  "x": 1224,
-                  "y": 240,
-                  "width": 44,
-                  "height": 320
-                },
-                "bottom-right": {
-                  "x": 1212,
-                  "y": 732,
-                  "width": 56,
-                  "height": 56
-                },
-                "quick-0": {
-                  "x": 56,
-                  "y": 368.9261474609375,
-                  "width": 44,
-                  "height": 44
-                }
-              },
-              "heroRect": {
-                "x": 144,
-                "y": 0,
-                "width": 992,
-                "height": 800
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 656,
-                "width": 1280,
-                "height": 112.00000000000001
-              },
-              "burstCanopy": {
-                "x": 144,
-                "y": 64,
-                "width": 992,
-                "height": 512
-              },
-              "reflectionBand": {
-                "x": 144,
-                "y": 600,
-                "width": 992,
-                "height": 200
-              }
-            },
-            "reflectionFrames": 7,
             "reflectionWidth": 512,
             "reflectionHeight": 320,
             "waterline": 0.48453149705819837,
@@ -1134,181 +1134,7 @@
             "embers": 0,
             "backend": "WebGL 2",
             "renderPixels": 1024000,
-            "submitMs": 15,
-            "frames": 8,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 1280,
-                "height": 800
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 12,
-                  "y": 12,
-                  "width": 128,
-                  "height": 67
-                },
-                "middle-left": {
-                  "x": 12,
-                  "y": 203.07386779785156,
-                  "width": 44,
-                  "height": 393.852294921875
-                },
-                "bottom-left": {
-                  "x": 12,
-                  "y": 698,
-                  "width": 128,
-                  "height": 90
-                },
-                "top-right": {
-                  "x": 1212,
-                  "y": 12,
-                  "width": 56,
-                  "height": 90
-                },
-                "middle-right": {
-                  "x": 1224,
-                  "y": 240,
-                  "width": 44,
-                  "height": 320
-                },
-                "bottom-right": {
-                  "x": 1212,
-                  "y": 732,
-                  "width": 56,
-                  "height": 56
-                },
-                "quick-0": {
-                  "x": 56,
-                  "y": 368.9261474609375,
-                  "width": 44,
-                  "height": 44
-                }
-              },
-              "heroRect": {
-                "x": 144,
-                "y": 0,
-                "width": 992,
-                "height": 800
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 656,
-                "width": 1280,
-                "height": 112.00000000000001
-              },
-              "burstCanopy": {
-                "x": 144,
-                "y": 64,
-                "width": 992,
-                "height": 512
-              },
-              "reflectionBand": {
-                "x": 144,
-                "y": 600,
-                "width": 992,
-                "height": 200
-              }
-            },
-            "reflectionFrames": 7,
-            "reflectionWidth": 512,
-            "reflectionHeight": 320,
-            "waterline": 0.48453149705819837,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 0,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -48,
-                "y": 4.65,
-                "z": -105
-              },
-              {
-                "x": 62,
-                "y": 4.698470838791487,
-                "z": -165
-              },
-              {
-                "x": -85,
-                "y": 4.585410084763825,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        },
-        {
-          "phase": "willow-peak",
-          "file": "desktop-webgl-willow-peak.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "gold-willow",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 1,
-            "bursts": 1,
-            "active": 1,
-            "particles": 13954,
-            "smoke": 22,
-            "quality": "ultra",
-            "message": "Stay for the falling embers.",
-            "time": 4.899999999999988,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "afterglow",
-            "carriers": 0,
-            "embers": 384,
-            "backend": "WebGL 2",
-            "renderPixels": 1024000,
-            "submitMs": 8.600000001490116,
+            "submitMs": 6.100000001490116,
             "frames": 10,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
@@ -1419,6 +1245,180 @@
             "riverPbrColorSpacesCorrect": true,
             "riverLampAnchors": 10,
             "riverReflectionFragments": 80,
+            "riverMotionTime": 0,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -48,
+                "y": 4.65,
+                "z": -105
+              },
+              {
+                "x": 62,
+                "y": 4.698470838791487,
+                "z": -165
+              },
+              {
+                "x": -85,
+                "y": 4.585410084763825,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "willow-peak",
+          "file": "desktop-webgl-willow-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 13954,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 384,
+            "backend": "WebGL 2",
+            "renderPixels": 1024000,
+            "submitMs": 4.800000000745058,
+            "frames": 12,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 9,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
             "riverMotionTime": 4.899999999999988,
             "riverCandleFlames": 4,
             "riverPointLights": 1,
@@ -1482,8 +1482,8 @@
             "embers": 681,
             "backend": "WebGL 2",
             "renderPixels": 1024000,
-            "submitMs": 7,
-            "frames": 16,
+            "submitMs": 3.399999998509884,
+            "frames": 18,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -1579,7 +1579,7 @@
                 "height": 200
               }
             },
-            "reflectionFrames": 11,
+            "reflectionFrames": 12,
             "reflectionWidth": 512,
             "reflectionHeight": 320,
             "waterline": 0.48453149705819837,
@@ -1656,8 +1656,8 @@
             "embers": 649,
             "backend": "WebGL 2",
             "renderPixels": 1024000,
-            "submitMs": 8.599999997764826,
-            "frames": 20,
+            "submitMs": 4,
+            "frames": 22,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -1753,7 +1753,7 @@
                 "height": 200
               }
             },
-            "reflectionFrames": 13,
+            "reflectionFrames": 14,
             "reflectionWidth": 512,
             "reflectionHeight": 320,
             "waterline": 0.48453149705819837,
@@ -1805,7 +1805,7 @@
       "actualBackend": "WebGL 2",
       "release": {
         "version": "2026-09-30.4",
-        "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "sha256": "1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a",
         "formatVersion": 2
       },
       "hardware": {
@@ -1861,8 +1861,918 @@
             "embers": 0,
             "backend": "WebGPU",
             "renderPixels": 334836,
-            "submitMs": 14.899999998509884,
+            "submitMs": 8.5,
+            "frames": 6,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 393.4545593261719,
+                "height": 851.6364135742188
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 8,
+                  "y": 8,
+                  "width": 56,
+                  "height": 71
+                },
+                "middle-left": {
+                  "x": 8,
+                  "y": 347.0909118652344,
+                  "width": 48,
+                  "height": 157.4545440673828
+                },
+                "bottom-left": {
+                  "x": 8,
+                  "y": 745.6364135742188,
+                  "width": 56,
+                  "height": 98
+                },
+                "top-right": {
+                  "x": 329.4545593261719,
+                  "y": 8,
+                  "width": 56,
+                  "height": 98
+                },
+                "middle-right": {
+                  "x": 337.4545593261719,
+                  "y": 401.8182067871094,
+                  "width": 48,
+                  "height": 48
+                },
+                "bottom-right": {
+                  "x": 329.4545593261719,
+                  "y": 787.6364135742188,
+                  "width": 56,
+                  "height": 56
+                },
+                "dock": {
+                  "x": 162.72727966308594,
+                  "y": 787.6364135742188,
+                  "width": 68,
+                  "height": 56
+                }
+              },
+              "heroRect": {
+                "x": 68,
+                "y": 0,
+                "width": 257.4545593261719,
+                "height": 851.6364135742188
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 698.3418591308593,
+                "width": 393.4545593261719,
+                "height": 119.22909790039064
+              },
+              "burstCanopy": {
+                "x": 68,
+                "y": 68.13091308593751,
+                "width": 257.4545593261719,
+                "height": 545.0473046875001
+              },
+              "reflectionBand": {
+                "x": 68,
+                "y": 638.7273101806641,
+                "width": 257.4545593261719,
+                "height": 212.9091033935547
+              }
+            },
+            "reflectionFrames": 5,
+            "reflectionWidth": 236,
+            "reflectionHeight": 512,
+            "waterline": 0.7191908814669983,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 0,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -29.759999999999998,
+                "y": 4.65,
+                "z": -105
+              },
+              {
+                "x": 38.44,
+                "y": 4.698470838791487,
+                "z": -165
+              },
+              {
+                "x": -36,
+                "y": 4.585410084763825,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "river-detail",
+          "file": "portrait-webgpu-river-detail.png",
+          "clip": {
+            "x": 0,
+            "y": 365,
+            "width": 393,
+            "height": 408
+          },
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 0,
+            "bursts": 0,
+            "active": 0,
+            "particles": 0,
+            "smoke": 0,
+            "quality": "ultra",
+            "message": "A fresh, quiet sky.",
+            "time": 0,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "ready",
+            "carriers": 0,
+            "embers": 0,
+            "backend": "WebGPU",
+            "renderPixels": 334836,
+            "submitMs": 8.5,
+            "frames": 6,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 393.4545593261719,
+                "height": 851.6364135742188
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 8,
+                  "y": 8,
+                  "width": 56,
+                  "height": 71
+                },
+                "middle-left": {
+                  "x": 8,
+                  "y": 347.0909118652344,
+                  "width": 48,
+                  "height": 157.4545440673828
+                },
+                "bottom-left": {
+                  "x": 8,
+                  "y": 745.6364135742188,
+                  "width": 56,
+                  "height": 98
+                },
+                "top-right": {
+                  "x": 329.4545593261719,
+                  "y": 8,
+                  "width": 56,
+                  "height": 98
+                },
+                "middle-right": {
+                  "x": 337.4545593261719,
+                  "y": 401.8182067871094,
+                  "width": 48,
+                  "height": 48
+                },
+                "bottom-right": {
+                  "x": 329.4545593261719,
+                  "y": 787.6364135742188,
+                  "width": 56,
+                  "height": 56
+                },
+                "dock": {
+                  "x": 162.72727966308594,
+                  "y": 787.6364135742188,
+                  "width": 68,
+                  "height": 56
+                }
+              },
+              "heroRect": {
+                "x": 68,
+                "y": 0,
+                "width": 257.4545593261719,
+                "height": 851.6364135742188
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 698.3418591308593,
+                "width": 393.4545593261719,
+                "height": 119.22909790039064
+              },
+              "burstCanopy": {
+                "x": 68,
+                "y": 68.13091308593751,
+                "width": 257.4545593261719,
+                "height": 545.0473046875001
+              },
+              "reflectionBand": {
+                "x": 68,
+                "y": 638.7273101806641,
+                "width": 257.4545593261719,
+                "height": 212.9091033935547
+              }
+            },
+            "reflectionFrames": 5,
+            "reflectionWidth": 236,
+            "reflectionHeight": 512,
+            "waterline": 0.7191908814669983,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 0,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -29.759999999999998,
+                "y": 4.65,
+                "z": -105
+              },
+              {
+                "x": 38.44,
+                "y": 4.698470838791487,
+                "z": -165
+              },
+              {
+                "x": -36,
+                "y": 4.585410084763825,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "willow-peak",
+          "file": "portrait-webgpu-willow-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 13954,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 384,
+            "backend": "WebGPU",
+            "renderPixels": 334836,
+            "submitMs": 9.300000000745058,
             "frames": 8,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 393.4545593261719,
+                "height": 851.6364135742188
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 8,
+                  "y": 8,
+                  "width": 56,
+                  "height": 71
+                },
+                "middle-left": {
+                  "x": 8,
+                  "y": 347.0909118652344,
+                  "width": 48,
+                  "height": 157.4545440673828
+                },
+                "bottom-left": {
+                  "x": 8,
+                  "y": 745.6364135742188,
+                  "width": 56,
+                  "height": 98
+                },
+                "top-right": {
+                  "x": 329.4545593261719,
+                  "y": 8,
+                  "width": 56,
+                  "height": 98
+                },
+                "middle-right": {
+                  "x": 337.4545593261719,
+                  "y": 401.8182067871094,
+                  "width": 48,
+                  "height": 48
+                },
+                "bottom-right": {
+                  "x": 329.4545593261719,
+                  "y": 787.6364135742188,
+                  "width": 56,
+                  "height": 56
+                },
+                "dock": {
+                  "x": 162.72727966308594,
+                  "y": 787.6364135742188,
+                  "width": 68,
+                  "height": 56
+                }
+              },
+              "heroRect": {
+                "x": 68,
+                "y": 0,
+                "width": 257.4545593261719,
+                "height": 851.6364135742188
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 698.3418591308593,
+                "width": 393.4545593261719,
+                "height": 119.22909790039064
+              },
+              "burstCanopy": {
+                "x": 68,
+                "y": 68.13091308593751,
+                "width": 257.4545593261719,
+                "height": 545.0473046875001
+              },
+              "reflectionBand": {
+                "x": 68,
+                "y": 638.7273101806641,
+                "width": 257.4545593261719,
+                "height": 212.9091033935547
+              }
+            },
+            "reflectionFrames": 6,
+            "reflectionWidth": 236,
+            "reflectionHeight": 512,
+            "waterline": 0.7191908814669983,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 4.899999999999988,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -29.759999999999998,
+                "y": 4.660025151965079,
+                "z": -105
+              },
+              {
+                "x": 38.44,
+                "y": 4.595429621267821,
+                "z": -165
+              },
+              {
+                "x": -36,
+                "y": 4.71269271767774,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "saturn-peak",
+          "file": "portrait-webgpu-saturn-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "sapphire-saturn",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 6205,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the color and the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 681,
+            "backend": "WebGPU",
+            "renderPixels": 334836,
+            "submitMs": 3.699999999254942,
+            "frames": 14,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 393.4545593261719,
+                "height": 851.6364135742188
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 8,
+                  "y": 8,
+                  "width": 56,
+                  "height": 71
+                },
+                "middle-left": {
+                  "x": 8,
+                  "y": 347.0909118652344,
+                  "width": 48,
+                  "height": 157.4545440673828
+                },
+                "bottom-left": {
+                  "x": 8,
+                  "y": 745.6364135742188,
+                  "width": 56,
+                  "height": 98
+                },
+                "top-right": {
+                  "x": 329.4545593261719,
+                  "y": 8,
+                  "width": 56,
+                  "height": 98
+                },
+                "middle-right": {
+                  "x": 337.4545593261719,
+                  "y": 401.8182067871094,
+                  "width": 48,
+                  "height": 48
+                },
+                "bottom-right": {
+                  "x": 329.4545593261719,
+                  "y": 787.6364135742188,
+                  "width": 56,
+                  "height": 56
+                },
+                "dock": {
+                  "x": 162.72727966308594,
+                  "y": 787.6364135742188,
+                  "width": 68,
+                  "height": 56
+                }
+              },
+              "heroRect": {
+                "x": 68,
+                "y": 0,
+                "width": 257.4545593261719,
+                "height": 851.6364135742188
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 698.3418591308593,
+                "width": 393.4545593261719,
+                "height": 119.22909790039064
+              },
+              "burstCanopy": {
+                "x": 68,
+                "y": 68.13091308593751,
+                "width": 257.4545593261719,
+                "height": 545.0473046875001
+              },
+              "reflectionBand": {
+                "x": 68,
+                "y": 638.7273101806641,
+                "width": 257.4545593261719,
+                "height": 212.9091033935547
+              }
+            },
+            "reflectionFrames": 9,
+            "reflectionWidth": 236,
+            "reflectionHeight": 512,
+            "waterline": 0.7191908814669983,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 4.899999999999988,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -29.759999999999998,
+                "y": 4.660025151965079,
+                "z": -105
+              },
+              {
+                "x": 38.44,
+                "y": 4.595429621267821,
+                "z": -165
+              },
+              {
+                "x": -36,
+                "y": 4.71269271767774,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "supernova-peak",
+          "file": "portrait-webgpu-supernova-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "opal-supernova",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 7,
+            "active": 1,
+            "particles": 19316,
+            "smoke": 19,
+            "quality": "ultra",
+            "message": "Stay for the color and the falling embers.",
+            "time": 7.799999999999978,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 1,
+            "embers": 649,
+            "backend": "WebGPU",
+            "renderPixels": 334836,
+            "submitMs": 4.099999997764826,
+            "frames": 18,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 393.4545593261719,
+                "height": 851.6364135742188
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 8,
+                  "y": 8,
+                  "width": 56,
+                  "height": 71
+                },
+                "middle-left": {
+                  "x": 8,
+                  "y": 341.0909118652344,
+                  "width": 48,
+                  "height": 169.4545440673828
+                },
+                "bottom-left": {
+                  "x": 8,
+                  "y": 745.6364135742188,
+                  "width": 56,
+                  "height": 98
+                },
+                "top-right": {
+                  "x": 329.4545593261719,
+                  "y": 8,
+                  "width": 56,
+                  "height": 98
+                },
+                "middle-right": {
+                  "x": 337.4545593261719,
+                  "y": 401.8182067871094,
+                  "width": 48,
+                  "height": 48
+                },
+                "bottom-right": {
+                  "x": 329.4545593261719,
+                  "y": 787.6364135742188,
+                  "width": 56,
+                  "height": 56
+                },
+                "dock": {
+                  "x": 162.72727966308594,
+                  "y": 787.6364135742188,
+                  "width": 68,
+                  "height": 56
+                }
+              },
+              "heroRect": {
+                "x": 68,
+                "y": 0,
+                "width": 257.4545593261719,
+                "height": 851.6364135742188
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 698.3418591308593,
+                "width": 393.4545593261719,
+                "height": 119.22909790039064
+              },
+              "burstCanopy": {
+                "x": 68,
+                "y": 68.13091308593751,
+                "width": 257.4545593261719,
+                "height": 545.0473046875001
+              },
+              "reflectionBand": {
+                "x": 68,
+                "y": 638.7273101806641,
+                "width": 257.4545593261719,
+                "height": 212.9091033935547
+              }
+            },
+            "reflectionFrames": 11,
+            "reflectionWidth": 236,
+            "reflectionHeight": 512,
+            "waterline": 0.7191908814669983,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 7.799999999999978,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -29.759999999999998,
+                "y": 4.588565395080211,
+                "z": -105
+              },
+              {
+                "x": 38.44,
+                "y": 4.706765067832377,
+                "z": -165
+              },
+              {
+                "x": -36,
+                "y": 4.6357921978337195,
+                "z": -65
+              }
+            ],
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        }
+      ],
+      "actualBackend": "WebGPU",
+      "release": {
+        "version": "2026-09-30.4",
+        "sha256": "1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a",
+        "formatVersion": 2
+      },
+      "hardware": {
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "fallback": false
+        },
+        "webgl": null
+      },
+      "riverResources": {
+        "source": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "textureCount": 3,
+        "colorMaps": 1,
+        "dataMaps": 2,
+        "estimatedDecodedTextureBytes": 67108866,
+        "estimateMethod": "Unique loaded RGBA8 maps plus full mip chain; not measured GPU allocation"
+      }
+    },
+    {
+      "label": "portrait-webgl",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "requestedBackend": "webgl",
+      "captures": [
+        {
+          "phase": "idle",
+          "file": "portrait-webgl-idle.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 0,
+            "bursts": 0,
+            "active": 0,
+            "particles": 0,
+            "smoke": 0,
+            "quality": "ultra",
+            "message": "A fresh, quiet sky.",
+            "time": 0,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "ready",
+            "carriers": 0,
+            "embers": 0,
+            "backend": "WebGL 2",
+            "renderPixels": 334836,
+            "submitMs": 8,
+            "frames": 7,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -2008,7 +2918,7 @@
         },
         {
           "phase": "river-detail",
-          "file": "portrait-webgpu-river-detail.png",
+          "file": "portrait-webgl-river-detail.png",
           "clip": {
             "x": 0,
             "y": 365,
@@ -2039,10 +2949,10 @@
             "phase": "ready",
             "carriers": 0,
             "embers": 0,
-            "backend": "WebGPU",
+            "backend": "WebGL 2",
             "renderPixels": 334836,
-            "submitMs": 14.899999998509884,
-            "frames": 8,
+            "submitMs": 8,
+            "frames": 7,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -2188,7 +3098,7 @@
         },
         {
           "phase": "willow-peak",
-          "file": "portrait-webgpu-willow-peak.png",
+          "file": "portrait-webgl-willow-peak.png",
           "snapshot": {
             "ready": true,
             "paused": false,
@@ -2213,10 +3123,10 @@
             "phase": "afterglow",
             "carriers": 0,
             "embers": 384,
-            "backend": "WebGPU",
+            "backend": "WebGL 2",
             "renderPixels": 334836,
-            "submitMs": 10.400000002235174,
-            "frames": 10,
+            "submitMs": 5.300000000745058,
+            "frames": 9,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -2362,7 +3272,7 @@
         },
         {
           "phase": "saturn-peak",
-          "file": "portrait-webgpu-saturn-peak.png",
+          "file": "portrait-webgl-saturn-peak.png",
           "snapshot": {
             "ready": true,
             "paused": false,
@@ -2387,10 +3297,10 @@
             "phase": "afterglow",
             "carriers": 0,
             "embers": 681,
-            "backend": "WebGPU",
+            "backend": "WebGL 2",
             "renderPixels": 334836,
-            "submitMs": 7.600000001490116,
-            "frames": 16,
+            "submitMs": 3.199999999254942,
+            "frames": 15,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -2536,7 +3446,7 @@
         },
         {
           "phase": "supernova-peak",
-          "file": "portrait-webgpu-supernova-peak.png",
+          "file": "portrait-webgl-supernova-peak.png",
           "snapshot": {
             "ready": true,
             "paused": false,
@@ -2561,10 +3471,10 @@
             "phase": "afterglow",
             "carriers": 1,
             "embers": 649,
-            "backend": "WebGPU",
+            "backend": "WebGL 2",
             "renderPixels": 334836,
-            "submitMs": 8.300000000745058,
-            "frames": 20,
+            "submitMs": 3.899999998509884,
+            "frames": 19,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -2709,920 +3619,10 @@
           }
         }
       ],
-      "actualBackend": "WebGPU",
-      "release": {
-        "version": "2026-09-30.4",
-        "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
-        "formatVersion": 2
-      },
-      "hardware": {
-        "adapter": {
-          "vendor": "intel",
-          "architecture": "gen-12lp",
-          "device": "",
-          "description": "",
-          "fallback": false
-        },
-        "webgl": null
-      },
-      "riverResources": {
-        "source": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-        "textureCount": 3,
-        "colorMaps": 1,
-        "dataMaps": 2,
-        "estimatedDecodedTextureBytes": 67108866,
-        "estimateMethod": "Unique loaded RGBA8 maps plus full mip chain; not measured GPU allocation"
-      }
-    },
-    {
-      "label": "portrait-webgl",
-      "viewport": {
-        "width": 393,
-        "height": 851
-      },
-      "requestedBackend": "webgl",
-      "captures": [
-        {
-          "phase": "idle",
-          "file": "portrait-webgl-idle.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "gold-willow",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 0,
-            "bursts": 0,
-            "active": 0,
-            "particles": 0,
-            "smoke": 0,
-            "quality": "ultra",
-            "message": "A fresh, quiet sky.",
-            "time": 0,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "ready",
-            "carriers": 0,
-            "embers": 0,
-            "backend": "WebGL 2",
-            "renderPixels": 334836,
-            "submitMs": 5.900000002235174,
-            "frames": 8,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 393.4545593261719,
-                "height": 851.6364135742188
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 8,
-                  "y": 8,
-                  "width": 56,
-                  "height": 71
-                },
-                "middle-left": {
-                  "x": 8,
-                  "y": 347.0909118652344,
-                  "width": 48,
-                  "height": 157.4545440673828
-                },
-                "bottom-left": {
-                  "x": 8,
-                  "y": 745.6364135742188,
-                  "width": 56,
-                  "height": 98
-                },
-                "top-right": {
-                  "x": 329.4545593261719,
-                  "y": 8,
-                  "width": 56,
-                  "height": 98
-                },
-                "middle-right": {
-                  "x": 337.4545593261719,
-                  "y": 401.8182067871094,
-                  "width": 48,
-                  "height": 48
-                },
-                "bottom-right": {
-                  "x": 329.4545593261719,
-                  "y": 787.6364135742188,
-                  "width": 56,
-                  "height": 56
-                },
-                "dock": {
-                  "x": 162.72727966308594,
-                  "y": 787.6364135742188,
-                  "width": 68,
-                  "height": 56
-                }
-              },
-              "heroRect": {
-                "x": 68,
-                "y": 0,
-                "width": 257.4545593261719,
-                "height": 851.6364135742188
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 698.3418591308593,
-                "width": 393.4545593261719,
-                "height": 119.22909790039064
-              },
-              "burstCanopy": {
-                "x": 68,
-                "y": 68.13091308593751,
-                "width": 257.4545593261719,
-                "height": 545.0473046875001
-              },
-              "reflectionBand": {
-                "x": 68,
-                "y": 638.7273101806641,
-                "width": 257.4545593261719,
-                "height": 212.9091033935547
-              }
-            },
-            "reflectionFrames": 7,
-            "reflectionWidth": 236,
-            "reflectionHeight": 512,
-            "waterline": 0.7191908814669983,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 0,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -29.759999999999998,
-                "y": 4.65,
-                "z": -105
-              },
-              {
-                "x": 38.44,
-                "y": 4.698470838791487,
-                "z": -165
-              },
-              {
-                "x": -36,
-                "y": 4.585410084763825,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        },
-        {
-          "phase": "river-detail",
-          "file": "portrait-webgl-river-detail.png",
-          "clip": {
-            "x": 0,
-            "y": 365,
-            "width": 393,
-            "height": 408
-          },
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "gold-willow",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 0,
-            "bursts": 0,
-            "active": 0,
-            "particles": 0,
-            "smoke": 0,
-            "quality": "ultra",
-            "message": "A fresh, quiet sky.",
-            "time": 0,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "ready",
-            "carriers": 0,
-            "embers": 0,
-            "backend": "WebGL 2",
-            "renderPixels": 334836,
-            "submitMs": 5.900000002235174,
-            "frames": 8,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 393.4545593261719,
-                "height": 851.6364135742188
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 8,
-                  "y": 8,
-                  "width": 56,
-                  "height": 71
-                },
-                "middle-left": {
-                  "x": 8,
-                  "y": 347.0909118652344,
-                  "width": 48,
-                  "height": 157.4545440673828
-                },
-                "bottom-left": {
-                  "x": 8,
-                  "y": 745.6364135742188,
-                  "width": 56,
-                  "height": 98
-                },
-                "top-right": {
-                  "x": 329.4545593261719,
-                  "y": 8,
-                  "width": 56,
-                  "height": 98
-                },
-                "middle-right": {
-                  "x": 337.4545593261719,
-                  "y": 401.8182067871094,
-                  "width": 48,
-                  "height": 48
-                },
-                "bottom-right": {
-                  "x": 329.4545593261719,
-                  "y": 787.6364135742188,
-                  "width": 56,
-                  "height": 56
-                },
-                "dock": {
-                  "x": 162.72727966308594,
-                  "y": 787.6364135742188,
-                  "width": 68,
-                  "height": 56
-                }
-              },
-              "heroRect": {
-                "x": 68,
-                "y": 0,
-                "width": 257.4545593261719,
-                "height": 851.6364135742188
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 698.3418591308593,
-                "width": 393.4545593261719,
-                "height": 119.22909790039064
-              },
-              "burstCanopy": {
-                "x": 68,
-                "y": 68.13091308593751,
-                "width": 257.4545593261719,
-                "height": 545.0473046875001
-              },
-              "reflectionBand": {
-                "x": 68,
-                "y": 638.7273101806641,
-                "width": 257.4545593261719,
-                "height": 212.9091033935547
-              }
-            },
-            "reflectionFrames": 7,
-            "reflectionWidth": 236,
-            "reflectionHeight": 512,
-            "waterline": 0.7191908814669983,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 0,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -29.759999999999998,
-                "y": 4.65,
-                "z": -105
-              },
-              {
-                "x": 38.44,
-                "y": 4.698470838791487,
-                "z": -165
-              },
-              {
-                "x": -36,
-                "y": 4.585410084763825,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        },
-        {
-          "phase": "willow-peak",
-          "file": "portrait-webgl-willow-peak.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "gold-willow",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 1,
-            "bursts": 1,
-            "active": 1,
-            "particles": 13954,
-            "smoke": 22,
-            "quality": "ultra",
-            "message": "Stay for the falling embers.",
-            "time": 4.899999999999988,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "afterglow",
-            "carriers": 0,
-            "embers": 384,
-            "backend": "WebGL 2",
-            "renderPixels": 334836,
-            "submitMs": 9.100000001490116,
-            "frames": 10,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 393.4545593261719,
-                "height": 851.6364135742188
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 8,
-                  "y": 8,
-                  "width": 56,
-                  "height": 71
-                },
-                "middle-left": {
-                  "x": 8,
-                  "y": 347.0909118652344,
-                  "width": 48,
-                  "height": 157.4545440673828
-                },
-                "bottom-left": {
-                  "x": 8,
-                  "y": 745.6364135742188,
-                  "width": 56,
-                  "height": 98
-                },
-                "top-right": {
-                  "x": 329.4545593261719,
-                  "y": 8,
-                  "width": 56,
-                  "height": 98
-                },
-                "middle-right": {
-                  "x": 337.4545593261719,
-                  "y": 401.8182067871094,
-                  "width": 48,
-                  "height": 48
-                },
-                "bottom-right": {
-                  "x": 329.4545593261719,
-                  "y": 787.6364135742188,
-                  "width": 56,
-                  "height": 56
-                },
-                "dock": {
-                  "x": 162.72727966308594,
-                  "y": 787.6364135742188,
-                  "width": 68,
-                  "height": 56
-                }
-              },
-              "heroRect": {
-                "x": 68,
-                "y": 0,
-                "width": 257.4545593261719,
-                "height": 851.6364135742188
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 698.3418591308593,
-                "width": 393.4545593261719,
-                "height": 119.22909790039064
-              },
-              "burstCanopy": {
-                "x": 68,
-                "y": 68.13091308593751,
-                "width": 257.4545593261719,
-                "height": 545.0473046875001
-              },
-              "reflectionBand": {
-                "x": 68,
-                "y": 638.7273101806641,
-                "width": 257.4545593261719,
-                "height": 212.9091033935547
-              }
-            },
-            "reflectionFrames": 8,
-            "reflectionWidth": 236,
-            "reflectionHeight": 512,
-            "waterline": 0.7191908814669983,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 4.899999999999988,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -29.759999999999998,
-                "y": 4.660025151965079,
-                "z": -105
-              },
-              {
-                "x": 38.44,
-                "y": 4.595429621267821,
-                "z": -165
-              },
-              {
-                "x": -36,
-                "y": 4.71269271767774,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        },
-        {
-          "phase": "saturn-peak",
-          "file": "portrait-webgl-saturn-peak.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "sapphire-saturn",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 1,
-            "bursts": 1,
-            "active": 1,
-            "particles": 6205,
-            "smoke": 22,
-            "quality": "ultra",
-            "message": "Stay for the color and the falling embers.",
-            "time": 4.899999999999988,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "afterglow",
-            "carriers": 0,
-            "embers": 681,
-            "backend": "WebGL 2",
-            "renderPixels": 334836,
-            "submitMs": 6,
-            "frames": 16,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 393.4545593261719,
-                "height": 851.6364135742188
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 8,
-                  "y": 8,
-                  "width": 56,
-                  "height": 71
-                },
-                "middle-left": {
-                  "x": 8,
-                  "y": 347.0909118652344,
-                  "width": 48,
-                  "height": 157.4545440673828
-                },
-                "bottom-left": {
-                  "x": 8,
-                  "y": 745.6364135742188,
-                  "width": 56,
-                  "height": 98
-                },
-                "top-right": {
-                  "x": 329.4545593261719,
-                  "y": 8,
-                  "width": 56,
-                  "height": 98
-                },
-                "middle-right": {
-                  "x": 337.4545593261719,
-                  "y": 401.8182067871094,
-                  "width": 48,
-                  "height": 48
-                },
-                "bottom-right": {
-                  "x": 329.4545593261719,
-                  "y": 787.6364135742188,
-                  "width": 56,
-                  "height": 56
-                },
-                "dock": {
-                  "x": 162.72727966308594,
-                  "y": 787.6364135742188,
-                  "width": 68,
-                  "height": 56
-                }
-              },
-              "heroRect": {
-                "x": 68,
-                "y": 0,
-                "width": 257.4545593261719,
-                "height": 851.6364135742188
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 698.3418591308593,
-                "width": 393.4545593261719,
-                "height": 119.22909790039064
-              },
-              "burstCanopy": {
-                "x": 68,
-                "y": 68.13091308593751,
-                "width": 257.4545593261719,
-                "height": 545.0473046875001
-              },
-              "reflectionBand": {
-                "x": 68,
-                "y": 638.7273101806641,
-                "width": 257.4545593261719,
-                "height": 212.9091033935547
-              }
-            },
-            "reflectionFrames": 11,
-            "reflectionWidth": 236,
-            "reflectionHeight": 512,
-            "waterline": 0.7191908814669983,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 4.899999999999988,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -29.759999999999998,
-                "y": 4.660025151965079,
-                "z": -105
-              },
-              {
-                "x": 38.44,
-                "y": 4.595429621267821,
-                "z": -165
-              },
-              {
-                "x": -36,
-                "y": 4.71269271767774,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        },
-        {
-          "phase": "supernova-peak",
-          "file": "portrait-webgl-supernova-peak.png",
-          "snapshot": {
-            "ready": true,
-            "paused": false,
-            "selected": "opal-supernova",
-            "placement": 0.5,
-            "holding": false,
-            "holdProgress": 0,
-            "show": null,
-            "launched": 1,
-            "bursts": 7,
-            "active": 1,
-            "particles": 19316,
-            "smoke": 19,
-            "quality": "ultra",
-            "message": "Stay for the color and the falling embers.",
-            "time": 7.799999999999978,
-            "launchBlock": "",
-            "committedId": null,
-            "committedFamily": "",
-            "flightProgress": 0,
-            "fuse": false,
-            "phase": "afterglow",
-            "carriers": 1,
-            "embers": 649,
-            "backend": "WebGL 2",
-            "renderPixels": 334836,
-            "submitMs": 8.699999999254942,
-            "frames": 20,
-            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
-            "authoredAssetStates": {
-              "smoke": "active",
-              "paper": "active",
-              "normal": "active",
-              "flame": "active",
-              "rocket": "active",
-              "terrace": "active",
-              "sky": "active",
-              "river": "active"
-            },
-            "authoredAssetErrors": {},
-            "stageLayout": {
-              "viewport": {
-                "x": 0,
-                "y": 0,
-                "width": 393.4545593261719,
-                "height": 851.6364135742188
-              },
-              "safe": {
-                "top": 0,
-                "right": 0,
-                "bottom": 0,
-                "left": 0
-              },
-              "controls": {
-                "top-left": {
-                  "x": 8,
-                  "y": 8,
-                  "width": 56,
-                  "height": 71
-                },
-                "middle-left": {
-                  "x": 8,
-                  "y": 341.0909118652344,
-                  "width": 48,
-                  "height": 169.4545440673828
-                },
-                "bottom-left": {
-                  "x": 8,
-                  "y": 745.6364135742188,
-                  "width": 56,
-                  "height": 98
-                },
-                "top-right": {
-                  "x": 329.4545593261719,
-                  "y": 8,
-                  "width": 56,
-                  "height": 98
-                },
-                "middle-right": {
-                  "x": 337.4545593261719,
-                  "y": 401.8182067871094,
-                  "width": 48,
-                  "height": 48
-                },
-                "bottom-right": {
-                  "x": 329.4545593261719,
-                  "y": 787.6364135742188,
-                  "width": 56,
-                  "height": 56
-                },
-                "dock": {
-                  "x": 162.72727966308594,
-                  "y": 787.6364135742188,
-                  "width": 68,
-                  "height": 56
-                }
-              },
-              "heroRect": {
-                "x": 68,
-                "y": 0,
-                "width": 257.4545593261719,
-                "height": 851.6364135742188
-              },
-              "panelOpen": false,
-              "launchArea": {
-                "x": 0,
-                "y": 698.3418591308593,
-                "width": 393.4545593261719,
-                "height": 119.22909790039064
-              },
-              "burstCanopy": {
-                "x": 68,
-                "y": 68.13091308593751,
-                "width": 257.4545593261719,
-                "height": 545.0473046875001
-              },
-              "reflectionBand": {
-                "x": 68,
-                "y": 638.7273101806641,
-                "width": 257.4545593261719,
-                "height": 212.9091033935547
-              }
-            },
-            "reflectionFrames": 13,
-            "reflectionWidth": 236,
-            "reflectionHeight": 512,
-            "waterline": 0.7191908814669983,
-            "riverScenery": "Blender river-life-v007",
-            "riverBoats": 3,
-            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
-            "riverPbrTextures": 3,
-            "riverTextureMemoryEstimateBytes": 67108866,
-            "riverPbrColorMaps": 1,
-            "riverPbrDataMaps": 2,
-            "riverPbrColorSpacesCorrect": true,
-            "riverLampAnchors": 10,
-            "riverReflectionFragments": 80,
-            "riverMotionTime": 7.799999999999978,
-            "riverCandleFlames": 4,
-            "riverPointLights": 1,
-            "riverCandleGlows": 4,
-            "riverPositions": [
-              {
-                "x": -29.759999999999998,
-                "y": 4.588565395080211,
-                "z": -105
-              },
-              {
-                "x": 38.44,
-                "y": 4.706765067832377,
-                "z": -165
-              },
-              {
-                "x": -36,
-                "y": 4.6357921978337195,
-                "z": -65
-              }
-            ],
-            "stagedRockets": 1,
-            "airborneRockets": 0,
-            "visibleRocketBodies": 1,
-            "shellScreen": null,
-            "flight": null,
-            "audioVoices": 0,
-            "audioTimers": 0,
-            "recordedSamples": 0,
-            "audioEnabled": false,
-            "qaStallSamplesUsed": 0,
-            "qaStallSamplesRemaining": 0
-          }
-        }
-      ],
       "actualBackend": "WebGL 2",
       "release": {
         "version": "2026-09-30.4",
-        "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "sha256": "1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a",
         "formatVersion": 2
       },
       "hardware": {
@@ -3678,8 +3678,8 @@
             "embers": 0,
             "backend": "WebGPU",
             "renderPixels": 330004,
-            "submitMs": 14.199999999254942,
-            "frames": 8,
+            "submitMs": 7,
+            "frames": 7,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -3858,8 +3858,8 @@
             "embers": 0,
             "backend": "WebGPU",
             "renderPixels": 330004,
-            "submitMs": 14.199999999254942,
-            "frames": 8,
+            "submitMs": 7,
+            "frames": 7,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -4032,8 +4032,8 @@
             "embers": 384,
             "backend": "WebGPU",
             "renderPixels": 330004,
-            "submitMs": 9.700000002980232,
-            "frames": 10,
+            "submitMs": 4.800000000745058,
+            "frames": 9,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -4206,8 +4206,8 @@
             "embers": 681,
             "backend": "WebGPU",
             "renderPixels": 330004,
-            "submitMs": 7.900000002235174,
-            "frames": 16,
+            "submitMs": 3.2999999970197678,
+            "frames": 15,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -4380,8 +4380,8 @@
             "embers": 649,
             "backend": "WebGPU",
             "renderPixels": 330004,
-            "submitMs": 8.5,
-            "frames": 19,
+            "submitMs": 4,
+            "frames": 18,
             "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
             "authoredAssetStates": {
               "smoke": "active",
@@ -4529,7 +4529,7 @@
       "actualBackend": "WebGPU",
       "release": {
         "version": "2026-09-30.4",
-        "sha256": "dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609",
+        "sha256": "1feaf76b036fca63d9fe6672cbbf60adb648961f368921bdf5fc8da73614c93a",
         "formatVersion": 2
       },
       "hardware": {
@@ -4737,7 +4737,7 @@
             "embers": 384,
             "backend": "Canvas 2D · compatibility",
             "renderPixels": 334836,
-            "submitMs": 4.400000002235174,
+            "submitMs": 4.199999999254942,
             "frames": 8,
             "stageLayout": {
               "viewport": {
@@ -4868,7 +4868,7 @@
     {
       "name": "desktop-webgpu: pause holds the world clock, particles and render count",
       "time": 4.899999999999988,
-      "frames": 10
+      "frames": 9
     },
     {
       "name": "desktop-webgpu: complete effect cleanup and static idle rendering",
@@ -4886,7 +4886,7 @@
     {
       "name": "desktop-webgl: pause holds the world clock, particles and render count",
       "time": 4.899999999999988,
-      "frames": 10
+      "frames": 12
     },
     {
       "name": "desktop-webgl: complete effect cleanup and static idle rendering",
@@ -4907,7 +4907,7 @@
     {
       "name": "portrait-webgpu: pause holds the world clock, particles and render count",
       "time": 4.899999999999988,
-      "frames": 10
+      "frames": 8
     },
     {
       "name": "portrait-webgpu: complete effect cleanup and static idle rendering",
@@ -4925,7 +4925,7 @@
     {
       "name": "portrait-webgl: pause holds the world clock, particles and render count",
       "time": 4.899999999999988,
-      "frames": 10
+      "frames": 9
     },
     {
       "name": "portrait-webgl: complete effect cleanup and static idle rendering",
@@ -4951,7 +4951,7 @@
     {
       "name": "landscape-webgpu: pause holds the world clock, particles and render count",
       "time": 4.899999999999988,
-      "frames": 10
+      "frames": 9
     },
     {
       "name": "landscape-webgpu: complete effect cleanup and static idle rendering",
@@ -4991,11 +4991,11 @@
   "errors": [],
   "expectedRequestFailures": [
     {
-      "url": "http://127.0.0.1:4183/art/waterfront-night-v005.webp",
+      "url": "https://firecrackers-river-preview.allygym-api.workers.dev/art/waterfront-night-v005.webp",
       "reason": "net::ERR_FAILED"
     },
     {
-      "url": "http://127.0.0.1:4183/art/river-life-v007.glb",
+      "url": "https://firecrackers-river-preview.allygym-api.workers.dev/art/river-life-v007.glb",
       "reason": "net::ERR_FAILED"
     }
   ],
@@ -5017,7 +5017,7 @@
         "smoke": 0,
         "quality": "ultra",
         "message": "Stay for the falling embers.",
-        "time": 45.18333333333205,
+        "time": 45.166666666665385,
         "launchBlock": "",
         "committedId": null,
         "committedFamily": "",
@@ -5028,8 +5028,8 @@
         "embers": 0,
         "backend": "WebGPU",
         "renderPixels": 1024000,
-        "submitMs": 5.199999999254942,
-        "frames": 13,
+        "submitMs": 4.199999999254942,
+        "frames": 12,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -5125,7 +5125,7 @@
             "height": 200
           }
         },
-        "reflectionFrames": 9,
+        "reflectionFrames": 8,
         "reflectionWidth": 512,
         "reflectionHeight": 320,
         "waterline": 0.48453149705819837,
@@ -5198,8 +5198,8 @@
         "embers": 0,
         "backend": "WebGPU",
         "renderPixels": 1024000,
-        "submitMs": 5.199999999254942,
-        "frames": 13,
+        "submitMs": 4.199999999254942,
+        "frames": 12,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -5295,7 +5295,7 @@
             "height": 200
           }
         },
-        "reflectionFrames": 9,
+        "reflectionFrames": 8,
         "reflectionWidth": 512,
         "reflectionHeight": 320,
         "waterline": 0.48453149705819837,
@@ -5492,8 +5492,8 @@
         "embers": 0,
         "backend": "WebGL 2",
         "renderPixels": 1024000,
-        "submitMs": 8.100000001490116,
-        "frames": 13,
+        "submitMs": 3.400000002235174,
+        "frames": 15,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -5589,7 +5589,7 @@
             "height": 200
           }
         },
-        "reflectionFrames": 9,
+        "reflectionFrames": 10,
         "reflectionWidth": 512,
         "reflectionHeight": 320,
         "waterline": 0.48453149705819837,
@@ -5651,7 +5651,7 @@
         "smoke": 0,
         "quality": "ultra",
         "message": "Stay for the falling embers.",
-        "time": 45.949999999998674,
+        "time": 45.93333333333201,
         "launchBlock": "",
         "committedId": null,
         "committedFamily": "",
@@ -5662,8 +5662,8 @@
         "embers": 0,
         "backend": "WebGL 2",
         "renderPixels": 1024000,
-        "submitMs": 8.100000001490116,
-        "frames": 13,
+        "submitMs": 3.400000002235174,
+        "frames": 15,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -5759,7 +5759,7 @@
             "height": 200
           }
         },
-        "reflectionFrames": 9,
+        "reflectionFrames": 10,
         "reflectionWidth": 512,
         "reflectionHeight": 320,
         "waterline": 0.48453149705819837,
@@ -5945,7 +5945,7 @@
         "smoke": 0,
         "quality": "ultra",
         "message": "Stay for the falling embers.",
-        "time": 45.166666666665385,
+        "time": 45.18333333333205,
         "launchBlock": "",
         "committedId": null,
         "committedFamily": "",
@@ -5956,8 +5956,8 @@
         "embers": 0,
         "backend": "WebGPU",
         "renderPixels": 334836,
-        "submitMs": 9.699999999254942,
-        "frames": 13,
+        "submitMs": 5.399999998509884,
+        "frames": 11,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -6053,7 +6053,7 @@
             "height": 212.9091033935547
           }
         },
-        "reflectionFrames": 8,
+        "reflectionFrames": 7,
         "reflectionWidth": 236,
         "reflectionHeight": 512,
         "waterline": 0.7191908814669983,
@@ -6126,8 +6126,8 @@
         "embers": 0,
         "backend": "WebGPU",
         "renderPixels": 334836,
-        "submitMs": 9.699999999254942,
-        "frames": 13,
+        "submitMs": 5.399999998509884,
+        "frames": 11,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -6223,7 +6223,7 @@
             "height": 212.9091033935547
           }
         },
-        "reflectionFrames": 8,
+        "reflectionFrames": 7,
         "reflectionWidth": 236,
         "reflectionHeight": 512,
         "waterline": 0.7191908814669983,
@@ -6409,7 +6409,7 @@
         "smoke": 0,
         "quality": "ultra",
         "message": "Stay for the falling embers.",
-        "time": 45.18333333333205,
+        "time": 45.166666666665385,
         "launchBlock": "",
         "committedId": null,
         "committedFamily": "",
@@ -6420,8 +6420,8 @@
         "embers": 0,
         "backend": "WebGL 2",
         "renderPixels": 334836,
-        "submitMs": 5.800000000745058,
-        "frames": 13,
+        "submitMs": 2.800000000745058,
+        "frames": 12,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -6517,7 +6517,7 @@
             "height": 212.9091033935547
           }
         },
-        "reflectionFrames": 9,
+        "reflectionFrames": 8,
         "reflectionWidth": 236,
         "reflectionHeight": 512,
         "waterline": 0.7191908814669983,
@@ -6579,7 +6579,7 @@
         "smoke": 0,
         "quality": "ultra",
         "message": "Stay for the falling embers.",
-        "time": 45.949999999998674,
+        "time": 45.93333333333201,
         "launchBlock": "",
         "committedId": null,
         "committedFamily": "",
@@ -6590,8 +6590,8 @@
         "embers": 0,
         "backend": "WebGL 2",
         "renderPixels": 334836,
-        "submitMs": 5.800000000745058,
-        "frames": 13,
+        "submitMs": 2.800000000745058,
+        "frames": 12,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -6687,7 +6687,7 @@
             "height": 212.9091033935547
           }
         },
-        "reflectionFrames": 9,
+        "reflectionFrames": 8,
         "reflectionWidth": 236,
         "reflectionHeight": 512,
         "waterline": 0.7191908814669983,
@@ -6884,8 +6884,8 @@
         "embers": 0,
         "backend": "WebGPU",
         "renderPixels": 330004,
-        "submitMs": 7.699999999254942,
-        "frames": 13,
+        "submitMs": 3.600000001490116,
+        "frames": 12,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -7054,8 +7054,8 @@
         "embers": 0,
         "backend": "WebGPU",
         "renderPixels": 330004,
-        "submitMs": 7.699999999254942,
-        "frames": 13,
+        "submitMs": 3.600000001490116,
+        "frames": 12,
         "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
         "authoredAssetStates": {
           "smoke": "active",
@@ -7323,5 +7323,5 @@
   ],
   "failed": null,
   "browserVersion": "154.0.8037.59",
-  "finishedAt": "2026-09-30T10:31:19.249Z"
+  "finishedAt": "2026-09-30T09:46:48.595Z"
 }

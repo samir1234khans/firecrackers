@@ -16,6 +16,60 @@ export type WaterfrontAssetName = typeof WATERFRONT_ASSET_NAMES[number];
 const ASSET_LOAD_DEADLINE_MS = 60_000;
 
 const url = (name: string) => `${import.meta.env.BASE_URL}art/${name}`;
+
+/** Embedded images are already local bytes; avoid a second, navigation-abortable blob URL fetch. */
+function decodeEmbeddedImages(loader: GLTFLoader) {
+  loader.register(parser => {
+    const loadImageSource = parser.loadImageSource.bind(parser);
+    const sources = new Map<number, Promise<THREE.Texture>>();
+    const decoded = new Set<THREE.Texture>();
+    let failure: string | undefined;
+    parser.loadImageSource = (index, imageLoader) => {
+      const source = parser.json.images?.[index];
+      if (source?.bufferView === undefined || !(imageLoader instanceof THREE.ImageBitmapLoader)) {
+        return loadImageSource(index, imageLoader).then(texture => {
+          decoded.add(texture); return texture;
+        }).catch(error => {
+          failure = `Image ${index} could not be decoded: ${errorMessage(error)}`;
+          throw error;
+        });
+      }
+      const existing = sources.get(index);
+      if (existing) return existing.then(texture => {
+        const clone = texture.clone(); decoded.add(clone); return clone;
+      });
+      const promise = parser.getDependency('bufferView', source.bufferView).then(async (bytes: ArrayBuffer) => {
+        const bitmap = await createImageBitmap(new Blob([bytes], { type: source.mimeType }), {
+          premultiplyAlpha: 'none', colorSpaceConversion: 'none',
+        });
+        const texture = new THREE.Texture(bitmap); texture.needsUpdate = true;
+        if (source.extras && typeof source.extras === 'object') Object.assign(texture.userData, source.extras);
+        texture.userData.mimeType = source.mimeType;
+        decoded.add(texture); return texture;
+      }).catch(error => {
+        failure = `Embedded image ${index} could not be decoded: ${errorMessage(error)}`;
+        throw error;
+      });
+      sources.set(index, promise); return promise;
+    };
+    return {
+      name: 'FIRECRACKERS_embedded_image_decode',
+      afterRoot: async result => {
+        // r180 normally turns failed texture promises into null. Reject the
+        // enhancement as a whole so missing PBR maps keep the complete fallback.
+        if (!failure) return;
+        disposeAssetGroup(result.scene);
+        const bitmaps = new Set<ImageBitmap>();
+        for (const texture of decoded) {
+          texture.dispose();
+          if (typeof ImageBitmap !== 'undefined' && texture.image instanceof ImageBitmap && texture.image.width > 0) bitmaps.add(texture.image);
+        }
+        for (const bitmap of bitmaps) bitmap.close();
+        throw new Error(failure);
+      },
+    };
+  });
+}
 async function image(name: string) {
   const img = new Image(); img.src = url(name); await img.decode(); return img;
 }
@@ -28,7 +82,12 @@ export async function loadWaterfrontAssets(
   onLoaded: (name: WaterfrontAssetName, asset: WaterfrontAssets[WaterfrontAssetName]) => void,
   onFailed: (name: WaterfrontAssetName, error: string) => void,
 ): Promise<void> {
-  const loader = new GLTFLoader();
+  const manager = new THREE.LoadingManager();
+  // The legacy ImageLoader path only revokes successful object URLs in r180.
+  // Release failed embedded sources too, after its native error callback runs.
+  manager.onError = source => { if (source.startsWith('blob:')) URL.revokeObjectURL(source); };
+  const loader = new GLTFLoader(manager);
+  decodeEmbeddedImages(loader);
   const textureLoader = new THREE.TextureLoader();
   const tasks: { name: WaterfrontAssetName; load: () => Promise<WaterfrontAssets[WaterfrontAssetName]> }[] = [
     { name: 'smoke', load: async () => {
