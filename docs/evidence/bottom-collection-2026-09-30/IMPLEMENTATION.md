@@ -21,3 +21,6 @@ A owned BottomCollection and collection styling. B owned HUD, Dialog, rail/panel
 ## Qualification boundaries
 
 Physical Android/iPhone, Safari, thermal endurance and completed GPU timings remain untested. Short local cadence comparisons establish only browser submission/rAF behavior on this PC. A 7200-second accelerated simulation soak is logical resource/cleanup evidence, not hardware endurance. Existing `.7` production and its isolated waterfront preview remain independent until release.
+
+
+[Verified hosted preview receipt](PREVIEW.md) and [actual matched captures](comparison.html) record completed outcomes and qualification limits.

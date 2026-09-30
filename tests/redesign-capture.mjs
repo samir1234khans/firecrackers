@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { openPanel, settingsTab } from './stage-helpers.mjs';
 const base=process.env.CAPTURE_URL||'https://firecrackers.mainandmany.com/';
 const phase=process.env.CAPTURE_PHASE||'before';
 const out=path.resolve(process.argv[2]||'test-results/redesign-captures');
@@ -15,12 +16,16 @@ try {
   await page.waitForFunction(()=>window.__firecrackersQA&&document.querySelector('main')?.dataset.ready==='true',undefined,{timeout:90000});
   await page.waitForFunction(()=>Object.values(window.__firecrackersQA.snapshot().authoredAssetStates||{}).filter(s=>s==='active').length===8,undefined,{timeout:90000});
   await page.evaluate(()=>window.__firecrackersQA.freeze(true));
+  if(phase==='before')await page.getByRole('button',{name:'Open settings',exact:true}).click();else await openPanel(page,'settings');
+  await settingsTab(page,'Device');await page.getByRole('button',{name:'Reset this sky',exact:true}).click();await page.getByRole('button',{name:'Reset sky and preferences',exact:true}).click();
+  await page.mouse.move(width/2,30);await page.evaluate(()=>window.__firecrackersQA.render());
   const release=await page.evaluate(()=>fetch('/release.json',{cache:'no-store'}).then(r=>r.json()));
   const idle=await page.evaluate(()=>window.__firecrackersQA.snapshot());
   await page.screenshot({path:path.join(out,`${phase}-${width}x${height}-idle.png`)});
   if(phase==='before')await page.getByRole('button',{name:'Launch selected firework',exact:true}).click();
   else await page.locator('[data-family-icon="gold-willow"]').click();
   await page.evaluate(()=>{window.__firecrackersQA.advance(4.9);window.__firecrackersQA.render();});
+  await page.mouse.move(width/2,30);
   const burst=await page.evaluate(()=>window.__firecrackersQA.snapshot());
   await page.screenshot({path:path.join(out,`${phase}-${width}x${height}-willow.png`)});
   report.projects.push({width,height,backend:burst.backend,release:{version:release.version,sha256:release.sha256},idle,burst});

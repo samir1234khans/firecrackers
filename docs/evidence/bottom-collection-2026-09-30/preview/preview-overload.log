@@ -1,0 +1,5 @@
+PASS saved non-default quality is active before overload
+PASS three forced severe frames recover to Canvas while the same rocket keeps moving and bursts
+PASS manual pause and resume remain functional after recovery
+PASS Canvas projection still maps actual sky and terrace pointer drops after recovery
+PASS automatic Festival direction and Ultra quality continue through fallback

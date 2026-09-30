@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { mkdir,writeFile } from 'node:fs/promises';
 import { inspectStage, inspectBorderlessControls, openPanel, chooseFamily, settingsTab, selectedLaunch, classicIds, grandIds } from './stage-helpers.mjs';
 const base=process.env.STAGE_URL||'http://127.0.0.1:4173/',out=process.argv[2]||'test-results/stage-full';await mkdir(out,{recursive:true});
-const report={url:base,checks:[],errors:[],physicalDevice:false,method:'Bundled Chromium, software WebGL and Canvas; DOM mouse/touch input; emulated viewports'};
+const report={url:base,checks:[],errors:[],physicalDevice:false,method:process.env.STAGE_HARDWARE?'Installed Chrome, verified native WebGPU and hardware WebGL plus Canvas; DOM mouse/touch input; emulated viewports':'Bundled Chromium, software WebGL and Canvas; DOM mouse/touch input; emulated viewports'};
+report.release=await fetch(new URL('release.json',base)).then(r=>r.json());
 const browser=await chromium.launch({channel:process.env.STAGE_HARDWARE?'chrome':undefined,headless:true,args:process.env.STAGE_HARDWARE?[]:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
 const context=await browser.newContext({viewport:{width:393,height:851},hasTouch:true,isMobile:true});const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
 const snap=()=>page.evaluate(()=>window.__firecrackersQA.snapshot());
@@ -30,7 +31,7 @@ try{
    await icon(id).dispatchEvent('click');assert.equal((await snap()).committedId,committed.committedId);
    const fraction=(committed.apexScreen.y-committed.stageLayout.unobstructedScene.y)/committed.stageLayout.unobstructedScene.height;
    assert.ok(fraction>=.30&&fraction<=.38,`Upper canopy ${id}: ${fraction}`);
-   await advance(10);const after=await snap();assert.equal(after.launched,before.launched+1);assert.ok(after.bursts>before.bursts);pass(`${backend} ${id}: one immediate admission, immutable duplicate guard, upper canopy`,{fraction});
+   await advance(id==='opal-supernova'?7.8:4.9);await page.mouse.move(1,1);await page.screenshot({path:`${out}/${backend}-${id}-upper.png`});await advance(id==='opal-supernova'?2.2:5.1);const after=await snap();assert.equal(after.launched,before.launched+1);assert.ok(after.bursts>before.bursts);pass(`${backend} ${id}: one immediate admission, immutable duplicate guard, upper canopy`,{fraction});
   }
   await advance(40);let before=await snap();const l=before.stageLayout,x=l.heroRect.x+l.heroRect.width*.4,y=l.heroRect.y+l.heroRect.height*.32;
   const geometry=JSON.stringify(l.heroRect),r=await icon('gold-willow').boundingBox();await page.mouse.move(r.x+24,r.y+24);await page.mouse.down();await page.mouse.move(x,y,{steps:10});assert.equal(await page.locator('main').getAttribute('data-drag-active'),'true');assert.equal(JSON.stringify((await snap()).stageLayout.heroRect),geometry);await page.mouse.up();
@@ -39,7 +40,7 @@ try{
   for(const [name,end,tx,ty] of [['water','up',196,(await snap()).stageLayout.heroRect.height*.77],['tray','up',196,810],['rail','up',365,330],['outside','up',-5,-5],['escape','escape',196,180],['pointercancel','cancel',196,180]]){
    before=await snap();await drag('ruby-dahlia',tx,ty,end);const after=await snap();assert.equal(after.launched,before.launched,name);assert.equal(after.bursts,before.bursts,name);assert.equal(after.committedId,before.committedId,name);pass(`${backend}: ${name} cancels without accidental click`);
   }
-  before=await snap();await icon('ruby-dahlia').click();assert.equal((await snap()).phase,'fuse');await advance(40);pass(`${backend}: fresh tap immediately after cancellation launches`);
+  before=await snap();await icon('ruby-dahlia').click();assert.equal((await snap()).phase,'fuse');const busyId=(await snap()).committedId,busyBox=await icon('gold-willow').boundingBox();await page.mouse.move(busyBox.x+24,busyBox.y+24);await page.mouse.down();await page.mouse.move(busyBox.x+40,busyBox.y+24);await advance(40);await page.mouse.move(busyBox.x+24,busyBox.y+24);await page.mouse.up();assert.equal((await snap()).committedId,null,'A completed unavailable drag cannot become a later click');assert.ok(busyId);pass(`${backend}: fresh tap immediately after cancellation launches`);
   const cdp=await context.newCDPSession(page),t=await icon('sapphire-saturn').boundingBox();before=await snap();await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:t.x+24,y:t.y+24}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:196,y:180}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});assert.equal((await snap()).launched,before.launched);pass(`${backend}: native touch cancellation`);
   for(const placement of [.2,.8]){
    await advance(40);before=await snap();const area=before.stageLayout.launchArea;await drag('sapphire-saturn',placement===.2?20:373,area.y+area.height*.5);const after=await snap();assert.equal(after.phase,'fuse');assert.equal(after.bursts,before.bursts);assert.ok(Math.abs(after.placement-placement)<.02);await advance(1);assert.equal((await snap()).launched,before.launched+1);pass(`${backend}: terrace drop maps ${placement} into normal rocket`);

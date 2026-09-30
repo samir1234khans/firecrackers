@@ -1,0 +1,7 @@
+PASS All eight enhancements and six shared PBR maps load without a second embedded-image fetch
+PASS Navigating while all three large maps are decoding leaves the next scene intact without aborted blob requests
+PASS One failed embedded map rejects the whole river enhancement and closes the other two decoded 2K maps
+PASS Strict console and page-error gates remain clear
+PASS Native legacy ImageLoader retains all eight enhancements and six correctly configured PBR maps
+PASS A corrupted legacy map rejects the whole enhancement and releases its failed object URL
+PASS Legacy failure emits exactly its controlled native diagnostic without unexpected errors
