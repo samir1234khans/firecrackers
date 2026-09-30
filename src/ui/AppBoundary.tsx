@@ -8,8 +8,7 @@ export class AppBoundary extends Component<{ children: ReactNode }, { failed: bo
     static getDerivedStateFromError() { return { failed: true }; }
     render() {
         if (!this.state.failed) return this.props.children;
-        return <section className='boot-shell' role='alert'>
-            <p className='boot-label'>Firecrackers</p>
+        return <section className='boot-shell' data-boot-state='error' role='alert'>
             <h1>Sky interrupted</h1>
             <p>Reload to resume. Your preferences are saved.</p>
             <div className='boot-actions'>

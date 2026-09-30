@@ -2,6 +2,7 @@ import { measureStage, stageFraming, waterfrontHorizon } from '../engine/StageLa
 import type { StageLayout } from '../engine/StageLayout';
 import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from '../engine/LaunchProfile';
 import type { LaunchProfile } from '../engine/LaunchProfile';
+import type { RendererStartup } from '../engine/StartupProgress';
 import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjectionDiagnostics } from '../engine/LaunchComposition';
 import type { LaunchPropComposition, LaunchBounds } from '../engine/LaunchComposition';
 import { signatureBody, signatureTint } from '../engine/FlagshipEffects';
@@ -15,6 +16,7 @@ import { flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from '../engine/LaunchG
 import { FUSE_POINTS, fusePointAt, ROCKET_SCALE } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
 import { updateMoonFrame } from './MoonComposition';
+import type { MoonFrame } from './MoonComposition';
 import { sampleWater } from './WaterWaves';
 import { makeGalaxySky } from './GalaxySky';
 import type { SkyState } from '../engine/SkyState';
@@ -32,6 +34,7 @@ export class CompatibilityRenderer implements RendererPort {
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
     private readonly moonImage = new Image();
     private moonReady = false;
+    private moonFailed = false;
     private readonly moonFrame = { x: 0, y: 0, radius: 15 };
     private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
     private readonly canvas = document.createElement('canvas');
@@ -239,6 +242,7 @@ export class CompatibilityRenderer implements RendererPort {
     async init() {
         if (this.disposed) return;
         this.moonImage.onload = () => { if (!this.disposed) { this.moonReady = true; this.render(); } };
+        this.moonImage.onerror = () => { if(!this.disposed){this.moonFailed=true;this.render();} };
         this.moonImage.src = `${import.meta.env.BASE_URL}art/moon-lro-v001.png`;
         this.initialized = true;
         this.host.replaceChildren(this.canvas);
@@ -265,6 +269,12 @@ export class CompatibilityRenderer implements RendererPort {
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / this.scale * .9), 16);
         this.setQuality(this.sim.quality);
     }
+    startupMoon(): Readonly<MoonFrame> | null { return this.initialized ? this.moonFrame : null; }
+    readiness(): RendererStartup {
+        const settled=this.moonReady||this.moonFailed;
+        return {completed:settled?1:0,total:1,pending:!settled,degraded:this.moonFailed,
+            detail:this.moonReady?'Scene ready':this.moonFailed?'Scene ready with fallback moon':'Loading moon'};
+    }
     setQuality(quality: Quality) {
         if (this.disposed) return;
         this.ratio = Math.min(window.devicePixelRatio || 1, BUDGETS[quality].ratio, Math.sqrt(1600000 / (this.width * this.height)));
@@ -288,7 +298,9 @@ export class CompatibilityRenderer implements RendererPort {
         const normalizedPlacement=clamp(placement,0,1),padX=bounds.worldMin+normalizedPlacement*(bounds.worldMax-bounds.worldMin);
         const screenX=bounds.screenMin+normalizedPlacement*(bounds.screenMax-bounds.screenMin);
         const profile=resolveScreenLaunchProfile(this.layout,id,this.scale,y=>this.sim.ground+(this.baseline-y)/this.scale,scene.x+scene.width/2,prop);
-        const aimScreenX=resolveLaunchAimScreenX(this.layout,id,this.scale,screenX,profile.effectScale??1);
+        const effectScale=profile.effectScale??1;
+        const nearDepthFactor=index>=10?240/Math.max(140,240-65*effectScale):1;
+        const aimScreenX=resolveLaunchAimScreenX(this.layout,id,this.scale,screenX,effectScale,nearDepthFactor);
         return {...profile,
             padX,aimX:(aimScreenX-this.width/2)/this.scale,normalizedPlacement};
     }
@@ -566,7 +578,7 @@ export class CompatibilityRenderer implements RendererPort {
     }
     dispose() {
         if (this.disposed) return;
-        this.disposed = true; this.moonImage.onload = null; this.moonImage.src = ""; this.canvas.remove(); this.glows.clear();
+        this.disposed = true; this.moonImage.onload = null; this.moonImage.onerror=null; this.moonImage.src = ""; this.canvas.remove(); this.glows.clear();
         this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
         this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
         this.celestialArt.nearStars.width = this.celestialArt.nearStars.height = 1;

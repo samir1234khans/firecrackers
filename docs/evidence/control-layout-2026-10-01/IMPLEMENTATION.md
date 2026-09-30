@@ -21,8 +21,21 @@ Candidate implementation, 1 October 2026. Branch `feat/open-sky-controls` starts
 
 Simulation owns a separate seeded placement stream. Rejected admissions and explicit sky/terrace drops do not consume the next Random position. Reset restores this stream with the other seeded state. Saved fixed/random preference and position migrate with safe defaults; existing sound, quality, comfort and renderer preferences remain.
 
+The edge aim is the nearest safe horizontal position, rather than forcing every launch to the center. It keeps the center-derived effect scale and allows the existing three-dimensional breakup. Signature effects solve the horizontal envelope using the actual renderer near-depth magnification of both the burst radius and its off-center position, plus a 24px guard. This fixes secondary-star overruns found at short-landscape and desktop endpoints without shrinking the effect. The original effects keep a 12px guard. This does not clip rendered particles.
+
+Raised-pointer fine adjustment changes sensitivity continuously: entering or leaving precision mode does not jump the draft position. The custom slider consumes its own keyboard controls and is excluded from global launch shortcuts, like the other form controls.
+
 ## Verification status
 
 The initial unit pass identified one superseded assertion that disallowed next-position changes in flight. Its replacement asserts both the updated draft and the unchanged committed rocket. New tests identified and fixed placement RNG reset. The subsequent full run passed **206/206 units**. Browser, performance, source fingerprint and deployment receipts are recorded in PREVIEW.md when validation completes.
 
 The earlier [plan](PLAN.md) and [schematic study](wireframe.html) are design history. They are not rendered application evidence. Actual before/after captures are tied to backend, viewport, seed and release fingerprint in the final preview receipt.
+
+
+## Moon-led first-load preparation
+
+The original asset loader initialized graphics before the nine authored details had settled, allowing a partially assembled scene to appear. The new opaque preparation surface is present in the initial HTML and remains while real graphics and scene tasks finish. It reuses the existing NASA moon PNG, gently rotates it at screen center, and reports actual completed scene assets rather than a time-based invented percentage.
+
+When the renderer is ready, the same moon moves to the renderer's cached CSS position over 700ms, settles upright, and hands over through a 200ms crossfade. Controls stay mounted for correct layout measurements but hidden and inert. The simulation and automatic shows remain paused until presentation finishes. Reduced-motion settings skip the spin and travel. A short ready message explains tap and drag.
+
+Failed assets count as settled with an explicit reduced-detail status. Once graphics works, Enter with available detail allows deliberate early entry while independent assets continue to activate safely. Slow progress keeps recovery actions available. Startup readiness sampling stops after settlement; retries and cleanup cancel pending callbacks. No new image download is introduced: the same existing moon asset is shared by preparation and renderer.

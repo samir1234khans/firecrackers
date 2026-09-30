@@ -11,9 +11,17 @@ export type LaunchProfile = { apex: number; apexMin: number; apexMax: number; ce
 // branches and Supernova's ascending secondary blossoms. No effect clipping.
 const UPPER_EXTENT = [24, 26, 23, 27, 24, 38, 34, 35, 42, 34, 65, 55, 58] as const;
 /** Move the shell only as far inward as its unchanged principal envelope needs. */
-export function resolveLaunchAimScreenX(layout: StageLayout, family: FamilyId, scale: number, padScreenX: number, effectScale = 1) {
+export function resolveLaunchAimScreenX(layout: StageLayout, family: FamilyId, scale: number, padScreenX: number, effectScale = 1, nearDepthFactor = 1) {
   const scene=layout.unobstructedScene, index=FAMILIES.findIndex(f=>f.id===family);
-  const margin=Math.min(scene.width/2,(index>=10?90*effectScale:55)*scale+12);
+  // Near-depth projection magnifies both the radius AND the off-center shell.
+  // Solve q*(aimOffset+radius) <= halfWidth-guard, rather than add pixels
+  // to a flat radius. Signature depth is bounded by terminal displacement:
+  // largest primary vz=34*.82 at drag=.43 gives <65 world units; children
+  // have shorter, slower depth travel. Renderers resolve q at +/-95 vertical
+  // extent and this near-depth plane using their actual projection.
+  const radius=(index>=10?90*effectScale:55)*scale,guard=index>=10?24:12;
+  const q=index>=10?Math.max(1,nearDepthFactor):1;
+  const margin=Math.min(scene.width/2,scene.width/2-(scene.width/2-guard)/q+radius);
   return clamp(padScreenX,scene.x+margin,scene.x+scene.width-margin);
 }
 /** Conservative principal envelope including near-depth projection and child travel. */

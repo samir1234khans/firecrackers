@@ -4,6 +4,7 @@ import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
 import { makeGalaxySky } from './GalaxySky';
 import { updateMoonFrame } from './MoonComposition';
+import type { MoonFrame } from './MoonComposition';
 import { RiverLife } from './RiverLife';
 import type { SkyState } from '../engine/SkyState';
 import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
@@ -34,6 +35,7 @@ export class NightEnvironment {
   private readonly moonRadius = uniform(15);
   private readonly moonActive = uniform(0);
   private readonly moonFrame = { x: 0, y: 0, radius: 15 };
+  startupMoon(): Readonly<MoonFrame> { return this.moonFrame; }
   private readonly skyTime = uniform(0);
   private readonly galaxyStrength = uniform(.55);
   private readonly nearStrength = uniform(.7);

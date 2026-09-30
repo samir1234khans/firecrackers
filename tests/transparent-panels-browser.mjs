@@ -314,7 +314,7 @@ try {
       await page.goto(new URL('?backend=canvas',base).href,{ waitUntil:'domcontentloaded' });
       try {
         const shell = page.locator('.boot-shell'); await shell.waitFor();
-        await inspectAuxiliary(page,shell,spec,`${spec.name}-boot-loading`);
+        await inspectPreparation(page,shell,spec,`${spec.name}-boot-loading`);
       } finally { release(); }
       await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true',undefined,{ timeout:65000 });
     });
@@ -325,7 +325,7 @@ try {
       await page.getByText(/The app could not finish loading/).waitFor();
       await inspectAuxiliary(page,page.locator('.boot-shell'),spec,`${spec.name}-entry-recovery`);
       assert.equal(await page.getByRole('link',{ name:'Reload website',exact:true }).isVisible(),true);
-      assert.equal(await page.getByRole('link',{ name:'Open compatibility mode',exact:true }).isVisible(),true);
+      assert.equal(await page.getByRole('link',{ name:/compatibility (mode|graphics)/i }).isVisible(),true);
       assert.equal(aborted,1,'Entry recovery must result from the one deliberately blocked entry module');
     },[/Failed to load resource: net::ERR_FAILED/]);
     await run(`${spec.name}-react-recovery`,spec,async page => {
@@ -334,7 +334,7 @@ try {
       await page.getByRole('heading',{ name:'Sky interrupted',exact:true }).waitFor();
       await inspectAuxiliary(page,page.locator('.boot-shell'),spec,`${spec.name}-react-recovery`);
       assert.equal(await page.getByRole('button',{ name:'Reload website',exact:true }).isVisible(),true);
-      assert.equal(await page.getByRole('link',{ name:'Open compatibility mode',exact:true }).isVisible(),true);
+      assert.equal(await page.getByRole('link',{ name:/compatibility (mode|graphics)/i }).isVisible(),true);
     },[/Injected panel preference capability failure/]);
   }
   await run('renderer-loading-and-recovery',{ width:393,height:851 },async page => {
@@ -344,8 +344,8 @@ try {
     const url = new URL('?backend=webgl&qa=1',base);
     await page.goto(url.href,{ waitUntil:'domcontentloaded' });
     try {
-      await page.locator('.loading-state').waitFor();
-      await inspectAuxiliary(page,page.locator('.loading-state'),viewports[2],'renderer-loading');
+      await page.locator('.startup-screen').waitFor();
+      await inspectPreparation(page,page.locator('.startup-screen'),viewports[2],'renderer-loading');
     } finally { release(); }
     await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && window.__firecrackersQA,
       undefined,{ timeout:65000 });
@@ -391,4 +391,15 @@ async function inspectAuxiliary(page,surface,spec,name) {
     assert.ok(hit.width>=min&&hit.height>=min&&hit.hit&&hit.bottom<=data.viewport.height,`${name}: reachable ${min}px action ${JSON.stringify(hit)}`);
   }
   await capture(page,name); record(`${name}: startup/recovery bounds and reachable actions`,{ geometry:data });
+}
+
+
+async function inspectPreparation(page,surface,spec,name) {
+  const geometry=await surface.evaluate(element=>{const r=element.getBoundingClientRect(),card=element.querySelector('.startup-card').getBoundingClientRect(),moon=element.querySelector('.startup-moon-orbit,.boot-moon').getBoundingClientRect();return{width:r.width,height:r.height,x:r.x,y:r.y,viewport:{width:innerWidth,height:innerHeight},card:card.toJSON(),moon:moon.toJSON(),overflow:document.documentElement.scrollWidth>innerWidth+1};});
+  assert.equal(geometry.overflow,false);assert.equal(geometry.x,0);assert.equal(geometry.y,0);assert.equal(geometry.width,geometry.viewport.width);assert.equal(geometry.height,geometry.viewport.height);
+  assert.ok(geometry.card.x>=8&&geometry.card.right<=geometry.viewport.width-8&&geometry.card.top>=0&&geometry.card.bottom<=geometry.viewport.height,`${name}: readable preparation card`);
+  assert.ok(Math.abs(geometry.moon.x+geometry.moon.width/2-geometry.viewport.width/2)<1&&Math.abs(geometry.moon.y+geometry.moon.height/2-geometry.viewport.height/2)<1,`${name}: centered preparation moon`);
+  const progress=surface.getByRole('progressbar');assert.equal(await progress.getAttribute('aria-valuenow'),null,'Initial graphics preparation must not invent a percentage');
+  for(const target of await surface.locator('a[href],button').all()){if(!await target.isVisible())continue;await target.scrollIntoViewIfNeeded();const hit=await target.evaluate(e=>{const r=e.getBoundingClientRect();return{height:r.height,width:r.width,bottom:r.bottom,hit:e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))};});assert.ok(hit.width>=48&&hit.height>=48&&hit.hit&&hit.bottom<=geometry.viewport.height,`${name}: reachable 48px action ${JSON.stringify(hit)}`);}
+  await capture(page,name);record(`${name}: full preparation cover, centered moon and reachable actions`,{geometry});
 }

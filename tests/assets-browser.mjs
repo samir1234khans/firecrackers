@@ -19,6 +19,8 @@ try {
   await context.route('**/art/river-life-v008.glb', route => route.abort());
   await page.goto(new URL('?backend=webgl&qa=1', base).href, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('main[data-ready="true"]', { timeout: 60000 });
+  await page.getByRole('button', { name: 'Enter with available detail', exact: true }).click();
+  await page.waitForSelector('main[data-presented="true"]');
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
   await selectedLaunch(page).click();
   assert.ok((await page.evaluate(() => window.__firecrackersQA.snapshot())).committedId,

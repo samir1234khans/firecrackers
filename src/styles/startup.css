@@ -1,0 +1,29 @@
+/* Opaque preparation hides partial assembly; the shared moon introduces the sky. */
+.startup-screen { position:fixed; z-index:70; inset:0; box-sizing:border-box; overflow:auto; overscroll-behavior:contain; background:radial-gradient(ellipse at 50% 75%,#101d2d 0%,#060c17 58%,#040a14 100%); color:#e9edf2; opacity:1; transition:opacity 200ms ease; }
+.startup-moon-orbit { position:fixed; left:50%; top:50%; width:128px; height:128px; transform:translate(-50%,-50%); transition:left 700ms cubic-bezier(.4,0,.2,1),top 700ms cubic-bezier(.4,0,.2,1),width 700ms cubic-bezier(.4,0,.2,1),height 700ms cubic-bezier(.4,0,.2,1); pointer-events:none; }
+.startup-moon-orbit img { display:block; width:100%; height:100%; object-fit:contain; animation:startup-moon-turn 18s linear infinite; transition:transform 700ms cubic-bezier(.4,0,.2,1); }
+.startup-content { position:absolute; top:calc(50% + 84px); bottom:calc(20px + env(safe-area-inset-bottom,0px)); left:50%; transform:translateX(-50%); width:min(360px,calc(100% - 40px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px))); padding:2px; box-sizing:border-box; overflow:auto; text-align:left; font:400 14px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif; transition:opacity 180ms ease; }
+.startup-content h2 { margin:0 0 10px; color:#eef1f6; font:400 clamp(22px,4vw,28px)/1.25 Georgia,serif; letter-spacing:-.4px; }
+.startup-detail { margin:0 0 16px; color:#bec9d6; font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
+.startup-progress { height:3px; background:#b7c7dd20; border-radius:3px; overflow:hidden; }
+.startup-progress>span { display:block; height:100%; background:#d9bf95; border-radius:3px; }
+.startup-progress.is-indeterminate>span { width:100%; background:linear-gradient(90deg,transparent,#d9bf95,transparent); opacity:.7; }
+.startup-checkpoints { display:flex; justify-content:space-between; gap:12px; padding-top:10px; color:#8393a7; font-size:11px; }
+.startup-checkpoints [data-active='true'],.startup-checkpoints [data-complete='true'] { color:#d9bf95; }
+.startup-checkpoints small { display:block; margin-top:2px; color:#b5c1d0; font-size:11px; }
+.startup-note { margin:16px 0 0; color:#d9bf95; font-size:13px; }
+.startup-actions { display:flex; flex-wrap:wrap; gap:4px; margin:18px 0 0; }
+.startup-actions :is(button,a) { display:inline-flex; align-items:center; justify-content:center; min-height:48px; box-sizing:border-box; padding:8px 10px; border:0; border-radius:6px; background:#d9bf950d; color:#dcc69f; text-decoration:none; font:500 13px/1.4 system-ui,sans-serif; cursor:pointer; }
+.startup-actions button { background:#d9bf951a; }
+.startup-actions :is(button,a):hover { background:#d9bf9522; }
+.startup-actions :is(button,a):focus-visible { outline:2px solid #dcc69f; outline-offset:-2px; }
+.startup-next { margin:16px 0 0; color:#90a1b7; font-size:12px; line-height:1.5; }
+.startup-screen[data-startup-transition='travel'] .startup-content,.startup-screen[data-startup-transition='reveal'] .startup-content { opacity:0; pointer-events:none; }
+.startup-screen[data-startup-transition='reveal'] { opacity:0; pointer-events:none; }
+@keyframes startup-moon-turn { to { transform:rotate(360deg); } }
+@media(max-height:540px) { .startup-moon-orbit { width:80px; height:80px; } .startup-content { top:calc(50% + 56px); } .startup-content h2 { font-size:22px; } .startup-detail { margin-bottom:12px; } .startup-actions { margin-top:12px; } .startup-next { margin-top:8px; } }
+.startup-screen[data-reduced-motion='true'] * { animation:none!important; transition:none!important; }
+@media(prefers-reduced-motion:reduce) { .startup-screen,.startup-screen * { animation:none!important; transition:none!important; } }
+
+.startup-moon-orbit img[hidden] { display:none; }
+.startup-moon-orbit[data-moon-failed='true']::before { content:''; position:absolute; inset:8%; border-radius:50%; background:radial-gradient(circle at 65% 35%,#c9d0d5,#8a959f 58%,#263342); }

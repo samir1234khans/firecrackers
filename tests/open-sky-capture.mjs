@@ -10,6 +10,7 @@ try{
   await page.waitForFunction(()=>Object.values(window.__firecrackersQA.snapshot().authoredAssetStates||{}).length>=9&&Object.values(window.__firecrackersQA.snapshot().authoredAssetStates).every(s=>s==='active'),undefined,{timeout:90000});
   await page.evaluate(()=>window.__firecrackersQA.freeze(true));
   await page.getByRole('button',{name:'Controls',exact:true}).click();await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByRole('tab',{name:'Device',exact:true}).click();await page.getByRole('button',{name:'Reset this sky',exact:true}).click();await page.getByRole('button',{name:'Reset sky and preferences',exact:true}).click();
+  await page.locator('.startup-ready-note').waitFor({state:'hidden',timeout:10000});
   await page.mouse.move(width/2,20);await page.evaluate(()=>window.__firecrackersQA.render());
   const release=await page.evaluate(()=>fetch('/release.json').then(r=>r.json()));
   async function shot(name){const snapshot=await page.evaluate(()=>window.__firecrackersQA.snapshot());const file=`${phase}-${width}x${height}-${name}.png`;await page.screenshot({path:`${out}/${file}`});report.captures.push({file,width,height,backend:snapshot.backend,release:{version:release.version,sha256:release.sha256},snapshot});}

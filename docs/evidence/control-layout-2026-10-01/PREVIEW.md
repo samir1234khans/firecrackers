@@ -6,11 +6,11 @@ Build `2026-10-01.3`, branch `feat/open-sky-controls`. This is an isolated revie
 
 The visible brand and collection headings are removed. Thirteen named, keyboard-accessible firework icons occupy a transparent left collection. Pause, Sound and Controls sit at lower right; the four-direction mode knob and precise fixed/random position track occupy the footer. The rocket is scaled to the available view and grounded on a subdued steel/brass support with a cached contact shadow. The moon, water, boats, authored terrace and thirteen effect identities are retained.
 
-See [implementation contracts](IMPLEMENTATION.md) and the original [approved layout plan](PLAN.md). The new source fingerprint is `1c56e9b07f3ab2d9d4d72fbf89e4964337c2647811f8cc793a1bf515677a26d0`.
+See [implementation contracts](IMPLEMENTATION.md) and the original [approved layout plan](PLAN.md). The new source fingerprint is `aa6353413eeccb04d4c014121890b197c4eb49d8221e101efd49bfc7c148775a`.
 
 ## Completed local checks
 
-- Typecheck, unused-code lint, production build and 206 unit tests passed.
+- Typecheck, unused-code lint, production build and 217 unit tests passed.
 - Accelerated two-hour logical soak passed: 1,290 launches, 3,995 bursts; bounded maxima of 858 particle heads, 20,000 trail entries, 64 smoke entries, nine cues and four rockets. This is not physical-device endurance evidence.
 - Native installed Chrome verified WebGPU, WebGL and Canvas independently. All thirteen props launched at each of 320×480, 375×667, 393×851, 768×1024, 844×390, 1280×800 and 1920×1080. The same run passed mode selection/drag/cancel, modal focus, manual pause ownership, finite Finale, full-range and fine position adjustment, Random, preference reload/reset and immutable flight profiles through rotation. No console or runtime errors.
 
@@ -26,3 +26,5 @@ The browser and performance regression record is being completed. Only completed
 ## Evidence boundaries
 
 Captures use emulated CSS viewport sizes and a real desktop GPU, with seed `20260916` and matching relative burst times. They are not physical phones or Safari. Projected prop envelopes verify the geometry contract; visual inspection separately checks rendered ground contact and appearance. The support uses existing real-time materials and geometry, not a claim of universal 4K rendering. Physical phones, Safari, real browser/OS 200% zoom and sustained GPU/thermal performance remain untested.
+
+The owner additionally requested a moon-led preparation screen. It is implemented and included in this candidate: actual progress, centered rotating moon, exact-position handover, reduced-motion bypass and explicit early entry/recovery. Final startup regression receipts follow below when complete.

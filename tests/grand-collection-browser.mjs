@@ -79,7 +79,10 @@ try {
                 record(`${label}: ${names[i]} complete and cleaned`, { bursts: done.bursts - before, peakParticles: active.particles, method: 'actual renderer, deterministic phase stepping; not FPS evidence' });
             }
             // Seven delayed Opal children must pause with their parent show, not escape as timers.
-            await launch.click(); await advance(page, 3.5);
+            await launch.click(); await advance(page, .8);
+            const carrierFlight = await snapshot(page);
+            assert.equal(carrierFlight.flight.stage, 'ascent');
+            await advance(page, carrierFlight.flight.ascent - carrierFlight.flight.age + .02);
             const pending = await snapshot(page); assert.ok(pending.carriers > 0);
             await page.getByRole('button', { name: 'Pause scene', exact: true }).first().click();
             const paused = await snapshot(page); await freeze(page, false); await page.waitForTimeout(550);

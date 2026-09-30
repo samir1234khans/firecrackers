@@ -3,6 +3,8 @@ import type { FamilyId, Quality } from './catalog';
 import type { LaunchProfile } from './LaunchProfile';
 import type { DisplayMode } from '../platform/presentation';
 import type { SkyState } from './SkyState';
+import type { RendererStartup } from './StartupProgress';
+import type { MoonFrame } from '../graphics/MoonComposition';
 
 /** Both renderers consume the same simulation; neither owns a second animation clock. */
 export interface RendererPort {
@@ -20,5 +22,7 @@ export interface RendererPort {
     projectLaunchPosition(placement: number): [number, number];
     render(): void;
     diagnostics(): Record<string, unknown>;
+    readiness(): RendererStartup;
+    startupMoon(): Readonly<MoonFrame> | null;
     dispose(): void;
 }

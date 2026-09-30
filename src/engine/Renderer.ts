@@ -2,6 +2,8 @@ import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
 import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from './LaunchProfile';
 import type { LaunchProfile } from './LaunchProfile';
+import type { RendererStartup } from './StartupProgress';
+import type { MoonFrame } from '../graphics/MoonComposition';
 import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjectionDiagnostics } from './LaunchComposition';
 import type { LaunchPropComposition, LaunchBounds } from './LaunchComposition';
 import { signatureEnvelope } from './SignatureDiagnostics';
@@ -202,6 +204,19 @@ export class FireworkRenderer {
         const point = new THREE.Vector3(x, y, 0).project(this.camera);
         return { x: (point.x + 1) * this.layout.viewport.width / 2, y: (1 - point.y) * this.layout.viewport.height / 2 };
     }
+    startupMoon(): Readonly<MoonFrame> | null { return this.initialized ? this.environment.startupMoon() : null; }
+    readiness(): RendererStartup {
+        let completed=0,degraded=false,pendingName:WaterfrontAssetName|undefined,activating=false;
+        for(const name of WATERFRONT_ASSET_NAMES) {
+            const state=this.assetStates[name];
+            if(state==='active'||state==='failed')completed++;
+            if(state==='failed')degraded=true;
+            if(!pendingName&&(state==='loading'||state==='ready')){pendingName=name;activating=state==='ready';}
+        }
+        const labels:Record<WaterfrontAssetName,string>={smoke:'smoke',paper:'rocket finish',normal:'rocket surface',flame:'flame',rocket:'rocket artwork',terrace:'terrace',sky:'night sky',river:'waterfront',moon:'moon'};
+        return {completed,total:WATERFRONT_ASSET_NAMES.length,pending:completed<WATERFRONT_ASSET_NAMES.length,degraded,
+            detail:pendingName?`${activating?'Preparing':'Loading'} ${labels[pendingName]}`:degraded?'Scene ready with fallback artwork':'Scene ready'};
+    }
     private worldPoint(x: number, y: number) {
         const l = this.layout;
         const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
@@ -228,7 +243,15 @@ export class FireworkRenderer {
         const screenX = bounds.screenMin + normalizedPlacement * (bounds.screenMax - bounds.screenMin), scene = l.unobstructedScene;
         const scale=stageFraming(l).scale;
         const profile = resolveScreenLaunchProfile(l, id, scale, y => this.worldPoint(scene.x+scene.width/2,y).y, scene.x + scene.width / 2, prop);
-        const aimScreenX=resolveLaunchAimScreenX(l,id,scale,screenX,profile.effectScale??1);
+        const effectScale=profile.effectScale??1;
+        const shellY=profile.apexMax+prop.shellOffset;
+        const centralScale=this.screenPoint(1,shellY).x-l.viewport.width/2;
+        let nearDepthFactor=1;
+        if(index>=10)for(const dy of [-95,95]) {
+            const near=new THREE.Vector3(1,shellY+dy*effectScale,65*effectScale).project(this.camera);
+            nearDepthFactor=Math.max(nearDepthFactor,near.x*l.viewport.width/2/centralScale);
+        }
+        const aimScreenX=resolveLaunchAimScreenX(l,id,index>=10?Math.max(scale,centralScale):scale,screenX,effectScale,nearDepthFactor);
         const aimX = this.worldPoint(aimScreenX, scene.y + scene.height * profile.centerFraction).x;
         return { ...profile, padX, aimX, normalizedPlacement };
     }

@@ -18,6 +18,7 @@ import { ControlsMenu } from './ui/ControlsMenu';
 import { PanelNav } from './ui/PanelNav';
 import { ShowModeKnob } from './ui/ShowModeKnob';
 import { LaunchPositionControl } from './ui/LaunchPositionControl';
+import { StartupScreen } from './ui/StartupScreen';
 import type { SettingsSection } from './ui/PanelNav';
 import './styles/completion.css';
 import './styles/flow.css';
@@ -35,6 +36,9 @@ export default function App() {
   const [settingsReturnFocus, setSettingsReturnFocus] = useState(false);
   const panelInvoker = useRef<HTMLElement | null>(null);
   const [epoch, setEpoch] = useState(0);
+  const [startupPresented, setStartupPresented] = useState(false);
+  const [startupGuide, setStartupGuide] = useState(false);
+  const startupFocusRequested = useRef(false);
   const [hidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
   const [notice, setNotice] = useState('');
   const [noticeFamily, setNoticeFamily] = useState<FamilyId | null>(null);
@@ -50,10 +54,17 @@ export default function App() {
   const world = useWorld(host, prefs, epoch, notify, presentation);
   const platform = usePlatform(notify);
   const state = world.snapshot;
+  const preparing = !startupPresented && !world.error;
+  const finishStartup = useCallback(() => {
+    setStartupPresented(true); setStartupGuide(true);
+    if (startupFocusRequested.current) { startupFocusRequested.current = false; requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('[data-family-icon][aria-pressed="true"]')?.focus({ preventScroll: true })); }
+  }, []);
+  useEffect(() => { setStartupPresented(false); }, [epoch]);
+  useEffect(() => { if (!startupGuide) return; const timer = window.setTimeout(() => setStartupGuide(false), 5500); return () => clearTimeout(timer); }, [startupGuide]);
   const worldRef = useRef(world);
   worldRef.current = world;
-  const context = useRef({ overlay: Boolean(overlay || modeOpen), prefs, state });
-  context.current = { overlay: Boolean(overlay || modeOpen), prefs, state };
+  const context = useRef({ overlay: Boolean(overlay || modeOpen || preparing), prefs, state });
+  context.current = { overlay: Boolean(overlay || modeOpen || preparing), prefs, state };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
   const wake = () => setHidden(false);
   const open = (next: Overlay) => { cancelDrag.current?.(); setModeOpen(false); if (!overlay) panelInvoker.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;  if (next === 'settings') { setSettingsSection('graphics'); setSettingsReturnFocus(false); } world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
@@ -61,7 +72,7 @@ export default function App() {
   const cancelReset = () => { setSettingsReturnFocus(true); setOverlay('settings'); };
   const startDrag = (id: FamilyId, event: React.PointerEvent<HTMLButtonElement>) => {
     clearSuppressedClick.current?.();
-    if (event.button !== 0 || !event.isPrimary || !world.ready || world.error || overlay || modeOpen) return;
+    if (event.button !== 0 || !event.isPrimary || !world.ready || world.error || overlay || modeOpen || preparing) return;
     cancelDrag.current?.();
     const button = event.currentTarget, pointerId = event.pointerId, startX = event.clientX, startY = event.clientY;
     button.setPointerCapture(pointerId);
@@ -120,7 +131,7 @@ export default function App() {
   useEffect(() => () => { cancelDrag.current?.(); clearSuppressedClick.current?.(); }, []);
   useEffect(() => { savePreferences(prefs); }, [prefs]);
   useEffect(() => { if (state.paused) platform.releaseWake(); }, [state.paused, platform.releaseWake]);
-  useEffect(() => { world.setOverlay(Boolean(overlay || modeOpen)); }, [overlay, modeOpen, world.setOverlay]);
+  useEffect(() => { world.setOverlay(Boolean(overlay || modeOpen || preparing)); }, [overlay, modeOpen, preparing, world.setOverlay]);
   useEffect(() => {
     document.documentElement.dataset.output = presentation.mode;
     return () => { delete document.documentElement.dataset.output; };
@@ -140,7 +151,7 @@ export default function App() {
         cancelDrag.current?.();
         return;
       }
-      if (event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea')) return;
+      if (event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea,[role="slider"]')) return;
       const w = worldRef.current;
       if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
       if (event.key === ' ') {
@@ -213,6 +224,8 @@ export default function App() {
     data-version={CONFIG_VERSION}
     data-backend={world.backend}
     data-ready={world.ready}
+    data-presented={startupPresented}
+    data-preparing={preparing}
     data-overlay={overlay || (modeOpen ? 'mode' : 'none')}
     data-phase={state.phase}
     data-launched={state.launched}
@@ -246,9 +259,9 @@ export default function App() {
   >
     <div ref={host} className='scene-host' aria-hidden='true'/>
     <CinematicHUD
-      available={world.ready && !world.error && !overlay && !modeOpen}
+      available={world.ready && !world.error && !overlay && !modeOpen && !preparing}
       phase={state.phase}
-      hidden={hidden || modeOpen || Boolean(overlay)}
+      hidden={hidden || modeOpen || Boolean(overlay) || preparing}
       selectedId={state.selected}
       paused={state.paused}
       soundActive={world.soundActive}
@@ -266,15 +279,16 @@ export default function App() {
     />
     {drag && overlay !== 'picker' && <div className={`burst-drop-target${drag.kind ? ` valid ${drag.kind}` : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'>{drag.kind === 'launch' ? <Flame size={26}/> : <Sparkles size={26}/>}<span>{drag.kind === 'launch' ? 'Release to launch' : drag.kind === 'burst' ? 'Release to burst' : 'Move over the sky or terrace'}</span></div>}
 
-    {!world.ready && !world.error && <div className='loading-state' role='status'><Sparkles size={18} aria-hidden='true'/><span>Preparing the night sky</span><small>Graphics switch automatically if needed.</small><a href='?backend=canvas'>Open compatibility mode</a></div>}
+    {preparing && <StartupScreen {...world.startup} moonTarget={world.startupMoon() ?? undefined} reducedMotion={prefs.reducedMotion || state.reducedMotion} onComplete={finishStartup} onContinue={world.ready && world.startup.pending ? () => { startupFocusRequested.current = true; world.continueStartup(); } : undefined}/>}
+    {startupGuide && !preparing && !overlay && !world.error && <p className='startup-ready-note' role='status'>{world.startup.degraded ? 'Ready with available detail. ' : 'Ready. '}Tap a firework, or drag it into the sky.</p>}
     {world.error && <section className='recovery' role='alert'><div className='panel-heading'><AlertCircle size={18} aria-hidden='true'/><h2>Graphics interrupted</h2></div><p>{world.error}</p><div className='button-row panel-actions'><button className='secondary-button' onClick={() => { world.reset(); setEpoch(e => e + 1); }}><RotateCcw size={16} aria-hidden='true'/>Retry current quality</button><a className='secondary-button' href='?backend=webgl'><Monitor size={16} aria-hidden='true'/>Try WebGL graphics</a><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}><Settings2 size={16} aria-hidden='true'/>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'><Monitor size={16} aria-hidden='true'/>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
-    <div className='reveal-controls' aria-hidden={!hidden}>{hidden && <>
+    <div className='reveal-controls' inert={preparing || undefined} aria-hidden={!hidden || preparing}>{hidden && <>
       <button className='icon-button' aria-label='Show controls' onClick={wake}><Settings2 size={18}/></button>
       <button className='icon-button' aria-label={state.paused ? 'Resume scene' : 'Pause scene'} data-always='true' onClick={resumeOrPause}>{state.paused ? <Play size={18}/> : <Pause size={18}/>}</button>
       <button className='icon-button' aria-label={world.soundActive ? 'Mute sound' : 'Enable sound'} data-always='true' onClick={() => void toggleSound()}>{world.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
     </>}</div>
 
-    <div className='lower-controls chrome' inert={hidden || Boolean(overlay) || undefined}>
+    <div className='lower-controls chrome' inert={hidden || Boolean(overlay) || preparing || undefined}>
       <ShowModeKnob value={state.show} disabled={!world.ready || Boolean(world.error)} onChange={chooseMode} onOpenChange={onModeOpen}/>
       <div inert={modeOpen || undefined}>
         <LaunchPositionControl value={state.placement} random={state.placementMode === 'random'} disabled={!world.ready || Boolean(world.error)} onChange={choosePosition} onRandomChange={chooseRandom} onPreview={setPositionPreview}/>

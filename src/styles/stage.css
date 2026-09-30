@@ -40,3 +40,7 @@
 .position-shuffle:hover { background:#11192770; }
 .position-ground-preview { position:fixed; transform:translate(-50%,-100%); pointer-events:none; z-index:20; color:#efd0a0; filter:drop-shadow(0 1px 2px #000); }
 @media(max-width:679px) { .launch-position-control { left:calc(8px + var(--safe-left)); transform:none; } }
+
+/* Keep measurable geometry mounted while the first-load surface owns input. */
+.fireworks-app[data-preparing='true'] > :is(.chrome,.reveal-controls,.position-ground-preview) { visibility:hidden; }
+.startup-ready-note { position:fixed; z-index:35; top:calc(12px + var(--safe-top)); left:50%; transform:translateX(-50%); width:max-content; max-width:calc(100vw - 32px); margin:0; padding:8px 12px; color:#d5dce5; background:#080e18c9; border-radius:8px; font:12px/1.4 system-ui,sans-serif; text-align:center; pointer-events:none; }

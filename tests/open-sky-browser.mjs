@@ -50,7 +50,20 @@ try{
   let k=await knob().boundingBox();await page.mouse.move(k.x+k.width/2,k.y+k.height/2);await page.mouse.down();await page.mouse.move(k.x+k.width/2-48,k.y+k.height/2,{steps:5});await page.mouse.up();assert.equal((await snap()).show,'finale');await choose('Manual');
   k=await knob().boundingBox();await page.mouse.move(k.x+32,k.y+32);await page.mouse.down();await page.mouse.move(k.x+32,k.y-30,{steps:5});await page.keyboard.press('Escape');await page.mouse.up();assert.equal((await snap()).show,null);pass(`${backend}: directional mode gesture and cancellation`);
   await slider().focus();await page.keyboard.press('Home');assert.equal((await snap()).placement,0);await page.keyboard.press('End');assert.equal((await snap()).placement,1);await page.keyboard.press('Shift+ArrowLeft');assert.ok((await snap()).placement>.95);await page.keyboard.press('Home');
+  const sliderLaunches=(await snap()).launched;for(const key of ['1','l','Space'])await page.keyboard.press(key);assert.equal((await snap()).launched,sliderLaunches,'Focused position slider does not invoke global launch shortcuts');
   let r=await slider().boundingBox(),s=await snap();await page.mouse.move(r.x+5,r.y+24);await page.mouse.down();await page.mouse.move(r.x+r.width-5,r.y+24,{steps:5});await page.keyboard.press('Escape');await page.mouse.up();assert.equal((await snap()).placement,s.placement);
+  // Changing sensitivity at the same horizontal coordinate must not jump the
+  // next-position draft; fine moves stay incremental and release commits once.
+  r=await slider().boundingBox();const span=r.width-48,x0=r.x+24+span*.4;
+  await page.mouse.move(x0,r.y+24);await page.mouse.down();await page.waitForTimeout(40);
+  const draftPercent=async()=>Number(await slider().getAttribute('aria-valuenow'));
+  const coarseStart=await draftPercent();assert.equal((await snap()).placement,0);
+  await page.mouse.move(x0,r.y-16);await page.waitForTimeout(40);assert.ok(Math.abs(await draftPercent()-coarseStart)<=1,'entering fine mode preserves draft');
+  await page.mouse.move(x0+20,r.y-16);await page.waitForTimeout(40);const fineMoved=await draftPercent();assert.ok(fineMoved>coarseStart&&fineMoved-coarseStart<=5,'fine movement reduces sensitivity');
+  await page.mouse.move(x0+20,r.y+24);await page.waitForTimeout(40);assert.ok(Math.abs(await draftPercent()-fineMoved)<=1,'leaving fine mode preserves draft');
+  await page.mouse.move(x0+40,r.y+24);await page.waitForTimeout(40);assert.ok(await draftPercent()-fineMoved>=5,'coarse movement restores normal sensitivity');
+  assert.equal((await snap()).placement,0,'draft is not committed before release');await page.mouse.up();assert.ok(Math.abs((await snap()).placement-(.4+20/(span*5)+20/span))<.005);
+  pass(`${backend}: continuous coarse/fine position transitions and release-only commit`);
   await page.getByRole('button',{name:'Random launch position',exact:true}).click();assert.equal((await snap()).placementMode,'random');
   const places=[];for(let n=0;n<4;n++){await advance(40);await page.locator('[data-family-icon="gold-willow"]').click();s=await snap();places.push(s.committedPlacement);const profile=JSON.stringify(s.launchProfile),flightId=s.committedId;await slider().focus();await page.keyboard.press('End');assert.equal((await snap()).committedId,flightId);assert.equal(JSON.stringify((await snap()).launchProfile),profile);await page.setViewportSize({width:844,height:390});assert.equal(JSON.stringify((await snap()).launchProfile),profile);await page.setViewportSize({width:393,height:851});if(n<3)await page.getByRole('button',{name:'Random launch position',exact:true}).click();}
   assert.ok(new Set(places).size>1);pass(`${backend}: full range, fine adjustment, cancel, random admissions and immutable in-flight geometry`,{places});

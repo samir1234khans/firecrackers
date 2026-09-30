@@ -17,7 +17,7 @@ export async function openPicker(page){await openPanel(page,'help');await page.g
 export async function settingsTab(page,name){const tab=page.getByRole('tablist',{name:'Settings sections'}).getByRole('tab',{name,exact:true});await tab.click();assert.equal(await tab.getAttribute('aria-selected'),'true');await page.getByRole('tabpanel',{name,exact:true}).waitFor({state:'visible'});}
 export async function chooseFamily(page,name){await openPicker(page);await page.getByRole('button',{name:grandNames.includes(name)?'Grand collection':'Classics',exact:false}).click();await page.getByRole('button',{name,exact:true}).click();await page.waitForFunction(()=>document.querySelector('main').dataset.overlay==='none');}
 export async function inspectStage(page){
- await page.waitForFunction(()=>{const l=window.__firecrackersQA?.snapshot().stageLayout;return l&&Math.abs(l.viewport.width-innerWidth)<1&&Math.abs(l.viewport.height-innerHeight)<1;},undefined,{timeout:5000});
+ await page.waitForFunction(()=>{const l=window.__firecrackersQA?.snapshot().stageLayout;return document.querySelector('main').dataset.presented!=='false'&&l&&Math.abs(l.viewport.width-innerWidth)<1&&Math.abs(l.viewport.height-innerHeight)<1;},undefined,{timeout:30000});
  const data=await page.evaluate(()=>{
   const box=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
   const rail=document.querySelector('[data-control-rail]'),tray=document.querySelector('[data-family-tray]'),mode=document.querySelector('[data-mode-control]'),position=document.querySelector('[data-position-control]');
