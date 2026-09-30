@@ -33,7 +33,7 @@ export function StartupScreen({ phase, completed, total, detail, degraded, slow 
   const heading = phase === 'graphics' ? 'Opening your night sky' : phase === 'scene' ? 'Preparing the waterfront' : 'Your sky is ready';
   const travelling = transition !== 'preparing' && moonTarget;
   return <section className='startup-screen' data-startup-phase={phase} data-startup-transition={transition} data-reduced-motion={reducedMotion} aria-label='Preparing the night sky'>
-    <div className='startup-moon-orbit' aria-hidden='true' style={travelling ? { left: moonTarget.x, top: moonTarget.y, width: moonTarget.radius * 2, height: moonTarget.radius * 2 } : undefined}>
+    <div className='startup-moon-orbit' aria-hidden='true' style={travelling ? { left: moonTarget.x, top: moonTarget.y, width: moonTarget.radius * 2 / .95, height: moonTarget.radius * 2 / .95 } : undefined}>
       <img ref={moon} src='./art/moon-lro-v001.png' alt='' width='128' height='128' draggable='false' onLoad={event => { event.currentTarget.parentElement?.setAttribute('data-moon-ready', 'true'); }} onError={event => { event.currentTarget.hidden = true; event.currentTarget.parentElement?.setAttribute('data-moon-ready', 'false'); event.currentTarget.parentElement?.setAttribute('data-moon-failed', 'true'); }}/>
     </div>
     <div className='startup-content startup-card'>
@@ -48,3 +48,4 @@ export function StartupScreen({ phase, completed, total, detail, degraded, slow 
     </div>
   </section>;
 }
+

@@ -58,7 +58,7 @@ try{
   held.release();await page.waitForSelector('[data-startup-transition="travel"]',{timeout:90000});
   const travel=await page.locator('.startup-moon-orbit').evaluate(e=>({x:parseFloat(e.style.left),y:parseFloat(e.style.top),diameter:parseFloat(e.style.width)}));
   state=await snap(page);assert.equal(state.startup.completed,9);assert.equal(state.startup.pending,false);
-  assert.ok(Math.abs(travel.x-state.moon.x)<.1&&Math.abs(travel.y-state.moon.y)<.1&&Math.abs(travel.diameter-2*state.moon.radius)<.1,'travel target matches actual renderer moon');
+  assert.ok(Math.abs(travel.x-state.moon.x)<.1&&Math.abs(travel.y-state.moon.y)<.1&&Math.abs(travel.diameter-2*state.moon.radius/.95)<.1,'travel target matches actual renderer moon including authored transparent rim');
   assert.equal(state.paused,true,'transition still owns pause');await presented(page);assert.equal((await snap(page)).paused,false);assert.ok(held.requests()>=2);
   await page.locator('[data-family-icon="gold-willow"]').click();assert.ok((await snap(page)).committedId);record('Actual cold asset counts, inert mounted controls, no keyboard launches and renderer-aligned moon travel');
  });
