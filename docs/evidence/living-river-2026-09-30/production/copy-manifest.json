@@ -1,0 +1,85 @@
+{
+  "copies": [
+    {
+      "source": "test-results/river-production-hardware-retry/report.json",
+      "destination": "production/hardware.json",
+      "sourceBytes": 216578,
+      "compactBytes": 110243,
+      "sourceSha256": "8f9d1175252f51b0299e1ba41a8d094f56d3296f3fe4fda26dd521a5a848f20d",
+      "compactSha256": "993e3d7e9e43f5ed668f9e9b0231a56fc0eceda7f294adb542862f5cb499334e",
+      "decodedJSONIdentical": true
+    },
+    {
+      "source": "test-results/river-production-hardware/report.json",
+      "destination": "production/hardware-first-attempt.json",
+      "sourceBytes": 7445,
+      "compactBytes": 4245,
+      "sourceSha256": "797beeb43b44b5721b1cb883a48f68185bff3c43065853ed38812875e5251bcd",
+      "compactSha256": "2cbb79347613c355e621b131defd5afab0d8aac81d6a0537b64b7836befe4634",
+      "decodedJSONIdentical": true
+    },
+    {
+      "source": "test-results/river-production-grand/report.json",
+      "destination": "production/grand.json",
+      "sourceBytes": 44536,
+      "compactBytes": 25171,
+      "sourceSha256": "f7f3090e5533b83bb682f84c433f25062b6f710ccaf480e817abd5eb287d546a",
+      "compactSha256": "be62cfb205ce0d65ee1fc3fc72672a44e01cbbf9da4b9cbe4e0c7b5bf330aa16",
+      "decodedJSONIdentical": true
+    },
+    {
+      "source": "test-results/river-production-original/browser-report.json",
+      "destination": "production/original.json",
+      "sourceBytes": 24381,
+      "compactBytes": 13539,
+      "sourceSha256": "26291019e956f9e1b655ec7e74606655b3e7a83a20439f9d6bfe2574ff5bb8b3",
+      "compactSha256": "9290bf3567f54ff223583489b9d9781c02c35260354c97d75fe23d50e51d025a",
+      "decodedJSONIdentical": true
+    },
+    {
+      "source": "test-results/river-production-recovery/viewability-report.json",
+      "destination": "production/recovery.json",
+      "sourceBytes": 34414,
+      "compactBytes": 17103,
+      "sourceSha256": "4dafbf2c7940a33c5af9e91b8a0fb2a85040c17308aafac18c151e44a1b47a7a",
+      "compactSha256": "23ec1d97022654f367b2b0797e6c42590b25f716d54a9d0eb6d9c492d70857bf",
+      "decodedJSONIdentical": true
+    },
+    {
+      "source": "test-results/river-production-http.json",
+      "destination": "production/http.json",
+      "sourceBytes": 3066,
+      "compactBytes": 2376,
+      "sourceSha256": "095b0333f3e29bcf43062a86f7f146111d864aa7851906f6fcbf6e50ddc37c06",
+      "compactSha256": "c22e7911c6c9942f51d6449fccf8bdb20394b98a44de18767600cfb93aeec61d",
+      "decodedJSONIdentical": true
+    },
+    {
+      "source": "test-results/river-production-behavior-summary.json",
+      "destination": "production/behavior-summary.json",
+      "sourceBytes": 1076,
+      "compactBytes": 849,
+      "sourceSha256": "8185e7d0a4c8213de87dcdd2eeef708e36a2d90360f5d2ae791e77c8899f588b",
+      "compactSha256": "cb98b4aab7fab6190360e5fa401f5ea0dafdaeb2efad5ed839a4173678aa5e27",
+      "decodedJSONIdentical": true
+    },
+    {
+      "source": "test-results/river-production-grand/production-release.json",
+      "destination": "production/release.json",
+      "sourceBytes": 15197,
+      "compactBytes": 12472,
+      "sourceSha256": "8d45b48949396ae3e75dd151440f541bde2c974a0355c01ae28058466c3ab56e",
+      "compactSha256": "534ee24eaa9059f2c19a7206b4e228ba090deaa0aa13468c26d65db45ec49ecd",
+      "decodedJSONIdentical": true
+    }
+  ],
+  "decodedJSONIdentical": true,
+  "checksVerified": {
+    "hardware.json": 33,
+    "grand.json": 42,
+    "original.json": 28,
+    "recovery.json": 15,
+    "http.json": 17
+  },
+  "totalSuccessfulPublicChecks": 135
+}

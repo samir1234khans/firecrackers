@@ -2,9 +2,9 @@
 
 A single-screen festival night with **ten selectable fireworks**. Choose a style, set its position, press **Launch firework**, and watch the fuse, flight, burst and falling embers. The effects run a seeded simulation, not prerecorded video.
 
-**Live Cloudflare production: cinematic realism, build `2026-09-30.2`.** Original atmospheric scenery, Blender smoke/water and continuous trails are live. See [the production receipt](docs/evidence/cinematic-realism-2026-09-30/PRODUCTION.md) for hardware WebGPU, public regression checks and rollback; [same-seed comparisons](docs/evidence/cinematic-realism-2026-09-30/comparison.html) show the actual visual changes. Main is the canonical application baseline. [Retained preview](https://firecrackers-cinematic-preview.allygym-api.workers.dev/).
+**Live Cloudflare production: living river and candlelit boats, build `2026-09-30.4`.** Three textured CC0 wooden-canoe adaptations, a larger covered candle boat, clustered shore homes and the native celestial sky join the atmospheric scenery, Blender smoke/water and continuous trails. See [the current production receipt](docs/evidence/living-river-2026-09-30/PRODUCTION.md) for the exact main/Worker identifiers, 135 public checks, actual Chrome hardware evidence and rollback; [same-seed comparisons](docs/evidence/living-river-2026-09-30/comparison.html) retain actual browser captures. Main is the canonical shipped baseline. Interactive galactic sky `.5` is in progress in an isolated worktree and is not shipped.
 
-The [30 September branch reconciliation and republish](docs/evidence/branch-reconciliation-2026-09-30.md) confirms that all current feature/fix branches are already incorporated in main and records the current Cloudflare Worker version.
+The earlier [30 September branch reconciliation and republish](docs/evidence/branch-reconciliation-2026-09-30.md) records the branches and `.6` Worker state at that checkpoint. The living-river production receipt above supersedes its deployment identifier while preserving that history.
 
 Build `.6` loads authored art independently and keeps an active firework moving by switching to compatibility graphics after repeated severe renderer stalls. The [isolated preview](https://firecrackers-graphics-preview.allygym-api.workers.dev/) remains for comparison; see the [diagnosis](docs/evidence/graphics-loading-diagnosis-2026-09-29.md), [preview evidence](docs/evidence/graphics-recovery-preview-2026-09-29.md), and [public release receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md).
 
@@ -38,7 +38,7 @@ Six compact, transparent control groups frame the left and right edges. The meas
 
 Drag a style into the sky to create one immediate burst at that point. Drop it near the terrace to light a normal rocket at that horizontal position. Invalid drops cancel; keyboard users can choose **Burst selected style in center** or use a labelled Launch control. The main and adjacent Launch controls use borderless flame icons with full hit areas; the selected style's adjacent action stays visible. Normal launches retain the fuse and ascent sequence.
 
-Original Blender smoke, flame, rocket and terrace assets load progressively over procedural fallbacks. Rippling reflections follow the actual effects, and optional CC0 recordings augment the original sound design. See [asset provenance](assets-source/PROVENANCE.md) and [design review](assets-source/DESIGN.md).
+Original Blender smoke, flame, rocket and terrace assets load progressively over procedural fallbacks. The CC0 wooden canoe supplies real textured hull geometry for three boats, with original canopy/candles and distant homes. Rippling reflections follow the actual effects and practical lamp positions, and optional CC0 recordings augment the original sound design. See [asset provenance](assets-source/PROVENANCE.md), [river implementation](docs/evidence/living-river-2026-09-30/IMPLEMENTATION.md) and [design review](assets-source/DESIGN.md).
 
 ## Controls
 
@@ -66,7 +66,7 @@ python scripts/validate_docs.py
 
 For browser tests, install the configured Chromium runtime with `npx playwright install chromium`, serve the production build using `npm run preview -- --port 4173`, then run `npm run test:stage`, `npm run test:grand`, `npm run test:e2e` and `npm run test:viewability`. CI installs required Linux browser dependencies and runs the full ten-effect workflow for main and pull requests into main. Development servers bind to loopback; publish production builds only.
 
-Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current [Cloudflare production receipt](docs/evidence/graphics-recovery-production-release-2026-09-29.md) records build `.6` and its rollback version.
+Cloudflare production uses Workers Static Assets and the custom domain declared in `wrangler.jsonc`. From a clean checkout with Cloudflare authorization, run `npm ci`, the checks above, then `npm run cloudflare:deploy`. The command rebuilds `dist/` before publishing. Check the live `/release.json` fingerprint and rerun the browser suites against the public URL after each deployment. The current [Cloudflare production receipt](docs/evidence/living-river-2026-09-30/PRODUCTION.md) records build `2026-09-30.4`, its 56-module fingerprint and the preceding `.2` Worker rollback reference.
 
 ## Historical Grand Collection delivery
 
@@ -81,3 +81,5 @@ Physical Android/tablet, Safari/iOS, hardware WebGPU parity, thermal/endurance, 
 The `2026-09-30.1` WebGPU repair and next Three.js/TSL/Blender work are documented in [hardware diagnosis and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).
 
 The `2026-09-30.2` cinematic release adds original atmospheric scenery, Blender smoke and continuous trails. [Implementation plan and acceptance gates](docs/evidence/cinematic-realism-2026-09-30/PLAN.md), [implementation evidence](docs/evidence/cinematic-realism-2026-09-30/IMPLEMENTATION.md), and [production receipt](docs/evidence/cinematic-realism-2026-09-30/PRODUCTION.md) retain separate design, browser, performance and deployment evidence.
+
+The current `2026-09-30.4` living-river release adds the downloaded CC0 textured boat source, candlelit nauka adaptation, clustered shore village and bounded practical reflections. [Implementation](docs/evidence/living-river-2026-09-30/IMPLEMENTATION.md) and [production verification](docs/evidence/living-river-2026-09-30/PRODUCTION.md) distinguish actual PC Chrome hardware from viewport emulation, software browser suites and unqualified physical-phone/thermal targets.
