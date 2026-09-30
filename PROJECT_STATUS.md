@@ -80,3 +80,7 @@ Physical Android/tablet, Safari/iOS, hardware WebGPU comparison, real-time graph
 ## Earlier candidate checkpoint — 30 September
 
 Build `2026-09-30.1` fixes two reproduced WebGPU startup defects. Local hardware Chrome and compatibility checks passed; production promotion and public checks are recorded at the top of this status. See [evidence and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).
+
+## Cinematic realism candidate
+
+Build `2026-09-30.2` follows the original generated photographic studies. Atmospheric scenery, original smokev005 and continuous TSL trails are integrated; matched hardware captures and visual refinement are in progress. [Plan](docs/evidence/cinematic-realism-2026-09-30/PLAN.md). Production remains `2026-09-30.1` until this candidate passes release gates.

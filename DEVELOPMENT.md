@@ -102,3 +102,7 @@ The first command writes a new v004 master, packed 256-pixel basalt atlases and 
 ## Hardware WebGPU qualification
 
 Run `node tests/webgpu-browser.mjs` with installed Chrome and a real GPU. Set `WEBGPU_URL` to the candidate or public origin; default is port 4180. This headed opt-in test rejects fallback adapters and WebGL masquerading as WebGPU, checks asset activation and effects, and verifies recovery. It is separate from CI software-renderer evidence. See [repair and next graphics work](docs/evidence/webgpu-startup-2026-09-30.md).
+
+## Cinematic comparison capture
+
+`node tests/cinematic-browser.mjs test-results/cinematic-candidate` captures hardware WebGPU and WebGL at desktop and portrait viewport sizes. Set `CINEMATIC_URL` (default port 4180) and `CINEMATIC_PREFIX`. It resets each independent seeded launch to time zero and records early/peak/late frames, actual backend, asset states, cleanup and short real-time rAF/submission cadence. Portrait is emulation and cadence is not GPU completion or thermal endurance. [Implementation plan](docs/evidence/cinematic-realism-2026-09-30/PLAN.md).

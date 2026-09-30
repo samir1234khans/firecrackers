@@ -2,7 +2,7 @@
 
 ## Original work
 
-All runtime visual assets in `public/art/` are authored for this repository with Blender 5.2.1 LTS (build 9e2066aef7ef). The editable masters are in `assets-source/blender/masters/`. They are excluded from the public build. Reproducible generation and fresh-scene verification scripts accompany them.
+The original geometry, material and smoke assets in `public/art/` are authored for this repository with Blender 5.2.1 LTS (build 9e2066aef7ef). The editable masters are in `assets-source/blender/masters/`. They are excluded from the public build. Reproducible generation and fresh-scene verification scripts accompany them.
 
 | File | Content | Browser interpretation |
 |---|---|---|
@@ -36,3 +36,16 @@ The editable `assets-source/blender/masters/waterfront-v004.blend` preserves the
 `assets-source/blender/verify_terrace.py` reopens the final master and imports the GLB into a fresh Blender scene. [The v004 receipt](blender/verification-v004.json) records 48 source/imported meshes, three packed/embedded texture channels, finite export bounds and the 547,136-byte output. The v003 terrace GLB is retained in `assets-source/blender/exports/terrace-v003.glb` as source history; it is no longer a public runtime asset. No external photographs, material libraries or paid textures were used for the v004 stone.
 
 The three [generated realism studies](../docs/evidence/realism-refinement-2026-09-29.md) are concept art, not material maps or claims about the live browser image. The newer reflection and portrait-framing behavior are browser code, not baked into the terrace asset.
+
+
+## Cinematic v005 scenery
+
+`public/art/waterfront-night-v005.webp` is original scenery generated with the built-in ChatGPT image-generation tool, then encoded with `assets-source/prepare-scenery.mjs`. [Exact prompt and review](../docs/evidence/cinematic-realism-2026-09-30/PROMPTS.md). Original PNG: `assets-source/scenery/waterfront-night-v005.png`. No model identifier was exposed. It contains sky, hills and sparse village lights; water and firework reflections remain dynamic browser rendering. It loads independently and preserves the procedural sky on failure.
+
+## Blender smoke v005
+
+The refined three-family atlas `public/art/smoke-density-light-v005.png` replaces the selected runtime smoke enhancement and keeps the v003 asset as history. It is 555,389 bytes, 528 × 1584 linear density/gradient data, baked in Blender 5.2.1 Cycles CPU. [Editable source, reproduction and animation review](blender/SMOKE-V005.md). The final source was reopened, the atlas independently reloaded, and representative plus all 48 frame contact sheets inspected. Runtime lights remain dynamic TSL shading; smoke is an evolving baked volume sprite rather than a live fluid solver.
+
+## Blender water v005
+
+`public/art/water-normal-v005.png` is an original linear normal map generated in Blender from 96 seeded periodic waves and 16 periodic warp components. The 512 × 512 map is 230,518 bytes, packed into `blender/masters/waterfront-v005.blend`; original 77 scene objects and 48 terrace objects are preserved. [Verification](blender/renders/water-v005/verification.json) records finite bounded normals, no missing dependencies and preserved source. Browser water uses this map to disturb actual reflection colors; unlit albedo avoids high-frequency sinusoidal bands.

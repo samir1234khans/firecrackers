@@ -19,7 +19,7 @@ export class RocketProp {
     private lastFamily = -1;
     private readonly solids: THREE.Material[] = [];
     constructor(paperTexture: THREE.Texture) {
-        this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, color: 0xffffff, roughness: .70, metalness: .03 });
+        this.paper = new THREE.MeshStandardMaterial({ map: paperTexture, bumpMap: paperTexture, bumpScale: .012, color: 0xffffff, roughness: .78, metalness: .02 });
         this.capMaterial = new THREE.MeshStandardMaterial({ color: 0xb19a74, roughness: .29, metalness: .62 });
         this.body = new THREE.Mesh(new THREE.CylinderGeometry(.50, .51, 3.25, 48, 1), this.paper);
         this.body.position.y = 3.25;

@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "blender_version": "5.2.1 LTS",
+  "filepath": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\masters\\smoke-ignition-v003.blend",
+  "active_scene": "Smoke and ignition",
+  "scenes": [
+    {
+      "name": "Smoke and ignition",
+      "objects": [
+        "Fuse wisps",
+        "Motor exhaust",
+        "Burst cloud",
+        "Review camera",
+        "Directional smoke rim",
+        "Ignition flame"
+      ],
+      "camera": "Review camera",
+      "engine": "CYCLES",
+      "resolution": [
+        132,
+        132
+      ],
+      "resolution_percentage": 100,
+      "frame_range": [
+        1,
+        48
+      ],
+      "frame_current": 1,
+      "fps": 24.0,
+      "unit_system": "METRIC",
+      "unit_scale": 1.0,
+      "view_transform": "Standard",
+      "output_path": "/tmp\\"
+    }
+  ],
+  "objects": [
+    {
+      "name": "Burst cloud",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Burst cloud | animated density"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Directional smoke rim",
+      "type": "LIGHT",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -3.0,
+        -4.0,
+        5.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    },
+    {
+      "name": "Fuse wisps",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": true,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Fuse wisps | animated density"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Ignition flame",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8963558077812195,
+        1.0,
+        1.0939992666244507
+      ],
+      "hide_render": true,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Ignition flame emission"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 108,
+        "polygons": 96,
+        "uv_layers": []
+      },
+      "animation": {
+        "action": "Ignition flameAction",
+        "nla_tracks": 0,
+        "drivers": 0
+      }
+    },
+    {
+      "name": "Motor exhaust",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": true,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Motor exhaust | animated density"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Review camera",
+      "type": "CAMERA",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        -8.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    }
+  ],
+  "collections": [
+    {
+      "name": "Smoke and ignition | authored assets",
+      "objects": 6
+    }
+  ],
+  "materials": [
+    {
+      "name": "Burst cloud | animated density",
+      "users": 1,
+      "nodes": 9
+    },
+    {
+      "name": "Fuse wisps | animated density",
+      "users": 1,
+      "nodes": 9
+    },
+    {
+      "name": "Ignition flame emission",
+      "users": 1,
+      "nodes": 2
+    },
+    {
+      "name": "Motor exhaust | animated density",
+      "users": 1,
+      "nodes": 9
+    }
+  ],
+  "node_groups": [],
+  "dependencies": [],
+  "warnings": [
+    "Base mesh counts exclude evaluated modifiers and instances.",
+    "Sequences, tiles, simulation caches, drivers and add-on dependencies require task-specific checks."
+  ]
+}

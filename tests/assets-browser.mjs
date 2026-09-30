@@ -14,6 +14,7 @@ try {
   await context.route('**/art/paper-color.png', async route => { await shellsHeld; await route.continue(); });
   await context.route('**/art/rocket.glb', async route => { await shellsHeld; await route.continue(); });
   await context.route('**/art/terrace-v004.glb', route => route.abort());
+  await context.route('**/art/waterfront-night-v005.webp', route => route.abort());
   await page.goto(new URL('?backend=webgl&qa=1', base).href, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('main[data-ready="true"]', { timeout: 60000 });
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
@@ -23,12 +24,13 @@ try {
 
   await page.waitForFunction(() => {
     const state = window.__firecrackersQA.snapshot().authoredAssetStates;
-    return state.smoke === 'active' && state.normal === 'active' && state.flame === 'active' && state.terrace === 'failed';
+    return state.smoke === 'active' && state.normal === 'active' && state.flame === 'active' && state.terrace === 'failed' && state.sky === 'failed';
   }, undefined, { timeout: 30000 });
   let snapshot = await page.evaluate(() => window.__firecrackersQA.snapshot());
   assert.equal(snapshot.authoredAssetStates.paper, 'loading');
   assert.equal(snapshot.authoredAssetStates.rocket, 'loading');
   assert.ok(snapshot.authoredAssetErrors.terrace, 'The failed asset needs an exact diagnostic reason');
+  assert.ok(snapshot.authoredAssetErrors.sky, 'Missing authored scenery must retain the procedural sky');
   assert.ok(snapshot.authoredAssets.includes('smoke'), 'Ready assets must not wait for the failed terrace');
 
   releaseShells();

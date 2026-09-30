@@ -1,4 +1,5 @@
 import * as THREE from 'three/webgpu';
+import { screenUV, texture, uniform, vec2 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
 
@@ -10,7 +11,10 @@ export class NightEnvironment {
   private terrace: THREE.Group | null = null;
   private readonly floor: THREE.Mesh;
   private readonly sky: THREE.Mesh;
-  private readonly skyTexture: THREE.CanvasTexture;
+  readonly skyTexture: THREE.CanvasTexture;
+  readonly skyCrop = uniform(1);
+  readonly skyWaterline = uniform(.5);
+  readonly authoredSky = uniform(0);
   private readonly washMaterial = new THREE.MeshBasicMaterial({
     color: '#e7b270', transparent: true, opacity: 0, depthWrite: false,
     blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
@@ -24,8 +28,10 @@ export class NightEnvironment {
     this.shoreline.name = 'Low distant shoreline silhouettes';
     this.group.add(this.shoreline);
     this.skyTexture = this.makeSky();
-    this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 40, 24),
-      new THREE.MeshBasicMaterial({ map: this.skyTexture, side: THREE.BackSide, depthWrite: false, fog: false }));
+    const skyMaterial = new THREE.MeshBasicNodeMaterial({ side: THREE.BackSide, depthWrite: false, fog: false });
+    const skyUV = vec2(screenUV.x.sub(.5).mul(this.skyCrop).add(.5), screenUV.y.mul(.872).div(this.skyWaterline).clamp(0, .995).oneMinus());
+    skyMaterial.colorNode = texture(this.skyTexture, skyUV).rgb;
+    this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 32, 16), skyMaterial);
     this.sky.rotation.y = Math.PI * .5;
     this.sky.renderOrder = -100;
     this.group.add(this.sky);
@@ -99,13 +105,25 @@ export class NightEnvironment {
     group.traverse(o => { if (o instanceof THREE.Mesh && o.material instanceof THREE.MeshStandardMaterial) materials.add(o.material); });
     for (const material of materials) {
       const authoredStone = Boolean(material.map);
-      material.color.multiplyScalar(authoredStone ? .42 : .32);
-      material.roughness = authoredStone ? .72 : .95;
+      material.color.multiplyScalar(authoredStone ? .32 : .28);
+      material.roughness = authoredStone ? .48 : .85;
+      material.envMapIntensity = .35;
     }
-    this.floor.visible = false;
+    this.floor.visible = true;
     this.group.add(group);
   }
-  setPortraitHorizon(phone: boolean) {
+  setSky(image: HTMLImageElement) {
+    // Preserve texture allocation when authored scenery finishes loading.
+    const canvas = this.skyTexture.image as HTMLCanvasElement;
+    canvas.getContext('2d')!.drawImage(image, 0, 0, canvas.width, canvas.height);
+    this.skyTexture.needsUpdate = true;
+    this.authoredSky.value = 1;
+    this.shoreline.visible = false;
+  }
+  setPortraitHorizon(phone: boolean, waterline: number, aspect: number) {
+    this.skyWaterline.value = Math.max(.08, waterline);
+    // Crop the panorama on phones instead of squeezing distant hills horizontally.
+    this.skyCrop.value = Math.min(1.35, Math.max(.26, aspect / 2));
     // Keep the land close to each water plane's far edge. A near shore at
     // desktop scale covers the reflected water and reads as a black band.
     const height = phone ? .12 : .55;
