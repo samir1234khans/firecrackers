@@ -1,0 +1,77 @@
+{
+  "sourceMain": "947f0c57e679a34d35e00b550aae625eba845672",
+  "fingerprint": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+  "normalization": "JSON line endings LF; original PNG bytes unchanged",
+  "files": [
+    {
+      "path": "browser-suites.json",
+      "bytes": 2198,
+      "sha256": "cd8ab1e500be86ccd44c9abd799ca425b1914d9b4e68f9fe73eeeb2d0c9d453f"
+    },
+    {
+      "path": "ci-main.json",
+      "bytes": 10821,
+      "sha256": "67b82618b11771dd78ab202d3196f8858e622b7b1f50fff64d1e5ffb2d5e02e6"
+    },
+    {
+      "path": "ci-pr.json",
+      "bytes": 10821,
+      "sha256": "354a552801e95b429c1d0114f628262d22294c25ce3ce938048a893d811c9df6"
+    },
+    {
+      "path": "composition.json",
+      "bytes": 95128,
+      "sha256": "ec5cf3a35ee903033af3484f4b7816d55f8d364245f613f4c34f46ee322f50a4"
+    },
+    {
+      "path": "default-realtime.json",
+      "bytes": 27712,
+      "sha256": "b1afe8834e990f0578062133db9c4befe9ecac320631744e5dff100ef0e9bc82"
+    },
+    {
+      "path": "deploy.txt",
+      "bytes": 2280,
+      "sha256": "9a9b98aee210e319df6232d87eaf5787437e5d077ecf5e5e6d69b96b53f4bc69"
+    },
+    {
+      "path": "festival.png",
+      "bytes": 682965,
+      "sha256": "46f1a10a8b1cc72046b55fc9452bc423cb20be398d7aa743b1ad85d7416a238f"
+    },
+    {
+      "path": "grand.json",
+      "bytes": 44536,
+      "sha256": "b8c005ae238b09dadb94c2a767e919d968447010860ae1db3f749859ae9a6aa4"
+    },
+    {
+      "path": "hardware.json",
+      "bytes": 415838,
+      "sha256": "b0cb93908d47d59c3ea423521d59212677467d9675d5ef529814e9a4cd78bd3c"
+    },
+    {
+      "path": "http.json",
+      "bytes": 3455,
+      "sha256": "0b3fd09f2cec4d0950beff4f0da59102494c99633857eec5b2c70315b0257365"
+    },
+    {
+      "path": "original.json",
+      "bytes": 24381,
+      "sha256": "f2c499877badbc80814736ab5c4294263841854b545eff056759e9b6be2f8b90"
+    },
+    {
+      "path": "pr-merged.json",
+      "bytes": 249,
+      "sha256": "a5306800ba1c80552979283033ddfe9a2abb580e6adeb8fc06adabed0af4cc06"
+    },
+    {
+      "path": "recovery.json",
+      "bytes": 34418,
+      "sha256": "fe14c9362cab9ede6584234a66a0103bacaa2bc8d81a09e0c11ee94edca1cea7"
+    },
+    {
+      "path": "rollback.json",
+      "bytes": 3855,
+      "sha256": "2809bc00f3c20e589a4de57bb14ef7dad86e9b7183ff75fa2bcb5712496b2f3d"
+    }
+  ]
+}

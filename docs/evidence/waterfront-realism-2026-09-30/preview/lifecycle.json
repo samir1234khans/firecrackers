@@ -1,0 +1,70 @@
+{
+  "url": "https://firecrackers-waterfront-preview.allygym-api.workers.dev/",
+  "method": "Headless Chromium / software WebGL 2; controlled decode and navigation timing",
+  "checks": [
+    {
+      "name": "All eight enhancements and six shared PBR maps load without a second embedded-image fetch"
+    },
+    {
+      "name": "Navigating while all three large maps are decoding leaves the next scene intact without aborted blob requests"
+    },
+    {
+      "name": "One failed embedded map rejects the whole river enhancement and closes the other two decoded 2K maps",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 2,
+        "failedBlobURL": "",
+        "failedBlobRevoked": false
+      }
+    },
+    {
+      "name": "Strict console and page-error gates remain clear"
+    },
+    {
+      "name": "Native legacy ImageLoader retains all eight enhancements and six correctly configured PBR maps"
+    },
+    {
+      "name": "A corrupted legacy map rejects the whole enhancement and releases its failed object URL",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 0,
+        "failedBlobURL": "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/6f290f0a-6156-4a6a-89ef-0307b6a10510",
+        "failedBlobRevoked": true
+      }
+    },
+    {
+      "name": "Legacy failure emits exactly its controlled native diagnostic without unexpected errors"
+    }
+  ],
+  "consoleErrors": [
+    "THREE.GLTFLoader: Couldn't load texture blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/6f290f0a-6156-4a6a-89ef-0307b6a10510"
+  ],
+  "pageErrors": [],
+  "blobRequests": [
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/425180a9-a40c-4418-a948-7bfa1f8b75a7",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/9b89366f-3817-4101-a421-ed1dfa474d44",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/1f6cb334-2ab5-4b7a-af64-8be1fccd4bc4",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/c07d28b8-cb9f-474d-ab65-4d5a7e1af1c1",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/da2969c2-c8b0-44fe-bb36-57b6b1752844",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/f401453e-0bf9-4f9a-ae54-f16cefc2f582",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/3e4c63bc-57ca-4afb-a2c2-4d7b60694cbe",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/0128d0b2-de32-4242-a314-5337441bdaf7",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/bb89041b-c728-4f65-995a-cde8f3136c9b",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/21deca1c-fbc9-4028-86a6-3203d4f5b283",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/b061ab55-b037-4c61-b2a3-228d69534046",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/f1bee9c2-d68c-432a-9b6a-11b269219112",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/b60b3d41-0529-40f5-89ff-44fe5ed1a785",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/ec735c72-7dfb-4e63-b015-0615a23b6403",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/6f290f0a-6156-4a6a-89ef-0307b6a10510",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/4e0dd2c5-759b-4722-bcf3-13044b782c3b",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/910eeb5c-6fc5-4977-a232-7943b8709c55",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/f79ef4d4-b253-4d36-8c63-9cc7bfbec8ee",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/8215e955-dbdb-45d5-8933-fe4e1ccae387",
+    "blob:https://firecrackers-waterfront-preview.allygym-api.workers.dev/73db599f-8608-44d8-8868-1be12f64aef6"
+  ],
+  "failed": null
+}

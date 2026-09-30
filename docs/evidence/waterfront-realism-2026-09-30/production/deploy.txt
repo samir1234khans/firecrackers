@@ -1,0 +1,56 @@
+
+> firecrackers@0.1.0 cloudflare:deploy
+> npm run build && wrangler deploy
+
+
+> firecrackers@0.1.0 build
+> node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && node scripts/generate-release.mjs && tsc --noEmit && vite build
+
+Release 2026-09-30.7: 62 normalized upgrade modules, SHA-256 6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b
+vite v6.4.3 building for production...
+transforming...
+✓ 1642 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                          0.43 kB
+dist/index.html                                    2.52 kB │ gzip:   1.18 kB
+dist/assets/main-Dc6NqMI5.css                     80.44 kB │ gzip:  16.43 kB
+dist/assets/index-CtqvlkLe.js                      2.67 kB │ gzip:   1.36 kB
+dist/assets/workbox-window.prod.es5-BBnX5xw4.js    5.75 kB │ gzip:   2.36 kB
+dist/assets/main-DA376_vS.js                     326.01 kB │ gzip: 102.85 kB
+dist/assets/Renderer-uBM3KXTl.js                 918.21 kB │ gzip: 256.33 kB
+✓ built in 2.71s
+
+PWA v1.0.3
+mode      generateSW
+precache  15 entries (1334.46 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-35e397ac.js
+
+ ⛅️ wrangler 4.143.0 (update available 4.145.0)
+───────────────────────────────────────────────
+🌀 Building list of assets...
+✨ Read 33 files from the assets directory C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\dist
+🌀 Starting asset upload...
+🌀 Found 9 new or modified static assets to upload. Proceeding with upload...
++ /sw.js
++ /release.json
++ /assets/Renderer-uBM3KXTl.js
++ /index.html
++ /THIRD_PARTY_NOTICES.txt
++ /art/terrace-v008.glb
++ /assets/index-CtqvlkLe.js
++ /assets/main-DA376_vS.js
++ /art/river-life-v008.glb
+Uploaded 3 of 9 assets
+Uploaded 6 of 9 assets
+Uploaded 9 of 9 assets
+✨ Success! Uploaded 9 files (20 already uploaded) (5.56 sec)
+
+Total Upload: 0.31 KiB / gzip: 0.22 KiB
+Uploaded firecrackers (13.43 sec)
+Deployed firecrackers triggers (5.15 sec)
+  https://firecrackers.allygym-api.workers.dev
+  firecrackers.mainandmany.com (custom domain)
+Current Version ID: e167225e-e463-41f6-897d-e6f5b59aa03c

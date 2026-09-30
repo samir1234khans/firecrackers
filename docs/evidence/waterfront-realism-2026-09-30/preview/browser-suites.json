@@ -1,0 +1,73 @@
+{
+  "base": "https://firecrackers-waterfront-preview.allygym-api.workers.dev/",
+  "startedAt": "2026-09-30T15:08:26.865Z",
+  "expectedFingerprint": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+  "method": "Sequential existing public browser suites, bundled software graphics; viewport/touch emulation. Native hardware report is separate.",
+  "suites": [
+    {
+      "name": "grand",
+      "code": 0,
+      "checks": 42,
+      "expectedChecks": 42,
+      "failures": 0,
+      "failed": null,
+      "unexpectedErrors": 0,
+      "seconds": 79.743,
+      "initialRelease": {
+        "version": "2026-09-30.7",
+        "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+        "entries": 62
+      },
+      "release": {
+        "version": "2026-09-30.7",
+        "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+        "entries": 62
+      },
+      "report": "grand/report.json"
+    },
+    {
+      "name": "original",
+      "code": 0,
+      "checks": 28,
+      "expectedChecks": 28,
+      "failures": 0,
+      "failed": null,
+      "unexpectedErrors": 0,
+      "seconds": 91.117,
+      "initialRelease": {
+        "version": "2026-09-30.7",
+        "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+        "entries": 62
+      },
+      "release": {
+        "version": "2026-09-30.7",
+        "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+        "entries": 62
+      },
+      "report": "original/browser-report.json"
+    },
+    {
+      "name": "recovery",
+      "code": 0,
+      "checks": 15,
+      "expectedChecks": 15,
+      "failures": 0,
+      "failed": null,
+      "unexpectedErrors": 0,
+      "seconds": 78.634,
+      "initialRelease": {
+        "version": "2026-09-30.7",
+        "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+        "entries": 62
+      },
+      "release": {
+        "version": "2026-09-30.7",
+        "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+        "entries": 62
+      },
+      "report": "recovery/viewability-report.json"
+    }
+  ],
+  "failed": null,
+  "finishedAt": "2026-09-30T15:12:38.805Z"
+}

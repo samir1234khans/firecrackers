@@ -1,6 +1,6 @@
 # Waterfront v008 implementation
 
-Candidate build `2026-09-30.7`, based on clean canonical main `eebcf8a75b308b1d6d69630f5ae0579d7f735a77`. Production remains `.6` until the release receipt confirms promotion.
+Build `2026-09-30.7` was based on clean canonical main `eebcf8a75b308b1d6d69630f5ae0579d7f735a77`. The [production receipt](PRODUCTION.md) records its verified promotion through PR #23.
 
 ## Scene changes
 

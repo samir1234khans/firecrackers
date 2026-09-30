@@ -1,6 +1,17 @@
-# Current status: Transparent panels in production
+# Current status: Waterfront v008 in production
 
-Build `2026-09-30.6` is live from app-source main `ed54fe640945fa7de0f4ba3546b3445348bde78b`, merged [PR #22](https://github.com/samir1234khans/firecrackers/pull/22), Worker `d04c14f1-f219-45dd-989e-97569693ac4b`. Its 60-entry fingerprint is `1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0`. Every opened panel/loading/recovery surface now shares compact translucent styling. [Production receipt](docs/evidence/transparent-panels-2026-09-30/PRODUCTION.md), [per-surface plan](docs/evidence/transparent-panels-2026-09-30/PLAN.md), [UI gallery](docs/evidence/transparent-panels-2026-09-30/review.html), and [actual WebGPU panels](docs/evidence/transparent-panels-2026-09-30/hardware-captures/README.md). Final PR CI and source-main CI each passed all four jobs. All 353 public checks passed: panels 195, native hardware 56, Grand 42, original launch/offline 28, recovery 15 and HTTP/source/assets 17. A separate fresh automatic WebGPU/Ultra 60-second Festival observation passed with zero errors. The prior `.5` Worker is retained for rollback. Physical Android/iPhone/Safari, thermal endurance and completed GPU-frame timings remain unqualified.
+## Current production: Waterfront v008
+
+Build `2026-09-30.7` is live at [Firecrackers](https://firecrackers.mainandmany.com/) from source-main `947f0c57e679a34d35e00b550aae625eba845672` / [PR #23](https://github.com/samir1234khans/firecrackers/pull/23), Worker `e167225e-e463-41f6-897d-e6f5b59aa03c`. Exact 62-entry fingerprint: `6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b`.
+
+The far-bank village stays attached to the desktop/tablet horizon, the original Blender stone quay fills the foreground, and the CC0 canoe-derived boats gain woven shelter detail, two seated silhouettes, restrained contact/wakes and improved scale/lighting. All ten effects and the compact transparent interface remain. [Production receipt](docs/evidence/waterfront-realism-2026-09-30/PRODUCTION.md), [public before/after gallery](docs/evidence/waterfront-realism-2026-09-30/comparison.html), [plan](docs/evidence/waterfront-realism-2026-09-30/PLAN.md), and [implementation/provenance](docs/evidence/waterfront-realism-2026-09-30/IMPLEMENTATION.md).
+
+144 units, PR and source-main CI, 172 hosted preview checks and 178 public production checks passed, plus a fresh default WebGPU/Ultra 60-second Festival run. Physical phones/Safari, thermal endurance, completed GPU-frame timing and photographic parity remain unqualified. Previous `.6` Worker is retained for rollback; earlier sections below are historical.
+
+
+## Previous production: Transparent panels
+
+Build `2026-09-30.6` was deployed from app-source main `ed54fe640945fa7de0f4ba3546b3445348bde78b`, merged [PR #22](https://github.com/samir1234khans/firecrackers/pull/22), Worker `d04c14f1-f219-45dd-989e-97569693ac4b`. Its 60-entry fingerprint is `1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0`. Every opened panel/loading/recovery surface now shares compact translucent styling. [Production receipt](docs/evidence/transparent-panels-2026-09-30/PRODUCTION.md), [per-surface plan](docs/evidence/transparent-panels-2026-09-30/PLAN.md), [UI gallery](docs/evidence/transparent-panels-2026-09-30/review.html), and [actual WebGPU panels](docs/evidence/transparent-panels-2026-09-30/hardware-captures/README.md). Final PR CI and source-main CI each passed all four jobs. All 353 public checks passed: panels 195, native hardware 56, Grand 42, original launch/offline 28, recovery 15 and HTTP/source/assets 17. A separate fresh automatic WebGPU/Ultra 60-second Festival observation passed with zero errors. The prior `.5` Worker is retained for rollback. Physical Android/iPhone/Safari, thermal endurance and completed GPU-frame timings remain unqualified.
 
 ## Previous production: Interactive galactic sky
 

@@ -1,0 +1,117 @@
+{
+  "checkedAt": "2026-09-30T15:07:45.191Z",
+  "url": "https://firecrackers-waterfront-preview.allygym-api.workers.dev/",
+  "version": "2026-09-30.7",
+  "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b",
+  "source": "local",
+  "checks": [
+    {
+      "path": "release.json",
+      "entries": 62,
+      "sha256": "6186a504d1ccf20d90434ffe90b5771f075e33992765d9dbfa6d636e376c602b"
+    },
+    {
+      "path": "art/ignition-flame.png",
+      "mime": "image/png",
+      "bytes": 42893,
+      "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e"
+    },
+    {
+      "path": "art/paper-color.png",
+      "mime": "image/png",
+      "bytes": 188989,
+      "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a"
+    },
+    {
+      "path": "art/river-life-v007.glb",
+      "mime": "model/gltf-binary",
+      "bytes": 7620280,
+      "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258"
+    },
+    {
+      "path": "art/river-life-v008.glb",
+      "mime": "model/gltf-binary",
+      "bytes": 8006212,
+      "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5"
+    },
+    {
+      "path": "art/rocket.glb",
+      "mime": "model/gltf-binary",
+      "bytes": 240240,
+      "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3"
+    },
+    {
+      "path": "art/smoke-density-light-v005.png",
+      "mime": "image/png",
+      "bytes": 555389,
+      "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8"
+    },
+    {
+      "path": "art/smoke-density-light.png",
+      "mime": "image/png",
+      "bytes": 862060,
+      "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f"
+    },
+    {
+      "path": "art/terrace-v004.glb",
+      "mime": "model/gltf-binary",
+      "bytes": 547136,
+      "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48"
+    },
+    {
+      "path": "art/terrace-v008.glb",
+      "mime": "model/gltf-binary",
+      "bytes": 2229768,
+      "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f"
+    },
+    {
+      "path": "art/water-normal-v005.png",
+      "mime": "image/png",
+      "bytes": 230518,
+      "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb"
+    },
+    {
+      "path": "art/water-normal.png",
+      "mime": "image/png",
+      "bytes": 98053,
+      "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2"
+    },
+    {
+      "path": "art/waterfront-night-v005.webp",
+      "mime": "image/webp",
+      "bytes": 36060,
+      "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784"
+    },
+    {
+      "path": "audio/report-01.wav",
+      "mime": "audio/wav",
+      "bytes": 53612,
+      "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e"
+    },
+    {
+      "path": "audio/report-02.wav",
+      "mime": "audio/wav",
+      "bytes": 49026,
+      "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c"
+    },
+    {
+      "path": "audio/report-03.wav",
+      "mime": "audio/wav",
+      "bytes": 59256,
+      "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e"
+    },
+    {
+      "path": "",
+      "mime": "text/html"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "mime": "application/manifest+json"
+    },
+    {
+      "path": "sw.js",
+      "mime": "text/javascript"
+    }
+  ],
+  "errors": []
+}
