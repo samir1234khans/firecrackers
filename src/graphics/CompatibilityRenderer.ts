@@ -577,3 +577,4 @@ export class CompatibilityRenderer implements RendererPort {
         this.canvas.width = this.canvas.height = 1;
     }
 }
+
