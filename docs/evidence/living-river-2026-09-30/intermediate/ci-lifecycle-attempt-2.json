@@ -1,0 +1,62 @@
+{
+  "url": "http://127.0.0.1:4173/",
+  "method": "Headless Chromium / software WebGL 2; controlled decode and navigation timing",
+  "checks": [
+    {
+      "name": "All eight enhancements and three shared PBR maps load without a second embedded-image fetch"
+    },
+    {
+      "name": "Navigating while all three large maps are decoding leaves the next scene intact without aborted blob requests"
+    },
+    {
+      "name": "One failed embedded map rejects the whole river enhancement and closes the other two decoded maps",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 2,
+        "failedBlobURL": "",
+        "failedBlobRevoked": false
+      }
+    },
+    {
+      "name": "Strict console and page-error gates remain clear"
+    },
+    {
+      "name": "Native legacy ImageLoader retains all eight enhancements and three correctly configured PBR maps"
+    },
+    {
+      "name": "A corrupted legacy map rejects the whole enhancement and releases its failed object URL",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 0,
+        "failedBlobURL": "blob:http://127.0.0.1:4173/f92b6607-915e-46fb-a136-0818ee9d8b36",
+        "failedBlobRevoked": true
+      }
+    }
+  ],
+  "consoleErrors": [
+    "THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/f92b6607-915e-46fb-a136-0818ee9d8b36",
+    "Graphics render failed after asset activation ReferenceError: ImageBitmap is not defined\n    at ai.setupUV (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:65:3287)\n    at ai.setup (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:65:3898)\n    at ai.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11422)\n    at O1.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\n    at ze.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\n    at ze.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:14925)\n    at $l.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:61:1546)\n    at D.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\n    at DM.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\n    at DM.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:14925)"
+  ],
+  "pageErrors": [],
+  "blobRequests": [
+    "blob:http://127.0.0.1:4173/777fe4ac-ec42-4f8c-9685-49ebede6f488",
+    "blob:http://127.0.0.1:4173/6a133542-e116-4288-8d47-1ad1c236d46c",
+    "blob:http://127.0.0.1:4173/10d7cb9b-2540-484f-9c07-b7a7ffda36c1",
+    "blob:http://127.0.0.1:4173/6fa345ed-aed9-414e-8877-a0b412b00858",
+    "blob:http://127.0.0.1:4173/17f3aa24-80b5-4203-9723-fdf6db9225e9",
+    "blob:http://127.0.0.1:4173/dabddc27-b3b0-4c21-b89f-3f5f4b45bf86",
+    "blob:http://127.0.0.1:4173/a264a82a-edcf-4bd1-8ea1-e6ca211a0ac4",
+    "blob:http://127.0.0.1:4173/8d925cb5-06ab-4cf5-a7a3-f47e7113fab3",
+    "blob:http://127.0.0.1:4173/1641349d-fd92-48d3-b383-0c980aa7686c",
+    "blob:http://127.0.0.1:4173/736feed0-7165-4fa7-9014-3f3ff88f8094",
+    "blob:http://127.0.0.1:4173/43bb9c95-8ac3-4a40-b696-79f85b935583",
+    "blob:http://127.0.0.1:4173/f92b6607-915e-46fb-a136-0818ee9d8b36",
+    "blob:http://127.0.0.1:4173/9fc349ae-ef9e-409a-b753-13f48e491c60",
+    "blob:http://127.0.0.1:4173/dda40ce1-1afc-4287-b44a-c444bf0715e3"
+  ],
+  "failed": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    \"THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/f92b6607-915e-46fb-a136-0818ee9d8b36\",\n+   'Graphics render failed after asset activation ReferenceError: ImageBitmap is not defined\\n' +\n+     '    at ai.setupUV (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:65:3287)\\n' +\n+     '    at ai.setup (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:65:3898)\\n' +\n+     '    at ai.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11422)\\n' +\n+     '    at O1.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\\n' +\n+     '    at ze.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\\n' +\n+     '    at ze.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:14925)\\n' +\n+     '    at $l.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:61:1546)\\n' +\n+     '    at D.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\\n' +\n+     '    at DM.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:11601)\\n' +\n+     '    at DM.build (http://127.0.0.1:4173/assets/Renderer-BvWm2L_t.js:48:14925)'\n  ]\n\n    at file:///home/runner/work/firecrackers/firecrackers/tests/asset-lifecycle-browser.mjs:136:10"
+}

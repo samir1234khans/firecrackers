@@ -32,7 +32,7 @@
         "blockedBlobFetches": 0,
         "injectedFailures": 1,
         "closedLargeBitmaps": 0,
-        "failedBlobURL": "blob:http://127.0.0.1:4183/60d92213-6cbe-4338-8726-c68aa16e4209",
+        "failedBlobURL": "blob:http://127.0.0.1:4183/dc2df2a2-5e01-46c6-ab0e-ad786a14c66f",
         "failedBlobRevoked": true
       }
     },
@@ -41,24 +41,24 @@
     }
   ],
   "consoleErrors": [
-    "THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4183/60d92213-6cbe-4338-8726-c68aa16e4209"
+    "THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4183/dc2df2a2-5e01-46c6-ab0e-ad786a14c66f"
   ],
   "pageErrors": [],
   "blobRequests": [
-    "blob:http://127.0.0.1:4183/9386c2b9-31ca-4fda-a387-6ae1f12231d2",
-    "blob:http://127.0.0.1:4183/bb361793-a474-4080-808e-f615d95f5068",
-    "blob:http://127.0.0.1:4183/75814d69-8f66-4393-b196-42fac3701ab8",
-    "blob:http://127.0.0.1:4183/14a19f08-71f3-4ea3-a56c-65ceb7c727b0",
-    "blob:http://127.0.0.1:4183/fd7fce48-3fe1-49ab-8b3a-53ae14dd9577",
-    "blob:http://127.0.0.1:4183/1da960cb-c9ba-48a0-9c4b-4ac4b930733a",
-    "blob:http://127.0.0.1:4183/b60c834b-c58b-4585-919c-c2b3be92c2f6",
-    "blob:http://127.0.0.1:4183/12f9466b-e473-4e0f-aca2-0fc5676d48b4",
-    "blob:http://127.0.0.1:4183/c539ed37-c2a6-4461-9563-584d0ef6aa9d",
-    "blob:http://127.0.0.1:4183/b3ded09e-5f34-469d-abb2-cfb1102fffc2",
-    "blob:http://127.0.0.1:4183/f1ac1cd3-0b13-4a18-9a1b-faafc730f3b0",
-    "blob:http://127.0.0.1:4183/60d92213-6cbe-4338-8726-c68aa16e4209",
-    "blob:http://127.0.0.1:4183/46c51e8a-625f-4d9d-abde-743fe54bd3ae",
-    "blob:http://127.0.0.1:4183/6d1edfff-8583-4c08-9868-21f8cdda0719"
+    "blob:http://127.0.0.1:4183/95a7b150-eac3-412a-bfe2-057c098b6258",
+    "blob:http://127.0.0.1:4183/1e956a23-fdaa-43c9-b874-f7790d66ac9d",
+    "blob:http://127.0.0.1:4183/a9fd69df-0f7a-4c90-a8d4-9b5dd0f8e91f",
+    "blob:http://127.0.0.1:4183/292055a4-3523-4f3a-a631-ce1773902fc2",
+    "blob:http://127.0.0.1:4183/9069a83f-92a2-4026-9370-f99e589b8937",
+    "blob:http://127.0.0.1:4183/7f0d8281-90c4-4bb7-b68d-7f5fd6f9394e",
+    "blob:http://127.0.0.1:4183/74276979-ca13-4cd9-a2e1-2be1da1b2d17",
+    "blob:http://127.0.0.1:4183/e333ed39-e044-44ac-b6f6-0d6eb279ca87",
+    "blob:http://127.0.0.1:4183/1b6af6c8-644e-4ad3-bd4a-034e1fe4bec3",
+    "blob:http://127.0.0.1:4183/5926d8d7-107a-48a5-97d7-94f5c408d4cc",
+    "blob:http://127.0.0.1:4183/308eccd0-25d7-46c8-b3df-96eebd574e0a",
+    "blob:http://127.0.0.1:4183/dc2df2a2-5e01-46c6-ab0e-ad786a14c66f",
+    "blob:http://127.0.0.1:4183/96b6a699-2c3f-49bd-8ea2-6a02c4c3a932",
+    "blob:http://127.0.0.1:4183/fd4acf19-6dc9-4b51-8125-325fb91b85d6"
   ],
   "failed": null
 }

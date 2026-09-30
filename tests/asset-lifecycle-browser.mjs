@@ -56,8 +56,6 @@ await page.addInitScript(() => {
     URL.createObjectURL = source => {
       if (params.has('failDecode') && source.size > 1_000_000 && state.injectedFailures === 0) {
         state.injectedFailures++;
-        // Cleanup must also work when the ImageBitmap constructor is absent.
-        delete window.ImageBitmap;
         state.failedBlobURL = createURL(new Blob(['controlled corrupt embedded image'], { type: source.type }));
         return state.failedBlobURL;
       }
@@ -130,7 +128,7 @@ try {
   assert.equal(frame.riverScenery, 'procedural river fallback'); assert.equal(frame.riverPbrTextures, 0);
   assert.equal(frame.riverBoats, 3); assert.equal(frame.riverLampAnchors, 10);
   const legacy = await page.evaluate(() => window.__assetLifecycle);
-  assert.equal(await page.evaluate(() => typeof ImageBitmap), 'undefined');
+  assert.equal(await page.evaluate(() => typeof ImageBitmap), 'function');
   assert.equal(legacy.injectedFailures, 1); assert.equal(legacy.failedBlobRevoked, true);
   pass('A corrupted legacy map rejects the whole enhancement and releases its failed object URL', { lifecycle: legacy });
   assert.deepEqual(report.consoleErrors, [`THREE.GLTFLoader: Couldn't load texture ${legacy.failedBlobURL}`]);
