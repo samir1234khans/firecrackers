@@ -323,6 +323,9 @@ try {
       await page.route('**/assets/main-*.js',route => { aborted++; return route.abort(); });
       await page.goto(base,{ waitUntil:'domcontentloaded' });
       await page.getByText(/The app could not finish loading/).waitFor();
+      // Font metrics can wrap these actions onto separate rows on Linux.
+      // Force that case everywhere; the compact error surface must scroll.
+      if (spec.name === '844x390') await page.addStyleTag({ content:'#boot-recovery a { min-width:220px; }' });
       await inspectAuxiliary(page,page.locator('.boot-shell'),spec,`${spec.name}-entry-recovery`);
       assert.equal(await page.getByRole('link',{ name:'Reload website',exact:true }).isVisible(),true);
       assert.equal(await page.getByRole('link',{ name:/compatibility (mode|graphics)/i }).isVisible(),true);

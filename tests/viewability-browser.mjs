@@ -12,11 +12,13 @@ await mkdir(output, { recursive: true });
 const report = { url, version, browser: 'Chromium / software graphics; no physical-device claim', checks: [], failures: [], screenshots: [] };
 const browser = await chromium.launch({ headless: true, args: ['--enable-webgl', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const launch = page => selectedLaunch(page);
+const selectedCases = new Set((process.env.VIEWABILITY_CASES || '').split(',').filter(Boolean));
 async function enter(page, query = '?backend=webgl&qa=1') {
     await page.goto(new URL(query, url).href, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true', undefined, { timeout: 65000 });
     if (await page.locator('main').getAttribute('data-overlay') === 'help') await page.getByRole('button', { name: 'Skip introduction' }).click();
     await page.waitForFunction(() => document.querySelector('main')?.dataset.overlay === 'none');
+    await page.waitForFunction(() => document.querySelector('main')?.dataset.presented === 'true', undefined, { timeout: 65000 });
     assert.equal(await page.locator('main').getAttribute('data-version'), version);
     assert.equal(await page.locator('.scene-host canvas').count(), 1);
 }
@@ -25,6 +27,7 @@ async function capture(page, name) {
     report.screenshots.push(`${name}.png`);
 }
 async function check(name, fn, { width = 375, height = 667, touch = true, expectedFault = false } = {}) {
+    if (selectedCases.size && !selectedCases.has(name)) return;
     const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, hasTouch: touch, isMobile: touch, serviceWorkers: 'block' });
     const page = await context.newPage(); const errors = [];
     page.setDefaultTimeout(20000);
@@ -117,6 +120,7 @@ try {
         await page.getByRole('link', {name:'Use compatibility graphics',exact:true}).click();
         await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true');
         if (await page.locator('main').getAttribute('data-overlay') === 'help') await page.getByRole('button',{name:'Skip introduction'}).click();
+        await page.waitForFunction(() => document.querySelector('main')?.dataset.presented === 'true', undefined, { timeout: 65000 });
         assert.match(await page.locator('main').getAttribute('data-backend'), /Canvas/);
         await launch(page).tap();
         await page.waitForFunction(() => Number(document.querySelector('main')?.dataset.bursts) >= 1, undefined, {timeout:20000});
@@ -127,7 +131,7 @@ try {
         await page.goto(url, {waitUntil:'domcontentloaded'});
         await page.getByText(/The app could not finish loading/).waitFor();
         assert.ok(await page.getByRole('link',{name:'Reload website'}).isVisible());
-        assert.ok(await page.getByRole('link',{name:'Open compatibility mode'}).isVisible());
+        assert.ok(await page.getByRole('link',{name:'Use compatibility graphics',exact:true}).isVisible());
         return { readableShell: true, reloadAction: true };
     }, {expectedFault:true});
     await check('react-error-keeps-recovery-page', async page => {

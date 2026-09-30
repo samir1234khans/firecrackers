@@ -42,7 +42,11 @@ try{
   const before=await snap();await page.mouse.click(196,160);assert.equal((await snap()).launched,before.launched);
   await page.getByRole('button',{name:'Pause scene',exact:true}).click();
   for(const mode of ['Calm','Festival','Finale','Manual']){await choose(mode);assert.equal((await snap()).paused,true);assert.equal((await snap()).show,mode==='Manual'?null:mode.toLowerCase());}
-  await knob().click();for(const key of ['Tab','Tab','Tab','Tab','Tab','Shift+Tab']){await page.keyboard.press(key);assert.ok(await page.evaluate(()=>document.activeElement.closest('dialog:modal')));}await page.keyboard.press('Escape');assert.equal((await snap()).paused,true);assert.ok(await knob().evaluate(e=>e===document.activeElement));
+  await knob().click();for(const key of ['Tab','Tab','Tab','Tab','Tab','Shift+Tab']){await page.keyboard.press(key);assert.ok(await page.evaluate(()=>document.activeElement.closest('dialog:modal')));}await page.keyboard.press('Escape');assert.equal((await snap()).paused,true);
+  // Focus is restored on the next presentation frame after React removes the dialog.
+  // Software rendering can deliver the key response before that frame runs.
+  await page.waitForFunction(()=>!document.querySelector('dialog:modal')&&document.activeElement===document.querySelector('.show-mode-knob'),undefined,{timeout:5000});
+  assert.ok(await knob().evaluate(e=>e===document.activeElement));
   await page.getByRole('button',{name:'Resume scene',exact:true}).click();
   for(const mode of ['Calm','Festival','Finale']){await choose(mode);assert.equal((await snap()).show,mode.toLowerCase());assert.equal((await snap()).paused,false);}
   await advance(40);assert.equal((await snap()).show,null);pass(`${backend}: mode choice, modal focus, independent pause and finite Finale`);
