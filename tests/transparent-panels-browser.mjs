@@ -9,7 +9,15 @@ const base = process.env.PANEL_URL || 'http://127.0.0.1:4173/';
 const output = path.resolve(process.argv[2] || 'test-results/transparent-panels');
 const catalog = await readFile(new URL('../src/engine/catalog.ts', import.meta.url), 'utf8');
 const expectedVersion = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)[1];
-const expectedRelease = JSON.parse(await readFile(new URL('../public/release.json',import.meta.url),'utf8'));
+let releaseText;
+try {
+  releaseText = await readFile(new URL('../public/release.json', import.meta.url), 'utf8');
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+  // CI downloads the compiled build, including its exact release inventory.
+  releaseText = await readFile(new URL('../dist/release.json', import.meta.url), 'utf8');
+}
+const expectedRelease = JSON.parse(releaseText);
 const selectedCases = process.env.PANEL_CASES?.split(',').map(value => value.trim()).filter(Boolean);
 const viewports = [
   { name: '320x480', width: 320, height: 480 },

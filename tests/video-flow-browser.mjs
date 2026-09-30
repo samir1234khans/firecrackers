@@ -152,7 +152,7 @@ try {
     await page.getByRole('button', { name: 'Open settings' }).click();
     assert.equal(await page.getByLabel('Graphics quality', { exact: true }).inputValue(), 'low');
     await settingsTab(page, 'Sound');
-    assert.equal(await page.getByLabel('Sound', { exact: true }).isChecked(), false);
+    assert.equal(await page.getByRole('checkbox', { name: 'Sound', exact: true }).isChecked(), false);
     await settingsTab(page, 'Device');
     const resetAction = page.getByRole('button', { name: 'Reset this sky' });
     await resetAction.scrollIntoViewIfNeeded();

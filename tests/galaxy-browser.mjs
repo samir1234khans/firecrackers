@@ -13,12 +13,13 @@ const catalog = await readFile(new URL('../src/engine/catalog.ts', import.meta.u
 const expectedVersion = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)[1];
 const expectedAssetCount = 8;
 const seed = 20260916;
+const headless = process.env.GALAXY_HEADLESS === '1';
 const report = { url: base, expectedVersion, expectedAssetCount, seed, startedAt: new Date().toISOString(),
-  method: 'Installed Chrome headed; no software GPU flags. Hardware WebGPU and WebGL are asserted separately. Independent seeded captures use deterministic 60 Hz stepping.',
+  method: `Installed Chrome ${headless ? 'headless' : 'headed'}; no software GPU flags. Hardware WebGPU and WebGL are asserted separately. Independent seeded captures use deterministic 60 Hz stepping.`,
   limitations: 'Portrait is viewport/touch emulation on this PC. No physical-phone, thermal, completed-GPU-frame timing or long-duration performance claim.',
   projects: [], checks: [], errors: [], expectedRequestFailures: [], idleObservations: [], failed: null };
 await mkdir(output, { recursive: true });
-const browser = await chromium.launch({ channel: 'chrome', headless: false });
+const browser = await chromium.launch({ channel: 'chrome', headless });
 report.browserVersion = browser.version();
 let current;
 const snap = page => page.evaluate(() => window.__firecrackersQA.snapshot());
