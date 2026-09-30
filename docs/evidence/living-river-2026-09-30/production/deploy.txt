@@ -1,0 +1,55 @@
+
+> firecrackers@0.1.0 cloudflare:deploy
+> npm run build && wrangler deploy
+
+
+> firecrackers@0.1.0 build
+> node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && node scripts/generate-release.mjs && tsc --noEmit && vite build
+
+Release 2026-09-30.4: 56 normalized upgrade modules, SHA-256 dc781d21e50e6fe2680e55b1fbf3a47ec8e72b605e349b876beeecaf388b5609
+vite v6.4.3 building for production...
+transforming...
+✓ 1639 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                          0.43 kB
+dist/index.html                                    2.34 kB │ gzip:   1.17 kB
+dist/assets/main-B3j1d2RH.css                     64.87 kB │ gzip:  13.98 kB
+dist/assets/index-HCJZy4_M.js                      2.67 kB │ gzip:   1.36 kB
+dist/assets/workbox-window.prod.es5-BBnX5xw4.js    5.75 kB │ gzip:   2.36 kB
+dist/assets/main-Dk-FRBPA.js                     306.94 kB │ gzip:  97.39 kB
+dist/assets/Renderer-BvWm2L_t.js                 910.22 kB │ gzip: 254.15 kB
+✓ built in 5.33s
+
+PWA v1.0.3
+mode      generateSW
+precache  15 entries (1292.46 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-35e397ac.js
+
+ ⛅️ wrangler 4.143.0
+────────────────────
+🌀 Building list of assets...
+✨ Read 31 files from the assets directory C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\dist
+🌀 Starting asset upload...
+🌀 Found 8 new or modified static assets to upload. Proceeding with upload...
++ /sw.js
++ /release.json
++ /assets/Renderer-BvWm2L_t.js
++ /index.html
++ /THIRD_PARTY_NOTICES.txt
++ /art/river-life-v007.glb
++ /assets/index-HCJZy4_M.js
++ /assets/main-Dk-FRBPA.js
+Uploaded 2 of 8 assets
+Uploaded 5 of 8 assets
+Uploaded 8 of 8 assets
+✨ Success! Uploaded 8 files (19 already uploaded) (4.83 sec)
+
+Total Upload: 0.31 KiB / gzip: 0.22 KiB
+Uploaded firecrackers (11.97 sec)
+Deployed firecrackers triggers (4.67 sec)
+  https://firecrackers.allygym-api.workers.dev
+  firecrackers.mainandmany.com (custom domain)
+Current Version ID: 534323b7-e2e8-4935-a161-b86bdfb3f2b0
