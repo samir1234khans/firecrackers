@@ -1,0 +1,53 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "serialize-javascript": {
+      "name": "serialize-javascript",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1240620,
+          "name": "serialize-javascript",
+          "dependency": "serialize-javascript",
+          "title": "Serialize JavaScript: Cross-site scripting (XSS) via unescaped </script> in serialized function bodies",
+          "url": "https://github.com/advisories/GHSA-gfhx-hw2g-v5hg",
+          "severity": "low",
+          "cwe": [
+            "CWE-79",
+            "CWE-80"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=7.1.1 <7.1.2"
+        }
+      ],
+      "effects": [],
+      "range": "7.1.1",
+      "nodes": [
+        "node_modules/serialize-javascript"
+      ],
+      "fixAvailable": true
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 1,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 1
+    },
+    "dependencies": {
+      "prod": 6,
+      "dev": 560,
+      "optional": 114,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 565
+    }
+  }
+}

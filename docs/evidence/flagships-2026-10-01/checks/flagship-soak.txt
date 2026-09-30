@@ -1,0 +1,17 @@
+
+> firecrackers@0.1.0 test:soak
+> tsc -p tsconfig.engine.json && node tests/soak.mjs
+
+{
+  "kind": "accelerated logical simulation; not a GPU or physical-device soak",
+  "seconds": 7200,
+  "quality": "standard",
+  "wallSeconds": 35.843332000000004,
+  "launched": 1290,
+  "bursts": 3995,
+  "maxHeads": 858,
+  "maxTrails": 20000,
+  "maxSmoke": 64,
+  "maxCues": 9,
+  "maxRockets": 4
+}

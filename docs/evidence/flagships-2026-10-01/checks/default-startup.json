@@ -1,0 +1,19 @@
+{
+  "base": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+  "method": "Fresh installed Chrome hardware startup; real-time, no QA query; viewport emulation, not physical devices",
+  "checks": [
+    {
+      "width": 320,
+      "height": 480,
+      "backend": "WebGPU",
+      "name": "Fresh default Ultra, silent startup, 13 targets, service worker and real-time three-stage Crown"
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "backend": "WebGPU",
+      "name": "Fresh default Ultra, silent startup, 13 targets, service worker and real-time three-stage Crown"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,197 @@
+{
+  "base": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+  "checkedAt": "2026-09-30T21:34:43.910Z",
+  "checks": [
+    {
+      "name": "Hosted release matches built 73-module source/art fingerprint",
+      "version": "2026-10-01.2",
+      "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+    },
+    {
+      "path": "art/ignition-flame.png",
+      "status": 200,
+      "bytes": 42893,
+      "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e"
+    },
+    {
+      "path": "art/moon-lro-v001.png",
+      "status": 200,
+      "bytes": 319502,
+      "sha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8"
+    },
+    {
+      "path": "art/paper-color.png",
+      "status": 200,
+      "bytes": 188989,
+      "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a"
+    },
+    {
+      "path": "art/river-life-v007.glb",
+      "status": 200,
+      "bytes": 7620280,
+      "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258"
+    },
+    {
+      "path": "art/river-life-v008.glb",
+      "status": 200,
+      "bytes": 8006212,
+      "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5"
+    },
+    {
+      "path": "art/rocket.glb",
+      "status": 200,
+      "bytes": 240240,
+      "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3"
+    },
+    {
+      "path": "art/smoke-density-light-v005.png",
+      "status": 200,
+      "bytes": 555389,
+      "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8"
+    },
+    {
+      "path": "art/smoke-density-light.png",
+      "status": 200,
+      "bytes": 862060,
+      "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f"
+    },
+    {
+      "path": "art/terrace-v004.glb",
+      "status": 200,
+      "bytes": 547136,
+      "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48"
+    },
+    {
+      "path": "art/terrace-v008.glb",
+      "status": 200,
+      "bytes": 2229768,
+      "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f"
+    },
+    {
+      "path": "art/water-normal-v005.png",
+      "status": 200,
+      "bytes": 230518,
+      "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb"
+    },
+    {
+      "path": "art/water-normal.png",
+      "status": 200,
+      "bytes": 98053,
+      "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2"
+    },
+    {
+      "path": "art/waterfront-night-v005.webp",
+      "status": 200,
+      "bytes": 36060,
+      "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784"
+    },
+    {
+      "path": "assets/index-BfeKp90M.js",
+      "status": 200,
+      "bytes": 2665,
+      "sha256": "788071640ef337440ac2ab5c917e62c203f60f6950f4ac1f7360f29257cb8321"
+    },
+    {
+      "path": "assets/main-Anpkb-_D.js",
+      "status": 200,
+      "bytes": 334055,
+      "sha256": "c774ad32026c9e217d7ad7354f15f82f0de98f44013fc4815d17252062043377"
+    },
+    {
+      "path": "assets/main-hfwgW0dY.css",
+      "status": 200,
+      "bytes": 75848,
+      "sha256": "a83eda8068c822897464f539043d22a34856b917763c242423f885e49bca2fd6"
+    },
+    {
+      "path": "assets/Renderer-DPfX1BhS.js",
+      "status": 200,
+      "bytes": 921590,
+      "sha256": "3e868d31bf09e19e4d699b2c267df77d9384e3a9a8db2393aa9799e8602804e9"
+    },
+    {
+      "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "bytes": 5748,
+      "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557"
+    },
+    {
+      "path": "audio/report-01.wav",
+      "status": 200,
+      "bytes": 53612,
+      "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e"
+    },
+    {
+      "path": "audio/report-02.wav",
+      "status": 200,
+      "bytes": 49026,
+      "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c"
+    },
+    {
+      "path": "audio/report-03.wav",
+      "status": 200,
+      "bytes": 59256,
+      "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e"
+    },
+    {
+      "path": "icon.svg",
+      "status": 200,
+      "bytes": 506,
+      "sha256": "a1d1fc6c0494889de59a60003b99674932de1a6a93a15161322c05ed3a8ada49"
+    },
+    {
+      "path": "icons/icon-192.png",
+      "status": 200,
+      "bytes": 1029,
+      "sha256": "b131db8470526082476710c00af26c4ea745968fefdc43b1d04861c268a9c513"
+    },
+    {
+      "path": "icons/icon-512.png",
+      "status": 200,
+      "bytes": 3700,
+      "sha256": "bb5d0d5da7a19af5f0006b0aa030d99b811c8c37fbb1024bd7b638153c3f7d73"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 2516,
+      "sha256": "f2e6723a8b24bfe116d72a4a0835de4dea489112e5ae2f54778710699bf9f0ba"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "bytes": 434,
+      "sha256": "d165b107228a7e84a5bceba3f50fd94fb73495e07dd2ed3fbd06077ccc49a2dd"
+    },
+    {
+      "path": "release.json",
+      "status": 200,
+      "bytes": 19280,
+      "sha256": "6a56cc6b7b9a9dae6e99849b1e9c867bcdc64659d3fcf30127662827ffcd621f"
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "bytes": 2171,
+      "sha256": "689cd9da1e51aafb15fcb51707a012a10ac35ba19341653c019335ab1800f7af"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.txt",
+      "status": 200,
+      "bytes": 25647,
+      "sha256": "226742f78ef9026ffbe2b2decad17d18c3c7895f5333a8f64b2a12f91f93a5d1"
+    },
+    {
+      "path": "workbox-35e397ac.js",
+      "status": 200,
+      "bytes": 21777,
+      "sha256": "13414e5aadee63156102efd53f785aebdbae5bb5432f30723c3eb9d36b3e47a8"
+    },
+    {
+      "name": "Production unchanged",
+      "version": "2026-09-30.8",
+      "sha256": "5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535"
+    }
+  ],
+  "failed": null
+}
