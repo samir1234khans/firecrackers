@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir,writeFile } from 'node:fs/promises';
+// Controlled held images keep document.fonts.ready pending; this UI uses system
+// fonts. Capture the real unfinished-loading frame rather than wait for release.
+process.env.PW_TEST_SCREENSHOT_NO_FONTS_READY='1';
 const base=process.env.STARTUP_URL||'http://127.0.0.1:4173/';
 const out=process.argv[2]||'test-results/startup';await mkdir(out,{recursive:true});
 const report={url:base,method:'Production bundle; headless Chromium / software WebGL and Canvas, controlled real request delays; emulation only',checks:[],errors:[],failed:null};
@@ -30,8 +33,15 @@ try{
   await page.goto(`${base}?qa=1&backend=canvas`,{waitUntil:'domcontentloaded'});
   await page.locator('#boot-shell').waitFor({state:'visible'});assert.equal(await page.locator('main').count(),0);
   assert.ok(await page.locator('#boot-message').textContent());assert.equal(await page.getByRole('progressbar',{name:'Application initialization'}).getAttribute('aria-valuenow'),null,'entry has no fake percentage');
-  await page.keyboard.press('l');assert.equal(await page.locator('[data-family-icon]').count(),0);entry.release();await presented(page);assert.ok(entry.requests()>0,'actual production main bundle was held');
+  await page.keyboard.press('l');assert.equal(await page.locator('[data-family-icon]').count(),0);await page.screenshot({path:`${out}/held-production-entry.png`});entry.release();await presented(page);assert.ok(entry.requests()>0,'actual production main bundle was held');
   record('Real held production entry retains readable loading and recovery before React');
+ });
+ await scenario('visible-moon-loading',async(page,context)=>{
+  const held=await heldRoute(context,/\/art\/rocket\.glb(?:\?.*)?$/);
+  await page.goto(`${base}?qa=1&backend=webgl`,{waitUntil:'domcontentloaded'});await ready(page);
+  await page.waitForFunction(()=>window.__firecrackersQA.snapshot().startup.completed===8,undefined,{timeout:90000});
+  assert.equal((await snap(page)).moon.ready,true);assert.equal(await page.locator('.startup-moon-orbit img').evaluate(e=>getComputedStyle(e).animationName),'startup-moon-turn');
+  await page.screenshot({path:`${out}/visible-moon-preparing.png`});held.release();await presented(page);record('Loaded authored moon rotates while actual rocket asset remains pending');
  });
  await scenario('cold-assets-and-moon-travel',async(page,context)=>{
   const held=await heldRoute(context,/\/art\/(rocket\.glb|moon-lro-v001\.png)(?:\?.*)?$/);

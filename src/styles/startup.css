@@ -26,4 +26,4 @@
 @media(prefers-reduced-motion:reduce) { .startup-screen,.startup-screen * { animation:none!important; transition:none!important; } }
 
 .startup-moon-orbit img[hidden] { display:none; }
-.startup-moon-orbit[data-moon-failed='true']::before { content:''; position:absolute; inset:8%; border-radius:50%; background:radial-gradient(circle at 65% 35%,#c9d0d5,#8a959f 58%,#263342); }
+.startup-moon-orbit:not([data-moon-ready='true'])::before { content:''; position:absolute; inset:8%; border-radius:50%; background:radial-gradient(circle at 65% 35%,#c9d0d5,#8a959f 58%,#263342); }

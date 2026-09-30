@@ -29,6 +29,7 @@ try{
    page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
    await page.goto(`${base}?backend=${backend}&qa=1&seed=20260916`);
    await page.waitForFunction(()=>window.__firecrackersQA&&document.querySelector('main')?.dataset.ready==='true',undefined,{timeout:90000});
+   await page.waitForFunction(()=>document.querySelector('main')?.dataset.presented==='true',undefined,{timeout:90000});
    if(backend!=='canvas')await page.waitForFunction(()=>Object.values(window.__firecrackersQA.snapshot().authoredAssetStates||{}).length>=8&&Object.values(window.__firecrackersQA.snapshot().authoredAssetStates).every(s=>s==='active'),undefined,{timeout:90000});
    await page.evaluate(()=>window.__firecrackersQA.freeze(true));
    const actual=(await snap()).backend;assert.equal(actual,backend==='webgpu'?'WebGPU':backend==='webgl'?'WebGL 2':'Canvas 2D · compatibility');
@@ -44,7 +45,7 @@ try{
     s=await snap();assert.ok(s.signatureStages[j*3+1]>0&&s.signatureStages[j*3+2]>0);pass(`${backend}/${width}x${height}/${id}: unique admission, three stages, safe complete envelope`,{profile,samples,stages:s.signatureStages.slice(j*3,j*3+3)});
     if((width===393||width===1280)&&backend==='webgpu'){
      // A fresh seeded launch permits repeatable, source-labelled representative capture.
-     await page.reload();await page.waitForSelector('main[data-ready="true"]',{timeout:90000});await page.waitForFunction(()=>Object.values(window.__firecrackersQA.snapshot().authoredAssetStates).every(s=>s==='active'),undefined,{timeout:90000});await page.evaluate(()=>window.__firecrackersQA.freeze(true));
+     await page.reload();await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});await page.waitForFunction(()=>Object.values(window.__firecrackersQA.snapshot().authoredAssetStates).every(s=>s==='active'),undefined,{timeout:90000});await page.evaluate(()=>window.__firecrackersQA.freeze(true));
      await icon(id).click();await advance(.8);s=await snap();const relative=[4.2,3.1,3.1][j];await advance(s.flight.ascent-s.flight.age+.02+relative);await page.mouse.move(1,1);
      const name=`${backend}-${width}x${height}-${id}.png`;await page.screenshot({path:`${out}/${name}`});const release=await page.evaluate(()=>fetch('/release.json').then(r=>r.json()));report.captures.push({file:name,backend:(await snap()).backend,width,height,seed:20260916,relativeBurstSeconds:relative,release:{version:release.version,sha256:release.sha256},snapshot:await snap()});
     }

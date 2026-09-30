@@ -151,3 +151,6 @@ Run `npm test`, `node tests/flagship-browser.mjs <output>` (software CI), `FLAGS
 `node tests/open-sky-performance.mjs test-results/open-sky-performance` compares the retained flagship preview with `OPEN_SKY_URL` using counterbalanced runs. Close other test browsers first. Its CPU submission and rAF timings do not measure completed GPU work or physical-phone endurance.
 
 The isolated configuration is `wrangler.open-sky-preview.jsonc`; it has no production routes. Run `npx wrangler deploy --config wrangler.open-sky-preview.jsonc` only after building and checking the candidate fingerprint. This candidate does not authorize replacing production.
+
+
+`node tests/startup-browser.mjs test-results/startup` uses actual blocked entry/art requests to verify first-paint coverage, truthful asset progress, inert launch controls, moon handover, explicit early entry, failures, cache reuse and reduced motion. `STARTUP_URL` selects the built candidate. `node tests/open-sky-edge-browser.mjs test-results/edges` tests full usable terrace endpoints; `EDGE_HARDWARE=1` verifies native backends, and `EDGE_QUICK=1` is the bounded CI subset. The original effects' natural tails are visually inspected; signature principal-head envelopes have strict projected-bound assertions.

@@ -6,7 +6,7 @@ Build `2026-10-01.3`, branch `feat/open-sky-controls`. This is an isolated revie
 
 The visible brand and collection headings are removed. Thirteen named, keyboard-accessible firework icons occupy a transparent left collection. Pause, Sound and Controls sit at lower right; the four-direction mode knob and precise fixed/random position track occupy the footer. The rocket is scaled to the available view and grounded on a subdued steel/brass support with a cached contact shadow. The moon, water, boats, authored terrace and thirteen effect identities are retained.
 
-See [implementation contracts](IMPLEMENTATION.md) and the original [approved layout plan](PLAN.md). The new source fingerprint is `aa6353413eeccb04d4c014121890b197c4eb49d8221e101efd49bfc7c148775a`.
+See [implementation contracts](IMPLEMENTATION.md) and the original [approved layout plan](PLAN.md). The new source fingerprint is `1af2de56930d92c4cf141f8ff1a3f2dc3517d25d4441f1ed42315f54c0416512`.
 
 ## Completed local checks
 
