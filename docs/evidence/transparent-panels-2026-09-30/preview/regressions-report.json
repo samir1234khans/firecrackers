@@ -1,0 +1,277 @@
+{
+  "base": "http://127.0.0.1:4186/",
+  "method": "Existing suites with approved Settings-tab helper changes / bundled headless Chromium / software WebGL and Canvas; mobile emulation only",
+  "startedAt": "2026-09-30T13:16:55.313Z",
+  "expectedFingerprint": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+  "release": {
+    "version": "2026-09-30.6",
+    "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+    "entries": 60
+  },
+  "suites": [
+    {
+      "name": "grand",
+      "script": "tests/grand-collection-browser.mjs",
+      "code": 0,
+      "durationSeconds": 80.494,
+      "checks": 42,
+      "expectedChecks": 42,
+      "failures": 0,
+      "errors": 0,
+      "consoleErrors": null,
+      "pageErrors": null,
+      "warnings": 0,
+      "failedRequests": null,
+      "expectedHostOfflineErrors": null,
+      "controlledFaultDiagnostics": 0,
+      "report": "grand\\report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "checkCountMatches": true
+    },
+    {
+      "name": "original",
+      "script": "tests/video-flow-browser.mjs",
+      "code": 0,
+      "startedAt": "2026-09-30T13:25:57.002Z",
+      "durationSeconds": 89.915,
+      "checks": 28,
+      "expectedChecks": 28,
+      "checkCountMatches": true,
+      "failures": 0,
+      "consoleErrors": 0,
+      "warnings": 0,
+      "failedRequests": 0,
+      "report": "original-rerun/browser-report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      }
+    },
+    {
+      "name": "stage",
+      "script": "tests/stage-browser.mjs",
+      "code": 0,
+      "durationSeconds": 25.304,
+      "checks": 34,
+      "expectedChecks": 34,
+      "failures": 0,
+      "errors": 0,
+      "consoleErrors": null,
+      "pageErrors": null,
+      "warnings": null,
+      "failedRequests": null,
+      "expectedHostOfflineErrors": null,
+      "controlledFaultDiagnostics": 0,
+      "report": "stage\\report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "checkCountMatches": true
+    },
+    {
+      "name": "recovery",
+      "script": "tests/viewability-browser.mjs",
+      "code": 0,
+      "durationSeconds": 68.45,
+      "checks": 15,
+      "expectedChecks": 15,
+      "failures": 0,
+      "errors": null,
+      "consoleErrors": null,
+      "pageErrors": null,
+      "warnings": null,
+      "failedRequests": null,
+      "expectedHostOfflineErrors": null,
+      "controlledFaultDiagnostics": 4,
+      "report": "recovery\\viewability-report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "checkCountMatches": true
+    },
+    {
+      "name": "assets",
+      "script": "tests/assets-browser.mjs",
+      "code": 0,
+      "durationSeconds": 4.667,
+      "checks": 1,
+      "expectedChecks": 1,
+      "failures": 0,
+      "errors": null,
+      "consoleErrors": null,
+      "pageErrors": null,
+      "warnings": null,
+      "failedRequests": null,
+      "expectedHostOfflineErrors": null,
+      "controlledFaultDiagnostics": 0,
+      "report": "assets\\report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "checkCountMatches": true
+    },
+    {
+      "name": "lifecycle",
+      "script": "tests/asset-lifecycle-browser.mjs",
+      "code": 0,
+      "durationSeconds": 23.653,
+      "checks": 7,
+      "expectedChecks": 7,
+      "failures": 0,
+      "errors": null,
+      "consoleErrors": 1,
+      "pageErrors": 0,
+      "warnings": null,
+      "failedRequests": null,
+      "expectedHostOfflineErrors": null,
+      "controlledFaultDiagnostics": 0,
+      "report": "lifecycle\\report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "checkCountMatches": true
+    },
+    {
+      "name": "overload",
+      "script": "tests/overload-browser.mjs",
+      "code": 0,
+      "durationSeconds": 18.2,
+      "checks": 5,
+      "expectedChecks": 5,
+      "failures": 0,
+      "errors": 0,
+      "consoleErrors": null,
+      "pageErrors": null,
+      "warnings": null,
+      "failedRequests": null,
+      "expectedHostOfflineErrors": null,
+      "controlledFaultDiagnostics": 0,
+      "report": "overload\\report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "checkCountMatches": true
+    },
+    {
+      "name": "galactic",
+      "script": "tests/galactic-interaction-browser.mjs",
+      "code": 0,
+      "durationSeconds": 44.277,
+      "checks": 35,
+      "expectedChecks": 35,
+      "failures": 0,
+      "errors": 0,
+      "consoleErrors": null,
+      "pageErrors": null,
+      "warnings": null,
+      "failedRequests": null,
+      "expectedHostOfflineErrors": null,
+      "controlledFaultDiagnostics": 0,
+      "report": "galactic\\report.json",
+      "initialRelease": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+        "entries": 60
+      },
+      "checkCountMatches": true
+    }
+  ],
+  "finishedAt": "2026-09-30T13:27:26.924Z",
+  "failedSuites": 0,
+  "totalChecks": 167,
+  "finalRelease": {
+    "version": "2026-09-30.6",
+    "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+    "entries": 60
+  },
+  "initialRun": "report.json",
+  "attemptHistory": [
+    {
+      "suite": "original",
+      "result": {
+        "name": "original",
+        "script": "tests/video-flow-browser.mjs",
+        "code": 1,
+        "durationSeconds": 41.253,
+        "checks": 9,
+        "expectedChecks": 28,
+        "failures": 1,
+        "errors": null,
+        "consoleErrors": 0,
+        "pageErrors": null,
+        "warnings": 0,
+        "failedRequests": 0,
+        "expectedHostOfflineErrors": 0,
+        "controlledFaultDiagnostics": 0,
+        "report": "original\\browser-report.json",
+        "initialRelease": {
+          "version": "2026-09-30.6",
+          "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+          "entries": 60
+        },
+        "release": {
+          "version": "2026-09-30.6",
+          "sha256": "1249e82e8ab6604c52d7c32002a939792e3a9724bcd4fb7fe34e5d0d183fafe0",
+          "entries": 60
+        },
+        "checkCountMatches": false
+      },
+      "reason": "Named Sound tabpanel made a generic label locator ambiguous; role-specific checkbox locator preserves the original assertion."
+    }
+  ]
+}

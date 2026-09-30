@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { chooseFamily } from './stage-helpers.mjs';
+import { chooseFamily, settingsTab } from './stage-helpers.mjs';
 import { qualifyGalacticSky } from './galactic-checks.mjs';
 
 // Opt-in installed-Chrome hardware qualification; portrait viewports are emulation.
@@ -13,12 +13,13 @@ const catalog = await readFile(new URL('../src/engine/catalog.ts', import.meta.u
 const expectedVersion = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)[1];
 const expectedAssetCount = 8;
 const seed = 20260916;
+const headless = process.env.GALAXY_HEADLESS === '1';
 const report = { url: base, expectedVersion, expectedAssetCount, seed, startedAt: new Date().toISOString(),
-  method: 'Installed Chrome headed; no software GPU flags. Hardware WebGPU and WebGL are asserted separately. Independent seeded captures use deterministic 60 Hz stepping.',
+  method: `Installed Chrome ${headless ? 'headless' : 'headed'}; no software GPU flags. Hardware WebGPU and WebGL are asserted separately. Independent seeded captures use deterministic 60 Hz stepping.`,
   limitations: 'Portrait is viewport/touch emulation on this PC. No physical-phone, thermal, completed-GPU-frame timing or long-duration performance claim.',
   projects: [], checks: [], errors: [], expectedRequestFailures: [], idleObservations: [], failed: null };
 await mkdir(output, { recursive: true });
-const browser = await chromium.launch({ channel: 'chrome', headless: false });
+const browser = await chromium.launch({ channel: 'chrome', headless });
 report.browserVersion = browser.version();
 let current;
 const snap = page => page.evaluate(() => window.__firecrackersQA.snapshot());
@@ -69,6 +70,7 @@ async function activeAssets(page) {
 async function resetFrozen(page) {
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
   await page.getByRole('button', { name: 'Open settings', exact: true }).click();
+  await settingsTab(page, 'Device');
   await page.getByRole('button', { name: 'Reset this sky', exact: true }).click();
   await page.getByRole('button', { name: 'Reset sky and preferences', exact: true }).click();
   await page.waitForFunction(() => document.querySelector('main').dataset.overlay === 'none');

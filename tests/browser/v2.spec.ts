@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { enterSky } from './enter';
+import { enterSky, settingsTab } from './enter';
 
 type QA = { freeze: (value: boolean) => void; advance: (seconds: number) => void; render: () => void; snapshot: () => Record<string, number | string> };
 const qa = (page: Page, seconds: number) => page.evaluate(async value => {
@@ -71,6 +71,7 @@ test('settings preserve manual pause and repeated Space cannot toggle it repeate
 test('presentation settings generate a usable silent link and protected layout', async ({ page }) => {
   await enter(page);
   await page.getByRole('button', { name: 'Open settings' }).click();
+  await settingsTab(page, 'Display');
   await page.getByLabel('Canvas output').selectOption('transparent');
   await page.getByLabel('Protect a clear area').check();
   await page.getByLabel('Frame-rate target').selectOption('30');
@@ -86,6 +87,7 @@ test('presentation settings generate a usable silent link and protected layout',
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Enable sound', exact: true }).first()).toBeVisible();
   await page.getByRole('button', { name: 'Open settings' }).click();
+  await settingsTab(page, 'Display');
   await page.getByRole('button', { name: 'Return to interactive sky' }).click();
   await expect(page.locator('main')).toHaveAttribute('data-display', 'interactive');
 });

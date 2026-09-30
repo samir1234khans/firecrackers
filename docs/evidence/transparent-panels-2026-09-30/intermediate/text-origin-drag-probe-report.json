@@ -1,0 +1,284 @@
+{
+  "url": "http://127.0.0.1:4186/",
+  "expectedVersion": "2026-09-30.6",
+  "expectedFingerprint": "9f68f1c94c8c996e7abd2a27d72c3cbe6b7ceab3b01bec6afb30cbd69aae92d9",
+  "expectedSourceCount": 60,
+  "startedAt": "2026-09-30T13:00:22.653Z",
+  "selectedCases": [
+    "picker-drag-and-position"
+  ],
+  "method": "Bundled Chromium headless, software WebGL/Canvas. Real native dialogs and DOM input; viewport/touch emulation.",
+  "limitations": "No installed-Chrome hardware, physical phone, OS accessibility setting or endurance claim. Zoom method is explicitly emulated.",
+  "checks": [],
+  "failures": [
+    {
+      "name": "picker-drag-and-position",
+      "error": "AssertionError [ERR_ASSERTION]: The real second gesture must acquire a firework drag: {\"events\":[{\"type\":\"pointermove\",\"id\":1,\"button\":-1,\"x\":196.5,\"y\":532.65625,\"target\":\"SMALL\",\"family\":\"Gold Willow\",\"overlay\":\"picker\",\"drag\":\"false\"},{\"type\":\"pointerdown\",\"id\":1,\"button\":0,\"x\":196.5,\"y\":532.65625,\"target\":\"SMALL\",\"family\":\"Gold Willow\",\"overlay\":\"picker\",\"drag\":\"false\"},{\"type\":\"gotpointercapture\",\"id\":1,\"button\":-1,\"x\":196.5,\"y\":510.9615478515625,\"target\":\"BUTTON\",\"family\":\"Gold Willow\",\"overlay\":\"picker\",\"drag\":\"false\"},{\"type\":\"pointermove\",\"id\":1,\"button\":-1,\"x\":196.5,\"y\":510.9615478515625,\"target\":\"BUTTON\",\"family\":\"Gold Willow\",\"overlay\":\"picker\",\"drag\":\"false\"},{\"type\":\"pointercancel\",\"id\":1,\"button\":0,\"x\":0,\"y\":0,\"target\":\"BUTTON\",\"family\":\"Gold Willow\",\"overlay\":\"picker\",\"drag\":\"false\"},{\"type\":\"lostpointercapture\",\"id\":1,\"button\":0,\"x\":0,\"y\":0,\"target\":\"BUTTON\",\"family\":\"Gold Willow\",\"overlay\":\"picker\",\"drag\":\"false\"}],\"snapshot\":{\"ready\":false,\"paused\":true,\"selected\":\"gold-willow\",\"placement\":0.5,\"holding\":false,\"holdProgress\":0,\"show\":null,\"launched\":0,\"bursts\":0,\"active\":0,\"particles\":0,\"smoke\":0,\"quality\":\"ultra\",\"message\":\"Choose a firework. Make the night yours.\",\"time\":0.49999999999999994,\"launchBlock\":\"paused\",\"committedId\":null,\"committedFamily\":\"\",\"flightProgress\":0,\"fuse\":false,\"phase\":\"ready\",\"carriers\":0,\"embers\":0,\"backend\":\"Canvas 2D · compatibility\",\"renderPixels\":334443,\"submitMs\":0.10000000149011612,\"frames\":5,\"stageLayout\":{\"viewport\":{\"x\":0,\"y\":0,\"width\":393,\"height\":851},\"safe\":{\"top\":0,\"right\":0,\"bottom\":0,\"left\":0},\"controls\":{\"top-left\":{\"x\":8,\"y\":8,\"width\":56,\"height\":71},\"middle-left\":{\"x\":8,\"y\":346.5,\"width\":48,\"height\":158},\"bottom-left\":{\"x\":8,\"y\":745,\"width\":56,\"height\":98},\"top-right\":{\"x\":329,\"y\":8,\"width\":56,\"height\":98},\"middle-right\":{\"x\":337,\"y\":401.5,\"width\":48,\"height\":48},\"bottom-right\":{\"x\":329,\"y\":787,\"width\":56,\"height\":56},\"dock\":{\"x\":162.5,\"y\":787,\"width\":68,\"height\":56}},\"heroRect\":{\"x\":68,\"y\":0,\"width\":257,\"height\":851},\"panelOpen\":true,\"launchArea\":{\"x\":0,\"y\":697.8199999999999,\"width\":393,\"height\":119.14000000000001},\"burstCanopy\":{\"x\":68,\"y\":68.08,\"width\":257,\"height\":544.64},\"reflectionBand\":{\"x\":68,\"y\":638.25,\"width\":257,\"height\":212.75}},\"stagedRockets\":1,\"airborneRockets\":0,\"visibleRocketBodies\":1,\"skyMotionTime\":0.49999999999999994,\"skyMotionAllowed\":true,\"skyPointerX\":0.5,\"skyPointerY\":0.25,\"skyEngagement\":0,\"skyNearParallaxX\":0,\"skyNearParallaxY\":0,\"skyMaximumParallaxPixels\":3,\"skyActiveMeteors\":0,\"skyMaximumMeteors\":1,\"skyMeteorOpacity\":0,\"skyMeteorIntervalSeconds\":36,\"skyHorizon\":0.72,\"skyLayers\":3,\"skyTextures\":0,\"skyArtWidth\":2048,\"skyArtHeight\":1024,\"skyCelestialCrop\":0.6,\"skyResponseCachePixels\":32768,\"skyFieldStars\":5200,\"skyClusterStars\":3400,\"skyNearStars\":128,\"skyDustSpecks\":23721,\"skyArtRgbaBytes\":25165824,\"riverScenery\":\"original Canvas river\",\"riverBoats\":3,\"riverLampAnchors\":10,\"riverReflectionFragments\":80,\"riverMotionTime\":0.49999999999999994,\"riverPositions\":[{\"x\":75.4378508705384,\"y\":675.9304669584265,\"roll\":0.007937620261964528},{\"x\":318.7871808063202,\"y\":642.8475013039049,\"roll\":0.0031838791077102874},{\"x\":61.99433866987772,\"y\":722.1742742269793,\"roll\":-0.008758070849026564}],\"shellScreen\":null,\"flight\":null,\"audioVoices\":0,\"audioTimers\":0,\"recordedSamples\":0,\"audioEnabled\":false,\"qaStallSamplesUsed\":0,\"qaStallSamplesRemaining\":0,\"skyState\":{\"time\":0.49999999999999994,\"pointerX\":0.5,\"pointerY\":0.25,\"engagement\":0,\"motionAllowed\":true},\"skyAmbientCadence\":10,\"skyResponding\":false,\"skyAmbientFrames\":0,\"skyResponseFrames\":0,\"skyOneOffFrames\":3,\"skyLastRenderedTime\":0.49999999999999994,\"skyFrozen\":true},\"active\":\"false\"}\n+ actual - expected\n\n+ 'false'\n- 'true'\n    at file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:316:12\n    at async run (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:272:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:288:3",
+      "errors": []
+    }
+  ],
+  "screenshots": [
+    "picker-drag-transparent.png",
+    "FAILED-picker-drag-and-position.png"
+  ],
+  "errors": [],
+  "expectedFaults": [],
+  "browserClosed": true,
+  "browserVersion": "140.0.7339.186",
+  "dragReceipt": {
+    "events": [
+      {
+        "type": "pointermove",
+        "id": 1,
+        "button": -1,
+        "x": 196.5,
+        "y": 532.65625,
+        "target": "SMALL",
+        "family": "Gold Willow",
+        "overlay": "picker",
+        "drag": "false"
+      },
+      {
+        "type": "pointerdown",
+        "id": 1,
+        "button": 0,
+        "x": 196.5,
+        "y": 532.65625,
+        "target": "SMALL",
+        "family": "Gold Willow",
+        "overlay": "picker",
+        "drag": "false"
+      },
+      {
+        "type": "gotpointercapture",
+        "id": 1,
+        "button": -1,
+        "x": 196.5,
+        "y": 510.9615478515625,
+        "target": "BUTTON",
+        "family": "Gold Willow",
+        "overlay": "picker",
+        "drag": "false"
+      },
+      {
+        "type": "pointermove",
+        "id": 1,
+        "button": -1,
+        "x": 196.5,
+        "y": 510.9615478515625,
+        "target": "BUTTON",
+        "family": "Gold Willow",
+        "overlay": "picker",
+        "drag": "false"
+      },
+      {
+        "type": "pointercancel",
+        "id": 1,
+        "button": 0,
+        "x": 0,
+        "y": 0,
+        "target": "BUTTON",
+        "family": "Gold Willow",
+        "overlay": "picker",
+        "drag": "false"
+      },
+      {
+        "type": "lostpointercapture",
+        "id": 1,
+        "button": 0,
+        "x": 0,
+        "y": 0,
+        "target": "BUTTON",
+        "family": "Gold Willow",
+        "overlay": "picker",
+        "drag": "false"
+      }
+    ],
+    "snapshot": {
+      "ready": false,
+      "paused": true,
+      "selected": "gold-willow",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 0,
+      "bursts": 0,
+      "active": 0,
+      "particles": 0,
+      "smoke": 0,
+      "quality": "ultra",
+      "message": "Choose a firework. Make the night yours.",
+      "time": 0.49999999999999994,
+      "launchBlock": "paused",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "ready",
+      "carriers": 0,
+      "embers": 0,
+      "backend": "Canvas 2D · compatibility",
+      "renderPixels": 334443,
+      "submitMs": 0.10000000149011612,
+      "frames": 5,
+      "stageLayout": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 393,
+          "height": 851
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "controls": {
+          "top-left": {
+            "x": 8,
+            "y": 8,
+            "width": 56,
+            "height": 71
+          },
+          "middle-left": {
+            "x": 8,
+            "y": 346.5,
+            "width": 48,
+            "height": 158
+          },
+          "bottom-left": {
+            "x": 8,
+            "y": 745,
+            "width": 56,
+            "height": 98
+          },
+          "top-right": {
+            "x": 329,
+            "y": 8,
+            "width": 56,
+            "height": 98
+          },
+          "middle-right": {
+            "x": 337,
+            "y": 401.5,
+            "width": 48,
+            "height": 48
+          },
+          "bottom-right": {
+            "x": 329,
+            "y": 787,
+            "width": 56,
+            "height": 56
+          },
+          "dock": {
+            "x": 162.5,
+            "y": 787,
+            "width": 68,
+            "height": 56
+          }
+        },
+        "heroRect": {
+          "x": 68,
+          "y": 0,
+          "width": 257,
+          "height": 851
+        },
+        "panelOpen": true,
+        "launchArea": {
+          "x": 0,
+          "y": 697.8199999999999,
+          "width": 393,
+          "height": 119.14000000000001
+        },
+        "burstCanopy": {
+          "x": 68,
+          "y": 68.08,
+          "width": 257,
+          "height": 544.64
+        },
+        "reflectionBand": {
+          "x": 68,
+          "y": 638.25,
+          "width": 257,
+          "height": 212.75
+        }
+      },
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "skyMotionTime": 0.49999999999999994,
+      "skyMotionAllowed": true,
+      "skyPointerX": 0.5,
+      "skyPointerY": 0.25,
+      "skyEngagement": 0,
+      "skyNearParallaxX": 0,
+      "skyNearParallaxY": 0,
+      "skyMaximumParallaxPixels": 3,
+      "skyActiveMeteors": 0,
+      "skyMaximumMeteors": 1,
+      "skyMeteorOpacity": 0,
+      "skyMeteorIntervalSeconds": 36,
+      "skyHorizon": 0.72,
+      "skyLayers": 3,
+      "skyTextures": 0,
+      "skyArtWidth": 2048,
+      "skyArtHeight": 1024,
+      "skyCelestialCrop": 0.6,
+      "skyResponseCachePixels": 32768,
+      "skyFieldStars": 5200,
+      "skyClusterStars": 3400,
+      "skyNearStars": 128,
+      "skyDustSpecks": 23721,
+      "skyArtRgbaBytes": 25165824,
+      "riverScenery": "original Canvas river",
+      "riverBoats": 3,
+      "riverLampAnchors": 10,
+      "riverReflectionFragments": 80,
+      "riverMotionTime": 0.49999999999999994,
+      "riverPositions": [
+        {
+          "x": 75.4378508705384,
+          "y": 675.9304669584265,
+          "roll": 0.007937620261964528
+        },
+        {
+          "x": 318.7871808063202,
+          "y": 642.8475013039049,
+          "roll": 0.0031838791077102874
+        },
+        {
+          "x": 61.99433866987772,
+          "y": 722.1742742269793,
+          "roll": -0.008758070849026564
+        }
+      ],
+      "shellScreen": null,
+      "flight": null,
+      "audioVoices": 0,
+      "audioTimers": 0,
+      "recordedSamples": 0,
+      "audioEnabled": false,
+      "qaStallSamplesUsed": 0,
+      "qaStallSamplesRemaining": 0,
+      "skyState": {
+        "time": 0.49999999999999994,
+        "pointerX": 0.5,
+        "pointerY": 0.25,
+        "engagement": 0,
+        "motionAllowed": true
+      },
+      "skyAmbientCadence": 10,
+      "skyResponding": false,
+      "skyAmbientFrames": 0,
+      "skyResponseFrames": 0,
+      "skyOneOffFrames": 3,
+      "skyLastRenderedTime": 0.49999999999999994,
+      "skyFrozen": true
+    },
+    "active": "false"
+  },
+  "remainingContexts": 0,
+  "finishedAt": "2026-09-30T13:00:24.672Z"
+}

@@ -1,0 +1,1347 @@
+{
+  "url": "https://firecrackers-panels-preview.allygym-api.workers.dev/",
+  "expectedVersion": "2026-09-30.6",
+  "expectedAssetCount": 8,
+  "seed": 20260916,
+  "startedAt": "2026-09-30T12:46:48.643Z",
+  "method": "Installed Chrome headed; no software GPU flags. Hardware WebGPU and WebGL are asserted separately. Independent seeded captures use deterministic 60 Hz stepping.",
+  "limitations": "Portrait is viewport/touch emulation on this PC. No physical-phone, thermal, completed-GPU-frame timing or long-duration performance claim.",
+  "projects": [
+    {
+      "label": "desktop-webgpu",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "requestedBackend": "webgpu",
+      "captures": [
+        {
+          "phase": "sky-pointer",
+          "file": "desktop-webgpu-sky-pointer.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 0,
+            "bursts": 0,
+            "active": 0,
+            "particles": 0,
+            "smoke": 0,
+            "quality": "ultra",
+            "message": "A fresh, quiet sky.",
+            "time": 0.41666666666666663,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "ready",
+            "carriers": 0,
+            "embers": 0,
+            "backend": "WebGPU",
+            "renderPixels": 1024000,
+            "submitMs": 3.300000000745058,
+            "frames": 40,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 20,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 0.41666666666666663,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -48,
+                "y": 4.664355005133403,
+                "z": -105
+              },
+              {
+                "x": 62,
+                "y": 4.68770963211067,
+                "z": -165
+              },
+              {
+                "x": -85,
+                "y": 4.585394947573352,
+                "z": -65
+              }
+            ],
+            "skyMotionTime": 0.41666666666666663,
+            "skyMotionAllowed": true,
+            "skyPointerX": 0.6235693536631259,
+            "skyPointerY": 0.17585838780212443,
+            "skyEngagement": 0.823795691087506,
+            "skyNearParallaxX": 0.6107754065889076,
+            "skyNearParallaxY": -1.6021587805846038,
+            "skyMaximumParallaxPixels": 3,
+            "skyActiveMeteors": 0,
+            "skyMaximumMeteors": 1,
+            "skyMeteorOpacity": 0,
+            "skyMeteorIntervalSeconds": 36,
+            "skyHorizon": 0.48453149705819837,
+            "skyLayers": 3,
+            "skyTextures": 3,
+            "skyArtWidth": 2048,
+            "skyArtHeight": 1024,
+            "skyCelestialCrop": 0.8,
+            "skyFieldStars": 5200,
+            "skyClusterStars": 3400,
+            "skyNearStars": 128,
+            "skyDustSpecks": 23721,
+            "skyArtRgbaBytes": 25165824,
+            "skyTextureBytesWithMipmaps": 33554432,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0,
+            "skyState": {
+              "time": 0.41666666666666663,
+              "pointerX": 0.6235693536631259,
+              "pointerY": 0.17585838780212443,
+              "engagement": 0.823795691087506,
+              "motionAllowed": true
+            },
+            "skyAmbientCadence": 30,
+            "skyResponding": true,
+            "skyAmbientFrames": 12,
+            "skyResponseFrames": 11,
+            "skyOneOffFrames": 10,
+            "skyLastRenderedTime": 0.41666666666666663,
+            "skyFrozen": false
+          }
+        },
+        {
+          "phase": "sky-meteor",
+          "file": "desktop-webgpu-sky-meteor.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 0,
+            "bursts": 0,
+            "active": 0,
+            "particles": 0,
+            "smoke": 0,
+            "quality": "ultra",
+            "message": "A fresh, quiet sky.",
+            "time": 9.700000000000061,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "ready",
+            "carriers": 0,
+            "embers": 0,
+            "backend": "WebGPU",
+            "renderPixels": 1024000,
+            "submitMs": 0.3999999985098839,
+            "frames": 140,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active",
+              "river": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 93,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "riverScenery": "Blender river-life-v007",
+            "riverBoats": 3,
+            "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+            "riverPbrTextures": 3,
+            "riverTextureMemoryEstimateBytes": 67108866,
+            "riverPbrColorMaps": 1,
+            "riverPbrDataMaps": 2,
+            "riverPbrColorSpacesCorrect": true,
+            "riverLampAnchors": 10,
+            "riverReflectionFragments": 80,
+            "riverMotionTime": 9.700000000000061,
+            "riverCandleFlames": 4,
+            "riverPointLights": 1,
+            "riverCandleGlows": 4,
+            "riverPositions": [
+              {
+                "x": -48,
+                "y": 4.65998888871628,
+                "z": -105
+              },
+              {
+                "x": 62,
+                "y": 4.691239716751001,
+                "z": -165
+              },
+              {
+                "x": -85,
+                "y": 4.585057042492593,
+                "z": -65
+              }
+            ],
+            "skyMotionTime": 9.700000000000061,
+            "skyMotionAllowed": true,
+            "skyPointerX": 0.5,
+            "skyPointerY": 0.25,
+            "skyEngagement": 0,
+            "skyNearParallaxX": 0,
+            "skyNearParallaxY": 0,
+            "skyMaximumParallaxPixels": 3,
+            "skyActiveMeteors": 1,
+            "skyMaximumMeteors": 1,
+            "skyMeteorOpacity": 0.07700000000000001,
+            "skyMeteorIntervalSeconds": 36,
+            "skyHorizon": 0.48453149705819837,
+            "skyLayers": 3,
+            "skyTextures": 3,
+            "skyArtWidth": 2048,
+            "skyArtHeight": 1024,
+            "skyCelestialCrop": 0.8,
+            "skyFieldStars": 5200,
+            "skyClusterStars": 3400,
+            "skyNearStars": 128,
+            "skyDustSpecks": 23721,
+            "skyArtRgbaBytes": 25165824,
+            "skyTextureBytesWithMipmaps": 33554432,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0,
+            "skyState": {
+              "time": 9.700000000000061,
+              "pointerX": 0.5,
+              "pointerY": 0.25,
+              "engagement": 0,
+              "motionAllowed": true
+            },
+            "skyAmbientCadence": 20,
+            "skyResponding": false,
+            "skyAmbientFrames": 54,
+            "skyResponseFrames": 56,
+            "skyOneOffFrames": 21,
+            "skyLastRenderedTime": 9.700000000000061,
+            "skyFrozen": true
+          }
+        }
+      ],
+      "actualBackend": "WebGPU",
+      "release": {
+        "version": "2026-09-30.6",
+        "sha256": "286736758ffb75aaf64dba3f354abb340539d5ff210348236d8d43adbe2f0d1b",
+        "formatVersion": 2
+      },
+      "hardware": {
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "fallback": false
+        },
+        "webgl": null
+      },
+      "riverResources": {
+        "source": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "textureCount": 3,
+        "colorMaps": 1,
+        "dataMaps": 2,
+        "estimatedDecodedTextureBytes": 67108866,
+        "estimateMethod": "Unique loaded RGBA8 maps plus full mip chain; not measured GPU allocation"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "desktop-webgpu: all eight assets, default Ultra and reduced flashes on actual hardware"
+    },
+    {
+      "name": "desktop-webgpu: three bounded 2K celestial layers and immutable resource limits",
+      "layers": 3
+    },
+    {
+      "name": "desktop-webgpu: blank-sky mouse response is bounded and cannot launch or change selection",
+      "engagement": 0.6471339185411513
+    },
+    {
+      "name": "desktop-webgpu: QA freeze holds shared phase, pointer response and render count"
+    },
+    {
+      "name": "desktop-webgpu: hovering a control releases sky interaction without activating it"
+    },
+    {
+      "name": "desktop-webgpu: open panels hold sky phase and frames with the existing overlay pause"
+    },
+    {
+      "name": "desktop-webgpu: empty sky redraws at its bounded ambient cadence",
+      "frameDelta": 16,
+      "cap": 20
+    },
+    {
+      "name": "desktop-webgpu: one faint deterministic meteor ends without firework or audio events",
+      "time": 9.700000000000061,
+      "opacity": 0.07700000000000001
+    },
+    {
+      "name": "desktop-webgpu: explicit Low quality holds a static noninteractive sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.100000000000131,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1000000,
+        "submitMs": 3.5,
+        "frames": 148,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 94,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.100000000000131,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 54,
+        "skyResponseFrames": 56,
+        "skyOneOffFrames": 28,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.750000000000163,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1000000,
+        "submitMs": 3.5,
+        "frames": 148,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 94,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.750000000000163,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 54,
+        "skyResponseFrames": 56,
+        "skyOneOffFrames": 28,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "desktop-webgpu: saved app reduced motion holds static Ultra sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.183333333333518,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 3.199999999254942,
+        "frames": 156,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 95,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.183333333333518,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 55,
+        "skyResponseFrames": 56,
+        "skyOneOffFrames": 34,
+        "skyLastRenderedTime": 11.783333333333498,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.850000000000218,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 3.199999999254942,
+        "frames": 156,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 95,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.850000000000218,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 55,
+        "skyResponseFrames": 56,
+        "skyOneOffFrames": 34,
+        "skyLastRenderedTime": 11.783333333333498,
+        "skyFrozen": false
+      }
+    }
+  ],
+  "errors": [],
+  "expectedRequestFailures": [],
+  "idleObservations": [],
+  "failed": "AssertionError [ERR_ASSERTION]: Comfort idle must remain static\n    at staticIdle (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/galactic-checks.mjs:19:10)\n    at async qualifyGalacticSky (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/galactic-checks.mjs:113:76)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/galaxy-browser.mjs:199:7",
+  "browserVersion": "154.0.8037.59",
+  "finishedAt": "2026-09-30T12:47:03.512Z"
+}

@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import type { ReactNode } from 'react';
+import { RotateCcw, Monitor } from 'lucide-react';
 
 /** A React failure should show recovery actions, never remove the entire website. */
 export class AppBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -9,11 +10,11 @@ export class AppBoundary extends Component<{ children: ReactNode }, { failed: bo
         if (!this.state.failed) return this.props.children;
         return <section className='boot-shell' role='alert'>
             <p className='boot-label'>Firecrackers</p>
-            <h1>Let’s bring the sky back.</h1>
-            <p>The interface was interrupted. Your saved preferences are still here.</p>
+            <h1>Sky interrupted</h1>
+            <p>Reload to resume. Your preferences are saved.</p>
             <div className='boot-actions'>
-                <button onClick={() => location.reload()}>Reload website</button>
-                <a href='?backend=canvas'>Open compatibility mode</a>
+                <button onClick={() => location.reload()}><RotateCcw size={16} aria-hidden='true'/>Reload website</button>
+                <a href='?backend=canvas'><Monitor size={16} aria-hidden='true'/>Open compatibility mode</a>
             </div>
         </section>;
     }

@@ -103,6 +103,9 @@ jobs:
       - name: Galactic input, shared time and bounded ambient lifecycle
         if: always()
         run: node tests/galactic-interaction-browser.mjs /tmp/galactic-evidence
+      - name: Compact transparent panels, responsive controls and native focus
+        if: always()
+        run: node tests/transparent-panels-browser.mjs /tmp/panel-evidence
       - name: Progressive artwork loading and fallback
         if: always()
         run: node tests/assets-browser.mjs
@@ -127,4 +130,5 @@ jobs:
             /tmp/overload-evidence
             /tmp/asset-lifecycle-evidence
             /tmp/galactic-evidence
+            /tmp/panel-evidence
           retention-days: 7

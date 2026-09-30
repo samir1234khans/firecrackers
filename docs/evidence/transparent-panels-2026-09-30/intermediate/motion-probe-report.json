@@ -1,0 +1,2775 @@
+{
+  "source": {
+    "formatVersion": 2,
+    "version": "2026-09-30.6",
+    "scope": "delivered-upgrade-modules",
+    "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+    "sha256": "9f68f1c94c8c996e7abd2a27d72c3cbe6b7ceab3b01bec6afb30cbd69aae92d9",
+    "modules": [
+      {
+        "path": "index.html",
+        "sha256": "a451affb2343a06501422f789a763a3a76d106c10b0dd970dc764222e623344c",
+        "rawSha256": "a451affb2343a06501422f789a763a3a76d106c10b0dd970dc764222e623344c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/ignition-flame.png",
+        "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+        "rawSha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/paper-color.png",
+        "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+        "rawSha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/river-life-v007.glb",
+        "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+        "rawSha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/rocket.glb",
+        "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+        "rawSha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/smoke-density-light-v005.png",
+        "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+        "rawSha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/smoke-density-light.png",
+        "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+        "rawSha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/terrace-v004.glb",
+        "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+        "rawSha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/water-normal-v005.png",
+        "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+        "rawSha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/water-normal.png",
+        "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+        "rawSha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/art/waterfront-night-v005.webp",
+        "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+        "rawSha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-01.wav",
+        "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+        "rawSha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-02.wav",
+        "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+        "rawSha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "public/audio/report-03.wav",
+        "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+        "rawSha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/App.tsx",
+        "sha256": "9a7df002b0dbc9af474130d83d4628c1fb72b9832bb198eaa8c6ad4d14b14527",
+        "rawSha256": "469a225f6628060ad3ce07bdf245f36a7408f1f151ca4638a30b8b9f5e521136",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/bootstrap.ts",
+        "sha256": "6a2c9bb301b8fda3eea23e8dfce59f223b46f76259475a01101b6fc9d0f8c409",
+        "rawSha256": "6a2c9bb301b8fda3eea23e8dfce59f223b46f76259475a01101b6fc9d0f8c409",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Audio.ts",
+        "sha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+        "rawSha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/catalog.ts",
+        "sha256": "8a6849d76bd66ab058d108e06d84b9e40e836c017b7a515eb3685bda074d8224",
+        "rawSha256": "8a6849d76bd66ab058d108e06d84b9e40e836c017b7a515eb3685bda074d8224",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/FusePath.ts",
+        "sha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+        "rawSha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/GrandEffects.ts",
+        "sha256": "24619f821e2d3f43d23b5d23204c72fe96aca874a0746f7fd4d65f42c7da1881",
+        "rawSha256": "24619f821e2d3f43d23b5d23204c72fe96aca874a0746f7fd4d65f42c7da1881",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/LaunchGeometry.ts",
+        "sha256": "0f848ffd529ec28fcb7ecdae11a888cb41abbae62256cb28d08f534d1d7e674f",
+        "rawSha256": "0f848ffd529ec28fcb7ecdae11a888cb41abbae62256cb28d08f534d1d7e674f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Renderer.ts",
+        "sha256": "27b624c56bcbcdab03e9080a9038c53fd0f2b98be3d810057e4708911a71c816",
+        "rawSha256": "27b624c56bcbcdab03e9080a9038c53fd0f2b98be3d810057e4708911a71c816",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/RendererPort.ts",
+        "sha256": "7227df2ff4905228e0f84d47436ff649aade11088d02e2660dc5cb4457b7982f",
+        "rawSha256": "7227df2ff4905228e0f84d47436ff649aade11088d02e2660dc5cb4457b7982f",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/RendererRecovery.ts",
+        "sha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+        "rawSha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/Simulation.ts",
+        "sha256": "d530862b9600ea5246ca2d466b2c3b0d2fa7584ad5d95fa45ead9b111ddac6a4",
+        "rawSha256": "d530862b9600ea5246ca2d466b2c3b0d2fa7584ad5d95fa45ead9b111ddac6a4",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/SkyState.ts",
+        "sha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+        "rawSha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/StageLayout.ts",
+        "sha256": "588abe566006a1a203c1d16584a08712f7216cd35c4f71b7598e03ff5052f7db",
+        "rawSha256": "588abe566006a1a203c1d16584a08712f7216cd35c4f71b7598e03ff5052f7db",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/useWorld.ts",
+        "sha256": "f7123b9f1161acc09414b18cb4167b148a0185c5b2d9bf7dfb2125f4d35a84d4",
+        "rawSha256": "f7123b9f1161acc09414b18cb4167b148a0185c5b2d9bf7dfb2125f4d35a84d4",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/engine/VisibleFrame.ts",
+        "sha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+        "rawSha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/CelestialScene.ts",
+        "sha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+        "rawSha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/CompatibilityRenderer.ts",
+        "sha256": "d6e67ec52b3831e84ee7b6db225d40fb701730e00b9235cc290569303b7b2f80",
+        "rawSha256": "d6e67ec52b3831e84ee7b6db225d40fb701730e00b9235cc290569303b7b2f80",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/GalaxySky.ts",
+        "sha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+        "rawSha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/LaunchStage.ts",
+        "sha256": "aa4a2a698a8c7dbc9208af27cbe6bfdf2049ea7d01e3441e802b3b4b15b35a87",
+        "rawSha256": "aa4a2a698a8c7dbc9208af27cbe6bfdf2049ea7d01e3441e802b3b4b15b35a87",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/NightEnvironment.ts",
+        "sha256": "d0e854d7316a16329eb227ac2509c6b18818f800915e3d65b8736b449533ffcf",
+        "rawSha256": "d0e854d7316a16329eb227ac2509c6b18818f800915e3d65b8736b449533ffcf",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/OpaqueDepth.ts",
+        "sha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+        "rawSha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/ParticleScene.ts",
+        "sha256": "254e02066628812ca50dc65513bb352d6c42b4b6dda1e4f9401a3dbb69bf3b31",
+        "rawSha256": "254e02066628812ca50dc65513bb352d6c42b4b6dda1e4f9401a3dbb69bf3b31",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/RiverLife.ts",
+        "sha256": "e6e6ff5f883ec4920fd47bd9a655eed2daa0681b3632fdaeba13067c9366dd3c",
+        "rawSha256": "e6e6ff5f883ec4920fd47bd9a655eed2daa0681b3632fdaeba13067c9366dd3c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/RocketProp.ts",
+        "sha256": "44074d26e4052b231d8b06c57016b94321c8464615359e314440ab08e73642e8",
+        "rawSha256": "44074d26e4052b231d8b06c57016b94321c8464615359e314440ab08e73642e8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/textures.ts",
+        "sha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+        "rawSha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/WaterfrontAssets.ts",
+        "sha256": "e35c2a34d3b834b9b67ef4dac3b878b37f864e8c7da49173c448e5046233078c",
+        "rawSha256": "e35c2a34d3b834b9b67ef4dac3b878b37f864e8c7da49173c448e5046233078c",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/graphics/WaterReflection.ts",
+        "sha256": "3c0217346edc14d1b69cd714bbd8c41e807463d11cf28b24a3c83a525a965616",
+        "rawSha256": "3c0217346edc14d1b69cd714bbd8c41e807463d11cf28b24a3c83a525a965616",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/main.tsx",
+        "sha256": "cc4dfafa95000c56ddbc210b2d7836fe2ab7c178072823a6193e45c6a343b407",
+        "rawSha256": "e1b67a93c2c90ec50a3d9d902c8da9bd52ab34ae22f2823edf046df2564bb3d8",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/platform/usePlatform.ts",
+        "sha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+        "rawSha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/completion.css",
+        "sha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+        "rawSha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/flow.css",
+        "sha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+        "rawSha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/grand-collection.css",
+        "sha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+        "rawSha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/hud-v3-art.css",
+        "sha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+        "rawSha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/hud-v3.css",
+        "sha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+        "rawSha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/panels.css",
+        "sha256": "04a1a96a88fc2fb842398da87df307a1848757676181d0ed5050b1d4ccf688e0",
+        "rawSha256": "04a1a96a88fc2fb842398da87df307a1848757676181d0ed5050b1d4ccf688e0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/recovery.css",
+        "sha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+        "rawSha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/styles/stage.css",
+        "sha256": "44246b3812e42541c63462a15ef0a35a8267f9c1319c49a1ff3a7d42d0cd295d",
+        "rawSha256": "44246b3812e42541c63462a15ef0a35a8267f9c1319c49a1ff3a7d42d0cd295d",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/AppBoundary.tsx",
+        "sha256": "d7f874a88892cc415c3653ea3e72877bfbe81dfba2a0dd8013a44c490449a8df",
+        "rawSha256": "0ca1587470000467f26be51e63072887b010ae1819cb8e163505e940278933ba",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/CinematicHUD.tsx",
+        "sha256": "f6b52c23111e096fe92248a5cc51695ea91fef083febb91ac803793a159feada",
+        "rawSha256": "8d9735422c31039f6abcb2c18d95da3afe0f3cbbdf90d5e1477c17e34a86c988",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/Dialog.tsx",
+        "sha256": "0105dddc6930a916418dcc03a024d1b958a570e640d5d4f478cc53919d938464",
+        "rawSha256": "4ae7ed6b72ec16b6b4a0c5fcf209550f8fdef8a85dd7d0f9de989ac8d34eed8d",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FamilyPicker.tsx",
+        "sha256": "676b7bc1dc91dcd8cb6dfd1c00971921d0b344797b0f2b40e3a636e5c690ef22",
+        "rawSha256": "e696aa9e66544fd90fe41cb2d3171f33a676d1b642b06ac3f0d64568472c13b3",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FireworkGlyph.tsx",
+        "sha256": "77f0d29c384f0ec06341e1719992f61e1bfa8c22debafc862a6725ec8f8dded6",
+        "rawSha256": "fed3c5decac8e53ed35221391ae3b8bee1ddcf15b2c59e27a6882ec2fb93c896",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/FireworkShelf.tsx",
+        "sha256": "50f36b417e75908cd2b7ba7975dc8b00f864db6d2b13ab6196f6a32c1694ded7",
+        "rawSha256": "282f2a3cf3cdcd5a246144a985d07b2c816c874694f99bd08ef00af3e2cf38c0",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/GrandGlyph.tsx",
+        "sha256": "d4e3a1228455b6402829e8aa84eb231826c5a68ac5e6bb7950c574411e0a7dfa",
+        "rawSha256": "a376d9ed9aadbfbb6be57583115fd86ec26ad6eb6e1884e1f0bd49c13871f098",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/PanelNav.tsx",
+        "sha256": "c0fb96d449a86ec3502c42429289d4f6dbaf39eb6598bf1c0fda70e95d8867a3",
+        "rawSha256": "7f2ef57fe58c3975e9220ee62fb9751f3443a0566f1a2b4dc17b51830909cfe1",
+        "removedHostAttributes": 0
+      },
+      {
+        "path": "src/ui/PresentationSettings.tsx",
+        "sha256": "41146b03974d0bd7f9e12e51ac31a837eb464b3512456f0f27da9ec3e1fee95c",
+        "rawSha256": "8c5b23c0002b4021f368d68d26ee58244af9e4b70c715a60ba5bcc725805bd70",
+        "removedHostAttributes": 0
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "motion-probe: three bounded 2K celestial layers and immutable resource limits",
+      "layers": 3
+    },
+    {
+      "name": "motion-probe: blank-sky mouse response is bounded and cannot launch or change selection",
+      "engagement": 0.6471339185411513
+    },
+    {
+      "name": "motion-probe: QA freeze holds shared phase, pointer response and render count"
+    },
+    {
+      "name": "motion-probe: hovering a control releases sky interaction without activating it"
+    },
+    {
+      "name": "motion-probe: open panels hold sky phase and frames with the existing overlay pause"
+    },
+    {
+      "name": "motion-probe: empty sky redraws at its bounded ambient cadence",
+      "frameDelta": 16,
+      "cap": 20
+    },
+    {
+      "name": "motion-probe: one faint deterministic meteor ends without firework or audio events",
+      "time": 9.700000000000061,
+      "opacity": 0.07700000000000001
+    },
+    {
+      "name": "motion-probe: explicit Low quality holds a static noninteractive sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.100000000000131,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1000000,
+        "submitMs": 8.200000002980232,
+        "frames": 134,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 94,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.100000000000131,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 53,
+        "skyResponseFrames": 50,
+        "skyOneOffFrames": 24,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "low",
+        "message": "A fresh, quiet sky.",
+        "time": 11.766666666666831,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1000000,
+        "submitMs": 8.200000002980232,
+        "frames": 134,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 94,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 40,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 11.766666666666831,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 53,
+        "skyResponseFrames": 50,
+        "skyOneOffFrames": 24,
+        "skyLastRenderedTime": 10.700000000000111,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "motion-probe: saved app reduced motion holds static Ultra sky",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.216666666666853,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 8.5,
+        "frames": 142,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 95,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.216666666666853,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 54,
+        "skyResponseFrames": 50,
+        "skyOneOffFrames": 30,
+        "skyLastRenderedTime": 11.800000000000166,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 12.883333333333553,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 8.5,
+        "frames": 142,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 95,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 12.883333333333553,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 54,
+        "skyResponseFrames": 50,
+        "skyOneOffFrames": 30,
+        "skyLastRenderedTime": 11.800000000000166,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "motion-probe: live OS reduced-motion changes stop ambient rendering",
+      "frameDelta": 0,
+      "before": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 13.350000000000243,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 14.199999999254942,
+        "frames": 150,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 97,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 13.350000000000243,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 55,
+        "skyResponseFrames": 50,
+        "skyOneOffFrames": 36,
+        "skyLastRenderedTime": 12.933333333333556,
+        "skyFrozen": false
+      },
+      "after": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 14.016666666666943,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 14.199999999254942,
+        "frames": 150,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "top-left": {
+              "x": 12,
+              "y": 12,
+              "width": 128,
+              "height": 67
+            },
+            "middle-left": {
+              "x": 12,
+              "y": 203.07386779785156,
+              "width": 44,
+              "height": 393.852294921875
+            },
+            "bottom-left": {
+              "x": 12,
+              "y": 698,
+              "width": 128,
+              "height": 90
+            },
+            "top-right": {
+              "x": 1212,
+              "y": 12,
+              "width": 56,
+              "height": 90
+            },
+            "middle-right": {
+              "x": 1224,
+              "y": 240,
+              "width": 44,
+              "height": 320
+            },
+            "bottom-right": {
+              "x": 1212,
+              "y": 732,
+              "width": 56,
+              "height": 56
+            },
+            "quick-0": {
+              "x": 56,
+              "y": 368.9261474609375,
+              "width": 44,
+              "height": 44
+            }
+          },
+          "heroRect": {
+            "x": 144,
+            "y": 0,
+            "width": 992,
+            "height": 800
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 656,
+            "width": 1280,
+            "height": 112.00000000000001
+          },
+          "burstCanopy": {
+            "x": 144,
+            "y": 64,
+            "width": 992,
+            "height": 512
+          },
+          "reflectionBand": {
+            "x": 144,
+            "y": 600,
+            "width": 992,
+            "height": 200
+          }
+        },
+        "reflectionFrames": 97,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.48453149705819837,
+        "riverScenery": "Blender river-life-v007",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 3,
+        "riverTextureMemoryEstimateBytes": 67108866,
+        "riverPbrColorMaps": 1,
+        "riverPbrDataMaps": 2,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 0,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.65,
+            "z": -105
+          },
+          {
+            "x": 62,
+            "y": 4.698470838791487,
+            "z": -165
+          },
+          {
+            "x": -85,
+            "y": 4.585410084763825,
+            "z": -65
+          }
+        ],
+        "skyMotionTime": 0,
+        "skyMotionAllowed": false,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.48453149705819837,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 14.016666666666943,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": false
+        },
+        "skyAmbientCadence": 0,
+        "skyResponding": false,
+        "skyAmbientFrames": 55,
+        "skyResponseFrames": 50,
+        "skyOneOffFrames": 36,
+        "skyLastRenderedTime": 12.933333333333556,
+        "skyFrozen": false
+      }
+    },
+    {
+      "name": "motion-probe: controlled visibility event holds sky and retains explicit resume",
+      "method": "document.hidden override and visibilitychange; not OS endurance"
+    }
+  ],
+  "events": [
+    {
+      "type": "bounds",
+      "at": 7058.89999999851,
+      "targets": [
+        {
+          "tag": "DIV",
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "tag": "SECTION",
+          "edge": "top-left",
+          "width": 128,
+          "height": 67
+        },
+        {
+          "tag": "SECTION",
+          "edge": "middle-left",
+          "width": 44,
+          "height": 393.84375
+        },
+        {
+          "tag": "SECTION",
+          "edge": "bottom-left",
+          "width": 128,
+          "height": 90
+        },
+        {
+          "tag": "SECTION",
+          "edge": "top-right",
+          "width": 56,
+          "height": 90
+        },
+        {
+          "tag": "SECTION",
+          "edge": "middle-right",
+          "width": 44,
+          "height": 320
+        },
+        {
+          "tag": "SECTION",
+          "edge": "bottom-right",
+          "width": 56,
+          "height": 56
+        },
+        {
+          "tag": "DIV",
+          "width": 0,
+          "height": 0
+        }
+      ]
+    },
+    {
+      "type": "pointerover",
+      "at": 7101.5,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "focusin",
+      "at": 7102.89999999851,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusout",
+      "at": 7143.39999999851,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 7143.699999999255,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerout",
+      "at": 7146.39999999851,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 7146.5,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 7193.60000000149,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 7193.60000000149,
+      "tag": "SPAN",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 7194.5,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 7194.800000000745,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 7203.699999999255,
+      "tag": "SPAN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 7204.10000000149,
+      "tag": "DIV",
+      "label": "Settings sections"
+    },
+    {
+      "type": "pointerout",
+      "at": 7233.199999999255,
+      "tag": "DIV",
+      "label": "Settings sections"
+    },
+    {
+      "type": "pointerover",
+      "at": 7233.300000000745,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 7234.5,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusin",
+      "at": 7235,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 7237.800000000745,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusin",
+      "at": 7243.699999999255,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusout",
+      "at": 7247.800000000745,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 7247.800000000745,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerover",
+      "at": 7260.10000000149,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 7260.800000000745,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 7260.89999999851,
+      "tag": "DIALOG",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 7291,
+      "tag": "DIALOG",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 7291.10000000149,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 7292.10000000149,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 7292.39999999851,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 7308.699999999255,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusin",
+      "at": 7313.39999999851,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "pointerover",
+      "at": 7317.699999999255,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 7318.699999999255,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 7318.699999999255,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 8092,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 8092.199999999255,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 9153.800000000745,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 9154,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerout",
+      "at": 9158.89999999851,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 9159,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 9182.800000000745,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 9182.89999999851,
+      "tag": "DIALOG",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 9563.300000000745,
+      "tag": "DIALOG",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 9563.39999999851,
+      "tag": "path",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 9573,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 9577.699999999255,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "pointerover",
+      "at": 9582.39999999851,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 9583.39999999851,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 9584,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12271.89999999851,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12272.10000000149,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12293,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 12293.10000000149,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerout",
+      "at": 12297.699999999255,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12297.800000000745,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12331.5,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12331.60000000149,
+      "tag": "SPAN",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12332.699999999255,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 12332.89999999851,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12337.39999999851,
+      "tag": "SPAN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12337.5,
+      "tag": "DIV",
+      "label": "Settings sections"
+    },
+    {
+      "type": "pointerout",
+      "at": 12380.199999999255,
+      "tag": "DIV",
+      "label": "Settings sections"
+    },
+    {
+      "type": "pointerover",
+      "at": 12380.300000000745,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12381.800000000745,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusin",
+      "at": 12382.5,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12384.5,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusin",
+      "at": 12390.5,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusout",
+      "at": 12394.699999999255,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 12394.800000000745,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerover",
+      "at": 12406.199999999255,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12406.800000000745,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12406.89999999851,
+      "tag": "DIALOG",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12441,
+      "tag": "DIALOG",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12441.10000000149,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12442.199999999255,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 12442.60000000149,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12458.699999999255,
+      "tag": "BUTTON",
+      "label": null
+    },
+    {
+      "type": "focusin",
+      "at": 12464.5,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "pointerover",
+      "at": 12469.5,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12470.5,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12470.60000000149,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12547.699999999255,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12547.800000000745,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12569.199999999255,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 12569.300000000745,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerout",
+      "at": 12573.89999999851,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12574,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12639.5,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12639.699999999255,
+      "tag": "path",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 12653.60000000149,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 12659.5,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "pointerover",
+      "at": 12662.800000000745,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 12664,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 12664,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 13770.89999999851,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 13770.89999999851,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 13789.300000000745,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 13789.5,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerout",
+      "at": 13793.300000000745,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 13793.39999999851,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 13837.300000000745,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 13837.39999999851,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "focusout",
+      "at": 13837.89999999851,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 13838.199999999255,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "pointerout",
+      "at": 13880.800000000745,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "pointerover",
+      "at": 13880.89999999851,
+      "tag": "path",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 13882,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "focusin",
+      "at": 13882.39999999851,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusout",
+      "at": 13892.800000000745,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 13901.199999999255,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "pointerover",
+      "at": 13903.60000000149,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 13904.300000000745,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 13904.300000000745,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 15002.89999999851,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 15003,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 15030.699999999255,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 15030.89999999851,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "pointerout",
+      "at": 15035,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 15035.10000000149,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 15060.5,
+      "tag": "P",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 15060.60000000149,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "focusout",
+      "at": 15061.5,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 15061.60000000149,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "pointerout",
+      "at": 15116,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "pointerover",
+      "at": 15116.10000000149,
+      "tag": "path",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 15116.800000000745,
+      "tag": "INPUT",
+      "label": "Reduced interface motion"
+    },
+    {
+      "type": "focusin",
+      "at": 15117,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusout",
+      "at": 15121.39999999851,
+      "tag": "BUTTON",
+      "label": "Close panel"
+    },
+    {
+      "type": "focusin",
+      "at": 15124.10000000149,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "pointerover",
+      "at": 15125.39999999851,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerout",
+      "at": 15126,
+      "tag": "MAIN",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 15126,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "motion",
+      "at": 15168.5,
+      "matches": true
+    },
+    {
+      "type": "motion",
+      "at": 16255,
+      "matches": false
+    },
+    {
+      "type": "visibility",
+      "at": 16262.60000000149,
+      "hidden": true
+    },
+    {
+      "type": "visibility",
+      "at": 16835.60000000149,
+      "hidden": false
+    },
+    {
+      "type": "pointerout",
+      "at": 16869.89999999851,
+      "tag": "CANVAS",
+      "label": null
+    },
+    {
+      "type": "pointerover",
+      "at": 16870,
+      "tag": "svg",
+      "label": null
+    },
+    {
+      "type": "focusout",
+      "at": 16871.800000000745,
+      "tag": "BUTTON",
+      "label": "Open settings"
+    },
+    {
+      "type": "focusin",
+      "at": 16872.10000000149,
+      "tag": "BUTTON",
+      "label": "Resume scene"
+    },
+    {
+      "type": "pointerover",
+      "at": 16882.199999999255,
+      "tag": "BUTTON",
+      "label": "Pause scene"
+    },
+    {
+      "type": "pointerout",
+      "at": 16883.800000000745,
+      "tag": "BUTTON",
+      "label": "Pause scene"
+    },
+    {
+      "type": "pointerover",
+      "at": 16883.89999999851,
+      "tag": "svg",
+      "label": null
+    }
+  ],
+  "errors": [],
+  "failure": null,
+  "snapshot": {
+    "qa": {
+      "ready": true,
+      "paused": false,
+      "selected": "gold-willow",
+      "placement": 0.5,
+      "holding": false,
+      "holdProgress": 0,
+      "show": null,
+      "launched": 0,
+      "bursts": 0,
+      "active": 0,
+      "particles": 0,
+      "smoke": 0,
+      "quality": "ultra",
+      "message": "Paused while you were away. Resume when you are ready.",
+      "time": 14.066666666666945,
+      "launchBlock": "",
+      "committedId": null,
+      "committedFamily": "",
+      "flightProgress": 0,
+      "fuse": false,
+      "phase": "ready",
+      "carriers": 0,
+      "embers": 0,
+      "backend": "WebGPU",
+      "renderPixels": 1024000,
+      "submitMs": 12.800000000745058,
+      "frames": 155,
+      "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river",
+      "authoredAssetStates": {
+        "smoke": "active",
+        "paper": "active",
+        "normal": "active",
+        "flame": "active",
+        "rocket": "active",
+        "terrace": "active",
+        "sky": "active",
+        "river": "active"
+      },
+      "authoredAssetErrors": {},
+      "stageLayout": {
+        "viewport": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 800
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "controls": {
+          "top-left": {
+            "x": 12,
+            "y": 12,
+            "width": 128,
+            "height": 67
+          },
+          "middle-left": {
+            "x": 12,
+            "y": 203.07386779785156,
+            "width": 44,
+            "height": 393.852294921875
+          },
+          "bottom-left": {
+            "x": 12,
+            "y": 698,
+            "width": 128,
+            "height": 90
+          },
+          "top-right": {
+            "x": 1212,
+            "y": 12,
+            "width": 56,
+            "height": 90
+          },
+          "middle-right": {
+            "x": 1224,
+            "y": 240,
+            "width": 44,
+            "height": 320
+          },
+          "bottom-right": {
+            "x": 1212,
+            "y": 732,
+            "width": 56,
+            "height": 56
+          },
+          "quick-0": {
+            "x": 56,
+            "y": 368.9261474609375,
+            "width": 44,
+            "height": 44
+          }
+        },
+        "heroRect": {
+          "x": 144,
+          "y": 0,
+          "width": 992,
+          "height": 800
+        },
+        "panelOpen": false,
+        "launchArea": {
+          "x": 0,
+          "y": 656,
+          "width": 1280,
+          "height": 112.00000000000001
+        },
+        "burstCanopy": {
+          "x": 144,
+          "y": 64,
+          "width": 992,
+          "height": 512
+        },
+        "reflectionBand": {
+          "x": 144,
+          "y": 600,
+          "width": 992,
+          "height": 200
+        }
+      },
+      "reflectionFrames": 99,
+      "reflectionWidth": 512,
+      "reflectionHeight": 320,
+      "waterline": 0.48453149705819837,
+      "riverScenery": "Blender river-life-v007",
+      "riverBoats": 3,
+      "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+      "riverPbrTextures": 3,
+      "riverTextureMemoryEstimateBytes": 67108866,
+      "riverPbrColorMaps": 1,
+      "riverPbrDataMaps": 2,
+      "riverPbrColorSpacesCorrect": true,
+      "riverLampAnchors": 10,
+      "riverReflectionFragments": 80,
+      "riverMotionTime": 14.050000000000278,
+      "riverCandleFlames": 4,
+      "riverPointLights": 1,
+      "riverCandleGlows": 4,
+      "riverPositions": [
+        {
+          "x": -48,
+          "y": 4.646338927984631,
+          "z": -105
+        },
+        {
+          "x": 62,
+          "y": 4.6040453915579524,
+          "z": -165
+        },
+        {
+          "x": -85,
+          "y": 4.71489797935985,
+          "z": -65
+        }
+      ],
+      "skyMotionTime": 14.050000000000278,
+      "skyMotionAllowed": true,
+      "skyPointerX": 0.5,
+      "skyPointerY": 0.25,
+      "skyEngagement": 0,
+      "skyNearParallaxX": 0,
+      "skyNearParallaxY": 0,
+      "skyMaximumParallaxPixels": 3,
+      "skyActiveMeteors": 0,
+      "skyMaximumMeteors": 1,
+      "skyMeteorOpacity": 0,
+      "skyMeteorIntervalSeconds": 36,
+      "skyHorizon": 0.48453149705819837,
+      "skyLayers": 3,
+      "skyTextures": 3,
+      "skyArtWidth": 2048,
+      "skyArtHeight": 1024,
+      "skyCelestialCrop": 0.8,
+      "skyFieldStars": 5200,
+      "skyClusterStars": 3400,
+      "skyNearStars": 128,
+      "skyDustSpecks": 23721,
+      "skyArtRgbaBytes": 25165824,
+      "skyTextureBytesWithMipmaps": 33554432,
+      "stagedRockets": 1,
+      "airborneRockets": 0,
+      "visibleRocketBodies": 1,
+      "shellScreen": null,
+      "flight": null,
+      "audioVoices": 0,
+      "audioTimers": 0,
+      "recordedSamples": 0,
+      "audioEnabled": false,
+      "qaStallSamplesUsed": 0,
+      "qaStallSamplesRemaining": 0,
+      "skyState": {
+        "time": 14.066666666666945,
+        "pointerX": 0.5,
+        "pointerY": 0.25,
+        "engagement": 0,
+        "motionAllowed": true
+      },
+      "skyAmbientCadence": 20,
+      "skyResponding": false,
+      "skyAmbientFrames": 56,
+      "skyResponseFrames": 50,
+      "skyOneOffFrames": 39,
+      "skyLastRenderedTime": 14.050000000000278,
+      "skyFrozen": false
+    },
+    "osMotion": false,
+    "hidden": false,
+    "hasFocus": true
+  }
+}

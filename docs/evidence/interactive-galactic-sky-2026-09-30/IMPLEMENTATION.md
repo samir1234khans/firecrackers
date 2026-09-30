@@ -107,8 +107,6 @@ The final touch policy changes the prior candidate fingerprint beginning `5f3ef`
 
 [Coordinator terminal receipt](intermediate/coordinator-terminal-checks.json) explicitly identifies its transcription and the CSS-only ordering boundary; it is not a replacement for raw terminal logs. The logical soak's maxima were 839 heads, 20,000 trails, 64 smoke elements, 7 cues and 4 rockets. [Copy manifest](intermediate/copy-manifest.json) records raw and copied bytes/SHA-256, byte-exact copies and decoded-JSON equality for compact copies.
 
-## Download and cost record
-
 ## Subsequent CI motion-policy attempt
 
 PR runtime run `36710661796` passed engine, desktop and mobile, but its recovery job failed the new live-OS reduced-motion assertion. The Linux report showed the preceding app-comfort phase had stopped producing frames and advancing time; after CDP media emulation the test observed the previously rendered motion flag. [Preserved report](intermediate/ci-motion-first-attempt.json). This evidence does not prove the operating-system event or browser compositor's exact cause.

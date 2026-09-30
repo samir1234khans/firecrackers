@@ -1,0 +1,2339 @@
+{
+  "url": "http://127.0.0.1:4186/",
+  "expectedVersion": "2026-09-30.6",
+  "expectedFingerprint": "9f68f1c94c8c996e7abd2a27d72c3cbe6b7ceab3b01bec6afb30cbd69aae92d9",
+  "expectedSourceCount": 60,
+  "startedAt": "2026-09-30T12:52:32.649Z",
+  "method": "Bundled Chromium headless, software WebGL/Canvas. Real native dialogs and DOM input; viewport/touch emulation.",
+  "limitations": "No installed-Chrome hardware, physical phone, OS accessibility setting or endurance claim. Zoom method is explicitly emulated.",
+  "checks": [
+    {
+      "name": "375x667-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 400.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 318.8125,
+          "width": 359,
+          "height": 340.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 318.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 589,
+        "bodyClientHeight": 340,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "375x667-show: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 400.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 318.8125,
+          "width": 359,
+          "height": 340.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 318.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "show",
+        "className": "sheet edge-panel sheet--show",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 369,
+        "bodyClientHeight": 340,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "375x667-position: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 335.109375,
+          "width": 359,
+          "height": 323.890625,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 395.109375,
+          "width": 359,
+          "height": 263.890625,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 335.109375,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 395.109375
+        },
+        "open": true,
+        "modal": true,
+        "variant": "position",
+        "className": "sheet edge-panel sheet--position",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 264,
+        "bodyClientHeight": 264,
+        "overflow": false
+      },
+      "targetCount": 7
+    },
+    {
+      "name": "375x667-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 400.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 318.8125,
+          "width": 359,
+          "height": 340.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 318.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 445,
+        "bodyClientHeight": 340,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "375x667-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 400.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 318.8125,
+          "width": 359,
+          "height": 340.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 318.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 546,
+        "bodyClientHeight": 340,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "375x667-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 400.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 374.8125,
+          "width": 359,
+          "height": 284.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 318.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 532,
+        "bodyClientHeight": 284,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "393x851-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 332.40625,
+          "width": 360,
+          "height": 510.59375,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "body": {
+          "x": 16.5,
+          "y": 392.40625,
+          "width": 360,
+          "height": 450.59375,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "header": {
+          "x": 16.5,
+          "y": 332.40625,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 392.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 589,
+        "bodyClientHeight": 451,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "393x851-show: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 414.03125,
+          "width": 360,
+          "height": 428.96875,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "body": {
+          "x": 16.5,
+          "y": 474.03125,
+          "width": 360,
+          "height": 368.96875,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "header": {
+          "x": 16.5,
+          "y": 414.03125,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 474.03125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "show",
+        "className": "sheet edge-panel sheet--show",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 369,
+        "bodyClientHeight": 369,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "393x851-position: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 519.109375,
+          "width": 360,
+          "height": 323.890625,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "body": {
+          "x": 16.5,
+          "y": 579.109375,
+          "width": 360,
+          "height": 263.890625,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "header": {
+          "x": 16.5,
+          "y": 519.109375,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 579.109375
+        },
+        "open": true,
+        "modal": true,
+        "variant": "position",
+        "className": "sheet edge-panel sheet--position",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 264,
+        "bodyClientHeight": 264,
+        "overflow": false
+      },
+      "targetCount": 7
+    },
+    {
+      "name": "393x851-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 338.46875,
+          "width": 360,
+          "height": 504.53125,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "body": {
+          "x": 16.5,
+          "y": 398.46875,
+          "width": 360,
+          "height": 444.53125,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "header": {
+          "x": 16.5,
+          "y": 338.46875,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 398.46875
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 445,
+        "bodyClientHeight": 445,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "393x851-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 332.40625,
+          "width": 360,
+          "height": 510.59375,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "body": {
+          "x": 16.5,
+          "y": 392.40625,
+          "width": 360,
+          "height": 450.59375,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "header": {
+          "x": 16.5,
+          "y": 332.40625,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 392.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 546,
+        "bodyClientHeight": 451,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "393x851-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 332.40625,
+          "width": 360,
+          "height": 510.59375,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "body": {
+          "x": 16.5,
+          "y": 448.40625,
+          "width": 360,
+          "height": 394.59375,
+          "right": 376.5,
+          "bottom": 843
+        },
+        "header": {
+          "x": 16.5,
+          "y": 332.40625,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 392.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 532,
+        "bodyClientHeight": 395,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "768x1024-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 170.53125,
+          "width": 340,
+          "height": 682.9375,
+          "right": 352,
+          "bottom": 853.46875
+        },
+        "body": {
+          "x": 12,
+          "y": 230.53125,
+          "width": 340,
+          "height": 622.9375,
+          "right": 352,
+          "bottom": 853.46875
+        },
+        "header": {
+          "x": 12,
+          "y": 170.53125,
+          "width": 340,
+          "height": 60,
+          "right": 352,
+          "bottom": 230.53125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 623,
+        "bodyClientHeight": 623,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "768x1024-show: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 297.515625,
+          "width": 340,
+          "height": 428.96875,
+          "right": 352,
+          "bottom": 726.484375
+        },
+        "body": {
+          "x": 12,
+          "y": 357.515625,
+          "width": 340,
+          "height": 368.96875,
+          "right": 352,
+          "bottom": 726.484375
+        },
+        "header": {
+          "x": 12,
+          "y": 297.515625,
+          "width": 340,
+          "height": 60,
+          "right": 352,
+          "bottom": 357.515625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "show",
+        "className": "sheet edge-panel sheet--show",
+        "view": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 369,
+        "bodyClientHeight": 369,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "768x1024-position: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 350.046875,
+          "width": 340,
+          "height": 323.890625,
+          "right": 352,
+          "bottom": 673.9375
+        },
+        "body": {
+          "x": 12,
+          "y": 410.046875,
+          "width": 340,
+          "height": 263.890625,
+          "right": 352,
+          "bottom": 673.9375
+        },
+        "header": {
+          "x": 12,
+          "y": 350.046875,
+          "width": 340,
+          "height": 60,
+          "right": 352,
+          "bottom": 410.046875
+        },
+        "open": true,
+        "modal": true,
+        "variant": "position",
+        "className": "sheet edge-panel sheet--position",
+        "view": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 264,
+        "bodyClientHeight": 264,
+        "overflow": false
+      },
+      "targetCount": 7
+    },
+    {
+      "name": "768x1024-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 249.578125,
+          "width": 340,
+          "height": 524.828125,
+          "right": 352,
+          "bottom": 774.40625
+        },
+        "body": {
+          "x": 12,
+          "y": 309.578125,
+          "width": 340,
+          "height": 464.828125,
+          "right": 352,
+          "bottom": 774.40625
+        },
+        "header": {
+          "x": 12,
+          "y": 249.578125,
+          "width": 340,
+          "height": 60,
+          "right": 352,
+          "bottom": 309.578125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 465,
+        "bodyClientHeight": 465,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "768x1024-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 208.984375,
+          "width": 340,
+          "height": 606.015625,
+          "right": 352,
+          "bottom": 815
+        },
+        "body": {
+          "x": 12,
+          "y": 268.984375,
+          "width": 340,
+          "height": 546.015625,
+          "right": 352,
+          "bottom": 815
+        },
+        "header": {
+          "x": 12,
+          "y": 208.984375,
+          "width": 340,
+          "height": 60,
+          "right": 352,
+          "bottom": 268.984375
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 546,
+        "bodyClientHeight": 546,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "768x1024-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 416,
+          "y": 178.015625,
+          "width": 340,
+          "height": 667.96875,
+          "right": 756,
+          "bottom": 845.984375
+        },
+        "body": {
+          "x": 416,
+          "y": 294.015625,
+          "width": 340,
+          "height": 551.96875,
+          "right": 756,
+          "bottom": 845.984375
+        },
+        "header": {
+          "x": 416,
+          "y": 178.015625,
+          "width": 340,
+          "height": 60,
+          "right": 756,
+          "bottom": 238.015625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 552,
+        "bodyClientHeight": 552,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "1280x800-help: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 88,
+          "width": 340,
+          "height": 624,
+          "right": 352,
+          "bottom": 712
+        },
+        "body": {
+          "x": 12,
+          "y": 144,
+          "width": 340,
+          "height": 568,
+          "right": 352,
+          "bottom": 712
+        },
+        "header": {
+          "x": 12,
+          "y": 88,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 144
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 611,
+        "bodyClientHeight": 568,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "1280x800-show: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 189.515625,
+          "width": 340,
+          "height": 420.96875,
+          "right": 352,
+          "bottom": 610.484375
+        },
+        "body": {
+          "x": 12,
+          "y": 245.515625,
+          "width": 340,
+          "height": 364.96875,
+          "right": 352,
+          "bottom": 610.484375
+        },
+        "header": {
+          "x": 12,
+          "y": 189.515625,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 245.515625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "show",
+        "className": "sheet edge-panel sheet--show",
+        "view": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 365,
+        "bodyClientHeight": 365,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "1280x800-position: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 246.046875,
+          "width": 340,
+          "height": 307.890625,
+          "right": 352,
+          "bottom": 553.9375
+        },
+        "body": {
+          "x": 12,
+          "y": 302.046875,
+          "width": 340,
+          "height": 251.890625,
+          "right": 352,
+          "bottom": 553.9375
+        },
+        "header": {
+          "x": 12,
+          "y": 246.046875,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 302.046875
+        },
+        "open": true,
+        "modal": true,
+        "variant": "position",
+        "className": "sheet edge-panel sheet--position",
+        "view": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 252,
+        "bodyClientHeight": 252,
+        "overflow": false
+      },
+      "targetCount": 7
+    },
+    {
+      "name": "1280x800-picker-classics: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 143.578125,
+          "width": 340,
+          "height": 512.828125,
+          "right": 352,
+          "bottom": 656.40625
+        },
+        "body": {
+          "x": 12,
+          "y": 199.578125,
+          "width": 340,
+          "height": 456.828125,
+          "right": 352,
+          "bottom": 656.40625
+        },
+        "header": {
+          "x": 12,
+          "y": 143.578125,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 199.578125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 457,
+        "bodyClientHeight": 457,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "1280x800-picker-grand: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 102.984375,
+          "width": 340,
+          "height": 594.015625,
+          "right": 352,
+          "bottom": 697
+        },
+        "body": {
+          "x": 12,
+          "y": 158.984375,
+          "width": 340,
+          "height": 538.015625,
+          "right": 352,
+          "bottom": 697
+        },
+        "header": {
+          "x": 12,
+          "y": 102.984375,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 158.984375
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 538,
+        "bodyClientHeight": 538,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "1280x800-settings-graphics: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 928,
+          "y": 88,
+          "width": 340,
+          "height": 624,
+          "right": 1268,
+          "bottom": 712
+        },
+        "body": {
+          "x": 928,
+          "y": 196,
+          "width": 340,
+          "height": 516,
+          "right": 1268,
+          "bottom": 712
+        },
+        "header": {
+          "x": 928,
+          "y": 88,
+          "width": 340,
+          "height": 56,
+          "right": 1268,
+          "bottom": 144
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 532,
+        "bodyClientHeight": 516,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "1920x1080-help: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 206.53125,
+          "width": 340,
+          "height": 666.9375,
+          "right": 352,
+          "bottom": 873.46875
+        },
+        "body": {
+          "x": 12,
+          "y": 262.53125,
+          "width": 340,
+          "height": 610.9375,
+          "right": 352,
+          "bottom": 873.46875
+        },
+        "header": {
+          "x": 12,
+          "y": 206.53125,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 262.53125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 611,
+        "bodyClientHeight": 611,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "1920x1080-show: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 329.515625,
+          "width": 340,
+          "height": 420.96875,
+          "right": 352,
+          "bottom": 750.484375
+        },
+        "body": {
+          "x": 12,
+          "y": 385.515625,
+          "width": 340,
+          "height": 364.96875,
+          "right": 352,
+          "bottom": 750.484375
+        },
+        "header": {
+          "x": 12,
+          "y": 329.515625,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 385.515625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "show",
+        "className": "sheet edge-panel sheet--show",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 365,
+        "bodyClientHeight": 365,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "1920x1080-position: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 386.046875,
+          "width": 340,
+          "height": 307.890625,
+          "right": 352,
+          "bottom": 693.9375
+        },
+        "body": {
+          "x": 12,
+          "y": 442.046875,
+          "width": 340,
+          "height": 251.890625,
+          "right": 352,
+          "bottom": 693.9375
+        },
+        "header": {
+          "x": 12,
+          "y": 386.046875,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 442.046875
+        },
+        "open": true,
+        "modal": true,
+        "variant": "position",
+        "className": "sheet edge-panel sheet--position",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 252,
+        "bodyClientHeight": 252,
+        "overflow": false
+      },
+      "targetCount": 7
+    },
+    {
+      "name": "1920x1080-picker-classics: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 283.578125,
+          "width": 340,
+          "height": 512.828125,
+          "right": 352,
+          "bottom": 796.40625
+        },
+        "body": {
+          "x": 12,
+          "y": 339.578125,
+          "width": 340,
+          "height": 456.828125,
+          "right": 352,
+          "bottom": 796.40625
+        },
+        "header": {
+          "x": 12,
+          "y": 283.578125,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 339.578125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 457,
+        "bodyClientHeight": 457,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "1920x1080-picker-grand: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 12,
+          "y": 242.984375,
+          "width": 340,
+          "height": 594.015625,
+          "right": 352,
+          "bottom": 837
+        },
+        "body": {
+          "x": 12,
+          "y": 298.984375,
+          "width": 340,
+          "height": 538.015625,
+          "right": 352,
+          "bottom": 837
+        },
+        "header": {
+          "x": 12,
+          "y": 242.984375,
+          "width": 340,
+          "height": 56,
+          "right": 352,
+          "bottom": 298.984375
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 538,
+        "bodyClientHeight": 538,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "1920x1080-settings-graphics: bounds, transparent material, scroll and 44px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1568,
+          "y": 220.015625,
+          "width": 340,
+          "height": 639.96875,
+          "right": 1908,
+          "bottom": 859.984375
+        },
+        "body": {
+          "x": 1568,
+          "y": 328.015625,
+          "width": 340,
+          "height": 531.96875,
+          "right": 1908,
+          "bottom": 859.984375
+        },
+        "header": {
+          "x": 1568,
+          "y": 220.015625,
+          "width": 340,
+          "height": 56,
+          "right": 1908,
+          "bottom": 276.015625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 532,
+        "bodyClientHeight": 532,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "text-200-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 400.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 318.8125,
+          "width": 359,
+          "height": 340.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 318.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 1135,
+        "bodyClientHeight": 340,
+        "overflow": false
+      },
+      "targetCount": 6
+    },
+    {
+      "name": "presentation-return-controls: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 400.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "body": {
+          "x": 8,
+          "y": 374.8125,
+          "width": 359,
+          "height": 284.1875,
+          "right": 367,
+          "bottom": 659
+        },
+        "header": {
+          "x": 8,
+          "y": 258.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 318.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 805,
+        "bodyClientHeight": 284,
+        "overflow": false
+      },
+      "targetCount": 17
+    },
+    {
+      "name": "Protected transparent presentation retains reachable controls and returns to interactive manual sky"
+    },
+    {
+      "name": "presentation: no unexpected application errors"
+    },
+    {
+      "name": "320x480-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 8,
+        "y": 284.15625,
+        "width": 304,
+        "height": 187.84375,
+        "right": 312,
+        "bottom": 472,
+        "viewport": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "320x480-startup: no unexpected application errors"
+    },
+    {
+      "name": "320x480-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 8,
+        "y": 243.5625,
+        "width": 304,
+        "height": 228.4375,
+        "right": 312,
+        "bottom": 472,
+        "viewport": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "320x480-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "320x480-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 8,
+        "y": 263.859375,
+        "width": 304,
+        "height": 208.140625,
+        "right": 312,
+        "bottom": 472,
+        "viewport": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "320x480-react-recovery: no unexpected application errors"
+    },
+    {
+      "name": "375x667-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 8,
+        "y": 489.34375,
+        "width": 359,
+        "height": 169.65625,
+        "right": 367,
+        "bottom": 659,
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "375x667-startup: no unexpected application errors"
+    },
+    {
+      "name": "375x667-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 8,
+        "y": 448.75,
+        "width": 359,
+        "height": 210.25,
+        "right": 367,
+        "bottom": 659,
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "375x667-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "375x667-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 8,
+        "y": 489.34375,
+        "width": 359,
+        "height": 169.65625,
+        "right": 367,
+        "bottom": 659,
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "375x667-react-recovery: no unexpected application errors"
+    },
+    {
+      "name": "393x851-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 16.5,
+        "y": 673.34375,
+        "width": 360,
+        "height": 169.65625,
+        "right": 376.5,
+        "bottom": 843,
+        "viewport": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "393x851-startup: no unexpected application errors"
+    },
+    {
+      "name": "393x851-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 16.5,
+        "y": 632.75,
+        "width": 360,
+        "height": 210.25,
+        "right": 376.5,
+        "bottom": 843,
+        "viewport": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "393x851-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "393x851-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 16.5,
+        "y": 673.34375,
+        "width": 360,
+        "height": 169.65625,
+        "right": 376.5,
+        "bottom": 843,
+        "viewport": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "393x851-react-recovery: no unexpected application errors"
+    },
+    {
+      "name": "768x1024-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 416,
+        "y": 427.171875,
+        "width": 340,
+        "height": 169.65625,
+        "right": 756,
+        "bottom": 596.828125,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "768x1024-startup: no unexpected application errors"
+    },
+    {
+      "name": "768x1024-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 416,
+        "y": 406.875,
+        "width": 340,
+        "height": 210.25,
+        "right": 756,
+        "bottom": 617.125,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "768x1024-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "768x1024-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 416,
+        "y": 418.078125,
+        "width": 340,
+        "height": 187.84375,
+        "right": 756,
+        "bottom": 605.921875,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "768x1024-react-recovery: no unexpected application errors"
+    },
+    {
+      "name": "844x390-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 242,
+        "y": 212.34375,
+        "width": 360,
+        "height": 169.65625,
+        "right": 602,
+        "bottom": 382,
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "844x390-startup: no unexpected application errors"
+    },
+    {
+      "name": "844x390-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 242,
+        "y": 171.75,
+        "width": 360,
+        "height": 210.25,
+        "right": 602,
+        "bottom": 382,
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "844x390-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "844x390-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 242,
+        "y": 212.34375,
+        "width": 360,
+        "height": 169.65625,
+        "right": 602,
+        "bottom": 382,
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "844x390-react-recovery: no unexpected application errors"
+    },
+    {
+      "name": "1280x800-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 928,
+        "y": 315.171875,
+        "width": 340,
+        "height": 169.65625,
+        "right": 1268,
+        "bottom": 484.828125,
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "1280x800-startup: no unexpected application errors"
+    },
+    {
+      "name": "1280x800-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 928,
+        "y": 294.875,
+        "width": 340,
+        "height": 210.25,
+        "right": 1268,
+        "bottom": 505.125,
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "1280x800-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "1280x800-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 928,
+        "y": 306.078125,
+        "width": 340,
+        "height": 187.84375,
+        "right": 1268,
+        "bottom": 493.921875,
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "1280x800-react-recovery: no unexpected application errors"
+    },
+    {
+      "name": "1920x1080-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 1568,
+        "y": 455.171875,
+        "width": 340,
+        "height": 169.65625,
+        "right": 1908,
+        "bottom": 624.828125,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "1920x1080-startup: no unexpected application errors"
+    },
+    {
+      "name": "1920x1080-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 1568,
+        "y": 434.875,
+        "width": 340,
+        "height": 210.25,
+        "right": 1908,
+        "bottom": 645.125,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "1920x1080-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "1920x1080-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 1568,
+        "y": 446.078125,
+        "width": 340,
+        "height": 187.84375,
+        "right": 1908,
+        "bottom": 633.921875,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "1920x1080-react-recovery: no unexpected application errors"
+    },
+    {
+      "name": "zoom-200-reflow-boot-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 140,
+        "y": 222.34375,
+        "width": 360,
+        "height": 169.65625,
+        "right": 500,
+        "bottom": 392,
+        "viewport": {
+          "width": 640,
+          "height": 400
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "zoom-200-reflow-startup: no unexpected application errors",
+      "method": "1280x800 screen at 640x400 CSS pixels / DPR2; 200% browser-zoom reflow equivalent, not pinch scaling"
+    },
+    {
+      "name": "zoom-200-reflow-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 140,
+        "y": 181.75,
+        "width": 360,
+        "height": 210.25,
+        "right": 500,
+        "bottom": 392,
+        "viewport": {
+          "width": 640,
+          "height": 400
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "zoom-200-reflow-entry-recovery: no unexpected application errors",
+      "method": "1280x800 screen at 640x400 CSS pixels / DPR2; 200% browser-zoom reflow equivalent, not pinch scaling"
+    },
+    {
+      "name": "zoom-200-reflow-react-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 140,
+        "y": 222.34375,
+        "width": 360,
+        "height": 169.65625,
+        "right": 500,
+        "bottom": 392,
+        "viewport": {
+          "width": 640,
+          "height": 400
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "zoom-200-reflow-react-recovery: no unexpected application errors",
+      "method": "1280x800 screen at 640x400 CSS pixels / DPR2; 200% browser-zoom reflow equivalent, not pinch scaling"
+    },
+    {
+      "name": "renderer-loading: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 16.5,
+        "y": 680.40625,
+        "width": 360,
+        "height": 162.59375,
+        "right": 376.5,
+        "bottom": 843,
+        "viewport": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "renderer-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 16.5,
+        "y": 562.5625,
+        "width": 360,
+        "height": 280.4375,
+        "right": 376.5,
+        "bottom": 843,
+        "viewport": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    }
+  ],
+  "failures": [
+    {
+      "name": "320x480",
+      "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Help', exact: true })\u001b[22m\n\n    at openFrom (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:140:17)\n    at matrix (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:179:11)\n    at async run (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "375x667",
+      "error": "AssertionError [ERR_ASSERTION]: Native focus remains inside the panel\n\nfalse !== true\n\n    at settingsKeyboard (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:171:12)\n    at async matrix (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:195:3)\n    at async run (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "393x851",
+      "error": "AssertionError [ERR_ASSERTION]: Native focus remains inside the panel\n\nfalse !== true\n\n    at settingsKeyboard (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:171:12)\n    at async matrix (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:195:3)\n    at async run (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "768x1024",
+      "error": "AssertionError [ERR_ASSERTION]: Native focus remains inside the panel\n\nfalse !== true\n\n    at settingsKeyboard (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:171:12)\n    at async matrix (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:195:3)\n    at async run (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "844x390",
+      "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Help', exact: true })\u001b[22m\n\n    at openFrom (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:140:17)\n    at matrix (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:179:11)\n    at async run (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "1280x800",
+      "error": "AssertionError [ERR_ASSERTION]: Native focus remains inside the panel\n\nfalse !== true\n\n    at settingsKeyboard (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:171:12)\n    at async matrix (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:195:3)\n    at async run (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "1920x1080",
+      "error": "AssertionError [ERR_ASSERTION]: Native focus remains inside the panel\n\nfalse !== true\n\n    at settingsKeyboard (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:171:12)\n    at async matrix (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:195:3)\n    at async run (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "zoom-200-reflow",
+      "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Help', exact: true })\u001b[22m\n\n    at openFrom (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:140:17)\n    at matrix (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:179:11)\n    at async run (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "text-200",
+      "error": "AssertionError [ERR_ASSERTION]: text-200-show: target remains clipped after scroll {\"name\":\"Festival\",\"width\":335,\"height\":99.1875,\"x\":20,\"y\":566.78125,\"right\":355,\"bottom\":665.96875,\"disabled\":false,\"hit\":true,\"inBody\":true,\"body\":{\"x\":8,\"y\":318.8125,\"width\":359,\"height\":340.1875,\"top\":318.8125,\"right\":367,\"bottom\":659,\"left\":8}}\n    at inspectPanel (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:126:28)\n    at async openFrom (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:143:3)\n    at async matrix (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:179:5)\n    at async run (file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:265:33",
+      "errors": []
+    },
+    {
+      "name": "picker-drag-and-position",
+      "error": "page.waitForFunction: Timeout 20000ms exceeded.\n    at C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:282:16\n    at async run (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:266:3",
+      "errors": []
+    },
+    {
+      "name": "renderer-loading-and-recovery",
+      "error": "page.evaluate: TypeError: Cannot read properties of undefined (reading 'snapshot')\n    at eval (eval at evaluate (:291:30), <anonymous>:1:31)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at snap (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:36:27)\n    at C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:363:25\n    at async run (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers-galactic\\tests\\transparent-panels-browser.mjs:254:5)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers-galactic/tests/transparent-panels-browser.mjs:342:3",
+      "errors": [
+        {
+          "type": "console",
+          "message": "THREE.WebGPURenderer: WebGL Device Lost:\n\nMessage: Unknown reason",
+          "url": "http://127.0.0.1:4186/assets/Renderer-Bbdfczav.js"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    "FAILED-320x480.png",
+    "375x667-help.png",
+    "375x667-show.png",
+    "375x667-position.png",
+    "375x667-picker-classics.png",
+    "375x667-picker-grand.png",
+    "375x667-settings-graphics.png",
+    "FAILED-375x667.png",
+    "393x851-help.png",
+    "393x851-show.png",
+    "393x851-position.png",
+    "393x851-picker-classics.png",
+    "393x851-picker-grand.png",
+    "393x851-settings-graphics.png",
+    "FAILED-393x851.png",
+    "768x1024-help.png",
+    "768x1024-show.png",
+    "768x1024-position.png",
+    "768x1024-picker-classics.png",
+    "768x1024-picker-grand.png",
+    "768x1024-settings-graphics.png",
+    "FAILED-768x1024.png",
+    "FAILED-844x390.png",
+    "1280x800-help.png",
+    "1280x800-show.png",
+    "1280x800-position.png",
+    "1280x800-picker-classics.png",
+    "1280x800-picker-grand.png",
+    "1280x800-settings-graphics.png",
+    "FAILED-1280x800.png",
+    "1920x1080-help.png",
+    "1920x1080-show.png",
+    "1920x1080-position.png",
+    "1920x1080-picker-classics.png",
+    "1920x1080-picker-grand.png",
+    "1920x1080-settings-graphics.png",
+    "FAILED-1920x1080.png",
+    "FAILED-zoom-200-reflow.png",
+    "text-200-help.png",
+    "FAILED-text-200.png",
+    "picker-drag-transparent.png",
+    "FAILED-picker-drag-and-position.png",
+    "presentation-transparent.png",
+    "presentation-return-controls.png",
+    "320x480-boot-loading.png",
+    "320x480-entry-recovery.png",
+    "320x480-react-recovery.png",
+    "375x667-boot-loading.png",
+    "375x667-entry-recovery.png",
+    "375x667-react-recovery.png",
+    "393x851-boot-loading.png",
+    "393x851-entry-recovery.png",
+    "393x851-react-recovery.png",
+    "768x1024-boot-loading.png",
+    "768x1024-entry-recovery.png",
+    "768x1024-react-recovery.png",
+    "844x390-boot-loading.png",
+    "844x390-entry-recovery.png",
+    "844x390-react-recovery.png",
+    "1280x800-boot-loading.png",
+    "1280x800-entry-recovery.png",
+    "1280x800-react-recovery.png",
+    "1920x1080-boot-loading.png",
+    "1920x1080-entry-recovery.png",
+    "1920x1080-react-recovery.png",
+    "zoom-200-reflow-boot-loading.png",
+    "zoom-200-reflow-entry-recovery.png",
+    "zoom-200-reflow-react-recovery.png",
+    "renderer-loading.png",
+    "renderer-recovery.png",
+    "FAILED-renderer-loading-and-recovery.png"
+  ],
+  "errors": [
+    {
+      "type": "console",
+      "message": "THREE.WebGPURenderer: WebGL Device Lost:\n\nMessage: Unknown reason",
+      "url": "http://127.0.0.1:4186/assets/Renderer-Bbdfczav.js"
+    }
+  ],
+  "expectedFaults": [
+    {
+      "name": "320x480-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "320x480-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "375x667-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "375x667-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "393x851-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "393x851-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "768x1024-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "768x1024-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "844x390-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "844x390-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "1280x800-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "1280x800-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "1920x1080-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "1920x1080-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "zoom-200-reflow-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    },
+    {
+      "name": "zoom-200-reflow-react-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Error: Injected panel preference capability failure\n    at window.matchMedia (<anonymous>:2:50)\n    at Vd (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77826)\n    at Zm (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:77953)\n    at cc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:38959)\n    at Object.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:46589)\n    at I1.gt.useState (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:18:7529)\n    at ly (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:195:103486)\n    at tc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:34143)\n    at pc (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:62262)\n    at Zf (http://127.0.0.1:4186/assets/main-nj5w_ROa.js:49:72765)",
+          "url": "http://127.0.0.1:4186/assets/main-nj5w_ROa.js"
+        }
+      ]
+    }
+  ],
+  "browserClosed": true,
+  "browserVersion": "140.0.7339.186",
+  "remainingContexts": 0,
+  "finishedAt": "2026-09-30T12:54:37.643Z"
+}

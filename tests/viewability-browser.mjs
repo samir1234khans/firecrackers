@@ -1,4 +1,4 @@
-import { chooseFamily, inspectStage, inspectPicker, openPicker } from './stage-helpers.mjs';
+import { chooseFamily, inspectStage, inspectPicker, openPicker, settingsTab } from './stage-helpers.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -45,7 +45,7 @@ try {
         await check(name, async page => {
             await enter(page); const layout = await visibleControls(page);
             await page.getByRole('button', { name: 'Open settings' }).click();
-            await page.getByRole('button', { name: 'Graphics', exact: true }).click();
+            await settingsTab(page, 'Graphics');
             await page.getByLabel('Graphics quality', { exact: true }).selectOption('ultra');
             await page.getByRole('button', { name: 'Close panel' }).click();
             return { layout, renderer: await page.locator('main').getAttribute('data-backend') };
@@ -55,7 +55,7 @@ try {
         await enter(page, '?backend=canvas&qa=1');
         assert.match(await page.locator('main').getAttribute('data-backend'), /Canvas/);
         await page.getByRole('button', { name: 'Open settings' }).click();
-        await page.getByRole('button', { name: 'Graphics', exact: true }).click();
+        await settingsTab(page, 'Device');
         await page.getByText('Graphics details', { exact: true }).click();
         assert.ok(await page.locator('.diagnostics dd').filter({ hasText: 'Canvas' }).isVisible());
         await page.getByRole('button', { name: 'Close panel' }).click();
@@ -132,7 +132,7 @@ try {
     await check('react-error-keeps-recovery-page', async page => {
         await page.addInitScript(() => { window.matchMedia = () => { throw new Error('Injected preference capability failure'); }; });
         await page.goto(url,{waitUntil:'domcontentloaded'});
-        await page.getByRole('heading',{name:'Let’s bring the sky back.'}).waitFor();
+        await page.getByRole('heading',{name:'Sky interrupted',exact:true}).waitFor();
         assert.ok(await page.getByRole('button',{name:'Reload website'}).isVisible());
         return { readableRecovery: true };
     }, {expectedFault:true});

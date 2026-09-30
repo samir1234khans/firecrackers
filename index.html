@@ -10,21 +10,22 @@
     <title>Firecrackers</title>
     <style>
       html,body{margin:0;background:#040a14;color:#e9ecf1;font-family:system-ui,sans-serif}
-      .boot-shell{box-sizing:border-box;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;background:radial-gradient(ellipse at 50% 75%,#14273a,#040a14 72%)}
-      .boot-label{color:#e5bd80;letter-spacing:.15em;font-size:13px;text-transform:uppercase}
-      .boot-shell h1{font:400 clamp(30px,5vw,54px)/1.12 Georgia,serif;margin:18px 0}
-      .boot-shell p{max-width:480px;line-height:1.6}
-      .boot-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:20px}
+      .boot-shell{box-sizing:border-box;position:fixed;left:calc(12px + env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(340px,calc(100% - 24px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));max-height:calc(100dvh - 24px);overflow:auto;padding:16px;background:rgba(8,15,24,.78);border:0;border-radius:12px;text-align:left}
+      .boot-label{color:#e5bd80;font-size:12px;margin:0 0 8px}
+      .boot-shell h1{font:600 18px/1.3 system-ui,sans-serif;margin:0 0 8px}
+      .boot-shell p{font-size:14px;line-height:1.5;color:#bac5d2}
+      .boot-actions{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
       .boot-actions[hidden]{display:none}
-      .boot-actions a,.boot-actions button{box-sizing:border-box;background:#e5bd80;color:#211a13;min-height:46px;border:0;border-radius:10px;padding:13px 18px;text-decoration:none;font:600 14px/1.4 system-ui;cursor:pointer}
-      .boot-actions a:focus-visible,.boot-actions button:focus-visible{outline:3px solid white;outline-offset:4px}
+      .boot-actions a,.boot-actions button{box-sizing:border-box;display:inline-flex;align-items:center;background:transparent;color:#f0d09a;min-height:48px;border:0;border-radius:6px;padding:8px;text-decoration:none;font:500 14px/1.4 system-ui;cursor:pointer}
+      .boot-actions a:hover,.boot-actions button:hover{background:#e5bd8014}
+      .boot-actions a:focus-visible,.boot-actions button:focus-visible{outline:2px solid #f0d09a;outline-offset:2px}
     </style>
   </head>
   <body>
     <div id="root">
       <section class="boot-shell" id="boot-shell" role="status">
         <p class="boot-label">Firecrackers</p>
-        <h1>A little spark.<br />A whole night sky.</h1>
+        <h1>Preparing the night sky</h1>
         <p id="boot-message">Opening your sky…</p>
         <div id="boot-recovery" class="boot-actions">
           <a href="./">Reload website</a>

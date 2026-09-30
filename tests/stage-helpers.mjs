@@ -5,6 +5,13 @@ export const grandIds = ['aurora-crown','ruby-dahlia','sapphire-saturn','phoenix
 export const edgeShelf = (page, collection) => page.locator(`[data-edge="${collection === 'classics' ? 'middle-left' : 'middle-right'}"] [data-family-shelf="${collection}"]`);
 export const dockShelf = (page, collection) => page.locator(`[data-family-dock] [data-family-shelf="${collection}"]`);
 export async function openPicker(page) { await page.getByRole('button',{name:/^Choose firework:/}).click(); }
+/** Activate the actual Settings tab before using controls in that section. */
+export async function settingsTab(page, name) {
+  const tab = page.getByRole('tablist', { name: 'Settings sections' }).getByRole('tab', { name, exact: true });
+  await tab.click();
+  assert.equal(await tab.getAttribute('aria-selected'), 'true', `${name} Settings tab must be active`);
+  await page.getByRole('tabpanel', { name, exact: true }).waitFor({ state: 'visible' });
+}
 export async function chooseFamily(page, name) {
   await openPicker(page);
   await page.getByRole('button',{name:grandNames.includes(name)?'Grand collection':'Classics',exact:false}).click();
