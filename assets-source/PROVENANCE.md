@@ -2,7 +2,7 @@
 
 ## Original work
 
-The original geometry, material and smoke assets in `public/art/` are authored for this repository with Blender 5.2.1 LTS (build 9e2066aef7ef). The editable masters are in `assets-source/blender/masters/`. They are excluded from the public build. Reproducible generation and fresh-scene verification scripts accompany them.
+The original project geometry, material and smoke assets in `public/art/` are authored for this repository with Blender 5.2.1 LTS (build 9e2066aef7ef). External CC0 canoe rights are recorded separately below. Editable masters are in `assets-source/blender/masters/` and versioned asset source directories. They are excluded from the public build. Reproducible generation and fresh-scene verification scripts accompany them.
 
 | File | Content | Browser interpretation |
 |---|---|---|
@@ -12,6 +12,7 @@ The original geometry, material and smoke assets in `public/art/` are authored f
 | water-normal.png | Original seamless periodic wave normal field | Linear normal data |
 | rocket.glb | Paper shell, foil cap/bands, guide stick and seam | Scoped geometry export; body/cap integrated with existing family proportions and attachment logic |
 | terrace-v004.glb | 48 individually laid basalt/coping meshes with embedded color, roughness and normal maps | Scoped PBR terrace geometry; local wet glints and stone/joint variation, adjusted for browser lighting |
+| terrace-v008.glb | Original irregular basalt, recessed joints, layered foundation and eight packed material variants | Three scoped material meshes with retained per-stone UVs; native source and fresh GLB reimport verified |
 
 Smoke is a baked animated procedural volume rendered in Cycles CPU, not a fluid simulation. No external simulation cache is required. Browser lighting remains dynamic. Blender volume shaders themselves are not exported to glTF. Missing enhanced assets preserve the existing procedural materials and smoke.
 
@@ -77,3 +78,17 @@ The immutable downloaded source is `downloads/wooden-canoe-cc0/source-2k.blend`,
 The [v007 river master](blender/masters/river-life-v007.blend) has 314 editable objects. Original canopy, exposed glass candle lanterns, nav lamps and clustered twelve-house village remain from v006. The larger hull is proportioned to 9.5 metres long and 3 metres beam; original UV appearance survives through the bake. The output is 7,620,280 bytes, 21 mesh nodes, 16,266 imported vertices, fourteen materials and three embedded 2K images. [Fresh-scene verification](blender/renders/river-v007/verification.json) records reopened packed source, exact named roots and all ten active anchors, finite bounds, image color spaces, no external texture dependencies and no exported lights/cameras. Browser motion, candle lighting and water reflections remain runtime code.
 
 [Source, reproduction, bounds and actual night/pose review](blender/RIVER-V007.md) separate inspected Blender geometry/material evidence from live browser backend, visual and performance evidence. The final v006 GLB is preserved as `blender/renders/river-v006/exposed-lantern-export.glb` and removed from public delivery. The unselected Dutch Ship Medium CC0 inspection is retained locally under `downloads/polyhaven-dutch-ship-medium-v007/`; its raw binaries are not needed for the selected asset or public build. CC0 applies to the downloaded canoe source and its material adaptation; it does not relicense the application or original canopy, candles, village and other project assets.
+
+## Original basalt terrace v008
+
+The new [terrace-v008.glb](../public/art/terrace-v008.glb) is original geometry and material work authored for this repository; no external stone scan, photograph, paid library or downloaded material was used. The original v004 master/export are preserved. Its 47 editable pieces include staggered stone slabs, recessed mortar, water-facing coping and a layered frontage. Three consolidated browser meshes retain eight independently varied basalt patches with color, normal and roughness maps. The final GLB is 2,229,768 bytes, SHA256 `5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f`; it has 20,026 exported vertices and 19,460 triangles and contains no water, boats, cameras or lights.
+
+[Editable source, production corrections and scope](blender/terrace-v008/README.md) document the inspected Blender pilots and real-browser feedback. The builder explicitly encodes linear-authored color to sRGB, reloads the actual file before packing, and preserves lossless linear data maps. [Data metadata receipt](blender/terrace-v008/data-profile-receipt.json) confirms color-profile metadata removal with compressed pixels unchanged. [Native reopen and fresh-scene reimport](blender/terrace-v008/verification.json) confirm packed texture dependencies, material color spaces and matching evaluated bounds. Runtime exposure, lighting, composition and live performance are separately qualified by the release owner. This original work does not introduce a third-party license or assign a new public license to the application.
+
+## Living waterfront v008: retained CC0 canoe and original scenery
+
+The new [river-life-v008.glb](../public/art/river-life-v008.glb) preserves the same CC0 Wooden Canoe by OuterSpaceSimon, original baked hull UVs and three shared 2K material maps described above. No new external download or license was introduced. Original additions comprise a curved woven-reed shelter with three shared 512-square maps, two small seated human silhouettes, proportion/depth adjustments to the twelve preserved houses, a sheltered bank with eight tree silhouettes, landing posts, quay steps and mooring rope. All ten named active light attachments, including four exposed candles, are preserved.
+
+[The v008 source and reproduction guide](blender/RIVER-V008.md) records 361 editable objects, 28 exported mesh nodes, 20,022 imported vertices, seventeen materials and six embedded shared maps. The export is 8,006,212 bytes, SHA256 `0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5`. [Fresh-scene verification](blender/renders/river-v008/verification.json) records the reopened packed master, finite bounds, unchanged root/anchor names and no external texture dependencies. Color uses sRGB; normal/roughness data use lossless linear PNG with the established exporter metadata correction. Inspected Cycles boat, pose and village renders establish geometry/material evidence; browser lighting, positioning, reflections, native GPU rendering and performance remain separate evidence.
+
+CC0 applies to the downloaded canoe and its adaptation. Original canopy, figures, foliage, shore buildings, terrace and application code remain original project work under the owner's existing licensing decisions. Voluntary creator attribution and source/CC0 links remain in the generated public third-party notice; the v008 additions do not replace or weaken that notice.

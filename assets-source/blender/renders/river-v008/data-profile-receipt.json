@@ -1,0 +1,38 @@
+{
+  "canoe-normal-web-2k": {
+    "removedChunks": [],
+    "originalBytes": 3002267,
+    "dataOnlyBytes": 3002267,
+    "pixelPayloadUnchanged": true
+  },
+  "canoe-roughness-web-2k": {
+    "removedChunks": [
+      "sRGB",
+      "gAMA",
+      "cHRM"
+    ],
+    "originalBytes": 2753871,
+    "dataOnlyBytes": 2753798,
+    "pixelPayloadUnchanged": true
+  },
+  "canopy-normal-512": {
+    "removedChunks": [
+      "sRGB",
+      "gAMA",
+      "cHRM"
+    ],
+    "originalBytes": 16397,
+    "dataOnlyBytes": 16324,
+    "pixelPayloadUnchanged": true
+  },
+  "canopy-roughness-512": {
+    "removedChunks": [
+      "sRGB",
+      "gAMA",
+      "cHRM"
+    ],
+    "originalBytes": 16270,
+    "dataOnlyBytes": 16197,
+    "pixelPayloadUnchanged": true
+  }
+}

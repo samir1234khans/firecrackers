@@ -12,14 +12,14 @@ export class LaunchStage {
   private readonly dial: THREE.Mesh;
   constructor() {
     this.group.name = 'Cinematic launch stage';
-    const dark = new THREE.MeshStandardMaterial({ color: '#344051', roughness: .30, metalness: .62 });
-    const satin = new THREE.MeshStandardMaterial({ color: '#566171', roughness: .27, metalness: .68 });
+    const dark = new THREE.MeshStandardMaterial({ color: '#292d33', roughness: .56, metalness: .58 });
+    const satin = new THREE.MeshStandardMaterial({ color: '#505359', roughness: .37, metalness: .72 });
     const profile = [new THREE.Vector2(0, -.65), new THREE.Vector2(19.2, -.65), new THREE.Vector2(19.7, -.3), new THREE.Vector2(19.7, .12), new THREE.Vector2(19.2, .45), new THREE.Vector2(0, .45)];
     const plinth = new THREE.Mesh(new THREE.LatheGeometry(profile, 80), dark);
     const upper = new THREE.Mesh(new THREE.CylinderGeometry(14.1, 14.7, .38, 80), satin);
     upper.position.y = .62;
     this.group.add(plinth, upper);
-    for (const [radius, y, luminous] of [[19.25,.4,1], [17.9,.46,0], [14.25,.81,1], [11.2,.83,0], [6.5,.84,0]] as const) {
+    for (const [radius, y, luminous] of [[19.25,.4,0], [14.25,.81,0], [6.5,.84,1]] as const) {
       const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, luminous ? .13 : .045, 6, 100), luminous ? this.ringMaterial : this.inlayMaterial);
       ring.rotation.x = -Math.PI / 2; ring.position.y = y; this.group.add(ring);
     }
@@ -38,12 +38,13 @@ export class LaunchStage {
     lower.position.y = -.95;
     const edge = new THREE.Mesh(new THREE.TorusGeometry(22.55, .045, 6, 128), this.inlayMaterial);
     edge.rotation.x = -Math.PI / 2; edge.position.y = -.56;
-    const markers = new THREE.InstancedMesh(new THREE.BoxGeometry(.045, .022, 1.05), this.inlayMaterial, 60);
+    const markers = new THREE.InstancedMesh(new THREE.CylinderGeometry(.36, .36, .16, 6), satin, 8);
+    markers.name = 'Eight restrained steel fixings';
     const matrix = new THREE.Matrix4(), rotation = new THREE.Quaternion();
-    for (let i = 0; i < 60; i++) {
-      const angle = i / 60 * Math.PI * 2;
+    for (let i = 0; i < 8; i++) {
+      const angle = i / 8 * Math.PI * 2;
       rotation.setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
-      matrix.compose(new THREE.Vector3(Math.sin(angle) * 16.3, .84, Math.cos(angle) * 16.3), rotation, new THREE.Vector3(1, 1, i % 5 ? .5 : 1));
+      matrix.compose(new THREE.Vector3(Math.sin(angle) * 16.3, .53, Math.cos(angle) * 16.3), rotation, new THREE.Vector3(1, 1, 1));
       markers.setMatrixAt(i, matrix);
     }
     this.group.add(lower, edge, markers);

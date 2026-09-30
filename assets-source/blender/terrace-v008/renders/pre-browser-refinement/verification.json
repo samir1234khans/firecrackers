@@ -1,0 +1,126 @@
+{
+  "blender": "5.2.1 LTS",
+  "nativeReopened": true,
+  "source": {
+    "objects": 47,
+    "boundsBlenderXYZ": [
+      [
+        -23.537620544433594,
+        23.52311134338379
+      ],
+      [
+        -6.436636447906494,
+        6.932359218597412
+      ],
+      [
+        -0.75,
+        0.1289818286895752
+      ]
+    ],
+    "packedImages": [
+      {
+        "name": "v008 | basalt color",
+        "size": [
+          1024,
+          512
+        ],
+        "space": "sRGB"
+      },
+      {
+        "name": "v008 | basalt normal",
+        "size": [
+          1024,
+          512
+        ],
+        "space": "Non-Color"
+      },
+      {
+        "name": "v008 | basalt roughness",
+        "size": [
+          1024,
+          512
+        ],
+        "space": "Non-Color"
+      }
+    ]
+  },
+  "roundTrip": {
+    "meshes": 3,
+    "boundsBlenderXYZ": [
+      [
+        -23.537620544433594,
+        23.52311134338379
+      ],
+      [
+        -6.436636447906494,
+        6.932359218597412
+      ],
+      [
+        -0.75,
+        0.1289818286895752
+      ]
+    ],
+    "materials": [
+      {
+        "name": "v008 | damp fractured basalt",
+        "images": [
+          {
+            "name": "basalt-color-v008",
+            "space": "sRGB"
+          },
+          {
+            "name": "basalt-roughness-v008",
+            "space": "Non-Color"
+          },
+          {
+            "name": "basalt-normal-v008",
+            "space": "Non-Color"
+          }
+        ]
+      },
+      {
+        "name": "v008 | damp recessed lime joints",
+        "images": []
+      },
+      {
+        "name": "v008 | weathered footing stone",
+        "images": []
+      }
+    ],
+    "vertices": 20026,
+    "triangles": 19460,
+    "scope": "Geometry only; no cameras/lights/water",
+    "actualImportedRender": {
+      "path": "assets-source/blender/terrace-v008/renders/terrace-v008-roundtrip-detail.png",
+      "bytes": 666535,
+      "sha256": "71147ed76359b0fecfeb5bb0d1d59fede4bcd4650f9ef4ac975df6222d66cfb8"
+    }
+  },
+  "files": [
+    {
+      "path": "assets-source/blender/terrace-v008/masters/terrace-v008.blend",
+      "bytes": 1861031,
+      "sha256": "c30b3c56cc215f0b819aa588873debbb9fadacace8049fc4557fd80ae770d748"
+    },
+    {
+      "path": "public/art/terrace-v008.glb",
+      "bytes": 2425600,
+      "sha256": "0580455d81de443db19f3204275fafa72c29cc6c997929d16eedfab477af2ef3"
+    },
+    {
+      "path": "assets-source/blender/terrace-v008/textures/basalt-color-v008.jpg",
+      "bytes": 37616,
+      "sha256": "a89cfcbe73375985f21aad0ae21537e2caf5506510211823452cc6c3be6805ca"
+    },
+    {
+      "path": "assets-source/blender/terrace-v008/textures/basalt-normal-v008.png",
+      "bytes": 1187584,
+      "sha256": "21b5d03d0ca88b741096f3b93e936a6cb9b4b9207c8d1d85b444b8517b2edca5"
+    },
+    {
+      "path": "assets-source/blender/terrace-v008/textures/basalt-roughness-v008.png",
+      "bytes": 462602,
+      "sha256": "499002e5252a37959eba016c433c542a21cf9ed3794d6344d3146432d085e8b1"
+    }
+  ]
+}

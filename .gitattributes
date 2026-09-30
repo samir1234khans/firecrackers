@@ -1,3 +1,4 @@
 # Preserve the byte-exact JSON evidence and its SHA-256 manifests on Windows.
 docs/evidence/transparent-panels-2026-09-30/**/*.json text eol=lf
 docs/evidence/interactive-galactic-sky-2026-09-30/**/*.json text eol=lf
+docs/evidence/waterfront-realism-2026-09-30/**/*.json text eol=lf

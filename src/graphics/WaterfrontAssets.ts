@@ -108,9 +108,9 @@ export async function loadWaterfrontAssets(
       t.colorSpace = THREE.SRGBColorSpace; return t;
     } },
     { name: 'rocket', load: async () => (await loader.loadAsync(url('rocket.glb'))).scene },
-    { name: 'terrace', load: async () => (await loader.loadAsync(url('terrace-v004.glb'))).scene },
+    { name: 'terrace', load: async () => (await loader.loadAsync(url('terrace-v008.glb'))).scene },
     { name: 'sky', load: () => image('waterfront-night-v005.webp') },
-    { name: 'river', load: async () => (await loader.loadAsync(url('river-life-v007.glb'))).scene },
+    { name: 'river', load: async () => (await loader.loadAsync(url('river-life-v008.glb'))).scene },
   ];
   await Promise.all(tasks.map(({ name, load }) => new Promise<void>(resolve => {
     let settled = false;

@@ -1,0 +1,17 @@
+{
+  "authoredSpace": "linear reflectance",
+  "fileSpace": "sRGB",
+  "encoding": "IEC61966-2-1 piecewise transfer",
+  "authoredMeanLinear": [
+    0.051514118909835815,
+    0.05252579599618912,
+    0.05313466489315033
+  ],
+  "encodedMeanByte": [
+    64.07462310791016,
+    64.71150970458984,
+    65.09213256835938
+  ],
+  "encodedMinimumByte": 52.55162048339844,
+  "encodedMaximumByte": 75.08866119384766
+}

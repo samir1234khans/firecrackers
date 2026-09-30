@@ -1,0 +1,134 @@
+{
+  "blender": "5.2.1 LTS",
+  "masterReopened": true,
+  "freshGLBImport": true,
+  "missingDependencies": [],
+  "sourceObjects": 361,
+  "bytes": 8006212,
+  "meshes": 28,
+  "vertices": 20022,
+  "materials": [
+    "CC0 Canoe | baked weathered wood and fittings PBR",
+    "RiverLife | aged dark fittings",
+    "RiverLife | charcoal pitched roofs",
+    "RiverLife | dark inactive windows",
+    "RiverLife | nauka weathered dark timber",
+    "RiverLife | old quay granite",
+    "RiverLife | pitch and dark worn timber",
+    "RiverLife | quiet ivory candle wax",
+    "RiverLife | quiet weathered plaster",
+    "RiverLife | restrained amber emission",
+    "RiverLife | thin amber candle glass",
+    "RiverLife | undyed mooring rope",
+    "RiverLife | v008 finely woven weathered reed shelter",
+    "RiverLife | v008 muted far-bank foliage",
+    "RiverLife | v008 muted human silhouette",
+    "RiverLife | v008 quiet indigo clothing",
+    "RiverLife | weathered warm timber"
+  ],
+  "images": [
+    {
+      "name": "canoe-color-web-2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "canoe-normal-web-2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "canoe-roughness-web-2k",
+      "size": [
+        2048,
+        2048
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "canopy-color-512",
+      "size": [
+        512,
+        512
+      ],
+      "colorspace": "sRGB"
+    },
+    {
+      "name": "canopy-normal-512",
+      "size": [
+        512,
+        512
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "canopy-roughness-512",
+      "size": [
+        512,
+        512
+      ],
+      "colorspace": "Non-Color"
+    }
+  ],
+  "roots": {
+    "Boat_A": {
+      "sourceMin": [
+        -2.749999761581421,
+        -0.875,
+        -0.23000000417232513
+      ],
+      "sourceMax": [
+        2.749999761581421,
+        0.875,
+        1.4450000524520874
+      ],
+      "meshes": 5
+    },
+    "Boat_B": {
+      "sourceMin": [
+        -2.749999761581421,
+        -0.875,
+        -0.23000000417232513
+      ],
+      "sourceMax": [
+        2.749999761581421,
+        0.875,
+        1.3200000524520874
+      ],
+      "meshes": 3
+    },
+    "Boat_C": {
+      "sourceMin": [
+        -4.75,
+        -1.5,
+        -0.30000001192092896
+      ],
+      "sourceMax": [
+        4.75,
+        1.5,
+        2.2880001068115234
+      ],
+      "meshes": 11
+    },
+    "Shore_Village": {
+      "sourceMin": [
+        -48.0,
+        -7.7000017166137695,
+        -0.5600001811981201
+      ],
+      "sourceMax": [
+        47.99999237060547,
+        22.0,
+        6.270000457763672
+      ],
+      "meshes": 9
+    }
+  },
+  "finite": true
+}

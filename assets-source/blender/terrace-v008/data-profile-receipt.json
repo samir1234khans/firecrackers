@@ -1,0 +1,20 @@
+{
+  "basalt-normal-v008": {
+    "removedChunks": [],
+    "pixelPayloadSha256": "d2539d3add847e225fd8de1c297d7380242a19ac43544c5ae3f53e46a7e0bee1",
+    "pixelPayloadUnchanged": true,
+    "originalBytes": 907743,
+    "dataOnlyBytes": 907743
+  },
+  "basalt-roughness-v008": {
+    "removedChunks": [
+      "sRGB",
+      "gAMA",
+      "cHRM"
+    ],
+    "pixelPayloadSha256": "b5b1c4a2c896686f1deee376e13f71ff0839271c35aac83202db4587530e331f",
+    "pixelPayloadUnchanged": true,
+    "originalBytes": 500087,
+    "dataOnlyBytes": 500014
+  }
+}

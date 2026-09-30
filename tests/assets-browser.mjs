@@ -13,9 +13,9 @@ const shellsHeld = new Promise(resolve => { releaseShells = resolve; });
 try {
   await context.route('**/art/paper-color.png', async route => { await shellsHeld; await route.continue(); });
   await context.route('**/art/rocket.glb', async route => { await shellsHeld; await route.continue(); });
-  await context.route('**/art/terrace-v004.glb', route => route.abort());
+  await context.route('**/art/terrace-v008.glb', route => route.abort());
   await context.route('**/art/waterfront-night-v005.webp', route => route.abort());
-  await context.route('**/art/river-life-v007.glb', route => route.abort());
+  await context.route('**/art/river-life-v008.glb', route => route.abort());
   await page.goto(new URL('?backend=webgl&qa=1', base).href, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('main[data-ready="true"]', { timeout: 60000 });
   await page.evaluate(() => window.__firecrackersQA.freeze(true));

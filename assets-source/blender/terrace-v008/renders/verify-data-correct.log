@@ -1,0 +1,13 @@
+00:01.453  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\terrace-v008\masters\terrace-v008.blend"
+20:28:38 | INFO: Data are loaded, start creating Blender stuff
+20:28:38 | INFO: Blender create Mesh node Walking basalt | course01 slab01 mesh.001
+20:28:38 | INFO: Blender create Mesh node Continuous recessed mortar foundation mesh.001
+20:28:38 | INFO: Blender create Mesh node Front foundation course | block01 mesh.001
+20:28:38 | INFO: glTF import finished in 0.04s
+C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\build_terrace_v008.py:84: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  scene.world=bpy.data.worlds.new('Roundtrip moonlight environment');scene.world.use_nodes=True;scene.world.node_tree.nodes['Background'].inputs['Color'].default_value=(.026,.033,.053,1);scene.world.node_tree.nodes['Background'].inputs['Strength'].default_value=.3
+00:03.515  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\terrace-v008\renders\terrace-v008-roundtrip-detail.png'
+TERRACE_V008_VERIFIED {"meshes": 3, "boundsBlenderXYZ": [[-23.537620544433594, 23.52311134338379], [-6.436636447906494, 6.932359218597412], [-0.75, 0.1289818286895752]], "materials": [{"name": "v008 | damp fractured basalt", "images": [{"name": "basalt-color-v008", "space": "sRGB"}, {"name": "basalt-roughness-v008", "space": "Non-Color"}, {"name": "basalt-normal-v008", "space": "Non-Color"}]}, {"name": "v008 | damp recessed lime joints", "images": []}, {"name": "v008 | weathered footing stone", "images": []}], "vertices": 20026, "triangles": 19460, "scope": "Geometry only; no cameras/lights/water", "actualImportedRender": {"path": "assets-source/blender/terrace-v008/renders/terrace-v008-roundtrip-detail.png", "bytes": 531890, "sha256": "28389b123dee5137fa0dfd078c911b8e592abfbb2f32bb43553daec25577e0d4"}}
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

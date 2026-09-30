@@ -47,12 +47,17 @@ export class WaterReflection {
     // regular rings at the horizon. Normals distort actual reflected light instead.
     const broadNormal = this.normalNode.sample(positionWorld.xz.mul(.005).add(vec2(this.time.mul(.001), this.time.mul(.0004)))).rg.sub(.5);
     const broadShade = broadNormal.x.mul(.030).add(broadNormal.y.mul(.025));
-    const surface = vec3(.0045, .0095, .015).add(broadShade.mul(vec3(.25, .55, 1))).add(normal.y.mul(.0007));
+    const surface = vec3(.006, .012, .020).add(broadShade.mul(vec3(.25, .55, 1))).add(normal.y.mul(.001));
     // Mirror the narrow original shoreline light band. No static fireworks are baked into it.
     const shoreUV = vec2(screenUV.x.add(offset.x.mul(1.5)).sub(.5).mul(this.shoreCrop).add(.5), float(.139).add(normal.y.mul(.012)).add(wave.mul(.002)));
     const shore = this.shoreNode.sample(shoreUV).rgb;
     const reflectedSky = this.shoreNode.sample(vec2(shoreUV.x, float(.139).add(depth.mul(.43)).add(normal.y.mul(.03)))).rgb;
-    const microGlints = normal.x.mul(normal.y).abs().mul(vec3(.006, .012, .017));
+    const crossNormal = this.normalNode.sample(vec2(positionWorld.z.mul(.014), positionWorld.x.mul(.011)).add(vec2(this.time.mul(-.0018), this.time.mul(.001)))).rg.sub(.5);
+    const crest = smoothstep(.025, .15, normal.y.add(crossNormal.x.mul(.55)).add(broadNormal.y.mul(.4)));
+    // Broad cool sky glints across crossing ripples, strongest in the foreground.
+    // Texture mip filtering keeps the far water quiet instead of aliasing a grid.
+    const skyGlints = crest.pow(3).mul(depth.pow(.65)).mul(vec3(.013, .021, .029));
+    const microGlints = normal.x.mul(normal.y).abs().mul(vec3(.012, .018, .025)).add(skyGlints);
     const warm = shore.r.sub(shore.b.mul(1.1)).max(0);
     const shoreGlints = shore.mul(warm.mul(3).clamp(0, 1)).mul(this.shoreActive).mul(depth.oneMinus().pow(1.8)).mul(fragments).mul(.8);
     material.colorNode = surface.max(0).add(microGlints).add(reflectedSky.mul(this.shoreActive).mul(.34)).add(shoreGlints).add(center.mul(.60).add(blur.mul(.20)).mul(fragments).mul(this.strength).mul(this.enabled).mul(band).mul(depth.mul(.25).add(.75)));

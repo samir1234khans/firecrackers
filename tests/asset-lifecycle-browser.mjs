@@ -80,20 +80,26 @@ async function active() {
     undefined, { timeout: 60000 });
 }
 const pass = (name, details = {}) => { report.checks.push({ name, ...details }); console.log('PASS', name); };
+function assertRiverMaps(frame) {
+  assert.equal(frame.riverPbrTextures, 6);
+  assert.equal(frame.riverPbrColorMaps, 2);
+  assert.equal(frame.riverPbrDataMaps, 4);
+  assert.equal(frame.riverPbrColorSpacesCorrect, true);
+}
 try {
   await enter(); await active();
   let frame = await snapshot();
-  assert.equal(frame.riverPbrTextures, 3); assert.equal(frame.riverPbrColorSpacesCorrect, true);
+  assertRiverMaps(frame);
   assert.equal(frame.riverBoatSource, 'Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0');
   assert.equal(await page.evaluate(() => window.__assetLifecycle.blockedBlobFetches), 0);
-  pass('All eight enhancements and three shared PBR maps load without a second embedded-image fetch');
+  pass('All eight enhancements and six shared PBR maps load without a second embedded-image fetch');
 
   await enter('&holdDecode=1');
   await page.waitForFunction(() => window.__assetLifecycle.pending === 3, undefined, { timeout: 60000 });
   frame = await snapshot(); assert.equal(frame.authoredAssetStates.river, 'loading');
   assert.equal(frame.riverScenery, 'procedural river fallback');
   await enter(); await active();
-  frame = await snapshot(); assert.equal(frame.riverPbrTextures, 3); assert.equal(frame.riverPbrColorSpacesCorrect, true);
+  frame = await snapshot(); assertRiverMaps(frame);
   pass('Navigating while all three large maps are decoding leaves the next scene intact without aborted blob requests');
 
   await enter('&failDecode=1');
@@ -107,16 +113,16 @@ try {
   assert.equal(frame.riverBoats, 3); assert.equal(frame.riverLampAnchors, 10);
   const lifecycle = await page.evaluate(() => window.__assetLifecycle);
   assert.equal(lifecycle.injectedFailures, 1); assert.equal(lifecycle.closedLargeBitmaps, 2);
-  pass('One failed embedded map rejects the whole river enhancement and closes the other two decoded maps', { lifecycle });
+  pass('One failed embedded map rejects the whole river enhancement and closes the other two decoded 2K maps', { lifecycle });
   assert.deepEqual(report.consoleErrors, []); assert.deepEqual(report.pageErrors, []); assert.deepEqual(report.blobRequests, []);
   pass('Strict console and page-error gates remain clear');
 
   await enter('&legacyImages=1'); await active();
   frame = await snapshot();
-  assert.equal(frame.riverPbrTextures, 3); assert.equal(frame.riverPbrColorSpacesCorrect, true);
+  assertRiverMaps(frame);
   assert.ok(report.blobRequests.length > 0, 'The legacy path must use actual native image requests');
   assert.deepEqual(report.consoleErrors, []); assert.deepEqual(report.pageErrors, []);
-  pass('Native legacy ImageLoader retains all eight enhancements and three correctly configured PBR maps');
+  pass('Native legacy ImageLoader retains all eight enhancements and six correctly configured PBR maps');
 
   await enter('&legacyImages=1&failDecode=1');
   await page.waitForFunction(() => {

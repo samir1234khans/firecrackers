@@ -1,0 +1,19 @@
+{
+  "blender": "5.2.1 LTS",
+  "sourceObjects": 361,
+  "meshCount": 28,
+  "bytes": 8006212,
+  "roots": [
+    "Boat_A",
+    "Boat_B",
+    "Boat_C",
+    "Shore_Village"
+  ],
+  "houseCount": 12,
+  "quietBankTrees": 8,
+  "seatedFigures": 2,
+  "originalShared512Maps": 3,
+  "preservedShared2KMaps": 3,
+  "externalTextures": false,
+  "exportedLights": false
+}

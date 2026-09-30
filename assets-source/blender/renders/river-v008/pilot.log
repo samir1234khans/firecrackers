@@ -1,0 +1,11 @@
+00:01.422  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\masters\river-life-v008.blend"
+00:03.109  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\renders\river-v008\canoe-night-pilot.png'
+00:04.531  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\renders\river-v008\canoe-pose-00.png'
+00:06.031  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\renders\river-v008\canoe-pose-01.png'
+00:07.469  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\renders\river-v008\canoe-pose-02.png'
+00:08.859  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers-galactic\assets-source\blender\renders\river-v008\canoe-pose-03.png'
+RIVER_V008_PILOT_COMPLETE
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit
+Error: Not freed memory blocks: 1, total unfreed memory 0.000023 MB

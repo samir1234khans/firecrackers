@@ -14,6 +14,10 @@ export class NightEnvironment {
   private readonly river = new RiverLife();
   readonly probe: THREE.DataTexture;
   private terrace: THREE.Group | null = null;
+  private terraceWidth = 250;
+  private terraceDepth = 5.3;
+  private readonly terraceBounds = new THREE.Box3();
+  private readonly projectedTerrace = new THREE.Vector3();
   private readonly floor: THREE.Mesh;
   private readonly sky: THREE.Mesh;
   readonly skyTexture: THREE.CanvasTexture;
@@ -155,18 +159,34 @@ export class NightEnvironment {
   }
 
   setTerrace(group: THREE.Group) {
-    this.terrace = group; group.name = 'Blender stone terrace';
-    group.scale.set(3.2, 1, 2.2); group.position.set(0, 5.05, 7);
+    this.terrace = group; group.name = 'Blender v008 wet stone quay';
+    this.placeTerrace();
     const materials = new Set<THREE.MeshStandardMaterial>();
     group.traverse(o => { if (o instanceof THREE.Mesh && o.material instanceof THREE.MeshStandardMaterial) materials.add(o.material); });
     for (const material of materials) {
       const authoredStone = Boolean(material.map);
-      material.color.multiplyScalar(authoredStone ? .32 : .28);
-      material.roughness = authoredStone ? .48 : .85;
-      material.envMapIntensity = .35;
+      material.color.multiplyScalar(authoredStone ? .88 : .8);
+      // Preserve baked wet/dry roughness, fine grain and original atlas UVs.
+      material.envMapIntensity = authoredStone ? .14 : .12;
+      if (material.normalMap) material.normalScale.set(.38, .38);
     }
     this.floor.visible = true;
     this.group.add(group);
+  }
+  private placeTerrace() {
+    if (!this.terrace) return;
+    // Continue beyond the frame sides and camera-facing edge; avoid a floating
+    // rectangular board. The water-facing coping remains behind the launch prop.
+    this.terrace.scale.set(this.terraceWidth / 47, 1.6, this.terraceDepth);
+    this.terrace.position.set(0, 5.02, -14.75 + 6.932359 * this.terraceDepth);
+    this.terrace.updateMatrixWorld(true);
+    this.terraceBounds.setFromObject(this.terrace);
+  }
+  frameTerrace(camera: THREE.PerspectiveCamera) {
+    this.terraceDepth = camera.aspect < .72 ? 9 : 5.3;
+    const distance = Math.max(1, camera.position.z);
+    this.terraceWidth = Math.max(220, 2 * distance * Math.tan(camera.fov * Math.PI / 360) * camera.aspect * 1.20);
+    this.placeTerrace();
   }
   setSky(image: HTMLImageElement) {
     // Preserve texture allocation when authored scenery finishes loading.
@@ -179,7 +199,17 @@ export class NightEnvironment {
     this.shoreline.visible = false;
   }
   setRiver(group: THREE.Group) { this.river.setAuthored(group); }
-  riverDiagnostics() { return this.river.diagnostics(); }
+  riverDiagnostics(camera: THREE.PerspectiveCamera) {
+    let left = Infinity, top = Infinity, right = -Infinity, bottom = -Infinity;
+    if (this.terrace) for (let i = 0; i < 8; i++) {
+      this.projectedTerrace.set(i & 1 ? this.terraceBounds.max.x : this.terraceBounds.min.x,
+        i & 2 ? this.terraceBounds.max.y : this.terraceBounds.min.y,
+        i & 4 ? this.terraceBounds.max.z : this.terraceBounds.min.z).project(camera);
+      const x = (this.projectedTerrace.x + 1) / 2, y = (1 - this.projectedTerrace.y) / 2;
+      left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y);
+    }
+    return { ...this.river.diagnostics(camera), terraceScreenBounds: this.terrace ? { left, top, right, bottom } : null };
+  }
   setSkyState(state: Readonly<SkyState>) { this.skyState = state; }
   setViewport(width: number, height: number) {
     this.cssViewport.value.set(Math.max(1, width), Math.max(1, height));
