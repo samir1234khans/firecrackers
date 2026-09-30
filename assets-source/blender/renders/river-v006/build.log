@@ -1,0 +1,65 @@
+C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\build_river_life_v006.py:29: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\build_river_life_v006.py:443: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  scene.world.use_nodes = True
+Info: Saved as "river-life-v006.blend"
+Warning: No mesh data to join
+Warning: No mesh data to join
+Warning: No mesh data to join
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+14:19:15 | INFO: Starting glTF 2.0 export
+14:19:15 | INFO: Extracting primitive: Cube.293
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.282
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.299
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Boat_A | bow mooring line | editable path
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Boat_A | fitted stern transom | editable geometry.001
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.321
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.310
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.327
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Boat_B | bow mooring line | editable path
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Boat_B | fitted stern transom | editable geometry.001
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.340
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Boat_C | bent canopy rib 00 | editable path
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.331
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cylinder.004
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cone.004
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.336
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Boat_C | bow mooring line | editable path
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Boat_C | low arched woven canopy | editable geometry.001
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Shore village | house 00 pitched roof | editable geometry.001
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.393
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.390
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.391
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.406
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Extracting primitive: Cube.392
+14:19:15 | INFO: Primitives created: 1
+14:19:15 | INFO: Finished glTF 2.0 export in 0.10893392562866211 s
+
+RIVER_READY {"blender": "5.2.1 LTS", "seed": 630427, "master": "river-life-v006.blend", "export": "river-life-v006.glb", "bytes": 486964, "meshCount": 24, "rootNames": ["Boat_A", "Boat_B", "Boat_C", "Shore_Village"], "sourceChildCounts": {"Boat_A": 55, "Boat_B": 55, "Boat_C": 134, "Shore_Village": 195}, "coordinates": "Blender Z-up to glTF Y-up; waterline browserY0; boat lengthX; beamZ", "houseCount": 12, "villageClusters": [4, 3, 5], "windows": {"warm": 4, "dark": 20}, "naukaCandles": 4, "externalTextures": false, "glTFPointLights": false}
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

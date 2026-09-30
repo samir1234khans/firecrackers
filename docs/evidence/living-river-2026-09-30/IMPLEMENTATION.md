@@ -1,0 +1,35 @@
+# Living river and candlelit nauka
+
+Build `2026-09-30.4` combines the original celestial sky with an inhabited waterfront. The [plan](PLAN.md) records the owner's larger-nauka steering. Blender previews, browser evidence and applied production are separate records.
+
+## Downloaded boat geometry and editable assets
+
+[RIVER-V007](../../../assets-source/blender/RIVER-V007.md) records the downloaded CC0 Wooden Canoe by OuterSpaceSimon, exact adapted dimensions, attachment coordinates and source counts. The editable [master](../../../assets-source/blender/masters/river-life-v007.blend) contains two smaller textured boats, a larger covered candle boat and twelve homes. The original canoe's actual geometry and material appearance supply the hulls and paddle; original canopy, rope and four glass candle lanterns sit on exposed timber supports. This is an artistic nauka-inspired adaptation, not a historical reconstruction. Houses form uneven 4/3/5 clusters with staggered depth, rotated roofs and muted tones; four windows are warm and twenty remain dark.
+
+The [generation script](../../../assets-source/blender/build_river_life_v007.py) uses Blender 5.2.1 LTS. The source's complex nodes are baked with their original coordinate mapping into shared 2K color, roughness and tangent-normal maps. Lossless source atlases remain editable; browser color uses high-quality JPEG and data maps remain PNG. The final GLB is **7,620,280 bytes**, with 21 mesh nodes and 16,266 imported vertices. [Fresh source/export verification](../../../assets-source/blender/renders/river-v007/verification.json) records finite geometry, named roots/anchors, three embedded maps and no missing external dependencies. The owner's quality request supersedes the original 700 KB target. Earlier [v006 originals](../../../assets-source/blender/RIVER-V006.md), skiff and canopy-lantern snapshots remain preserved. The actual modest [Cycles night pilot](../../../assets-source/blender/renders/river-v007/canoe-night-pilot.png) was inspected. This is not a buoyancy solver. Raw source, bakes and review renders stay outside the public bundle.
+
+## Runtime and lighting
+
+[RiverLife.ts](../../../src/graphics/RiverLife.ts) owns the bounded scenery. [WaterfrontAssets.ts](../../../src/graphics/WaterfrontAssets.ts) loads the river independently as the eighth enhancement. Activation validates all three boats, village, four candle markers, two skiff lamps and four warm windows. Missing or malformed geometry keeps a procedural three-boat counterpart while the other seven assets activate normally.
+
+Skiffs occupy the left/right river reaches. The larger nauka sits near the left edge; portrait reduces its scale and adjusts its position to retain its silhouette without crossing the launch prop. Hulls dip below the actual waterline. The village follows each camera's far bank. Light fragments derive from actual marker world positions, including boat motion, and tint derives from the imported warm emissive material. Hulls/buildings retain fog; small practical emitters remain visible through the atmosphere.
+
+The first release CI attempt exposed a navigation race in the pinned GLTFLoader: it fetched blob URLs for embedded images that were already downloaded, and immediate navigation after a cold offline reload interrupted response-body reads. [The failing desktop report](intermediate/ci-desktop-attempt-1.json) and [causal trace](intermediate/texture-navigation-cause.json) are retained. The loader now decodes embedded buffer views directly with `createImageBitmap`, retaining r180's normal sampler, texture cache, material and color-space handling. Any failed embedded map rejects the complete optional enhancement and disposes decoded resources, preserving the complete procedural river. The older TextureLoader path also records rejected images and revokes failed embedded object URLs. The original desktop regression and strict error assertion remain unchanged. [The lifecycle gate](../../../tests/asset-lifecycle-browser.mjs) adds controlled interrupted navigation and corrupted-map cases.
+
+Four small candle cores and four restrained radial glow sprites accompany one local warm point light, with a fixed 31-world-unit range and no shadow map. Gentle bob/roll and tiny candle variation use the existing simulation time and wind. Low and app/OS reduced motion are static; reduced flashes disables candle variation and lowers light/reflection energy. Pause, background and idle scheduling remain owned by the existing clock. There is no new animation loop, reflection target or firework particle pool.
+
+## Bounded water and Canvas work
+
+One instanced reflection mesh holds at most **80 fragments**, ten lamps times eight segments on Standard/Ultra. Low uses ten times four, at most **40**. Fixed matrix/color attributes contain 6,080 bytes, excluding geometry, texture and backend overhead. Helpers are reused. Four flame instances have fixed capacity; a shared 32-pixel radial texture supplies small soft glows. All resources are disposed along with imported source.
+
+[WaterReflection.ts](../../../src/graphics/WaterReflection.ts) adds quiet broad normal-derived sky variation without sinusoidal base-water albedo. Its startup placeholder now establishes a repeating normal-map sampler before the initial TSL compilation, with a separate clamped shoreline placeholder. This fixes the angular brightness boundary caused by retaining a clamp sampler after the authored normal map activated. The selective firework pass retains Ultra's 512-pixel/30 Hz and Standard's 256-pixel/15 Hz caps. It excludes UI, props and recursive river reflections; there is no additional full-resolution water pass.
+
+[Canvas compatibility](../../../src/graphics/CompatibilityRenderer.ts) caches original art for the nauka, four candles, two skiffs and twelve clustered homes. Ten actual screen light positions drive the same 80/40 stroke limits. Shared-clock motion and comfort controls apply. Transparent presentation excludes sky, water, boats, homes, candle light and reflections in both renderer families.
+
+The [celestial sky implementation](../galaxy-sky-2026-09-30/IMPLEMENTATION.md) adds cached fine stars and a curved dust filament through pinned Three.js/TSL. [Research](../galaxy-sky-2026-09-30/RESEARCH.md) distinguishes visual references from original code; no OpenAI promotional art/video is bundled.
+
+## Evidence boundaries
+
+The [intermediate two-boat report](intermediate/pre-nauka-local.json) retains its earlier 27-check fingerprint; it does not qualify the later nauka. Final reports and the release receipt record the final fingerprint, actual hardware, seed, viewport, asset activation, fallback, pause/idle, cleanup and transparency.
+
+The [comparison viewer](comparison.html) uses actual seeded browser captures. Portrait is PC viewport emulation, not a physical phone. Valid Blender exports do not establish photographic parity, completed GPU timing, physical Android/iPhone, Safari or thermal endurance. [Provenance](../../../assets-source/PROVENANCE.md) preserves both original v006 work and the licensed download/adaptation.

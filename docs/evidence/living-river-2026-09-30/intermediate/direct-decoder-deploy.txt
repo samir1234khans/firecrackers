@@ -1,0 +1,25 @@
+
+ ⛅️ wrangler 4.143.0 (update available 4.144.0)
+───────────────────────────────────────────────
+
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+🌀 Building list of assets...
+✨ Read 31 files from the assets directory C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\dist
+🌀 Starting asset upload...
+🌀 Found 6 new or modified static assets to upload. Proceeding with upload...
++ /sw.js
++ /release.json
++ /index.html
++ /assets/main-BOGeH_y5.js
++ /assets/index-B2Z3fiYg.js
++ /assets/Renderer-DribUqPl.js
+Uploaded 2 of 6 assets
+Uploaded 4 of 6 assets
+Uploaded 6 of 6 assets
+✨ Success! Uploaded 6 files (21 already uploaded) (3.61 sec)
+
+Total Upload: 0.31 KiB / gzip: 0.22 KiB
+Uploaded firecrackers-river-preview (10.80 sec)
+Deployed firecrackers-river-preview triggers (2.31 sec)
+  https://firecrackers-river-preview.allygym-api.workers.dev
+Current Version ID: 9c677677-33e2-4608-84bb-458bdb159d63

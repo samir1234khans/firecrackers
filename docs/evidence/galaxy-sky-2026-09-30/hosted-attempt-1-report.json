@@ -1,0 +1,960 @@
+{
+  "url": "https://firecrackers-sky-preview.allygym-api.workers.dev/",
+  "expectedVersion": "2026-09-30.3",
+  "seed": 20260916,
+  "startedAt": "2026-09-30T08:13:13.581Z",
+  "method": "Installed Chrome headed; no software GPU flags. Hardware WebGPU and WebGL are asserted separately. Independent seeded captures use deterministic 60 Hz stepping.",
+  "limitations": "Portrait is viewport/touch emulation on this PC. No physical-phone, thermal, completed-GPU-frame timing or long-duration performance claim.",
+  "projects": [
+    {
+      "label": "desktop-webgpu",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "requestedBackend": "webgpu",
+      "captures": [
+        {
+          "phase": "idle",
+          "file": "desktop-webgpu-idle.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 0,
+            "bursts": 0,
+            "active": 0,
+            "particles": 0,
+            "smoke": 0,
+            "quality": "ultra",
+            "message": "A fresh, quiet sky.",
+            "time": 0,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "ready",
+            "carriers": 0,
+            "embers": 0,
+            "backend": "WebGPU",
+            "renderPixels": 1024000,
+            "submitMs": 8.400000000372529,
+            "frames": 5,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 4,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "willow-peak",
+          "file": "desktop-webgpu-willow-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 13954,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 384,
+            "backend": "WebGPU",
+            "renderPixels": 1024000,
+            "submitMs": 6.600000001490116,
+            "frames": 7,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 5,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "saturn-peak",
+          "file": "desktop-webgpu-saturn-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "sapphire-saturn",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 6205,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the color and the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 681,
+            "backend": "WebGPU",
+            "renderPixels": 1024000,
+            "submitMs": 4.300000000745058,
+            "frames": 13,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-7": {
+                  "x": 1180,
+                  "y": 424,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 8,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        }
+      ],
+      "actualBackend": "WebGPU",
+      "release": {
+        "version": "2026-09-30.3",
+        "sha256": "4dbd35d5c1dbdb2a182d6012d8b7c46db5630fc1abfa34cde820d5e53a822bd3",
+        "formatVersion": 2
+      },
+      "hardware": {
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "fallback": false
+        },
+        "webgl": null
+      }
+    },
+    {
+      "label": "desktop-webgl",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "requestedBackend": "webgl",
+      "captures": [
+        {
+          "phase": "idle",
+          "file": "desktop-webgl-idle.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 0,
+            "bursts": 0,
+            "active": 0,
+            "particles": 0,
+            "smoke": 0,
+            "quality": "ultra",
+            "message": "A fresh, quiet sky.",
+            "time": 0,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "ready",
+            "carriers": 0,
+            "embers": 0,
+            "backend": "WebGL 2",
+            "renderPixels": 1024000,
+            "submitMs": 13.199999999254942,
+            "frames": 6,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 5,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "willow-peak",
+          "file": "desktop-webgl-willow-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "gold-willow",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 13954,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 384,
+            "backend": "WebGL 2",
+            "renderPixels": 1024000,
+            "submitMs": 11.900000000372529,
+            "frames": 8,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-0": {
+                  "x": 56,
+                  "y": 368.9261474609375,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 6,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        },
+        {
+          "phase": "saturn-peak",
+          "file": "desktop-webgl-saturn-peak.png",
+          "snapshot": {
+            "ready": true,
+            "paused": false,
+            "selected": "sapphire-saturn",
+            "placement": 0.5,
+            "holding": false,
+            "holdProgress": 0,
+            "show": null,
+            "launched": 1,
+            "bursts": 1,
+            "active": 1,
+            "particles": 6205,
+            "smoke": 22,
+            "quality": "ultra",
+            "message": "Stay for the color and the falling embers.",
+            "time": 4.899999999999988,
+            "launchBlock": "",
+            "committedId": null,
+            "committedFamily": "",
+            "flightProgress": 0,
+            "fuse": false,
+            "phase": "afterglow",
+            "carriers": 0,
+            "embers": 681,
+            "backend": "WebGL 2",
+            "renderPixels": 1024000,
+            "submitMs": 5.400000000372529,
+            "frames": 14,
+            "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky",
+            "authoredAssetStates": {
+              "smoke": "active",
+              "paper": "active",
+              "normal": "active",
+              "flame": "active",
+              "rocket": "active",
+              "terrace": "active",
+              "sky": "active"
+            },
+            "authoredAssetErrors": {},
+            "stageLayout": {
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 800
+              },
+              "safe": {
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "controls": {
+                "top-left": {
+                  "x": 12,
+                  "y": 12,
+                  "width": 128,
+                  "height": 67
+                },
+                "middle-left": {
+                  "x": 12,
+                  "y": 203.07386779785156,
+                  "width": 44,
+                  "height": 393.852294921875
+                },
+                "bottom-left": {
+                  "x": 12,
+                  "y": 698,
+                  "width": 128,
+                  "height": 90
+                },
+                "top-right": {
+                  "x": 1212,
+                  "y": 12,
+                  "width": 56,
+                  "height": 90
+                },
+                "middle-right": {
+                  "x": 1224,
+                  "y": 240,
+                  "width": 44,
+                  "height": 320
+                },
+                "bottom-right": {
+                  "x": 1212,
+                  "y": 732,
+                  "width": 56,
+                  "height": 56
+                },
+                "quick-7": {
+                  "x": 1180,
+                  "y": 424,
+                  "width": 44,
+                  "height": 44
+                }
+              },
+              "heroRect": {
+                "x": 144,
+                "y": 0,
+                "width": 992,
+                "height": 800
+              },
+              "panelOpen": false,
+              "launchArea": {
+                "x": 0,
+                "y": 656,
+                "width": 1280,
+                "height": 112.00000000000001
+              },
+              "burstCanopy": {
+                "x": 144,
+                "y": 64,
+                "width": 992,
+                "height": 512
+              },
+              "reflectionBand": {
+                "x": 144,
+                "y": 600,
+                "width": 992,
+                "height": 200
+              }
+            },
+            "reflectionFrames": 9,
+            "reflectionWidth": 512,
+            "reflectionHeight": 320,
+            "waterline": 0.48453149705819837,
+            "stagedRockets": 1,
+            "airborneRockets": 0,
+            "visibleRocketBodies": 1,
+            "shellScreen": null,
+            "flight": null,
+            "audioVoices": 0,
+            "audioTimers": 0,
+            "recordedSamples": 0,
+            "audioEnabled": false,
+            "qaStallSamplesUsed": 0,
+            "qaStallSamplesRemaining": 0
+          }
+        }
+      ],
+      "actualBackend": "WebGL 2",
+      "release": {
+        "version": "2026-09-30.3",
+        "sha256": "4dbd35d5c1dbdb2a182d6012d8b7c46db5630fc1abfa34cde820d5e53a822bd3",
+        "formatVersion": 2
+      },
+      "hardware": {
+        "adapter": null,
+        "webgl": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 770 (0x0000A780) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+        }
+      }
+    },
+    {
+      "label": "portrait-webgpu",
+      "viewport": {
+        "width": 393,
+        "height": 851
+      },
+      "requestedBackend": "webgpu",
+      "captures": []
+    }
+  ],
+  "checks": [
+    {
+      "name": "desktop-webgpu: all seven assets, default Ultra and reduced flashes on actual hardware"
+    },
+    {
+      "name": "desktop-webgpu: pause holds the world clock, particles and render count",
+      "time": 4.899999999999988,
+      "frames": 7
+    },
+    {
+      "name": "desktop-webgpu: complete effect cleanup and static idle rendering",
+      "frameDelta": 0
+    },
+    {
+      "name": "desktop-webgpu: seeded Willow and Saturn captures retain the requested renderer"
+    },
+    {
+      "name": "desktop-webgl: all seven assets, default Ultra and reduced flashes on actual hardware"
+    },
+    {
+      "name": "desktop-webgl: pause holds the world clock, particles and render count",
+      "time": 4.899999999999988,
+      "frames": 8
+    },
+    {
+      "name": "desktop-webgl: complete effect cleanup and static idle rendering",
+      "frameDelta": 0
+    },
+    {
+      "name": "desktop-webgl: seeded Willow and Saturn captures retain the requested renderer"
+    },
+    {
+      "name": "Saved Standard quality and reduced-flash preference survive the new sky and reload"
+    }
+  ],
+  "errors": [],
+  "expectedRequestFailures": [],
+  "failed": "page.waitForFunction: Target page, context or browser has been closed\n    at enter (C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\tests\\galaxy-browser.mjs:54:14)\n    at async file:///C:/Users/samir/Documents/Codex/2026-09-29/s/work/firecrackers/tests/galaxy-browser.mjs:119:29",
+  "browserVersion": "154.0.8037.59",
+  "finishedAt": "2026-09-30T08:13:35.073Z"
+}

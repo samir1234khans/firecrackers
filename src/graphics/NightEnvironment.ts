@@ -1,12 +1,15 @@
 import * as THREE from 'three/webgpu';
-import { screenUV, texture, uniform, vec2 } from 'three/tsl';
+import { cos, screenUV, sin, smoothstep, texture, uniform, vec2 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
+import { makeGalaxySky } from './GalaxySky';
+import { RiverLife } from './RiverLife';
 
 /** Original environment art and light probe, generated locally; no remote textures. */
 export class NightEnvironment {
   readonly group = new THREE.Group();
   private readonly shoreline = new THREE.Group();
+  private readonly river = new RiverLife();
   readonly probe: THREE.DataTexture;
   private terrace: THREE.Group | null = null;
   private readonly floor: THREE.Mesh;
@@ -15,6 +18,11 @@ export class NightEnvironment {
   readonly skyCrop = uniform(1);
   readonly skyWaterline = uniform(.5);
   readonly authoredSky = uniform(0);
+  private readonly celestialArt = makeGalaxySky();
+  private readonly galaxyTexture = new THREE.CanvasTexture(this.celestialArt.dust);
+  private readonly skyTime = uniform(0);
+  private readonly galaxyStrength = uniform(.55);
+  private readonly reducedSkyMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
   private readonly washMaterial = new THREE.MeshBasicMaterial({
     color: '#e7b270', transparent: true, opacity: 0, depthWrite: false,
     blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
@@ -27,10 +35,22 @@ export class NightEnvironment {
     this.group.name = 'Waterfront terrace and distant shoreline';
     this.shoreline.name = 'Low distant shoreline silhouettes';
     this.group.add(this.shoreline);
+    this.group.add(this.river.group);
     this.skyTexture = this.makeSky();
+    this.galaxyTexture.colorSpace = THREE.SRGBColorSpace;
+    this.galaxyTexture.generateMipmaps = true;
+    this.galaxyTexture.name = 'Original curved celestial dust';
     const skyMaterial = new THREE.MeshBasicNodeMaterial({ side: THREE.BackSide, depthWrite: false, fog: false });
     const skyUV = vec2(screenUV.x.sub(.5).mul(this.skyCrop).add(.5), screenUV.y.mul(.872).div(this.skyWaterline).clamp(0, .995).oneMinus());
-    skyMaterial.colorNode = texture(this.skyTexture, skyUV).rgb;
+    const angle = sin(this.skyTime.mul(.022)).mul(.010), cs = cos(angle), sn = sin(angle);
+    const p = skyUV.sub(.5);
+    const drift = vec2(sin(this.skyTime.mul(.018)).mul(.005), cos(this.skyTime.mul(.018)).sub(1).mul(.003));
+    const galaxyUV = vec2(p.x.mul(cs).sub(p.y.mul(sn)), p.x.mul(sn).add(p.y.mul(cs))).add(.5).add(drift);
+    const galaxy = texture(this.galaxyTexture, galaxyUV);
+    // Multiply straight alpha explicitly, with a shared horizon fade; transparent
+    // border RGB must never become a luminous rectangle through additive sampling.
+    const celestial = galaxy.rgb.mul(galaxy.a).mul(this.galaxyStrength).mul(smoothstep(.28, .48, skyUV.y));
+    skyMaterial.colorNode = texture(this.skyTexture, skyUV).rgb.add(celestial);
     this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 32, 16), skyMaterial);
     this.sky.rotation.y = Math.PI * .5;
     this.sky.renderOrder = -100;
@@ -115,11 +135,15 @@ export class NightEnvironment {
   setSky(image: HTMLImageElement) {
     // Preserve texture allocation when authored scenery finishes loading.
     const canvas = this.skyTexture.image as HTMLCanvasElement;
-    canvas.getContext('2d')!.drawImage(image, 0, 0, canvas.width, canvas.height);
+    const context = canvas.getContext('2d')!;
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    context.drawImage(this.celestialArt.stars, 0, 0, canvas.width, canvas.height);
     this.skyTexture.needsUpdate = true;
     this.authoredSky.value = 1;
     this.shoreline.visible = false;
   }
+  setRiver(group: THREE.Group) { this.river.setAuthored(group); }
+  riverDiagnostics() { return this.river.diagnostics(); }
   setPortraitHorizon(phone: boolean, waterline: number, aspect: number) {
     this.skyWaterline.value = Math.max(.08, waterline);
     // Crop the panorama on phones instead of squeezing distant hills horizontally.
@@ -131,9 +155,13 @@ export class NightEnvironment {
     this.shoreline.position.y = 4.65 * (1 - height);
     this.shoreline.position.z = phone ? 0 : -420;
     for (let i = 0; i < 3; i++) this.shoreline.children[i].visible = !phone || i === 0;
+    this.river.resize(phone);
   }
-  update(sim: Simulation, visible: boolean) {
+  update(sim: Simulation, visible: boolean, motionAllowed = true) {
     this.group.visible = visible;
+    this.skyTime.value = sim.quality === 'low' || !motionAllowed || this.reducedSkyMotion?.matches ? 0 : sim.time;
+    this.galaxyStrength.value = (sim.quality === 'ultra' ? .78 : sim.quality === 'standard' ? .62 : .38) * (sim.reducedFlashes ? .72 : 1);
+    this.river.update(sim, visible, motionAllowed);
     if (this.terrace) this.terrace.visible = visible;
     let energy = 0, r = 0, g = 0, b = 0;
     for (const light of sim.lights) {
@@ -161,13 +189,7 @@ export class NightEnvironment {
       haze.addColorStop(1, 'rgba(101,130,155,0)');
       c.fillStyle = haze; c.fillRect(-rx, -rx, rx * 2, rx * 2); c.restore();
     }
-    for (let i = 0; i < 1100; i++) {
-      const x = rand() * 2048, y = 30 + rand() * 460;
-      const radius = rand() > .985 ? 1.3 : .35 + rand() * .38;
-      const alpha = (.20 + rand() * .46) * Math.min(1, (540 - y) / 160);
-      c.fillStyle = `rgba(191,211,235,${alpha})`;
-      c.beginPath(); c.arc(x, y, radius, 0, Math.PI * 2); c.fill();
-    }
+    c.drawImage(this.celestialArt.stars, 0, 0, canvas.width, canvas.height);
     const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
     return texture;
   }
@@ -216,6 +238,9 @@ export class NightEnvironment {
     const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
   dispose() {
-    this.skyTexture.dispose(); this.probe.dispose(); this.washTexture.dispose(); this.floorTexture.dispose();
+    this.river.dispose();
+    this.skyTexture.dispose(); this.galaxyTexture.dispose(); this.probe.dispose(); this.washTexture.dispose(); this.floorTexture.dispose();
+    this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
+    this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
   }
 }

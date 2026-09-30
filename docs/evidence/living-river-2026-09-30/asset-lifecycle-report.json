@@ -1,0 +1,64 @@
+{
+  "url": "http://127.0.0.1:4183/",
+  "method": "Headless Chromium / software WebGL 2; controlled decode and navigation timing",
+  "checks": [
+    {
+      "name": "All eight enhancements and three shared PBR maps load without a second embedded-image fetch"
+    },
+    {
+      "name": "Navigating while all three large maps are decoding leaves the next scene intact without aborted blob requests"
+    },
+    {
+      "name": "One failed embedded map rejects the whole river enhancement and closes the other two decoded maps",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 2,
+        "failedBlobURL": "",
+        "failedBlobRevoked": false
+      }
+    },
+    {
+      "name": "Strict console and page-error gates remain clear"
+    },
+    {
+      "name": "Native legacy ImageLoader retains all eight enhancements and three correctly configured PBR maps"
+    },
+    {
+      "name": "A corrupted legacy map rejects the whole enhancement and releases its failed object URL",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 0,
+        "failedBlobURL": "blob:http://127.0.0.1:4183/60d92213-6cbe-4338-8726-c68aa16e4209",
+        "failedBlobRevoked": true
+      }
+    },
+    {
+      "name": "Legacy failure emits exactly its controlled native diagnostic without unexpected errors"
+    }
+  ],
+  "consoleErrors": [
+    "THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4183/60d92213-6cbe-4338-8726-c68aa16e4209"
+  ],
+  "pageErrors": [],
+  "blobRequests": [
+    "blob:http://127.0.0.1:4183/9386c2b9-31ca-4fda-a387-6ae1f12231d2",
+    "blob:http://127.0.0.1:4183/bb361793-a474-4080-808e-f615d95f5068",
+    "blob:http://127.0.0.1:4183/75814d69-8f66-4393-b196-42fac3701ab8",
+    "blob:http://127.0.0.1:4183/14a19f08-71f3-4ea3-a56c-65ceb7c727b0",
+    "blob:http://127.0.0.1:4183/fd7fce48-3fe1-49ab-8b3a-53ae14dd9577",
+    "blob:http://127.0.0.1:4183/1da960cb-c9ba-48a0-9c4b-4ac4b930733a",
+    "blob:http://127.0.0.1:4183/b60c834b-c58b-4585-919c-c2b3be92c2f6",
+    "blob:http://127.0.0.1:4183/12f9466b-e473-4e0f-aca2-0fc5676d48b4",
+    "blob:http://127.0.0.1:4183/c539ed37-c2a6-4461-9563-584d0ef6aa9d",
+    "blob:http://127.0.0.1:4183/b3ded09e-5f34-469d-abb2-cfb1102fffc2",
+    "blob:http://127.0.0.1:4183/f1ac1cd3-0b13-4a18-9a1b-faafc730f3b0",
+    "blob:http://127.0.0.1:4183/60d92213-6cbe-4338-8726-c68aa16e4209",
+    "blob:http://127.0.0.1:4183/46c51e8a-625f-4d9d-abde-743fe54bd3ae",
+    "blob:http://127.0.0.1:4183/6d1edfff-8583-4c08-9868-21f8cdda0719"
+  ],
+  "failed": null
+}

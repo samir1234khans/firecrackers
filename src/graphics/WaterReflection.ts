@@ -11,8 +11,9 @@ export class WaterReflection {
   private readonly phoneSurface = new THREE.PlaneGeometry(1400, 380);
   private readonly projectedEdge = new THREE.Vector3();
   private readonly normalTexture = new THREE.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1);
+  private readonly shoreTexture = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1);
   private readonly normalNode = texture(this.normalTexture);
-  private readonly shoreNode = texture(this.normalTexture);
+  private readonly shoreNode = texture(this.shoreTexture);
   private readonly shoreCrop = uniform(1);
   private readonly shoreActive = uniform(0);
   private readonly streaks = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .3, blending: THREE.AdditiveBlending, depthWrite: false }), 288);
@@ -44,7 +45,9 @@ export class WaterReflection {
     const fragments = smoothstep(.23, .77, glints.add(normal.x.mul(.52)).add(wave.mul(detail).mul(.20))).mul(.88).add(.045);
     // Keep unlit water quiet; high-frequency sinusoidal albedo aliases into
     // regular rings at the horizon. Normals distort actual reflected light instead.
-    const surface = vec3(.0035, .0075, .012).add(normal.y.mul(.0007));
+    const broadNormal = this.normalNode.sample(positionWorld.xz.mul(.005).add(vec2(this.time.mul(.001), this.time.mul(.0004)))).rg.sub(.5);
+    const broadShade = broadNormal.x.mul(.030).add(broadNormal.y.mul(.025));
+    const surface = vec3(.0045, .0095, .015).add(broadShade.mul(vec3(.25, .55, 1))).add(normal.y.mul(.0007));
     // Mirror the narrow original shoreline light band. No static fireworks are baked into it.
     const shoreUV = vec2(screenUV.x.add(offset.x.mul(1.5)).sub(.5).mul(this.shoreCrop).add(.5), float(.139).add(normal.y.mul(.012)).add(wave.mul(.002)));
     const shore = this.shoreNode.sample(shoreUV).rgb;
@@ -52,11 +55,17 @@ export class WaterReflection {
     const microGlints = normal.x.mul(normal.y).abs().mul(vec3(.006, .012, .017));
     const warm = shore.r.sub(shore.b.mul(1.1)).max(0);
     const shoreGlints = shore.mul(warm.mul(3).clamp(0, 1)).mul(this.shoreActive).mul(depth.oneMinus().pow(1.8)).mul(fragments).mul(.8);
-    material.colorNode = surface.add(microGlints).add(reflectedSky.mul(this.shoreActive).mul(.22)).add(shoreGlints).add(center.mul(.60).add(blur.mul(.20)).mul(fragments).mul(this.strength).mul(this.enabled).mul(band).mul(depth.mul(.25).add(.75)));
+    material.colorNode = surface.max(0).add(microGlints).add(reflectedSky.mul(this.shoreActive).mul(.34)).add(shoreGlints).add(center.mul(.60).add(blur.mul(.20)).mul(fragments).mul(this.strength).mul(this.enabled).mul(band).mul(depth.mul(.25).add(.75)));
     this.mesh = new THREE.Mesh(this.wideSurface, material);
     this.mesh.name = 'Dark rippled waterfront'; this.mesh.rotation.x = -Math.PI / 2;
     this.mesh.position.set(0, 4.65, -400);
-    this.normalTexture.needsUpdate = true; this.streaks.count = 0; this.streaks.frustumCulled = false;
+    // TSL creates the sampler before authored assets arrive. Match the eventual
+    // repeating normal map now: changing only a TextureNode value later can
+    // retain clamp sampling, turning large world UVs into angular edge colors.
+    // The panorama needs its own clamped placeholder and sampler.
+    this.normalTexture.wrapS = this.normalTexture.wrapT = THREE.RepeatWrapping;
+    this.normalTexture.needsUpdate = true; this.shoreTexture.needsUpdate = true;
+    this.streaks.count = 0; this.streaks.frustumCulled = false;
     this.mesh.add(this.streaks); this.streaks.position.z = .025;
   }
   /** Keep the visible water behind the burst on portrait phones. Measure its edge in the actual camera. */
@@ -106,6 +115,6 @@ export class WaterReflection {
     }
   }
   diagnostics() { return { reflectionFrames: this.frames, reflectionWidth: this.target.width, reflectionHeight: this.target.height, waterline: this.waterline.value }; }
-  dispose() { this.target.dispose(); this.normalTexture.dispose(); this.streaks.geometry.dispose(); (this.streaks.material as THREE.Material).dispose(); this.wideSurface.dispose(); this.phoneSurface.dispose(); (this.mesh.material as THREE.Material).dispose(); }
+  dispose() { this.target.dispose(); this.normalTexture.dispose(); this.shoreTexture.dispose(); this.streaks.geometry.dispose(); (this.streaks.material as THREE.Material).dispose(); this.wideSurface.dispose(); this.phoneSurface.dispose(); (this.mesh.material as THREE.Material).dispose(); }
 }
 

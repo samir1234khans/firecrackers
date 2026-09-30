@@ -7,6 +7,14 @@ for (const name of readdirSync('node_modules')) {
   if (name.startsWith('workbox-')) names.push(name);
 }
 const notices = ['Firecrackers: third-party notices', 'Application code licensing remains an owner decision.'];
+notices.push([
+  'Wooden Canoe — OuterSpaceSimon (2023), published through Blendkit.',
+  'Source: https://www.blendkit.com/asset-gallery-detail/a6a39894-5474-47c4-a657-dc8b7a1a5a44/',
+  'License: CC0 1.0 Universal — https://creativecommons.org/publicdomain/zero/1.0/',
+  'Publisher license: https://www.blendkit.com/docs/licenses/',
+  'Modified for Firecrackers: scaled riverboat forms, exported PBR materials, canopy and candle lanterns.',
+  'Download receipt and modifications: assets-source/PROVENANCE.md and assets-source/blender/RIVER-V007.md.',
+].join('\n'));
 for (const name of names) {
   const directory = join('node_modules', name);
   const metadata = JSON.parse(readFileSync(join(directory, 'package.json'), 'utf8'));

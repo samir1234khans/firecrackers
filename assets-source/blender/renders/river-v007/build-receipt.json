@@ -1,0 +1,41 @@
+{
+  "blender": "5.2.1 LTS",
+  "master": "river-life-v007.blend",
+  "export": "river-life-v007.glb",
+  "bytes": 7620280,
+  "meshCount": 21,
+  "sourceObjects": 314,
+  "sourceChildCounts": {
+    "Boat_A": 10,
+    "Boat_B": 10,
+    "Boat_C": 95,
+    "Shore_Village": 195
+  },
+  "rootNames": [
+    "Boat_A",
+    "Boat_B",
+    "Boat_C",
+    "Shore_Village"
+  ],
+  "houseCount": 12,
+  "villageClusters": [
+    4,
+    3,
+    5
+  ],
+  "windows": {
+    "warm": 4,
+    "dark": 20
+  },
+  "naukaCandles": 4,
+  "canoeSourceLicense": "CC0-1.0",
+  "canoeSourceAuthor": "OuterSpaceSimon",
+  "threeShared2KMaps": true,
+  "coordinates": "Blender Z-up to browser Y-up; waterline localY0; lengthX; beamZ",
+  "externalTextures": false,
+  "glTFPointLights": false,
+  "measuredShoulderHalfWidths": [
+    0.9056749939918518,
+    0.8858109712600708
+  ]
+}

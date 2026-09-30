@@ -235,6 +235,7 @@ export class FireworkRenderer {
                     else if (name === 'rocket') for (const prop of this.props) prop.setAuthoredGeometry(asset as THREE.Group);
                     else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
                     else if (name === 'sky') this.environment.setSky(asset as HTMLImageElement);
+                    else if (name === 'river') this.environment.setRiver(asset as THREE.Group);
                     this.assetStates[name] = 'active';
                 } catch (error) {
                     this.assetStates[name] = 'failed';
@@ -276,7 +277,7 @@ export class FireworkRenderer {
         this.host.dataset.airborneRockets = String(airborne);
         this.host.dataset.visibleRocketBodies = String(this.props.filter(prop => prop.group.visible).length);
         this.stage.update(sim, this.mode === 'interactive');
-        this.environment.update(sim, this.mode !== 'transparent');
+        this.environment.update(sim, this.mode !== 'transparent', !this.host.parentElement?.classList.contains('reduced-motion'));
         this.projected.set(sim.placementToX(), sim.ground, 0).project(this.camera);
         const groundPixels = (1 + this.projected.y) * .5 * this.host.clientHeight;
         const parent = this.host.parentElement;
@@ -308,7 +309,7 @@ export class FireworkRenderer {
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
             authoredAssetStates: { ...this.assetStates },
             authoredAssetErrors: { ...this.assetErrors },
-            stageLayout: this.layout, ...this.water.diagnostics(),
+            stageLayout: this.layout, ...this.water.diagnostics(), ...this.environment.riverDiagnostics(),
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,

@@ -1,0 +1,20 @@
+{
+  "cause": "Navigation interrupts GLTFLoader r180's redundant fetch(blob URL) response body read after the model's embedded image bytes are already present.",
+  "originalGate": "tests/video-flow-browser.mjs, unchanged desktop project against final production build at port 4183",
+  "originalEvidence": "test-results/river-offline-race-original/browser-report.json",
+  "instrumentedEvidence": "test-results/river-offline-race-instrumented/browser-report.json",
+  "ciEvidence": "test-results/river-ci-attempt-1/original-evidence/browser-report.json",
+  "controlledObservation": {
+    "allEightAssetsActiveBeforeOffline": true,
+    "offlineBlobFetchSupportedIncludingServiceWorkerControl": true,
+    "failingBlobResponseHeaderTimes": [1790762827707, 1790762827710],
+    "pagehideTime": 1790762827714,
+    "failingRequests": "Two embedded 2K image blob requests ended with net::ERR_ABORTED before response.blob()/bitmap decode completed.",
+    "prematureImageBitmapCloseObserved": false
+  },
+  "fix": "Decode embedded bufferView bytes directly with createImageBitmap(new Blob(bytes)) using the pinned parser image-source hook. Preserve the normal glTF texture/sampler/material path. Reject and dispose the complete enhancement when a required embedded decode fails.",
+  "regression": "tests/asset-lifecycle-browser.mjs",
+  "devRegressionEvidence": "test-results/river-offline-race-fixed-dev/report.json",
+  "devRegressionResult": "All four checks passed, no console errors, page errors or blob requests. Navigation with all three PBR maps held left the next scene valid. One injected failed map retained the complete procedural fallback and closed the other two 2K bitmaps.",
+  "limitations": "Software WebGL behavior evidence. The unchanged original production-build gate and hardware visual qualification must be rerun against the rebuilt source by the release owner."
+}

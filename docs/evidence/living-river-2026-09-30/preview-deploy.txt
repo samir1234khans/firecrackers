@@ -1,0 +1,23 @@
+
+ ⛅️ wrangler 4.143.0 (update available 4.144.0)
+───────────────────────────────────────────────
+🌀 Building list of assets...
+✨ Read 31 files from the assets directory C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\dist
+🌀 Starting asset upload...
+🌀 Found 6 new or modified static assets to upload. Proceeding with upload...
++ /sw.js
++ /release.json
++ /index.html
++ /assets/main-Dk-FRBPA.js
++ /assets/index-HCJZy4_M.js
++ /assets/Renderer-BvWm2L_t.js
+Uploaded 2 of 6 assets
+Uploaded 4 of 6 assets
+Uploaded 6 of 6 assets
+✨ Success! Uploaded 6 files (21 already uploaded) (2.73 sec)
+
+Total Upload: 0.31 KiB / gzip: 0.22 KiB
+Uploaded firecrackers-river-preview (10.40 sec)
+Deployed firecrackers-river-preview triggers (2.55 sec)
+  https://firecrackers-river-preview.allygym-api.workers.dev
+Current Version ID: 8a66da20-0fd4-4c9a-be67-5cb5f9ce2235

@@ -1,0 +1,13 @@
+00:02.078  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\masters\river-life-v006.blend"
+C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\build_river_life_v006.py:29: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+00:04.703  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\river-v006\boats-night-pilot.png'
+00:06.656  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\river-v006\boat-pose-00.png'
+00:09.344  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\river-v006\boat-pose-01.png'
+00:11.547  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\river-v006\boat-pose-02.png'
+00:13.422  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\river-v006\boat-pose-03.png'
+00:14.531  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\river-v006\village-night-pilot.png'
+RIVER_PILOT_COMPLETE
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

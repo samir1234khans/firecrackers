@@ -1,0 +1,348 @@
+{
+  "url": "http://127.0.0.1:4173/",
+  "build": "2026-09-30.4",
+  "browser": "Chromium / software WebGL 2",
+  "checks": [
+    {
+      "name": "desktop: correct build, meaningful UI and actual canvas",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: six edge groups, clear hero, reachable picker and launch",
+      "result": "passed",
+      "width": 1280,
+      "height": 800,
+      "hero": {
+        "x": 144,
+        "y": 0,
+        "width": 992,
+        "height": 800
+      },
+      "groups": [
+        {
+          "name": "top-left",
+          "x": 12,
+          "y": 12,
+          "width": 128,
+          "height": 67,
+          "right": 140,
+          "bottom": 79
+        },
+        {
+          "name": "middle-left",
+          "x": 12,
+          "y": 195.609375,
+          "width": 44,
+          "height": 408.78125,
+          "right": 56,
+          "bottom": 604.390625
+        },
+        {
+          "name": "bottom-left",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 90,
+          "right": 140,
+          "bottom": 788
+        },
+        {
+          "name": "top-right",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 90,
+          "right": 1268,
+          "bottom": 102
+        },
+        {
+          "name": "middle-right",
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 320,
+          "right": 1268,
+          "bottom": 560
+        },
+        {
+          "name": "bottom-right",
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56,
+          "right": 1268,
+          "bottom": 788
+        }
+      ],
+      "buttons": [
+        {
+          "name": "Choose show mode",
+          "x": 12,
+          "y": 35,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Previous firework",
+          "x": 12,
+          "y": 195.609375,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Choose firework: Gold Willow",
+          "x": 12,
+          "y": 241.609375,
+          "width": 44,
+          "height": 86.78125,
+          "hit": true
+        },
+        {
+          "name": "Next firework",
+          "x": 12,
+          "y": 330.390625,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Gold Willow. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 376.390625,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Launch Gold Willow",
+          "x": 56,
+          "y": 376.390625,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Multicolor Peony. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 422.390625,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Chrysanthemum. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 468.390625,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Silver Crossette Crackle. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 514.390625,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Grand Finale. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 12,
+          "y": 560.390625,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Position firework",
+          "x": 12,
+          "y": 698,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Help",
+          "x": 12,
+          "y": 744,
+          "width": 128,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Pause scene",
+          "x": 1212,
+          "y": 12,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enable sound",
+          "x": 1212,
+          "y": 58,
+          "width": 56,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Open settings",
+          "x": 1224,
+          "y": 240,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Enter fullscreen",
+          "x": 1224,
+          "y": 286,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Aurora Crown. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 332,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Ruby Dahlia. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 378,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Sapphire Saturn. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 424,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Phoenix Palm. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 470,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Opal Supernova. Drag into the sky for a burst or onto the terrace for a rocket. Tap to select.",
+          "x": 1224,
+          "y": 516,
+          "width": 44,
+          "height": 44,
+          "hit": true
+        },
+        {
+          "name": "Launch selected firework",
+          "x": 1212,
+          "y": 732,
+          "width": 56,
+          "height": 56,
+          "hit": true
+        }
+      ],
+      "compactDock": null,
+      "overflow": false,
+      "launch": {
+        "width": 56,
+        "height": 56,
+        "bottom": 788
+      },
+      "hit": true
+    },
+    {
+      "name": "desktop: real launch, duplicate guard and immutable active family",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: visible burst after real-time input and ready-again state",
+      "result": "passed",
+      "launched": 1,
+      "bursts": 1
+    },
+    {
+      "name": "desktop: second selected family launches after first burst",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: no duplicate staged rocket; continuous body-to-shell handoff and burst",
+      "result": "passed",
+      "method": "labeled deterministic rendered checkpoints, not performance evidence"
+    },
+    {
+      "name": "desktop: all five families produce rendered effects",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: pause freezes exact state, settings preserves pause, same rocket resumes",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: auto show and manual takeover preserve committed effects",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: graphics persistence, silent reload and reset cancellation",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: production offline package cold reload",
+      "result": "passed"
+    },
+    {
+      "name": "desktop: protected transparent display returns to manual controls",
+      "result": "passed"
+    }
+  ],
+  "consoleErrors": [
+    "desktop: THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/9e44fc42-3d8a-4156-bac6-079a56b2e64d [http://127.0.0.1:4173/assets/Renderer-S_d5eBxI.js]",
+    "desktop: THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/0f0fb51e-492d-427c-9362-fa1cffc86abb [http://127.0.0.1:4173/assets/Renderer-S_d5eBxI.js]",
+    "desktop: THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/6f9e06da-9978-48e6-aeab-c0287acc5c88 [http://127.0.0.1:4173/assets/Renderer-S_d5eBxI.js]"
+  ],
+  "expectedHostOfflineErrors": [],
+  "failedRequests": [
+    {
+      "url": "blob:http://127.0.0.1:4173/9e44fc42-3d8a-4156-bac6-079a56b2e64d",
+      "error": "net::ERR_ABORTED",
+      "deliberatelyOffline": false
+    },
+    {
+      "url": "blob:http://127.0.0.1:4173/0f0fb51e-492d-427c-9362-fa1cffc86abb",
+      "error": "net::ERR_ABORTED",
+      "deliberatelyOffline": false
+    },
+    {
+      "url": "blob:http://127.0.0.1:4173/6f9e06da-9978-48e6-aeab-c0287acc5c88",
+      "error": "net::ERR_ABORTED",
+      "deliberatelyOffline": false
+    }
+  ],
+  "warnings": [],
+  "screenshots": [
+    "desktop-01-ready.png",
+    "desktop-02-after-real-burst.png",
+    "desktop-03-fuse-frozen.png",
+    "desktop-04-powered-flight-frozen.png",
+    "desktop-05-coast-frozen.png",
+    "desktop-06-burst-frozen.png",
+    "desktop-family-1.png",
+    "desktop-family-2.png",
+    "desktop-family-3.png",
+    "desktop-family-4.png",
+    "desktop-family-5.png",
+    "desktop-settings.png",
+    "desktop-settings-reset-reachable.png"
+  ],
+  "failed": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   \"desktop: THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/9e44fc42-3d8a-4156-bac6-079a56b2e64d [http://127.0.0.1:4173/assets/Renderer-S_d5eBxI.js]\",\n+   \"desktop: THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/0f0fb51e-492d-427c-9362-fa1cffc86abb [http://127.0.0.1:4173/assets/Renderer-S_d5eBxI.js]\",\n+   \"desktop: THREE.GLTFLoader: Couldn't load texture blob:http://127.0.0.1:4173/6f9e06da-9978-48e6-aeab-c0287acc5c88 [http://127.0.0.1:4173/assets/Renderer-S_d5eBxI.js]\"\n+ ]\n- []\n\n    at file:///home/runner/work/firecrackers/firecrackers/tests/video-flow-browser.mjs:198:10"
+}
