@@ -1,0 +1,70 @@
+{
+  "url": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+  "method": "Headless Chromium / software WebGL 2; controlled decode and navigation timing",
+  "checks": [
+    {
+      "name": "All nine enhancements and six shared PBR maps load without a second embedded-image fetch"
+    },
+    {
+      "name": "Navigating while all three large maps are decoding leaves the next scene intact without aborted blob requests"
+    },
+    {
+      "name": "One failed embedded map rejects the whole river enhancement and closes the other two decoded 2K maps",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 2,
+        "failedBlobURL": "",
+        "failedBlobRevoked": false
+      }
+    },
+    {
+      "name": "Strict console and page-error gates remain clear"
+    },
+    {
+      "name": "Native legacy ImageLoader retains all nine enhancements and six correctly configured PBR maps"
+    },
+    {
+      "name": "A corrupted legacy map rejects the whole enhancement and releases its failed object URL",
+      "lifecycle": {
+        "pending": 0,
+        "blockedBlobFetches": 0,
+        "injectedFailures": 1,
+        "closedLargeBitmaps": 0,
+        "failedBlobURL": "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/89a62d49-a5a7-411a-aa00-1efbdb64c4f0",
+        "failedBlobRevoked": true
+      }
+    },
+    {
+      "name": "Legacy failure emits exactly its controlled native diagnostic without unexpected errors"
+    }
+  ],
+  "consoleErrors": [
+    "THREE.GLTFLoader: Couldn't load texture blob:https://firecrackers-moon-preview.allygym-api.workers.dev/89a62d49-a5a7-411a-aa00-1efbdb64c4f0"
+  ],
+  "pageErrors": [],
+  "blobRequests": [
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/806f48a0-38a4-4b6c-a18b-851bcdb0e7b7",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/f96d6508-8639-4ab1-a5a2-4ecb9e3be2b8",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/e3ab9743-50d7-4b54-8e6a-3c08be208942",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/a3fe2771-92d0-41eb-967e-c32dfabd9511",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/c1c4d1d2-e9c5-47b1-86ee-378ad6e6148c",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/e798da3a-f44e-4946-9841-47b97f737abb",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/b52d0388-0e8d-4322-92e2-309e4e222e40",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/baf81486-0d60-46ad-89bc-6d6bd1a1abc4",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/23289d88-ed8b-4d32-a8dc-b10245b07e79",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/65f28824-6d93-4d8b-8b22-fb6f52afc374",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/a24222df-612d-4ea5-ae26-66fc138421ac",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/d9bf1d5d-6297-40ac-9dc2-8e58c0da91b5",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/9635f860-ec03-4ad5-ab26-054fd0a38bd9",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/ea6bcca1-d831-4841-9d4d-11a4f3cdbc50",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/89a62d49-a5a7-411a-aa00-1efbdb64c4f0",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/f3737742-c555-4ec4-ac07-369478207d96",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/aa12cfe3-58e2-4f6d-bcb4-0bf95a617fea",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/e0a5889f-e661-44d8-aa4e-6e0227304458",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/cfdfe133-3a84-481d-8f52-eee8a3b7db03",
+    "blob:https://firecrackers-moon-preview.allygym-api.workers.dev/d8775416-9b75-4ad0-b891-353de6980881"
+  ],
+  "failed": null
+}

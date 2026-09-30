@@ -15,7 +15,7 @@ Production remains [bottom collection `.8`](https://firecrackers.mainandmany.com
 - 25 exact hosted HTTP file checks, including release, compiled scripts, delivered art, moon PNG, notices and service worker. The source fingerprint and byte hashes match the local build.
 - All nine authored GPU enhancements activate independently. Corrupted authored river maps retain complete fallbacks and release decoded resources; the new lunar texture is disposed with its renderer.
 
-Machine-readable receipts are retained under `checks/`. The workflow/PR receipt is recorded in `SOURCE.md` after completion.
+Machine-readable receipts are retained under `checks/`. The application, preview, PR and CI receipt is in [SOURCE.md](SOURCE.md). Initial and final-source checks are distinguished there.
 
 ## Failed attempts and remaining qualification
 
