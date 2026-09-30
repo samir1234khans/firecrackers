@@ -22,6 +22,7 @@ try {
     const url = new URL(base); url.search = `backend=${project.backend}&qa=1&seed=20260916`;
     await page.goto(url.href, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && window.__firecrackersQA, undefined, { timeout: 90000 });
+    await page.waitForSelector('main[data-presented="true"]', { timeout: 90000 });
     assert.equal(await page.locator('main').getAttribute('data-version'), expectedVersion);
     assert.equal((await page.evaluate(() => window.__firecrackersQA.snapshot())).backend, project.backend === 'webgl' ? 'WebGL 2' : 'Canvas 2D · compatibility');
     await qualifyGalacticSky(page, project.name, (name, details) => { report.checks.push({ name, ...details }); console.log('PASS', name); },

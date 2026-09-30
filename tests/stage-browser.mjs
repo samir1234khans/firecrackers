@@ -11,7 +11,7 @@ const snap=()=>page.evaluate(()=>window.__firecrackersQA.snapshot());
 const advance=async t=>{await page.evaluate(t=>{window.__firecrackersQA.advance(t);window.__firecrackersQA.render();},t);};
 const pass=(name,data={})=>{report.checks.push({name,...data});console.log('PASS',name);};
 const icon=id=>page.locator(`[data-family-icon="${id}"]`);
-const enter=async backend=>{await page.goto(`${base}?backend=${backend}&qa=1&seed=20260916`);await page.waitForSelector('main[data-ready="true"]',{timeout:90000});await page.evaluate(()=>window.__firecrackersQA.freeze(true));
+const enter=async backend=>{await page.goto(`${base}?backend=${backend}&qa=1&seed=20260916`);await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});await page.evaluate(()=>window.__firecrackersQA.freeze(true));
  if(process.env.STAGE_HARDWARE){
   const actual=(await snap()).backend;assert.equal(actual,backend==='webgpu'?'WebGPU':backend==='webgl'?'WebGL 2':'Canvas 2D · compatibility');
   if(backend==='webgpu'){const adapter=await page.evaluate(async()=>{const a=await navigator.gpu.requestAdapter();return {vendor:a.info.vendor,architecture:a.info.architecture,fallback:a.info.isFallbackAdapter};});assert.equal(adapter.fallback,false);pass('Native WebGPU adapter',{adapter});}

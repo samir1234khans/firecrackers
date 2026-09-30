@@ -56,7 +56,7 @@ async function enter(page, backend = 'canvas', extra = {}) {
   const url = new URL(base);
   Object.entries({ backend, qa: '1', seed: '20260916', ...extra }).forEach(([key, value]) => url.searchParams.set(key, value));
   await page.goto(url.href, { waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && window.__firecrackersQA,
+  await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && document.querySelector('main')?.dataset.presented === 'true' && window.__firecrackersQA,
     undefined, { timeout: 65000 });
   assert.equal(await page.locator('main').getAttribute('data-version'), expectedVersion);
   assert.equal(await page.locator('main').getAttribute('data-overlay'), 'none');
