@@ -18,7 +18,7 @@ try{
  assert.equal(production.version,'2026-09-30.8');assert.equal(production.sha256,'5a0020b7c9260140d4fff57a6abe97d53f7406dedffc6635c64148facb478535');report.production=production.sha256;
  browser=await chromium.launch({channel:'chrome',headless:true});
  for(const [width,height]of[[393,851],[1280,800]]){
-  const context=await browser.newContext({viewport:{width,height},serviceWorkers:'block'}),page=await context.newPage();
+  const context=await browser.newContext({viewport:{width,height},serviceWorkers:'allow'}),page=await context.newPage();
   page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
   await page.goto(base);await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});await page.locator('.startup-ready-note').waitFor({state:'hidden',timeout:10000});
   assert.equal(await page.locator('main').getAttribute('data-backend'),'WebGPU');
