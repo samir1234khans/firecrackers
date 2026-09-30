@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { measureStage } from './StageLayout';
-import type { StageRect } from './StageLayout';
+import type { StageLayout, StageRect } from './StageLayout';
 import type { FamilyId } from './catalog';
 import { Simulation } from './Simulation';
 import { AudioEngine } from './Audio';
@@ -15,6 +15,7 @@ import type { Preferences } from '../platform/preferences';
 import type { RendererPort } from './RendererPort';
 import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
 import { RenderOverloadGuard, withDeadline } from './RendererRecovery';
+import { SkyInteraction, acceptsSkyPointer, skyCadence, skyMotionAllowed, skyPointFromPointer } from './SkyState';
 export type DropTarget = { kind: 'burst'; point: [number, number] } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
@@ -28,6 +29,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     const sim = useRef(initial);
     const audio = useRef<AudioEngine | null>(null);
     const renderer = useRef<RendererPort | null>(null);
+    const skyRedraw = useRef<((reset?: boolean) => void) | null>(null);
     const intent = useRef(new PauseIntent());
     const [snapshot, setSnapshot] = useState(() => initial.snapshot());
     const [ready, setReady] = useState(false);
@@ -41,10 +43,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     const status = useRef({ ready, error });
     status.current = { ready, error };
     const refresh = useCallback(() => setSnapshot(sim.current.snapshot()), []);
-    const syncPause = useCallback(() => {
+    const syncPause = useCallback((resetSky = false) => {
         const paused = intent.current.paused;
         sim.current.setPaused(paused);
         audio.current?.setSuspended(paused || document.hidden);
+        skyRedraw.current?.(resetSky);
         refresh();
     }, [refresh]);
     useEffect(() => {
@@ -53,6 +56,12 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let layoutFrame = 0;
         let last = 0;
         let lastRender = 0;
+        let lastSkyRender = 0;
+        let skyDirty = true;
+        let skyAmbientFrames = 0;
+        let skyResponseFrames = 0;
+        let skyOneOffFrames = 0;
+        let skyLastRenderedTime = 0;
         let lastReport = 0;
         let lastQuality = 0;
         let warmFrames = 0;
@@ -70,6 +79,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const startup = new AbortController();
         const governor = new QualityGovernor();
         const overload = new RenderOverloadGuard();
+        const sky = new SkyInteraction();
+        const osMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
+        let stageLayout: StageLayout | null = null;
+        let skyHorizon = .72;
+        let contactId: number | null = null;
         alive.current = true;
         setReady(false);
         setError('');
@@ -90,6 +104,21 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const sound = new AudioEngine();
         audio.current = sound;
         sound.setSuspended(intent.current.paused || document.hidden);
+        const motionAllowed = () => skyMotionAllowed(state.quality, prefs.current.reducedMotion,
+            Boolean(osMotion?.matches), display.current.mode);
+        const responseAllowed = () => !state.paused && !document.hidden && !captureFrozen;
+        const publishSky = (respond = responseAllowed(), candidate = graphics) => {
+            const value = sky.update(state.time, motionAllowed(), respond);
+            candidate?.setSkyState(value);
+        };
+        const releaseSky = () => {
+            contactId = null;
+            sky.release();
+        };
+        const cacheHorizon = () => {
+            const horizon = graphics?.diagnostics().skyHorizon;
+            if (typeof horizon === 'number' && Number.isFinite(horizon)) skyHorizon = Math.max(0, Math.min(1, horizon));
+        };
         const fail = (message: string) => {
             if (cancelled)
                 return;
@@ -104,6 +133,22 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             setReady(false);
             refresh();
         };
+        const redrawSky = (reset = false) => {
+            if (cancelled) return;
+            if (reset) sky.reset(state.time);
+            if (!responseAllowed() || !motionAllowed()) releaseSky();
+            publishSky();
+            skyDirty = true;
+            if (!runtimeReady || switchingGraphics || document.hidden) return;
+            try {
+                graphics?.render();
+                lastSkyRender = performance.now();
+                skyLastRenderedTime = sky.state.time;
+                skyDirty = false;
+                skyOneOffFrames++;
+            } catch { fail('Graphics were interrupted. Try lower quality or restart the scene.'); }
+        };
+        skyRedraw.current = redrawSky;
         const recoverOverload = async (reason = 'repeated slow frames') => {
             const target = host.current;
             const previous = graphics;
@@ -117,6 +162,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                         const module = await import('./Renderer');
                         replacement = new module.FireworkRenderer(target, state, fail, true);
                         replacement.setDisplay(display.current.mode);
+                        publishSky(false, replacement);
                         await withDeadline(replacement.init(), startup.signal, 10000);
                     } catch {
                         replacement?.dispose();
@@ -126,16 +172,24 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 if (!replacement) {
                     replacement = new CompatibilityRenderer(target, state);
                     replacement.setDisplay(display.current.mode);
+                    publishSky(false, replacement);
                     await replacement.init();
                 }
                 if (cancelled) { replacement.dispose(); return; }
                 graphics = replacement;
                 renderer.current = replacement;
+                if (host.current) {
+                    stageLayout = measureStage(host.current, display.current.mode === 'interactive');
+                    replacement.setLayout(stageLayout);
+                }
+                cacheHorizon();
                 // The old GPU canvas is no longer mounted. Its pending asset load and
                 // context-loss callbacks are invalidated by disposal.
                 try { previous.dispose(); } catch { /* Keep the working canvas visible. */ }
                 overload.reset();
                 lastRender = 0;
+                lastSkyRender = 0;
+                skyDirty = true;
                 previousVisualState = '';
                 setBackend(replacement.backend);
                 intent.current.block('graphics', false);
@@ -161,15 +215,20 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             if (!document.hidden && !state.paused && !captureFrozen) {
                 advanceVisibleFrame(state, elapsed);
                 sound.consume(state.drainEvents(), state.width);
+                publishSky();
                 const targetFps = display.current.fps === 30 || state.quality === 'low' || graphics?.backend.startsWith('Canvas') ? 30 : 60;
-                // The empty observatory is static. Redraw selection/placement immediately,
-                // but do not shade the same idle floor and bloom graph sixty times a second.
+                // Firework activity, recovery and quality measurement keep their original
+                // cadence. Decorative idle frames have a separate bounded schedule.
                 const visualState = `${state.selected}:${state.placement}:${state.quality}:${state.reducedFlashes}:${display.current.mode}:${state.rearming}:${Boolean(state.committed)}`;
                 const moving = state.holding || state.heads.count > 0 || state.trails.count > 0 ||
                     state.smoke.count > 0 || state.embers.count > 0 || state.cues.length > 0 ||
                     state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
-                if (!switchingGraphics && (!lastRender || visualState !== previousVisualState ||
-                    ((moving || previouslyMoving) && now - lastRender >= 1000 / targetFps - 1.2))) {
+                const fireworkDue = !lastRender || visualState !== previousVisualState ||
+                    ((moving || previouslyMoving) && now - lastRender >= 1000 / targetFps - 1.2);
+                const ambientFps = skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed);
+                const skyDue = skyDirty || (ambientFps > 0 && !moving && !previouslyMoving &&
+                    now - lastSkyRender >= 1000 / ambientFps);
+                if (!switchingGraphics && fireworkDue) {
                     const continuous = moving && previouslyMoving;
                     previousVisualState = visualState;
                     previouslyMoving = moving;
@@ -179,6 +238,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     try {
                         graphics?.render();
                         rendered = true;
+                        lastSkyRender = now;
+                        skyLastRenderedTime = sky.state.time;
+                        skyDirty = false;
                     }
                     catch {
                         fail('Graphics were interrupted. Try lower quality or restart the scene.');
@@ -197,16 +259,29 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     else if (!continuous)
                         overload.reset();
                 }
+                else if (!switchingGraphics && skyDue) {
+                    try {
+                        graphics?.render();
+                        lastSkyRender = now;
+                        skyLastRenderedTime = sky.state.time;
+                        skyDirty = false;
+                        if (sky.responding) skyResponseFrames++;
+                        else skyAmbientFrames++;
+                    } catch { fail('Graphics were interrupted. Try lower quality or restart the scene.'); }
+                }
                 if (prefs.current.quality === 'auto' && now - lastQuality > 1500 && warmFrames > 90) {
                     lastQuality = now;
                     const next = governor.evaluate(state.quality, targetFps, true);
                     if (next !== state.quality) {
                         state.quality = next;
                         graphics?.setQuality(next);
+                        publishSky(false);
+                        skyDirty = true;
                     }
                 }
             }
             else {
+                publishSky(false);
                 lastRender = 0;
                 overload.reset();
                 previouslyMoving = false;
@@ -223,14 +298,21 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             // Resizing also redraws an idle/paused canvas. Failures retain recovery controls.
             try {
                 if (switchingGraphics) return;
-                if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive'));
+                updateLayout();
                 graphics?.resize();
+                cacheHorizon();
+                publishSky(false);
                 graphics?.render();
+                lastSkyRender = performance.now();
+                skyLastRenderedTime = sky.state.time;
+                skyDirty = false;
+                skyOneOffFrames++;
             } catch { fail('The scene could not resize. Try compatibility graphics.'); }
         };
         const onVisibility = () => {
             last = 0;
             lastRender = 0;
+            releaseSky();
             if (document.hidden) {
                 intent.current.setManual(true);
                 state.message = 'Paused while you were away. Resume when you are ready.';
@@ -243,7 +325,14 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         for (const element of host.current?.parentElement?.querySelectorAll('[data-edge], [data-family-dock]') || []) bounds?.observe(element);
         window.addEventListener('resize', resize);
         window.visualViewport?.addEventListener('resize', resize);
-        const updateLayout = () => { if (host.current) graphics?.setLayout(measureStage(host.current, display.current.mode === 'interactive')); };
+        const updateLayout = () => {
+            if (!host.current) return;
+            stageLayout = measureStage(host.current, display.current.mode === 'interactive');
+            graphics?.setLayout(stageLayout);
+            cacheHorizon();
+            if (stageLayout.panelOpen || host.current.parentElement?.dataset.dragActive === 'true') releaseSky();
+            skyDirty = true;
+        };
         const queueLayout = () => {
             cancelAnimationFrame(layoutFrame);
             layoutFrame = requestAnimationFrame(updateLayout);
@@ -255,6 +344,46 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         // CSS hover/focus reveals quick actions without changing the edge group
         // size. Refresh only the measured bounds, never the camera framing.
         const stage = host.current?.parentElement;
+        const blockedPointer = (event: PointerEvent) => !runtimeReady || !responseAllowed() || !motionAllowed() ||
+            display.current.mode !== 'interactive' || stage?.dataset.overlay !== 'none' ||
+            stage?.dataset.dragActive === 'true' || (event.target instanceof Element && Boolean(event.target.closest(
+                'button, a, input, select, textarea, form, [role="button"], [role="dialog"], [contenteditable="true"], [data-edge], [data-family-dock], [data-stage-control]')));
+        const pointForPointer = (event: PointerEvent) => stageLayout &&
+            skyPointFromPointer(event.clientX, event.clientY, stageLayout, skyHorizon);
+        const onSkyPointerDown = (event: PointerEvent) => {
+            // Frozen capture input does not change either the current response or its goal.
+            if (captureFrozen) return;
+            const valid = acceptsSkyPointer({ type: event.pointerType, isPrimary: event.isPrimary, buttons: event.buttons,
+                pointerId: event.pointerId, contactId, blocked: blockedPointer(event) }, true);
+            const point = valid ? pointForPointer(event) : null;
+            if (point) {
+                contactId = event.pointerId;
+                sky.target(...point);
+            } else if (event.isPrimary) releaseSky();
+        };
+        const onSkyPointerMove = (event: PointerEvent) => {
+            if (captureFrozen) return;
+            const valid = acceptsSkyPointer({ type: event.pointerType, isPrimary: event.isPrimary, buttons: event.buttons,
+                pointerId: event.pointerId, contactId, blocked: blockedPointer(event) });
+            const point = valid ? pointForPointer(event) : null;
+            if (point) sky.target(...point);
+            else if (event.isPrimary) releaseSky();
+        };
+        const onSkyPointerEnd = (event: PointerEvent) => {
+            if (!captureFrozen && event.pointerId === contactId) releaseSky();
+        };
+        const onSkyPointerLeave = () => { if (!captureFrozen) releaseSky(); };
+        const onMotionPolicy = () => {
+            releaseSky();
+            redrawSky();
+        };
+        // These observers never own a pointer, suppress native scrolling, or trigger a launch.
+        stage?.addEventListener('pointerdown', onSkyPointerDown, { passive: true });
+        stage?.addEventListener('pointermove', onSkyPointerMove, { passive: true });
+        stage?.addEventListener('pointerleave', onSkyPointerLeave, { passive: true });
+        window.addEventListener('pointerup', onSkyPointerEnd, { passive: true });
+        window.addEventListener('pointercancel', onSkyPointerEnd, { passive: true });
+        osMotion?.addEventListener('change', onMotionPolicy);
         stage?.addEventListener('pointerover', queueLayout);
         stage?.addEventListener('pointerout', queueLayout);
         stage?.addEventListener('focusin', queueLayout);
@@ -268,6 +397,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 graphics = candidate;
                 renderer.current = candidate;
                 candidate.setDisplay(display.current.mode);
+                publishSky(false, candidate);
                 try {
                     await withDeadline(candidate.init(), startup.signal, 10000);
                     if (cancelled) throw new DOMException('Cancelled', 'AbortError');
@@ -308,6 +438,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             setBackend((graphics as RendererPort).backend);
             setReady(true);
             runtimeReady = true;
+            updateLayout();
+            publishSky(false);
             // Starting a show through an explicit presentation link never activates sound.
             if (display.current.mode !== 'interactive' && display.current.show)
                 state.startShow(display.current.show);
@@ -320,7 +452,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining }),
+                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining,
+                        skyState: { ...sky.state }, skyAmbientCadence: skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed),
+                        skyResponding: sky.responding, skyAmbientFrames, skyResponseFrames, skyOneOffFrames, skyLastRenderedTime, skyFrozen: captureFrozen }),
                     injectOverloadSamples: (count: number, milliseconds: number) => {
                         if (!Number.isInteger(count) || count < 1 || count > 6 || !Number.isFinite(milliseconds) || milliseconds < 100 || milliseconds > 2000)
                             return false;
@@ -329,7 +463,12 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                         qaStallSamplesUsed = 0;
                         return true;
                     },
-                    freeze: (value: boolean) => { captureFrozen = Boolean(value); last = 0; },
+                    freeze: (value: boolean) => {
+                        captureFrozen = Boolean(value);
+                        contactId = null;
+                        if (!captureFrozen) sky.release();
+                        last = 0;
+                    },
                     advance: (seconds: number) => {
                         if (!Number.isFinite(seconds) || seconds < 0 || seconds > 120)
                             return;
@@ -339,10 +478,20 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                             state.advance(1 / 60);
                         state.drainEvents();
                         state.setPaused(paused);
+                        publishSky(false);
                         graphics?.render();
+                        skyLastRenderedTime = sky.state.time;
+                        skyDirty = false;
+                        skyOneOffFrames++;
                         refresh();
                     },
-                    render: () => graphics?.render(),
+                    render: () => {
+                        publishSky(false);
+                        graphics?.render();
+                        skyLastRenderedTime = sky.state.time;
+                        skyDirty = false;
+                        skyOneOffFrames++;
+                    },
                 };
             }
         };
@@ -358,6 +507,12 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             cancelAnimationFrame(layoutFrame);
             bounds?.disconnect();
             layoutChanges.disconnect();
+            stage?.removeEventListener('pointerdown', onSkyPointerDown);
+            stage?.removeEventListener('pointermove', onSkyPointerMove);
+            stage?.removeEventListener('pointerleave', onSkyPointerLeave);
+            window.removeEventListener('pointerup', onSkyPointerEnd);
+            window.removeEventListener('pointercancel', onSkyPointerEnd);
+            osMotion?.removeEventListener('change', onMotionPolicy);
             stage?.removeEventListener('pointerover', queueLayout);
             stage?.removeEventListener('pointerout', queueLayout);
             stage?.removeEventListener('focusin', queueLayout);
@@ -372,6 +527,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             try { graphics?.dispose(); } catch { /* A failed driver must not break React cleanup. */ }
             renderer.current = null;
             audio.current = null;
+            if (skyRedraw.current === redrawSky) skyRedraw.current = null;
         };
     }, [epoch, presentation.seed, host, refresh, syncPause]);
     useEffect(() => {
@@ -381,21 +537,13 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             renderer.current?.setQuality(preferences.quality);
         }
         audio.current?.setOptions(preferences.volume, preferences.haptics, preferences.ambience);
-        if (sim.current.paused) {
-            try {
-                renderer.current?.render();
-            }
-            catch { /* Keep controls available. */ }
-        }
-    }, [preferences.quality, preferences.reducedFlashes, preferences.volume, preferences.haptics, preferences.ambience]);
+        skyRedraw.current?.();
+    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience]);
     useEffect(() => {
         sim.current.protectCenter = presentation.protect;
         sim.current.safeRect = [...presentation.safeRect];
         renderer.current?.setDisplay(presentation.mode);
-        try {
-            renderer.current?.render();
-        }
-        catch { /* Initialization reports failures separately. */ }
+        skyRedraw.current?.();
     }, [presentation.mode, presentation.protect, presentation.safeRect]);
     const configureSound = async (enabled: boolean) => {
         const request = ++soundRequest.current;
@@ -447,11 +595,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         sim.current.reset();
         sim.current.protectCenter = display.current.protect;
         sim.current.safeRect = [...display.current.safeRect];
-        syncPause();
-        try {
-            renderer.current?.render();
-        }
-        catch { /* A new renderer can be requested by epoch. */ }
+        syncPause(true);
     };
     const heroRect = () => {
         const l = measureStage(host.current!, display.current.mode === 'interactive');

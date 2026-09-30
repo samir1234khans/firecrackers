@@ -7,6 +7,7 @@ import { BUDGETS, FAMILIES } from './catalog';
 import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from './LaunchGeometry';
 import type { Quality } from './catalog';
 import type { Simulation } from './Simulation';
+import type { SkyState } from './SkyState';
 import { ParticleScene } from '../graphics/ParticleScene';
 import { RocketProp } from '../graphics/RocketProp';
 import { LaunchStage } from '../graphics/LaunchStage';
@@ -49,6 +50,7 @@ export class FireworkRenderer {
     private assetFrame = 0;
     private layout!: StageLayout;
     setLayout(layout: StageLayout) { this.layout = layout; }
+    setSkyState(state: Readonly<SkyState>) { this.environment.setSkyState(state); }
     private mode: DisplayMode = 'interactive';
     private disposed = false;
     private initialized = false;
@@ -163,6 +165,7 @@ export class FireworkRenderer {
         this.camera.updateMatrixWorld();
         this.water.resize(this.camera);
         this.environment.setPortraitHorizon(aspect < .72, this.water.diagnostics().waterline, aspect);
+        this.environment.setViewport(w, h);
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / framing.scale * .9), 16);
         this.renderer.setSize(w, h);
         this.setQuality(this.sim.quality);
@@ -309,7 +312,7 @@ export class FireworkRenderer {
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
             authoredAssetStates: { ...this.assetStates },
             authoredAssetErrors: { ...this.assetErrors },
-            stageLayout: this.layout, ...this.water.diagnostics(), ...this.environment.riverDiagnostics(),
+            stageLayout: this.layout, ...this.water.diagnostics(), ...this.environment.riverDiagnostics(), ...this.environment.skyDiagnostics(),
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,

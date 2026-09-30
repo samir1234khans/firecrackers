@@ -1,9 +1,11 @@
 import * as THREE from 'three/webgpu';
-import { cos, screenUV, sin, smoothstep, texture, uniform, vec2 } from 'three/tsl';
+import { cos, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
 import { makeGalaxySky } from './GalaxySky';
 import { RiverLife } from './RiverLife';
+import type { SkyState } from '../engine/SkyState';
+import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
 
 /** Original environment art and light probe, generated locally; no remote textures. */
 export class NightEnvironment {
@@ -20,8 +22,23 @@ export class NightEnvironment {
   readonly authoredSky = uniform(0);
   private readonly celestialArt = makeGalaxySky();
   private readonly galaxyTexture = new THREE.CanvasTexture(this.celestialArt.dust);
+  private readonly nearStarTexture = new THREE.CanvasTexture(this.celestialArt.nearStars);
   private readonly skyTime = uniform(0);
   private readonly galaxyStrength = uniform(.55);
+  private readonly nearStrength = uniform(.7);
+  private readonly celestialCrop = uniform(1);
+  private readonly celestialYSpan = uniform(1);
+  private readonly celestialYShift = uniform(0);
+  private readonly dustOffset = uniform(new THREE.Vector2());
+  private readonly nearOffset = uniform(new THREE.Vector2());
+  private readonly cssViewport = uniform(new THREE.Vector2(1, 1));
+  private readonly pointerPixels = uniform(new THREE.Vector2());
+  private readonly engagement = uniform(0);
+  private readonly meteorHead = uniform(new THREE.Vector2());
+  private readonly meteorTail = uniform(new THREE.Vector2());
+  private readonly meteorOpacity = uniform(0);
+  private readonly celestialFrame = createCelestialFrame();
+  private skyState: Readonly<SkyState> = { time: 0, pointerX: .5, pointerY: .25, engagement: 0, motionAllowed: false };
   private readonly reducedSkyMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
   private readonly washMaterial = new THREE.MeshBasicMaterial({
     color: '#e7b270', transparent: true, opacity: 0, depthWrite: false,
@@ -40,17 +57,36 @@ export class NightEnvironment {
     this.galaxyTexture.colorSpace = THREE.SRGBColorSpace;
     this.galaxyTexture.generateMipmaps = true;
     this.galaxyTexture.name = 'Original curved celestial dust';
+    this.nearStarTexture.colorSpace = THREE.SRGBColorSpace;
+    this.nearStarTexture.generateMipmaps = true;
+    this.nearStarTexture.name = 'Original fine clustered near stars';
     const skyMaterial = new THREE.MeshBasicNodeMaterial({ side: THREE.BackSide, depthWrite: false, fog: false });
     const skyUV = vec2(screenUV.x.sub(.5).mul(this.skyCrop).add(.5), screenUV.y.mul(.872).div(this.skyWaterline).clamp(0, .995).oneMinus());
     const angle = sin(this.skyTime.mul(.022)).mul(.010), cs = cos(angle), sn = sin(angle);
-    const p = skyUV.sub(.5);
+    // Celestial art keeps its own aspect-correct crop. The authored panorama and
+    // water horizon retain the established projection, including portrait framing.
+    const celestialUV = vec2(screenUV.x.sub(.5).mul(this.celestialCrop).add(.5),
+      screenUV.y.mul(this.celestialYSpan).add(this.celestialYShift).oneMinus());
+    const p = celestialUV.sub(.5);
     const drift = vec2(sin(this.skyTime.mul(.018)).mul(.005), cos(this.skyTime.mul(.018)).sub(1).mul(.003));
-    const galaxyUV = vec2(p.x.mul(cs).sub(p.y.mul(sn)), p.x.mul(sn).add(p.y.mul(cs))).add(.5).add(drift);
+    const galaxyUV = vec2(p.x.mul(cs).sub(p.y.mul(sn)), p.x.mul(sn).add(p.y.mul(cs))).add(.5).add(drift).add(this.dustOffset);
     const galaxy = texture(this.galaxyTexture, galaxyUV);
     // Multiply straight alpha explicitly, with a shared horizon fade; transparent
     // border RGB must never become a luminous rectangle through additive sampling.
     const celestial = galaxy.rgb.mul(galaxy.a).mul(this.galaxyStrength).mul(smoothstep(.28, .48, skyUV.y));
-    skyMaterial.colorNode = texture(this.skyTexture, skyUV).rgb.add(celestial);
+    const nearUV = celestialUV.add(this.nearOffset);
+    const near = texture(this.nearStarTexture, nearUV);
+    const twinkle = sin(this.skyTime.mul(.27).add(nearUV.x.mul(14)).add(nearUV.y.mul(9))).mul(.025).add(1);
+    const pointerDistance = screenUV.mul(this.cssViewport).sub(this.pointerPixels).div(CELESTIAL_LIMITS.responseRadiusPixels);
+    // This scalar only lifts pixels already containing stars. It adds no cursor
+    // glow, disk, flare or interaction geometry to the empty sky.
+    const response = pointerDistance.dot(pointerDistance).oneMinus().max(0).pow(2).mul(this.engagement).mul(.28);
+    const nearLight = near.rgb.mul(near.a).mul(this.nearStrength).mul(twinkle.add(response)).mul(smoothstep(.28, .48, skyUV.y));
+    const fragment = screenUV.mul(this.cssViewport), direction = this.meteorHead.sub(this.meteorTail);
+    const projection = fragment.sub(this.meteorTail).dot(direction).div(direction.dot(direction).max(.0001)).clamp(0, 1);
+    const distance = fragment.sub(this.meteorTail.add(direction.mul(projection))).length();
+    const meteor = smoothstep(.16, .85, distance).oneMinus().mul(projection.pow(2)).mul(this.meteorOpacity);
+    skyMaterial.colorNode = texture(this.skyTexture, skyUV).rgb.add(celestial).add(nearLight).add(vec3(.34, .45, .62).mul(meteor));
     this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 32, 16), skyMaterial);
     this.sky.rotation.y = Math.PI * .5;
     this.sky.renderOrder = -100;
@@ -144,6 +180,23 @@ export class NightEnvironment {
   }
   setRiver(group: THREE.Group) { this.river.setAuthored(group); }
   riverDiagnostics() { return this.river.diagnostics(); }
+  setSkyState(state: Readonly<SkyState>) { this.skyState = state; }
+  setViewport(width: number, height: number) {
+    this.cssViewport.value.set(Math.max(1, width), Math.max(1, height));
+    const aspect = Math.max(.1, width / Math.max(1, height));
+    const crop = Math.max(.6, Math.min(1.35, aspect / 2));
+    this.celestialCrop.value = crop;
+    this.celestialYSpan.value = 2 * crop / aspect;
+    this.celestialYShift.value = Math.min(0, 1 - this.celestialYSpan.value) * .065;
+  }
+  skyDiagnostics() {
+    return { ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.skyWaterline.value,
+      skyLayers: 3, skyTextures: 3, skyArtWidth: this.celestialArt.stars.width,
+      skyArtHeight: this.celestialArt.stars.height, skyCelestialCrop: this.celestialCrop.value,
+      skyFieldStars: this.celestialArt.metadata.fieldStars, skyClusterStars: this.celestialArt.metadata.clusteredStars,
+      skyNearStars: this.celestialArt.metadata.nearStars, skyDustSpecks: this.celestialArt.metadata.dustSpecks,
+      skyArtRgbaBytes: this.celestialArt.metadata.rgbaBytes, skyTextureBytesWithMipmaps: this.celestialArt.metadata.rgbaWithMipmapsBytes };
+  }
   setPortraitHorizon(phone: boolean, waterline: number, aspect: number) {
     this.skyWaterline.value = Math.max(.08, waterline);
     // Crop the panorama on phones instead of squeezing distant hills horizontally.
@@ -159,8 +212,21 @@ export class NightEnvironment {
   }
   update(sim: Simulation, visible: boolean, motionAllowed = true) {
     this.group.visible = visible;
-    this.skyTime.value = sim.quality === 'low' || !motionAllowed || this.reducedSkyMotion?.matches ? 0 : sim.time;
+    updateCelestialFrame(this.celestialFrame, this.skyState, this.cssViewport.value.x, this.cssViewport.value.y,
+      visible && sim.quality !== 'low' && motionAllowed && !this.reducedSkyMotion?.matches, sim.reducedFlashes);
+    const frame = this.celestialFrame;
+    this.skyTime.value = frame.time;
     this.galaxyStrength.value = (sim.quality === 'ultra' ? .78 : sim.quality === 'standard' ? .62 : .38) * (sim.reducedFlashes ? .72 : 1);
+    this.nearStrength.value = (sim.quality === 'ultra' ? .85 : sim.quality === 'standard' ? .66 : .44) * (sim.reducedFlashes ? .82 : 1);
+    this.dustOffset.value.set(-frame.dustX / this.cssViewport.value.x * this.celestialCrop.value,
+      frame.dustY / this.cssViewport.value.y * this.celestialYSpan.value);
+    this.nearOffset.value.set(-frame.nearX / this.cssViewport.value.x * this.celestialCrop.value,
+      frame.nearY / this.cssViewport.value.y * this.celestialYSpan.value);
+    this.pointerPixels.value.set(frame.pointerX * this.cssViewport.value.x, frame.pointerY * this.cssViewport.value.y);
+    this.engagement.value = frame.engagement;
+    this.meteorHead.value.set(frame.meteor.headX, frame.meteor.headY);
+    this.meteorTail.value.set(frame.meteor.tailX, frame.meteor.tailY);
+    this.meteorOpacity.value = frame.meteor.opacity;
     this.river.update(sim, visible, motionAllowed);
     if (this.terrace) this.terrace.visible = visible;
     let energy = 0, r = 0, g = 0, b = 0;
@@ -239,8 +305,11 @@ export class NightEnvironment {
   }
   dispose() {
     this.river.dispose();
-    this.skyTexture.dispose(); this.galaxyTexture.dispose(); this.probe.dispose(); this.washTexture.dispose(); this.floorTexture.dispose();
+    this.skyTexture.dispose(); this.galaxyTexture.dispose(); this.nearStarTexture.dispose(); this.probe.dispose(); this.washTexture.dispose(); this.floorTexture.dispose();
     this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
     this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
+    this.celestialArt.nearStars.width = this.celestialArt.nearStars.height = 1;
+    const panorama = this.skyTexture.image as HTMLCanvasElement;
+    panorama.width = panorama.height = 1;
   }
 }

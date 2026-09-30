@@ -20,6 +20,8 @@
     "src/platform/presentation.ts",
     "src/engine/QualityGovernor.ts",
     "src/engine/VisibleFrame.ts",
-    "src/engine/RendererRecovery.ts"
+    "src/engine/RendererRecovery.ts",
+    "src/engine/SkyState.ts",
+    "src/graphics/CelestialScene.ts"
   ]
 }

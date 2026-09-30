@@ -44,14 +44,15 @@ test('observatory stage and full ignition render with retained smoke and detache
   expect(errors).toEqual([]);
 });
 
-test('idle sky avoids duplicate frames, then selection and resize redraw the scene', async ({ page }) => {
+test('idle sky uses bounded ambient frames, then selection and resize redraw the scene', async ({ page }) => {
   await enterSky(page, 'backend=webgl&qa=1');
   const snapshot = () => page.evaluate(() => (window as unknown as { __firecrackersQA: QA }).__firecrackersQA.snapshot());
   await page.waitForTimeout(500);
   const before = await snapshot();
   await page.waitForTimeout(750);
   const idle = await snapshot();
-  expect(Number(idle.frames) - Number(before.frames)).toBeLessThanOrEqual(2);
+  expect(Number(idle.frames) - Number(before.frames)).toBeGreaterThan(0);
+  expect(Number(idle.frames) - Number(before.frames)).toBeLessThanOrEqual(18);
   await page.getByRole('button', { name: 'Multicolor Peony', exact: true }).click();
   await expect.poll(async () => Number((await snapshot()).frames)).toBeGreaterThan(Number(idle.frames));
   const selected = await snapshot();
