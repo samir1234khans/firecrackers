@@ -1,4 +1,6 @@
 /* Six compact transparent islands. Their hit regions never span the central sky. */
+/* Keep one-finger sky brushes active while retaining native pinch zoom. Panels scroll normally. */
+.scene-host canvas { touch-action:pinch-zoom; }
 .fireworks-app { --edge-gap: 12px; --rail: min(128px, 12vw); --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); --safe-left: env(safe-area-inset-left, 0px); --safe-right: env(safe-area-inset-right, 0px); }
 .edge-group { position:absolute; z-index:30; width:var(--rail); display:flex; flex-direction:column; align-items:stretch; gap:2px; margin:0; padding:0; background:transparent; pointer-events:none; }
 .edge-group[data-edge$='left'] { left:calc(var(--safe-left) + var(--edge-gap)); }

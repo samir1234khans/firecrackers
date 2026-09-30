@@ -3,6 +3,7 @@ import { chromium } from 'playwright';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chooseFamily } from './stage-helpers.mjs';
+import { qualifyGalacticSky } from './galactic-checks.mjs';
 
 // Opt-in installed-Chrome hardware qualification; portrait viewports are emulation.
 // This checks behavior and captures appearance, not GPU timing or phone endurance.
@@ -144,10 +145,11 @@ async function pauseAndIdle(page, label) {
   const idleLater = await snap(page);
   const layoutAfter = await layoutObservation(page);
   report.idleObservations.push({ label, idle, idleLater, layoutBefore, layoutAfter, frameDelta: idleLater.frames - idle.frames });
-  assert.ok(idleLater.frames - idle.frames <= 2,
-    `An empty sky must remain inexpensive rather than rendering continuously: ${JSON.stringify({ label, frameDelta: idleLater.frames - idle.frames, time: idle.time, laterTime: idleLater.time, paused: idle.paused, laterPaused: idleLater.paused, backend: idle.backend, laterBackend: idleLater.backend })}`);
+  const frameDelta = idleLater.frames - idle.frames;
+  assert.ok(frameDelta > 0 && frameDelta <= 18,
+    `An idle Ultra sky must use its bounded 20 Hz ambient cadence: ${JSON.stringify({ label, frameDelta, time: idle.time, laterTime: idleLater.time, paused: idle.paused, laterPaused: idleLater.paused, backend: idle.backend, laterBackend: idleLater.backend })}`);
   assert.equal(idleLater.quality, 'ultra');
-  check(`${label}: complete effect cleanup and static idle rendering`, { frameDelta: idleLater.frames - idle.frames });
+  check(`${label}: complete effect cleanup and bounded ambient idle rendering`, { frameDelta });
 }
 try {
   for (const device of [{ name: 'desktop', width: 1280, height: 800, mobile: false, backends: ['webgpu', 'webgl'] },
@@ -192,6 +194,8 @@ try {
     assert.equal(await page.getByRole('checkbox', { name: 'Reduced flashes', exact: true }).isChecked(), true);
     await page.getByRole('button', { name: 'Close panel', exact: true }).click();
     check(`${project.label}: all eight assets, default Ultra and reduced flashes on actual hardware`);
+    if (backend === 'webgpu' && device.name !== 'landscape')
+      await qualifyGalacticSky(page, project.label, check, phase => capture(page, project, phase), { touch: device.mobile });
     await resetFrozen(page); await capture(page, project, 'idle'); await riverDetail(page, project);
     await chooseFamily(page, 'Gold Willow');
     await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();

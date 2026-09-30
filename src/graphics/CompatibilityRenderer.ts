@@ -9,6 +9,8 @@ import { flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from '../engine/LaunchG
 import { fusePointAt } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
 import { makeGalaxySky } from './GalaxySky';
+import type { SkyState } from '../engine/SkyState';
+import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
 
 type RiverLamp = { x: number; y: number; waterline: number; width: number; phase: number; strength: number; flicker: number };
 type RiverBoat = { image: HTMLCanvasElement; x: number; depth: number; width: number; phase: number; facing: number;
@@ -23,10 +25,16 @@ export class CompatibilityRenderer implements RendererPort {
     private readonly canvas = document.createElement('canvas');
     private readonly ctx: CanvasRenderingContext2D;
     private readonly celestialArt = makeGalaxySky();
+    private readonly celestialFrame = createCelestialFrame();
+    private skyState: Readonly<SkyState> = { time: 0, pointerX: .5, pointerY: .25, engagement: 0, motionAllowed: false };
+    private readonly starResponse = document.createElement('canvas');
+    private readonly starResponseMask = document.createElement('canvas');
+    private readonly starResponseContext: CanvasRenderingContext2D;
     private readonly riverArt = this.makeRiverArt();
     private readonly reducedSkyMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
     private layout!: StageLayout;
     setLayout(layout: StageLayout) { this.layout = layout; }
+    setSkyState(state: Readonly<SkyState>) { this.skyState = state; }
     private mode: DisplayMode = 'interactive';
     private width = 1;
     private height = 1;
@@ -190,6 +198,15 @@ export class CompatibilityRenderer implements RendererPort {
         const ctx = this.canvas.getContext('2d', { alpha: true });
         if (!ctx) throw new Error('This browser cannot create a drawing canvas.');
         this.ctx = ctx;
+        // Fixed 128px scratch and mask, never resized or allocated by pointer movement.
+        this.starResponse.width = this.starResponse.height = 128;
+        this.starResponseMask.width = this.starResponseMask.height = 128;
+        const response = this.starResponse.getContext('2d'), mask = this.starResponseMask.getContext('2d');
+        if (!response || !mask) throw new Error('This browser cannot prepare the celestial response.');
+        this.starResponseContext = response;
+        const gradient = mask.createRadialGradient(64, 64, 0, 64, 64, 64);
+        gradient.addColorStop(0, '#ffffff'); gradient.addColorStop(.3, '#ffffffce'); gradient.addColorStop(1, '#ffffff00');
+        mask.fillStyle = gradient; mask.fillRect(0, 0, 128, 128);
     }
     async init() {
         if (this.disposed) return;
@@ -288,6 +305,35 @@ export class CompatibilityRenderer implements RendererPort {
         c.strokeStyle = '#293340'; c.lineWidth = .5;
         for (let x = -this.width; x < this.width * 2; x += 70) { c.beginPath(); c.moveTo(this.width / 2 + (x - this.width / 2) * .75, this.height * .92); c.lineTo(x, this.height); c.stroke(); }
     }
+    private drawCelestialResponse(left: number, top: number, width: number, height: number, strength: number) {
+        const frame = this.celestialFrame;
+        if (frame.engagement <= .001) return;
+        const radius = CELESTIAL_LIMITS.responseRadiusPixels, scale = 128 / (radius * 2);
+        const x = frame.pointerX * this.width, y = frame.pointerY * this.height;
+        const response = this.starResponseContext;
+        response.setTransform(1, 0, 0, 1, 0, 0); response.globalAlpha = 1;
+        response.globalCompositeOperation = 'source-over'; response.clearRect(0, 0, 128, 128);
+        response.drawImage(this.celestialArt.nearStars,
+            (left + frame.nearX - x + radius) * scale, (top + frame.nearY - y + radius) * scale, width * scale, height * scale);
+        response.globalCompositeOperation = 'destination-in'; response.drawImage(this.starResponseMask, 0, 0);
+        response.globalCompositeOperation = 'source-over';
+        this.ctx.globalAlpha = strength * frame.engagement * .28;
+        this.ctx.drawImage(this.starResponse, x - radius, y - radius, radius * 2, radius * 2);
+    }
+    private drawCelestialMeteor() {
+        const meteor = this.celestialFrame.meteor;
+        if (!meteor.active) return;
+        const c = this.ctx, dx = meteor.headX - meteor.tailX, dy = meteor.headY - meteor.tailY;
+        c.strokeStyle = '#bfd4ed'; c.lineWidth = .8; c.lineCap = 'round';
+        // Eight finite segments replace a freshly allocated gradient on every frame.
+        for (let i = 0; i < 8; i++) {
+            const start = i / 8, end = (i + 1) / 8;
+            c.globalAlpha = meteor.opacity * end * end;
+            c.beginPath(); c.moveTo(meteor.tailX + dx * start, meteor.tailY + dy * start);
+            c.lineTo(meteor.tailX + dx * end, meteor.tailY + dy * end); c.stroke();
+        }
+        c.lineCap = 'butt'; c.globalAlpha = 1;
+    }
     private drawStage() {
         const c = this.ctx, s = this.sim;
         const x = s.committed?.padX ?? s.placementToX();
@@ -323,6 +369,9 @@ export class CompatibilityRenderer implements RendererPort {
         c.setTransform(this.ratio, 0, 0, this.ratio, 0, 0);
         c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
         c.clearRect(0, 0, this.width, this.height);
+        updateCelestialFrame(this.celestialFrame, this.skyState, this.width, this.height,
+            this.mode !== 'transparent' && s.quality !== 'low' && !this.reducedSkyMotion?.matches &&
+            !this.host.parentElement?.classList.contains('reduced-motion'), s.reducedFlashes);
         if (this.mode !== 'transparent') {
             const sky = c.createLinearGradient(0, 0, 0, this.height);
             sky.addColorStop(0, '#030916'); sky.addColorStop(.62, '#0c1b2b'); sky.addColorStop(1, '#050b13');
@@ -331,13 +380,22 @@ export class CompatibilityRenderer implements RendererPort {
             const panoramaWidth = this.width / crop, skyHeight = this.height * .72 / .872;
             const left = (this.width - panoramaWidth) / 2;
             c.drawImage(this.celestialArt.stars, left, 0, panoramaWidth, skyHeight);
-            const skyTime = s.quality === 'low' || this.reducedSkyMotion?.matches || this.host.parentElement?.classList.contains('reduced-motion') ? 0 : s.time;
+            const skyTime = this.celestialFrame.time, frame = this.celestialFrame;
+            const celestialCrop = Math.max(.6, crop), celestialWidth = this.width / celestialCrop;
+            const celestialHeight = celestialWidth / 2, celestialLeft = (this.width - celestialWidth) / 2;
+            const ySpan = this.height / celestialHeight, celestialTop = -Math.min(0, 1 - ySpan) * .065 * celestialHeight;
             const angle = Math.sin(skyTime * .022) * .010;
             c.save(); c.beginPath(); c.rect(0, 0, this.width, this.height * .72); c.clip();
             c.globalAlpha = (s.quality === 'ultra' ? .60 : s.quality === 'standard' ? .48 : .30) * (s.reducedFlashes ? .72 : 1);
-            c.translate(this.width / 2 - Math.sin(skyTime * .018) * panoramaWidth * .005,
-                skyHeight / 2 + (Math.cos(skyTime * .018) - 1) * skyHeight * .003);
-            c.rotate(angle); c.drawImage(this.celestialArt.dust, -panoramaWidth / 2, -skyHeight / 2, panoramaWidth, skyHeight); c.restore();
+            c.translate(this.width / 2 + frame.dustX - Math.sin(skyTime * .018) * celestialWidth * .005,
+                celestialTop + celestialHeight / 2 + frame.dustY + (Math.cos(skyTime * .018) - 1) * celestialHeight * .003);
+            c.rotate(angle); c.drawImage(this.celestialArt.dust, -celestialWidth / 2, -celestialHeight / 2, celestialWidth, celestialHeight); c.restore();
+            const nearStrength = (s.quality === 'ultra' ? .85 : s.quality === 'standard' ? .66 : .44) * (s.reducedFlashes ? .82 : 1);
+            c.save(); c.beginPath(); c.rect(0, 0, this.width, this.height * .72); c.clip();
+            c.globalAlpha = nearStrength * frame.twinkle;
+            c.drawImage(this.celestialArt.nearStars, celestialLeft + frame.nearX, celestialTop + frame.nearY, celestialWidth, celestialHeight);
+            this.drawCelestialResponse(celestialLeft, celestialTop, celestialWidth, celestialHeight, nearStrength);
+            c.restore(); this.drawCelestialMeteor();
             c.globalAlpha = 1;
         }
         if (this.mode !== 'transparent') this.drawWater();
@@ -409,6 +467,12 @@ export class CompatibilityRenderer implements RendererPort {
         const r = this.sim.committed;
         const shell = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         return { stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
+            ...celestialDiagnostics(this.celestialFrame), skyHorizon: .72, skyLayers: 3, skyTextures: 0,
+            skyArtWidth: this.celestialArt.stars.width, skyArtHeight: this.celestialArt.stars.height,
+            skyCelestialCrop: Math.max(.6, Math.min(1.35, this.width / this.height / 2)), skyResponseCachePixels: 32768,
+            skyFieldStars: this.celestialArt.metadata.fieldStars, skyClusterStars: this.celestialArt.metadata.clusteredStars,
+            skyNearStars: this.celestialArt.metadata.nearStars, skyDustSpecks: this.celestialArt.metadata.dustSpecks,
+            skyArtRgbaBytes: this.celestialArt.metadata.rgbaBytes,
             riverScenery: 'original Canvas river', riverBoats: this.mode === 'transparent' ? 0 : this.riverArt.boats.length,
             riverLampAnchors: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length,
             riverReflectionFragments: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length * (this.sim.quality === 'low' ? 4 : 8),
@@ -421,6 +485,9 @@ export class CompatibilityRenderer implements RendererPort {
         this.disposed = true; this.canvas.remove(); this.glows.clear();
         this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
         this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
+        this.celestialArt.nearStars.width = this.celestialArt.nearStars.height = 1;
+        this.starResponse.width = this.starResponse.height = 1;
+        this.starResponseMask.width = this.starResponseMask.height = 1;
         this.riverArt.homes.width = this.riverArt.homes.height = 1;
         for (const boat of this.riverArt.boats) boat.image.width = boat.image.height = 1;
         this.canvas.width = this.canvas.height = 1;

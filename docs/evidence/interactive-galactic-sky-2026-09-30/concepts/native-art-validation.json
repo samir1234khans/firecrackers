@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "seed": 6102026,
+    "width": 2048,
+    "height": 1024,
+    "fieldStars": 5200,
+    "clusteredStars": 3400,
+    "nearStars": 128,
+    "dustSpecks": 23721,
+    "spiralClusters": 1,
+    "rgbaBytes": 25165824,
+    "rgbaWithMipmapsBytes": 33554432
+  },
+  "generationMs": 537,
+  "statistics": {
+    "stars": {
+      "edgeAlpha": 0,
+      "horizonAlpha": 0,
+      "transparentRGB": 0,
+      "peakAlpha": 131,
+      "centerMeanAlpha": 0.028503410114528376,
+      "upperClusterMeanAlpha": 0.2713041804974263
+    },
+    "dust": {
+      "edgeAlpha": 0,
+      "horizonAlpha": 0,
+      "transparentRGB": 0,
+      "peakAlpha": 35,
+      "centerMeanAlpha": 0.03712520911079655,
+      "upperClusterMeanAlpha": 8.782142685332179
+    },
+    "nearStars": {
+      "edgeAlpha": 0,
+      "horizonAlpha": 0,
+      "transparentRGB": 0,
+      "peakAlpha": 99,
+      "centerMeanAlpha": 0,
+      "upperClusterMeanAlpha": 0.06863905325443787
+    }
+  }
+}

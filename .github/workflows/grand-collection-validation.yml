@@ -79,7 +79,7 @@ jobs:
   recovery:
     needs: engine
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -100,6 +100,9 @@ jobs:
           exit 1
       - name: Waterfront, transparent edges and touch drag regression
         run: node tests/stage-browser.mjs /tmp/stage-evidence
+      - name: Galactic input, shared time and bounded ambient lifecycle
+        if: always()
+        run: node tests/galactic-interaction-browser.mjs /tmp/galactic-evidence
       - name: Progressive artwork loading and fallback
         if: always()
         run: node tests/assets-browser.mjs
@@ -123,4 +126,5 @@ jobs:
             /tmp/stage-evidence
             /tmp/overload-evidence
             /tmp/asset-lifecycle-evidence
+            /tmp/galactic-evidence
           retention-days: 7
