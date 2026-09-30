@@ -62,11 +62,12 @@ export class FireworkRenderer {
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         this.camera.layers.enable(1);
         this.scene.add(this.environment.group, this.water.mesh);
+        this.water.setShore(this.environment.skyTexture);
         this.scene.fog = new THREE.FogExp2('#07111e', .0021);
         this.scene.environment = this.environment.probe;
         this.scene.environmentIntensity = .85;
-        this.scene.add(new THREE.HemisphereLight(0xa6bfdc, 0x34261a, 2.0));
-        const key = new THREE.DirectionalLight(0xffdcaf, 3.5);
+        this.scene.add(new THREE.HemisphereLight(0xa6bfdc, 0x34261a, 1.25));
+        const key = new THREE.DirectionalLight(0xffdcaf, 1.9);
         key.position.set(-8, 35, 45);
         this.scene.add(key, this.blastLight);
         this.scene.add(this.stage.group);
@@ -161,7 +162,7 @@ export class FireworkRenderer {
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
         this.water.resize(this.camera);
-        this.environment.setPortraitHorizon(aspect < .72);
+        this.environment.setPortraitHorizon(aspect < .72, this.water.diagnostics().waterline, aspect);
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / framing.scale * .9), 16);
         this.renderer.setSize(w, h);
         this.setQuality(this.sim.quality);
@@ -233,6 +234,7 @@ export class FireworkRenderer {
                     else if (name === 'normal') this.water.setNormal(asset as THREE.Texture);
                     else if (name === 'rocket') for (const prop of this.props) prop.setAuthoredGeometry(asset as THREE.Group);
                     else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
+                    else if (name === 'sky') this.environment.setSky(asset as HTMLImageElement);
                     this.assetStates[name] = 'active';
                 } catch (error) {
                     this.assetStates[name] = 'failed';
@@ -292,6 +294,7 @@ export class FireworkRenderer {
             parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
         this.opaqueDepth.update();
+        this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
         this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', camera => this.particles.orient(camera));
         this.post.render();
         this.metrics.submitMs = performance.now() - start;

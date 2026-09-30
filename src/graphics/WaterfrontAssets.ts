@@ -8,8 +8,9 @@ export type WaterfrontAssets = {
   flame: THREE.Texture;
   rocket: THREE.Group;
   terrace: THREE.Group;
+  sky: HTMLImageElement;
 };
-export const WATERFRONT_ASSET_NAMES = ['smoke', 'paper', 'normal', 'flame', 'rocket', 'terrace'] as const;
+export const WATERFRONT_ASSET_NAMES = ['smoke', 'paper', 'normal', 'flame', 'rocket', 'terrace', 'sky'] as const;
 export type WaterfrontAssetName = typeof WATERFRONT_ASSET_NAMES[number];
 const ASSET_LOAD_DEADLINE_MS = 60_000;
 
@@ -30,7 +31,7 @@ export async function loadWaterfrontAssets(
   const textureLoader = new THREE.TextureLoader();
   const tasks: { name: WaterfrontAssetName; load: () => Promise<WaterfrontAssets[WaterfrontAssetName]> }[] = [
     { name: 'smoke', load: async () => {
-      const img = await image('smoke-density-light.png');
+      const img = await image('smoke-density-light-v005.png');
       const canvas = document.createElement('canvas'); canvas.width = img.width; canvas.height = img.height;
       const ctx = canvas.getContext('2d');
       if (!ctx) throw new Error('Smoke atlas canvas context was unavailable');
@@ -39,7 +40,7 @@ export async function loadWaterfrontAssets(
     } },
     { name: 'paper', load: () => image('paper-color.png') },
     { name: 'normal', load: async () => {
-      const t = await textureLoader.loadAsync(url('water-normal.png'));
+      const t = await textureLoader.loadAsync(url('water-normal-v005.png'));
       t.colorSpace = THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
     } },
     { name: 'flame', load: async () => {
@@ -48,6 +49,7 @@ export async function loadWaterfrontAssets(
     } },
     { name: 'rocket', load: async () => (await loader.loadAsync(url('rocket.glb'))).scene },
     { name: 'terrace', load: async () => (await loader.loadAsync(url('terrace-v004.glb'))).scene },
+    { name: 'sky', load: () => image('waterfront-night-v005.webp') },
   ];
   await Promise.all(tasks.map(({ name, load }) => new Promise<void>(resolve => {
     let settled = false;

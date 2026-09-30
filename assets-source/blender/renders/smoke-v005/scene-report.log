@@ -1,0 +1,269 @@
+00:01.594  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\masters\smoke-ignition-v005.blend"
+BLENDER_SCENE_REPORT_BEGIN
+{
+  "schema_version": 1,
+  "blender_version": "5.2.1 LTS",
+  "filepath": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\masters\\smoke-ignition-v005.blend",
+  "active_scene": "Smoke and ignition | coherent billows v005",
+  "scenes": [
+    {
+      "name": "Smoke and ignition | coherent billows v005",
+      "objects": [
+        "Fuse wisps",
+        "Motor exhaust",
+        "Burst cloud",
+        "Review camera",
+        "Directional smoke rim",
+        "Ignition flame"
+      ],
+      "camera": "Review camera",
+      "engine": "CYCLES",
+      "resolution": [
+        128,
+        128
+      ],
+      "resolution_percentage": 100,
+      "frame_range": [
+        1,
+        48
+      ],
+      "frame_current": 25,
+      "fps": 24.0,
+      "unit_system": "METRIC",
+      "unit_scale": 1.0,
+      "view_transform": "Standard",
+      "output_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\renders\\smoke-v005\\family-2-frame-15.png"
+    }
+  ],
+  "objects": [
+    {
+      "name": "Burst cloud",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Burst cloud | editable coherent billows v005"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Directional smoke rim",
+      "type": "LIGHT",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -3.0,
+        -4.0,
+        5.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    },
+    {
+      "name": "Fuse wisps",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": true,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Fuse wisps | editable coherent billows v005"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Ignition flame",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8883870244026184,
+        1.0,
+        0.9415390491485596
+      ],
+      "hide_render": true,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Ignition flame emission"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 108,
+        "polygons": 96,
+        "uv_layers": []
+      },
+      "animation": {
+        "action": "Ignition flameAction",
+        "nla_tracks": 0,
+        "drivers": 0
+      }
+    },
+    {
+      "name": "Motor exhaust",
+      "type": "MESH",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": true,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Motor exhaust | editable coherent billows v005"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Review camera",
+      "type": "CAMERA",
+      "collections": [
+        "Smoke and ignition | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        -8.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    }
+  ],
+  "collections": [
+    {
+      "name": "Smoke and ignition | authored assets",
+      "objects": 6
+    }
+  ],
+  "materials": [
+    {
+      "name": "Burst cloud | editable coherent billows v005",
+      "users": 1,
+      "nodes": 45
+    },
+    {
+      "name": "Fuse wisps | editable coherent billows v005",
+      "users": 1,
+      "nodes": 40
+    },
+    {
+      "name": "Ignition flame emission",
+      "users": 1,
+      "nodes": 2
+    },
+    {
+      "name": "Motor exhaust | editable coherent billows v005",
+      "users": 1,
+      "nodes": 40
+    }
+  ],
+  "node_groups": [],
+  "dependencies": [
+    {
+      "kind": "image",
+      "name": "Smoke v005 | density and projected light gradients",
+      "path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\public\\art\\smoke-density-light-v005.png",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\public\\art\\smoke-density-light-v005.png",
+      "status": "packed"
+    }
+  ],
+  "warnings": [
+    "Base mesh counts exclude evaluated modifiers and instances.",
+    "Sequences, tiles, simulation caches, drivers and add-on dependencies require task-specific checks."
+  ]
+}
+BLENDER_SCENE_REPORT_END
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

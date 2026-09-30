@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firecrackers — matched cinematic captures</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #06090f; color: #e9edf1; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header, main, footer { max-width: 1440px; margin: auto; padding: 24px; }
+    header { padding-top: 40px; }
+    h1 { font: 500 clamp(28px, 4vw, 46px)/1.1 Georgia, serif; margin: 0 0 16px; }
+    h2 { font: 500 24px/1.2 Georgia, serif; margin: 0; }
+    p { max-width: 100ch; line-height: 1.6; margin: 12px 0; color: #bec6ce; }
+    strong { color: #f3d494; font-weight: 600; }
+    a { color: #f3d494; text-underline-offset: 3px; }
+    code { word-break: break-all; font-size: 12px; }
+    .meta { font-size: 14px; }
+    .sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; padding: 16px 0; }
+    .sources p { margin: 0; }
+    .filter { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; }
+    button { border: 1px solid #38434f; background: #111822; color: #e9edf1; font: inherit; padding: 10px 16px; border-radius: 6px; min-height: 44px; cursor: pointer; }
+    button[aria-pressed="true"] { border-color: #c7a45f; color: #f3d494; }
+    button:focus-visible, a:focus-visible { outline: 2px solid #f3d494; outline-offset: 4px; }
+    article { padding: 0 0 32px; margin: 0 0 28px; border-bottom: 1px solid #242e39; }
+    article[hidden] { display: none; }
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+    figure { margin: 0; min-width: 0; }
+    figcaption { font-size: 14px; padding: 0 0 10px; color: #c8d0d9; }
+    figure a { display: block; background: #000; }
+    img { display: block; width: 100%; height: auto; }
+    .portrait .pair { max-width: 820px; margin-right: auto; }
+    footer { padding-top: 0; padding-bottom: 40px; }
+    @media (max-width: 640px) { header, main, footer { padding-left: 16px; padding-right: 16px; } .sources { grid-template-columns: 1fr; } .pair { gap: 8px; } h2 { font-size: 21px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A clearer night, richer firework traces.</h1>
+    <p>Matched <strong>actual browser screenshots</strong> compare the published app with the cinematic candidate. Open either image to inspect it at its original size.</p>
+    <p class="meta">Seed <strong>20260916</strong> · Ultra · hardware WebGPU, Intel gen-12lp · Chrome 154.0.8037.59 · device scale factor 1. The virtual world is reset to time zero before each independent launch and advanced in fixed 1/60-second steps.</p>
+    <div class="sources">
+      <p class="meta"><strong>Before: published 2026-09-30.1</strong><br><code>1e9598a54640f443c26d2846f43467ccfdce8a99bafdb98662049cb2c71bbd51</code><br><a href="captures/baseline/report.json">Baseline capture report</a></p>
+      <p class="meta"><strong>After: candidate 2026-09-30.2</strong><br><code>27d5a802c1521a7589c0094e0cc296c57bd6098c4fcc226a7018a541e71b7040</code><br><a href="captures/candidate/report.json">Candidate capture report</a></p>
+    </div>
+    <div class="filter" aria-label="Viewport filter">
+      <button type="button" data-filter="all" aria-pressed="true">All comparisons</button>
+      <button type="button" data-filter="desktop" aria-pressed="false">Desktop</button>
+      <button type="button" data-filter="portrait" aria-pressed="false">Portrait</button>
+    </div>
+  </header>
+  <main id="comparisons"></main>
+  <footer>
+    <p class="meta">Visual review: the candidate adds warmer continuous traces, brighter moving heads, a layered shoreline and cloud horizon, and synchronized colored reflections. The final water removes the conspicuous regular bands seen in the first candidate. The earlier generated artwork still has more convincing wet stone, illuminated smoke billows, and varied water highlights; the live portrait composition also leaves substantial empty upper sky. These captures show progress toward that direction.</p>
+    <p class="meta">The complete local evidence includes early, peak, and late frames for these three effects, plus idle frames, using actual WebGPU and WebGL2 at both viewports. These six pairs show the WebGPU peak captures. Deterministic captures demonstrate appearance and lifecycle, not frame rate. The portrait viewport runs on this PC with touch emulation; it is not physical-phone evidence.</p>
+    <p class="meta">Short real-time requestAnimationFrame samples and renderer submission counts are in the reports. They do not measure GPU completion or qualify the 15-minute Festival performance target. Photographic references remain art direction; these images document the live renderer.</p>
+  </footer>
+  <script>
+    const families = [
+      { id: 'gold-willow', name: 'Gold Willow', time: '4.9' },
+      { id: 'sapphire-saturn', name: 'Sapphire Saturn', time: '4.9' },
+      { id: 'opal-supernova', name: 'Opal Supernova', time: '7.8' },
+    ];
+    const devices = [
+      { id: 'desktop', name: 'Desktop', width: 1280, height: 800 },
+      { id: 'portrait', name: 'Portrait emulation', width: 393, height: 851 },
+    ];
+    const main = document.querySelector('main');
+    for (const device of devices) for (const family of families) {
+      const article = document.createElement('article');
+      article.dataset.device = device.id; article.className = device.id;
+      const heading = document.createElement('h2'); heading.textContent = `${family.name} · ${device.name}`;
+      const metadata = document.createElement('p'); metadata.className = 'meta';
+      metadata.textContent = `${device.width} × ${device.height} PNG · peak comparison at ${family.time} seconds after the launch press · seed 20260916 · actual WebGPU`;
+      const pair = document.createElement('div'); pair.className = 'pair';
+      for (const [folder, label] of [['baseline', 'Before — published .1'], ['candidate', 'After — cinematic .2']]) {
+        const figure = document.createElement('figure');
+        const caption = document.createElement('figcaption'); caption.textContent = label;
+        const link = document.createElement('a'); link.href = `captures/${folder}/${folder}-${device.id}-webgpu-${family.id}-peak.png`;
+        const image = document.createElement('img'); image.src = link.href; image.width = device.width; image.height = device.height; image.loading = 'lazy';
+        image.alt = `${family.name}, ${device.name}, ${label}, ${family.time} seconds after launch`;
+        link.append(image); figure.append(caption, link); pair.append(figure);
+      }
+      article.append(heading, metadata, pair); main.append(article);
+    }
+    for (const button of document.querySelectorAll('[data-filter]')) button.addEventListener('click', () => {
+      for (const other of document.querySelectorAll('[data-filter]')) other.setAttribute('aria-pressed', String(other === button));
+      for (const article of document.querySelectorAll('[data-device]')) article.hidden = button.dataset.filter !== 'all' && article.dataset.device !== button.dataset.filter;
+    });
+  </script>
+</body>
+</html>

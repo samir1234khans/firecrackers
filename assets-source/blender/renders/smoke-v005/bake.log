@@ -1,0 +1,102 @@
+00:01.469  blend            | Read blend: "C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\masters\smoke-ignition-v005.blend"
+00:02.969  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-00.png'
+BAKED family=0 frame=00 elapsed=1.5s
+00:04.391  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-01.png'
+BAKED family=0 frame=01 elapsed=2.9s
+00:05.844  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-02.png'
+BAKED family=0 frame=02 elapsed=4.4s
+00:07.297  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-03.png'
+BAKED family=0 frame=03 elapsed=5.8s
+00:08.735  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-04.png'
+BAKED family=0 frame=04 elapsed=7.3s
+00:10.203  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-05.png'
+BAKED family=0 frame=05 elapsed=8.7s
+00:11.657  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-06.png'
+BAKED family=0 frame=06 elapsed=10.2s
+00:13.125  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-07.png'
+BAKED family=0 frame=07 elapsed=11.7s
+00:14.578  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-08.png'
+BAKED family=0 frame=08 elapsed=13.1s
+00:16.063  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-09.png'
+BAKED family=0 frame=09 elapsed=14.6s
+00:17.516  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-10.png'
+BAKED family=0 frame=10 elapsed=16.1s
+00:18.985  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-11.png'
+BAKED family=0 frame=11 elapsed=17.5s
+00:20.469  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-12.png'
+BAKED family=0 frame=12 elapsed=19.0s
+00:21.953  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-13.png'
+BAKED family=0 frame=13 elapsed=20.5s
+00:23.453  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-14.png'
+BAKED family=0 frame=14 elapsed=22.0s
+00:24.938  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-0-frame-15.png'
+BAKED family=0 frame=15 elapsed=23.5s
+00:26.407  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-00.png'
+BAKED family=1 frame=00 elapsed=24.9s
+00:27.891  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-01.png'
+BAKED family=1 frame=01 elapsed=26.4s
+00:29.360  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-02.png'
+BAKED family=1 frame=02 elapsed=27.9s
+00:30.891  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-03.png'
+BAKED family=1 frame=03 elapsed=29.4s
+00:32.375  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-04.png'
+BAKED family=1 frame=04 elapsed=30.9s
+00:33.860  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-05.png'
+BAKED family=1 frame=05 elapsed=32.4s
+00:35.328  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-06.png'
+BAKED family=1 frame=06 elapsed=33.9s
+00:36.813  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-07.png'
+BAKED family=1 frame=07 elapsed=35.3s
+00:38.313  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-08.png'
+BAKED family=1 frame=08 elapsed=36.8s
+00:39.813  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-09.png'
+BAKED family=1 frame=09 elapsed=38.3s
+00:41.407  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-10.png'
+BAKED family=1 frame=10 elapsed=39.9s
+00:42.953  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-11.png'
+BAKED family=1 frame=11 elapsed=41.5s
+00:44.485  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-12.png'
+BAKED family=1 frame=12 elapsed=43.0s
+00:45.985  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-13.png'
+BAKED family=1 frame=13 elapsed=44.5s
+00:47.532  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-14.png'
+BAKED family=1 frame=14 elapsed=46.1s
+00:49.078  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-1-frame-15.png'
+BAKED family=1 frame=15 elapsed=47.6s
+00:50.719  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-00.png'
+BAKED family=2 frame=00 elapsed=49.3s
+00:52.360  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-01.png'
+BAKED family=2 frame=01 elapsed=50.9s
+00:53.969  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-02.png'
+BAKED family=2 frame=02 elapsed=52.5s
+00:55.563  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-03.png'
+BAKED family=2 frame=03 elapsed=54.1s
+00:57.157  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-04.png'
+BAKED family=2 frame=04 elapsed=55.7s
+00:58.766  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-05.png'
+BAKED family=2 frame=05 elapsed=57.3s
+01:00.407  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-06.png'
+BAKED family=2 frame=06 elapsed=58.9s
+01:02.016  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-07.png'
+BAKED family=2 frame=07 elapsed=60.6s
+01:03.625  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-08.png'
+BAKED family=2 frame=08 elapsed=62.2s
+01:05.297  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-09.png'
+BAKED family=2 frame=09 elapsed=63.8s
+01:07.063  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-10.png'
+BAKED family=2 frame=10 elapsed=65.6s
+01:08.797  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-11.png'
+BAKED family=2 frame=11 elapsed=67.3s
+01:10.485  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-12.png'
+BAKED family=2 frame=12 elapsed=69.0s
+01:12.094  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-13.png'
+BAKED family=2 frame=13 elapsed=70.6s
+01:13.735  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-14.png'
+BAKED family=2 frame=14 elapsed=72.3s
+01:15.360  render           | Saved: 'C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\assets-source\blender\renders\smoke-v005\family-2-frame-15.png'
+BAKED family=2 frame=15 elapsed=73.9s
+Info: Saved as "smoke-ignition-v005.blend"
+BAKE_COMPLETE {"blender": "5.2.1 LTS", "atlas": {"file": "smoke-density-light-v005.png", "width": 528, "height": 1584, "innerCell": 128, "padding": 2, "bytes": 555389, "colorSpace": "Non-Color; linear data", "channels": "R extinction density; GB signed projected-density gradients; A opacity"}, "seconds": 73.99}
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

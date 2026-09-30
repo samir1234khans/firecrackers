@@ -79,3 +79,5 @@ See [delivery evidence](docs/evidence/grand-collection-delivery.md), [machine-re
 Physical Android/tablet, Safari/iOS, hardware WebGPU parity, thermal/endurance, OBS and complete flash/accessibility qualification are not established by browser emulation. Final visual/audio approval remains separate. The waterfront upgrade adds original Blender GLBs and animated procedural-volume atlases plus verified CC0 recordings. The source volumes are not fluid simulations. No accounts, backend, paid services or physical-firework instructions are introduced.
 
 The `2026-09-30.1` WebGPU repair and next Three.js/TSL/Blender work are documented in [hardware diagnosis and roadmap](docs/evidence/webgpu-startup-2026-09-30.md).
+
+The next `2026-09-30.2` cinematic candidate adds original atmospheric scenery, Blender smoke and continuous trails. [Implementation plan and acceptance gates](docs/evidence/cinematic-realism-2026-09-30/PLAN.md).

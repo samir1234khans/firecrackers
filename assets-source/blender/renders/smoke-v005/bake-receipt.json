@@ -1,0 +1,410 @@
+{
+  "blender": "5.2.1 LTS",
+  "renderer": "Cycles CPU",
+  "samples": 20,
+  "procedural": true,
+  "fluidSimulation": false,
+  "framesPerFamily": 16,
+  "families": [
+    "Fuse wisps",
+    "Motor exhaust",
+    "Burst cloud"
+  ],
+  "atlas": {
+    "file": "smoke-density-light-v005.png",
+    "width": 528,
+    "height": 1584,
+    "innerCell": 128,
+    "padding": 2,
+    "bytes": 555389,
+    "colorSpace": "Non-Color; linear data",
+    "channels": "R extinction density; GB signed projected-density gradients; A opacity"
+  },
+  "seconds": 73.99,
+  "metrics": [
+    {
+      "family": 0,
+      "frame": 0,
+      "maxOpacity": 0.6296569108963013,
+      "meanOpacity": 0.019605688750743866,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": null
+    },
+    {
+      "family": 0,
+      "frame": 1,
+      "maxOpacity": 0.6105391979217529,
+      "meanOpacity": 0.019664810970425606,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0010332295205444098
+    },
+    {
+      "family": 0,
+      "frame": 2,
+      "maxOpacity": 0.5803921222686768,
+      "meanOpacity": 0.019945573061704636,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.002638604026287794
+    },
+    {
+      "family": 0,
+      "frame": 3,
+      "maxOpacity": 0.6058824062347412,
+      "meanOpacity": 0.019073128700256348,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0038427016697824
+    },
+    {
+      "family": 0,
+      "frame": 4,
+      "maxOpacity": 0.6524510383605957,
+      "meanOpacity": 0.020836208015680313,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0036387727595865726
+    },
+    {
+      "family": 0,
+      "frame": 5,
+      "maxOpacity": 0.6399509906768799,
+      "meanOpacity": 0.021571023389697075,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.003212005365639925
+    },
+    {
+      "family": 0,
+      "frame": 6,
+      "maxOpacity": 0.6750000715255737,
+      "meanOpacity": 0.02315075695514679,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0032462028320878744
+    },
+    {
+      "family": 0,
+      "frame": 7,
+      "maxOpacity": 0.6436275243759155,
+      "meanOpacity": 0.021232817322015762,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.004339180886745453
+    },
+    {
+      "family": 0,
+      "frame": 8,
+      "maxOpacity": 0.6294117569923401,
+      "meanOpacity": 0.02085224539041519,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.004009920172393322
+    },
+    {
+      "family": 0,
+      "frame": 9,
+      "maxOpacity": 0.6333333253860474,
+      "meanOpacity": 0.02029000222682953,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.004186802543699741
+    },
+    {
+      "family": 0,
+      "frame": 10,
+      "maxOpacity": 0.6399509906768799,
+      "meanOpacity": 0.022786220535635948,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0043259565718472
+    },
+    {
+      "family": 0,
+      "frame": 11,
+      "maxOpacity": 0.6975489854812622,
+      "meanOpacity": 0.02483915537595749,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.003779063932597637
+    },
+    {
+      "family": 0,
+      "frame": 12,
+      "maxOpacity": 0.656372606754303,
+      "meanOpacity": 0.02276204712688923,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0032648127526044846
+    },
+    {
+      "family": 0,
+      "frame": 13,
+      "maxOpacity": 0.6519608497619629,
+      "meanOpacity": 0.02186877653002739,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0020330094266682863
+    },
+    {
+      "family": 0,
+      "frame": 14,
+      "maxOpacity": 0.6066176891326904,
+      "meanOpacity": 0.02167992666363716,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0016110290307551622
+    },
+    {
+      "family": 0,
+      "frame": 15,
+      "maxOpacity": 0.5781862735748291,
+      "meanOpacity": 0.021397970616817474,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0009640861535444856
+    },
+    {
+      "family": 1,
+      "frame": 0,
+      "maxOpacity": 0.8250000476837158,
+      "meanOpacity": 0.0662657618522644,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": null
+    },
+    {
+      "family": 1,
+      "frame": 1,
+      "maxOpacity": 0.8225491046905518,
+      "meanOpacity": 0.06647829711437225,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0022714356891810894
+    },
+    {
+      "family": 1,
+      "frame": 2,
+      "maxOpacity": 0.83455890417099,
+      "meanOpacity": 0.06549503654241562,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.004439679905772209
+    },
+    {
+      "family": 1,
+      "frame": 3,
+      "maxOpacity": 0.8617647886276245,
+      "meanOpacity": 0.06298637390136719,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.006195218302309513
+    },
+    {
+      "family": 1,
+      "frame": 4,
+      "maxOpacity": 0.7975491285324097,
+      "meanOpacity": 0.06210818141698837,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.008159622550010681
+    },
+    {
+      "family": 1,
+      "frame": 5,
+      "maxOpacity": 0.8036765456199646,
+      "meanOpacity": 0.06326831877231598,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.007853221148252487
+    },
+    {
+      "family": 1,
+      "frame": 6,
+      "maxOpacity": 0.7504902482032776,
+      "meanOpacity": 0.05443307384848595,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.011138437315821648
+    },
+    {
+      "family": 1,
+      "frame": 7,
+      "maxOpacity": 0.7477942109107971,
+      "meanOpacity": 0.04995117336511612,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.009971768595278263
+    },
+    {
+      "family": 1,
+      "frame": 8,
+      "maxOpacity": 0.6625000238418579,
+      "meanOpacity": 0.05417097732424736,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.01068686693906784
+    },
+    {
+      "family": 1,
+      "frame": 9,
+      "maxOpacity": 0.7375000715255737,
+      "meanOpacity": 0.055036477744579315,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.009256849065423012
+    },
+    {
+      "family": 1,
+      "frame": 10,
+      "maxOpacity": 0.8801470994949341,
+      "meanOpacity": 0.05759086087346077,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.009335717186331749
+    },
+    {
+      "family": 1,
+      "frame": 11,
+      "maxOpacity": 0.8421568870544434,
+      "meanOpacity": 0.05545702576637268,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.006621506996452808
+    },
+    {
+      "family": 1,
+      "frame": 12,
+      "maxOpacity": 0.8512255549430847,
+      "meanOpacity": 0.0531214103102684,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.010138358920812607
+    },
+    {
+      "family": 1,
+      "frame": 13,
+      "maxOpacity": 0.8666667342185974,
+      "meanOpacity": 0.05344860628247261,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.005229695700109005
+    },
+    {
+      "family": 1,
+      "frame": 14,
+      "maxOpacity": 0.8544118404388428,
+      "meanOpacity": 0.05604104697704315,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.005219403654336929
+    },
+    {
+      "family": 1,
+      "frame": 15,
+      "maxOpacity": 0.8514706492424011,
+      "meanOpacity": 0.05686657875776291,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0023314831778407097
+    },
+    {
+      "family": 2,
+      "frame": 0,
+      "maxOpacity": 0.9759804606437683,
+      "meanOpacity": 0.12593036890029907,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": null
+    },
+    {
+      "family": 2,
+      "frame": 1,
+      "maxOpacity": 0.9759804606437683,
+      "meanOpacity": 0.12647083401679993,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.0042838603258132935
+    },
+    {
+      "family": 2,
+      "frame": 2,
+      "maxOpacity": 0.9588236212730408,
+      "meanOpacity": 0.1271185278892517,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.00917905941605568
+    },
+    {
+      "family": 2,
+      "frame": 3,
+      "maxOpacity": 0.9617647528648376,
+      "meanOpacity": 0.12700051069259644,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.011132005602121353
+    },
+    {
+      "family": 2,
+      "frame": 4,
+      "maxOpacity": 0.9644608497619629,
+      "meanOpacity": 0.12886914610862732,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.016534216701984406
+    },
+    {
+      "family": 2,
+      "frame": 5,
+      "maxOpacity": 0.9441177845001221,
+      "meanOpacity": 0.12145733833312988,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.014419976621866226
+    },
+    {
+      "family": 2,
+      "frame": 6,
+      "maxOpacity": 0.9433824419975281,
+      "meanOpacity": 0.1234530657529831,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.015283921733498573
+    },
+    {
+      "family": 2,
+      "frame": 7,
+      "maxOpacity": 0.9681373238563538,
+      "meanOpacity": 0.12735524773597717,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.015592778101563454
+    },
+    {
+      "family": 2,
+      "frame": 8,
+      "maxOpacity": 0.9487745761871338,
+      "meanOpacity": 0.12914752960205078,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.015285776928067207
+    },
+    {
+      "family": 2,
+      "frame": 9,
+      "maxOpacity": 0.938970685005188,
+      "meanOpacity": 0.12554502487182617,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.013749366626143456
+    },
+    {
+      "family": 2,
+      "frame": 10,
+      "maxOpacity": 0.949019730091095,
+      "meanOpacity": 0.12063013017177582,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.01538878958672285
+    },
+    {
+      "family": 2,
+      "frame": 11,
+      "maxOpacity": 0.9264706373214722,
+      "meanOpacity": 0.11762768030166626,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.01266084611415863
+    },
+    {
+      "family": 2,
+      "frame": 12,
+      "maxOpacity": 0.9485294818878174,
+      "meanOpacity": 0.11554889380931854,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.01531797181814909
+    },
+    {
+      "family": 2,
+      "frame": 13,
+      "maxOpacity": 0.9237745404243469,
+      "meanOpacity": 0.12023352086544037,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.01095981989055872
+    },
+    {
+      "family": 2,
+      "frame": 14,
+      "maxOpacity": 0.9213235974311829,
+      "meanOpacity": 0.12270820140838623,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.007938400842249393
+    },
+    {
+      "family": 2,
+      "frame": 15,
+      "maxOpacity": 0.9193627834320068,
+      "meanOpacity": 0.1235145777463913,
+      "edgeOpacity": 0.0,
+      "nextFrameMeanDelta": 0.004021798260509968
+    }
+  ]
+}

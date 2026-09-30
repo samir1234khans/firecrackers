@@ -1,0 +1,30 @@
+{
+  "blender": "5.2.1 LTS",
+  "master": "smoke-ignition-v005.blend",
+  "sourcePreserved": true,
+  "objects": [
+    "Fuse wisps",
+    "Motor exhaust",
+    "Burst cloud",
+    "Review camera",
+    "Directional smoke rim",
+    "Ignition flame"
+  ],
+  "missingDependencies": [],
+  "packedImages": [
+    "Smoke v005 | density and projected light gradients"
+  ],
+  "materials": [
+    "Fuse wisps | editable coherent billows v005",
+    "Motor exhaust | editable coherent billows v005",
+    "Burst cloud | editable coherent billows v005"
+  ],
+  "atlasSize": [
+    528,
+    1584
+  ],
+  "atlasBytes": 555389,
+  "paddingOpacityMax": 0.0,
+  "finite": true,
+  "redMatchesAlpha": true
+}

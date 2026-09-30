@@ -1,0 +1,3219 @@
+{
+  "schema_version": 1,
+  "blender_version": "5.2.1 LTS",
+  "filepath": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\masters\\waterfront-v004.blend",
+  "active_scene": "Waterfront",
+  "scenes": [
+    {
+      "name": "Waterfront",
+      "objects": [
+        "Water preview",
+        "Distant shore 00",
+        "Distant shore 01",
+        "Distant shore 02",
+        "Distant shore 03",
+        "Distant shore 04",
+        "Distant shore 05",
+        "Distant shore 06",
+        "Distant shore 07",
+        "Distant shore 08",
+        "Distant shore 09",
+        "Distant shore 10",
+        "Distant shore 11",
+        "Distant shore 12",
+        "Distant shore 13",
+        "Distant shore 14",
+        "Distant shore 15",
+        "Distant shore 16",
+        "Distant shore 17",
+        "Distant shore 18",
+        "Distant shore 19",
+        "Distant shore 20",
+        "Distant shore 21",
+        "Distant shore 22",
+        "Distant shore 23",
+        "Review camera",
+        "Moon fill",
+        "Terrace warm",
+        "Terrace detail review camera",
+        "Mortar bed",
+        "Laid basalt | course 01 stone 01",
+        "Laid basalt | course 01 stone 02",
+        "Laid basalt | course 01 stone 03",
+        "Laid basalt | course 01 stone 04",
+        "Laid basalt | course 01 stone 05",
+        "Laid basalt | course 01 stone 06",
+        "Laid basalt | course 01 stone 07",
+        "Laid basalt | course 01 stone 08",
+        "Laid basalt | course 01 stone 09",
+        "Laid basalt | course 01 stone 10",
+        "Laid basalt | course 02 stone 01",
+        "Laid basalt | course 02 stone 02",
+        "Laid basalt | course 02 stone 03",
+        "Laid basalt | course 02 stone 04",
+        "Laid basalt | course 02 stone 05",
+        "Laid basalt | course 02 stone 06",
+        "Laid basalt | course 02 stone 07",
+        "Laid basalt | course 02 stone 08",
+        "Laid basalt | course 02 stone 09",
+        "Laid basalt | course 02 stone 10",
+        "Laid basalt | course 03 stone 01",
+        "Laid basalt | course 03 stone 02",
+        "Laid basalt | course 03 stone 03",
+        "Laid basalt | course 03 stone 04",
+        "Laid basalt | course 03 stone 05",
+        "Laid basalt | course 03 stone 06",
+        "Laid basalt | course 03 stone 07",
+        "Laid basalt | course 03 stone 08",
+        "Laid basalt | course 03 stone 09",
+        "Laid basalt | course 03 stone 10",
+        "Water edge coping | block 01",
+        "Water edge coping | block 02",
+        "Water edge coping | block 03",
+        "Water edge coping | block 04",
+        "Water edge coping | block 05",
+        "Water edge coping | block 06",
+        "Water edge coping | block 07",
+        "Water edge coping | block 08",
+        "Water edge coping | block 09",
+        "Front cut edge | block 01",
+        "Front cut edge | block 02",
+        "Front cut edge | block 03",
+        "Front cut edge | block 04",
+        "Front cut edge | block 05",
+        "Front cut edge | block 06",
+        "Front cut edge | block 07",
+        "Front cut edge | block 08"
+      ],
+      "camera": "Review camera",
+      "engine": "CYCLES",
+      "resolution": [
+        800,
+        560
+      ],
+      "resolution_percentage": 100,
+      "frame_range": [
+        1,
+        48
+      ],
+      "frame_current": 1,
+      "fps": 24.0,
+      "unit_system": "METRIC",
+      "unit_scale": 1.0,
+      "view_transform": "AgX",
+      "output_path": "/tmp\\"
+    }
+  ],
+  "objects": [
+    {
+      "name": "Distant shore 00",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -72.0,
+        66.0,
+        0.3147450387477875
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 01",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -66.0,
+        66.0,
+        1.2641862630844116
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 02",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -60.0,
+        66.0,
+        1.8448952436447144
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 03",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -54.0,
+        66.0,
+        1.4664528369903564
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 04",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -48.0,
+        66.0,
+        1.6499876976013184
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 05",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -42.0,
+        66.0,
+        0.8318783640861511
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 06",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -36.0,
+        66.0,
+        1.6695852279663086
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 07",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -30.0,
+        66.0,
+        1.1195439100265503
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 08",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -24.0,
+        66.0,
+        1.297736406326294
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 09",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -18.0,
+        66.0,
+        1.2122622728347778
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 10",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -12.0,
+        66.0,
+        1.5419306755065918
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 11",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -6.0,
+        66.0,
+        1.8846440315246582
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 12",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        66.0,
+        1.4990296363830566
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 13",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        6.0,
+        66.0,
+        1.6244020462036133
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 14",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        12.0,
+        66.0,
+        0.5318992733955383
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 15",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        18.0,
+        66.0,
+        0.7874541878700256
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 16",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        24.0,
+        66.0,
+        0.8756267428398132
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 17",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        30.0,
+        66.0,
+        1.0262582302093506
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 18",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        36.0,
+        66.0,
+        0.6648567318916321
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 19",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        42.0,
+        66.0,
+        0.8824173212051392
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 20",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        48.0,
+        66.0,
+        1.0496615171432495
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 21",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        54.0,
+        66.0,
+        0.5157632827758789
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 22",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        60.0,
+        66.0,
+        0.07826538383960724
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Distant shore 23",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        66.0,
+        66.0,
+        0.8903710842132568
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Shoreline silhouette"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 01",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -19.90217399597168,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 02",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -13.710922241210938,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 03",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -7.399303913116455,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 04",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -1.1004890203475952,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 05",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        4.49139928817749,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 06",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        10.920629501342773,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 07",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        17.817100524902344,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Front cut edge | block 08",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        22.247802734375,
+        -6.199999809265137,
+        -0.3799999952316284
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | cut edge"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 01",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -21.0,
+        -4.092825412750244,
+        -0.24876071512699127
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 02",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -16.220251083374023,
+        -4.104672431945801,
+        -0.23642991483211517
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 03",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -11.62402629852295,
+        -4.106482028961182,
+        -0.22803838551044464
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 04",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -7.203407287597656,
+        -4.101146697998047,
+        -0.24361036717891693
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 05",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -2.6596086025238037,
+        -4.104258060455322,
+        -0.2330731898546219
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 06",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        1.7422503232955933,
+        -4.105038166046143,
+        -0.2292245626449585
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 07",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        5.892868518829346,
+        -4.0980401039123535,
+        -0.23845772445201874
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 08",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        11.006388664245605,
+        -4.098269462585449,
+        -0.23784349858760834
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 09",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        16.335947036743164,
+        -4.096372127532959,
+        -0.25038963556289673
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 01 stone 10",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        20.970199584960938,
+        -4.0964250564575195,
+        -0.24931985139846802
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 01",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -22.049999237060547,
+        -0.011909914202988148,
+        -0.2501896023750305
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 02",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -18.052589416503906,
+        -0.0031723338179290295,
+        -0.24099858105182648
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 03",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -13.235711097717285,
+        0.006112890318036079,
+        -0.2426110953092575
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 04",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -8.43129825592041,
+        -0.0012130890972912312,
+        -0.24861791729927063
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 05",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -2.941744327545166,
+        0.010224604979157448,
+        -0.23885668814182281
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 06",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        2.5184433460235596,
+        -0.002305662026628852,
+        -0.23316504061222076
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 07",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        7.722570896148682,
+        -0.003788585774600506,
+        -0.23097634315490723
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 08",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        13.02750015258789,
+        0.003516395576298237,
+        -0.23471799492835999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 09",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        18.291736602783203,
+        -0.002808026736602187,
+        -0.24292190372943878
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 02 stone 10",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        22.074796676635742,
+        0.001146343071013689,
+        -0.23065151274204254
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 01",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -21.0,
+        4.107346534729004,
+        -0.2559187114238739
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 02",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -16.529401779174805,
+        4.103143692016602,
+        -0.22556982934474945
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 03",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -12.057730674743652,
+        4.1059184074401855,
+        -0.24562297761440277
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 04",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -7.189405918121338,
+        4.106124401092529,
+        -0.22755229473114014
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 05",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -2.380399465560913,
+        4.096953392028809,
+        -0.23711906373500824
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 06",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        2.0116360187530518,
+        4.0933332443237305,
+        -0.2421826869249344
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 07",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        6.503866195678711,
+        4.105072975158691,
+        -0.24460165202617645
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 08",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        11.309871673583984,
+        4.110021591186523,
+        -0.24941343069076538
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 09",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        16.228778839111328,
+        4.103668212890625,
+        -0.22784234583377838
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Laid basalt | course 03 stone 10",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        21.04181480407715,
+        4.096358776092529,
+        -0.25541117787361145
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Moon fill",
+      "type": "LIGHT",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -15.0,
+        10.0,
+        30.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    },
+    {
+      "name": "Mortar bed",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        -0.38499999046325684
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | recessed dark joints"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Review camera",
+      "type": "CAMERA",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        24.0,
+        -35.0,
+        22.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    },
+    {
+      "name": "Terrace detail review camera",
+      "type": "CAMERA",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        11.0,
+        -20.0,
+        10.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    },
+    {
+      "name": "Terrace warm",
+      "type": "LIGHT",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        -12.0,
+        -2.0,
+        8.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [],
+      "modifiers": [],
+      "constraints": []
+    },
+    {
+      "name": "Water edge coping | block 01",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -20.650331497192383,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 02",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -15.54605770111084,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 03",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -10.13628101348877,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 04",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        -4.587428092956543,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 05",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        0.6332412362098694,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 06",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        5.88326358795166,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 07",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        11.566839218139648,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 08",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        17.1611385345459,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water edge coping | block 09",
+      "type": "MESH",
+      "collections": [
+        "Terrace v004 | hand laid stone"
+      ],
+      "parent": null,
+      "location": [
+        21.49744987487793,
+        6.449999809265137,
+        -0.11999999731779099
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Terrace v004 | wet weathered basalt"
+      ],
+      "modifiers": [
+        {
+          "name": "Editable worn edges",
+          "type": "BEVEL",
+          "show_render": true
+        },
+        {
+          "name": "Corner normals",
+          "type": "WEIGHTED_NORMAL",
+          "show_render": true
+        }
+      ],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    },
+    {
+      "name": "Water preview",
+      "type": "MESH",
+      "collections": [
+        "Waterfront | authored assets"
+      ],
+      "parent": null,
+      "location": [
+        0.0,
+        35.0,
+        -0.6000000238418579
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hide_render": false,
+      "library": null,
+      "data_users": 1,
+      "materials": [
+        "Dark water"
+      ],
+      "modifiers": [],
+      "constraints": [],
+      "base_mesh": {
+        "vertices": 8,
+        "polygons": 6,
+        "uv_layers": [
+          "UVMap"
+        ]
+      }
+    }
+  ],
+  "collections": [
+    {
+      "name": "Terrace v004 | hand laid stone",
+      "objects": 48
+    },
+    {
+      "name": "Waterfront | authored assets",
+      "objects": 29
+    }
+  ],
+  "materials": [
+    {
+      "name": "Dark water",
+      "users": 1,
+      "nodes": 4
+    },
+    {
+      "name": "Shoreline silhouette",
+      "users": 24,
+      "nodes": 2
+    },
+    {
+      "name": "Terrace v004 | cut edge",
+      "users": 8,
+      "nodes": 2
+    },
+    {
+      "name": "Terrace v004 | recessed dark joints",
+      "users": 1,
+      "nodes": 2
+    },
+    {
+      "name": "Terrace v004 | wet weathered basalt",
+      "users": 39,
+      "nodes": 6
+    },
+    {
+      "name": "Weathered basalt",
+      "users": 0,
+      "nodes": 4
+    }
+  ],
+  "node_groups": [],
+  "dependencies": [
+    {
+      "kind": "image",
+      "name": "Terrace v004 | basalt-color",
+      "path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\textures\\terrace-basalt-color-v004.png",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\textures\\terrace-basalt-color-v004.png",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Terrace v004 | basalt-normal",
+      "path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\textures\\terrace-basalt-normal-v004.png",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\textures\\terrace-basalt-normal-v004.png",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "Terrace v004 | basalt-roughness",
+      "path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\textures\\terrace-basalt-roughness-v004.png",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\textures\\terrace-basalt-roughness-v004.png",
+      "status": "packed"
+    },
+    {
+      "kind": "image",
+      "name": "water-normal",
+      "path": "//..\\..\\work\\firecrackers\\public\\art\\water-normal.png",
+      "resolved_path": "C:\\Users\\samir\\Documents\\Codex\\2026-09-29\\s\\work\\firecrackers\\assets-source\\blender\\masters\\..\\..\\work\\firecrackers\\public\\art\\water-normal.png",
+      "status": "packed"
+    }
+  ],
+  "warnings": [
+    "Base mesh counts exclude evaluated modifiers and instances.",
+    "Sequences, tiles, simulation caches, drivers and add-on dependencies require task-specific checks."
+  ]
+}

@@ -28,7 +28,7 @@ try {
   assert.equal(await page.locator('main').getAttribute('data-backend'), 'WebGPU');
   report.adapter = await page.evaluate(() => window.__testedAdapter);
   assert.equal(report.adapter.fallback, false, 'Hardware evidence must not use a fallback adapter');
-  report.checks.push('All six assets activate on hardware WebGPU at default Ultra');
+  report.checks.push('All authored assets activate on hardware WebGPU at default Ultra');
   await page.getByRole('button', { name: 'Launch selected firework', exact: true }).click();
   await page.waitForFunction(() => window.__firecrackersQA.snapshot().bursts > 0, null, { timeout: 30000 });
   assert.equal(await page.locator('main').getAttribute('data-backend'), 'WebGPU');

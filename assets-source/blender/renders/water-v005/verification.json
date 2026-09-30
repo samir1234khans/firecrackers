@@ -1,0 +1,25 @@
+{
+  "master": "waterfront-v005.blend",
+  "originalPreserved": true,
+  "blender": "5.2.1 LTS",
+  "missingDependencies": [],
+  "packedImages": [
+    "Terrace v004 | basalt-color",
+    "Terrace v004 | basalt-normal",
+    "Terrace v004 | basalt-roughness",
+    "Water v005 | periodic gravity and capillary normal",
+    "water-normal"
+  ],
+  "normalAsset": "Water v005 | periodic gravity and capillary normal",
+  "mapSize": [
+    512,
+    512
+  ],
+  "bytes": 230518,
+  "objectCountPreserved": 77,
+  "terraceObjectsPreserved": 48,
+  "maxQuantizedNormalLengthError": 0.004618525505065918,
+  "minimumQuantizedNormalZ": 0.9764707088470459,
+  "finite": true,
+  "linear": true
+}
