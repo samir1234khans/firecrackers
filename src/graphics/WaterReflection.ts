@@ -218,6 +218,7 @@ export class WaterReflection {
   setMoonFrame(frame: Readonly<MoonFrame>, width: number, height: number, camera: THREE.PerspectiveCamera) {
     this.moonRay.set(frame.x / Math.max(1, width) * 2 - 1, 1 - frame.y / Math.max(1, height) * 2, .5).unproject(camera);
     this.moonDirection.value.copy(this.moonRay).sub(camera.position).normalize();
+    return this.moonDirection.value;
   }
   private releaseTarget() {
     if (this.target) { this.reflectionNode.value = this.neutralReflection; this.target.dispose(); this.target = null; }

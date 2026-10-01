@@ -42,6 +42,7 @@ export class FireworkRenderer {
     private readonly stage = new LaunchStage();
     private readonly blastLight = new THREE.PointLight(0xffcc88, 0, 160, 2);
     private readonly fuseLight = new THREE.PointLight(0xffb45d, 0, 10, 2);
+    private readonly moonLight = new THREE.DirectionalLight(0x8eafd1, .8);
     private readonly fusePosition = new THREE.Vector3();
     private readonly opaqueDepth: OpaqueDepth;
     private readonly opaquePass: ReturnType<typeof pass>;
@@ -86,7 +87,7 @@ export class FireworkRenderer {
         this.scene.add(new THREE.HemisphereLight(0x9fb7d3, 0x202027, .70));
         const key = new THREE.DirectionalLight(0xffdcaf, .85);
         key.position.set(-8, 35, 45);
-        const moon = new THREE.DirectionalLight(0x8eafd1, .8);
+        const moon = this.moonLight;
         moon.position.set(-80, 150, -180);
         // Keep one fuse light in the render list for the lifetime of the scene.
         // Per-prop lights otherwise add/remove a light as props appear and fade,
@@ -389,7 +390,7 @@ export class FireworkRenderer {
         }
         this.opaqueDepth.update();
         this.water.setFrame(this.environment.waterFrame);
-        this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera);
+        this.moonLight.position.copy(this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera)).multiplyScalar(240);
         this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
         this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
         this.post.render();
