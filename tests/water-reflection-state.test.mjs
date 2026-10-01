@@ -158,8 +158,8 @@ test('quality, resize and visibility enforce one lazy target or no target', () =
     assert.equal(f.state.renders, 1, 'throttle suppresses an early update');
     f.camera.aspect = .5; f.camera.updateProjectionMatrix(); f.water.resize(f.camera);
     f.water.update(f.renderer, f.scene, f.camera, f.sim, true, true, f.orient);
-    assert.equal(f.water.target, target); assert.equal(target.width, 256);
-    assert.equal(target.height, Math.round(512 * f.water.diagnostics().reflectionCropHeight));
+    assert.equal(f.water.target, target); assert.equal(target.width, 192);
+    assert.equal(target.height, Math.round(384 * f.water.diagnostics().reflectionCropHeight));
     f.sim.quality = 'standard'; f.sim.time += 1;
     f.water.update(f.renderer, f.scene, f.camera, f.sim, true, true, f.orient);
     assert.equal(f.water.target, target); assert.equal(target.width, 128);
