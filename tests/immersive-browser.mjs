@@ -22,7 +22,8 @@ for(const backend of (process.env.IMMERSIVE_BACKENDS || 'webgpu,webgl,canvas').s
   const before=await page.locator('main').getAttribute('data-hero-rect');
   const state=await page.evaluate(()=>window.__firecrackersQA.snapshot());
   await page.getByRole('button',{name:'Hide controls',exact:true}).click();
-  await page.waitForTimeout(260);
+  assert.equal(await page.locator('.chrome').evaluateAll(nodes=>nodes.every(e=>!!e.closest('[inert]'))),true);
+  await page.waitForFunction(()=>[...document.querySelectorAll('.chrome')].every(e=>Number(getComputedStyle(e).opacity)===0),undefined,{timeout:5000});
   assert.equal(await page.locator('main').getAttribute('data-immersive'),'true');
   assert.equal(await page.locator('main').getAttribute('data-hero-rect'),before);
   assert.equal(await page.locator('.reveal-controls button').count(),0);

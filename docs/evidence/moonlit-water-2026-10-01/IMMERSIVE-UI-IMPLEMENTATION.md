@@ -45,3 +45,9 @@ Performance qualification remains open; retain PR #31 as draft. Do not treat com
 - Runtime CI is required and tracked on [PR #31](https://github.com/samir1234khans/firecrackers/pull/31). It includes the new software WebGL/Canvas immersive suite and the existing engine, collection, launch/platform, interaction, viewability and recovery suites. Local native GPU checks and CI software checks remain separate evidence.
 
 Production remains `2026-10-01.4`, fingerprint `965c6eaa6ebd5aef2f5922831504a6bbe1c3879e24a26532432af279f5e09d51`; rollback Worker `57796211-f2a8-4fc1-8381-4c9235bfb5bd` is untouched. Production promotion is not part of this preview publication.
+
+## Test stabilization and mobile regression
+
+The first local software WebGL immersion run failed an exact-opacity assertion after a fixed 260 ms delay. The harness now verifies hidden control inertness immediately and waits for every chrome group to reach zero opacity, retaining the same final assertion and a five-second timeout. The resulting [software matrix](immersive/software-ui-report.json) passes all 14 WebGL/Canvas viewport cases. No application code or transition duration changed.
+
+The [hosted original mobile flow](immersive/hosted-mobile-platform-report.json) passes all 16 checks, including real launch, duplicate guard, immutable committed family, rendered lifecycle, pause ownership, automated/manual takeover, preference/reset behavior, responsive hit targets and return from protected transparent output. This is emulated mobile Chromium, not a physical-device result.
