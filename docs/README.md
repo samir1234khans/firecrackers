@@ -1,8 +1,8 @@
-Latest source follow-up: [rocket-to-burst stall diagnosis, timing and isolated `.4` preview](evidence/burst-performance-2026-10-01/PREVIEW.md). The earlier [main merge chain and release boundary](evidence/control-layout-2026-10-01/MAIN.md), [open-sky preview](https://firecrackers-open-sky-preview.allygym-api.workers.dev/) and [matched gallery](evidence/control-layout-2026-10-01/comparison.html) show build `.3`. Cloudflare production still serves `.8`.
+Latest production: [build `.4`, all-branch reconciliation, public validation and rollback](evidence/latest-production-2026-10-01/PRODUCTION.md). The source includes the [burst-stall fix](evidence/burst-performance-2026-10-01/PREVIEW.md), [moon/water](evidence/moon-water-2026-10-01/PREVIEW.md), [signature fireworks](evidence/flagships-2026-10-01/PREVIEW.md) and [open-sky controls](evidence/control-layout-2026-10-01/MAIN.md).
 
 Historical candidate records: [moon/water](evidence/moon-water-2026-10-01/PREVIEW.md), [three signatures](evidence/flagships-2026-10-01/PREVIEW.md) and [open-sky controls](evidence/control-layout-2026-10-01/PREVIEW.md).
 
-# Current production redesign
+# Previous production redesign
 
 [Bottom collection production evidence](evidence/bottom-collection-2026-09-30/PRODUCTION.md) records verified build `.8`, exact source/deployment, passed PR/main CI, hosted checks, retained failures and remaining physical qualification. [Implementation](evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md), [preview](evidence/bottom-collection-2026-09-30/PREVIEW.md) and [matched captures](evidence/bottom-collection-2026-09-30/comparison.html) are available. Waterfront `.7` remains historical and is retained for rollback.
 
