@@ -103,6 +103,7 @@ export class ParticleScene {
             const kernel = radius.pow(2).mul(-17).exp().mul(.94).add(radius.pow(2).mul(-3.2).exp().mul(.075));
             h.material.colorNode = attribute('iColor', 'vec3').mul(hotCore.mul(.22).add(1)).add(vec3(.09).mul(hotCore)).mul(u.energy);
             h.material.opacityNode = kernel.mul(attribute('iAlpha', 'float')).mul(protectedMask);
+            h.mesh.layers.enable(4);
             this.heads.push(h); scene.add(h.mesh);
             const t = new Batch(24000, { iA: 3, iB: 3, iWidth: 1, iAlpha: 1, iColor: 3 }, 11 + bucket * 3, true);
             const start = attribute('iA', 'vec3'), end = attribute('iB', 'vec3');
@@ -118,8 +119,19 @@ export class ParticleScene {
             const grain = middle.dot(vec3(.7, 1.3, .4)).sin().mul(.045).add(.955);
             const cap = smoothstep(0, .055, uv().y).mul(float(1).sub(smoothstep(.945, 1, uv().y)));
             t.material.opacityNode = core.add(halo).mul(cap).mul(grain).mul(attribute('iAlpha', 'float')).mul(protectedMask);
+            t.mesh.layers.enable(4);
             this.trails.push(t); scene.add(t.mesh);
         }
+    }
+    private savedProtection = 0;
+    orientPass(camera: THREE.PerspectiveCamera, reflecting = false) {
+        if (reflecting) {
+            this.savedProtection = this.uniforms.protect.value;
+            this.uniforms.protect.value = 0;
+        } else {
+            this.uniforms.protect.value = this.savedProtection;
+        }
+        this.orient(camera);
     }
     orient(camera: THREE.PerspectiveCamera) {
         const u = this.uniforms;

@@ -92,6 +92,10 @@ export class FireworkRenderer {
         // Per-prop lights otherwise add/remove a light as props appear and fade,
         // forcing every lit waterfront material to relink during each launch.
         this.scene.add(key, moon, this.blastLight, this.fuseLight);
+        // A stable light list in both views avoids launch-time pipeline variants.
+        for (const light of this.scene.children) if (light instanceof THREE.Light) {
+            light.layers.enable(3); light.layers.enable(4);
+        }
         this.scene.add(this.stage.group);
         for (const prop of this.props) {
             prop.lamp.layers.set(2);
@@ -130,6 +134,8 @@ export class FireworkRenderer {
         this.host.dataset.realism = 'observatory-v3';
         this.host.dataset.backend = this.backend;
         this.resize();
+        if (this.mode !== 'transparent') await this.water.warmup(this.renderer, this.scene, this.camera, this.sim.quality,
+            (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
         if (!this.disposed) this.render();
         this.host.dataset.assets = 'procedural fallback';
         void loadWaterfrontAssets((name, asset) => {
@@ -382,8 +388,10 @@ export class FireworkRenderer {
             parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
         this.opaqueDepth.update();
+        this.water.setFrame(this.environment.waterFrame);
+        this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera);
         this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
-        this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), camera => this.particles.orient(camera));
+        this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
         this.post.render();
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;

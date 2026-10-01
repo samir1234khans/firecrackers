@@ -7,6 +7,7 @@ for (const name of readdirSync('node_modules')) {
   if (name.startsWith('workbox-')) names.push(name);
 }
 const notices = ['Firecrackers: third-party notices', 'Application code licensing remains an owner decision.'];
+notices.push('Water normal blending, Fresnel and mirror-camera clipping adapt Three.js r180 WaterMesh and ReflectorNode. Copyright 2010-2025 Three.js authors; MIT license retained below. Sources: https://github.com/mrdoob/three.js/blob/r180/examples/jsm/objects/WaterMesh.js and https://github.com/mrdoob/three.js/blob/r180/src/nodes/utils/ReflectorNode.js . The application supplies its own fixed clock, water field, bounded reflection scheduling and scenery.');
 notices.push([
   'Wooden Canoe — OuterSpaceSimon (2023), published through Blendkit.',
   'Source: https://www.blendkit.com/asset-gallery-detail/a6a39894-5474-47c4-a657-dc8b7a1a5a44/',
