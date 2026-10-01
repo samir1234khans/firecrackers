@@ -1,0 +1,29 @@
+{
+  "run": 36911249851,
+  "source": "dd625594b3d051defe34a76807d69234d20ce695",
+  "version": "2026-10-01.11",
+  "fingerprint": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45",
+  "exactAssets": [
+    {
+      "file": "index-CoY2iymR.js",
+      "sha256": "56a4fb45471fd400d8ba94fdc3164d90143d0aaac5501f0f88cd025092a023b1"
+    },
+    {
+      "file": "main-DdJDSvX4.css",
+      "sha256": "c43dc16f01c6fa6de444fc6df585fcb4ba7597e8216f457a08b17276854cde8e"
+    },
+    {
+      "file": "main-DkGbmmU6.js",
+      "sha256": "09037eba259e550b65166f0873fa14e578911b074912a660b20362287d1a9842"
+    },
+    {
+      "file": "Renderer-EVE07c1q.js",
+      "sha256": "c2302d434551b66b0db5e93327a068892a48fa0257a32b1c8008c7d8a8f5cf9c"
+    },
+    {
+      "file": "workbox-window.prod.es5-BBnX5xw4.js",
+      "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557"
+    }
+  ],
+  "scope": "All emitted assets and normalized runtime manifest; root/icon/sw metadata may differ by platform line endings"
+}

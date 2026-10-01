@@ -1,3 +1,5 @@
+**Released:** build `.11` is live. [Production, main reconciliation, public checks and rollback](PRODUCTION.md) supersede the checkpoint below, which remains as history.
+
 **Latest implementation: build `.11`.** See [final qualification](FINAL-QUALIFICATION.md) for current source, isolated preview, checks and pending release gates. The receipt below preserves its historical checkpoint.
 
 > Latest isolated preview: build `2026-10-01.9`, fingerprint `8c683a81…c33d7d63`, Worker `88affdd1-2ab9-4272-82e6-1443a994a87a`. [Final qualification](FINAL-QUALIFICATION.md) records current implementation, hosted checks, comparisons and retained performance failures. The material below preserves earlier candidate receipts.

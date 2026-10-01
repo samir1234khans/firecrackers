@@ -1,0 +1,33 @@
+{
+  "version": "2026-10-01.11",
+  "source": "19bd10c53426e8db13adb1c0bb4746d3fa5a0aae",
+  "previewWorker": "5ee76fcc-0ace-4ee2-8f5d-dc8e76e1cdc4",
+  "suites": [
+    {
+      "suite": "original",
+      "checks": 28
+    },
+    {
+      "suite": "flagship",
+      "checks": 157
+    },
+    {
+      "suite": "grand",
+      "checks": 42
+    },
+    {
+      "suite": "stage",
+      "checks": 106
+    },
+    {
+      "suite": "viewability",
+      "checks": 15
+    },
+    {
+      "suite": "offline",
+      "checks": 2
+    }
+  ],
+  "total": 350,
+  "limits": "Original/grand/viewability/recovery use software emulation where configured; signature/stage suites explicitly require installed Chrome native GPU. Phone viewports are emulated."
+}

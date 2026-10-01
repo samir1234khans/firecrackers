@@ -1,3 +1,5 @@
+Latest production: [moonlit water and immersive controls / build `.11`](docs/evidence/moonlit-water-2026-10-01/PRODUCTION.md) records the owner-authorized main promotion, passed qualification, actual deployment and rollback. Earlier candidate/release entries below are historical.
+
 Latest water/immersion qualification: [build `.11` receipt](docs/evidence/moonlit-water-2026-10-01/FINAL-QUALIFICATION.md). Reflection rates are bounded at Ultra 15/12 Hz and Standard 15/10 Hz (wide/portrait). Qualification and release state in that receipt supersede earlier candidate settings below.
 
 # Development workflow

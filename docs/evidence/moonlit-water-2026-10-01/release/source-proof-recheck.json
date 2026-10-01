@@ -1,0 +1,7 @@
+{
+  "source": "dd625594b3d051defe34a76807d69234d20ce695",
+  "modulesVerified": 76,
+  "fingerprint": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45",
+  "proof": "../final/gpu-source-equivalence.json",
+  "result": "Every normalized committed source hash matches the final candidate receipt"
+}

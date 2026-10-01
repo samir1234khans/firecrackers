@@ -1,3 +1,5 @@
+Latest production: [moonlit water and immersive controls / build `.11`](evidence/moonlit-water-2026-10-01/PRODUCTION.md) records the owner-authorized main promotion, passed qualification, actual deployment and rollback. Earlier candidate/release entries below are historical.
+
 Current water/immersion candidate: [build `.11` qualification](evidence/moonlit-water-2026-10-01/FINAL-QUALIFICATION.md), [matched captures](evidence/moonlit-water-2026-10-01/final/comparisons.html) and [isolated preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/). Production remains `.4` pending performance and CI.
 
 Next graphics candidate: [moonlit water plan](evidence/moonlit-water-2026-10-01/PLAN.md), [implementation, measurements and preview](evidence/moonlit-water-2026-10-01/PREVIEW.md), [PR #31](https://github.com/samir1234khans/firecrackers/pull/31) and [isolated `.5` preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/). Production remains `.4`.

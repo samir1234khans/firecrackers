@@ -1,3 +1,5 @@
+**Released:** build `.11` is live. [Production, main reconciliation, public checks and rollback](PRODUCTION.md) supersede the checkpoint below, which remains as history.
+
 **Latest implementation: build `.11`.** See [final qualification](FINAL-QUALIFICATION.md) for current source, isolated preview, checks and pending release gates. The receipt below preserves its historical checkpoint.
 
 > Historical `.6` receipt. The current `.9` implementation and qualification are recorded in [FINAL-QUALIFICATION](FINAL-QUALIFICATION.md). Earlier failures below remain evidence.

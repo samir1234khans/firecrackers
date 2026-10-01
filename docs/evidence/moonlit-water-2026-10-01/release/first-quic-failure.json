@@ -1,0 +1,22 @@
+{
+  "base": "https://firecrackers.mainandmany.com/",
+  "seed": 20260916,
+  "method": "Installed Chrome on this PC; native WebGPU adapter and native WebGL driver checked separately; Canvas 2D compatibility. Viewports and touch are emulated. Physical phones, GPU completion timing and thermal endurance are not qualified.",
+  "checks": [],
+  "errors": [
+    {
+      "backend": "webgpu",
+      "message": "Failed to load resource: net::ERR_QUIC_PROTOCOL_ERROR"
+    },
+    {
+      "backend": "webgpu",
+      "message": "Failed to load resource: net::ERR_QUIC_PROTOCOL_ERROR"
+    },
+    {
+      "backend": "webgpu",
+      "message": "Failed to load resource: net::ERR_QUIC_PROTOCOL_ERROR"
+    }
+  ],
+  "expectedFailures": [],
+  "failed": "page.waitForFunction: Timeout 90000ms exceeded.\n    at enter (C:\\Users\\samir\\Documents\\ChatGPT\\FireCrackers Webapp\\repo\\tests\\moonlit-water-browser.mjs:105:40)\n    at async file:///C:/Users/samir/Documents/ChatGPT/FireCrackers%20Webapp/repo/tests/moonlit-water-browser.mjs:122:5"
+}

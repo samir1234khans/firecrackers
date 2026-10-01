@@ -1,0 +1,21 @@
+{
+  "worker": "firecrackers",
+  "production": "https://firecrackers.mainandmany.com/",
+  "source": "dd625594b3d051defe34a76807d69234d20ce695",
+  "version": "2026-10-01.11",
+  "fingerprint": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45",
+  "deployment": {
+    "id": "66e38c2e-22cc-48b8-998b-5aa3157798f0",
+    "created_on": "2026-10-01T19:23:59.287954Z",
+    "versions": [
+      {
+        "version_id": "a2230baf-84c8-42c8-96b8-ceeff3ece962",
+        "percentage": 100
+      }
+    ]
+  },
+  "rollbackWorker": "57796211-f2a8-4fc1-8381-4c9235bfb5bd",
+  "rollbackRetainedInHistory": true,
+  "command": "npm run cloudflare:deploy",
+  "scope": "Sanitized deployment metadata; uploader identity omitted"
+}

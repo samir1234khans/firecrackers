@@ -1,3 +1,5 @@
+**Released:** build `.11` is live. [Production, main reconciliation, public checks and rollback](PRODUCTION.md) supersede the checkpoint below, which remains as history.
+
 # Final water and immersion qualification
 
 The owner authorized completing the remaining work, reconciling branches, promotion to main and production deployment after qualification. Build `2026-10-01.11` is implemented and hosted in isolation; production remains `.4` until the final performance and CI gates pass.

@@ -1,0 +1,24 @@
+{
+  "worker": "firecrackers",
+  "latestDeployment": {
+    "id": "6d7c71ce-f8f8-4781-97d2-22a4ae64a416",
+    "created_on": "2026-10-01T12:07:01.696495Z",
+    "versions": [
+      {
+        "version_id": "57796211-f2a8-4fc1-8381-4c9235bfb5bd",
+        "percentage": 100
+      }
+    ]
+  },
+  "previousDeployment": {
+    "id": "67059084-b522-4df7-865a-a9040b7420b8",
+    "created_on": "2026-09-30T18:30:35.530034Z",
+    "versions": [
+      {
+        "version_id": "5a577d62-1deb-4770-b780-784d03574c7a",
+        "percentage": 100
+      }
+    ]
+  },
+  "scope": "Read-only pre-promotion deployment metadata; uploader identity omitted"
+}

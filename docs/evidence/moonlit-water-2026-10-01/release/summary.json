@@ -1,0 +1,58 @@
+{
+  "source": "dd625594b3d051defe34a76807d69234d20ce695",
+  "version": "2026-10-01.11",
+  "fingerprint": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45",
+  "worker": "a2230baf-84c8-42c8-96b8-ceeff3ece962",
+  "production": "https://firecrackers.mainandmany.com/",
+  "checks": [
+    {
+      "suite": "http",
+      "checks": 32,
+      "evidence": "http.json"
+    },
+    {
+      "suite": "water",
+      "checks": 53,
+      "evidence": "water.json"
+    },
+    {
+      "suite": "ui",
+      "checks": 21,
+      "evidence": "ui.json"
+    },
+    {
+      "suite": "original",
+      "checks": 28,
+      "evidence": "original.json"
+    },
+    {
+      "suite": "flagship",
+      "checks": 157,
+      "evidence": "flagship.json"
+    },
+    {
+      "suite": "grand",
+      "checks": 42,
+      "evidence": "grand.json"
+    },
+    {
+      "suite": "stage",
+      "checks": 106,
+      "evidence": "stage.json"
+    },
+    {
+      "suite": "viewability",
+      "checks": 15,
+      "evidence": "viewability.json"
+    },
+    {
+      "suite": "offline",
+      "checks": 2,
+      "evidence": "offline.json"
+    }
+  ],
+  "totalChecks": 456,
+  "startupScenarios": 4,
+  "allPassed": true,
+  "limits": "Native hardware and software suites are labelled separately; phone viewports are emulated; no physical phone, Safari, completed GPU time or thermal qualification"
+}
