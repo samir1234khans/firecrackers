@@ -1,0 +1,6774 @@
+{
+  "base": "http://127.0.0.1:4173/",
+  "phase": "after-canvas",
+  "seed": 20260916,
+  "method": "Installed Chrome; fixed logical times and seed; emulated viewports",
+  "projects": [
+    {
+      "width": 393,
+      "height": 851,
+      "family": "idle",
+      "seconds": 8,
+      "file": "after-canvas-393x851-idle.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 7.999999999999977,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 0.699999988079071,
+        "frames": 17,
+        "propBounds": {
+          "x": 192.03877005347593,
+          "y": 664.1504545454545,
+          "width": 48.922459893048114,
+          "height": 89.84659090909088
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 216.5,
+          "y": 753.9970454545454
+        },
+        "standingHeight": 89.84659090909088,
+        "modelScale": [
+          2.559497081275259,
+          2.2900763358778633,
+          2.559497081275259
+        ],
+        "padRadius": 3.5496183206106884,
+        "fuseBounds": {
+          "x": 222.44385026737967,
+          "y": 708.7925,
+          "width": 17.488636363636374,
+          "height": 8.693181818181756
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 13.049007633587788,
+        "shellOffset": 7.442748091603056,
+        "motorOffset": 3.5954198473282455,
+        "launchBounds": {
+          "screenMin": 135.46122994652407,
+          "screenMax": 297.5387700534759,
+          "worldMin": -13.667714414009877,
+          "worldMax": 22.6244574165544,
+          "contactScreenY": 753.9970454545454
+        },
+        "nextLaunchProfile": {
+          "apex": 109.2086513994911,
+          "apexMin": 104.0025445292621,
+          "apexMax": 114.41475826972011,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.559497081275259,
+              2.2900763358778633,
+              2.559497081275259
+            ],
+            "contactY": 6.82,
+            "originY": 13.049007633587788,
+            "padRadius": 3.5496183206106884,
+            "localTop": 6.065,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 7.442748091603056,
+            "motorOffset": 3.5954198473282455,
+            "standingHeight": 89.84659090909089
+          },
+          "ground": 13.049007633587788,
+          "padX": 4.478371501272262,
+          "aimX": 0,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 306.54,
+          "y": 140.9256,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 431,
+              "width": 96,
+              "height": 336
+            },
+            "rail": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            },
+            "control-0": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 56,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 56,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 56,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 56,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 56,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 56,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 719,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "tray": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "collection": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "rail": {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 321,
+            "y": 779,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 8,
+            "y": 787,
+            "width": 289,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 678.125,
+            "width": 393,
+            "height": 96.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 46.5,
+            "width": 393,
+            "height": 496
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 542.5,
+            "width": 393,
+            "height": 139.5
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 7.999999999999977,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 0,
+        "riverReflectedParticleFragments": 0,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 7.652959743535047,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 673.4063505217954,
+            "roll": -0.06193214126911319
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 642.0481942627315,
+            "roll": -0.008469658896420238
+          },
+          {
+            "x": 62.88,
+            "y": 713.5122280909461,
+            "roll": -0.03277416070580985
+          }
+        ],
+        "riverWaterPhase": 7.652959743535047,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 11619.221337125586,
+        "riverReflectionChecksum": 402868.0902342801,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.19466795097624845,
+            "pitch": -0.06193214126911319,
+            "roll": 0,
+            "centerDeviation": 0.001576678571967749
+          },
+          {
+            "height": 0.0895697524055862,
+            "pitch": -0.008469658896420238,
+            "roll": 0,
+            "centerDeviation": 0.005538483215196732
+          },
+          {
+            "height": 0.1301737165739151,
+            "pitch": -0.03277416070580985,
+            "roll": 0,
+            "centerDeviation": 0.00156808094923383
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 7.652959743535047,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -180,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 7.999999999999977,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 2,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 12,
+        "skyLastRenderedTime": 7.999999999999977,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "after-canvas-393x851-gold-willow.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 1,
+        "active": 1,
+        "particles": 9770,
+        "smoke": 27,
+        "quality": "ultra",
+        "message": "Stay for the falling embers.",
+        "time": 4.899999999999988,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 340,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 7.0999999940395355,
+        "frames": 26,
+        "propBounds": {
+          "x": 192.03877005347593,
+          "y": 664.1504545454545,
+          "width": 48.922459893048114,
+          "height": 89.84659090909088
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 216.5,
+          "y": 753.9970454545454
+        },
+        "standingHeight": 89.84659090909088,
+        "modelScale": [
+          2.559497081275259,
+          2.2900763358778633,
+          2.559497081275259
+        ],
+        "padRadius": 3.5496183206106884,
+        "fuseBounds": {
+          "x": 222.44385026737967,
+          "y": 708.7925,
+          "width": 17.488636363636374,
+          "height": 8.693181818181756
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 13.049007633587788,
+        "shellOffset": 7.442748091603056,
+        "motorOffset": 3.5954198473282455,
+        "launchBounds": {
+          "screenMin": 135.46122994652407,
+          "screenMax": 297.5387700534759,
+          "worldMin": -13.667714414009877,
+          "worldMax": 22.6244574165544,
+          "contactScreenY": 753.9970454545454
+        },
+        "nextLaunchProfile": {
+          "apex": 109.2086513994911,
+          "apexMin": 104.0025445292621,
+          "apexMax": 114.41475826972011,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.559497081275259,
+              2.2900763358778633,
+              2.559497081275259
+            ],
+            "contactY": 6.82,
+            "originY": 13.049007633587788,
+            "padRadius": 3.5496183206106884,
+            "localTop": 6.065,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 7.442748091603056,
+            "motorOffset": 3.5954198473282455,
+            "standingHeight": 89.84659090909089
+          },
+          "ground": 13.049007633587788,
+          "padX": 4.478371501272262,
+          "aimX": 0,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 306.54,
+          "y": 140.9256,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 431,
+              "width": 96,
+              "height": 336
+            },
+            "rail": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            },
+            "control-0": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 56,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 56,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 56,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 56,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 56,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 56,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 719,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "tray": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "collection": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "rail": {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 321,
+            "y": 779,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 8,
+            "y": 787,
+            "width": 289,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 678.125,
+            "width": 393,
+            "height": 96.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 46.5,
+            "width": 393,
+            "height": 496
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 542.5,
+            "width": 393,
+            "height": 139.5
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 4.899999999999988,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 115,
+        "riverReflectedParticleFragments": 345,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.500896410987744,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 674.1517940915061,
+            "roll": 0.04204792754913017
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 644.7058740860848,
+            "roll": 0.016816379990303807
+          },
+          {
+            "x": 62.88,
+            "y": 714.1948490589275,
+            "roll": 0.032629801002801384
+          }
+        ],
+        "riverWaterPhase": 4.500896410987744,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 11591.482455411026,
+        "riverReflectionChecksum": 403516.48693893634,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.09365933719430901,
+            "pitch": 0.04204792754913017,
+            "roll": 0,
+            "centerDeviation": 0.0020681557466936534
+          },
+          {
+            "height": -0.43154393844799666,
+            "pitch": 0.016816379990303807,
+            "roll": 0,
+            "centerDeviation": 0.007402794655238132
+          },
+          {
+            "height": 0.06325009226201136,
+            "pitch": 0.032629801002801384,
+            "roll": 0,
+            "centerDeviation": 0.00777388490845618
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.500896410987744,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -180,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 4.899999999999988,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 2,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 21,
+        "skyLastRenderedTime": 4.899999999999988,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "after-canvas-393x851-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "sapphire-saturn",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 1,
+        "active": 1,
+        "particles": 6477,
+        "smoke": 27,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 4.899999999999988,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 711,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 8.900000005960464,
+        "frames": 35,
+        "propBounds": {
+          "x": 192.0387700534759,
+          "y": 662.1561363636363,
+          "width": 48.92245989304817,
+          "height": 91.84090909090912
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 216.5,
+          "y": 753.9970454545454
+        },
+        "standingHeight": 91.84090909090912,
+        "modelScale": [
+          2.55949708127526,
+          2.290076335877864,
+          2.55949708127526
+        ],
+        "padRadius": 3.5496183206106897,
+        "fuseBounds": {
+          "x": 222.44385026737967,
+          "y": 708.7924999999999,
+          "width": 17.488636363636374,
+          "height": 8.69318181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 13.049007633587792,
+        "shellOffset": 7.442748091603058,
+        "motorOffset": 3.595419847328247,
+        "launchBounds": {
+          "screenMin": 135.4612299465241,
+          "screenMax": 297.5387700534759,
+          "worldMin": -13.667714414009872,
+          "worldMax": 22.6244574165544,
+          "contactScreenY": 753.9970454545454
+        },
+        "nextLaunchProfile": {
+          "apex": 109.20865139949109,
+          "apexMin": 104.00254452926208,
+          "apexMax": 114.4147582697201,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.55949708127526,
+              2.290076335877864,
+              2.55949708127526
+            ],
+            "contactY": 6.82,
+            "originY": 13.049007633587792,
+            "padRadius": 3.5496183206106897,
+            "localTop": 6.260000000000001,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 7.442748091603058,
+            "motorOffset": 3.595419847328247,
+            "standingHeight": 91.8409090909091
+          },
+          "ground": 13.049007633587792,
+          "padX": 4.478371501272264,
+          "aimX": 0,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 306.54,
+          "y": 140.9256,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 431,
+              "width": 96,
+              "height": 336
+            },
+            "rail": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            },
+            "control-0": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 56,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 56,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 56,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 56,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 56,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 56,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 719,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "tray": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "collection": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "rail": {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 321,
+            "y": 779,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 8,
+            "y": 787,
+            "width": 289,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 678.125,
+            "width": 393,
+            "height": 96.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 46.5,
+            "width": 393,
+            "height": 496
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 542.5,
+            "width": 393,
+            "height": 139.5
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 4.899999999999988,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 120,
+        "riverReflectedParticleFragments": 360,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.500896410987744,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 674.1517940915061,
+            "roll": 0.04204792754913017
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 644.7058740860848,
+            "roll": 0.016816379990303807
+          },
+          {
+            "x": 62.88,
+            "y": 714.1948490589275,
+            "roll": 0.032629801002801384
+          }
+        ],
+        "riverWaterPhase": 4.500896410987744,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 11591.482455411026,
+        "riverReflectionChecksum": 403516.48693893634,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.09365933719430901,
+            "pitch": 0.04204792754913017,
+            "roll": 0,
+            "centerDeviation": 0.0020681557466936534
+          },
+          {
+            "height": -0.43154393844799666,
+            "pitch": 0.016816379990303807,
+            "roll": 0,
+            "centerDeviation": 0.007402794655238132
+          },
+          {
+            "height": 0.06325009226201136,
+            "pitch": 0.032629801002801384,
+            "roll": 0,
+            "centerDeviation": 0.00777388490845618
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.500896410987744,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -180,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 4.899999999999988,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 2,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 30,
+        "skyLastRenderedTime": 4.899999999999988,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "after-canvas-393x851-opal-supernova.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "opal-supernova",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 3,
+        "active": 1,
+        "particles": 11347,
+        "smoke": 26,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 5.599999999999985,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 5,
+        "embers": 476,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 6.200000017881393,
+        "frames": 44,
+        "propBounds": {
+          "x": 192.0387700534759,
+          "y": 662.4885227272727,
+          "width": 48.9224598930482,
+          "height": 91.50852272727275
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 216.5,
+          "y": 753.9970454545454
+        },
+        "standingHeight": 91.50852272727275,
+        "modelScale": [
+          2.5594970812752607,
+          2.2900763358778646,
+          2.5594970812752607
+        ],
+        "padRadius": 3.54961832061069,
+        "fuseBounds": {
+          "x": 222.44385026737967,
+          "y": 708.7924999999999,
+          "width": 17.488636363636374,
+          "height": 8.69318181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 13.049007633587792,
+        "shellOffset": 7.44274809160306,
+        "motorOffset": 3.5954198473282477,
+        "launchBounds": {
+          "screenMin": 135.4612299465241,
+          "screenMax": 297.5387700534759,
+          "worldMin": -13.667714414009872,
+          "worldMax": 22.6244574165544,
+          "contactScreenY": 753.9970454545454
+        },
+        "nextLaunchProfile": {
+          "apex": 109.20865139949109,
+          "apexMin": 104.00254452926208,
+          "apexMax": 114.4147582697201,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.5594970812752607,
+              2.2900763358778646,
+              2.5594970812752607
+            ],
+            "contactY": 6.82,
+            "originY": 13.049007633587792,
+            "padRadius": 3.54961832061069,
+            "localTop": 6.2275,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 7.44274809160306,
+            "motorOffset": 3.5954198473282477,
+            "standingHeight": 91.50852272727272
+          },
+          "ground": 13.049007633587792,
+          "padX": 4.478371501272264,
+          "aimX": 0,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 306.54,
+          "y": 140.9256,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 431,
+              "width": 96,
+              "height": 336
+            },
+            "rail": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            },
+            "control-0": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 56,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 56,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 56,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 56,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 56,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 56,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 719,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "tray": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "collection": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "rail": {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 321,
+            "y": 779,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 8,
+            "y": 787,
+            "width": 289,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 678.125,
+            "width": 393,
+            "height": 96.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 46.5,
+            "width": 393,
+            "height": 496
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 542.5,
+            "width": 393,
+            "height": 139.5
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 5.599999999999985,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 128,
+        "riverReflectedParticleFragments": 384,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 5.194843600868178,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 673.7621103174284,
+            "roll": 0.013027335267372172
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 644.5108877760044,
+            "roll": 0.01301517537158045
+          },
+          {
+            "x": 62.88,
+            "y": 713.5121400120718,
+            "roll": 0.018265684218306256
+          }
+        ],
+        "riverWaterPhase": 5.194843600868178,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 11599.803279889737,
+        "riverReflectionChecksum": 403253.2617079423,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.14646201660862002,
+            "pitch": 0.013027335267372172,
+            "roll": 0,
+            "centerDeviation": 0.005107205119420949
+          },
+          {
+            "height": -0.3933113286283243,
+            "pitch": 0.01301517537158045,
+            "roll": 0,
+            "centerDeviation": 0.002699280472724719
+          },
+          {
+            "height": 0.13018235175767312,
+            "pitch": 0.018265684218306256,
+            "roll": 0,
+            "centerDeviation": 0.015767317793455277
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 5.194843600868178,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -180,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 5.599999999999985,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 2,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 39,
+        "skyLastRenderedTime": 5.599999999999985,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "after-canvas-393x851-imperial-crown.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "imperial-crown",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 2,
+        "active": 1,
+        "particles": 20673,
+        "smoke": 30,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 5.399999999999986,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 1,
+        "embers": 681,
+        "signatureStages": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 334443,
+        "submitMs": 5,
+        "frames": 53,
+        "propBounds": {
+          "x": 192.0387700534759,
+          "y": 660.992784090909,
+          "width": 48.92245989304817,
+          "height": 93.00426136363637
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 216.5,
+          "y": 753.9970454545454
+        },
+        "standingHeight": 93.00426136363637,
+        "modelScale": [
+          2.55949708127526,
+          2.290076335877864,
+          2.55949708127526
+        ],
+        "padRadius": 3.5496183206106897,
+        "fuseBounds": {
+          "x": 222.44385026737967,
+          "y": 708.7924999999999,
+          "width": 17.488636363636374,
+          "height": 8.69318181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 13.049007633587792,
+        "shellOffset": 7.442748091603058,
+        "motorOffset": 3.595419847328247,
+        "launchBounds": {
+          "screenMin": 135.4612299465241,
+          "screenMax": 297.5387700534759,
+          "worldMin": -13.667714414009872,
+          "worldMax": 22.6244574165544,
+          "contactScreenY": 753.9970454545454
+        },
+        "nextLaunchProfile": {
+          "apex": 109.20865139949109,
+          "apexMin": 104.00254452926208,
+          "apexMax": 114.4147582697201,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.55949708127526,
+              2.290076335877864,
+              2.55949708127526
+            ],
+            "contactY": 6.82,
+            "originY": 13.049007633587792,
+            "padRadius": 3.5496183206106897,
+            "localTop": 6.37375,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 7.442748091603058,
+            "motorOffset": 3.595419847328247,
+            "standingHeight": 93.00426136363635
+          },
+          "ground": 13.049007633587792,
+          "effectScale": 0.4590330788804071,
+          "padX": 4.478371501272264,
+          "aimX": 0,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [
+          {
+            "family": 10,
+            "count": 480,
+            "left": 114.29145488423013,
+            "top": 175.68163931405513,
+            "right": 278.3699977453021,
+            "bottom": 350.79157992613966
+          }
+        ],
+        "moon": {
+          "x": 306.54,
+          "y": 140.9256,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 431,
+              "width": 96,
+              "height": 336
+            },
+            "rail": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            },
+            "control-0": {
+              "x": 329,
+              "y": 619,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 56,
+              "y": 431,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 56,
+              "y": 479,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 56,
+              "y": 527,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 56,
+              "y": 575,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 56,
+              "y": 623,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 56,
+              "y": 671,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 719,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 321,
+              "y": 779,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 8,
+              "y": 787,
+              "width": 289,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 775
+          },
+          "tray": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "collection": {
+            "x": 8,
+            "y": 431,
+            "width": 96,
+            "height": 336
+          },
+          "rail": {
+            "x": 329,
+            "y": 619,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 321,
+            "y": 779,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 8,
+            "y": 787,
+            "width": 289,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 678.125,
+            "width": 393,
+            "height": 96.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 46.5,
+            "width": 393,
+            "height": 496
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 542.5,
+            "width": 393,
+            "height": 139.5
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 5.399999999999986,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 120,
+        "riverReflectedParticleFragments": 360,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.995414708088617,
+        "riverPositions": [
+          {
+            "x": 74.67,
+            "y": 673.8733371722494,
+            "roll": 0.022311796326131405
+          },
+          {
+            "x": 318.33000000000004,
+            "y": 644.6131493488441,
+            "roll": 0.01478443956749107
+          },
+          {
+            "x": 62.88,
+            "y": 713.6879597702896,
+            "roll": 0.02291883555721834
+          }
+        ],
+        "riverWaterPhase": 4.995414708088617,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 11599.914241111263,
+        "riverReflectionChecksum": 403328.84208261664,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.13139062706648075,
+            "pitch": 0.022311796326131405,
+            "roll": 0,
+            "centerDeviation": 0.004357679330682873
+          },
+          {
+            "height": -0.4133626174204166,
+            "pitch": 0.01478443956749107,
+            "roll": 0,
+            "centerDeviation": 0.004180413949772199
+          },
+          {
+            "height": 0.11294512055984758,
+            "pitch": 0.02291883555721834,
+            "roll": 0,
+            "centerDeviation": 0.013984573529721975
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.995414708088617,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -180,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 5.399999999999986,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 2,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 5.399999999999986,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "idle",
+      "seconds": 8,
+      "file": "after-canvas-768x1024-idle.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 7.999999999999977,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 786432,
+        "submitMs": 0.29999998211860657,
+        "frames": 18,
+        "propBounds": {
+          "x": 349.55935828877,
+          "y": 814.7424090909092,
+          "width": 60.88128342245989,
+          "height": 111.80909090909086
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 379.99999999999994,
+          "y": 926.5515
+        },
+        "standingHeight": 111.80909090909086,
+        "modelScale": [
+          2.4007761907985286,
+          2.1480629075565782,
+          2.4007761907985286
+        ],
+        "padRadius": 3.329497506712696,
+        "fuseBounds": {
+          "x": 387.39679144385025,
+          "y": 870.2969545454546,
+          "width": 21.76363636363635,
+          "height": 10.81818181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 12.662731108553894,
+        "shellOffset": 6.981204449558879,
+        "motorOffset": 3.372458764863828,
+        "launchBounds": {
+          "screenMin": 93.44064171122994,
+          "screenMax": 666.55935828877,
+          "worldMin": -49.03955414156457,
+          "worldMax": 47.68934317110043,
+          "contactScreenY": 926.5515
+        },
+        "nextLaunchProfile": {
+          "apex": 101.81879555044115,
+          "apexMin": 97.01879555044115,
+          "apexMax": 106.61879555044116,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.4007761907985286,
+              2.1480629075565782,
+              2.4007761907985286
+            ],
+            "contactY": 6.82,
+            "originY": 12.662731108553894,
+            "padRadius": 3.329497506712696,
+            "localTop": 6.065,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 6.981204449558879,
+            "motorOffset": 3.372458764863828,
+            "standingHeight": 111.8090909090909
+          },
+          "ground": 12.662731108553894,
+          "padX": -0.6751054852320735,
+          "aimX": -0.6751054852320773,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 599.04,
+          "y": 169.5744,
+          "radius": 29.951999999999998,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 1024
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 364,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 412,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 460,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 508,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 556,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 604,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 652,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 700,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 748,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 796,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 844,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 892,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "tray": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 696,
+            "y": 952,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 188,
+            "y": 960,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 829.5000000000001,
+            "width": 768,
+            "height": 118.49999999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 56.879999999999995,
+            "width": 768,
+            "height": 606.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 663.5999999999999,
+            "width": 768,
+            "height": 170.64
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 7.999999999999977,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 0,
+        "riverReflectedParticleFragments": 0,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 7.652959743535047,
+        "riverPositions": [
+          {
+            "x": 145.92000000000002,
+            "y": 812.014311322077,
+            "roll": -0.010078821724047093
+          },
+          {
+            "x": 622.08,
+            "y": 773.8768204872123,
+            "roll": 0.019014188814218895
+          },
+          {
+            "x": 122.88,
+            "y": 861.2599100388056,
+            "roll": 0.007296886946260552
+          }
+        ],
+        "riverWaterPhase": 7.652959743535047,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14992.264418139219,
+        "riverReflectionChecksum": 522806.62601742696,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.0023968398269601527,
+            "pitch": -0.010078821724047093,
+            "roll": 0,
+            "centerDeviation": 0.0344502682731959
+          },
+          {
+            "height": -0.14839617396320154,
+            "pitch": 0.019014188814218895,
+            "roll": 0,
+            "centerDeviation": 0.017238461300582236
+          },
+          {
+            "height": -0.10783431752996396,
+            "pitch": 0.007296886946260552,
+            "roll": 0,
+            "centerDeviation": 0.04782324028224895
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 7.652959743535047,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 7.999999999999977,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 12,
+        "skyLastRenderedTime": 7.999999999999977,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "after-canvas-768x1024-gold-willow.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 1,
+        "active": 1,
+        "particles": 10442,
+        "smoke": 25,
+        "quality": "ultra",
+        "message": "Stay for the falling embers.",
+        "time": 4.899999999999988,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 322,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 786432,
+        "submitMs": 6.0999999940395355,
+        "frames": 27,
+        "propBounds": {
+          "x": 349.55935828877,
+          "y": 814.7424090909092,
+          "width": 60.88128342245989,
+          "height": 111.80909090909086
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 379.99999999999994,
+          "y": 926.5515
+        },
+        "standingHeight": 111.80909090909086,
+        "modelScale": [
+          2.4007761907985286,
+          2.1480629075565782,
+          2.4007761907985286
+        ],
+        "padRadius": 3.329497506712696,
+        "fuseBounds": {
+          "x": 387.39679144385025,
+          "y": 870.2969545454546,
+          "width": 21.76363636363635,
+          "height": 10.81818181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 12.662731108553894,
+        "shellOffset": 6.981204449558879,
+        "motorOffset": 3.372458764863828,
+        "launchBounds": {
+          "screenMin": 93.44064171122994,
+          "screenMax": 666.55935828877,
+          "worldMin": -49.03955414156457,
+          "worldMax": 47.68934317110043,
+          "contactScreenY": 926.5515
+        },
+        "nextLaunchProfile": {
+          "apex": 101.81879555044115,
+          "apexMin": 97.01879555044115,
+          "apexMax": 106.61879555044116,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.4007761907985286,
+              2.1480629075565782,
+              2.4007761907985286
+            ],
+            "contactY": 6.82,
+            "originY": 12.662731108553894,
+            "padRadius": 3.329497506712696,
+            "localTop": 6.065,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 6.981204449558879,
+            "motorOffset": 3.372458764863828,
+            "standingHeight": 111.8090909090909
+          },
+          "ground": 12.662731108553894,
+          "padX": -0.6751054852320735,
+          "aimX": -0.6751054852320773,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 599.04,
+          "y": 169.5744,
+          "radius": 29.951999999999998,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 1024
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 364,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 412,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 460,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 508,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 556,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 604,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 652,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 700,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 748,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 796,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 844,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 892,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "tray": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 696,
+            "y": 952,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 188,
+            "y": 960,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 829.5000000000001,
+            "width": 768,
+            "height": 118.49999999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 56.879999999999995,
+            "width": 768,
+            "height": 606.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 663.5999999999999,
+            "width": 768,
+            "height": 170.64
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 4.899999999999988,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 115,
+        "riverReflectedParticleFragments": 345,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.500896410987744,
+        "riverPositions": [
+          {
+            "x": 145.92000000000002,
+            "y": 809.3176648959217,
+            "roll": -0.027353674145458532
+          },
+          {
+            "x": 622.08,
+            "y": 774.0327197026845,
+            "roll": 0.032799080359308015
+          },
+          {
+            "x": 122.88,
+            "y": 862.8112724304201,
+            "roll": 0.013133750497411808
+          }
+        ],
+        "riverWaterPhase": 4.500896410987744,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14973.396281895704,
+        "riverReflectionChecksum": 522824.0045646521,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.36779608456344637,
+            "pitch": -0.027353674145458532,
+            "roll": 0,
+            "centerDeviation": 0.053753701919123265
+          },
+          {
+            "height": -0.17896464758519892,
+            "pitch": 0.032799080359308015,
+            "roll": 0,
+            "centerDeviation": 0.002450947030989359
+          },
+          {
+            "height": -0.2599286696490321,
+            "pitch": 0.013133750497411808,
+            "roll": 0,
+            "centerDeviation": 0.01322298450958398
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.500896410987744,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 4.899999999999988,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 21,
+        "skyLastRenderedTime": 4.899999999999988,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "after-canvas-768x1024-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "sapphire-saturn",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 1,
+        "active": 1,
+        "particles": 6441,
+        "smoke": 25,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 4.899999999999988,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 675,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 786432,
+        "submitMs": 8.299999982118607,
+        "frames": 36,
+        "propBounds": {
+          "x": 349.55935828877,
+          "y": 812.260590909091,
+          "width": 60.88128342245989,
+          "height": 114.29090909090905
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 379.99999999999994,
+          "y": 926.5515
+        },
+        "standingHeight": 114.29090909090905,
+        "modelScale": [
+          2.400776190798529,
+          2.1480629075565787,
+          2.400776190798529
+        ],
+        "padRadius": 3.329497506712697,
+        "fuseBounds": {
+          "x": 387.39679144385025,
+          "y": 870.2969545454546,
+          "width": 21.76363636363635,
+          "height": 10.81818181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 12.662731108553896,
+        "shellOffset": 6.981204449558881,
+        "motorOffset": 3.3724587648638287,
+        "launchBounds": {
+          "screenMin": 93.44064171122994,
+          "screenMax": 666.55935828877,
+          "worldMin": -49.03955414156457,
+          "worldMax": 47.68934317110043,
+          "contactScreenY": 926.5515
+        },
+        "nextLaunchProfile": {
+          "apex": 101.81879555044114,
+          "apexMin": 97.01879555044115,
+          "apexMax": 106.61879555044115,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.400776190798529,
+              2.1480629075565787,
+              2.400776190798529
+            ],
+            "contactY": 6.82,
+            "originY": 12.662731108553896,
+            "padRadius": 3.329497506712697,
+            "localTop": 6.260000000000001,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 6.981204449558881,
+            "motorOffset": 3.3724587648638287,
+            "standingHeight": 114.2909090909091
+          },
+          "ground": 12.662731108553896,
+          "padX": -0.6751054852320735,
+          "aimX": -0.6751054852320773,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 599.04,
+          "y": 169.5744,
+          "radius": 29.951999999999998,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 1024
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 364,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 412,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 460,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 508,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 556,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 604,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 652,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 700,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 748,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 796,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 844,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 892,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "tray": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 696,
+            "y": 952,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 188,
+            "y": 960,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 829.5000000000001,
+            "width": 768,
+            "height": 118.49999999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 56.879999999999995,
+            "width": 768,
+            "height": 606.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 663.5999999999999,
+            "width": 768,
+            "height": 170.64
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 4.899999999999988,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 120,
+        "riverReflectedParticleFragments": 360,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.500896410987744,
+        "riverPositions": [
+          {
+            "x": 145.92000000000002,
+            "y": 809.3176648959217,
+            "roll": -0.027353674145458532
+          },
+          {
+            "x": 622.08,
+            "y": 774.0327197026845,
+            "roll": 0.032799080359308015
+          },
+          {
+            "x": 122.88,
+            "y": 862.8112724304201,
+            "roll": 0.013133750497411808
+          }
+        ],
+        "riverWaterPhase": 4.500896410987744,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14973.396281895704,
+        "riverReflectionChecksum": 522824.0045646521,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.36779608456344637,
+            "pitch": -0.027353674145458532,
+            "roll": 0,
+            "centerDeviation": 0.053753701919123265
+          },
+          {
+            "height": -0.17896464758519892,
+            "pitch": 0.032799080359308015,
+            "roll": 0,
+            "centerDeviation": 0.002450947030989359
+          },
+          {
+            "height": -0.2599286696490321,
+            "pitch": 0.013133750497411808,
+            "roll": 0,
+            "centerDeviation": 0.01322298450958398
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.500896410987744,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 4.899999999999988,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 30,
+        "skyLastRenderedTime": 4.899999999999988,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "after-canvas-768x1024-opal-supernova.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "opal-supernova",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 3,
+        "active": 1,
+        "particles": 11788,
+        "smoke": 24,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 5.599999999999985,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 5,
+        "embers": 517,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 786432,
+        "submitMs": 7.9000000059604645,
+        "frames": 45,
+        "propBounds": {
+          "x": 349.55935828877,
+          "y": 812.6742272727273,
+          "width": 60.881283422459944,
+          "height": 113.87727272727273
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 379.99999999999994,
+          "y": 926.5515
+        },
+        "standingHeight": 113.87727272727273,
+        "modelScale": [
+          2.40077619079853,
+          2.148062907556579,
+          2.40077619079853
+        ],
+        "padRadius": 3.329497506712698,
+        "fuseBounds": {
+          "x": 387.39679144385025,
+          "y": 870.2969545454546,
+          "width": 21.76363636363635,
+          "height": 10.81818181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 12.662731108553896,
+        "shellOffset": 6.9812044495588825,
+        "motorOffset": 3.3724587648638296,
+        "launchBounds": {
+          "screenMin": 93.44064171122994,
+          "screenMax": 666.55935828877,
+          "worldMin": -49.03955414156457,
+          "worldMax": 47.68934317110043,
+          "contactScreenY": 926.5515
+        },
+        "nextLaunchProfile": {
+          "apex": 101.81879555044114,
+          "apexMin": 97.01879555044114,
+          "apexMax": 106.61879555044115,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.40077619079853,
+              2.148062907556579,
+              2.40077619079853
+            ],
+            "contactY": 6.82,
+            "originY": 12.662731108553896,
+            "padRadius": 3.329497506712698,
+            "localTop": 6.2275,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 6.9812044495588825,
+            "motorOffset": 3.3724587648638296,
+            "standingHeight": 113.87727272727271
+          },
+          "ground": 12.662731108553896,
+          "padX": -0.6751054852320735,
+          "aimX": -0.6751054852320773,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 599.04,
+          "y": 169.5744,
+          "radius": 29.951999999999998,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 1024
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 364,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 412,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 460,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 508,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 556,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 604,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 652,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 700,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 748,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 796,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 844,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 892,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "tray": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 696,
+            "y": 952,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 188,
+            "y": 960,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 829.5000000000001,
+            "width": 768,
+            "height": 118.49999999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 56.879999999999995,
+            "width": 768,
+            "height": 606.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 663.5999999999999,
+            "width": 768,
+            "height": 170.64
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 5.599999999999985,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 128,
+        "riverReflectedParticleFragments": 384,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 5.194843600868178,
+        "riverPositions": [
+          {
+            "x": 145.92000000000002,
+            "y": 808.9898429832475,
+            "roll": -0.041178158984114886
+          },
+          {
+            "x": 622.08,
+            "y": 774.2016465447435,
+            "roll": 0.0523634511339922
+          },
+          {
+            "x": 122.88,
+            "y": 863.2949808994011,
+            "roll": 0.006705850583906043
+          }
+        ],
+        "riverWaterPhase": 5.194843600868178,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14999.229819157581,
+        "riverReflectionChecksum": 522960.55332374683,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.41221639793392517,
+            "pitch": -0.041178158984114886,
+            "roll": 0,
+            "centerDeviation": 0.049480791562057036
+          },
+          {
+            "height": -0.21208755779284735,
+            "pitch": 0.0523634511339922,
+            "roll": 0,
+            "centerDeviation": 0.02393623225331304
+          },
+          {
+            "height": -0.30735106856874167,
+            "pitch": 0.006705850583906043,
+            "roll": 0,
+            "centerDeviation": 0.010933217136251394
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 5.194843600868178,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 5.599999999999985,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 39,
+        "skyLastRenderedTime": 5.599999999999985,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "after-canvas-768x1024-imperial-crown.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "imperial-crown",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 2,
+        "active": 1,
+        "particles": 22434,
+        "smoke": 28,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 5.399999999999986,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 1,
+        "embers": 744,
+        "signatureStages": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 786432,
+        "submitMs": 6.800000011920929,
+        "frames": 54,
+        "propBounds": {
+          "x": 349.55935828877,
+          "y": 810.8128636363637,
+          "width": 60.881283422459944,
+          "height": 115.73863636363637
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 379.99999999999994,
+          "y": 926.5515
+        },
+        "standingHeight": 115.73863636363637,
+        "modelScale": [
+          2.4007761907985308,
+          2.14806290755658,
+          2.4007761907985308
+        ],
+        "padRadius": 3.3294975067126993,
+        "fuseBounds": {
+          "x": 387.39679144385025,
+          "y": 870.2969545454546,
+          "width": 21.76363636363635,
+          "height": 10.81818181818187
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 12.6627311085539,
+        "shellOffset": 6.981204449558885,
+        "motorOffset": 3.372458764863831,
+        "launchBounds": {
+          "screenMin": 93.44064171122994,
+          "screenMax": 666.55935828877,
+          "worldMin": -49.03955414156457,
+          "worldMax": 47.68934317110043,
+          "contactScreenY": 926.5515
+        },
+        "nextLaunchProfile": {
+          "apex": 101.81879555044114,
+          "apexMin": 97.01879555044114,
+          "apexMax": 106.61879555044115,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              2.4007761907985308,
+              2.14806290755658,
+              2.4007761907985308
+            ],
+            "contactY": 6.82,
+            "originY": 12.6627311085539,
+            "padRadius": 3.3294975067126993,
+            "localTop": 6.37375,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 6.981204449558885,
+            "motorOffset": 3.372458764863831,
+            "standingHeight": 115.73863636363635
+          },
+          "ground": 12.6627311085539,
+          "effectScale": 0.6976090014064699,
+          "padX": -0.6751054852320735,
+          "aimX": 0,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [
+          {
+            "family": 10,
+            "count": 480,
+            "left": 208.70131884491173,
+            "top": 142.92518461150007,
+            "right": 555.9781244274742,
+            "bottom": 508.3710368334667
+          }
+        ],
+        "moon": {
+          "x": 599.04,
+          "y": 169.5744,
+          "radius": 29.951999999999998,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 1024
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 704,
+              "y": 792,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 316,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 364,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 412,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 460,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 508,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 556,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 604,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 652,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 700,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 748,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 796,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 844,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 892,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 696,
+              "y": 952,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 188,
+              "y": 960,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 768,
+            "height": 948
+          },
+          "tray": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 316,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 704,
+            "y": 792,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 696,
+            "y": 952,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 188,
+            "y": 960,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 829.5000000000001,
+            "width": 768,
+            "height": 118.49999999999989
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 56.879999999999995,
+            "width": 768,
+            "height": 606.72
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 663.5999999999999,
+            "width": 768,
+            "height": 170.64
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 5.399999999999986,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 120,
+        "riverReflectedParticleFragments": 360,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.995414708088617,
+        "riverPositions": [
+          {
+            "x": 145.92000000000002,
+            "y": 809.0173176193558,
+            "roll": -0.038530891485891956
+          },
+          {
+            "x": 622.08,
+            "y": 774.162583741516,
+            "roll": 0.048070918469662785
+          },
+          {
+            "x": 122.88,
+            "y": 863.2071378110064,
+            "roll": 0.008663229038870788
+          }
+        ],
+        "riverWaterPhase": 4.995414708088617,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14994.424735647128,
+        "riverReflectionChecksum": 522928.0460475846,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.4084935475127438,
+            "pitch": -0.038530891485891956,
+            "roll": 0,
+            "centerDeviation": 0.0526327844275612
+          },
+          {
+            "height": -0.2044281846109747,
+            "pitch": 0.048070918469662785,
+            "roll": 0,
+            "centerDeviation": 0.017330717528749012
+          },
+          {
+            "height": -0.29873900107906876,
+            "pitch": 0.008663229038870788,
+            "roll": 0,
+            "centerDeviation": 0.012654759262604065
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.995414708088617,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 5.399999999999986,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 5.399999999999986,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "idle",
+      "seconds": 8,
+      "file": "after-canvas-1280x800-idle.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 0,
+        "bursts": 0,
+        "active": 0,
+        "particles": 0,
+        "smoke": 0,
+        "quality": "ultra",
+        "message": "A fresh, quiet sky.",
+        "time": 7.999999999999977,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "ready",
+        "carriers": 0,
+        "embers": 0,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 1024000,
+        "submitMs": 0.29999998211860657,
+        "frames": 18,
+        "propBounds": {
+          "x": 604.515679144385,
+          "y": 591.9769545454545,
+          "width": 62.96864171123002,
+          "height": 115.64254545454548
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 636,
+          "y": 707.6195
+        },
+        "standingHeight": 115.64254545454548,
+        "modelScale": [
+          3.2513368983957234,
+          2.9090909090909105,
+          3.2513368983957234
+        ],
+        "padRadius": 4.5090909090909115,
+        "fuseBounds": {
+          "x": 643.6503957219252,
+          "y": 649.4362272727273,
+          "width": 22.50981818181822,
+          "height": 11.189090909090964
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 14.732727272727278,
+        "shellOffset": 9.454545454545459,
+        "motorOffset": 4.56727272727273,
+        "launchBounds": {
+          "screenMin": 94.48432085561501,
+          "screenMax": 1177.515679144385,
+          "worldMin": -120.5559511921293,
+          "worldMax": 118.78799539102435,
+          "contactScreenY": 707.6195
+        },
+        "nextLaunchProfile": {
+          "apex": 99.34545454545456,
+          "apexMin": 94.54545454545456,
+          "apexMax": 104.14545454545457,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              3.2513368983957234,
+              2.9090909090909105,
+              3.2513368983957234
+            ],
+            "contactY": 6.82,
+            "originY": 14.732727272727278,
+            "padRadius": 4.5090909090909115,
+            "localTop": 6.065,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 9.454545454545459,
+            "motorOffset": 4.56727272727273,
+            "standingHeight": 115.64254545454544
+          },
+          "ground": 14.732727272727278,
+          "padX": -0.8839779005524804,
+          "aimX": -0.8839779005524612,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 132.48000000000002,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 140,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 188,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 236,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 284,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 332,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 380,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 428,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 476,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 524,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 572,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 620,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 668,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 1208,
+            "y": 728,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 444,
+            "y": 736,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 7.999999999999977,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 0,
+        "riverReflectedParticleFragments": 0,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 7.652959743535047,
+        "riverPositions": [
+          {
+            "x": 243.2,
+            "y": 634.3005357675537,
+            "roll": -0.006047424087552344
+          },
+          {
+            "x": 1036.8000000000002,
+            "y": 604.5734579240321,
+            "roll": 0.011409393267447042
+          },
+          {
+            "x": 204.8,
+            "y": 673.1452158440022,
+            "roll": 0.004378228100316999
+          }
+        ],
+        "riverWaterPhase": 7.652959743535047,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14106.554474249526,
+        "riverReflectionChecksum": 499798.6757003555,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.013477538271852208,
+            "pitch": -0.006047424087552344,
+            "roll": 0,
+            "centerDeviation": 0.04553096671808689
+          },
+          {
+            "height": -0.11244273020237658,
+            "pitch": 0.011409393267447042,
+            "roll": 0,
+            "centerDeviation": 0.05319190506140564
+          },
+          {
+            "height": -0.11227606313747493,
+            "pitch": 0.004378228100316999,
+            "roll": 0,
+            "centerDeviation": 0.043381494674738924
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 7.652959743535047,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 7.999999999999977,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 12,
+        "skyLastRenderedTime": 7.999999999999977,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "after-canvas-1280x800-gold-willow.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "gold-willow",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 1,
+        "active": 1,
+        "particles": 10893,
+        "smoke": 25,
+        "quality": "ultra",
+        "message": "Stay for the falling embers.",
+        "time": 4.899999999999988,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 313,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 1024000,
+        "submitMs": 5,
+        "frames": 27,
+        "propBounds": {
+          "x": 604.515679144385,
+          "y": 591.9769545454545,
+          "width": 62.96864171123002,
+          "height": 115.64254545454548
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 636,
+          "y": 707.6195
+        },
+        "standingHeight": 115.64254545454548,
+        "modelScale": [
+          3.2513368983957234,
+          2.9090909090909105,
+          3.2513368983957234
+        ],
+        "padRadius": 4.5090909090909115,
+        "fuseBounds": {
+          "x": 643.6503957219252,
+          "y": 649.4362272727273,
+          "width": 22.50981818181822,
+          "height": 11.189090909090964
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 14.732727272727278,
+        "shellOffset": 9.454545454545459,
+        "motorOffset": 4.56727272727273,
+        "launchBounds": {
+          "screenMin": 94.48432085561501,
+          "screenMax": 1177.515679144385,
+          "worldMin": -120.5559511921293,
+          "worldMax": 118.78799539102435,
+          "contactScreenY": 707.6195
+        },
+        "nextLaunchProfile": {
+          "apex": 99.34545454545456,
+          "apexMin": 94.54545454545456,
+          "apexMax": 104.14545454545457,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              3.2513368983957234,
+              2.9090909090909105,
+              3.2513368983957234
+            ],
+            "contactY": 6.82,
+            "originY": 14.732727272727278,
+            "padRadius": 4.5090909090909115,
+            "localTop": 6.065,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 9.454545454545459,
+            "motorOffset": 4.56727272727273,
+            "standingHeight": 115.64254545454544
+          },
+          "ground": 14.732727272727278,
+          "padX": -0.8839779005524804,
+          "aimX": -0.8839779005524612,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 132.48000000000002,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 140,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 188,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 236,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 284,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 332,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 380,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 428,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 476,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 524,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 572,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 620,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 668,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 1208,
+            "y": 728,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 444,
+            "y": 736,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 4.899999999999988,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 115,
+        "riverReflectedParticleFragments": 345,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.500896410987744,
+        "riverPositions": [
+          {
+            "x": 243.2,
+            "y": 631.8095870042499,
+            "roll": -0.01641482458063243
+          },
+          {
+            "x": 1036.8000000000002,
+            "y": 605.0005798310572,
+            "roll": 0.01968396553638563
+          },
+          {
+            "x": 204.8,
+            "y": 674.498547333419,
+            "roll": 0.007880809718269953
+          }
+        ],
+        "riverWaterPhase": 4.500896410987744,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14096.08936604163,
+        "riverReflectionChecksum": 499607.9865258628,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.35100447096884924,
+            "pitch": -0.01641482458063243,
+            "roll": 0,
+            "centerDeviation": 0.0705453155137204
+          },
+          {
+            "height": -0.1961921237367044,
+            "pitch": 0.01968396553638563,
+            "roll": 0,
+            "centerDeviation": 0.014776529120511944
+          },
+          {
+            "height": -0.2449556209234236,
+            "pitch": 0.007880809718269953,
+            "roll": 0,
+            "centerDeviation": 0.001750064216023972
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.500896410987744,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 4.899999999999988,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 21,
+        "skyLastRenderedTime": 4.899999999999988,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "after-canvas-1280x800-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "sapphire-saturn",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 1,
+        "active": 1,
+        "particles": 6415,
+        "smoke": 25,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 4.899999999999988,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 649,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 1024000,
+        "submitMs": 7.4000000059604645,
+        "frames": 36,
+        "propBounds": {
+          "x": 604.5156791443851,
+          "y": 589.4100454545455,
+          "width": 62.96864171122991,
+          "height": 118.20945454545449
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 636,
+          "y": 707.6195
+        },
+        "standingHeight": 118.20945454545449,
+        "modelScale": [
+          3.251336898395721,
+          2.9090909090909083,
+          3.251336898395721
+        ],
+        "padRadius": 4.509090909090908,
+        "fuseBounds": {
+          "x": 643.6503957219252,
+          "y": 649.4362272727274,
+          "width": 22.509818181818105,
+          "height": 11.18909090909085
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 14.73272727272727,
+        "shellOffset": 9.454545454545451,
+        "motorOffset": 4.5672727272727265,
+        "launchBounds": {
+          "screenMin": 94.48432085561501,
+          "screenMax": 1177.515679144385,
+          "worldMin": -120.5559511921293,
+          "worldMax": 118.78799539102435,
+          "contactScreenY": 707.6195
+        },
+        "nextLaunchProfile": {
+          "apex": 99.34545454545456,
+          "apexMin": 94.54545454545456,
+          "apexMax": 104.14545454545457,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              3.251336898395721,
+              2.9090909090909083,
+              3.251336898395721
+            ],
+            "contactY": 6.82,
+            "originY": 14.73272727272727,
+            "padRadius": 4.509090909090908,
+            "localTop": 6.260000000000001,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 9.454545454545451,
+            "motorOffset": 4.5672727272727265,
+            "standingHeight": 118.20945454545455
+          },
+          "ground": 14.73272727272727,
+          "padX": -0.8839779005524804,
+          "aimX": -0.8839779005524612,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 132.48000000000002,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 140,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 188,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 236,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 284,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 332,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 380,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 428,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 476,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 524,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 572,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 620,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 668,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 1208,
+            "y": 728,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 444,
+            "y": 736,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 4.899999999999988,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 120,
+        "riverReflectedParticleFragments": 360,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.500896410987744,
+        "riverPositions": [
+          {
+            "x": 243.2,
+            "y": 631.8095870042499,
+            "roll": -0.01641482458063243
+          },
+          {
+            "x": 1036.8000000000002,
+            "y": 605.0005798310572,
+            "roll": 0.01968396553638563
+          },
+          {
+            "x": 204.8,
+            "y": 674.498547333419,
+            "roll": 0.007880809718269953
+          }
+        ],
+        "riverWaterPhase": 4.500896410987744,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14096.08936604163,
+        "riverReflectionChecksum": 499607.9865258628,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.35100447096884924,
+            "pitch": -0.01641482458063243,
+            "roll": 0,
+            "centerDeviation": 0.0705453155137204
+          },
+          {
+            "height": -0.1961921237367044,
+            "pitch": 0.01968396553638563,
+            "roll": 0,
+            "centerDeviation": 0.014776529120511944
+          },
+          {
+            "height": -0.2449556209234236,
+            "pitch": 0.007880809718269953,
+            "roll": 0,
+            "centerDeviation": 0.001750064216023972
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.500896410987744,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 4.899999999999988,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 30,
+        "skyLastRenderedTime": 4.899999999999988,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "after-canvas-1280x800-opal-supernova.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "opal-supernova",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 3,
+        "active": 1,
+        "particles": 11941,
+        "smoke": 24,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 5.599999999999985,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 5,
+        "embers": 492,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 1024000,
+        "submitMs": 7.299999982118607,
+        "frames": 45,
+        "propBounds": {
+          "x": 604.5156791443851,
+          "y": 589.8378636363636,
+          "width": 62.96864171122991,
+          "height": 117.78163636363638
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 636,
+          "y": 707.6195
+        },
+        "standingHeight": 117.78163636363638,
+        "modelScale": [
+          3.251336898395723,
+          2.90909090909091,
+          3.251336898395723
+        ],
+        "padRadius": 4.509090909090911,
+        "fuseBounds": {
+          "x": 643.6503957219252,
+          "y": 649.4362272727273,
+          "width": 22.50981818181822,
+          "height": 11.189090909090964
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 14.732727272727276,
+        "shellOffset": 9.454545454545457,
+        "motorOffset": 4.567272727272729,
+        "launchBounds": {
+          "screenMin": 94.48432085561501,
+          "screenMax": 1177.515679144385,
+          "worldMin": -120.5559511921293,
+          "worldMax": 118.78799539102435,
+          "contactScreenY": 707.6195
+        },
+        "nextLaunchProfile": {
+          "apex": 99.34545454545456,
+          "apexMin": 94.54545454545456,
+          "apexMax": 104.14545454545457,
+          "centerFraction": 0.34,
+          "prop": {
+            "modelScale": [
+              3.251336898395723,
+              2.90909090909091,
+              3.251336898395723
+            ],
+            "contactY": 6.82,
+            "originY": 14.732727272727276,
+            "padRadius": 4.509090909090911,
+            "localTop": 6.2275,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 9.454545454545457,
+            "motorOffset": 4.567272727272729,
+            "standingHeight": 117.78163636363635
+          },
+          "ground": 14.732727272727276,
+          "padX": -0.8839779005524804,
+          "aimX": -0.8839779005524612,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [],
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 132.48000000000002,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 140,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 188,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 236,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 284,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 332,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 380,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 428,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 476,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 524,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 572,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 620,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 668,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 1208,
+            "y": 728,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 444,
+            "y": 736,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 5.599999999999985,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 128,
+        "riverReflectedParticleFragments": 384,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 5.194843600868178,
+        "riverPositions": [
+          {
+            "x": 243.2,
+            "y": 631.5207105771987,
+            "roll": -0.02471583557000207
+          },
+          {
+            "x": 1036.8000000000002,
+            "y": 605.2340999185396,
+            "roll": 0.031436457806171
+          },
+          {
+            "x": 204.8,
+            "y": 675.0411831536032,
+            "roll": 0.0040235848087138305
+          }
+        ],
+        "riverWaterPhase": 5.194843600868178,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14114.90938307352,
+        "riverReflectionChecksum": 499759.2109089421,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.3901476182657632,
+            "pitch": -0.02471583557000207,
+            "roll": 0,
+            "centerDeviation": 0.07154957123021938
+          },
+          {
+            "height": -0.2419803761842328,
+            "pitch": 0.031436457806171,
+            "roll": 0,
+            "centerDeviation": 0.05382905064469465
+          },
+          {
+            "height": -0.29815521113756766,
+            "pitch": 0.0040235848087138305,
+            "roll": 0,
+            "centerDeviation": 0.0017373597050779344
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 5.194843600868178,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 5.599999999999985,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 39,
+        "skyLastRenderedTime": 5.599999999999985,
+        "skyFrozen": true
+      }
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "after-canvas-1280x800-imperial-crown.png",
+      "release": {
+        "version": "2026-10-01.11",
+        "sha256": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "imperial-crown",
+        "placement": 0.5,
+        "placementMode": "fixed",
+        "nextPlacement": 0.5,
+        "committedPlacement": null,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 2,
+        "active": 1,
+        "particles": 23686,
+        "smoke": 25,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 5.399999999999986,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 1,
+        "embers": 698,
+        "signatureStages": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "startup": {
+          "phase": "ready",
+          "completed": 1,
+          "total": 1,
+          "pending": false,
+          "degraded": false,
+          "detail": "Scene ready"
+        },
+        "backend": "Canvas 2D · compatibility",
+        "renderPixels": 1024000,
+        "submitMs": 7.4000000059604645,
+        "frames": 54,
+        "propBounds": {
+          "x": 604.5156791443851,
+          "y": 587.9126818181819,
+          "width": 62.96864171122991,
+          "height": 119.70681818181811
+        },
+        "propBoundsPhase": "standing-at-pad",
+        "padContact": {
+          "x": 636,
+          "y": 707.6195
+        },
+        "standingHeight": 119.70681818181811,
+        "modelScale": [
+          3.251336898395721,
+          2.9090909090909083,
+          3.251336898395721
+        ],
+        "padRadius": 4.509090909090908,
+        "fuseBounds": {
+          "x": 643.6503957219252,
+          "y": 649.4362272727274,
+          "width": 22.509818181818105,
+          "height": 11.18909090909085
+        },
+        "contactWorldY": 6.82,
+        "originWorldY": 14.73272727272727,
+        "shellOffset": 9.454545454545451,
+        "motorOffset": 4.5672727272727265,
+        "launchBounds": {
+          "screenMin": 94.48432085561501,
+          "screenMax": 1177.515679144385,
+          "worldMin": -120.5559511921293,
+          "worldMax": 118.78799539102435,
+          "contactScreenY": 707.6195
+        },
+        "nextLaunchProfile": {
+          "apex": 97.99738824711203,
+          "apexMin": 94.54545454545456,
+          "apexMax": 97.99738824711203,
+          "centerFraction": 0.3484254143646409,
+          "prop": {
+            "modelScale": [
+              3.251336898395721,
+              2.9090909090909083,
+              3.251336898395721
+            ],
+            "contactY": 6.82,
+            "originY": 14.73272727272727,
+            "padRadius": 4.509090909090908,
+            "localTop": 6.37375,
+            "localFoot": -2.72,
+            "localRadius": 2.14,
+            "shellOffset": 9.454545454545451,
+            "motorOffset": 4.5672727272727265,
+            "standingHeight": 119.70681818181816
+          },
+          "ground": 14.73272727272727,
+          "effectScale": 0.7961240968975778,
+          "padX": -0.8839779005524804,
+          "aimX": -0.8839779005524612,
+          "normalizedPlacement": 0.5
+        },
+        "signatureBounds": [
+          {
+            "family": 10,
+            "count": 480,
+            "left": 476.0075931881075,
+            "top": 102.28928161991564,
+            "right": 791.8056193093632,
+            "bottom": 432.1422409888716
+          }
+        ],
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 132.48000000000002,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 624
+            },
+            "rail": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "mode": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "position": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            },
+            "control-0": {
+              "x": 1216,
+              "y": 568,
+              "width": 48,
+              "height": 148
+            },
+            "control-1": {
+              "x": 8,
+              "y": 92,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 8,
+              "y": 140,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 8,
+              "y": 188,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 8,
+              "y": 236,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 8,
+              "y": 284,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 8,
+              "y": 332,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 8,
+              "y": 380,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 8,
+              "y": 428,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 8,
+              "y": 476,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 8,
+              "y": 524,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 8,
+              "y": 572,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 8,
+              "y": 620,
+              "width": 48,
+              "height": 48
+            },
+            "control-13": {
+              "x": 8,
+              "y": 668,
+              "width": 48,
+              "height": 48
+            },
+            "control-14": {
+              "x": 1208,
+              "y": 728,
+              "width": 64,
+              "height": 64
+            },
+            "control-15": {
+              "x": 444,
+              "y": 736,
+              "width": 320,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "collection": {
+            "x": 8,
+            "y": 92,
+            "width": 48,
+            "height": 624
+          },
+          "rail": {
+            "x": 1216,
+            "y": 568,
+            "width": 48,
+            "height": 148
+          },
+          "mode": {
+            "x": 1208,
+            "y": 728,
+            "width": 64,
+            "height": 64
+          },
+          "position": {
+            "x": 444,
+            "y": 736,
+            "width": 320,
+            "height": 48
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "skyMotionTime": 5.399999999999986,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.72,
+        "skyLayers": 3,
+        "skyTextures": 0,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyResponseCachePixels": 32768,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "riverReflectedParticleSourceLimit": 128,
+        "riverReflectedParticleSources": 120,
+        "riverReflectedParticleFragments": 360,
+        "riverScenery": "original Canvas river",
+        "riverBoats": 3,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 4.995414708088617,
+        "riverPositions": [
+          {
+            "x": 243.2,
+            "y": 631.5441890296131,
+            "roll": -0.02312585901697384
+          },
+          {
+            "x": 1036.8000000000002,
+            "y": 605.1821266933805,
+            "roll": 0.028856775741165314
+          },
+          {
+            "x": 204.8,
+            "y": 674.9309618814004,
+            "roll": 0.00519809796800845
+          }
+        ],
+        "riverWaterPhase": 4.995414708088617,
+        "riverWaterWaveCount": 4,
+        "riverContactChecksum": 14111.512334561017,
+        "riverReflectionChecksum": 499719.28443341865,
+        "riverHullSampleCount": 12,
+        "riverContactCapacity": 21,
+        "riverReflectionCapacity": 80,
+        "riverWaterContactInstances": 21,
+        "riverContactAlignment": "four hull points and wave-conforming fragments",
+        "riverHullSamples": [
+          {
+            "height": 0.38696625614997954,
+            "pitch": -0.02312585901697384,
+            "roll": 0,
+            "centerDeviation": 0.07416007579032574
+          },
+          {
+            "height": -0.2317895477216555,
+            "pitch": 0.028856775741165314,
+            "roll": 0,
+            "centerDeviation": 0.04469208063942573
+          },
+          {
+            "height": -0.2873492040588629,
+            "pitch": 0.00519809796800845,
+            "roll": 0,
+            "centerDeviation": 0.0012649622423987483
+          }
+        ],
+        "waterSurfaceFragments": 96,
+        "waterReflectionTargets": 0,
+        "waterPhase": 4.995414708088617,
+        "waterWaveCount": 4,
+        "waterVisible": true,
+        "waterMotionAllowed": true,
+        "waterDisplacementBound": 0.51,
+        "waterFarZ": -1000,
+        "waterNearZ": -14.75,
+        "reflectionTargets": 0,
+        "reflectionAllocated": false,
+        "reflectionWidth": 0,
+        "reflectionHeight": 0,
+        "reflectionHz": 0,
+        "shellScreen": null,
+        "apexScreen": null,
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 5.399999999999986,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 10,
+        "skyResponding": false,
+        "skyAmbientFrames": 3,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 48,
+        "skyLastRenderedTime": 5.399999999999986,
+        "skyFrozen": true
+      }
+    }
+  ],
+  "errors": []
+}

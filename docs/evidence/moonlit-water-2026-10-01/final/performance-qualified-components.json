@@ -1,0 +1,3714 @@
+{
+  "format": "component qualification; distinct complete experiments, not one final-build experiment",
+  "finalVersion": "2026-10-01.11",
+  "finalFingerprint": "b7687fa6f916f5b3dd391d17d9646888314001a728296313961275001f7b3d45",
+  "baselineVersion": "2026-10-01.4",
+  "baselineFingerprint": "965c6eaa6ebd5aef2f5922831504a6bbe1c3879e24a26532432af279f5e09d51",
+  "gpuEvidence": "filtered-10-performance-failed.json",
+  "gpuMeasuredFingerprint": "eb6549cae005d7e3d9a954e78e433328cb496d4a8be06051d1ffe85ef0f750ae",
+  "gpuSourceEquality": "gpu-source-equivalence.json",
+  "canvasEvidence": "canvas-11-performance.json",
+  "repetitionsPerBackendViewport": 4,
+  "acceptance": {
+    "primaryCadenceGroupsPassed": 18,
+    "transitionGroupsPassed": 12,
+    "observerRafGroupsPassed": 18,
+    "repeatableNewHitch50or100": false,
+    "runtimeErrors": 0,
+    "threshold": "unrounded p95 delta <= max(2 ms, 20% baseline)",
+    "hitchCriterion": "new transition in at least two paired repetitions"
+  },
+  "groups": [
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgpu",
+      "width": 393,
+      "height": 851,
+      "workload": "idle",
+      "rafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.300000000000182,
+        "deltaMs": 9.094947017729282e-13,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 5.5,
+        "candidateMs": 5.5,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": null,
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 2879,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 8.300000000000182,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 237,
+          "p50Ms": 5,
+          "p95Ms": 5.5,
+          "worstMs": 9.400000005960464,
+          "p95NearestRankMs": 5.5,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 237,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 83,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2879,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.4999999999999996,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          52,
+          111
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 2880,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 5.5,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 236,
+          "p50Ms": 4.699999988079071,
+          "p95Ms": 5.5,
+          "worstMs": 7.4000000059604645,
+          "p95NearestRankMs": 5.5,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 233,
+          "over50Ms": 98,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2880,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          49,
+          108
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 54.100000000000364,
+        "candidateMs": 54.100000000000364,
+        "deltaMs": 0,
+        "allowanceMs": 10.820000000000073,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 54.100000000000364,
+        "candidateMs": 54.100000000000364,
+        "deltaMs": 0,
+        "allowanceMs": 10.820000000000073,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": null,
+      "transitionRenderedCadenceNearestRankP95": null,
+      "transitionRenderedIntervals": null,
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 237,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 83,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 233,
+          "over50Ms": 98,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgpu",
+      "width": 393,
+      "height": 851,
+      "workload": "launch-1",
+      "rafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 5,
+        "candidateMs": 5.4000000059604645,
+        "deltaMs": 0.4000000059604645,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 7178,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 29.100000000000364,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1798,
+          "p50Ms": 3.0999999940395355,
+          "p95Ms": 5,
+          "worstMs": 7.4000000059604645,
+          "p95NearestRankMs": 5,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1798,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7178,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.699999999999989,
+          12.16666666666685
+        ],
+        "renderFrameRange": [
+          116,
+          563
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 7193,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 12.5,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1801,
+          "p50Ms": 4.199999988079071,
+          "p95Ms": 5.4000000059604645,
+          "worstMs": 10.199999988079071,
+          "p95NearestRankMs": 5.4000000059604645,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1801,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 17.30000000000109,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7193,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.666666666666655,
+          12.183333333333518
+        ],
+        "renderFrameRange": [
+          112,
+          563
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 575,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 16.80000000000109,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 574,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 17.30000000000109,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1798,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 1801,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 17.30000000000109,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgpu",
+      "width": 393,
+      "height": 851,
+      "workload": "launch-2",
+      "rafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 4.9000000059604645,
+        "candidateMs": 5.100000023841858,
+        "deltaMs": 0.20000001788139343,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 7184,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 20.80000000000291,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1802,
+          "p50Ms": 3,
+          "p95Ms": 4.9000000059604645,
+          "worstMs": 8.5,
+          "p95NearestRankMs": 4.9000000059604645,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1802,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 33.30000000000291,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7184,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.949999999998845,
+          50.39999999999842
+        ],
+        "renderFrameRange": [
+          590,
+          1035
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 7178,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 16.700000000000728,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1801,
+          "p50Ms": 4.0999999940395355,
+          "p95Ms": 5.100000023841858,
+          "worstMs": 16.80000001192093,
+          "p95NearestRankMs": 5.100000023841858,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1801,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 20.80000000000291,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7178,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.91666666666551,
+          50.43333333333175
+        ],
+        "renderFrameRange": [
+          585,
+          1036
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 575,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 16.80000000000291,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 573,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 16.80000000000291,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1802,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 33.30000000000291,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 1801,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 20.80000000000291,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgl",
+      "width": 393,
+      "height": 851,
+      "workload": "idle",
+      "rafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 3.699999988079071,
+        "candidateMs": 3.5999999940395355,
+        "deltaMs": -0.09999999403953552,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": null,
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 2880,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 4.5,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 238,
+          "p50Ms": 3.2999999821186066,
+          "p95Ms": 3.699999988079071,
+          "worstMs": 5.4000000059604645,
+          "p95NearestRankMs": 3.699999988079071,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 238,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 83,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2880,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.516666666666656
+        ],
+        "renderFrameRange": [
+          55,
+          114
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 2880,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 4.5,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 237,
+          "p50Ms": 3,
+          "p95Ms": 3.5999999940395355,
+          "worstMs": 7.699999988079071,
+          "p95NearestRankMs": 3.5999999940395355,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 237,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 92,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2880,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          50,
+          110
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 54.100000000000364,
+        "candidateMs": 54.100000000000364,
+        "deltaMs": 0,
+        "allowanceMs": 10.820000000000073,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 54.100000000000364,
+        "candidateMs": 54.100000000000364,
+        "deltaMs": 0,
+        "allowanceMs": 10.820000000000073,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": null,
+      "transitionRenderedCadenceNearestRankP95": null,
+      "transitionRenderedIntervals": null,
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 238,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 83,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 237,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 92,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgl",
+      "width": 393,
+      "height": 851,
+      "workload": "launch-1",
+      "rafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 3.899999976158142,
+        "candidateMs": 4.5999999940395355,
+        "deltaMs": 0.7000000178813934,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 7176,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 16.599999999998545,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1800,
+          "p50Ms": 2.699999988079071,
+          "p95Ms": 3.899999976158142,
+          "worstMs": 9,
+          "p95NearestRankMs": 3.899999976158142,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1800,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 25,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7176,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.683333333333322,
+          12.16666666666685
+        ],
+        "renderFrameRange": [
+          118,
+          568
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 7195,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 12.5,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1800,
+          "p50Ms": 3.5999999940395355,
+          "p95Ms": 4.5999999940395355,
+          "worstMs": 6.800000011920929,
+          "p95NearestRankMs": 4.5999999940395355,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1800,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 20.899999999999636,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7195,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.666666666666655,
+          12.16666666666685
+        ],
+        "renderFrameRange": [
+          113,
+          564
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 575,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 16.80000000000291,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 574,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 16.80000000000109,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1800,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 25,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 1800,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 20.899999999999636,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgl",
+      "width": 393,
+      "height": 851,
+      "workload": "launch-2",
+      "rafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 3.7000000178813934,
+        "candidateMs": 4.5,
+        "deltaMs": 0.7999999821186066,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 4.299999999999272,
+        "candidateMs": 4.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 7187,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 16.799999999999272,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1802,
+          "p50Ms": 2.5999999940395355,
+          "p95Ms": 3.7000000178813934,
+          "worstMs": 7.200000017881393,
+          "p95NearestRankMs": 3.7000000178813934,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1802,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 20.899999999997817,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7187,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.93333333333218,
+          50.41666666666509
+        ],
+        "renderFrameRange": [
+          590,
+          1040
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 7163,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 4.299999999999272,
+          "worstMs": 45.89999999999782,
+          "p95NearestRankMs": 4.299999999999272,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1795,
+          "p50Ms": 3.4000000059604645,
+          "p95Ms": 4.5,
+          "worstMs": 7.5999999940395355,
+          "p95NearestRankMs": 4.5,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1795,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 58.29999999999927,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 2,
+          "over50Ms": 2,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 7163,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.89999999999885,
+          50.383333333331755
+        ],
+        "renderFrameRange": [
+          585,
+          1033
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 576,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 20.899999999997817,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 575,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 25,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1802,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 20.899999999997817,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 1795,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 58.29999999999927,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 2,
+          "over50Ms": 2,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgpu",
+      "width": 1280,
+      "height": 800,
+      "workload": "idle",
+      "rafP95": {
+        "baselineMs": 4.300000000001091,
+        "candidateMs": 4.300000000000182,
+        "deltaMs": -9.094947017729282e-13,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 14.200000017881393,
+        "candidateMs": 13.299999982118607,
+        "deltaMs": -0.9000000357627869,
+        "allowanceMs": 2.8400000035762787,
+        "withinAllowance": true
+      },
+      "transitionRafP95": null,
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 2758,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 4.300000000001091,
+          "worstMs": 16.700000000000728,
+          "p95NearestRankMs": 4.300000000001091,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 236,
+          "p50Ms": 6.300000011920929,
+          "p95Ms": 14.200000017881393,
+          "worstMs": 18.30000001192093,
+          "p95NearestRankMs": 14.200000017881393,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.19999999999891,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.19999999999891,
+          "over33Ms": 233,
+          "over50Ms": 92,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2758,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.4999999999999996,
+          4.516666666666656
+        ],
+        "renderFrameRange": [
+          49,
+          107
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 2801,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 16.700000000000728,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 236,
+          "p50Ms": 5.9000000059604645,
+          "p95Ms": 13.299999982118607,
+          "worstMs": 18.5,
+          "p95NearestRankMs": 13.299999982118607,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.19999999999982,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.19999999999982,
+          "over33Ms": 233,
+          "over50Ms": 91,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2801,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.4999999999999996,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          48,
+          107
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 54.19999999999891,
+        "candidateMs": 54.19999999999982,
+        "deltaMs": 9.094947017729282e-13,
+        "allowanceMs": 10.839999999999783,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 54.19999999999891,
+        "candidateMs": 54.19999999999982,
+        "deltaMs": 9.094947017729282e-13,
+        "allowanceMs": 10.839999999999783,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": null,
+      "transitionRenderedCadenceNearestRankP95": null,
+      "transitionRenderedIntervals": null,
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.19999999999891,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.19999999999891,
+          "over33Ms": 233,
+          "over50Ms": 92,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.19999999999982,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.19999999999982,
+          "over33Ms": 233,
+          "over50Ms": 91,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgpu",
+      "width": 1280,
+      "height": 800,
+      "workload": "launch-1",
+      "rafP95": {
+        "baselineMs": 8.300000000001091,
+        "candidateMs": 8.400000000001455,
+        "deltaMs": 0.1000000000003638,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 9.799999982118607,
+        "candidateMs": 12.300000011920929,
+        "deltaMs": 2.5000000298023224,
+        "allowanceMs": 2,
+        "withinAllowance": false
+      },
+      "transitionRafP95": {
+        "baselineMs": 8.200000000000728,
+        "candidateMs": 8.399999999999636,
+        "deltaMs": 0.1999999999989086,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 6566,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 8.300000000001091,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 8.300000000001091,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1790,
+          "p50Ms": 4.899999976158142,
+          "p95Ms": 9.799999982118607,
+          "worstMs": 17.599999994039536,
+          "p95NearestRankMs": 9.799999982118607,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1790,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 41.70000000000073,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 3,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6566,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.683333333333322,
+          12.23333333333352
+        ],
+        "renderFrameRange": [
+          112,
+          559
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 6046,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 8.400000000001455,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 8.400000000001455,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1787,
+          "p50Ms": 6.399999976158142,
+          "p95Ms": 12.300000011920929,
+          "worstMs": 37.400000005960464,
+          "p95NearestRankMs": 12.300000011920929,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1787,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.80000000000109,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 16.80000000000109,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6046,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.766666666666655,
+          12.250000000000188
+        ],
+        "renderFrameRange": [
+          114,
+          560
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": 1.8189894035458565e-12,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": 1.8189894035458565e-12,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": 1.8189894035458565e-12,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": 1.8189894035458565e-12,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 572,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 41.600000000000364,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 574,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.80000000000109,
+          "worstMs": 20.899999999999636,
+          "p95NearestRankMs": 16.80000000000109,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1790,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 41.70000000000073,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 3,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 1787,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.80000000000109,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 16.80000000000109,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgpu",
+      "width": 1280,
+      "height": 800,
+      "workload": "launch-2",
+      "rafP95": {
+        "baselineMs": 8.299999999999272,
+        "candidateMs": 8.399999999997817,
+        "deltaMs": 0.09999999999854481,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 10.700000017881393,
+        "candidateMs": 11.800000011920929,
+        "deltaMs": 1.0999999940395355,
+        "allowanceMs": 2.140000003576279,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 8.399999999997817,
+        "candidateMs": 8.299999999999272,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 6399,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 8.299999999999272,
+          "worstMs": 166.70000000000073,
+          "p95NearestRankMs": 8.299999999999272,
+          "over33Ms": 13,
+          "over50Ms": 2,
+          "over100Ms": 1
+        },
+        "cpuSubmission": {
+          "count": 1758,
+          "p50Ms": 4.699999988079071,
+          "p95Ms": 10.700000017881393,
+          "worstMs": 142.19999998807907,
+          "p95NearestRankMs": 10.700000017881393,
+          "over33Ms": 1,
+          "over50Ms": 1,
+          "over100Ms": 1
+        },
+        "renderedCadence": {
+          "count": 1758,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 166.70000000000073,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 14,
+          "over50Ms": 2,
+          "over100Ms": 1
+        },
+        "qaObserver": {
+          "count": 6399,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.19999998807907104,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          43.03333333333217,
+          50.51666666666508
+        ],
+        "renderFrameRange": [
+          586,
+          1031
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 6269,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 8.399999999997817,
+          "worstMs": 58.5,
+          "p95NearestRankMs": 8.399999999997817,
+          "over33Ms": 1,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1788,
+          "p50Ms": 5.5,
+          "p95Ms": 11.800000011920929,
+          "worstMs": 20.099999994039536,
+          "p95NearestRankMs": 11.800000011920929,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1788,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 58.5,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 1,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6269,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          43.08333333333217,
+          50.56666666666508
+        ],
+        "renderFrameRange": [
+          583,
+          1029
+        ],
+        "backendStayed": [
+          "WebGPU"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 16.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 3.3599999999998547,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 20.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": -4,
+        "allowanceMs": 4.1599999999998545,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 20.799999999999272,
+        "candidateMs": 16.799999999999272,
+        "deltaMs": -4,
+        "allowanceMs": 4.1599999999998545,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 552,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 20.799999999999272,
+          "worstMs": 50,
+          "p95NearestRankMs": 20.799999999999272,
+          "over33Ms": 9,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 575,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 24.899999999997817,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1758,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 166.70000000000073,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 14,
+          "over50Ms": 2,
+          "over100Ms": 1
+        },
+        "candidate": {
+          "count": 1788,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.799999999999272,
+          "worstMs": 58.5,
+          "p95NearestRankMs": 16.799999999999272,
+          "over33Ms": 1,
+          "over50Ms": 1,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgl",
+      "width": 1280,
+      "height": 800,
+      "workload": "idle",
+      "rafP95": {
+        "baselineMs": 4.300000000000182,
+        "candidateMs": 4.300000000000182,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 9.299999982118607,
+        "candidateMs": 8.299999982118607,
+        "deltaMs": -1,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": null,
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 2831,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 12.5,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 238,
+          "p50Ms": 4.9000000059604645,
+          "p95Ms": 9.299999982118607,
+          "worstMs": 12.900000005960464,
+          "p95NearestRankMs": 9.299999982118607,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 238,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 79,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2831,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.516666666666656
+        ],
+        "renderFrameRange": [
+          52,
+          114
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 2863,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 8.5,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 236,
+          "p50Ms": 3.5999999940395355,
+          "p95Ms": 8.299999982118607,
+          "worstMs": 11.799999982118607,
+          "p95NearestRankMs": 8.299999982118607,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.19999999999982,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.19999999999982,
+          "over33Ms": 234,
+          "over50Ms": 87,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 2863,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          50,
+          108
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 54.100000000000364,
+        "candidateMs": 54.19999999999982,
+        "deltaMs": 0.0999999999994543,
+        "allowanceMs": 10.820000000000073,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 54.100000000000364,
+        "candidateMs": 54.19999999999982,
+        "deltaMs": 0.0999999999994543,
+        "allowanceMs": 10.820000000000073,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": null,
+      "transitionRenderedCadenceNearestRankP95": null,
+      "transitionRenderedIntervals": null,
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 238,
+          "p50Ms": 50,
+          "p95Ms": 54.100000000000364,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.100000000000364,
+          "over33Ms": 234,
+          "over50Ms": 79,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 236,
+          "p50Ms": 50,
+          "p95Ms": 54.19999999999982,
+          "worstMs": 54.20000000000073,
+          "p95NearestRankMs": 54.19999999999982,
+          "over33Ms": 234,
+          "over50Ms": 87,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgl",
+      "width": 1280,
+      "height": 800,
+      "workload": "launch-1",
+      "rafP95": {
+        "baselineMs": 8.399999999999636,
+        "candidateMs": 8.300000000001091,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 8.800000011920929,
+        "candidateMs": 10.400000005960464,
+        "deltaMs": 1.5999999940395355,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 8.299999999999272,
+        "candidateMs": 8.299999999999272,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 6265,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 8.399999999999636,
+          "worstMs": 87.5,
+          "p95NearestRankMs": 8.399999999999636,
+          "over33Ms": 4,
+          "over50Ms": 2,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1752,
+          "p50Ms": 4,
+          "p95Ms": 8.800000011920929,
+          "worstMs": 15.300000011920929,
+          "p95NearestRankMs": 8.800000011920929,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1752,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 20.700000000000728,
+          "worstMs": 87.5,
+          "p95NearestRankMs": 20.700000000000728,
+          "over33Ms": 15,
+          "over50Ms": 3,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6265,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.816666666666655,
+          12.150000000000183
+        ],
+        "renderFrameRange": [
+          117,
+          542
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 6501,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 8.300000000001091,
+          "worstMs": 41.599999999998545,
+          "p95NearestRankMs": 8.300000000001091,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1781,
+          "p50Ms": 4.5999999940395355,
+          "p95Ms": 10.400000005960464,
+          "worstMs": 38.19999998807907,
+          "p95NearestRankMs": 10.400000005960464,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1781,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.80000000000109,
+          "worstMs": 41.599999999998545,
+          "p95NearestRankMs": 16.80000000000109,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6501,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.733333333333322,
+          12.216666666666853
+        ],
+        "renderFrameRange": [
+          114,
+          560
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 20.700000000000728,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": -3.899999999999636,
+        "allowanceMs": 4.140000000000145,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 20.700000000000728,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": -3.899999999999636,
+        "allowanceMs": 4.140000000000145,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 16.80000000000109,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": 0,
+        "allowanceMs": 3.3600000000002184,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 16.80000000000109,
+        "candidateMs": 16.80000000000109,
+        "deltaMs": 0,
+        "allowanceMs": 3.3600000000002184,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 568,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.80000000000109,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 16.80000000000109,
+          "over33Ms": 2,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 571,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.80000000000109,
+          "worstMs": 29.19999999999891,
+          "p95NearestRankMs": 16.80000000000109,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1752,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 20.700000000000728,
+          "worstMs": 87.5,
+          "p95NearestRankMs": 20.700000000000728,
+          "over33Ms": 15,
+          "over50Ms": 3,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 1781,
+          "p50Ms": 16.69999999999891,
+          "p95Ms": 16.80000000000109,
+          "worstMs": 41.599999999998545,
+          "p95NearestRankMs": 16.80000000000109,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.10",
+      "type": "combined",
+      "backend": "webgl",
+      "width": 1280,
+      "height": 800,
+      "workload": "launch-2",
+      "rafP95": {
+        "baselineMs": 8.400000000001455,
+        "candidateMs": 8.30000000000291,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 9.100000023841858,
+        "candidateMs": 10.099999994039536,
+        "deltaMs": 0.9999999701976776,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 8.399999999997817,
+        "candidateMs": 8.299999999999272,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 6123,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 8.400000000001455,
+          "worstMs": 75.09999999999854,
+          "p95NearestRankMs": 8.400000000001455,
+          "over33Ms": 4,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1750,
+          "p50Ms": 4,
+          "p95Ms": 9.100000023841858,
+          "worstMs": 15.599999994039536,
+          "p95NearestRankMs": 9.100000023841858,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1750,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 20.799999999999272,
+          "worstMs": 75.09999999999854,
+          "p95NearestRankMs": 20.799999999999272,
+          "over33Ms": 8,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6123,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          43.04999999999884,
+          50.499999999998415
+        ],
+        "renderFrameRange": [
+          581,
+          997
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 6405,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 8.30000000000291,
+          "worstMs": 45.79999999999927,
+          "p95NearestRankMs": 8.30000000000291,
+          "over33Ms": 4,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 1779,
+          "p50Ms": 4.9000000059604645,
+          "p95Ms": 10.099999994039536,
+          "worstMs": 33.29999998211861,
+          "p95NearestRankMs": 10.099999994039536,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 1779,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.80000000000291,
+          "worstMs": 58.29999999999927,
+          "p95NearestRankMs": 16.80000000000291,
+          "over33Ms": 5,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6405,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.983333333332176,
+          50.53333333333175
+        ],
+        "renderFrameRange": [
+          585,
+          1029
+        ],
+        "backendStayed": [
+          "WebGL 2"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 20.799999999999272,
+        "candidateMs": 16.80000000000291,
+        "deltaMs": -3.999999999996362,
+        "allowanceMs": 4.1599999999998545,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 20.799999999999272,
+        "candidateMs": 16.80000000000291,
+        "deltaMs": -3.999999999996362,
+        "allowanceMs": 4.1599999999998545,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 20.80000000000291,
+        "candidateMs": 16.80000000000291,
+        "deltaMs": -4,
+        "allowanceMs": 4.160000000000582,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 20.80000000000291,
+        "candidateMs": 16.80000000000291,
+        "deltaMs": -4,
+        "allowanceMs": 4.160000000000582,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 556,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 20.80000000000291,
+          "worstMs": 75.09999999999854,
+          "p95NearestRankMs": 20.80000000000291,
+          "over33Ms": 5,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 569,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.80000000000291,
+          "worstMs": 58.29999999999927,
+          "p95NearestRankMs": 16.80000000000291,
+          "over33Ms": 1,
+          "over50Ms": 1,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 1750,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 20.799999999999272,
+          "worstMs": 75.09999999999854,
+          "p95NearestRankMs": 20.799999999999272,
+          "over33Ms": 8,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 1779,
+          "p50Ms": 16.700000000000728,
+          "p95Ms": 16.80000000000291,
+          "worstMs": 58.29999999999927,
+          "p95NearestRankMs": 16.80000000000291,
+          "over33Ms": 5,
+          "over50Ms": 1,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.11",
+      "type": "combined",
+      "backend": "canvas",
+      "width": 393,
+      "height": 851,
+      "workload": "idle",
+      "rafP95": {
+        "baselineMs": 4.300000000000182,
+        "candidateMs": 4.300000000000182,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 0.699999988079071,
+        "candidateMs": 0.800000011920929,
+        "deltaMs": 0.10000002384185791,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": null,
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 2880,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 4.599999999999454,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 118,
+          "p50Ms": 0.30000001192092896,
+          "p95Ms": 0.699999988079071,
+          "worstMs": 0.800000011920929,
+          "p95NearestRankMs": 0.699999988079071,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 118,
+          "p50Ms": 100.09999999999945,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.19999999999982,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 62
+        },
+        "qaObserver": {
+          "count": 2880,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.4999999999999996,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          33,
+          61
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 2878,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 12.5,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 118,
+          "p50Ms": 0.4000000059604645,
+          "p95Ms": 0.800000011920929,
+          "worstMs": 1.0999999940395355,
+          "p95NearestRankMs": 0.800000011920929,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 118,
+          "p50Ms": 100,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.20000000000027,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 48
+        },
+        "qaObserver": {
+          "count": 2878,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.19999998807907104,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          32,
+          61
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 104.10000000000036,
+        "candidateMs": 104.10000000000036,
+        "deltaMs": 0,
+        "allowanceMs": 20.820000000000075,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 104.10000000000036,
+        "candidateMs": 104.10000000000036,
+        "deltaMs": 0,
+        "allowanceMs": 20.820000000000075,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": null,
+      "transitionRenderedCadenceNearestRankP95": null,
+      "transitionRenderedIntervals": null,
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 118,
+          "p50Ms": 100.09999999999945,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.19999999999982,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 62
+        },
+        "candidate": {
+          "count": 118,
+          "p50Ms": 100,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.20000000000027,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 48
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.11",
+      "type": "combined",
+      "backend": "canvas",
+      "width": 393,
+      "height": 851,
+      "workload": "launch-1",
+      "rafP95": {
+        "baselineMs": 12.5,
+        "candidateMs": 12.5,
+        "deltaMs": 0,
+        "allowanceMs": 2.5,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 4.5,
+        "candidateMs": 5.0999999940395355,
+        "deltaMs": 0.5999999940395355,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 8.299999999999272,
+        "candidateMs": 4.300000000001091,
+        "deltaMs": -3.999999999998181,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 5979,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 12.5,
+          "worstMs": 50,
+          "p95NearestRankMs": 12.5,
+          "over33Ms": 6,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 895,
+          "p50Ms": 1.7999999821186066,
+          "p95Ms": 4.5,
+          "worstMs": 8.899999976158142,
+          "p95NearestRankMs": 4.5,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 895,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.5,
+          "worstMs": 62.5,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 886,
+          "over50Ms": 2,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 5979,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.633333333333322,
+          12.150000000000183
+        ],
+        "renderFrameRange": [
+          66,
+          285
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 5916,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 12.5,
+          "worstMs": 116.80000000000109,
+          "p95NearestRankMs": 12.5,
+          "over33Ms": 24,
+          "over50Ms": 6,
+          "over100Ms": 1
+        },
+        "cpuSubmission": {
+          "count": 878,
+          "p50Ms": 1.5,
+          "p95Ms": 5.0999999940395355,
+          "worstMs": 9.900000005960464,
+          "p95NearestRankMs": 5.0999999940395355,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 878,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.5,
+          "worstMs": 129.3000000000011,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 870,
+          "over50Ms": 18,
+          "over100Ms": 1
+        },
+        "qaObserver": {
+          "count": 5916,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.599999999999989,
+          12.083333333333513
+        ],
+        "renderFrameRange": [
+          64,
+          289
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 33.5,
+        "candidateMs": 33.5,
+        "deltaMs": 0,
+        "allowanceMs": 6.7,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 33.5,
+        "candidateMs": 33.5,
+        "deltaMs": 0,
+        "allowanceMs": 6.7,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 288,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 41.70000000000073,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 284,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 284,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 66.70000000000073,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 280,
+          "over50Ms": 3,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 895,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.5,
+          "worstMs": 62.5,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 886,
+          "over50Ms": 2,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 878,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.5,
+          "worstMs": 129.3000000000011,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 870,
+          "over50Ms": 18,
+          "over100Ms": 1
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.11",
+      "type": "combined",
+      "backend": "canvas",
+      "width": 393,
+      "height": 851,
+      "workload": "launch-2",
+      "rafP95": {
+        "baselineMs": 12.5,
+        "candidateMs": 12.5,
+        "deltaMs": 0,
+        "allowanceMs": 2.5,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 3.7000000178813934,
+        "candidateMs": 3.7000000178813934,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 4.400000000001455,
+        "candidateMs": 4.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 6072,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 12.5,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 12.5,
+          "over33Ms": 1,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 900,
+          "p50Ms": 1.4000000059604645,
+          "p95Ms": 3.7000000178813934,
+          "worstMs": 7.200000017881393,
+          "p95NearestRankMs": 3.7000000178813934,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 900,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 49.900000000001455,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 892,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 6072,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.866666666665516,
+          50.41666666666509
+        ],
+        "renderFrameRange": [
+          303,
+          524
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 5970,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 12.5,
+          "worstMs": 75,
+          "p95NearestRankMs": 12.5,
+          "over33Ms": 6,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 898,
+          "p50Ms": 1.5,
+          "p95Ms": 3.7000000178813934,
+          "worstMs": 8.099999994039536,
+          "p95NearestRankMs": 3.7000000178813934,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 898,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 79.09999999999854,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 891,
+          "over50Ms": 3,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 5970,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.79999999999885,
+          50.349999999998424
+        ],
+        "renderFrameRange": [
+          301,
+          526
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 288,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 37.5,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 284,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 287,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 33.599999999998545,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 284,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 900,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 49.900000000001455,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 892,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 898,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 79.09999999999854,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 891,
+          "over50Ms": 3,
+          "over100Ms": 0
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.11",
+      "type": "combined",
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800,
+      "workload": "idle",
+      "rafP95": {
+        "baselineMs": 4.300000000000182,
+        "candidateMs": 4.300000000000182,
+        "deltaMs": 0,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 0.699999988079071,
+        "candidateMs": 0.7999999821186066,
+        "deltaMs": 0.09999999403953552,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": null,
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 2880,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 4.400000000000546,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 117,
+          "p50Ms": 0.30000001192092896,
+          "p95Ms": 0.699999988079071,
+          "worstMs": 0.9000000059604645,
+          "p95NearestRankMs": 0.699999988079071,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 117,
+          "p50Ms": 100,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.19999999999982,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 48
+        },
+        "qaObserver": {
+          "count": 2880,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          33,
+          62
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 2880,
+          "p50Ms": 4.199999999999818,
+          "p95Ms": 4.300000000000182,
+          "worstMs": 4.300000000000182,
+          "p95NearestRankMs": 4.300000000000182,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 117,
+          "p50Ms": 0.4000000059604645,
+          "p95Ms": 0.7999999821186066,
+          "worstMs": 0.9000000059604645,
+          "p95NearestRankMs": 0.7999999821186066,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 117,
+          "p50Ms": 100,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.20000000000027,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 44
+        },
+        "qaObserver": {
+          "count": 2880,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          1.5166666666666662,
+          4.499999999999989
+        ],
+        "renderFrameRange": [
+          32,
+          61
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 104.10000000000036,
+        "candidateMs": 104.10000000000036,
+        "deltaMs": 0,
+        "allowanceMs": 20.820000000000075,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 104.10000000000036,
+        "candidateMs": 104.10000000000036,
+        "deltaMs": 0,
+        "allowanceMs": 20.820000000000075,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": null,
+      "transitionRenderedCadenceNearestRankP95": null,
+      "transitionRenderedIntervals": null,
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 117,
+          "p50Ms": 100,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.19999999999982,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 48
+        },
+        "candidate": {
+          "count": 117,
+          "p50Ms": 100,
+          "p95Ms": 104.10000000000036,
+          "worstMs": 104.20000000000027,
+          "p95NearestRankMs": 104.10000000000036,
+          "over33Ms": 116,
+          "over50Ms": 116,
+          "over100Ms": 44
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.11",
+      "type": "combined",
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800,
+      "workload": "launch-1",
+      "rafP95": {
+        "baselineMs": 12.600000000000364,
+        "candidateMs": 12.5,
+        "deltaMs": -0.1000000000003638,
+        "allowanceMs": 2.520000000000073,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 6.0999999940395355,
+        "candidateMs": 4.100000023841858,
+        "deltaMs": -1.9999999701976776,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 8.300000000001091,
+        "candidateMs": 8.299999999999272,
+        "deltaMs": -1.8189894035458565e-12,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 5634,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 12.600000000000364,
+          "worstMs": 58.30000000000109,
+          "p95NearestRankMs": 12.600000000000364,
+          "over33Ms": 34,
+          "over50Ms": 2,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 879,
+          "p50Ms": 2.100000023841858,
+          "p95Ms": 6.0999999940395355,
+          "worstMs": 9.900000005960464,
+          "p95NearestRankMs": 6.0999999940395355,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 879,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 41.600000000000364,
+          "worstMs": 75,
+          "p95NearestRankMs": 41.600000000000364,
+          "over33Ms": 871,
+          "over50Ms": 14,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 5634,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.599999999999989,
+          12.133333333333516
+        ],
+        "renderFrameRange": [
+          65,
+          289
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 5979,
+          "p50Ms": 4.199999999998909,
+          "p95Ms": 12.5,
+          "worstMs": 112.5,
+          "p95NearestRankMs": 12.5,
+          "over33Ms": 7,
+          "over50Ms": 3,
+          "over100Ms": 1
+        },
+        "cpuSubmission": {
+          "count": 893,
+          "p50Ms": 2.2000000178813934,
+          "p95Ms": 4.100000023841858,
+          "worstMs": 8,
+          "p95NearestRankMs": 4.100000023841858,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 893,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.5,
+          "worstMs": 125,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 885,
+          "over50Ms": 6,
+          "over100Ms": 1
+        },
+        "qaObserver": {
+          "count": 5979,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          4.599999999999989,
+          12.10000000000018
+        ],
+        "renderFrameRange": [
+          64,
+          289
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 41.600000000000364,
+        "candidateMs": 33.5,
+        "deltaMs": -8.100000000000364,
+        "allowanceMs": 8.320000000000073,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 41.600000000000364,
+        "candidateMs": 33.5,
+        "deltaMs": -8.100000000000364,
+        "allowanceMs": 8.320000000000073,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 33.5,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 6.7,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 33.5,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 6.7,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 283,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.5,
+          "worstMs": 66.70000000000073,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 279,
+          "over50Ms": 3,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 288,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 41.600000000000364,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 284,
+          "over50Ms": 0,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 879,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 41.600000000000364,
+          "worstMs": 75,
+          "p95NearestRankMs": 41.600000000000364,
+          "over33Ms": 871,
+          "over50Ms": 14,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 893,
+          "p50Ms": 33.30000000000109,
+          "p95Ms": 33.5,
+          "worstMs": 125,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 885,
+          "over50Ms": 6,
+          "over100Ms": 1
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    },
+    {
+      "measuredVersion": "2026-10-01.11",
+      "type": "combined",
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800,
+      "workload": "launch-2",
+      "rafP95": {
+        "baselineMs": 12.599999999998545,
+        "candidateMs": 12.5,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 2.519999999999709,
+        "withinAllowance": true
+      },
+      "cpuSubmissionP95": {
+        "baselineMs": 6.0999999940395355,
+        "candidateMs": 4,
+        "deltaMs": -2.0999999940395355,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "transitionRafP95": {
+        "baselineMs": 8.299999999999272,
+        "candidateMs": 8.200000000000728,
+        "deltaMs": -0.09999999999854481,
+        "allowanceMs": 2,
+        "withinAllowance": true
+      },
+      "repeatedCadenceRegression": false,
+      "repeatedTransitionOver100": false,
+      "baselineSummary": {
+        "raf": {
+          "count": 5724,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 12.599999999998545,
+          "worstMs": 54.30000000000291,
+          "p95NearestRankMs": 12.599999999998545,
+          "over33Ms": 24,
+          "over50Ms": 1,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 883,
+          "p50Ms": 2,
+          "p95Ms": 6.0999999940395355,
+          "worstMs": 9.699999988079071,
+          "p95NearestRankMs": 6.0999999940395355,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 883,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 37.5,
+          "worstMs": 66.70000000000073,
+          "p95NearestRankMs": 37.5,
+          "over33Ms": 875,
+          "over50Ms": 12,
+          "over100Ms": 0
+        },
+        "qaObserver": {
+          "count": 5724,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.20000001788139343,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.84999999999885,
+          50.36666666666509
+        ],
+        "renderFrameRange": [
+          296,
+          526
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "candidateSummary": {
+        "raf": {
+          "count": 5875,
+          "p50Ms": 4.200000000000728,
+          "p95Ms": 12.5,
+          "worstMs": 91.59999999999854,
+          "p95NearestRankMs": 12.5,
+          "over33Ms": 15,
+          "over50Ms": 6,
+          "over100Ms": 0
+        },
+        "cpuSubmission": {
+          "count": 885,
+          "p50Ms": 1.9000000059604645,
+          "p95Ms": 4,
+          "worstMs": 8.5,
+          "p95NearestRankMs": 4,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "renderedCadence": {
+          "count": 885,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.5,
+          "worstMs": 104.20000000000073,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 877,
+          "over50Ms": 13,
+          "over100Ms": 1
+        },
+        "qaObserver": {
+          "count": 5875,
+          "p50Ms": 0,
+          "p95Ms": 0,
+          "worstMs": 0.10000002384185791,
+          "p95NearestRankMs": 0,
+          "over33Ms": 0,
+          "over50Ms": 0,
+          "over100Ms": 0
+        },
+        "simulationRange": [
+          42.89999999999885,
+          50.28333333333176
+        ],
+        "renderFrameRange": [
+          295,
+          524
+        ],
+        "backendStayed": [
+          "Canvas 2D \u00b7 compatibility"
+        ],
+        "qualities": [
+          "ultra"
+        ]
+      },
+      "renderedCadenceP95": {
+        "baselineMs": 37.5,
+        "candidateMs": 33.5,
+        "deltaMs": -4,
+        "allowanceMs": 7.5,
+        "withinAllowance": true
+      },
+      "renderedCadenceNearestRankP95": {
+        "baselineMs": 37.5,
+        "candidateMs": 33.5,
+        "deltaMs": -4,
+        "allowanceMs": 7.5,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "transitionRenderedCadenceNearestRankP95": {
+        "baselineMs": 33.400000000001455,
+        "candidateMs": 33.400000000001455,
+        "deltaMs": 0,
+        "allowanceMs": 6.680000000000291,
+        "withinAllowance": true
+      },
+      "transitionRenderedIntervals": {
+        "baseline": {
+          "count": 286,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 66.70000000000073,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 282,
+          "over50Ms": 2,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 287,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.400000000001455,
+          "worstMs": 58.29999999999927,
+          "p95NearestRankMs": 33.400000000001455,
+          "over33Ms": 283,
+          "over50Ms": 1,
+          "over100Ms": 0
+        }
+      },
+      "renderedCadenceSummaries": {
+        "baseline": {
+          "count": 883,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 37.5,
+          "worstMs": 66.70000000000073,
+          "p95NearestRankMs": 37.5,
+          "over33Ms": 875,
+          "over50Ms": 12,
+          "over100Ms": 0
+        },
+        "candidate": {
+          "count": 885,
+          "p50Ms": 33.30000000000291,
+          "p95Ms": 33.5,
+          "worstMs": 104.20000000000073,
+          "p95NearestRankMs": 33.5,
+          "over33Ms": 877,
+          "over50Ms": 13,
+          "over100Ms": 1
+        }
+      },
+      "repeatedRenderedCadenceRegression": false,
+      "repeatedNewRenderedTransitionOver50": false,
+      "repeatedNewRenderedTransitionOver100": false
+    }
+  ],
+  "limits": "Shared Windows PC; emulated phone; CPU submission is not completed GPU time. Physical phones, Safari and thermal endurance unqualified. .10 remains globally failed because its Canvas component failed."
+}

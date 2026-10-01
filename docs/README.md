@@ -1,6 +1,8 @@
+Current water/immersion candidate: [build `.11` qualification](evidence/moonlit-water-2026-10-01/FINAL-QUALIFICATION.md), [matched captures](evidence/moonlit-water-2026-10-01/final/comparisons.html) and [isolated preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/). Production remains `.4` pending performance and CI.
+
 Next graphics candidate: [moonlit water plan](evidence/moonlit-water-2026-10-01/PLAN.md), [implementation, measurements and preview](evidence/moonlit-water-2026-10-01/PREVIEW.md), [PR #31](https://github.com/samir1234khans/firecrackers/pull/31) and [isolated `.5` preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/). Production remains `.4`.
 
-Owner-requested follow-up, planning only: [immersive automated-show controls](evidence/moonlit-water-2026-10-01/IMMERSIVE-UI-PLAN.md), with one persistent show/hide button and coordinated transitions.
+Owner-requested follow-up, implemented: [immersive automated-show controls](evidence/moonlit-water-2026-10-01/IMMERSIVE-UI-PLAN.md), with one persistent show/hide button and coordinated transitions.
 
 Latest production: [build `.4`, all-branch reconciliation, public validation and rollback](evidence/latest-production-2026-10-01/PRODUCTION.md). The source includes the [burst-stall fix](evidence/burst-performance-2026-10-01/PREVIEW.md), [moon/water](evidence/moon-water-2026-10-01/PREVIEW.md), [signature fireworks](evidence/flagships-2026-10-01/PREVIEW.md) and [open-sky controls](evidence/control-layout-2026-10-01/MAIN.md).
 

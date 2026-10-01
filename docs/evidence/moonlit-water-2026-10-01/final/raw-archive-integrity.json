@@ -1,0 +1,27 @@
+[
+  {
+    "file": "canvas-11-raw.zip",
+    "bytes": 1213782,
+    "sha256": "0ede150e3ff9a56baf01d43db78523cb249eb5d6b55e020984d2f37581d45475"
+  },
+  {
+    "file": "filtered-10-raw.zip",
+    "bytes": 4251664,
+    "sha256": "9f9c4c07009e19032318c785a83246d40d4be33cd7a342c142e8063df5894186"
+  },
+  {
+    "file": "fitted-7-raw.zip",
+    "bytes": 1920363,
+    "sha256": "368528185460864d64634b728ac88bd1cc3040263826738cd7969ddcfb4c4b27"
+  },
+  {
+    "file": "four-repeat-9-raw.zip",
+    "bytes": 4120987,
+    "sha256": "c337e76463c66d656547f8092d45169288a7ae7e13731d1dd6d1209172f56768"
+  },
+  {
+    "file": "shared-8-raw.zip",
+    "bytes": 1339132,
+    "sha256": "3053c4d0b4380ec2cff5869ee0136b6d45b8a0ddae95d9aefa2270b43eb31055"
+  }
+]

@@ -1,3 +1,7 @@
+**Latest implementation: build `.11`.** See [final qualification](FINAL-QUALIFICATION.md) for current source, isolated preview, checks and pending release gates. The receipt below preserves its historical checkpoint.
+
+> Latest isolated preview: build `2026-10-01.9`, fingerprint `8c683a81…c33d7d63`, Worker `88affdd1-2ab9-4272-82e6-1443a994a87a`. [Final qualification](FINAL-QUALIFICATION.md) records current implementation, hosted checks, comparisons and retained performance failures. The material below preserves earlier candidate receipts.
+
 **Latest candidate: `2026-10-01.6`.** The immersive automated-show toggle is implemented and published to the same isolated preview. [Current implementation, 105 hosted cases/checks and performance qualification](IMMERSIVE-UI-IMPLEMENTATION.md) supersedes the `.5` deployment details below; the earlier evidence remains retained. Current performance still misses three pooled frame conditions and three transition conditions. Production remains `.4`.
 
 # Moonlit water — isolated preview receipt

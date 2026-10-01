@@ -1,3 +1,7 @@
+**Latest implementation: build `.11`.** See [final qualification](FINAL-QUALIFICATION.md) for current source, isolated preview, checks and pending release gates. The receipt below preserves its historical checkpoint.
+
+> Historical `.6` receipt. The current `.9` implementation and qualification are recorded in [FINAL-QUALIFICATION](FINAL-QUALIFICATION.md). Earlier failures below remain evidence.
+
 # Immersive automated shows
 
 Build `2026-10-01.6` extends the moonlit-water candidate in PR #31. Calm, Festival and Finale expose a 48px Hide controls / Show controls toggle. The session-local setting fades the ordinary interface over 220 ms and crossfades the eye glyph over 140 ms. App and OS reduced-motion preferences remove these transitions.

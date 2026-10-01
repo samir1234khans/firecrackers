@@ -1,8 +1,10 @@
+**Latest candidate:** [build `.11` qualification](docs/evidence/moonlit-water-2026-10-01/FINAL-QUALIFICATION.md) records the implemented water and immersion changes, final preview and remaining release gates. Production remains `.4`.
+
 **Immersive shows:** Calm, Festival and Finale now offer an opt-in toggle that smoothly hides every ordinary control, leaving one Show controls button. [Implementation and verification](docs/evidence/moonlit-water-2026-10-01/IMMERSIVE-UI-IMPLEMENTATION.md). Production remains unchanged.
 
 # Moonlit water candidate
 
-[PR #31](https://github.com/samir1234khans/firecrackers/pull/31) implements the [next water graphics phase](docs/evidence/moonlit-water-2026-10-01/PLAN.md), build `2026-10-01.6`, on a branch synchronized with main's reconciliation receipt. The [isolated preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/) adds shared geometric waves, scene-directed moonlight, bounded planar reflections, sampled hull contacts and damp coping. [Qualification evidence](docs/evidence/moonlit-water-2026-10-01/PREVIEW.md) retains actual results and performance limits. Production is unchanged.
+[PR #31](https://github.com/samir1234khans/firecrackers/pull/31) implements the [next water graphics phase](docs/evidence/moonlit-water-2026-10-01/PLAN.md), build `2026-10-01.11`, on a branch synchronized with main's reconciliation receipt. The [isolated preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/) adds shared geometric waves, scene-directed moonlight, bounded planar reflections, sampled hull contacts and damp coping. [Qualification evidence](docs/evidence/moonlit-water-2026-10-01/PREVIEW.md) retains actual results and performance limits. Production is unchanged.
 
 # Current production: all latest work reconciled
 

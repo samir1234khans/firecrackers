@@ -1,0 +1,110 @@
+{
+  "base": "http://127.0.0.1:4173/",
+  "results": [
+    {
+      "backend": "webgpu",
+      "width": 320,
+      "height": 480
+    },
+    {
+      "backend": "webgpu",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "backend": "webgpu",
+      "width": 393,
+      "height": 851
+    },
+    {
+      "backend": "webgpu",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "backend": "webgpu",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "backend": "webgpu",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "backend": "webgpu",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "backend": "webgl",
+      "width": 320,
+      "height": 480
+    },
+    {
+      "backend": "webgl",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "backend": "webgl",
+      "width": 393,
+      "height": 851
+    },
+    {
+      "backend": "webgl",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "backend": "webgl",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "backend": "webgl",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "backend": "webgl",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "backend": "canvas",
+      "width": 320,
+      "height": 480
+    },
+    {
+      "backend": "canvas",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "backend": "canvas",
+      "width": 393,
+      "height": 851
+    },
+    {
+      "backend": "canvas",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "backend": "canvas",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "backend": "canvas",
+      "width": 1920,
+      "height": 1080
+    }
+  ]
+}
