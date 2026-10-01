@@ -1,8 +1,6 @@
-Open-sky controls candidate: [live preview](https://firecrackers-open-sky-preview.allygym-api.workers.dev/), [matched gallery and moon video](evidence/control-layout-2026-10-01/comparison.html), [implementation](evidence/control-layout-2026-10-01/IMPLEMENTATION.md), [validation receipt](evidence/control-layout-2026-10-01/PREVIEW.md), [approved plan](evidence/control-layout-2026-10-01/PLAN.md). Build `.3` retains all thirteen effects and moon/water while replacing the bottom collection with a transparent left collection, compact lower-right controls and responsive grounded launch support.
+Latest main integration: [merge chain, source parity and release boundary](evidence/control-layout-2026-10-01/MAIN.md). The moon/water, three signature fireworks and open-sky controls are in main; the [isolated preview](https://firecrackers-open-sky-preview.allygym-api.workers.dev/) and [matched gallery](evidence/control-layout-2026-10-01/comparison.html) show build `.3`. Cloudflare production still serves `.8`.
 
-Three-signature candidate: [research/effect contract](evidence/flagships-2026-10-01/DESIGN.md), [verified preview and limits](evidence/flagships-2026-10-01/PREVIEW.md), [source/CI/deployment](evidence/flagships-2026-10-01/SOURCE.md), [actual captures](evidence/flagships-2026-10-01/comparison.html). Build `.2` retains the moon/water baseline and ten original effects; isolated [preview](https://firecrackers-flagship-preview.allygym-api.workers.dev/), open PR #26, production unchanged.
-
-Moon and natural water candidate: [research/implementation](evidence/moon-water-2026-10-01/RESEARCH.md), [verified preview](evidence/moon-water-2026-10-01/PREVIEW.md), [matched captures](evidence/moon-water-2026-10-01/comparison.html). This isolated candidate has not replaced production `.8`.
+Historical candidate records: [moon/water](evidence/moon-water-2026-10-01/PREVIEW.md), [three signatures](evidence/flagships-2026-10-01/PREVIEW.md) and [open-sky controls](evidence/control-layout-2026-10-01/PREVIEW.md).
 
 # Current production redesign
 
