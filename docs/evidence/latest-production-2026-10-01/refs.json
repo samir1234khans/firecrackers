@@ -1,0 +1,386 @@
+[
+  {
+    "ref": "refs/heads/docs/branch-reconciliation-2026-09-30",
+    "head": "de65875a11f8d033ce8678cf71089ecd18f03eaa",
+    "ahead": 0,
+    "behind": 60
+  },
+  {
+    "ref": "refs/heads/docs/cinematic-release-receipt",
+    "head": "75e87a3fa6eab6e031decd41940dd00a1b7329b2",
+    "ahead": 0,
+    "behind": 51
+  },
+  {
+    "ref": "refs/heads/docs/graphics-recovery-production-receipt",
+    "head": "2b33a4f5f3bf1e15fbeb79dfcda3f35bb62a50e0",
+    "ahead": 0,
+    "behind": 62
+  },
+  {
+    "ref": "refs/heads/docs/pad-launch-production-receipt",
+    "head": "dcc2677863158d122d90c66f7f484a677ff50707",
+    "ahead": 0,
+    "behind": 71
+  },
+  {
+    "ref": "refs/heads/docs/promote-latest-to-main",
+    "head": "378aa88353ae6606de33c9afcfbd13a53de2b96c",
+    "ahead": 0,
+    "behind": 6
+  },
+  {
+    "ref": "refs/heads/docs/realism-production-receipt",
+    "head": "334d91b8103ebb57ae543a0c98d09ae843a3ed2a",
+    "ahead": 0,
+    "behind": 77
+  },
+  {
+    "ref": "refs/heads/docs/river-production-receipt",
+    "head": "a050849fecc25a7e1566dee3931e58ded0432a1e",
+    "ahead": 0,
+    "behind": 45
+  },
+  {
+    "ref": "refs/heads/docs/transparent-panels-release",
+    "head": "eebcf8a75b308b1d6d69630f5ae0579d7f735a77",
+    "ahead": 0,
+    "behind": 35
+  },
+  {
+    "ref": "refs/heads/docs/waterfront-production-2026-09-30",
+    "head": "9a8e7e701ce2a7ae94c43eb51af673a3f8a69945",
+    "ahead": 0,
+    "behind": 32
+  },
+  {
+    "ref": "refs/heads/docs/waterfront-release-receipt",
+    "head": "11f18242c228bd8151a734fddf2befe53f554d77",
+    "ahead": 0,
+    "behind": 81
+  },
+  {
+    "ref": "refs/heads/docs/webgpu-production-receipt",
+    "head": "6601d97098fe3896a057e7fdb41bdcab13f7b9d7",
+    "ahead": 0,
+    "behind": 55
+  },
+  {
+    "ref": "refs/heads/feat/bottom-tray-upper-canopy",
+    "head": "a57f4235bf02a5294d9d378fba3b28dd05e067e6",
+    "ahead": 0,
+    "behind": 28
+  },
+  {
+    "ref": "refs/heads/feat/cinematic-realism-v2",
+    "head": "720bf0e1baa95d8bb1c50b8054426f2369d01154",
+    "ahead": 0,
+    "behind": 53
+  },
+  {
+    "ref": "refs/heads/feat/cinematic-waterfront",
+    "head": "a300a61bc045b3ea200227f0d84764392cee917a",
+    "ahead": 0,
+    "behind": 83
+  },
+  {
+    "ref": "refs/heads/feat/cloudflare-production",
+    "head": "838c61db35bf1a8a27e3ff2559c9fb73d2621ba3",
+    "ahead": 0,
+    "behind": 86
+  },
+  {
+    "ref": "refs/heads/feat/drag-to-pad-cinematic-controls",
+    "head": "0fea477f324262f128f4ad8d74e06ff5a86abda0",
+    "ahead": 0,
+    "behind": 73
+  },
+  {
+    "ref": "refs/heads/feat/flagship-signatures",
+    "head": "7946153d44a3ad42de8cdbb5b792af7b19c7f6f5",
+    "ahead": 0,
+    "behind": 20
+  },
+  {
+    "ref": "refs/heads/feat/frictionless-firework-shelves",
+    "head": "2724050f29449a642b7c7ed95469183b74fb42b6",
+    "ahead": 0,
+    "behind": 75
+  },
+  {
+    "ref": "refs/heads/feat/galaxy-night-sky",
+    "head": "24a68b3cf961953e35ec96b2623847acb5371e0c",
+    "ahead": 0,
+    "behind": 47
+  },
+  {
+    "ref": "refs/heads/feat/interactive-galactic-sky",
+    "head": "f179c736617c3eb5c0f9ad3106e25f2b83c7b0a2",
+    "ahead": 0,
+    "behind": 41
+  },
+  {
+    "ref": "refs/heads/feat/moon-natural-water",
+    "head": "b064fe43c87b9315afa91dda18364b88e70ee830",
+    "ahead": 0,
+    "behind": 22
+  },
+  {
+    "ref": "refs/heads/feat/open-sky-controls",
+    "head": "087e3bc82cb7b5d4ccf59a783ae703ccb1069db0",
+    "ahead": 0,
+    "behind": 10
+  },
+  {
+    "ref": "refs/heads/feat/realism-refinement",
+    "head": "0ea48b7328b2612b28c5b55a83a2f5b36f947268",
+    "ahead": 0,
+    "behind": 79
+  },
+  {
+    "ref": "refs/heads/feat/transparent-edge-panels",
+    "head": "0fc44a5ffdeaddc875b103d970e0e0be1d059470",
+    "ahead": 0,
+    "behind": 37
+  },
+  {
+    "ref": "refs/heads/feat/waterfront-realism",
+    "head": "947f0c57e679a34d35e00b550aae625eba845672",
+    "ahead": 0,
+    "behind": 33
+  },
+  {
+    "ref": "refs/heads/fix/burst-transition-stalls",
+    "head": "57b20cfd6b5ceb4bdb8b1cd5d19c6c24a9f0ae69",
+    "ahead": 0,
+    "behind": 1
+  },
+  {
+    "ref": "refs/heads/fix/graphics-loading-budget",
+    "head": "32bacb64ba0f9231f7bf1072365618435d249fe0",
+    "ahead": 0,
+    "behind": 64
+  },
+  {
+    "ref": "refs/heads/fix/webgpu-asset-startup",
+    "head": "b7ad56c52c72cfd9452e8f88903fa1134ef5d9e4",
+    "ahead": 0,
+    "behind": 57
+  },
+  {
+    "ref": "refs/heads/main",
+    "head": "8b491d2528b251d9e57d7326ba5ea42e36fbb271",
+    "ahead": 0,
+    "behind": 0
+  },
+  {
+    "ref": "refs/remotes/origin/HEAD",
+    "head": "8b491d2528b251d9e57d7326ba5ea42e36fbb271",
+    "ahead": 0,
+    "behind": 0
+  },
+  {
+    "ref": "refs/remotes/origin/docs/branch-reconciliation-2026-09-30",
+    "head": "de65875a11f8d033ce8678cf71089ecd18f03eaa",
+    "ahead": 0,
+    "behind": 60
+  },
+  {
+    "ref": "refs/remotes/origin/docs/cinematic-release-receipt",
+    "head": "75e87a3fa6eab6e031decd41940dd00a1b7329b2",
+    "ahead": 0,
+    "behind": 51
+  },
+  {
+    "ref": "refs/remotes/origin/docs/graphics-recovery-production-receipt",
+    "head": "2b33a4f5f3bf1e15fbeb79dfcda3f35bb62a50e0",
+    "ahead": 0,
+    "behind": 62
+  },
+  {
+    "ref": "refs/remotes/origin/docs/pad-launch-production-receipt",
+    "head": "dcc2677863158d122d90c66f7f484a677ff50707",
+    "ahead": 0,
+    "behind": 71
+  },
+  {
+    "ref": "refs/remotes/origin/docs/promote-latest-to-main",
+    "head": "378aa88353ae6606de33c9afcfbd13a53de2b96c",
+    "ahead": 0,
+    "behind": 6
+  },
+  {
+    "ref": "refs/remotes/origin/docs/realism-production-receipt",
+    "head": "334d91b8103ebb57ae543a0c98d09ae843a3ed2a",
+    "ahead": 0,
+    "behind": 77
+  },
+  {
+    "ref": "refs/remotes/origin/docs/river-production-receipt",
+    "head": "a050849fecc25a7e1566dee3931e58ded0432a1e",
+    "ahead": 0,
+    "behind": 45
+  },
+  {
+    "ref": "refs/remotes/origin/docs/waterfront-production-2026-09-30",
+    "head": "9a8e7e701ce2a7ae94c43eb51af673a3f8a69945",
+    "ahead": 0,
+    "behind": 32
+  },
+  {
+    "ref": "refs/remotes/origin/docs/waterfront-release-receipt",
+    "head": "11f18242c228bd8151a734fddf2befe53f554d77",
+    "ahead": 0,
+    "behind": 81
+  },
+  {
+    "ref": "refs/remotes/origin/docs/webgpu-production-receipt",
+    "head": "6601d97098fe3896a057e7fdb41bdcab13f7b9d7",
+    "ahead": 0,
+    "behind": 55
+  },
+  {
+    "ref": "refs/remotes/origin/feat/bottom-tray-upper-canopy",
+    "head": "a57f4235bf02a5294d9d378fba3b28dd05e067e6",
+    "ahead": 0,
+    "behind": 28
+  },
+  {
+    "ref": "refs/remotes/origin/feat/cinematic-realism-v2",
+    "head": "720bf0e1baa95d8bb1c50b8054426f2369d01154",
+    "ahead": 0,
+    "behind": 53
+  },
+  {
+    "ref": "refs/remotes/origin/feat/cinematic-waterfront",
+    "head": "a300a61bc045b3ea200227f0d84764392cee917a",
+    "ahead": 0,
+    "behind": 83
+  },
+  {
+    "ref": "refs/remotes/origin/feat/cloudflare-production",
+    "head": "838c61db35bf1a8a27e3ff2559c9fb73d2621ba3",
+    "ahead": 0,
+    "behind": 86
+  },
+  {
+    "ref": "refs/remotes/origin/feat/drag-to-pad-cinematic-controls",
+    "head": "0fea477f324262f128f4ad8d74e06ff5a86abda0",
+    "ahead": 0,
+    "behind": 73
+  },
+  {
+    "ref": "refs/remotes/origin/feat/fireworks-v1",
+    "head": "589fe284a097a3dd9b9c691e95a9c15189b0bbc3",
+    "ahead": 0,
+    "behind": 119
+  },
+  {
+    "ref": "refs/remotes/origin/feat/fireworks-v1-implementation",
+    "head": "16d9d1d8056ff6cb1d47b7fff92c3731395efdce",
+    "ahead": 7,
+    "behind": 162
+  },
+  {
+    "ref": "refs/remotes/origin/feat/flagship-signatures",
+    "head": "7946153d44a3ad42de8cdbb5b792af7b19c7f6f5",
+    "ahead": 0,
+    "behind": 20
+  },
+  {
+    "ref": "refs/remotes/origin/feat/frictionless-firework-shelves",
+    "head": "2724050f29449a642b7c7ed95469183b74fb42b6",
+    "ahead": 0,
+    "behind": 75
+  },
+  {
+    "ref": "refs/remotes/origin/feat/galaxy-night-sky",
+    "head": "24a68b3cf961953e35ec96b2623847acb5371e0c",
+    "ahead": 0,
+    "behind": 47
+  },
+  {
+    "ref": "refs/remotes/origin/feat/grand-collection",
+    "head": "44ee6527121c7ebc5a26179b26bb77f765623851",
+    "ahead": 0,
+    "behind": 88
+  },
+  {
+    "ref": "refs/remotes/origin/feat/interactive-galactic-sky",
+    "head": "f179c736617c3eb5c0f9ad3106e25f2b83c7b0a2",
+    "ahead": 0,
+    "behind": 41
+  },
+  {
+    "ref": "refs/remotes/origin/feat/moon-natural-water",
+    "head": "b064fe43c87b9315afa91dda18364b88e70ee830",
+    "ahead": 0,
+    "behind": 22
+  },
+  {
+    "ref": "refs/remotes/origin/feat/open-sky-controls",
+    "head": "087e3bc82cb7b5d4ccf59a783ae703ccb1069db0",
+    "ahead": 0,
+    "behind": 10
+  },
+  {
+    "ref": "refs/remotes/origin/feat/realism-refinement",
+    "head": "0ea48b7328b2612b28c5b55a83a2f5b36f947268",
+    "ahead": 0,
+    "behind": 79
+  },
+  {
+    "ref": "refs/remotes/origin/feat/transparent-edge-panels",
+    "head": "0fc44a5ffdeaddc875b103d970e0e0be1d059470",
+    "ahead": 0,
+    "behind": 37
+  },
+  {
+    "ref": "refs/remotes/origin/feat/waterfront-realism",
+    "head": "9603a096be6509304ba5c2e4fc4b4b1b3ea421ef",
+    "ahead": 0,
+    "behind": 34
+  },
+  {
+    "ref": "refs/remotes/origin/fix/burst-transition-stalls",
+    "head": "57b20cfd6b5ceb4bdb8b1cd5d19c6c24a9f0ae69",
+    "ahead": 0,
+    "behind": 1
+  },
+  {
+    "ref": "refs/remotes/origin/fix/graphics-loading-budget",
+    "head": "32bacb64ba0f9231f7bf1072365618435d249fe0",
+    "ahead": 0,
+    "behind": 64
+  },
+  {
+    "ref": "refs/remotes/origin/fix/ignition-reliability",
+    "head": "6b1a5fa4c5613e30b5a81ff314a5377d0861c62b",
+    "ahead": 0,
+    "behind": 110
+  },
+  {
+    "ref": "refs/remotes/origin/fix/video-launch-flow",
+    "head": "501b346e9624e9c665a19ddcff561e0657c382c0",
+    "ahead": 0,
+    "behind": 104
+  },
+  {
+    "ref": "refs/remotes/origin/fix/viewability-recovery",
+    "head": "f48a8bf4a153ce5077a8901738bb4883aebc456b",
+    "ahead": 0,
+    "behind": 99
+  },
+  {
+    "ref": "refs/remotes/origin/fix/webgpu-asset-startup",
+    "head": "b7ad56c52c72cfd9452e8f88903fa1134ef5d9e4",
+    "ahead": 0,
+    "behind": 57
+  },
+  {
+    "ref": "refs/remotes/origin/main",
+    "head": "8b491d2528b251d9e57d7326ba5ea42e36fbb271",
+    "ahead": 0,
+    "behind": 0
+  }
+]
