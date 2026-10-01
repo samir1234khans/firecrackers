@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Copy, Play, Monitor, Layers } from 'lucide-react';
 import { presentationLink } from '../platform/presentation';
 import type { Presentation, SafeRect } from '../platform/presentation';
+import { paceValue, PACE_LABELS } from '../engine/AlwaysPlayDirector';
 import { Toggle } from './Dialog';
 type Props = {
     value: Presentation;
@@ -41,9 +42,10 @@ export function PresentationSettings({ value, onChange, onStart, onExit, disable
     </label>
     <label className='setting-row'><span className='setting-label'>Display pacing</span>
       <select aria-label='Display pacing' value={value.show || 'calm'} onChange={event => onChange({ ...value, show: event.target.value as Presentation['show'] })}>
-        <option value='calm'>Calm</option><option value='festival'>Festival</option><option value='finale'>Finite finale</option>
+        <option value='calm'>Calm</option><option value='festival'>Festival</option><option value='finale'>Finite finale</option><option value='always'>Always Play</option>
       </select>
     </label>
+    {value.show === 'always' && <label className='setting-row'><span className='setting-label'>Always Play quantity</span><select aria-label='Always Play quantity' value={value.pace ?? 2} onChange={event => onChange({ ...value, pace: paceValue(Number(event.target.value)) })}>{PACE_LABELS.map((label, i) => <option key={label} value={i + 1}>{i + 1} {label}</option>)}</select></label>}
     <label className='setting-row'><span className='setting-label'>Frame-rate target</span>
       <select aria-label='Frame-rate target' value={value.fps} onChange={event => onChange({ ...value, fps: event.target.value === '30' ? 30 : 60 })}>
         <option value='30'>30 fps</option><option value='60'>60 fps</option>

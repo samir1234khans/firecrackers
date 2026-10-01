@@ -42,7 +42,7 @@ export async function generateRelease() {
     'src/bootstrap.ts', 'src/main.tsx', 'src/ui/AppBoundary.tsx', 'src/styles/recovery.css',
     'src/engine/RendererPort.ts', 'src/engine/RendererRecovery.ts', 'src/engine/SkyState.ts', 'src/graphics/CompatibilityRenderer.ts',
     'src/App.tsx', 'src/engine/FusePath.ts', 'src/engine/LaunchGeometry.ts', 'src/engine/Renderer.ts',
-    'src/engine/Simulation.ts', 'src/engine/VisibleFrame.ts', 'src/engine/catalog.ts',
+    'src/engine/AlwaysPlayDirector.ts', 'src/platform/presentation.ts', 'src/engine/Simulation.ts', 'src/engine/VisibleFrame.ts', 'src/engine/catalog.ts',
     'src/engine/useWorld.ts', 'src/platform/usePlatform.ts', 'src/graphics/LaunchStage.ts',
     'src/graphics/NightEnvironment.ts', 'src/graphics/GalaxySky.ts', 'src/graphics/CelestialScene.ts', 'src/graphics/RiverLife.ts', 'src/graphics/OpaqueDepth.ts',
     'src/graphics/ParticleScene.ts', 'src/graphics/RocketProp.ts', 'src/graphics/textures.ts',

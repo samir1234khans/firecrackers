@@ -1,3 +1,4 @@
+import { paceValue, type AlwaysPace } from '../engine/AlwaysPlayDirector.js';
 import type { ShowPreset } from '../engine/catalog.js';
 export type DisplayMode = 'interactive' | 'scene' | 'transparent';
 export type SafeRect = [
@@ -11,6 +12,7 @@ export type Presentation = {
     seed: number;
     fps: 30 | 60;
     show: ShowPreset | null;
+    pace?: AlwaysPace;
     protect: boolean;
     safeRect: SafeRect;
 };
@@ -26,7 +28,8 @@ export function parsePresentation(search: string): Presentation {
         mode: mode === 'scene' || mode === 'transparent' ? mode : 'interactive',
         seed: Number.isInteger(seed) && seed > 0 && seed <= 0xffffffff ? seed : 20260916,
         fps: p.get('fps') === '30' ? 30 : 60,
-        show: show === 'calm' || show === 'festival' || show === 'finale' ? show : null,
+        show: show === 'calm' || show === 'festival' || show === 'finale' || show === 'always' ? show : null,
+        pace: paceValue(Number(p.get('pace'))),
         protect: p.get('protect') === '1', safeRect,
     };
 }
@@ -40,6 +43,7 @@ export function presentationLink(base: string, config: Presentation) {
     url.searchParams.set('fps', String(config.fps));
     if (config.show)
         url.searchParams.set('show', config.show);
+    if (config.show === 'always') url.searchParams.set('pace', String(paceValue(config.pace)));
     if (config.protect) {
         url.searchParams.set('protect', '1');
         url.searchParams.set('safe', config.safeRect.join(','));

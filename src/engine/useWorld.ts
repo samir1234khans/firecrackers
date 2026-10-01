@@ -105,6 +105,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const state = new Simulation(presentation.seed);
         sim.current = state;
         state.setLaunchProfileResolver((id, placement) => renderer.current?.resolveLaunchProfile(id, placement));
+        state.always.setPace(display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace);
         state.selected = prefs.current.family;
         state.setPlacement(prefs.current.placement);
         state.setPlacementMode(prefs.current.placementMode);
@@ -288,6 +289,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                         qaStallSamplesRemaining--;
                         qaStallSamplesUsed++;
                     }
+                    if (rendered && warmFrames > 60 && state.show === 'always') state.always.observe(state.time, observedMs, continuous);
                     if (rendered && graphics && !graphics.backend.startsWith('Canvas') &&
                         overload.observe(observedMs, continuous))
                         void recoverOverload();
@@ -617,6 +619,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         if (!status.current.ready || status.current.error)
             return;
         intent.current.setManual(false);
+        if (preset === 'always') sim.current.always.setPace(display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace);
         sim.current.startShow(preset);
         syncPause();
     };

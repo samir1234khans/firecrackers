@@ -196,7 +196,9 @@ export default function App() {
   };
   const chooseMode = (preset: ShowPreset | null) => {
     if (preset) change('preset', preset);
-    world.setShowMode(preset);
+    world.sim.current.always.setPace(prefs.alwaysPace);
+    if (preset === 'always' && world.sim.current.show !== 'always') world.start(preset);
+    else world.setShowMode(preset);
     wake();
   };
   const onModeOpen = useCallback((value: boolean) => {
@@ -300,7 +302,7 @@ export default function App() {
     </>}</div>
 
     <div className='lower-controls chrome' inert={hidden || Boolean(overlay) || preparing || undefined}>
-      <ShowModeKnob value={state.show} disabled={!world.ready || Boolean(world.error)} onChange={chooseMode} onOpenChange={onModeOpen}/>
+      <ShowModeKnob pace={prefs.alwaysPace} limited={state.always.limited} reducedFlashes={prefs.reducedFlashes} onPaceChange={pace => { world.sim.current.always.setPace(pace); change('alwaysPace', pace); world.refresh(); }} value={state.show} disabled={!world.ready || Boolean(world.error)} onChange={chooseMode} onOpenChange={onModeOpen}/>
       <div inert={modeOpen || undefined}>
         <LaunchPositionControl value={state.placement} random={state.placementMode === 'random'} disabled={!world.ready || Boolean(world.error)} onChange={choosePosition} onRandomChange={chooseRandom} onPreview={setPositionPreview}/>
       </div>
