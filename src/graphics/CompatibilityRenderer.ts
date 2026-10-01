@@ -41,6 +41,7 @@ export class CompatibilityRenderer implements RendererPort {
     private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
     private readonly hullSamples = Array.from({ length: 4 }, () => ({ height: 0, slopeX: 0, slopeZ: 0 }));
     private readonly waterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: true };
+    private readonly waterFacetPose = new Float64Array(96 * 3);
     private reflectedWaterHeads = 0;
     private riverContactChecksum = 0;
     private riverReflectionChecksum = 0;
@@ -434,6 +435,10 @@ export class CompatibilityRenderer implements RendererPort {
         // Ninety-six bounded fragment pairs retain the existing surface limit.
         // Irregular spacing and crossed phases avoid a repeated grid or rings.
         const moonX = this.moonFrame.x;
+        // Additive surface fragments commute. Keep the same exact phase values
+        // in a preallocated buffer and batch by colour, avoiding 192 style
+        // changes per frame without reducing detail or altering hull sampling.
+        c.fillStyle = '#9bacbf';
         for (let i = 0; i < 96; i++) {
             const depth = ((i + .5 + Math.sin(i * 2.399) * .32) / 96) ** 1.35;
             const baseY = horizon + depth * waterHeight;
@@ -443,11 +448,16 @@ export class CompatibilityRenderer implements RendererPort {
             const drift = Math.sin(i * .37 + riverTime * .21) * (1 + depth * 12) + this.waterSample.slopeX * this.width * depth * .25;
             const halfWidth = (1 + depth * this.width * .052) * (.57 + crossing * .27);
             const y = baseY - this.waterSample.height * (3 + depth * 12);
-            c.fillStyle = '#9bacbf'; c.globalAlpha = this.moonReady ? (.034 + depth * .085) * facet : .008;
+            this.waterFacetPose[i * 3] = depth; this.waterFacetPose[i * 3 + 1] = baseY; this.waterFacetPose[i * 3 + 2] = crossing;
+            c.globalAlpha = this.moonReady ? (.034 + depth * .085) * facet : .008;
             c.fillRect(moonX + drift - halfWidth, y, halfWidth * 2, .45 + depth * .8);
+        }
+        c.fillStyle = '#4a687e';
+        for (let i = 0; i < 96; i++) {
+            const depth = this.waterFacetPose[i * 3], baseY = this.waterFacetPose[i * 3 + 1], crossing = this.waterFacetPose[i * 3 + 2];
             const x = ((i * .61803398875 + riverTime * .0014) % 1) * this.width;
             const ambientHeight = this.screenWaterHeight(x, baseY);
-            c.fillStyle = '#4a687e'; c.globalAlpha = (.034 + depth * .065) * (.7 + crossing * .3);
+            c.globalAlpha = (.034 + depth * .065) * (.7 + crossing * .3);
             c.fillRect(x, baseY - ambientHeight * (3 + depth * 12), 1 + depth * (8 + i % 7 * 3), .4 + depth * .5);
         }
         this.drawRiverReflections(riverTime);
