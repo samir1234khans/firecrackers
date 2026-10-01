@@ -1,8 +1,12 @@
+# Moonlit water candidate
+
+[PR #31](https://github.com/samir1234khans/firecrackers/pull/31) implements the [next water graphics phase](docs/evidence/moonlit-water-2026-10-01/PLAN.md), build `2026-10-01.5`, on a branch synchronized with main's reconciliation receipt. The [isolated preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/) adds shared geometric waves, scene-directed moonlight, bounded planar reflections, sampled hull contacts and damp coping. [Qualification evidence](docs/evidence/moonlit-water-2026-10-01/PREVIEW.md) retains actual results and performance limits. Production is unchanged.
+
 # Current production: all latest work reconciled
 
 Build `2026-10-01.4` is live at [production](https://firecrackers.mainandmany.com/) from clean canonical source main `8b491d2528b251d9e57d7326ba5ea42e36fbb271`. The moon/water, thirteen effects, open-sky controls, responsive rocket support, moon-led startup and burst-stall fix are included. Worker `57796211-f2a8-4fc1-8381-4c9235bfb5bd`; source/artwork fingerprint `965c6eaa6ebd5aef2f5922831504a6bbe1c3879e24a26532432af279f5e09d51`.
 
-[Production verification and 64-ref reconciliation](docs/evidence/latest-production-2026-10-01/PRODUCTION.md) records CI, public tests, retained branches and rollback. Every current development branch is already represented in main. The separate historical five-effect JavaScript implementation remains preserved as an alternate, with no missing current-runtime capability found. The [isolated `.4` preview](https://firecrackers-burst-preview.allygym-api.workers.dev/) remains available. Physical phones, Safari, real OS zoom and sustained GPU/thermal performance remain unqualified.
+[Production verification and 64-ref reconciliation](docs/evidence/latest-production-2026-10-01/PRODUCTION.md) records CI, public tests, retained branches and rollback. At that reconciliation snapshot, every then-current development branch was represented in main; the new moonlit-water candidate above remains a separate PR. The historical five-effect JavaScript implementation remains preserved as an alternate, with no missing current-runtime capability found. The [isolated `.4` preview](https://firecrackers-burst-preview.allygym-api.workers.dev/) remains available. Physical phones, Safari, real OS zoom and sustained GPU/thermal performance remain unqualified.
 
 # Previous production: bottom collection and upper canopy
 

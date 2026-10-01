@@ -33,3 +33,7 @@ The candidate has an isolated Worker configuration without production routes. Pr
 - [Three.js r180 ReflectorNode](https://github.com/mrdoob/three.js/blob/r180/src/nodes/utils/ReflectorNode.js): mirrored camera and oblique clipping, adapted under MIT. Scheduling remains owned by this application.
 
 See [the implementation and preview receipt](PREVIEW.md) for actual outcomes and qualification limits.
+
+## Owner addition: immersive show controls
+
+The owner requested a plan addition while the water implementation continues: in a non-manual show, offer an explicit way to hide all UI except a single show/hide control, with smooth transitions for the chrome and toggle itself. This is **planned, not implemented in the water candidate**. [The researched immersive UI plan](IMMERSIVE-UI-PLAN.md) records the current source constraints, interaction contract, motion treatment and acceptance checks.
