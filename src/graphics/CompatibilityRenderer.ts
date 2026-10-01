@@ -17,14 +17,16 @@ import { FUSE_POINTS, fusePointAt, ROCKET_SCALE } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
 import { updateMoonFrame } from './MoonComposition';
 import type { MoonFrame } from './MoonComposition';
-import { sampleWater } from './WaterWaves';
+import { sampleWater, updateWaterFrame, WATER_MAX_DISPLACEMENT, WATER_NEAR_Z } from './WaterWaves';
+import type { WaterFrame, WaterSample } from './WaterWaves';
 import { makeGalaxySky } from './GalaxySky';
 import type { SkyState } from '../engine/SkyState';
 import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
 
 type RiverLamp = { x: number; y: number; waterline: number; width: number; phase: number; strength: number; flicker: number };
 type RiverBoat = { image: HTMLCanvasElement; x: number; depth: number; width: number; phase: number; facing: number;
-    lampPixels: { x: number; y: number }[]; waterline: number; screenX: number; screenY: number; screenWidth: number; roll: number };
+    lampPixels: { x: number; y: number }[]; waterline: number; screenX: number; screenY: number; screenWidth: number; roll: number;
+    sampledHeight?: number; contactError?: number };
 
 /** GPU-independent fallback, not a substitute for the primary 3D renderer.
  * Flight, splitting, wind, pause and all ten effects use the unchanged simulation.
@@ -37,6 +39,10 @@ export class CompatibilityRenderer implements RendererPort {
     private moonFailed = false;
     private readonly moonFrame = { x: 0, y: 0, radius: 15 };
     private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
+    private readonly hullSamples = Array.from({ length: 4 }, () => ({ height: 0, slopeX: 0, slopeZ: 0 }));
+    private readonly waterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: true };
+    private riverContactChecksum = 0;
+    private riverReflectionChecksum = 0;
     private readonly canvas = document.createElement('canvas');
     private readonly ctx: CanvasRenderingContext2D;
     private readonly celestialArt = makeGalaxySky();
@@ -159,7 +165,16 @@ export class CompatibilityRenderer implements RendererPort {
     }
 
     private riverTime() {
-        return this.sim.quality === 'low' || this.reducedSkyMotion?.matches || this.host.parentElement?.classList.contains('reduced-motion') ? 0 : this.sim.time;
+        return this.waterFrame.phase;
+    }
+    /** One perspective map for hulls, lamps and surface fragments. */
+    private sampleScreenWater(x: number, y: number, out: WaterSample) {
+        const horizon = this.height * this.horizon, span = Math.max(1, this.height * .92 - horizon);
+        const depth = clamp((y - horizon) / span, 0, 1);
+        const z = this.waterFrame.nearZ + (this.waterFrame.farZ - this.waterFrame.nearZ) * (1 - depth) / (1 + depth * 7);
+        const nearWidth = this.width < 680 ? 96 : 260;
+        const worldX = (x / this.width - .5) * (nearWidth - z * 1.7);
+        return sampleWater(worldX, z, this.waterFrame.phase, out, this.waterFrame);
     }
     private prepareRiver(horizon: number, time: number) {
         const shoreHeight = clamp(this.height * .028, 16, 26), shoreTop = horizon - shoreHeight + 1;
@@ -168,16 +183,25 @@ export class CompatibilityRenderer implements RendererPort {
             lamp.x = source.x * this.width; lamp.y = shoreTop + source.y * shoreHeight;
             lamp.waterline = horizon + 2; lamp.width = .9;
         }
-        const wind = time ? this.sim.wind : 0;
         let lampIndex = 4;
         for (let i = 0; i < this.riverArt.boats.length; i++) {
             const boat = this.riverArt.boats[i];
             const width = clamp(this.width * boat.width, i === 0 ? 32 : i === 1 ? 25 : 66,
                 i === 0 ? 74 : i === 1 ? 56 : 138), scale = width / boat.image.width;
-            boat.screenX = this.width * boat.x + Math.sin(time * .28 + boat.phase) * wind * 1.1;
-            sampleWater(boat.x * 160, -boat.depth * 600, time * this.sim.wind, this.waterSample);
-            boat.screenY = horizon + this.height * boat.depth + this.waterSample.height * 22;
-            boat.screenWidth = width; boat.roll = this.waterSample.slopeX * 2.5;
+            boat.screenX = this.width * boat.x;
+            const baseY = horizon + this.height * boat.depth, halfBeam = Math.max(1, width * .035);
+            this.sampleScreenWater(boat.screenX - width * .44, baseY, this.hullSamples[0]);
+            this.sampleScreenWater(boat.screenX + width * .44, baseY, this.hullSamples[1]);
+            this.sampleScreenWater(boat.screenX, baseY - halfBeam, this.hullSamples[2]);
+            this.sampleScreenWater(boat.screenX, baseY + halfBeam, this.hullSamples[3]);
+            const height = (this.hullSamples[0].height + this.hullSamples[1].height + this.hullSamples[2].height + this.hullSamples[3].height) * .25;
+            const depth = clamp((baseY - horizon) / Math.max(1, this.height * .92 - horizon), 0, 1), heightScale = 3 + depth * 12;
+            boat.screenY = baseY - height * heightScale;
+            boat.screenWidth = width;
+            boat.roll = Math.atan((this.hullSamples[0].height - this.hullSamples[1].height) * heightScale / (width * .88)) * (i === 2 ? .72 : 1);
+            boat.sampledHeight = height;
+            this.sampleScreenWater(boat.screenX, baseY, this.waterSample);
+            boat.contactError = Math.abs(height - this.waterSample.height);
             for (const source of boat.lampPixels) {
                 const lamp = this.riverArt.lamps[lampIndex++];
                 const localX = (source.x - boat.image.width / 2) * scale * boat.facing, localY = (source.y - boat.waterline) * scale;
@@ -190,13 +214,18 @@ export class CompatibilityRenderer implements RendererPort {
     }
     private drawRiverReflections(time: number) {
         const c = this.ctx;
+        this.riverReflectionChecksum = 0;
         c.fillStyle = '#ae8252';
         for (const lamp of this.riverArt.lamps) {
             const start = lamp.waterline + Math.max(1, lamp.waterline - lamp.y) * .55;
             const fragments = this.sim.quality === 'low' ? 4 : 8;
             for (let i = 0; i < fragments; i++) {
-                const y = start + i * (1.8 + lamp.width * .45), wave = Math.sin(i * 2.1 + time * .65 + lamp.phase);
-                const width = lamp.width + i * .26 + (wave + 1) * .55;
+                const baseY = start + i * (1.8 + lamp.width * .45);
+                this.sampleScreenWater(lamp.x, baseY, this.waterSample);
+                const wave = Math.sin(i * 2.1 + time * .65 + lamp.phase) * Math.sin(i * 1.37 - time * .29);
+                const y = baseY - this.waterSample.height * (2 + i * .4);
+                const width = (lamp.width + i * .31) * (.83 + wave * .27);
+                this.riverReflectionChecksum += (lamp.x + wave * (1 + i * .20)) * (i + 1) + y * (i + 3) + width;
                 c.globalAlpha = lamp.strength * lamp.flicker * (this.sim.reducedFlashes ? .78 : 1) * (1 - i / fragments) * (.60 + wave * .15);
                 c.fillRect(lamp.x + wave * (1 + i * .20) - width / 2, y, width, i % 3 === 0 ? .8 : .55);
             }
@@ -204,17 +233,35 @@ export class CompatibilityRenderer implements RendererPort {
     }
     private drawRiverBoats() {
         const c = this.ctx;
+        this.riverContactChecksum = 0;
         for (const boat of this.riverArt.boats) {
             const scale = boat.screenWidth / boat.image.width;
+            this.riverContactChecksum += boat.screenX * 3 + boat.screenY * 5 + boat.roll * 7;
             c.save(); c.translate(boat.screenX, boat.screenY); c.rotate(boat.roll); c.scale(boat.facing, 1);
-            // A bounded contact shadow and two subdued ripples anchor the cached
-            // silhouette to the water without adding another animated canvas.
-            c.globalAlpha = .32; c.fillStyle = '#02060a'; c.beginPath();
-            c.ellipse(0, 1, boat.screenWidth * .46, Math.max(1, boat.screenWidth * .016), 0, 0, Math.PI * 2); c.fill();
-            c.strokeStyle = '#294050'; c.lineWidth = .6; c.globalAlpha = .25;
-            for (let side = -1; side <= 1; side += 2) {
-                c.beginPath(); c.ellipse(side * boat.screenWidth * .08, 2, boat.screenWidth * .51,
-                    Math.max(1.5, boat.screenWidth * .035), 0, side < 0 ? 0 : Math.PI, side < 0 ? Math.PI : Math.PI * 2); c.stroke();
+            // Broken, compressed silhouette fragments anchor the cached hull.
+            // No additional sprites or unbounded surface particles are needed.
+            const bandHeight = 5;
+            for (let band = 0; band < 4; band++) {
+                c.globalAlpha = .085 * (1 - band * .18);
+                const sourceY = Math.max(0, boat.waterline - (band + 1) * bandHeight);
+                const shift = Math.sin(band * 2.399 + this.waterFrame.phase * .41 + boat.phase) * (1 + band * .3);
+                c.save(); c.translate(shift, 2 + band * 2.3); c.scale(1, -1);
+                c.drawImage(boat.image, 0, sourceY, boat.image.width, bandHeight,
+                    -boat.screenWidth / 2, 0, boat.screenWidth, 1.6); c.restore();
+            }
+            c.globalAlpha = .48; c.fillStyle = '#02060a'; c.beginPath();
+            c.ellipse(0, .8, boat.screenWidth * .45, Math.max(.7, boat.screenWidth * .010), 0, 0, Math.PI * 2); c.fill();
+            c.strokeStyle = '#536e83'; c.lineWidth = .6;
+            for (let fragment = 0; fragment < 6; fragment++) {
+                const phase = (this.waterFrame.phase * .065 + fragment * .173 + boat.phase * .043) % 1;
+                const x = Math.sin(fragment * 2.399 + boat.phase) * boat.screenWidth * .30;
+                const baseY = (fragment % 2 ? -1 : 1) * (1.5 + phase * 2) + 1;
+                this.sampleScreenWater(boat.screenX + x * boat.facing, boat.screenY + baseY, this.waterSample);
+                const y = baseY - (this.waterSample.height - (boat.sampledHeight ?? 0)) * 10;
+                this.riverContactChecksum += x * (fragment + 1) + y * (fragment + 3) + phase;
+                c.globalAlpha = .025 + .23 * Math.sin(Math.PI * phase) * (1 - phase);
+                c.beginPath(); c.moveTo(x, y); c.quadraticCurveTo(x + boat.screenWidth * .06, y + .6,
+                    x + boat.screenWidth * (.13 + fragment % 3 * .035), y); c.stroke();
             }
             c.globalAlpha = 1; c.drawImage(boat.image, -boat.screenWidth / 2, -boat.waterline * scale, boat.screenWidth, boat.image.height * scale); c.restore();
         }
@@ -346,46 +393,86 @@ export class CompatibilityRenderer implements RendererPort {
     }
     private drawWater() {
         const c = this.ctx, s = this.sim, horizon = this.height * this.horizon, riverTime = this.riverTime();
+        const terraceY = this.height * .92, waterHeight = Math.max(1, terraceY - horizon);
         this.prepareRiver(horizon, riverTime);
         const water = c.createLinearGradient(0, horizon, 0, this.height);
-        water.addColorStop(0, '#0b1d2b'); water.addColorStop(1, '#040b12');
+        water.addColorStop(0, '#0b1925'); water.addColorStop(.28, '#081322'); water.addColorStop(1, '#040a11');
         c.globalAlpha = 1; c.fillStyle = water; c.fillRect(0, horizon, this.width, this.height - horizon);
         c.fillStyle = '#090f17'; c.beginPath(); c.moveTo(0, horizon);
         for (let x = 0; x <= this.width; x += 8) c.lineTo(x, horizon - 4 - Math.sin(x * .013) * 5 - Math.sin(x * .047) * 2);
         c.lineTo(this.width, horizon + 2); c.lineTo(0, horizon + 2); c.fill();
         const shoreHeight = clamp(this.height * .028, 16, 26);
         c.globalAlpha = 1; c.drawImage(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
-        c.save(); c.beginPath(); c.rect(0, horizon + 2, this.width, this.height - horizon); c.clip(); c.globalCompositeOperation = 'lighter';
-        // Finite perspective ripples: independently advected, broken moonlight,
-        // with smaller/softer fragments at the horizon. No extra canvas or pass.
+        c.save(); c.beginPath(); c.rect(0, horizon + 2, this.width, waterHeight - 2); c.clip(); c.globalCompositeOperation = 'lighter';
+        // Low-frequency sky response on long swells retains dark troughs.
+        // Twelve finite interrupted patches avoid full-width ruled stripes.
+        c.strokeStyle = '#213d58'; c.lineCap = 'round';
+        for (let band = 0; band < 12; band++) {
+            const depth = (band + .5 + Math.sin(band * 2.399) * .31) / 12, y = horizon + depth * waterHeight;
+            const length = this.width * (.14 + .10 * (1 + Math.sin(band * 1.73)) * .5);
+            const left = ((band * .61803398875 + .12) % 1) * this.width - length * .35;
+            c.globalAlpha = .05 + Math.max(0, Math.sin(band * .71 - riverTime * .18)) * .04;
+            c.lineWidth = .8 + depth * 2.2; c.beginPath();
+            for (let segment = 0; segment <= 8; segment++) {
+                const x = left + segment / 8 * length;
+                this.sampleScreenWater(x, y, this.waterSample);
+                const py = y - this.waterSample.height * (4 + depth * 14) + Math.sin(segment * .39 + band) * depth * 2;
+                if (!segment) c.moveTo(x, py); else c.lineTo(x, py);
+            }
+            c.stroke();
+        }
+        c.lineCap = 'butt';
+        // Ninety-six bounded fragment pairs retain the existing surface limit.
+        // Irregular spacing and crossed phases avoid a repeated grid or rings.
         const moonX = this.moonFrame.x;
         for (let i = 0; i < 96; i++) {
-            const depth = (i + .5) / 96, y = horizon + depth * (this.height-horizon);
-            const crossing = Math.sin(i*2.399 + riverTime*.67) * Math.sin(i*.79-riverTime*.43);
-            const drift = Math.sin(i*.37+riverTime*.21) * (2+depth*12);
-            const halfWidth = (2+depth*this.width*.055) * (.55+crossing*.32);
-            c.fillStyle = '#8ca4b8'; c.globalAlpha = this.moonReady ? (.014+depth*.037) * (.6+crossing*.4) : .008;
-            c.fillRect(moonX+drift-halfWidth,y,halfWidth*2,.5+depth*.6);
-            c.fillStyle = '#35556d'; c.globalAlpha = .05+depth*.05;
-            const x = ((i * .61803398875 + riverTime*.002) % 1)*this.width;
-            c.fillRect(x,y,3+depth*18,.45+depth*.45);
+            const depth = ((i + .5 + Math.sin(i * 2.399) * .32) / 96) ** 1.35;
+            const baseY = horizon + depth * waterHeight;
+            this.sampleScreenWater(moonX, baseY, this.waterSample);
+            const crossing = Math.sin(i * 2.399 + riverTime * .67) * Math.sin(i * .79 - riverTime * .43);
+            const facet = clamp(.68 + crossing * .38 + this.waterSample.slopeZ * 11, .12, 1);
+            const drift = Math.sin(i * .37 + riverTime * .21) * (1 + depth * 12) + this.waterSample.slopeX * this.width * depth * .25;
+            const halfWidth = (1 + depth * this.width * .052) * (.57 + crossing * .27);
+            const y = baseY - this.waterSample.height * (3 + depth * 12);
+            c.fillStyle = '#9bacbf'; c.globalAlpha = this.moonReady ? (.034 + depth * .085) * facet : .008;
+            c.fillRect(moonX + drift - halfWidth, y, halfWidth * 2, .45 + depth * .8);
+            const x = ((i * .61803398875 + riverTime * .0014) % 1) * this.width;
+            this.sampleScreenWater(x, baseY, this.waterSample);
+            c.fillStyle = '#4a687e'; c.globalAlpha = (.034 + depth * .065) * (.7 + crossing * .3);
+            c.fillRect(x, baseY - this.waterSample.height * (3 + depth * 12), 1 + depth * (8 + i % 7 * 3), .4 + depth * .5);
         }
         this.drawRiverReflections(riverTime);
         const p = s.heads, step = Math.max(1, Math.ceil(p.count / 450));
         for (let i = 0; i < p.count; i += step) {
             if (p.age[i] < 0) continue;
             const point = this.project(p.x[i], p.y[i], p.z[i]);
-            const reflected = horizon + (horizon - point.y) * .38;
+            // A reciprocal perspective path compresses distant reflections and
+            // stays inside the waterfront rather than remapping to the terrace.
+            const elevation = Math.max(0, (horizon - point.y) / this.height);
+            if (elevation <= 0) continue;
+            const reflected = horizon + waterHeight * elevation / (.46 + elevation);
             c.fillStyle = this.tone(p.r[i], p.g[i], p.b[i]);
             for (let j = 0; j < 3; j++) {
-                const y = reflected + j * 3, ripple = Math.sin(y * .7 + s.time * s.wind * 2);
+                const baseY = reflected + j * 3;
+                this.sampleScreenWater(point.x, baseY, this.waterSample);
+                const y = baseY - this.waterSample.height * 9, ripple = Math.sin(y * .7 + riverTime * 2) * Math.sin(i * 1.37 - riverTime * .43);
                 c.globalAlpha = p.gain[i] * Math.max(0, 1 - p.age[i] / p.life[i]) * (s.reducedFlashes ? .10 : .16) * (1 - j * .2);
                 c.fillRect(point.x + ripple * 4 - 2, y, 3 + (ripple + 1) * 4, 1);
             }
         }
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
         this.drawRiverBoats(); c.globalAlpha = 1;
-        c.fillStyle = '#111c27'; c.fillRect(0, this.height * .92, this.width, this.height * .08);
+        c.fillStyle = '#111c27'; c.fillRect(0, terraceY, this.width, this.height * .08);
+        // A narrow uneven damp seam belongs to the existing terrace edge.
+        c.fillStyle = '#07111a'; c.beginPath(); c.moveTo(0, terraceY);
+        for (let x = 0; x <= this.width; x += 16) c.lineTo(x, terraceY + 1.8 + Math.sin(x * .047) * .6 + Math.sin(x * .113) * .35);
+        c.lineTo(this.width, terraceY); c.closePath(); c.fill();
+        c.strokeStyle = '#4a657a'; c.lineWidth = .6; c.globalAlpha = .20;
+        for (let i = 0; i < 18; i++) {
+            const x = ((i * .61803398875) % 1) * this.width;
+            c.beginPath(); c.moveTo(x, terraceY + 1); c.lineTo(x + 3 + i % 4 * 2.3, terraceY + 1.2); c.stroke();
+        }
+        c.globalAlpha = 1;
         c.strokeStyle = '#293340'; c.lineWidth = .5;
         for (let x = -this.width; x < this.width * 2; x += 70) { c.beginPath(); c.moveTo(this.width / 2 + (x - this.width / 2) * .75, this.height * .92); c.lineTo(x, this.height); c.stroke(); }
     }
@@ -455,6 +542,8 @@ export class CompatibilityRenderer implements RendererPort {
         updateCelestialFrame(this.celestialFrame, this.skyState, this.width, this.height,
             this.mode !== 'transparent' && s.quality !== 'low' && !this.reducedSkyMotion?.matches &&
             !this.host.parentElement?.classList.contains('reduced-motion'), s.reducedFlashes);
+        updateWaterFrame(this.waterFrame, s.waterPhase, s.quality, this.width < 680,
+            !s.reducedMotion && !this.reducedSkyMotion?.matches && !this.host.parentElement?.classList.contains('reduced-motion'));
         if (this.mode !== 'transparent') {
             const sky = c.createLinearGradient(0, 0, 0, this.height);
             sky.addColorStop(0, '#030916'); sky.addColorStop(.62, '#0c1b2b'); sky.addColorStop(1, '#050b13');
@@ -571,6 +660,19 @@ export class CompatibilityRenderer implements RendererPort {
             riverLampAnchors: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length,
             riverReflectionFragments: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length * (this.sim.quality === 'low' ? 4 : 8),
             riverMotionTime: this.riverTime(), riverPositions: this.riverArt.boats.map(boat => ({ x: boat.screenX, y: boat.screenY, roll: boat.roll })),
+            riverWaterPhase: this.waterFrame.phase, riverWaterWaveCount: this.waterFrame.waveCount,
+            riverContactChecksum: this.mode === 'transparent' ? 0 : this.riverContactChecksum,
+            riverReflectionChecksum: this.mode === 'transparent' ? 0 : this.riverReflectionChecksum,
+            riverHullSampleCount: this.mode === 'transparent' ? 0 : this.riverArt.boats.length * 4,
+            riverContactCapacity: 21, riverReflectionCapacity: 80, riverWaterContactInstances: this.mode === 'transparent' ? 0 : 21,
+            riverContactAlignment: 'four hull points and wave-conforming fragments',
+            riverHullSamples: this.riverArt.boats.map(boat => ({ height: boat.sampledHeight ?? 0, pitch: boat.roll,
+                roll: 0, centerDeviation: boat.contactError ?? 0 })),
+            waterSurfaceFragments: this.mode === 'transparent' ? 0 : 96, waterReflectionTargets: 0,
+            waterPhase: this.waterFrame.phase, waterWaveCount: this.waterFrame.waveCount, waterVisible: this.mode !== 'transparent',
+            waterMotionAllowed: this.waterFrame.motionAllowed, waterDisplacementBound: WATER_MAX_DISPLACEMENT,
+            waterFarZ: this.waterFrame.farZ, waterNearZ: this.waterFrame.nearZ,
+            reflectionTargets: 0, reflectionAllocated: false, reflectionWidth: 0, reflectionHeight: 0, reflectionHz: 0,
             shellScreen: shell ? this.project(...shell) : null,
             apexScreen: r ? this.project(r.launchProfile?.aimX??r.x, r.top + (r.launchProfile?.prop?.shellOffset??SHELL_LOCAL_Y*ROCKET_SCALE[1]), r.z) : null,
             launchProfile: r?.launchProfile ?? null,

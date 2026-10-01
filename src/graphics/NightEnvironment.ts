@@ -1,11 +1,13 @@
 import * as THREE from 'three/webgpu';
-import { Fn, If, cos, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
+import { Fn, If, cos, positionWorld, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
 import { makeGalaxySky } from './GalaxySky';
 import { updateMoonFrame } from './MoonComposition';
 import type { MoonFrame } from './MoonComposition';
 import { RiverLife } from './RiverLife';
+import { updateWaterFrame, WATER_NEAR_Z } from './WaterWaves';
+import type { WaterFrame } from './WaterWaves';
 import type { SkyState } from '../engine/SkyState';
 import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
 
@@ -14,6 +16,13 @@ export class NightEnvironment {
   readonly group = new THREE.Group();
   private readonly shoreline = new THREE.Group();
   private readonly river = new RiverLife();
+  readonly waterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: false };
+  private phone = false;
+  private readonly wetEdgeMaterial = new THREE.MeshStandardNodeMaterial({
+    color: '#15212b', roughness: .26, metalness: 0, transparent: true,
+    opacity: .38, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1,
+  });
+  private readonly wetEdge = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), this.wetEdgeMaterial);
   readonly probe: THREE.DataTexture;
   private terrace: THREE.Group | null = null;
   private terraceWidth = 250;
@@ -143,7 +152,6 @@ export class NightEnvironment {
       matrix.makeTranslation(x, 5.35, z); lamps.setMatrixAt(i, matrix);
       matrix.makeTranslation(x, 5.12, z); housings.setMatrixAt(i, matrix);
     }
-    this.group.add(lamps, housings);
 
     const rand = randomStream(8341);
     for (let layer = 0; layer < 3; layer++) {
@@ -173,13 +181,25 @@ export class NightEnvironment {
       lightTint.setRGB(.30 + rand() * .22, .17 + rand() * .12, .07 + rand() * .05);
       lights.setColorAt(i, lightTint);
     }
-    this.shoreline.add(lights);
+    // These are bank fixtures. Keep them with the resized shoreline instead of
+    // leaving an evenly spaced row suspended over the middle of the river.
+    this.shoreline.add(lights, lamps, housings);
+    this.shoreline.traverse(object => { if (object instanceof THREE.Mesh) object.layers.enable(3); });
     this.washTexture = this.makeWash();
     this.washMaterial.map = this.washTexture;
     this.wash = new THREE.Mesh(new THREE.PlaneGeometry(125, 27), this.washMaterial);
     this.wash.rotation.x = -Math.PI / 2;
     this.wash.position.set(0, 4.96, 7);
     this.group.add(this.wash);
+    // A narrow irregular damp band on the existing coping; no new shore geometry.
+    this.wetEdge.name = 'Restrained damp water-facing stone';
+    this.wetEdge.rotation.x = -Math.PI / 2;
+    this.wetEdgeMaterial.envMapIntensity = .16;
+    this.wetEdgeMaterial.opacityNode = Fn(() => {
+      const uneven = sin(positionWorld.x.mul(.43)).mul(sin(positionWorld.x.mul(.13))).mul(.12).add(.34);
+      return uneven;
+    })();
+    this.group.add(this.wetEdge);
   }
 
   setTerrace(group: THREE.Group) {
@@ -205,6 +225,8 @@ export class NightEnvironment {
     this.terrace.position.set(0, 5.02, -14.75 + 6.932359 * this.terraceDepth);
     this.terrace.updateMatrixWorld(true);
     this.terraceBounds.setFromObject(this.terrace);
+    this.wetEdge.scale.set(this.terraceWidth, 1.15, 1);
+    this.wetEdge.position.set(0, this.terraceBounds.max.y + .012, -14.05);
   }
   frameTerrace(camera: THREE.PerspectiveCamera) {
     this.terraceDepth = camera.aspect < .72 ? 9 : 5.3;
@@ -258,6 +280,7 @@ export class NightEnvironment {
       skyArtRgbaBytes: this.celestialArt.metadata.rgbaBytes, skyTextureBytesWithMipmaps: this.celestialArt.metadata.rgbaWithMipmapsBytes };
   }
   setPortraitHorizon(phone: boolean, waterline: number, aspect: number) {
+    this.phone = phone;
     this.skyWaterline.value = Math.max(.08, waterline);
     // Crop the panorama on phones instead of squeezing distant hills horizontally.
     this.skyCrop.value = Math.min(1.35, Math.max(.26, aspect / 2));
@@ -289,7 +312,10 @@ export class NightEnvironment {
     this.meteorHead.value.set(frame.meteor.headX, frame.meteor.headY);
     this.meteorTail.value.set(frame.meteor.tailX, frame.meteor.tailY);
     this.meteorOpacity.value = frame.meteor.opacity;
-    this.river.update(sim, visible, motionAllowed);
+    updateWaterFrame(this.waterFrame, sim.waterPhase, sim.quality, this.phone,
+      visible && motionAllowed && !sim.reducedMotion && !this.reducedSkyMotion?.matches);
+    this.river.update(sim, visible, motionAllowed, this.waterFrame);
+    this.wetEdge.visible = visible && Boolean(this.terrace);
     if (this.terrace) this.terrace.visible = visible;
     let energy = 0, r = 0, g = 0, b = 0;
     for (const light of sim.lights) {
@@ -298,6 +324,7 @@ export class NightEnvironment {
     }
     if (energy > .001) this.washMaterial.color.setRGB(r / energy, g / energy, b / energy);
     this.washMaterial.opacity = Math.min(.18, energy * (sim.reducedFlashes ? .08 : .12));
+    this.wetEdgeMaterial.emissive.setRGB(.006 + r * .012, .010 + g * .012, .016 + b * .012);
   }
 
   private makeSky() {
@@ -366,6 +393,7 @@ export class NightEnvironment {
     const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
   dispose() {
+    this.wetEdge.geometry.dispose(); this.wetEdgeMaterial.dispose();
     this.river.dispose(); this.moonTexture.dispose(); if (this.moonNode.value !== this.moonTexture) this.moonNode.value.dispose();
     this.skyTexture.dispose(); this.galaxyTexture.dispose(); this.nearStarTexture.dispose(); this.probe.dispose(); this.washTexture.dispose(); this.floorTexture.dispose();
     this.celestialArt.stars.width = this.celestialArt.stars.height = 1;

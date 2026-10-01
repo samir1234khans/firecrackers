@@ -1,10 +1,11 @@
-import { sampleWater } from './WaterWaves';
+import { sampleWater, updateWaterFrame, WATER_Y, WATER_NEAR_Z } from './WaterWaves';
+import type { WaterFrame } from './WaterWaves';
 import * as THREE from 'three/webgpu';
 import type { Simulation } from '../engine/Simulation';
 import { randomStream } from '../engine/catalog';
 
-const WATER_Y = 4.65;
-type BoatPlacement = { object: THREE.Object3D; x: number; z: number; scale: number; yaw: number; phase: number; foreground?: boolean };
+type BoatPlacement = { object: THREE.Object3D; x: number; z: number; scale: number; yaw: number; phase: number; foreground?: boolean;
+  sampledHeight?: number; sampledPitch?: number; sampledRoll?: number; contactError?: number };
 
 /** Two quiet fishing boats, a foreground nauka and a sparse distant village. */
 export class RiverLife {
@@ -25,6 +26,9 @@ export class RiverLife {
   private readonly matrix = new THREE.Matrix4();
   private readonly surfaceRotation = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 2);
   private readonly footprintRotation = new THREE.Quaternion();
+  private readonly waveRotation = new THREE.Quaternion();
+  private readonly surfaceNormal = new THREE.Vector3();
+  private readonly up = new THREE.Vector3(0, 1, 0);
   private readonly yawRotation = new THREE.Quaternion();
   private readonly planeAxis = new THREE.Vector3(0, 0, 1);
   private readonly point = new THREE.Vector3();
@@ -41,6 +45,8 @@ export class RiverLife {
   private authoredDataMapCount = 0;
   private authoredColorSpacesCorrect = true;
   private lastTime = 0;
+  private readonly ownWaterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: true };
+  private lastWaterFrame = this.ownWaterFrame;
   private readonly fallbackGeometries = new Set<THREE.BufferGeometry>();
   private readonly fallbackMaterials = new Set<THREE.Material>();
 
@@ -81,6 +87,7 @@ export class RiverLife {
     this.boats.push({ object: nauka, x: -76, z: -85, scale: 4.1, yaw: .16, phase: 4.6, foreground: true });
     this.village = this.makeVillage(lamp);
     this.fallback.add(this.village);
+    this.enableReflectionMeshes(this.fallback);
     this.reflectionTexture = this.makeReflectionTexture();
     const reflectionMaterial = new THREE.MeshBasicMaterial({ map: this.reflectionTexture, color: 0xffffff,
       transparent: true, opacity: .48, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
@@ -88,20 +95,21 @@ export class RiverLife {
     this.fragments.name = 'Bounded reflections from actual boat and home lamps';
     this.fragments.count = 0; this.fragments.frustumCulled = false;
     this.group.add(this.fragments);
-    // One bounded draw provides a dark immersed hull footprint and very faint
-    // stretched ripple rings. These sit on the water, never bob with the hull.
+    // One bounded draw provides an immersed footprint and broken side wavelets.
+    // Each strip samples the shared surface, independently of the hull pose.
     // Normal blending preserves darkness instead of adding an artificial halo.
     this.waterContact = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1),
       new THREE.MeshBasicMaterial({ map: this.reflectionTexture, color: 0xffffff,
-        transparent: true, opacity: .26, depthWrite: false, side: THREE.DoubleSide,
+        transparent: true, opacity: .42, depthWrite: false, side: THREE.DoubleSide,
         toneMapped: false, polygonOffset: true, polygonOffsetFactor: -1 }), 21);
-    this.waterContact.name = 'Three immersed hull footprints and eighteen soft river ripples';
+    this.waterContact.name = 'Three immersed hull footprints and eighteen broken side wavelets';
     this.waterContact.frustumCulled = false;
     this.group.add(this.waterContact);
     this.flames = new THREE.InstancedMesh(new THREE.ConeGeometry(.08, .28, 5),
       new THREE.MeshBasicMaterial({ color: new THREE.Color(.82, .35, .065), toneMapped: false }), 4);
     this.flames.name = 'Four small steady nauka candle flames'; this.flames.frustumCulled = false;
     this.candleLight.name = 'Single bounded warm nauka light'; this.candleLight.castShadow = false;
+    this.candleLight.layers.enable(3);
     this.group.add(this.flames, this.candleLight);
     this.glowMaterial = new THREE.SpriteMaterial({ map: this.reflectionTexture, color: new THREE.Color(.62, .28, .070),
       transparent: true, opacity: .16, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
@@ -183,6 +191,7 @@ export class RiverLife {
       object.material = Array.isArray(object.material) ? object.material.map(isolateHaze) : isolateHaze(object.material);
     });
     this.group.add(source); this.village = village; this.authored = true;
+    this.enableReflectionMeshes(source);
     this.boats = [{ object: boatA, x: -48, z: -115, scale: 3.5, yaw: .18, phase: 0 },
       { object: boatB, x: 62, z: -165, scale: 3.2, yaw: -.26, phase: 2.3 },
       { object: boatC, x: -76, z: -85, scale: 4.1, yaw: .16, phase: 4.6, foreground: true }];
@@ -208,15 +217,34 @@ export class RiverLife {
   }
 
   private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
-  update(sim: Simulation, visible: boolean, motionAllowed = true) {
+  private readonly hullSamples = Array.from({ length: 4 }, () => ({ height: 0, slopeX: 0, slopeZ: 0 }));
+  update(sim: Simulation, visible: boolean, motionAllowed = true, waterFrame?: WaterFrame) {
     this.group.visible = visible;
-    const moving = motionAllowed && !this.reducedMotion?.matches && sim.quality !== 'low';
-    const time = moving ? sim.time : 0; this.lastTime = time;
+    const moving = motionAllowed && !sim.reducedMotion && !this.reducedMotion?.matches && sim.quality !== 'low';
+    const frame = waterFrame ?? updateWaterFrame(this.ownWaterFrame, sim.waterPhase, sim.quality, this.phone, moving);
+    this.lastWaterFrame = frame;
+    const time = frame.phase; this.lastTime = time;
     for (const boat of this.boats) {
-      sampleWater(boat.object.position.x, boat.object.position.z, time * sim.wind, this.waterSample);
-      boat.object.position.y = WATER_Y + this.waterSample.height;
-      boat.object.rotation.x = this.waterSample.slopeZ;
-      boat.object.rotation.z = -this.waterSample.slopeX;
+      const x = boat.object.position.x, z = boat.object.position.z, scale = boat.object.scale.x;
+      const halfLength = (boat.foreground ? 4.75 : 2.75) * scale, halfBeam = (boat.foreground ? 1.5 : .875) * scale;
+      const alongX = Math.cos(boat.yaw), alongZ = -Math.sin(boat.yaw), acrossX = -alongZ, acrossZ = alongX;
+      sampleWater(x + halfLength * alongX, z + halfLength * alongZ, time, this.hullSamples[0], frame);
+      sampleWater(x - halfLength * alongX, z - halfLength * alongZ, time, this.hullSamples[1], frame);
+      sampleWater(x + halfBeam * acrossX, z + halfBeam * acrossZ, time, this.hullSamples[2], frame);
+      sampleWater(x - halfBeam * acrossX, z - halfBeam * acrossZ, time, this.hullSamples[3], frame);
+      const height = (this.hullSamples[0].height + this.hullSamples[1].height + this.hullSamples[2].height + this.hullSamples[3].height) * .25;
+      // Spatial averaging supplies the covered boat's inertia without lowering
+      // its heave, which would leave the hull behind the displaced waterline.
+      const alongSlope = (this.hullSamples[0].height - this.hullSamples[1].height) / (halfLength * 2);
+      const acrossSlope = (this.hullSamples[2].height - this.hullSamples[3].height) / (halfBeam * 2);
+      const steadiness = boat.foreground ? .72 : 1;
+      boat.object.position.y = WATER_Y + height;
+      // Local X is the hull's longitudinal axis. Euler YXZ keeps yaw fixed:
+      // positive local pitch around Z raises the bow, negative X raises port.
+      boat.object.rotation.set(-Math.atan(acrossSlope) * steadiness, boat.yaw, Math.atan(alongSlope) * steadiness, 'YXZ');
+      boat.sampledHeight = height; boat.sampledPitch = boat.object.rotation.z; boat.sampledRoll = boat.object.rotation.x;
+      sampleWater(x, z, time, this.waterSample, frame);
+      boat.contactError = Math.abs(height - this.waterSample.height);
     }
     if (!visible) { this.fragments.count = 0; this.waterContact.count = 0; this.flames.count = 0; this.candleLight.intensity = 0; return; }
     this.group.updateMatrixWorld(true);
@@ -226,29 +254,31 @@ export class RiverLife {
       const length = (boat.foreground ? 9.5 : 5.5) * scale;
       const beam = (boat.foreground ? 3 : 1.75) * scale;
       const x = boat.object.position.x, z = boat.object.position.z;
-      this.point.set(x, WATER_Y + .018, z);
-      this.size.set(length * .92, beam * 1.04, 1);
-      // The footprint follows yaw while remaining flush with horizontal water.
-      this.footprintRotation.copy(this.surfaceRotation).multiply(this.yawRotation.setFromAxisAngle(this.planeAxis, boat.yaw));
+      sampleWater(x, z, time, this.waterSample, frame);
+      this.point.set(x, WATER_Y + this.waterSample.height + .018, z);
+      this.size.set(length * .91, beam * .52, 1);
+      this.alignContact(boat.yaw);
       this.matrix.compose(this.point, this.footprintRotation, this.size);
       this.waterContact.setMatrixAt(contacts, this.matrix);
-      this.color.setRGB(.008, .013, .020);
+      this.color.setRGB(.0015, .004, .008);
       this.waterContact.setColorAt(contacts++, this.color);
       for (let j = 0; j < 6; j++) {
-        const phase = (time * .08 * sim.wind + j / 6 + boat.phase * .03) % 1;
-        const spread = .95 + phase * .55;
-        // Two soft sides of a displacement wake, naturally staggered. It is
-        // restrained while idle and locked to sim.time during pause/comfort.
+        const phase = (time * .065 + j * .173 + boat.phase * .043) % 1;
+        const spread = .88 + phase * .44;
+        // Interrupted strips avoid closed rings and do not imply forward wake.
         const side = j % 2 ? -1 : 1;
-        const along = Math.sin(j * 1.7) * length * .25;
-        const across = side * beam * (.40 + phase * .40);
+        const along = Math.sin(j * 2.399 + boat.phase) * length * .30;
+        const across = side * beam * (.46 + phase * .27);
         this.point.set(x + along * Math.cos(boat.yaw) + across * Math.sin(boat.yaw),
-          WATER_Y + .014, z - along * Math.sin(boat.yaw) + across * Math.cos(boat.yaw));
-        this.size.set(length * .34 * spread, .16 + phase * .16, 1);
+          0, z - along * Math.sin(boat.yaw) + across * Math.cos(boat.yaw));
+        sampleWater(this.point.x, this.point.z, time, this.waterSample, frame);
+        this.point.y = WATER_Y + this.waterSample.height + .025;
+        this.alignContact(boat.yaw + Math.sin(j * 1.87 + boat.phase) * .10);
+        this.size.set(length * (.14 + (j % 3) * .047) * spread, .17 + phase * .21, 1);
         this.matrix.compose(this.point, this.footprintRotation, this.size);
         this.waterContact.setMatrixAt(contacts, this.matrix);
-        const energy = .12 * (1 - phase) * Math.sin(Math.PI * phase);
-        this.color.setRGB(energy * .22, energy * .34, energy * .46);
+        const energy = .018 + .18 * (1 - phase) * (.4 + .6 * Math.sin(Math.PI * phase));
+        this.color.setRGB(energy * .64, energy * .83, energy);
         this.waterContact.setColorAt(contacts++, this.color);
       }
     }
@@ -274,10 +304,13 @@ export class RiverLife {
       const x = this.point.x, z = this.point.z;
       for (let j = 0; j < segments && count < 80; j++) {
         const distance = j * (i < 6 ? 1.65 : 3.4);
-        const ripple = Math.sin(z * .15 + j * 1.37 + time * .65 * sim.wind);
-        this.size.set((i < 6 ? 1.1 : 2.5) * (1 + j * .16) * (.66 + .34 * ripple), .28 + j * .045, 1);
-        this.point.set(x + Math.sin(j * 1.6 + time * .42 * sim.wind) * (.24 + j * .04), WATER_Y + .025, z + .65 + distance);
-        this.matrix.compose(this.point, this.surfaceRotation, this.size); this.fragments.setMatrixAt(count, this.matrix);
+        const ripple = Math.sin(z * .15 + j * 1.37 + time * .65) * Math.sin(j * 2.399 - time * .31 + i);
+        this.size.set((i < 6 ? 1.1 : 2.5) * (1 + j * .16) * (.72 + .28 * ripple), .18 + j * .033, 1);
+        this.point.set(x + Math.sin(j * 1.6 + time * .42 + i) * (.24 + j * .065), 0, z + .65 + distance);
+        sampleWater(this.point.x, this.point.z, time, this.waterSample, frame);
+        this.point.y = WATER_Y + this.waterSample.height + .032;
+        this.alignContact(0);
+        this.matrix.compose(this.point, this.footprintRotation, this.size); this.fragments.setMatrixAt(count, this.matrix);
         const energy = (1 - j / segments) ** 1.45 * (sim.reducedFlashes ? .72 : 1);
         this.color.copy(this.reflectionColor).multiplyScalar(energy); this.fragments.setColorAt(count++, this.color);
       }
@@ -285,6 +318,25 @@ export class RiverLife {
     this.fragments.count = count; this.fragments.instanceMatrix.needsUpdate = true;
     if (this.fragments.instanceColor) this.fragments.instanceColor.needsUpdate = true;
   }
+
+  private alignContact(yaw: number) {
+    this.surfaceNormal.set(-this.waterSample.slopeX, 1, -this.waterSample.slopeZ).normalize();
+    this.waveRotation.setFromUnitVectors(this.up, this.surfaceNormal);
+    this.footprintRotation.copy(this.waveRotation).multiply(this.surfaceRotation)
+      .multiply(this.yawRotation.setFromAxisAngle(this.planeAxis, yaw));
+  }
+
+  private enableReflectionMeshes(root: THREE.Object3D) {
+    root.traverse(object => { if (object instanceof THREE.Mesh) object.layers.enable(3); });
+  }
+
+  /** Caller owns the vector; use the anchor itself, with no temporary arrays. */
+  practicalLightPosition(index: number, out: THREE.Vector3): boolean {
+    const anchor = this.lamps[index];
+    if (!anchor) return false;
+    anchor.getWorldPosition(out); return true;
+  }
+  get practicalLightCount() { return this.lamps.length; }
 
   diagnostics(camera: THREE.PerspectiveCamera) {
     this.point.copy(this.village.position).project(camera);
@@ -298,6 +350,10 @@ export class RiverLife {
       left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y);
     }
     const riverVillageScreenBounds = { left, top, right, bottom };
+    let riverContactChecksum = 0, riverReflectionChecksum = 0;
+    const contactMatrices = this.waterContact.instanceMatrix.array, reflectionMatrices = this.fragments.instanceMatrix.array;
+    for (let i = 0; i < this.waterContact.count * 16; i++) riverContactChecksum += contactMatrices[i] * (1 + i % 17);
+    for (let i = 0; i < this.fragments.count * 16; i++) riverReflectionChecksum += reflectionMatrices[i] * (1 + i % 19);
 
     return { riverBankScreen, riverVillageScreenBounds, riverScenery: this.authored ? 'Blender river-life-v008' : 'procedural river fallback', riverBoats: this.boats.length,
       riverBoatSource: this.authored ? 'Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0' : 'original procedural boats',
@@ -308,6 +364,12 @@ export class RiverLife {
       riverCandleFlames: this.flames.count, riverPointLights: 1,
       riverCandleGlows: this.candleGlows.length,
       riverWaterContactInstances: this.waterContact.count,
+      riverWaterPhase: this.lastWaterFrame.phase, riverWaterWaveCount: this.lastWaterFrame.waveCount,
+      riverContactChecksum, riverReflectionChecksum, riverHullSampleCount: this.boats.length * 4,
+      riverContactCapacity: 21, riverReflectionCapacity: 80,
+      riverContactAlignment: 'four hull points and wave-conforming fragments',
+      riverHullSamples: this.boats.map(boat => ({ height: boat.sampledHeight ?? 0, pitch: boat.sampledPitch ?? 0,
+        roll: boat.sampledRoll ?? 0, centerDeviation: boat.contactError ?? 0 })),
       riverSeatedFigures: this.authored ? 2 : 0,
       riverVillageHomes: this.authored ? 12 : 9,
       riverVillagePosition: { x: this.village.position.x, y: this.village.position.y, z: this.village.position.z },
