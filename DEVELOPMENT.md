@@ -2,11 +2,13 @@
 
 ## Source and branches
 
-**Main is the canonical ten-effect Grand Collection baseline after the owner's authorized promotion.** The source incorporates `feat/grand-collection`, the repaired `fix/viewability-recovery` and `fix/video-launch-flow`, ignition reliability and the cinematic V3 work. Those branches remain historical references. The separate `feat/fireworks-v1-implementation` is a competing older implementation, not a missing current-runtime update.
+**Main is the canonical thirteen-effect application baseline after the owner's authorized promotion.** The source incorporates `feat/grand-collection`, the repaired `fix/viewability-recovery` and `fix/video-launch-flow`, ignition reliability and the cinematic V3 work. Those branches remain historical references. The separate `feat/fireworks-v1-implementation` is a competing older implementation, not a missing current-runtime update.
 
 Start new feature/fix branches from freshly fetched main and use pull requests back to main. Continue an explicitly authorized task branch when appropriate. Do not reset unrelated work, force-push or delete branches. A ref conflict requires refreshing and reconciling, not force. The current main promotion is owner-authorized; future merges, domain changes and public licensing still require their applicable review/authorization.
 
 Commit coherent source, tests and documentation together. Explain changed behavior and actual evidence. The original five-effect/hold-ignition specifications remain historical; later owner-approved ten-effect and single-press decisions take precedence as documented in the current plan and evidence. See [the main promotion audit](docs/evidence/main-promotion.md) for source-history reconciliation.
+
+Current production also includes moon/water, the three Signature effects, open-sky controls, responsive launch support, moon-led startup and stable scene lighting through launches. [Latest reconciliation and release](docs/evidence/latest-production-2026-10-01/PRODUCTION.md) supersedes older release identifiers and layout descriptions below.
 
 ## Reproduce the application
 
