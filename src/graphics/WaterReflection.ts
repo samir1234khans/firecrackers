@@ -245,7 +245,7 @@ export class WaterReflection {
   }
   private reflectionRate(quality: Quality, aspect: number) {
     if (quality === 'low') return 0;
-    return quality === 'ultra' ? aspect < .72 ? 15 : 30 : aspect < .72 ? 10 : 15;
+    return quality === 'ultra' ? aspect < .72 ? 15 : 20 : aspect < .72 ? 10 : 15;
   }
   private ensureTarget(quality: Quality, aspect: number) {
     if (quality === 'low') { this.releaseTarget(); return; }

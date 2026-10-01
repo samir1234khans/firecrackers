@@ -11,12 +11,15 @@ const origins = {
   candidate: process.env.WATER_URL || 'http://127.0.0.1:4173/',
 };
 const seed = 20260916;
+const profileWidth = Number(process.env.WATER_PROFILE_WIDTH || 393);
+const profileHeight = Number(process.env.WATER_PROFILE_HEIGHT || 851);
+assert.ok(Number.isInteger(profileWidth) && profileWidth > 0 && Number.isInteger(profileHeight) && profileHeight > 0);
 const backends = process.env.WATER_PROFILE_BACKENDS?.split(',') || ['webgpu', 'webgl'];
 const categories = 'devtools.timeline,v8,disabled-by-default-devtools.timeline,blink.user_timing';
 const report = {
-  method: 'Installed native Chrome; sequential production/candidate phone backends. Authored assets active, simulation/RNG reset, 1.5s realtime warmup, 3s idle and two 7.5s realtime Gold Willow launches. Both sources use private CDP Runtime closure-scope scalar probes with a preallocated numeric buffer; full QA snapshot validates simultaneous scalar readings outside measurements. Debugger is never enabled. The inter-launch QA residue advance is outside sampled intervals and explicitly marked in the trace. CDP timeline attribution is diagnostic, not a replacement for untraced paired performance gates.',
+  method: 'Installed native Chrome; sequential production/candidate backends at the recorded viewport. Authored assets active, simulation/RNG reset, 1.5s realtime warmup, 3s idle and two 7.5s realtime Gold Willow launches. Both sources use private CDP Runtime closure-scope scalar probes with a preallocated numeric buffer; full QA snapshot validates simultaneous scalar readings outside measurements. Debugger is never enabled. The inter-launch QA residue advance is outside sampled intervals and explicitly marked in the trace. CDP timeline attribution is diagnostic, not a replacement for untraced paired performance gates.',
   limits: 'CDP trace instrumentation may alter timings. CPU water update includes bounded reflection work and its scheduling; absence of a reflection update does not mean water shading is absent from the main GPU pass. App submission cadence and CPU timings do not measure completed GPU time. Phone viewport is emulated on this PC; physical-phone and thermal endurance are unqualified.',
-  categories, seed, viewport: { width: 393, height: 851 }, runs: [], errors: [], failed: null,
+  categories, seed, viewport: { width: profileWidth, height: profileHeight }, runs: [], errors: [], failed: null,
 };
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
@@ -163,7 +166,7 @@ try {
     await validateWaterTimingProbe(page);
     const finalRelease = await page.evaluate(() => fetch('/release.json').then(response => response.json()));
     assert.equal(finalRelease.sha256, release.sha256, 'Source must remain stable during profiling');
-    const stem = `${source}-${backend}-393x851`;
+    const stem = `${source}-${backend}-${profileWidth}x${profileHeight}`;
     await writeFile(`${out}/${stem}-trace.json`, trace);
     await writeFile(`${out}/${stem}-frames.json`, JSON.stringify(samples));
     const assessment = traceAssessment(trace, samples, clockPoint);

@@ -28,10 +28,12 @@ try {
   assert.equal(root.status, 200); assert.equal(digest(Buffer.from(await root.arrayBuffer())), digest(await readFile('dist/index.html')));
   report.checks.push({ name: 'root serves exact candidate index', status: root.status });
   const production = await fetch('https://firecrackers.mainandmany.com/release.json', { signal: AbortSignal.timeout(30000), headers: { 'Cache-Control': 'no-cache' } }).then(response => response.json());
-  assert.equal(production.version, '2026-10-01.4');
-  assert.equal(production.sha256, '965c6eaa6ebd5aef2f5922831504a6bbe1c3879e24a26532432af279f5e09d51');
+  const productionVersion = process.env.WATER_PRODUCTION_VERSION || '2026-10-01.4';
+  const productionFingerprint = process.env.WATER_PRODUCTION_FINGERPRINT || '965c6eaa6ebd5aef2f5922831504a6bbe1c3879e24a26532432af279f5e09d51';
+  assert.equal(production.version, productionVersion);
+  assert.equal(production.sha256, productionFingerprint);
   report.production = { version: production.version, sha256: production.sha256 };
-  report.checks.push({ name: 'production unchanged', version: production.version, sha256: production.sha256 });
+  report.checks.push({ name: process.env.WATER_PRODUCTION_FINGERPRINT ? 'production matches explicitly selected release' : 'production unchanged', version: production.version, sha256: production.sha256 });
 } catch (error) { report.failed = error.stack; process.exitCode = 1; console.error(error); }
 await writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
 console.log(JSON.stringify({ base, checks: report.checks.length, version: report.release?.version, fingerprint: report.release?.sha256, failed: report.failed }));

@@ -388,14 +388,24 @@ export class FireworkRenderer {
             this.blastLight.intensity = 0;
             parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
-        this.opaqueDepth.update();
         this.water.setFrame(this.environment.waterFrame);
         this.moonLight.position.copy(this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera)).multiplyScalar(240);
         this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
-        const waterStart = performance.now();
-        this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
-        this.metrics.waterSubmitMs = performance.now() - waterStart;
-        this.post.render();
+        // Opaque depth resolves all current scene transforms once. Reflection
+        // and main passes can share that pose instead of traversing the same
+        // authored scene again for each render. Restore automatic updates even
+        // when a pass throws, so preparation/recovery keeps its normal contract.
+        this.opaqueDepth.update();
+        const automaticMatrices = this.scene.matrixWorldAutoUpdate;
+        this.scene.matrixWorldAutoUpdate = false;
+        try {
+            const waterStart = performance.now();
+            this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
+            this.metrics.waterSubmitMs = performance.now() - waterStart;
+            this.post.render();
+        } finally {
+            this.scene.matrixWorldAutoUpdate = automaticMatrices;
+        }
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;
     }
