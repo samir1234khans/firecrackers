@@ -1,3 +1,5 @@
+**Implementation follow-up:** Build `2026-10-01.6` adds the opt-in automated-show toggle on the water candidate branch. See [implementation evidence](IMMERSIVE-UI-IMPLEMENTATION.md). The original plan below is retained.
+
 # Immersive controls for automated shows
 
 **Owner-requested addition; planning only.** Continue the current moonlit-water implementation and qualification. This UI feature is a subsequent reviewable change and is not present in the water preview.

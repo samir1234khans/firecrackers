@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { AlertCircle, Download, Flame, Hand, Keyboard, MapPin, Maximize, Monitor, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { AlertCircle, Download, Eye, EyeOff, Flame, Hand, Keyboard, MapPin, Maximize, Monitor, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { FAMILIES, CONFIG_VERSION, familyKeyIndex } from './engine/catalog';
 import type { FamilyId, ShowPreset } from './engine/catalog';
 import { useWorld } from './engine/useWorld';
@@ -39,7 +39,9 @@ export default function App() {
   const [startupPresented, setStartupPresented] = useState(false);
   const [startupGuide, setStartupGuide] = useState(false);
   const startupFocusRequested = useRef(false);
-  const [hidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
+  const [presentationHidden, setHidden] = useState(() => parsePresentation(location.search).mode !== 'interactive');
+  const [immersive, setImmersive] = useState(false);
+  const immersiveToggle = useRef<HTMLButtonElement>(null);
   const [notice, setNotice] = useState('');
   const [noticeFamily, setNoticeFamily] = useState<FamilyId | null>(null);
   const host = useRef<HTMLDivElement>(null);
@@ -55,6 +57,11 @@ export default function App() {
   const platform = usePlatform(notify);
   const state = world.snapshot;
   const preparing = !startupPresented && !world.error;
+  const immersiveAvailable = presentation.mode === 'interactive' && Boolean(state.show) && !world.error && !preparing;
+  const immersiveActive = immersiveAvailable && immersive;
+  const hidden = presentationHidden || immersiveActive;
+  const immersiveRef = useRef(immersiveActive); immersiveRef.current = immersiveActive;
+  useEffect(() => { if (!immersiveAvailable) setImmersive(false); }, [immersiveAvailable]);
   const finishStartup = useCallback(() => {
     setStartupPresented(true); setStartupGuide(true);
     if (startupFocusRequested.current) { startupFocusRequested.current = false; requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('[data-family-icon][aria-pressed="true"]')?.focus({ preventScroll: true })); }
@@ -66,7 +73,7 @@ export default function App() {
   const context = useRef({ overlay: Boolean(overlay || modeOpen || preparing), prefs, state });
   context.current = { overlay: Boolean(overlay || modeOpen || preparing), prefs, state };
   const change = useCallback(<K extends keyof Preferences>(key: K, value: Preferences[K]) => setPrefs(p => ({ ...p, [key]: value })), []);
-  const wake = () => setHidden(false);
+  const wake = () => { setHidden(false); setImmersive(false); };
   const open = (next: Overlay) => { cancelDrag.current?.(); setModeOpen(false); if (!overlay) panelInvoker.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;  if (next === 'settings') { setSettingsSection('graphics'); setSettingsReturnFocus(false); } world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
   const close = () => { cancelDrag.current?.(); setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
   const cancelReset = () => { setSettingsReturnFocus(true); setOverlay('settings'); };
@@ -145,17 +152,19 @@ export default function App() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const c = context.current;
-      setHidden(false);
+      if (!immersiveRef.current || event.key === 'Escape') { setHidden(false); setImmersive(false); }
       if (c.overlay) return;
       if (event.key === 'Escape') {
         cancelDrag.current?.();
         return;
       }
-      if (event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea,[role="slider"]')) return;
+      if (immersiveRef.current && event.key !== ' ' && event.key.toLowerCase() !== 'm') return;
+      if (event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea,[role="slider"]') && !(immersiveRef.current && event.key.toLowerCase() === 'm')) return;
       const w = worldRef.current;
       if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
       if (event.key === ' ') {
         event.preventDefault();
+        setImmersive(false);
         w.pause(!w.sim.current.paused);
       }
       if (event.key.toLowerCase() === 'l') w.ignite();
@@ -236,11 +245,12 @@ export default function App() {
     data-launch-block={state.launchBlock}
     data-committed-id={state.committedId}
     data-drag-active={Boolean(drag)}
+    data-immersive={immersiveActive}
     className={`fireworks-app${hidden ? ' controls-hidden' : ''}${prefs.reducedMotion ? ' reduced-motion' : ''}${presentation.mode !== 'interactive' ? ' presentation-mode' : ''}`}
-    onPointerMove={wake}
+    onPointerMove={() => { if (!immersiveActive) setHidden(false); }}
     onPointerDownCapture={event => {
       revealTap.current = false;
-      if (overlay) return;
+      if (overlay || immersiveActive) return;
       if (hidden && !(event.target as HTMLElement).closest('[data-always]')) {
         event.preventDefault();
         event.stopPropagation();
@@ -255,7 +265,7 @@ export default function App() {
         revealTap.current = false;
       }
     }}
-    onFocusCapture={wake}
+    onFocusCapture={() => { if (!immersiveActive) setHidden(false); }}
   >
     <div ref={host} className='scene-host' aria-hidden='true'/>
     <CinematicHUD
@@ -280,9 +290,10 @@ export default function App() {
     {drag && overlay !== 'picker' && <div className={`burst-drop-target${drag.kind ? ` valid ${drag.kind}` : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'>{drag.kind === 'launch' ? <Flame size={26}/> : <Sparkles size={26}/>}<span>{drag.kind === 'launch' ? 'Release to launch' : drag.kind === 'burst' ? 'Release to burst' : 'Move over the sky or terrace'}</span></div>}
 
     {preparing && <StartupScreen {...world.startup} moonTarget={world.startupMoon() ?? undefined} reducedMotion={prefs.reducedMotion || state.reducedMotion} onComplete={finishStartup} onContinue={world.ready && world.startup.pending ? () => { startupFocusRequested.current = true; world.continueStartup(); } : undefined}/>}
-    {startupGuide && !preparing && !overlay && !world.error && <p className='startup-ready-note' role='status'>{world.startup.degraded ? 'Ready with available detail. ' : 'Ready. '}Tap a firework, or drag it into the sky.</p>}
+    {startupGuide && !hidden && !preparing && !overlay && !world.error && <p className='startup-ready-note' role='status'>{world.startup.degraded ? 'Ready with available detail. ' : 'Ready. '}Tap a firework, or drag it into the sky.</p>}
     {world.error && <section className='recovery' role='alert'><div className='panel-heading'><AlertCircle size={18} aria-hidden='true'/><h2>Graphics interrupted</h2></div><p>{world.error}</p><div className='button-row panel-actions'><button className='secondary-button' onClick={() => { world.reset(); setEpoch(e => e + 1); }}><RotateCcw size={16} aria-hidden='true'/>Retry current quality</button><a className='secondary-button' href='?backend=webgl'><Monitor size={16} aria-hidden='true'/>Try WebGL graphics</a><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}><Settings2 size={16} aria-hidden='true'/>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'><Monitor size={16} aria-hidden='true'/>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
-    <div className='reveal-controls' inert={preparing || undefined} aria-hidden={!hidden || preparing}>{hidden && <>
+    {immersiveAvailable && !overlay && <button ref={immersiveToggle} type='button' className='immersive-toggle' data-stage-control data-always='true' aria-label={immersiveActive ? 'Show controls' : 'Hide controls'} title={immersiveActive ? 'Show controls' : 'Hide controls'} aria-pressed={immersiveActive} onClick={() => { cancelDrag.current?.(); setPositionPreview(null); setModeOpen(false); immersiveToggle.current?.focus({ preventScroll: true }); setImmersive(value => !value); }}><Eye aria-hidden='true' size={20} className={immersiveActive ? 'toggle-glyph' : 'toggle-glyph active'}/><EyeOff aria-hidden='true' size={20} className={immersiveActive ? 'toggle-glyph active' : 'toggle-glyph'}/></button>}
+    <div className='reveal-controls' inert={preparing || undefined} aria-hidden={!hidden || preparing}>{presentationHidden && !immersiveActive && <>
       <button className='icon-button' aria-label='Show controls' onClick={wake}><Settings2 size={18}/></button>
       <button className='icon-button' aria-label={state.paused ? 'Resume scene' : 'Pause scene'} data-always='true' onClick={resumeOrPause}>{state.paused ? <Play size={18}/> : <Pause size={18}/>}</button>
       <button className='icon-button' aria-label={world.soundActive ? 'Mute sound' : 'Enable sound'} data-always='true' onClick={() => void toggleSound()}>{world.soundActive ? <Volume2 size={18}/> : <VolumeX size={18}/>}</button>
