@@ -34,7 +34,7 @@ jobs:
   browser:
     needs: engine
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:

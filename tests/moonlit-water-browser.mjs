@@ -61,7 +61,7 @@ function inspectWater(state, backend, quality, visible = true) {
     assert.ok(state.reflectionWidth > 0 && state.reflectionHeight > 0);
     assert.ok(Math.max(state.reflectionWidth, state.reflectionHeight) <= cap);
     const portraitWater = state.waterFarZ === -180;
-    const expectedHz = quality === 'ultra' ? (portraitWater ? 12 : 20) : (portraitWater ? 10 : 15);
+    const expectedHz = quality === 'ultra' ? (portraitWater ? 12 : 15) : (portraitWater ? 10 : 15);
     assert.equal(state.reflectionHz, expectedHz, 'Selected mirror cadence follows the explicit portrait budget');
     assert.equal(state.reflectionMode, 'planar');
     assert.equal(state.reflectionClipCoordinateSystem, backend);
@@ -194,6 +194,15 @@ try {
     await graphics(() => page.getByRole('checkbox', { name: 'Reduced flashes', exact: true }).check());
     assert.equal((await snap()).reducedFlashes, true); assert.equal((await snap()).waterPhase, 0);
     pass(`${backend}: reduced flashes remains independent of water motion`);
+    if (backend === 'canvas') {
+      await page.locator('[data-family-icon="gold-willow"]').click(); await advance(5);
+      const burstWater = await snap();
+      assert.equal(burstWater.riverReflectedParticleSourceLimit, 128);
+      assert.ok(burstWater.riverReflectedParticleSources > 0 && burstWater.riverReflectedParticleSources <= 128);
+      assert.equal(burstWater.riverReflectedParticleFragments, burstWater.riverReflectedParticleSources * 3);
+      await page.screenshot({ path: path.join(out, 'canvas-bounded-willow-reflection.png') });
+      pass('canvas: actual Willow reflection stays within its source and fragment limits');
+    }
     await openPanel(page, 'settings'); await settingsTab(page, 'Display');
     await page.getByLabel('Canvas output', { exact: true }).selectOption('transparent');
     await page.getByRole('button', { name: 'Close panel', exact: true }).click(); await render();

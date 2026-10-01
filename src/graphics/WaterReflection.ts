@@ -55,7 +55,6 @@ export class WaterReflection {
   private readonly burstCount = uniform(0, 'int');
   private readonly skyProjectionMatrix = uniform(new THREE.Matrix4());
   private readonly reflectionMatrix = uniform(this.planar.textureMatrix);
-  private readonly reflectionTexel = uniform(new THREE.Vector2(1, 1));
   private readonly waterline = uniform(.49);
   private readonly frame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: false };
   private last = -Infinity;
@@ -156,9 +155,10 @@ export class WaterReflection {
     const inside = smoothstep(0, .012, reflectionUV.x).mul(smoothstep(0, .012, reflectionUV.y))
       .mul(smoothstep(.988, 1, reflectionUV.x).oneMinus()).mul(smoothstep(.988, 1, reflectionUV.y).oneMinus());
     const reflected = this.reflectionNode.sample(reflectionUV.clamp(.001, .999)).rgb;
-    const blurred = this.reflectionNode.sample(reflectionUV.add(this.reflectionTexel.mul(vec2(1.5, .8))).clamp(.001, .999)).rgb
-      .add(this.reflectionNode.sample(reflectionUV.sub(this.reflectionTexel.mul(vec2(1.5, .8))).clamp(.001, .999)).rgb);
-    const dynamic = reflected.mul(.60).add(blurred.mul(.20)).mul(facets.mul(.72).add(.28))
+    // The bounded target is bilinearly enlarged into the main view. Its softer
+    // silhouettes and shared facet distortion need one filtered lookup, rather
+    // than three taps on every water pixel.
+    const dynamic = reflected.mul(facets.mul(.72).add(.28))
       .mul(fresnel.mul(.7).add(.30)).mul(this.strength).mul(this.enabled).mul(inside);
     // Bursts are launched in front of the quay: their mathematically correct
     // mirror can fall behind the walking surface. Actual burst anchors still
@@ -245,7 +245,7 @@ export class WaterReflection {
   }
   private reflectionRate(quality: Quality, aspect: number) {
     if (quality === 'low') return 0;
-    return quality === 'ultra' ? aspect < .72 ? 12 : 20 : aspect < .72 ? 10 : 15;
+    return quality === 'ultra' ? aspect < .72 ? 12 : 15 : aspect < .72 ? 10 : 15;
   }
   private ensureTarget(quality: Quality, aspect: number) {
     if (quality === 'low') { this.releaseTarget(); return; }
@@ -266,7 +266,6 @@ export class WaterReflection {
     } else if (this.target.width !== width || this.target.height !== height) {
       this.target.setSize(width, height); this.last = -Infinity;
     }
-    this.reflectionTexel.value.set(1 / width, 1 / height);
   }
   async warmup(renderer: THREE.WebGPURenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, quality: Quality, orient: OrientPass) {
     this.planar.update(camera, WATER_Y, renderer.coordinateSystem, this.frame);

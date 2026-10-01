@@ -168,9 +168,10 @@ async function addRenderedCadenceAssessment(dataset) {
   for (const comparison of combined) {
     const paired = dataset.comparisons.filter(pair => pair.type === 'paired' && pair.backend === comparison.backend && pair.width === comparison.width && pair.height === comparison.height && pair.workload === comparison.workload);
     comparison.repeatedRenderedCadenceRegression = paired.every(pair => !pair.renderedCadenceP95.withinAllowance);
-    comparison.repeatedNewRenderedTransitionOver50 = comparison.workload !== 'idle' && paired.every(pair => pair.transitionRenderedIntervals.candidate.over50Ms > 0 && pair.transitionRenderedIntervals.baseline.over50Ms === 0);
-    comparison.repeatedNewRenderedTransitionOver100 = comparison.workload !== 'idle' && paired.every(pair => pair.transitionRenderedIntervals.candidate.over100Ms > 0 && pair.transitionRenderedIntervals.baseline.over100Ms === 0);
+    comparison.repeatedNewRenderedTransitionOver50 = comparison.workload !== 'idle' && paired.filter(pair => pair.transitionRenderedIntervals.candidate.over50Ms > 0 && pair.transitionRenderedIntervals.baseline.over50Ms === 0).length >= 2;
+    comparison.repeatedNewRenderedTransitionOver100 = comparison.workload !== 'idle' && paired.filter(pair => pair.transitionRenderedIntervals.candidate.over100Ms > 0 && pair.transitionRenderedIntervals.baseline.over100Ms === 0).length >= 2;
   }
+  dataset.acceptance.repeatableHitchDefinition = 'A new transition over the threshold in at least two paired repetitions, retaining the original two-repeat criterion when extra repetitions are collected';
   dataset.acceptance.primaryMetric = 'App-rendered frame interval, from changes to the existing renderer frame counter; active scene capped at 60fps, idle retains its bounded cadence';
   dataset.acceptance.percentileMethod = 'p95Ms uses sorted[min(N-1,floor(N*.95))]; nearest-rank p95 is also retained as sorted[ceil(N*.95)-1]. Timings remain unrounded.';
   dataset.acceptance.appRenderedCadenceWithinAllowance = combined.every(comparison => comparison.renderedCadenceP95.withinAllowance && (!comparison.transitionRenderedCadenceP95 || comparison.transitionRenderedCadenceP95.withinAllowance));
@@ -223,7 +224,7 @@ try {
       rafP95: compareP95(before.raf.p95Ms, after.raf.p95Ms), cpuSubmissionP95: compareP95(before.cpuSubmission.p95Ms, after.cpuSubmission.p95Ms),
       transitionRafP95: workload === 'idle' ? null : compareP95(beforeTransition.raf.p95Ms, afterTransition.raf.p95Ms),
       repeatedCadenceRegression: repeats.every(comparison => !comparison.rafP95.withinAllowance),
-      repeatedTransitionOver100: workload !== 'idle' && repeats.every(comparison => comparison.transitionWorst.candidateOver100 > 0 && comparison.transitionWorst.baselineOver100 === 0),
+      repeatedTransitionOver100: workload !== 'idle' && repeats.filter(comparison => comparison.transitionWorst.candidateOver100 > 0 && comparison.transitionWorst.baselineOver100 === 0).length >= 2,
       baselineSummary: before, candidateSummary: after });
   }
   report.acceptance = {

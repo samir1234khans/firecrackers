@@ -5,6 +5,7 @@ import { openPanel, settingsTab } from './stage-helpers.mjs';
 
 const base = process.env.WATER_URL || 'http://127.0.0.1:4173/';
 const phase = process.env.CAPTURE_PHASE || 'after';
+const backend = process.env.CAPTURE_BACKEND || 'webgpu';
 const out = path.resolve(process.argv[2] || 'test-results/moonlit-captures');
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
@@ -14,7 +15,7 @@ try {
     const context = await browser.newContext({ viewport: { width, height }, serviceWorkers: 'block' });
     const page = await context.newPage();
     page.on('pageerror', error => report.errors.push(error.message));
-    await page.goto(`${base}?backend=webgpu&qa=1&seed=20260916`);
+    await page.goto(`${base}?backend=${backend}&qa=1&seed=20260916`);
     await page.waitForSelector('main[data-ready="true"][data-presented="true"]', { timeout: 90000 });
     await page.waitForFunction(() => Object.values(window.__firecrackersQA.snapshot().authoredAssetStates || {}).length >= 9 &&
       Object.values(window.__firecrackersQA.snapshot().authoredAssetStates).every(state => state === 'active'), undefined, { timeout: 90000 });

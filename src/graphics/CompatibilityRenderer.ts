@@ -41,6 +41,7 @@ export class CompatibilityRenderer implements RendererPort {
     private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
     private readonly hullSamples = Array.from({ length: 4 }, () => ({ height: 0, slopeX: 0, slopeZ: 0 }));
     private readonly waterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: true };
+    private reflectedWaterHeads = 0;
     private riverContactChecksum = 0;
     private riverReflectionChecksum = 0;
     private readonly canvas = document.createElement('canvas');
@@ -399,6 +400,7 @@ export class CompatibilityRenderer implements RendererPort {
         this.ctx.drawImage(sprite, x - radius, y - radius, radius * 2, radius * 2);
     }
     private drawWater() {
+        this.reflectedWaterHeads = 0;
         const c = this.ctx, s = this.sim, horizon = this.height * this.horizon, riverTime = this.riverTime();
         const terraceY = this.height * .92, waterHeight = Math.max(1, terraceY - horizon);
         this.prepareRiver(horizon, riverTime);
@@ -449,7 +451,7 @@ export class CompatibilityRenderer implements RendererPort {
             c.fillRect(x, baseY - ambientHeight * (3 + depth * 12), 1 + depth * (8 + i % 7 * 3), .4 + depth * .5);
         }
         this.drawRiverReflections(riverTime);
-        const p = s.heads, step = Math.max(1, Math.ceil(p.count / 450));
+        const p = s.heads, step = Math.max(1, Math.ceil(p.count / 128));
         for (let i = 0; i < p.count; i += step) {
             if (p.age[i] < 0) continue;
             const point = this.project(p.x[i], p.y[i], p.z[i]);
@@ -457,6 +459,7 @@ export class CompatibilityRenderer implements RendererPort {
             // stays inside the waterfront rather than remapping to the terrace.
             const elevation = Math.max(0, (horizon - point.y) / this.height);
             if (elevation <= 0) continue;
+            this.reflectedWaterHeads++;
             const reflected = horizon + waterHeight * elevation / (.46 + elevation);
             c.fillStyle = this.tone(p.r[i], p.g[i], p.b[i]);
             // Three adjacent marks belong to one coherent wave facet. Sample
@@ -665,6 +668,9 @@ export class CompatibilityRenderer implements RendererPort {
             skyFieldStars: this.celestialArt.metadata.fieldStars, skyClusterStars: this.celestialArt.metadata.clusteredStars,
             skyNearStars: this.celestialArt.metadata.nearStars, skyDustSpecks: this.celestialArt.metadata.dustSpecks,
             skyArtRgbaBytes: this.celestialArt.metadata.rgbaBytes,
+            riverReflectedParticleSourceLimit: 128,
+            riverReflectedParticleSources: this.mode === 'transparent' ? 0 : this.reflectedWaterHeads,
+            riverReflectedParticleFragments: this.mode === 'transparent' ? 0 : this.reflectedWaterHeads * 3,
             riverScenery: 'original Canvas river', riverBoats: this.mode === 'transparent' ? 0 : this.riverArt.boats.length,
             riverLampAnchors: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length,
             riverReflectionFragments: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length * (this.sim.quality === 'low' ? 4 : 8),

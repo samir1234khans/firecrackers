@@ -110,7 +110,7 @@ test('paused comfort and wave-setting changes refresh poses without bypassing ph
   } finally { f.dispose(); }
 });
 test('desktop and portrait reflection rates bound submissions independently of target resolution', () => {
-  for (const [aspect, quality, rate, cap] of [[1.6, 'ultra', 20, 512], [1.6, 'standard', 15, 256],
+  for (const [aspect, quality, rate, cap] of [[1.6, 'ultra', 15, 512], [1.6, 'standard', 15, 256],
     [.5, 'ultra', 12, 384], [.5, 'standard', 10, 256]]) {
     const f = fixture();
     try {
