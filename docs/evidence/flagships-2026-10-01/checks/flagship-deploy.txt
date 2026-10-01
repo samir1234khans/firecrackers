@@ -1,0 +1,47 @@
+
+ ⛅️ wrangler 4.143.0
+────────────────────
+🌀 Building list of assets...
+✨ Read 34 files from the assets directory C:\Users\samir\Documents\Codex\2026-09-29\s\work\firecrackers\dist
+🌀 Starting asset upload...
+🌀 Found 30 new or modified static assets to upload. Proceeding with upload...
++ /manifest.webmanifest
++ /sw.js
++ /icons/icon-512.png
++ /workbox-35e397ac.js
++ /art/ignition-flame.png
++ /audio/report-03.wav
++ /art/paper-color.png
++ /art/moon-lro-v001.png
++ /art/smoke-density-light-v005.png
++ /art/terrace-v008.glb
++ /icon.svg
++ /index.html
++ /assets/workbox-window.prod.es5-BBnX5xw4.js
++ /THIRD_PARTY_NOTICES.txt
++ /audio/report-02.wav
++ /assets/main-hfwgW0dY.css
++ /art/water-normal-v005.png
++ /assets/main-Anpkb-_D.js
++ /art/smoke-density-light.png
++ /art/river-life-v007.glb
++ /icons/icon-192.png
++ /assets/index-BfeKp90M.js
++ /release.json
++ /art/waterfront-night-v005.webp
++ /audio/report-01.wav
++ /art/water-normal.png
++ /art/rocket.glb
++ /art/terrace-v004.glb
++ /assets/Renderer-DPfX1BhS.js
++ /art/river-life-v008.glb
+Uploaded 10 of 30 assets
+Uploaded 20 of 30 assets
+Uploaded 30 of 30 assets
+✨ Success! Uploaded 30 files (7.18 sec)
+
+Total Upload: 0.31 KiB / gzip: 0.22 KiB
+Uploaded firecrackers-flagship-preview (12.16 sec)
+Deployed firecrackers-flagship-preview triggers (2.25 sec)
+  https://firecrackers-flagship-preview.allygym-api.workers.dev
+Current Version ID: 30ea31d6-2467-4610-bbc9-a71e52ad2778

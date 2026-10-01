@@ -1,3 +1,5 @@
+Three-signature candidate: [research/effect contract](evidence/flagships-2026-10-01/DESIGN.md), [verified preview and limits](evidence/flagships-2026-10-01/PREVIEW.md), [source/CI/deployment](evidence/flagships-2026-10-01/SOURCE.md), [actual captures](evidence/flagships-2026-10-01/comparison.html). Build `.2` retains the moon/water baseline and ten original effects; isolated [preview](https://firecrackers-flagship-preview.allygym-api.workers.dev/), open PR #26, production unchanged.
+
 Moon and natural water candidate: [research/implementation](evidence/moon-water-2026-10-01/RESEARCH.md), [verified preview](evidence/moon-water-2026-10-01/PREVIEW.md), [matched captures](evidence/moon-water-2026-10-01/comparison.html). This isolated candidate has not replaced production `.8`.
 
 # Current production redesign

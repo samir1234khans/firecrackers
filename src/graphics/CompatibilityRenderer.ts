@@ -1,8 +1,10 @@
-import { measureStage, stageFraming } from '../engine/StageLayout';
+import { measureStage, stageFraming, waterfrontHorizon } from '../engine/StageLayout';
 import type { StageLayout } from '../engine/StageLayout';
 import { resolveScreenLaunchProfile } from '../engine/LaunchProfile';
+import { signatureBody, signatureTint } from '../engine/FlagshipEffects';
+import { signatureEnvelope } from '../engine/SignatureDiagnostics';
 import { carrierTint } from '../engine/GrandEffects';
-import { BUDGETS, FAMILIES, clamp, randomStream } from '../engine/catalog';
+import { BUDGETS, FAMILIES, ROCKET_PROFILES, clamp, randomStream } from '../engine/catalog';
 import type { FamilyId, Quality } from '../engine/catalog';
 import type { Simulation, Rocket } from '../engine/Simulation';
 import type { RendererPort } from '../engine/RendererPort';
@@ -46,6 +48,7 @@ export class CompatibilityRenderer implements RendererPort {
     private width = 1;
     private height = 1;
     private baseline = 1;
+    private horizon = .72;
     private scale = 1;
     private ratio = 1;
     private disposed = false;
@@ -241,8 +244,9 @@ export class CompatibilityRenderer implements RendererPort {
         if (this.disposed) return;
         this.width = Math.max(1, this.host.clientWidth);
         this.height = Math.max(1, this.host.clientHeight);
-        updateMoonFrame(this.width, this.height, .72, this.moonFrame);
         this.layout = measureStage(this.host, this.mode === 'interactive');
+        this.horizon = waterfrontHorizon(this.layout, true);
+        updateMoonFrame(this.width, this.height, this.horizon, this.moonFrame);
         const framing = stageFraming(this.layout);
         this.baseline = framing.baseline;
         this.scale = framing.scale;
@@ -267,8 +271,9 @@ export class CompatibilityRenderer implements RendererPort {
         const depth = 240 / Math.max(140, 240 - z);
         return { x: this.width / 2 + x * this.scale * depth, y: this.baseline - (y - this.sim.ground) * this.scale * depth };
     }
-    resolveLaunchProfile(id: FamilyId) {
-        return resolveScreenLaunchProfile(this.layout, id, this.scale, y => this.sim.ground + (this.baseline - y) / this.scale);
+    resolveLaunchProfile(id: FamilyId, placement = this.sim.placement) {
+        return resolveScreenLaunchProfile(this.layout, id, this.scale, y => this.sim.ground + (this.baseline - y) / this.scale,
+            this.width / 2 + this.sim.placementToX(placement) * this.scale);
     }
     projectPlacement(clientX: number) {
         return clamp(.5 + (clientX - this.host.getBoundingClientRect().left - this.width / 2) / (this.scale * this.sim.launchSpan), .2, .8);
@@ -299,7 +304,7 @@ export class CompatibilityRenderer implements RendererPort {
         this.ctx.drawImage(sprite, x - radius, y - radius, radius * 2, radius * 2);
     }
     private drawWater() {
-        const c = this.ctx, s = this.sim, horizon = this.height * .72, riverTime = this.riverTime();
+        const c = this.ctx, s = this.sim, horizon = this.height * this.horizon, riverTime = this.riverTime();
         this.prepareRiver(horizon, riverTime);
         const water = c.createLinearGradient(0, horizon, 0, this.height);
         water.addColorStop(0, '#0b1d2b'); water.addColorStop(1, '#040b12');
@@ -327,12 +332,13 @@ export class CompatibilityRenderer implements RendererPort {
         this.drawRiverReflections(riverTime);
         const p = s.heads, step = Math.max(1, Math.ceil(p.count / 450));
         for (let i = 0; i < p.count; i += step) {
+            if (p.age[i] < 0) continue;
             const point = this.project(p.x[i], p.y[i], p.z[i]);
             const reflected = horizon + (horizon - point.y) * .38;
             c.fillStyle = this.tone(p.r[i], p.g[i], p.b[i]);
             for (let j = 0; j < 3; j++) {
                 const y = reflected + j * 3, ripple = Math.sin(y * .7 + s.time * s.wind * 2);
-                c.globalAlpha = Math.max(0, 1 - p.age[i] / p.life[i]) * (s.reducedFlashes ? .10 : .16) * (1 - j * .2);
+                c.globalAlpha = p.gain[i] * Math.max(0, 1 - p.age[i] / p.life[i]) * (s.reducedFlashes ? .10 : .16) * (1 - j * .2);
                 c.fillRect(point.x + ripple * 4 - 2, y, 3 + (ripple + 1) * 4, 1);
             }
         }
@@ -388,10 +394,11 @@ export class CompatibilityRenderer implements RendererPort {
         if (alpha < .002) return;
         this.bodies++;
         c.save(); c.translate(p.x, p.y); c.globalAlpha = alpha;
-        const w = Math.max(3.4, 3.8 * k), h = 11 * k;
+        const profile = r.family >= 10 ? ROCKET_PROFILES[r.family] : null;
+        const w = Math.max(3.4, 3.8 * k) * (profile?.[0] ?? 1), h = 11 * k * (profile?.[1] ?? 1);
         c.fillStyle = '#a2865e'; c.fillRect(-.5, -h * .5, 1, 9.4 * k + h * .5);
         const wrap = c.createLinearGradient(-w / 2, 0, w / 2, 0);
-        wrap.addColorStop(0, '#1d3147'); wrap.addColorStop(.4, '#657c91'); wrap.addColorStop(1, '#1d3147');
+        wrap.addColorStop(0, '#1d3147'); wrap.addColorStop(.4, signatureBody[r.family - 10] ?? '#657c91'); wrap.addColorStop(1, '#1d3147');
         c.fillStyle = wrap; c.fillRect(-w / 2, -16.3 * k, w, h);
         c.strokeStyle = '#bca475'; c.lineWidth = .8; c.strokeRect(-w / 2, -16.3 * k, w, h);
         c.fillStyle = FAMILIES[r.family].color; c.beginPath(); c.moveTo(-w * .6, -16.3 * k); c.lineTo(0, -20 * k); c.lineTo(w * .6, -16.3 * k); c.closePath(); c.fill();
@@ -414,7 +421,7 @@ export class CompatibilityRenderer implements RendererPort {
             sky.addColorStop(0, '#030916'); sky.addColorStop(.62, '#0c1b2b'); sky.addColorStop(1, '#050b13');
             c.fillStyle = sky; c.fillRect(0, 0, this.width, this.height);
             const crop = Math.min(1.35, Math.max(.26, this.width / this.height / 2));
-            const panoramaWidth = this.width / crop, skyHeight = this.height * .72 / .872;
+            const panoramaWidth = this.width / crop, skyHeight = this.height * this.horizon / .872;
             const left = (this.width - panoramaWidth) / 2;
             c.drawImage(this.celestialArt.stars, left, 0, panoramaWidth, skyHeight);
             const skyTime = this.celestialFrame.time, frame = this.celestialFrame;
@@ -422,13 +429,13 @@ export class CompatibilityRenderer implements RendererPort {
             const celestialHeight = celestialWidth / 2, celestialLeft = (this.width - celestialWidth) / 2;
             const ySpan = this.height / celestialHeight, celestialTop = -Math.min(0, 1 - ySpan) * .065 * celestialHeight;
             const angle = Math.sin(skyTime * .022) * .010;
-            c.save(); c.beginPath(); c.rect(0, 0, this.width, this.height * .72); c.clip();
+            c.save(); c.beginPath(); c.rect(0, 0, this.width, this.height * this.horizon); c.clip();
             c.globalAlpha = (s.quality === 'ultra' ? .60 : s.quality === 'standard' ? .48 : .30) * (s.reducedFlashes ? .72 : 1);
             c.translate(this.width / 2 + frame.dustX - Math.sin(skyTime * .018) * celestialWidth * .005,
                 celestialTop + celestialHeight / 2 + frame.dustY + (Math.cos(skyTime * .018) - 1) * celestialHeight * .003);
             c.rotate(angle); c.drawImage(this.celestialArt.dust, -celestialWidth / 2, -celestialHeight / 2, celestialWidth, celestialHeight); c.restore();
             const nearStrength = (s.quality === 'ultra' ? .85 : s.quality === 'standard' ? .66 : .44) * (s.reducedFlashes ? .82 : 1);
-            c.save(); c.beginPath(); c.rect(0, 0, this.width, this.height * .72); c.clip();
+            c.save(); c.beginPath(); c.rect(0, 0, this.width, this.height * this.horizon); c.clip();
             c.globalAlpha = nearStrength * frame.twinkle;
             c.drawImage(this.celestialArt.nearStars, celestialLeft + frame.nearX, celestialTop + frame.nearY, celestialWidth, celestialHeight);
             this.drawCelestialResponse(celestialLeft, celestialTop, celestialWidth, celestialHeight, nearStrength);
@@ -487,15 +494,16 @@ export class CompatibilityRenderer implements RendererPort {
             c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
         }
         for (const pool of [s.heads, s.embers]) for (let i = 0; i < pool.count; i++) {
+            if (pool.age[i] < 0) continue;
             const p = this.project(pool.x[i], pool.y[i], pool.z[i]);
-            const alpha = Math.pow(Math.max(0, 1 - pool.age[i] / pool.life[i]), .85);
+            const alpha = pool.gain[i] * Math.pow(Math.max(0, 1 - pool.age[i] / pool.life[i]), .85);
             // Quantize glow colours to avoid a new texture for every star.
             const quantize = (value: number) => Math.round(value * 8) / 8;
             this.glow(p.x, p.y, pool === s.embers ? 1.9 : 3.1, this.tone(quantize(pool.r[i]), quantize(pool.g[i]), quantize(pool.b[i])), alpha * (s.reducedFlashes ? .72 : .9));
         }
         for (const r of s.rockets) if (r.stage === 'ascent') {
             const p = this.project(...rocketPoint(r, SHELL_LOCAL_Y));
-            this.glow(p.x, p.y, 4.3, '#ffcf86', .9);
+            this.glow(p.x, p.y, 4.3, r.family >= 10 ? this.tone(...signatureTint(r.family)) : '#ffcf86', .9);
         }
         for (const carrier of s.cues) { const p = this.project(carrier.x, carrier.y, carrier.z); this.glow(p.x, p.y, 3.5, this.tone(...carrierTint(carrier.family, carrier.palette)), .8); }
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
@@ -506,10 +514,11 @@ export class CompatibilityRenderer implements RendererPort {
         this.metrics.frames++; this.metrics.submitMs = performance.now() - started;
     }
     diagnostics() {
+        const signatureBounds = signatureEnvelope(this.sim.heads, (x, y, z) => this.project(x, y, z));
         const r = this.sim.committed;
         const shell = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
-        return { moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
-            ...celestialDiagnostics(this.celestialFrame), skyHorizon: .72, skyLayers: 3, skyTextures: 0,
+        return { signatureBounds, moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
+            ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.horizon, skyLayers: 3, skyTextures: 0,
             skyArtWidth: this.celestialArt.stars.width, skyArtHeight: this.celestialArt.stars.height,
             skyCelestialCrop: Math.max(.6, Math.min(1.35, this.width / this.height / 2)), skyResponseCachePixels: 32768,
             skyFieldStars: this.celestialArt.metadata.fieldStars, skyClusterStars: this.celestialArt.metadata.clusteredStars,

@@ -28,7 +28,7 @@ export function measureStage(host: HTMLElement, interactive = true): StageLayout
     if (r && appearance.display !== 'none' && appearance.visibility !== 'hidden' && Number(appearance.opacity) >= .01)
       controls[`control-${index}`] = r;
   }
-  const reservedBottom = interactive ? (box.width - safe.left - safe.right < 680 ? 128 : 76) + safe.bottom : safe.bottom;
+  const reservedBottom = interactive ? (box.width - safe.left - safe.right < 680 ? 188 : box.width - safe.left - safe.right < 736 ? 136 : 76) + safe.bottom : safe.bottom;
   const sceneBottom = Math.min(box.height - reservedBottom, tray?.y ?? box.height);
   const heroRect = { x: safe.left, y: safe.top, width: Math.max(1, box.width - safe.left - safe.right), height: Math.max(1, sceneBottom - safe.top) };
   const framing = stageFraming({ heroRect, viewport: { width: box.width, height: box.height } });
@@ -48,6 +48,10 @@ export function stageFraming(layout: Pick<StageLayout, 'heroRect'> & { viewport:
   const scale = Math.max(.1, Math.min(heroRect.width / widthSpan, heroRect.height * .70 / 112));
   return { scale, span: viewport.height / scale, baseline: heroRect.y + heroRect.height * .92 };
 }
+/** Resize-only shoreline clearance for the three-row collection on short phones. */
+export function waterfrontHorizon(layout: Pick<StageLayout, 'heroRect'> & { viewport: Pick<StageRect, 'width' | 'height'> }, phone: boolean) {
+  return Math.min(phone ? .72 : .5, (layout.heroRect.y + layout.heroRect.height - 40) / layout.viewport.height);
+}
 
 /** Fit two stationary world anchors at resize: foreground ground and distant
  * water edge. Tray clearance must not lift the waterfront horizon. The solver
@@ -55,7 +59,7 @@ export function stageFraming(layout: Pick<StageLayout, 'heroRect'> & { viewport:
 export function stageCameraFrame(layout: Pick<StageLayout, 'heroRect'> & { viewport: Pick<StageRect, 'width' | 'height'> }, ground: number, fov = 42) {
   const framing = stageFraming(layout), { viewport } = layout;
   const phone = viewport.width / viewport.height < .72;
-  const horizon = phone ? .72 : .5;
+  const horizon = waterfrontHorizon(layout, phone);
   const waterZ = phone ? -180 : -1000;
   const tangent = Math.tan(fov * Math.PI / 360), distance = framing.span / (2 * tangent);
   const groundNdc = 1 - 2 * framing.baseline / viewport.height, waterNdc = 1 - 2 * horizon;

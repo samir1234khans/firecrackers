@@ -26,6 +26,8 @@
   text-align: center;
 }
 .bottom-collection-icons { display: grid; grid-template-columns: repeat(5, 48px); }
+.bottom-collection-group[data-family-shelf='signature'] { width: 144px; min-width: 144px; justify-self: center; }
+.bottom-collection-group[data-family-shelf='signature'] .bottom-collection-icons { grid-template-columns: repeat(3, 48px); }
 .bottom-collection-item { position: relative; width: 48px; height: 48px; }
 .bottom-collection-icon {
   display: flex;
@@ -95,4 +97,9 @@
     padding-top: 8px;
     padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
   }
+  .bottom-collection-group[data-family-shelf='signature'] { grid-column: 1 / -1; }
+}
+@container (min-width: 736px) {
+  .bottom-collection-groups { grid-template-columns: 240px 240px 144px; column-gap: 24px; }
+  .bottom-collection-group[data-family-shelf='signature'] { grid-column: auto; }
 }

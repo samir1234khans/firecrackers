@@ -1,0 +1,285 @@
+{
+  "method": "Sequential installed Chrome hardware WebGPU; fixed seed 20260916, 30 warmup renders, 6-second frozen effect state. CPU includes synchronous QA render submission; rAF is scheduling evidence, not completed GPU timing. No parallel test browser processes during the sample; emulated phone, not physical or thermal endurance.",
+  "results": [
+    {
+      "source": "baseline",
+      "url": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+      "id": "gold-willow",
+      "width": 393,
+      "height": 851,
+      "relativeBurstSeconds": 2,
+      "backend": "WebGPU",
+      "particles": 14474,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.1",
+        "sha256": "2e9aff20f01bdcbd7c57663d19c442b43b1eb305498795906f39b96048aaafc9"
+      },
+      "samples": 1228,
+      "rafP50": 4.199999999999818,
+      "rafP95": 8.399999999999636,
+      "cpuP50": 3.100000001490116,
+      "cpuP95": 3.5
+    },
+    {
+      "source": "baseline",
+      "url": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+      "id": "opal-supernova",
+      "width": 393,
+      "height": 851,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 15271,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.1",
+        "sha256": "2e9aff20f01bdcbd7c57663d19c442b43b1eb305498795906f39b96048aaafc9"
+      },
+      "samples": 1295,
+      "rafP50": 4.199999999999818,
+      "rafP95": 8.399999999999636,
+      "cpuP50": 3.2000000029802322,
+      "cpuP95": 3.600000001490116
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "gold-willow",
+      "width": 393,
+      "height": 851,
+      "relativeBurstSeconds": 2,
+      "backend": "WebGPU",
+      "particles": 14474,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 1309,
+      "rafP50": 4.199999999999818,
+      "rafP95": 8.300000000000182,
+      "cpuP50": 3,
+      "cpuP95": 3.5
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "opal-supernova",
+      "width": 393,
+      "height": 851,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 15271,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 1286,
+      "rafP50": 4.199999999999818,
+      "rafP95": 8.399999999999636,
+      "cpuP50": 3.399999998509884,
+      "cpuP95": 4.100000001490116
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "imperial-crown",
+      "width": 393,
+      "height": 851,
+      "relativeBurstSeconds": 4.2,
+      "backend": "WebGPU",
+      "particles": 24692,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 1180,
+      "rafP50": 4.199999999999818,
+      "rafP95": 8.399999999999636,
+      "cpuP50": 4.199999995529652,
+      "cpuP95": 5.100000001490116
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "celestial-aurora",
+      "width": 393,
+      "height": 851,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 12417,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 1396,
+      "rafP50": 4.199999999999818,
+      "rafP95": 4.300000000000182,
+      "cpuP50": 3.5,
+      "cpuP95": 4.0999999940395355
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "royal-phoenix",
+      "width": 393,
+      "height": 851,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 19668,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 1286,
+      "rafP50": 4.199999999999818,
+      "rafP95": 8.399999999999636,
+      "cpuP50": 4.100000001490116,
+      "cpuP95": 4.800000004470348
+    },
+    {
+      "source": "baseline",
+      "url": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+      "id": "gold-willow",
+      "width": 1280,
+      "height": 800,
+      "relativeBurstSeconds": 2,
+      "backend": "WebGPU",
+      "particles": 14474,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.1",
+        "sha256": "2e9aff20f01bdcbd7c57663d19c442b43b1eb305498795906f39b96048aaafc9"
+      },
+      "samples": 732,
+      "rafP50": 8.300000000000182,
+      "rafP95": 12.599999999999454,
+      "cpuP50": 3.100000001490116,
+      "cpuP95": 3.600000001490116
+    },
+    {
+      "source": "baseline",
+      "url": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+      "id": "opal-supernova",
+      "width": 1280,
+      "height": 800,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 15271,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.1",
+        "sha256": "2e9aff20f01bdcbd7c57663d19c442b43b1eb305498795906f39b96048aaafc9"
+      },
+      "samples": 761,
+      "rafP50": 8.300000000000182,
+      "rafP95": 12.5,
+      "cpuP50": 3.3000000044703484,
+      "cpuP95": 3.7000000029802322
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "gold-willow",
+      "width": 1280,
+      "height": 800,
+      "relativeBurstSeconds": 2,
+      "backend": "WebGPU",
+      "particles": 14474,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 753,
+      "rafP50": 8.300000000000182,
+      "rafP95": 12.599999999999454,
+      "cpuP50": 3.2000000029802322,
+      "cpuP95": 3.600000001490116
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "opal-supernova",
+      "width": 1280,
+      "height": 800,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 15271,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 686,
+      "rafP50": 8.300000000000182,
+      "rafP95": 16.5,
+      "cpuP50": 3.7000000029802322,
+      "cpuP95": 5.699999995529652
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "imperial-crown",
+      "width": 1280,
+      "height": 800,
+      "relativeBurstSeconds": 4.2,
+      "backend": "WebGPU",
+      "particles": 24692,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 809,
+      "rafP50": 8.300000000000182,
+      "rafP95": 12.5,
+      "cpuP50": 3.899999998509884,
+      "cpuP95": 4.4000000059604645
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "celestial-aurora",
+      "width": 1280,
+      "height": 800,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 12417,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 738,
+      "rafP50": 8.300000000000182,
+      "rafP95": 12.600000000000364,
+      "cpuP50": 3.7000000029802322,
+      "cpuP95": 4.5
+    },
+    {
+      "source": "candidate",
+      "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+      "id": "royal-phoenix",
+      "width": 1280,
+      "height": 800,
+      "relativeBurstSeconds": 3.1,
+      "backend": "WebGPU",
+      "particles": 19751,
+      "quality": "ultra",
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "samples": 723,
+      "rafP50": 8.300000000000182,
+      "rafP95": 12.600000000000364,
+      "cpuP50": 4.100000001490116,
+      "cpuP95": 4.700000002980232
+    }
+  ]
+}

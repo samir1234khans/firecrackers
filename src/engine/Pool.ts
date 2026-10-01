@@ -26,6 +26,10 @@ export class Pool {
     readonly carry: Float32Array;
     readonly split: Float32Array;
     readonly family: Float32Array;
+    readonly gain: Float32Array;
+    readonly role: Float32Array;
+    readonly wave: Float32Array;
+    readonly curve: Float32Array;
     private readonly arrays: Float32Array[];
     constructor(readonly capacity: number) {
         const a = () => new Float32Array(capacity);
@@ -53,7 +57,8 @@ export class Pool {
         this.carry = a();
         this.split = a();
         this.family = a();
-        this.arrays = [this.x, this.y, this.z, this.px, this.py, this.pz, this.vx, this.vy, this.vz, this.age, this.life, this.r, this.g, this.b, this.size, this.stretch, this.angle, this.drag, this.gravity, this.trail, this.carry, this.split, this.family];
+        this.gain = a(); this.role = a(); this.wave = a(); this.curve = a();
+        this.arrays = [this.x, this.y, this.z, this.px, this.py, this.pz, this.vx, this.vy, this.vz, this.age, this.life, this.r, this.g, this.b, this.size, this.stretch, this.angle, this.drag, this.gravity, this.trail, this.carry, this.split, this.family, this.gain, this.role, this.wave, this.curve];
     }
     add(x: number, y: number, z: number, vx: number, vy: number, vz: number, life: number, r: number, g: number, b: number, size: number, drag = 0.4, gravity = 2, trail = 0, split = 0, family = 0) {
         if (this.count >= this.capacity || !Number.isFinite(x + y + z + vx + vy + vz + life + r + g + b + size + drag + gravity + trail + split + family) || life <= 0)
@@ -80,6 +85,7 @@ export class Pool {
         this.carry[i] = 0;
         this.split[i] = split;
         this.family[i] = family;
+        this.gain[i] = 1; this.role[i] = this.wave[i] = this.curve[i] = 0;
         return i;
     }
     remove(i: number) {

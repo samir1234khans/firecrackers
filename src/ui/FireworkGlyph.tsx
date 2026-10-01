@@ -2,6 +2,7 @@ import { useId } from 'react';
 import type { FamilyId } from '../engine/catalog';
 import { familyIndex } from '../engine/catalog';
 import { GrandGlyph } from './GrandGlyph';
+import { SignatureGlyph } from './SignatureGlyph';
 import '../styles/hud-v3-art.css';
 
 type Props = { family: FamilyId; color: string };
@@ -19,6 +20,7 @@ function Radial({ color, dense = false }: { color: string; dense?: boolean }) {
 
 export function FireworkGlyph({ family, color }: Props) {
   const id = useId().replaceAll(':', '');
+  if (familyIndex(family) >= 10) return <SignatureGlyph family={family}/>;
   if (familyIndex(family) >= 5) return <GrandGlyph family={family} color={color} id={id}/>;
   return <svg className='firework-glyph' viewBox='0 0 80 80' aria-hidden='true'>
     <defs>

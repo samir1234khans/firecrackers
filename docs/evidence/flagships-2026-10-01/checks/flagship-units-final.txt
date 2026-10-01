@@ -1,0 +1,1160 @@
+
+> firecrackers@0.1.0 test
+> tsc -p tsconfig.engine.json && node --test tests/engine.test.mjs tests/v2.test.mjs tests/realism-v3.test.mjs tests/video-flow.test.mjs tests/release-fingerprint.test.mjs tests/renderer-recovery.test.mjs tests/grand-collection.test.mjs tests/stage-interactions.test.mjs tests/sky-state.test.mjs tests/celestial-scene.test.mjs tests/launch-composition.test.mjs tests/moon-water.test.mjs tests/flagship-effects.test.mjs
+
+TAP version 13
+# Subtest: a frozen shared time replays the complete celestial composition
+ok 1 - a frozen shared time replays the complete celestial composition
+  ---
+  duration_ms: 2.6136
+  type: 'test'
+  ...
+# Subtest: near-star pointer displacement stays within three CSS pixels at every edge and viewport
+ok 2 - near-star pointer displacement stays within three CSS pixels at every edge and viewport
+  ---
+  duration_ms: 0.2815
+  type: 'test'
+  ...
+# Subtest: an unengaged pointer produces no local response or pointer displacement
+ok 3 - an unengaged pointer produces no local response or pointer displacement
+  ---
+  duration_ms: 0.0761
+  type: 'test'
+  ...
+# Subtest: one seeded distant meteor occupies only its short upper-sky interval
+ok 4 - one seeded distant meteor occupies only its short upper-sky interval
+  ---
+  duration_ms: 0.1825
+  type: 'test'
+  ...
+# Subtest: meteor replay is seeded without consuming or modifying the input state
+ok 5 - meteor replay is seeded without consuming or modifying the input state
+  ---
+  duration_ms: 0.1106
+  type: 'test'
+  ...
+# Subtest: Low, reduced motion and excluded output can disable all celestial animation and response
+ok 6 - Low, reduced motion and excluded output can disable all celestial animation and response
+  ---
+  duration_ms: 0.1071
+  type: 'test'
+  ...
+# Subtest: reduced flashes attenuates a smooth meteor instead of adding an onset flash
+ok 7 - reduced flashes attenuates a smooth meteor instead of adding an onset flash
+  ---
+  duration_ms: 0.2999
+  type: 'test'
+  ...
+# Subtest: invalid state and dimensions stay finite and cannot activate a meteor
+ok 8 - invalid state and dimensions stay finite and cannot activate a meteor
+  ---
+  duration_ms: 0.0849
+  type: 'test'
+  ...
+# Subtest: updates reuse one bounded output and its sole meteor object across ten thousand frames
+ok 9 - updates reuse one bounded output and its sole meteor object across ten thousand frames
+  ---
+  duration_ms: 7.1973
+  type: 'test'
+  ...
+# Subtest: ten identities retain distinct original topology and lifetime
+ok 10 - ten identities retain distinct original topology and lifetime
+  ---
+  duration_ms: 0.6077
+  type: 'test'
+  ...
+# Subtest: uninterrupted hold commits once; release cannot duplicate it
+ok 11 - uninterrupted hold commits once; release cannot duplicate it
+  ---
+  duration_ms: 2.7666
+  type: 'test'
+  ...
+# Subtest: early release cancels hold but retains the selected object
+ok 12 - early release cancels hold but retains the selected object
+  ---
+  duration_ms: 0.9341
+  type: 'test'
+  ...
+# Subtest: accessible ignition follows fuse, ascent, burst, and cleanup
+ok 13 - accessible ignition follows fuse, ascent, burst, and cleanup
+  ---
+  duration_ms: 74.9076
+  type: 'test'
+  ...
+# Subtest: gold-willow emits its complete bounded behavior
+ok 14 - gold-willow emits its complete bounded behavior
+  ---
+  duration_ms: 34.468
+  type: 'test'
+  ...
+# Subtest: multicolor-peony emits its complete bounded behavior
+ok 15 - multicolor-peony emits its complete bounded behavior
+  ---
+  duration_ms: 17.5688
+  type: 'test'
+  ...
+# Subtest: chrysanthemum emits its complete bounded behavior
+ok 16 - chrysanthemum emits its complete bounded behavior
+  ---
+  duration_ms: 37.4548
+  type: 'test'
+  ...
+# Subtest: silver-crossette-crackle emits its complete bounded behavior
+ok 17 - silver-crossette-crackle emits its complete bounded behavior
+  ---
+  duration_ms: 13.5497
+  type: 'test'
+  ...
+# Subtest: grand-finale emits its complete bounded behavior
+ok 18 - grand-finale emits its complete bounded behavior
+  ---
+  duration_ms: 27.1934
+  type: 'test'
+  ...
+# Subtest: aurora-crown emits its complete bounded behavior
+ok 19 - aurora-crown emits its complete bounded behavior
+  ---
+  duration_ms: 53.1845
+  type: 'test'
+  ...
+# Subtest: ruby-dahlia emits its complete bounded behavior
+ok 20 - ruby-dahlia emits its complete bounded behavior
+  ---
+  duration_ms: 28.4504
+  type: 'test'
+  ...
+# Subtest: sapphire-saturn emits its complete bounded behavior
+ok 21 - sapphire-saturn emits its complete bounded behavior
+  ---
+  duration_ms: 16.191
+  type: 'test'
+  ...
+# Subtest: phoenix-palm emits its complete bounded behavior
+ok 22 - phoenix-palm emits its complete bounded behavior
+  ---
+  duration_ms: 23.5404
+  type: 'test'
+  ...
+# Subtest: opal-supernova emits its complete bounded behavior
+ok 23 - opal-supernova emits its complete bounded behavior
+  ---
+  duration_ms: 30.1412
+  type: 'test'
+  ...
+# Subtest: imperial-crown emits its complete bounded behavior
+ok 24 - imperial-crown emits its complete bounded behavior
+  ---
+  duration_ms: 48.8112
+  type: 'test'
+  ...
+# Subtest: celestial-aurora emits its complete bounded behavior
+ok 25 - celestial-aurora emits its complete bounded behavior
+  ---
+  duration_ms: 32.8258
+  type: 'test'
+  ...
+# Subtest: royal-phoenix emits its complete bounded behavior
+ok 26 - royal-phoenix emits its complete bounded behavior
+  ---
+  duration_ms: 31.0946
+  type: 'test'
+  ...
+# Subtest: pause freezes time, particles, fuse and input; resume does not catch up
+ok 27 - pause freezes time, particles, fuse and input; resume does not catch up
+  ---
+  duration_ms: 0.8673
+  type: 'test'
+  ...
+# Subtest: manual selection stops automatic scheduling permanently
+ok 28 - manual selection stops automatic scheduling permanently
+  ---
+  duration_ms: 48.13
+  type: 'test'
+  ...
+# Subtest: capacity rejects immediately without queuing an ignition
+ok 29 - capacity rejects immediately without queuing an ignition
+  ---
+  duration_ms: 0.7764
+  type: 'test'
+  ...
+# Subtest: finale director stops after its bounded duration
+ok 30 - finale director stops after its bounded duration
+  ---
+  duration_ms: 234.9844
+  type: 'test'
+  ...
+# Subtest: seeded simulation and director reproduce the same structure
+ok 31 - seeded simulation and director reproduce the same structure
+  ---
+  duration_ms: 290.8614
+  type: 'test'
+  ...
+# Subtest: reset releases everything and restores a calm idle scene
+ok 32 - reset releases everything and restores a calm idle scene
+  ---
+  duration_ms: 42.2088
+  type: 'test'
+  ...
+# Subtest: non-finite inputs cannot contaminate the scene
+ok 33 - non-finite inputs cannot contaminate the scene
+  ---
+  duration_ms: 0.7637
+  type: 'test'
+  ...
+# Subtest: particle pool bounds and compaction preserve live values
+ok 34 - particle pool bounds and compaction preserve live values
+  ---
+  duration_ms: 0.0654
+  type: 'test'
+  ...
+# Subtest: independent random streams stay repeatable and within range
+ok 35 - independent random streams stay repeatable and within range
+  ---
+  duration_ms: 0.1254
+  type: 'test'
+  ...
+# Subtest: exactly three append-only signature IDs; existing ten order remains stable
+ok 36 - exactly three append-only signature IDs; existing ten order remains stable
+  ---
+  duration_ms: 1.9546
+  type: 'test'
+  ...
+# Subtest: imperial-crown/low: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 37 - imperial-crown/low: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 77.9753
+  type: 'test'
+  ...
+# Subtest: imperial-crown/low: comfort policy preserves breaks and removes added curvature/modulation
+ok 38 - imperial-crown/low: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 41.9053
+  type: 'test'
+  ...
+# Subtest: imperial-crown/standard: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 39 - imperial-crown/standard: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 84.5869
+  type: 'test'
+  ...
+# Subtest: imperial-crown/standard: comfort policy preserves breaks and removes added curvature/modulation
+ok 40 - imperial-crown/standard: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 27.8207
+  type: 'test'
+  ...
+# Subtest: imperial-crown/ultra: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 41 - imperial-crown/ultra: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 67.1427
+  type: 'test'
+  ...
+# Subtest: imperial-crown/ultra: comfort policy preserves breaks and removes added curvature/modulation
+ok 42 - imperial-crown/ultra: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 30.2781
+  type: 'test'
+  ...
+# Subtest: celestial-aurora/low: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 43 - celestial-aurora/low: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 26.8937
+  type: 'test'
+  ...
+# Subtest: celestial-aurora/low: comfort policy preserves breaks and removes added curvature/modulation
+ok 44 - celestial-aurora/low: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 10.7485
+  type: 'test'
+  ...
+# Subtest: celestial-aurora/standard: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 45 - celestial-aurora/standard: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 34.1596
+  type: 'test'
+  ...
+# Subtest: celestial-aurora/standard: comfort policy preserves breaks and removes added curvature/modulation
+ok 46 - celestial-aurora/standard: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 17.2513
+  type: 'test'
+  ...
+# Subtest: celestial-aurora/ultra: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 47 - celestial-aurora/ultra: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 35.4559
+  type: 'test'
+  ...
+# Subtest: celestial-aurora/ultra: comfort policy preserves breaks and removes added curvature/modulation
+ok 48 - celestial-aurora/ultra: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 21.1791
+  type: 'test'
+  ...
+# Subtest: royal-phoenix/low: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 49 - royal-phoenix/low: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 22.9491
+  type: 'test'
+  ...
+# Subtest: royal-phoenix/low: comfort policy preserves breaks and removes added curvature/modulation
+ok 50 - royal-phoenix/low: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 8.2802
+  type: 'test'
+  ...
+# Subtest: royal-phoenix/standard: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 51 - royal-phoenix/standard: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 30.5597
+  type: 'test'
+  ...
+# Subtest: royal-phoenix/standard: comfort policy preserves breaks and removes added curvature/modulation
+ok 52 - royal-phoenix/standard: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 17.2895
+  type: 'test'
+  ...
+# Subtest: royal-phoenix/ultra: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+ok 53 - royal-phoenix/ultra: deterministic geometry, all reserved nonrecursive breaks and bounded cleanup
+  ---
+  duration_ms: 38.6154
+  type: 'test'
+  ...
+# Subtest: royal-phoenix/ultra: comfort policy preserves breaks and removes added curvature/modulation
+ok 54 - royal-phoenix/ultra: comfort policy preserves breaks and removes added curvature/modulation
+  ---
+  duration_ms: 20.9591
+  type: 'test'
+  ...
+# Subtest: three silhouettes have different spatial topology and stage schedules
+ok 55 - three silhouettes have different spatial topology and stage schedules
+  ---
+  duration_ms: 0.3273
+  type: 'test'
+  ...
+# Subtest: composition resolves finite upper-sky profiles and commits scale through rotation
+ok 56 - composition resolves finite upper-sky profiles and commits scale through rotation
+  ---
+  duration_ms: 47.6721
+  type: 'test'
+  ...
+# Subtest: quality changes with unborn signature breaks preserve reservations
+ok 57 - quality changes with unborn signature breaks preserve reservations
+  ---
+  duration_ms: 11.7844
+  type: 'test'
+  ...
+# Subtest: imperial-crown: exact sky point and off-centre terrace admission
+ok 58 - imperial-crown: exact sky point and off-centre terrace admission
+  ---
+  duration_ms: 118.3753
+  type: 'test'
+  ...
+# Subtest: celestial-aurora: exact sky point and off-centre terrace admission
+ok 59 - celestial-aurora: exact sky point and off-centre terrace admission
+  ---
+  duration_ms: 62.0661
+  type: 'test'
+  ...
+# Subtest: royal-phoenix: exact sky point and off-centre terrace admission
+ok 60 - royal-phoenix: exact sky point and off-centre terrace admission
+  ---
+  duration_ms: 69.2993
+  type: 'test'
+  ...
+# Subtest: append-only catalogue preserves all original IDs and provides ten safe prop profiles
+ok 61 - append-only catalogue preserves all original IDs and provides ten safe prop profiles
+  ---
+  duration_ms: 1.5982
+  type: 'test'
+  ...
+# Subtest: keys 1 through 0 address all ten families, with invalid shortcuts rejected
+ok 62 - keys 1 through 0 address all ten families, with invalid shortcuts rejected
+  ---
+  duration_ms: 0.1869
+  type: 'test'
+  ...
+# Subtest: Aurora Crown / low: finite, reserved, deterministic and fully cleaned up
+ok 63 - Aurora Crown / low: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 69.7652
+  type: 'test'
+  ...
+# Subtest: Aurora Crown / standard: finite, reserved, deterministic and fully cleaned up
+ok 64 - Aurora Crown / standard: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 62.8812
+  type: 'test'
+  ...
+# Subtest: Aurora Crown / ultra: finite, reserved, deterministic and fully cleaned up
+ok 65 - Aurora Crown / ultra: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 41.7941
+  type: 'test'
+  ...
+# Subtest: Ruby Dahlia / low: finite, reserved, deterministic and fully cleaned up
+ok 66 - Ruby Dahlia / low: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 17.3253
+  type: 'test'
+  ...
+# Subtest: Ruby Dahlia / standard: finite, reserved, deterministic and fully cleaned up
+ok 67 - Ruby Dahlia / standard: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 30.4381
+  type: 'test'
+  ...
+# Subtest: Ruby Dahlia / ultra: finite, reserved, deterministic and fully cleaned up
+ok 68 - Ruby Dahlia / ultra: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 37.7606
+  type: 'test'
+  ...
+# Subtest: Sapphire Saturn / low: finite, reserved, deterministic and fully cleaned up
+ok 69 - Sapphire Saturn / low: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 48.6606
+  type: 'test'
+  ...
+# Subtest: Sapphire Saturn / standard: finite, reserved, deterministic and fully cleaned up
+ok 70 - Sapphire Saturn / standard: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 35.4623
+  type: 'test'
+  ...
+# Subtest: Sapphire Saturn / ultra: finite, reserved, deterministic and fully cleaned up
+ok 71 - Sapphire Saturn / ultra: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 22.0596
+  type: 'test'
+  ...
+# Subtest: Phoenix Palm / low: finite, reserved, deterministic and fully cleaned up
+ok 72 - Phoenix Palm / low: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 23.6849
+  type: 'test'
+  ...
+# Subtest: Phoenix Palm / standard: finite, reserved, deterministic and fully cleaned up
+ok 73 - Phoenix Palm / standard: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 35.6498
+  type: 'test'
+  ...
+# Subtest: Phoenix Palm / ultra: finite, reserved, deterministic and fully cleaned up
+ok 74 - Phoenix Palm / ultra: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 36.1694
+  type: 'test'
+  ...
+# Subtest: Opal Supernova / low: finite, reserved, deterministic and fully cleaned up
+ok 75 - Opal Supernova / low: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 20.263
+  type: 'test'
+  ...
+# Subtest: Opal Supernova / standard: finite, reserved, deterministic and fully cleaned up
+ok 76 - Opal Supernova / standard: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 40.7425
+  type: 'test'
+  ...
+# Subtest: Opal Supernova / ultra: finite, reserved, deterministic and fully cleaned up
+ok 77 - Opal Supernova / ultra: finite, reserved, deterministic and fully cleaned up
+  ---
+  duration_ms: 43.9235
+  type: 'test'
+  ...
+# Subtest: Aurora layers have both jade upper crown and violet interior at Low
+ok 78 - Aurora layers have both jade upper crown and violet interior at Low
+  ---
+  duration_ms: 0.2497
+  type: 'test'
+  ...
+# Subtest: Dahlia retains twelve distinct petal clusters and champagne center
+ok 79 - Dahlia retains twelve distinct petal clusters and champagne center
+  ---
+  duration_ms: 0.1549
+  type: 'test'
+  ...
+# Subtest: Saturn retains a genuinely tilted ring and smaller blue sphere
+ok 80 - Saturn retains a genuinely tilted ring and smaller blue sphere
+  ---
+  duration_ms: 0.3297
+  type: 'test'
+  ...
+# Subtest: Phoenix has eleven rising arms and reserved traveling leaf parents
+ok 81 - Phoenix has eleven rising arms and reserved traveling leaf parents
+  ---
+  duration_ms: 12.4799
+  type: 'test'
+  ...
+# Subtest: Opal carriers are paced, palette-distinct and nonrecursive
+ok 82 - Opal carriers are paced, palette-distinct and nonrecursive
+  ---
+  duration_ms: 0.7852
+  type: 'test'
+  ...
+# Subtest: composite pause cancels time advancement without losing its remaining carriers
+ok 83 - composite pause cancels time advancement without losing its remaining carriers
+  ---
+  duration_ms: 35.7011
+  type: 'test'
+  ...
+# Subtest: mixed catalogue shows do not over-admit heads or lose reserved children
+ok 84 - mixed catalogue shows do not over-admit heads or lose reserved children
+  ---
+  duration_ms: 3751.4138
+  type: 'test'
+  ...
+# Subtest: invalid grand recipe inputs fail early instead of producing NaNs
+ok 85 - invalid grand recipe inputs fail early instead of producing NaNs
+  ---
+  duration_ms: 0.3757
+  type: 'test'
+  ...
+# Subtest: screen apex and grounded terrace 320x480
+ok 86 - screen apex and grounded terrace 320x480
+  ---
+  duration_ms: 1.8636
+  type: 'test'
+  ...
+# Subtest: screen apex and grounded terrace 375x667
+ok 87 - screen apex and grounded terrace 375x667
+  ---
+  duration_ms: 0.3307
+  type: 'test'
+  ...
+# Subtest: screen apex and grounded terrace 393x851
+ok 88 - screen apex and grounded terrace 393x851
+  ---
+  duration_ms: 0.1814
+  type: 'test'
+  ...
+# Subtest: screen apex and grounded terrace 768x1024
+ok 89 - screen apex and grounded terrace 768x1024
+  ---
+  duration_ms: 0.1535
+  type: 'test'
+  ...
+# Subtest: screen apex and grounded terrace 844x390
+ok 90 - screen apex and grounded terrace 844x390
+  ---
+  duration_ms: 0.2391
+  type: 'test'
+  ...
+# Subtest: screen apex and grounded terrace 1280x800
+ok 91 - screen apex and grounded terrace 1280x800
+  ---
+  duration_ms: 0.1401
+  type: 'test'
+  ...
+# Subtest: screen apex and grounded terrace 1920x1080
+ok 92 - screen apex and grounded terrace 1920x1080
+  ---
+  duration_ms: 0.2001
+  type: 'test'
+  ...
+# Subtest: resolved admission snapshots flight across resize, placement and selection
+ok 93 - resolved admission snapshots flight across resize, placement and selection
+  ---
+  duration_ms: 83.5124
+  type: 'test'
+  ...
+# Subtest: seeded automatic shows resolve each admission while sky drops retain their point
+ok 94 - seeded automatic shows resolve each admission while sky drops retain their point
+  ---
+  duration_ms: 7.5319
+  type: 'test'
+  ...
+# Subtest: tray reservation and rail bounds stay identical during drag
+ok 95 - tray reservation and rail bounds stay identical during drag
+  ---
+  duration_ms: 0.6282
+  type: 'test'
+  ...
+# Subtest: lunar composition stays circular and clear of top and horizon in supported viewports
+ok 96 - lunar composition stays circular and clear of top and horizon in supported viewports
+  ---
+  duration_ms: 0.6787
+  type: 'test'
+  ...
+# Subtest: buoyancy is bounded and uses the analytic slope of the same field
+ok 97 - buoyancy is bounded and uses the analytic slope of the same field
+  ---
+  duration_ms: 3.0505
+  type: 'test'
+  ...
+# Subtest: stationary shared clock produces identical boat state; waves evolve smoothly
+ok 98 - stationary shared clock produces identical boat state; waves evolve smoothly
+  ---
+  duration_ms: 0.9763
+  type: 'test'
+  ...
+# Subtest: detached embers are bounded, finite and cleared on reset
+ok 99 - detached embers are bounded, finite and cleared on reset
+  ---
+  duration_ms: 47.915
+  type: 'test'
+  ...
+# Subtest: ember detail does not perturb the core trajectory stream
+ok 100 - ember detail does not perturb the core trajectory stream
+  ---
+  duration_ms: 50.526
+  type: 'test'
+  ...
+# Subtest: fuse path clamps invalid inputs and travels continuously along one curve
+ok 101 - fuse path clamps invalid inputs and travels continuously along one curve
+  ---
+  duration_ms: 0.8071
+  type: 'test'
+  ...
+# Subtest: visible slow frames preserve virtual time up to the bounded catch-up budget
+ok 102 - visible slow frames preserve virtual time up to the bounded catch-up budget
+  ---
+  duration_ms: 32.6376
+  type: 'test'
+  ...
+# Subtest: visible frame adapter rejects invalid deltas and caps a long interruption
+ok 103 - visible frame adapter rejects invalid deltas and caps a long interruption
+  ---
+  duration_ms: 0.3269
+  type: 'test'
+  ...
+# Subtest: manual selection during an automatic fuse preserves the committed effect and takes over
+ok 104 - manual selection during an automatic fuse preserves the committed effect and takes over
+  ---
+  duration_ms: 16.6006
+  type: 'test'
+  ...
+# Subtest: host static diagnostic labels do not change application fingerprint
+ok 105 - host static diagnostic labels do not change application fingerprint
+  ---
+  duration_ms: 14.532
+  type: 'test'
+  ...
+# Subtest: handlers, safety labels, copy and classes remain fingerprinted
+ok 106 - handlers, safety labels, copy and classes remain fingerprinted
+  ---
+  duration_ms: 8.0344
+  type: 'test'
+  ...
+# Subtest: host-key expressions cannot hide executable differences
+ok 107 - host-key expressions cannot hide executable differences
+  ---
+  duration_ms: 0.9404
+  type: 'test'
+  ...
+# Subtest: non-JSX engine and CSS bytes remain exact except line-ending normalization
+ok 108 - non-JSX engine and CSS bytes remain exact except line-ending normalization
+  ---
+  duration_ms: 0.18
+  type: 'test'
+  ...
+# Subtest: ready renderer resolves and clears its deadline
+ok 109 - ready renderer resolves and clears its deadline
+  ---
+  duration_ms: 2.3554
+  type: 'test'
+  ...
+# Subtest: rejected renderer can be handled by the fallback path
+ok 110 - rejected renderer can be handled by the fallback path
+  ---
+  duration_ms: 0.6845
+  type: 'test'
+  ...
+# Subtest: hung renderer cannot leave startup loading indefinitely
+ok 111 - hung renderer cannot leave startup loading indefinitely
+  ---
+  duration_ms: 22.657
+  type: 'test'
+  ...
+# Subtest: unmount cancels pending initialization
+ok 112 - unmount cancels pending initialization
+  ---
+  duration_ms: 0.7821
+  type: 'test'
+  ...
+# Subtest: already-aborted initialization still handles its late rejection
+ok 113 - already-aborted initialization still handles its late rejection
+  ---
+  duration_ms: 0.4131
+  type: 'test'
+  ...
+# Subtest: one costly shader frame does not abandon a healthy 3D renderer
+ok 114 - one costly shader frame does not abandon a healthy 3D renderer
+  ---
+  duration_ms: 0.4035
+  type: 'test'
+  ...
+# Subtest: sustained unusable 3D frames trigger compatibility recovery
+ok 115 - sustained unusable 3D frames trigger compatibility recovery
+  ---
+  duration_ms: 0.2958
+  type: 'test'
+  ...
+# Subtest: hidden or idle transitions clear prior overload evidence
+ok 116 - hidden or idle transitions clear prior overload evidence
+  ---
+  duration_ms: 0.1463
+  type: 'test'
+  ...
+# Subtest: sky time is exactly the shared simulation time and reuses one bounded state
+ok 117 - sky time is exactly the shared simulation time and reuses one bounded state
+  ---
+  duration_ms: 2.9742
+  type: 'test'
+  ...
+# Subtest: pointer smoothing is deterministic across normal render cadences and settles
+ok 118 - pointer smoothing is deterministic across normal render cadences and settles
+  ---
+  duration_ms: 0.3531
+  type: 'test'
+  ...
+# Subtest: QA advance can change shared time without advancing frozen pointer response
+ok 119 - QA advance can change shared time without advancing frozen pointer response
+  ---
+  duration_ms: 0.0957
+  type: 'test'
+  ...
+# Subtest: reset, policy changes and invalid targets leave a finite neutral state
+ok 120 - reset, policy changes and invalid targets leave a finite neutral state
+  ---
+  duration_ms: 0.1733
+  type: 'test'
+  ...
+# Subtest: all motion restrictions are honored and idle cadence stays bounded
+ok 121 - all motion restrictions are honored and idle cadence stays bounded
+  ---
+  duration_ms: 0.1337
+  type: 'test'
+  ...
+# Subtest: sky input respects actual horizon, safe insets and every measured control
+ok 122 - sky input respects actual horizon, safe insets and every measured control
+  ---
+  duration_ms: 0.2029
+  type: 'test'
+  ...
+# Subtest: hover excludes drags and touch/pen response requires its own primary sky contact
+ok 123 - hover excludes drags and touch/pen response requires its own primary sky contact
+  ---
+  duration_ms: 0.1318
+  type: 'test'
+  ...
+# Subtest: drawer burst gold-willow: admission, cleanup and deterministic replay
+ok 124 - drawer burst gold-willow: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 130.0255
+  type: 'test'
+  ...
+# Subtest: drawer burst multicolor-peony: admission, cleanup and deterministic replay
+ok 125 - drawer burst multicolor-peony: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 24.9275
+  type: 'test'
+  ...
+# Subtest: drawer burst chrysanthemum: admission, cleanup and deterministic replay
+ok 126 - drawer burst chrysanthemum: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 57.332
+  type: 'test'
+  ...
+# Subtest: drawer burst silver-crossette-crackle: admission, cleanup and deterministic replay
+ok 127 - drawer burst silver-crossette-crackle: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 21.1558
+  type: 'test'
+  ...
+# Subtest: drawer burst grand-finale: admission, cleanup and deterministic replay
+ok 128 - drawer burst grand-finale: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 105.9261
+  type: 'test'
+  ...
+# Subtest: drawer burst aurora-crown: admission, cleanup and deterministic replay
+ok 129 - drawer burst aurora-crown: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 99.3223
+  type: 'test'
+  ...
+# Subtest: drawer burst ruby-dahlia: admission, cleanup and deterministic replay
+ok 130 - drawer burst ruby-dahlia: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 69.2394
+  type: 'test'
+  ...
+# Subtest: drawer burst sapphire-saturn: admission, cleanup and deterministic replay
+ok 131 - drawer burst sapphire-saturn: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 48.2703
+  type: 'test'
+  ...
+# Subtest: drawer burst phoenix-palm: admission, cleanup and deterministic replay
+ok 132 - drawer burst phoenix-palm: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 64.4459
+  type: 'test'
+  ...
+# Subtest: drawer burst opal-supernova: admission, cleanup and deterministic replay
+ok 133 - drawer burst opal-supernova: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 86.4653
+  type: 'test'
+  ...
+# Subtest: drawer burst imperial-crown: admission, cleanup and deterministic replay
+ok 134 - drawer burst imperial-crown: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 133.0231
+  type: 'test'
+  ...
+# Subtest: drawer burst celestial-aurora: admission, cleanup and deterministic replay
+ok 135 - drawer burst celestial-aurora: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 68.2231
+  type: 'test'
+  ...
+# Subtest: drawer burst royal-phoenix: admission, cleanup and deterministic replay
+ok 136 - drawer burst royal-phoenix: admission, cleanup and deterministic replay
+  ---
+  duration_ms: 78.6547
+  type: 'test'
+  ...
+# Subtest: drawer rejects pause, invalid positions and committed-flight replacement
+ok 137 - drawer rejects pause, invalid positions and committed-flight replacement
+  ---
+  duration_ms: 0.8792
+  type: 'test'
+  ...
+# Subtest: per-family launch commits the requested rocket once and leaves an in-flight rocket immutable
+ok 138 - per-family launch commits the requested rocket once and leaves an in-flight rocket immutable
+  ---
+  duration_ms: 1.2029
+  type: 'test'
+  ...
+# Subtest: pad drop left commits the release position and takes the normal flight path
+ok 139 - pad drop left commits the release position and takes the normal flight path
+  ---
+  duration_ms: 8.6389
+  type: 'test'
+  ...
+# Subtest: pad drop center commits the release position and takes the normal flight path
+ok 140 - pad drop center commits the release position and takes the normal flight path
+  ---
+  duration_ms: 8.5879
+  type: 'test'
+  ...
+# Subtest: pad drop right commits the release position and takes the normal flight path
+ok 141 - pad drop right commits the release position and takes the normal flight path
+  ---
+  duration_ms: 8.0645
+  type: 'test'
+  ...
+# Subtest: failed pad admissions retain the selected style and placement
+ok 142 - failed pad admissions retain the selected style and placement
+  ---
+  duration_ms: 0.6659
+  type: 'test'
+  ...
+# Subtest: next launch is available as soon as a burst begins, with no artificial rearm wait
+ok 143 - next launch is available as soon as a burst begins, with no artificial rearm wait
+  ---
+  duration_ms: 1.2245
+  type: 'test'
+  ...
+# Subtest: a sky burst leaves the next pad launch available immediately when capacity permits
+ok 144 - a sky burst leaves the next pad launch available immediately when capacity permits
+  ---
+  duration_ms: 0.5935
+  type: 'test'
+  ...
+# Subtest: manual launch takes over a show only when admitted
+ok 145 - manual launch takes over a show only when admitted
+  ---
+  duration_ms: 0.5667
+  type: 'test'
+  ...
+# Subtest: target-family capacity permits a smaller icon launch or drop when the current selection is too large
+ok 146 - target-family capacity permits a smaller icon launch or drop when the current selection is too large
+  ---
+  duration_ms: 1.4068
+  type: 'test'
+  ...
+# Subtest: virtual motion reaches fuse without non-finite state
+ok 147 - virtual motion reaches fuse without non-finite state
+  ---
+  duration_ms: 43.5815
+  type: 'test'
+  ...
+# Subtest: virtual motion reaches thrust without non-finite state
+ok 148 - virtual motion reaches thrust without non-finite state
+  ---
+  duration_ms: 21.8692
+  type: 'test'
+  ...
+# Subtest: virtual motion reaches coast without non-finite state
+ok 149 - virtual motion reaches coast without non-finite state
+  ---
+  duration_ms: 22.8054
+  type: 'test'
+  ...
+# Subtest: virtual motion reaches afterglow without non-finite state
+ok 150 - virtual motion reaches afterglow without non-finite state
+  ---
+  duration_ms: 22.0453
+  type: 'test'
+  ...
+# Subtest: powered ascent accelerates; coast loses speed without a discontinuity
+ok 151 - powered ascent accelerates; coast loses speed without a discontinuity
+  ---
+  duration_ms: 12.8546
+  type: 'test'
+  ...
+# Subtest: resizing does not change existing airborne trajectories
+ok 152 - resizing does not change existing airborne trajectories
+  ---
+  duration_ms: 25.4686
+  type: 'test'
+  ...
+# Subtest: pool identity and previous position move together during compaction
+ok 153 - pool identity and previous position move together during compaction
+  ---
+  duration_ms: 0.1344
+  type: 'test'
+  ...
+# Subtest: invalid pool removal cannot underflow live particles
+ok 154 - invalid pool removal cannot underflow live particles
+  ---
+  duration_ms: 0.0621
+  type: 'test'
+  ...
+# Subtest: trail endpoints stay owned after the source particle is recycled
+ok 155 - trail endpoints stay owned after the source particle is recycled
+  ---
+  duration_ms: 9.9311
+  type: 'test'
+  ...
+# Subtest: trail pool ignores non-finite endpoints and remains bounded
+ok 156 - trail pool ignores non-finite endpoints and remains bounded
+  ---
+  duration_ms: 0.413
+  type: 'test'
+  ...
+# Subtest: additional smoke randomness cannot change the next rocket
+ok 157 - additional smoke randomness cannot change the next rocket
+  ---
+  duration_ms: 84.3043
+  type: 'test'
+  ...
+# Subtest: finale carriers travel before breaking at their own positions
+ok 158 - finale carriers travel before breaking at their own positions
+  ---
+  duration_ms: 2.0201
+  type: 'test'
+  ...
+# Subtest: crossette splitting produces spatially moving children
+ok 159 - crossette splitting produces spatially moving children
+  ---
+  duration_ms: 17.5387
+  type: 'test'
+  ...
+# Subtest: low overlapping shows respect configured smoke and trail budgets
+ok 160 - low overlapping shows respect configured smoke and trail budgets
+  ---
+  duration_ms: 349.2557
+  type: 'test'
+  ...
+# Subtest: standard overlapping shows respect configured smoke and trail budgets
+ok 161 - standard overlapping shows respect configured smoke and trail budgets
+  ---
+  duration_ms: 539.0395
+  type: 'test'
+  ...
+# Subtest: ultra overlapping shows respect configured smoke and trail budgets
+ok 162 - ultra overlapping shows respect configured smoke and trail budgets
+  ---
+  duration_ms: 629.3946
+  type: 'test'
+  ...
+# Subtest: independent pause blockers preserve a manual pause
+ok 163 - independent pause blockers preserve a manual pause
+  ---
+  duration_ms: 0.2276
+  type: 'test'
+  ...
+# Subtest: closing an overlay cannot clear hidden or graphics blockers
+ok 164 - closing an overlay cannot clear hidden or graphics blockers
+  ---
+  duration_ms: 0.0539
+  type: 'test'
+  ...
+# Subtest: pause intent reset clears every blocker
+ok 165 - pause intent reset clears every blocker
+  ---
+  duration_ms: 0.0453
+  type: 'test'
+  ...
+# Subtest: a cancelled pending wake request releases its late token
+ok 166 - a cancelled pending wake request releases its late token
+  ---
+  duration_ms: 0.1959
+  type: 'test'
+  ...
+# Subtest: a hidden page cannot acquire a pending wake token
+ok 167 - a hidden page cannot acquire a pending wake token
+  ---
+  duration_ms: 0.0715
+  type: 'test'
+  ...
+# Subtest: wake disposal invalidates requests and future acquisition
+ok 168 - wake disposal invalidates requests and future acquisition
+  ---
+  duration_ms: 0.0675
+  type: 'test'
+  ...
+# Subtest: unsupported wake locking fails without throwing
+ok 169 - unsupported wake locking fails without throwing
+  ---
+  duration_ms: 0.0331
+  type: 'test'
+  ...
+# Subtest: presentation parser rejects arbitrary modes, seeds and rectangles
+ok 170 - presentation parser rejects arbitrary modes, seeds and rectangles
+  ---
+  duration_ms: 0.1912
+  type: 'test'
+  ...
+# Subtest: presentation links roundtrip only allowlisted operator settings
+ok 171 - presentation links roundtrip only allowlisted operator settings
+  ---
+  duration_ms: 0.4586
+  type: 'test'
+  ...
+# Subtest: quality changes use hysteresis rather than one slow frame
+ok 172 - quality changes use hysteresis rather than one slow frame
+  ---
+  duration_ms: 0.2825
+  type: 'test'
+  ...
+# Subtest: manual graphics selection is not overridden by the governor
+ok 173 - manual graphics selection is not overridden by the governor
+  ---
+  duration_ms: 0.1146
+  type: 'test'
+  ...
+# Subtest: Gold Willow: one committed rocket, apex break, and immediate next readiness
+ok 174 - Gold Willow: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 81.4977
+  type: 'test'
+  ...
+# Subtest: Multicolor Peony: one committed rocket, apex break, and immediate next readiness
+ok 175 - Multicolor Peony: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 16.9639
+  type: 'test'
+  ...
+# Subtest: Chrysanthemum: one committed rocket, apex break, and immediate next readiness
+ok 176 - Chrysanthemum: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 45.5069
+  type: 'test'
+  ...
+# Subtest: Silver Crossette Crackle: one committed rocket, apex break, and immediate next readiness
+ok 177 - Silver Crossette Crackle: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 16.4795
+  type: 'test'
+  ...
+# Subtest: Grand Finale: one committed rocket, apex break, and immediate next readiness
+ok 178 - Grand Finale: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 53.8199
+  type: 'test'
+  ...
+# Subtest: Aurora Crown: one committed rocket, apex break, and immediate next readiness
+ok 179 - Aurora Crown: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 61.1442
+  type: 'test'
+  ...
+# Subtest: Ruby Dahlia: one committed rocket, apex break, and immediate next readiness
+ok 180 - Ruby Dahlia: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 33.7928
+  type: 'test'
+  ...
+# Subtest: Sapphire Saturn: one committed rocket, apex break, and immediate next readiness
+ok 181 - Sapphire Saturn: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 19.884
+  type: 'test'
+  ...
+# Subtest: Phoenix Palm: one committed rocket, apex break, and immediate next readiness
+ok 182 - Phoenix Palm: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 30.1457
+  type: 'test'
+  ...
+# Subtest: Opal Supernova: one committed rocket, apex break, and immediate next readiness
+ok 183 - Opal Supernova: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 91.4005
+  type: 'test'
+  ...
+# Subtest: Imperial Crown: one committed rocket, apex break, and immediate next readiness
+ok 184 - Imperial Crown: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 78.9845
+  type: 'test'
+  ...
+# Subtest: Celestial Aurora: one committed rocket, apex break, and immediate next readiness
+ok 185 - Celestial Aurora: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 42.5156
+  type: 'test'
+  ...
+# Subtest: Royal Phoenix: one committed rocket, apex break, and immediate next readiness
+ok 186 - Royal Phoenix: one committed rocket, apex break, and immediate next readiness
+  ---
+  duration_ms: 40.8203
+  type: 'test'
+  ...
+# Subtest: selecting and positioning during a committed flight cannot mutate that rocket
+ok 187 - selecting and positioning during a committed flight cannot mutate that rocket
+  ---
+  duration_ms: 11.2497
+  type: 'test'
+  ...
+# Subtest: fuse and in-flight pause preserve the same exact state
+ok 188 - fuse and in-flight pause preserve the same exact state
+  ---
+  duration_ms: 7.827
+  type: 'test'
+  ...
+# Subtest: shared body, motor and shell attachments remain finite and ordered through the apex
+ok 189 - shared body, motor and shell attachments remain finite and ordered through the apex
+  ---
+  duration_ms: 0.2445
+  type: 'test'
+  ...
+# Subtest: afterglow does not reserve a fictitious occupied launch pad for sixteen seconds
+ok 190 - afterglow does not reserve a fictitious occupied launch pad for sixteen seconds
+  ---
+  duration_ms: 2.1231
+  type: 'test'
+  ...
+# Subtest: rapid manual attempts cannot spawn duplicates during any active flight
+ok 191 - rapid manual attempts cannot spawn duplicates during any active flight
+  ---
+  duration_ms: 1061.0892
+  type: 'test'
+  ...
+1..191
+# tests 191
+# suites 0
+# pass 191
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4498.06

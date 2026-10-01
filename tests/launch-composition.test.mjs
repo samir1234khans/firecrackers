@@ -2,14 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Simulation } from '../.test-build/engine/Simulation.js';
 import { FAMILIES } from '../.test-build/engine/catalog.js';
-import { stageFraming, stageCameraFrame, measureStage } from '../.test-build/engine/StageLayout.js';
+import { stageFraming, stageCameraFrame, waterfrontHorizon, measureStage } from '../.test-build/engine/StageLayout.js';
 import { resolveScreenLaunchProfile } from '../.test-build/engine/LaunchProfile.js';
 import { SHELL_LOCAL_Y } from '../.test-build/engine/LaunchGeometry.js';
 import { ROCKET_SCALE } from '../.test-build/engine/FusePath.js';
 
 const viewports = [[320,480],[375,667],[393,851],[768,1024],[844,390],[1280,800],[1920,1080]];
 for (const [width,height] of viewports) test(`screen apex and grounded terrace ${width}x${height}`, () => {
-  const trayHeight = width < 680 ? 128 : 76;
+  const trayHeight = width < 680 ? 188 : width < 736 ? 136 : 76;
   const layout = { viewport: { width,height }, heroRect: { x:0,y:0,width,height:height-trayHeight } };
   layout.unobstructedScene = layout.heroRect;
   const {scale,baseline} = stageFraming(layout);
@@ -17,7 +17,7 @@ for (const [width,height] of viewports) test(`screen apex and grounded terrace $
   const tangent = Math.tan(42*Math.PI/360), sine=Math.sin(frame.pitch),cosine=Math.cos(frame.pitch);
   const projectedY=(y,z)=>height*(1-(cosine*(y-frame.centerY)-sine*z)/((frame.distance-sine*(y-frame.centerY)-cosine*z)*tangent))/2;
   const waterY=projectedY(4.65,width/height<.72?-180:-1000);
-  assert.ok(Math.abs(waterY/height-(width/height<.72?.72:.5))<1e-9,'stable waterfront horizon');
+  assert.ok(Math.abs(waterY/height-waterfrontHorizon(layout,width/height<.72))<1e-9,'stable waterfront horizon');
   assert.ok(projectedY(16-9.8,0)<height-trayHeight,'launch pad ground contact above tray');
   assert.ok(baseline < height-trayHeight, 'ground contact stays above collection');
   for (const family of FAMILIES) {
@@ -64,11 +64,11 @@ test('tray reservation and rail bounds stay identical during drag', () => {
   globalThis.getComputedStyle=()=>({getPropertyValue:()=> '0', display:'block',visibility:'visible',opacity:'1'});
   try {
     const rect=(left,top,width,height)=>({left,top,right:left+width,bottom:top+height,width,height});
-    const parent={dataset:{overlay:'none'},querySelector:s=>s==='[data-family-tray]'?{getBoundingClientRect:()=>rect(0,539,375,128)}:s==='[data-control-rail]'?{getBoundingClientRect:()=>rect(319,190,48,144)}:null,querySelectorAll:()=>[]};
+    const parent={dataset:{overlay:'none'},querySelector:s=>s==='[data-family-tray]'?{getBoundingClientRect:()=>rect(0,479,375,188)}:s==='[data-control-rail]'?{getBoundingClientRect:()=>rect(319,190,48,144)}:null,querySelectorAll:()=>[]};
     const host={parentElement:parent,getBoundingClientRect:()=>rect(0,0,375,667)};
     const normal=measureStage(host); parent.dataset.dragActive='true'; const dragging=measureStage(host);
-    assert.deepEqual(normal,dragging); assert.equal(normal.heroRect.width,375); assert.equal(normal.heroRect.height,539);
-    assert.ok(normal.launchArea.y+normal.launchArea.height<=539);
-    assert.equal(normal.controls.rail.x,319);assert.equal(normal.controls.tray.y,539);
+    assert.deepEqual(normal,dragging); assert.equal(normal.heroRect.width,375); assert.equal(normal.heroRect.height,479);
+    assert.ok(normal.launchArea.y+normal.launchArea.height<=479);
+    assert.equal(normal.controls.rail.x,319);assert.equal(normal.controls.tray.y,479);
   } finally {globalThis.getComputedStyle=oldStyle}
 });

@@ -61,6 +61,16 @@ jobs:
         env:
           GRAND_PROJECT: ${{ matrix.project }}
         run: node tests/grand-collection-browser.mjs /tmp/grand-evidence
+      - name: Signature choreography, pointer input and safe composition
+        env:
+          FLAGSHIP_PROJECT: ${{ matrix.project }}
+        run: node tests/flagship-browser.mjs /tmp/flagship-evidence
+      - name: Signature native touch tap, drag and cancellation
+        if: matrix.project == 'mobile'
+        run: node tests/flagship-touch-browser.mjs /tmp/flagship-touch-evidence
+      - name: Signature offline and recovery regressions
+        if: always()
+        run: node tests/flagship-offline-recovery.mjs /tmp/flagship-offline-evidence
       - name: Original launch, offline and platform regressions
         if: always()
         env:
@@ -74,6 +84,9 @@ jobs:
           path: |
             /tmp/grand-evidence
             /tmp/original-evidence
+            /tmp/flagship-evidence
+            /tmp/flagship-offline-evidence
+            /tmp/flagship-touch-evidence
             /tmp/grand-server.log
           retention-days: 7
   recovery:

@@ -1,0 +1,2 @@
+PASS: 850 documentation/configuration structural checks
+Application graphics, browser, performance, audio, rights, and safety tests remain unrun.

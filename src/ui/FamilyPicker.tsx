@@ -8,16 +8,16 @@ import '../styles/grand-collection.css';
 type Props = { selectedId: FamilyId; available: boolean; onSelect: (id: FamilyId) => void; onDragStart?: (id: FamilyId, event: PointerEvent<HTMLButtonElement>) => void };
 /** Two sets of five, never ten squeezed touch targets. Selection stays authoritative. */
 export function FamilyPicker({ selectedId, available, onSelect, onDragStart }: Props) {
-    const [collection, setCollection] = useState(familyIndex(selectedId) >= 5 ? 1 : 0);
-    return <div className='collection-picker' data-collection={collection ? 'grand' : 'classics'}>
+    const [collection, setCollection] = useState(Math.floor(familyIndex(selectedId) / 5));
+    return <div className='collection-picker' data-collection={['classics', 'grand', 'signature'][collection]}>
         <div className='collection-switch' role='group' aria-label='Firework collections'>
-            {['Classics', 'Grand collection'].map((label, i) => <button
+            {['Classics', 'Grand collection', 'Signature'].map((label, i) => <button
                 key={label} type='button' aria-pressed={collection === i} disabled={!available}
                 onClick={() => setCollection(i)}>
                 <span>{label}</span>
             </button>)}
         </div>
-        <div className='flow-families' role='group' aria-label={collection ? 'Grand firework styles' : 'Classic firework styles'}>
+        <div className='flow-families' role='group' aria-label={['Classic firework styles', 'Grand firework styles', 'Signature firework styles'][collection]}>
             {FAMILIES.slice(collection * 5, collection * 5 + 5).map(family => <button
                 key={family.id} type='button' className={`flow-family${family.id === selectedId ? ' selected' : ''}`}
                 aria-label={family.name} aria-pressed={family.id === selectedId} title={`${family.name}: ${family.note}`}

@@ -102,7 +102,7 @@ async function inspectPanel(page, variant, spec, name) {
   assert.ok(r.x >= 8 && r.right <= v.width - 8 + .5 && r.y >= 8 && r.bottom <= v.height - 8 + .5,
     `${name}: panel must stay inside safe viewport gutters: ${JSON.stringify(geometry)}`);
   assert.ok(r.width <= 360.5, `${name}: width cap ${r.width}`);
-  assert.ok(r.height <= v.height - (compact ? (v.width < 680 ? 128 : 76) + 16 : 24) + .5, `${name}: height cap ${r.height}`);
+  assert.ok(r.height <= v.height - (compact ? (v.width < 680 ? 188 : v.width < 736 ? 136 : 76) + 16 : 24) + .5, `${name}: height cap ${r.height}`);
   if (compact) { const tray=await page.locator('[data-family-tray]').boundingBox(); assert.ok(r.bottom<=tray.y-7, `${name}: panel stays above tray`); }
   else {
     assert.ok(r.width >= (variant==='controls'?240:320) && r.width <= 360, `${name}: desktop panel width`);

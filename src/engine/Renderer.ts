@@ -1,6 +1,7 @@
 import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
 import { resolveScreenLaunchProfile } from './LaunchProfile';
+import { signatureEnvelope } from './SignatureDiagnostics';
 import * as THREE from 'three/webgpu';
 import { float, mix, pass, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
@@ -187,7 +188,7 @@ export class FireworkRenderer {
         this.bloomPass.strength.value = budget.bloom * (this.sim.reducedFlashes ? .7 : 1);
         this.metrics.renderPixels = Math.round(w * h * ratio * ratio);
     }
-    resolveLaunchProfile(id: FamilyId) {
+    resolveLaunchProfile(id: FamilyId, placement = this.sim.placement) {
         const l = this.layout;
         const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
         const point = new THREE.Vector3(), ndc = new THREE.Vector2(0, 0);
@@ -195,7 +196,7 @@ export class FireworkRenderer {
             ndc.y = 1 - y / l.viewport.height * 2;
             ray.setFromCamera(ndc, this.camera);
             return ray.ray.intersectPlane(plane, point)?.y ?? this.sim.ground + 72;
-        });
+        }, (new THREE.Vector3(this.sim.placementToX(placement), this.sim.ground + 72, 0).project(this.camera).x + 1) * l.viewport.width / 2);
     }
     projectPlacement(clientX: number) {
         const rect = this.host.getBoundingClientRect();
@@ -317,6 +318,11 @@ export class FireworkRenderer {
         this.metrics.frames++;
     }
     diagnostics() {
+        const sample = new THREE.Vector3();
+        const signatureBounds = signatureEnvelope(this.sim.heads, (x, y, z) => {
+            sample.set(x, y, z).project(this.camera);
+            return { x: (sample.x + 1) * this.host.clientWidth / 2, y: (1 - sample.y) * this.host.clientHeight / 2 };
+        });
         const r = this.sim.committed;
         const point = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         const projected = point ? new THREE.Vector3(...point).project(this.camera) : null;
@@ -331,7 +337,7 @@ export class FireworkRenderer {
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,
             shellScreen: projected ? { x: (projected.x + 1) * this.host.clientWidth / 2, y: (1 - projected.y) * this.host.clientHeight / 2 } : null,
             apexScreen: apex ? { x: (apex.x + 1) * this.host.clientWidth / 2, y: (1 - apex.y) * this.host.clientHeight / 2 } : null,
-            launchProfile: r?.launchProfile ?? null,
+            signatureBounds, launchProfile: r?.launchProfile ?? null,
             flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell: point } : null,
         };
     }

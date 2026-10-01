@@ -1,0 +1,4705 @@
+{
+  "base": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+  "seed": 20260916,
+  "method": "Installed Chrome hardware backends; viewport emulation, not physical devices",
+  "checks": [
+    {
+      "name": "Native WebGPU adapter",
+      "passed": true,
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "fallback": false
+    },
+    {
+      "name": "webgpu/393x851: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 393,
+        "height": 851,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 393,
+          "height": 663
+        },
+        "rail": {
+          "x": 337,
+          "y": 257.5,
+          "width": 48,
+          "height": 148,
+          "right": 385,
+          "bottom": 405.5
+        },
+        "tray": {
+          "x": 0,
+          "y": 663,
+          "width": 393,
+          "height": 188,
+          "right": 393,
+          "bottom": 851
+        },
+        "buttons": [
+          {
+            "x": 337,
+            "y": 257.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 305.5,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 337,
+            "y": 307.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 355.5,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 337,
+            "y": 357.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 405.5,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 76.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 124.5,
+            "bottom": 727,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 727,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 727,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 727,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 268.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 316.5,
+            "bottom": 727,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 76.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 124.5,
+            "bottom": 787,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 787,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 787,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 787,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 268.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 316.5,
+            "bottom": 787,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 847,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 847,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 847,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu/393x851/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.46885964065098,
+        "apexMin": 93.45617612781881,
+        "apexMax": 103.50146220331715,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 155.3761162739153,
+          "top": 178.5622980058644,
+          "right": 240.34605616910147,
+          "bottom": 265.13367580518155
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 116.7595609615914,
+          "top": 144.75118743329892,
+          "right": 278.5677545186224,
+          "bottom": 308.33621593063566
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 86.59614213685919,
+          "top": 124.42360114367038,
+          "right": 308.52260527828486,
+          "bottom": 347.3806479565173
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 69.00180264667668,
+          "top": 118.76662081319148,
+          "right": 326.45659447624115,
+          "bottom": 376.5094159787662
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 58.896014807569024,
+          "top": 121.94286873293896,
+          "right": 337.3839824590695,
+          "bottom": 399.9352266116622
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 53.22969426100639,
+          "top": 130.16374950656677,
+          "right": 344.23241905965045,
+          "bottom": 420.07452452178956
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "webgpu/393x851/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.46885964065098,
+        "apexMin": 93.45617612781881,
+        "apexMax": 103.50146220331715,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 162.48940000126223,
+          "top": 215.30170547590686,
+          "right": 236.03736603861444,
+          "bottom": 266.6254324886061
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 126.21563983827942,
+          "top": 187.73407373912332,
+          "right": 281.4582951830161,
+          "bottom": 299.47612261978094
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 94.93034861376292,
+          "top": 169.2861768521261,
+          "right": 321.4926334457848,
+          "bottom": 332.1365774309713
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 78.26490100324922,
+          "top": 163.74972236568433,
+          "right": 344.5917838638435,
+          "bottom": 355.8101148366935
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 69.5424454994743,
+          "top": 165.7463899773749,
+          "right": 358.00860891849686,
+          "bottom": 374.12756851499637
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 161.14233712579968,
+          "top": 256.06472155985807,
+          "right": 236.21325068285785,
+          "bottom": 330.84262528015546
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "webgpu/393x851/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.46885964065098,
+        "apexMin": 93.45617612781881,
+        "apexMax": 103.50146220331715,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 149.23913778819346,
+          "top": 204.01355099954165,
+          "right": 237.20769334236863,
+          "bottom": 237.16219890329901
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 105.39103029740193,
+          "top": 175.513685436455,
+          "right": 274.056543655774,
+          "bottom": 245.3172731449939
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 71.20859515057283,
+          "top": 160.3719042816943,
+          "right": 303.57346294755035,
+          "bottom": 264.4495672840658
+        },
+        {
+          "family": 12,
+          "count": 467,
+          "left": 51.17282778993525,
+          "top": 152.21326695667992,
+          "right": 321.59846716957077,
+          "bottom": 292.92462513792015
+        },
+        {
+          "family": 12,
+          "count": 260,
+          "left": 39.588623069837034,
+          "top": 154.83688140667653,
+          "right": 332.83399277156326,
+          "bottom": 317.4450482908113
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 165.95703978280477,
+          "top": 268.9569150826624,
+          "right": 232.40253994113607,
+          "bottom": 335.7980113871591
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "webgpu/393/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgpu/393/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgpu/393/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgpu: panel pause ownership, Low, OS comfort and reset",
+      "passed": true
+    },
+    {
+      "name": "Native WebGPU adapter",
+      "passed": true,
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "fallback": false
+    },
+    {
+      "name": "webgpu/1280x800: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "rail": {
+          "x": 1220,
+          "y": 288,
+          "width": 48,
+          "height": 148,
+          "right": 1268,
+          "bottom": 436
+        },
+        "tray": {
+          "x": 0,
+          "y": 724,
+          "width": 1280,
+          "height": 76,
+          "right": 1280,
+          "bottom": 800
+        },
+        "buttons": [
+          {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 336,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1220,
+            "y": 338,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 386,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1220,
+            "y": 388,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 436,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 304,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 352,
+            "bottom": 792,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 352,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 400,
+            "bottom": 792,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 400,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 448,
+            "bottom": 792,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 448,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 496,
+            "bottom": 792,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 496,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 544,
+            "bottom": 792,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 568,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 616,
+            "bottom": 792,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 792,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 664,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 712,
+            "bottom": 792,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 712,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 760,
+            "bottom": 792,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 760,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 808,
+            "bottom": 792,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 832,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 880,
+            "bottom": 792,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 880,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 928,
+            "bottom": 792,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 928,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 976,
+            "bottom": 792,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgpu/1280x800/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 97.40140364161714,
+        "apexMin": 94.00609919697116,
+        "apexMax": 97.40140364161714,
+        "centerFraction": 0.3484254143646409,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 563.8297762421364,
+          "top": 179.74961396318352,
+          "right": 718.3465620788661,
+          "bottom": 337.5533080150383
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 492.0869109079112,
+          "top": 115.49030629771693,
+          "right": 787.2424846298534,
+          "bottom": 415.53477234855814
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 435.42216106173487,
+          "top": 76.37696281293684,
+          "right": 840.6941078387513,
+          "bottom": 486.5330375488005
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 402.2696481555321,
+          "top": 65.82863349351919,
+          "right": 872.0438137079079,
+          "bottom": 539.6106609640988
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 383.3342685695746,
+          "top": 72.17956293075636,
+          "right": 890.493590658052,
+          "bottom": 582.1888449120343
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 372.875617125838,
+          "top": 88.41888541814407,
+          "right": 901.4284839186313,
+          "bottom": 618.5980096688843
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "webgpu/1280x800/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.72540213273759,
+        "apexMin": 94.00609919697116,
+        "apexMax": 103.43082569907115,
+        "centerFraction": 0.34,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 577.1134944007085,
+          "top": 219.03567563640613,
+          "right": 710.5859749456669,
+          "bottom": 306.6264150652567
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 515.4167443528395,
+          "top": 163.0352881934884,
+          "right": 797.3845799901164,
+          "bottom": 371.6560676497533
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 463.3571823085902,
+          "top": 128.60814163087352,
+          "right": 875.408822813781,
+          "bottom": 432.4842136594481
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 435.81523173206904,
+          "top": 118.75232640510913,
+          "right": 920.8291753166425,
+          "bottom": 475.0407512449362
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 421.5945272875311,
+          "top": 122.9460002346086,
+          "right": 946.7631521612872,
+          "bottom": 508.3557476825126
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 574.878898959225,
+          "top": 298.1920630591652,
+          "right": 708.4873447743537,
+          "bottom": 430.8750045330675
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "webgpu/1280x800/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.72540213273759,
+        "apexMin": 94.00609919697116,
+        "apexMax": 102.86769136626735,
+        "centerFraction": 0.34,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 553.4107142277709,
+          "top": 198.7854096985816,
+          "right": 712.4557609017895,
+          "bottom": 256.6605371100966
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 474.21927268174505,
+          "top": 146.1532226371622,
+          "right": 778.5486815495545,
+          "bottom": 263.8764593050804
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 411.35684718711445,
+          "top": 117.33291883098089,
+          "right": 831.0476545540628,
+          "bottom": 298.16863055302827
+        },
+        {
+          "family": 12,
+          "count": 467,
+          "left": 371.24647016080473,
+          "top": 105.29211456468613,
+          "right": 862.3640298495565,
+          "bottom": 358.78773661408457
+        },
+        {
+          "family": 12,
+          "count": 260,
+          "left": 347.9844455175378,
+          "top": 110.60654754949462,
+          "right": 881.0707466098166,
+          "bottom": 401.75935574736707
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 583.8926075389608,
+          "top": 317.2634135438886,
+          "right": 702.091383899327,
+          "bottom": 435.20093653122933
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "webgpu/1280/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgpu/1280/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgpu/1280/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl/393x851: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 393,
+        "height": 851,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 393,
+          "height": 663
+        },
+        "rail": {
+          "x": 337,
+          "y": 257.5,
+          "width": 48,
+          "height": 148,
+          "right": 385,
+          "bottom": 405.5
+        },
+        "tray": {
+          "x": 0,
+          "y": 663,
+          "width": 393,
+          "height": 188,
+          "right": 393,
+          "bottom": 851
+        },
+        "buttons": [
+          {
+            "x": 337,
+            "y": 257.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 305.5,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 337,
+            "y": 307.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 355.5,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 337,
+            "y": 357.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 405.5,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 76.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 124.5,
+            "bottom": 727,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 727,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 727,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 727,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 268.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 316.5,
+            "bottom": 727,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 76.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 124.5,
+            "bottom": 787,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 787,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 787,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 787,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 268.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 316.5,
+            "bottom": 787,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 847,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 847,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 847,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl/393x851/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.46885964065065,
+        "apexMin": 93.45617612781923,
+        "apexMax": 103.50146220331723,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 155.38032375688246,
+          "top": 178.5622980058644,
+          "right": 240.35022593489867,
+          "bottom": 265.13367580518155
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 116.76515550093656,
+          "top": 144.75118743329892,
+          "right": 278.57328298272785,
+          "bottom": 308.33621593063566
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 86.60442567083163,
+          "top": 124.42360114367038,
+          "right": 308.53076200942724,
+          "bottom": 347.3806479565173
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 69.01362175413924,
+          "top": 118.76662081319148,
+          "right": 326.4681330286433,
+          "bottom": 376.5094159787662
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 58.9120103229526,
+          "top": 121.94286873293896,
+          "right": 337.3996522158717,
+          "bottom": 399.9352266116622
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 53.25031478055387,
+          "top": 130.16374950656677,
+          "right": 344.25258341277754,
+          "bottom": 420.07452452178956
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "webgl/393x851/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.46885964065065,
+        "apexMin": 93.45617612781923,
+        "apexMax": 103.50146220331723,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 162.1811645851615,
+          "top": 215.30076223968703,
+          "right": 235.72713274854124,
+          "bottom": 266.62449666271374
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 125.86063385542411,
+          "top": 187.7335004124195,
+          "right": 281.077778515908,
+          "bottom": 299.47517663961963
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 94.43398152965564,
+          "top": 169.28509316534064,
+          "right": 320.9447348320747,
+          "bottom": 332.1322361506765
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 77.5870537423521,
+          "top": 163.75228996111568,
+          "right": 343.8316774982648,
+          "bottom": 355.8033811729871
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 68.65877251137783,
+          "top": 165.74947544620036,
+          "right": 357.00928561851237,
+          "bottom": 374.1195874355856
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 160.53530108758613,
+          "top": 256.06302572008866,
+          "right": 235.60847595818325,
+          "bottom": 330.8405298233265
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "webgl/393x851/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.46885964065065,
+        "apexMin": 93.45617612781923,
+        "apexMax": 103.50146220331723,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 150.2736881843761,
+          "top": 202.1438593176979,
+          "right": 239.4510476846891,
+          "bottom": 234.87908320956896
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 106.59872166477514,
+          "top": 174.26740842071936,
+          "right": 276.1520877452886,
+          "bottom": 245.01128555405114
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 72.46778850447079,
+          "top": 158.93643449118892,
+          "right": 305.3394320809181,
+          "bottom": 266.0266757140793
+        },
+        {
+          "family": 12,
+          "count": 458,
+          "left": 52.343357460670575,
+          "top": 151.06565476209605,
+          "right": 323.1038376129979,
+          "bottom": 289.2043278994748
+        },
+        {
+          "family": 12,
+          "count": 251,
+          "left": 40.578317812415236,
+          "top": 168.49164110305776,
+          "right": 334.0637338004786,
+          "bottom": 313.1030555311877
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 166.95379620349337,
+          "top": 265.76601774274644,
+          "right": 231.40191859354462,
+          "bottom": 331.57982804645604
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "webgl/393/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl/393/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl/393/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl: panel pause ownership, Low, OS comfort and reset",
+      "passed": true
+    },
+    {
+      "name": "webgl/1280x800: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "rail": {
+          "x": 1220,
+          "y": 288,
+          "width": 48,
+          "height": 148,
+          "right": 1268,
+          "bottom": 436
+        },
+        "tray": {
+          "x": 0,
+          "y": 724,
+          "width": 1280,
+          "height": 76,
+          "right": 1280,
+          "bottom": 800
+        },
+        "buttons": [
+          {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 336,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1220,
+            "y": 338,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 386,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1220,
+            "y": 388,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 436,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 304,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 352,
+            "bottom": 792,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 352,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 400,
+            "bottom": 792,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 400,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 448,
+            "bottom": 792,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 448,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 496,
+            "bottom": 792,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 496,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 544,
+            "bottom": 792,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 568,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 616,
+            "bottom": 792,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 792,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 664,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 712,
+            "bottom": 792,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 712,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 760,
+            "bottom": 792,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 760,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 808,
+            "bottom": 792,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 832,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 880,
+            "bottom": 792,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 880,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 928,
+            "bottom": 792,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 928,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 976,
+            "bottom": 792,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl/1280x800/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 97.40140364161725,
+        "apexMin": 94.00609919697078,
+        "apexMax": 97.40140364161725,
+        "centerFraction": 0.3484254143646409,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 563.8122407554154,
+          "top": 179.74957826228265,
+          "right": 718.3293549136248,
+          "bottom": 337.5532731054692
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 492.0630918063418,
+          "top": 115.49030629771693,
+          "right": 787.2194527164672,
+          "bottom": 415.53473767165804
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 435.3861559226638,
+          "top": 76.37696281293684,
+          "right": 840.659727550035,
+          "bottom": 486.5330031024545
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 402.2176204671348,
+          "top": 65.82863349351919,
+          "right": 871.9945607668934,
+          "bottom": 539.6106267073429
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 383.26330276769136,
+          "top": 72.17956293075636,
+          "right": 890.4266912856582,
+          "bottom": 582.1888108206842
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 372.7836299651486,
+          "top": 88.41888541814407,
+          "right": 901.3420482271508,
+          "bottom": 618.5979757285372
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "webgl/1280x800/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.72540213273815,
+        "apexMin": 94.00609919697078,
+        "apexMax": 103.43082569907115,
+        "centerFraction": 0.34,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 576.7520142886384,
+          "top": 219.03452862176147,
+          "right": 710.2224258419504,
+          "bottom": 306.6253196680615
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 514.9877934697859,
+          "top": 163.03486274888033,
+          "right": 796.9244648906774,
+          "bottom": 371.6535640194297
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 462.80122414557036,
+          "top": 128.60601098885306,
+          "right": 874.7332563358924,
+          "bottom": 432.47709312911394
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 435.05944422733876,
+          "top": 118.75775636921917,
+          "right": 919.8804749063783,
+          "bottom": 475.0293447573628
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 420.610612554768,
+          "top": 122.95271135409043,
+          "right": 945.5066627369874,
+          "bottom": 508.3416367104368
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 574.1636426913458,
+          "top": 298.1893405845311,
+          "right": 707.7810543913356,
+          "bottom": 430.87360530935143
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "webgl/1280x800/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 98.72540213273815,
+        "apexMin": 94.00609919697078,
+        "apexMax": 102.86769136626685,
+        "centerFraction": 0.34,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 554.702014219239,
+          "top": 196.8389064016642,
+          "right": 715.9892959837637,
+          "bottom": 253.62249050840947
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 475.28916553543274,
+          "top": 145.53959289657578,
+          "right": 782.221590532981,
+          "bottom": 264.41180311577125
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 409.79223678348717,
+          "top": 116.8954269285313,
+          "right": 834.4688828990144,
+          "bottom": 301.6629817763362
+        },
+        {
+          "family": 12,
+          "count": 458,
+          "left": 370.46081096721105,
+          "top": 106.68227687718237,
+          "right": 865.6453360867711,
+          "bottom": 354.9923029736795
+        },
+        {
+          "family": 12,
+          "count": 251,
+          "left": 347.4006644206048,
+          "top": 135.83344662886682,
+          "right": 884.1395947634958,
+          "bottom": 398.0531713555574
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 585.2337164032227,
+          "top": 313.6746221287974,
+          "right": 700.5121347515294,
+          "bottom": 431.22209457343513
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "webgl/1280/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl/1280/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl/1280/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/393x851: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 393,
+        "height": 851,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 393,
+          "height": 663
+        },
+        "rail": {
+          "x": 337,
+          "y": 257.5,
+          "width": 48,
+          "height": 148,
+          "right": 385,
+          "bottom": 405.5
+        },
+        "tray": {
+          "x": 0,
+          "y": 663,
+          "width": 393,
+          "height": 188,
+          "right": 393,
+          "bottom": 851
+        },
+        "buttons": [
+          {
+            "x": 337,
+            "y": 257.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 305.5,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 337,
+            "y": 307.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 355.5,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 337,
+            "y": 357.5,
+            "width": 48,
+            "height": 48,
+            "right": 385,
+            "bottom": 405.5,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 76.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 124.5,
+            "bottom": 727,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 727,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 727,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 727,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 268.5,
+            "y": 679,
+            "width": 48,
+            "height": 48,
+            "right": 316.5,
+            "bottom": 727,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 76.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 124.5,
+            "bottom": 787,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 787,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 787,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 787,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 268.5,
+            "y": 739,
+            "width": 48,
+            "height": 48,
+            "right": 316.5,
+            "bottom": 787,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 124.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 172.5,
+            "bottom": 847,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 172.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 220.5,
+            "bottom": 847,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 220.5,
+            "y": 799,
+            "width": 48,
+            "height": 48,
+            "right": 268.5,
+            "bottom": 847,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas/393x851/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 97.75000000000001,
+        "apexMin": 92.95000000000002,
+        "apexMax": 102.55000000000003,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 153.65156796583517,
+          "top": 174.8477310161402,
+          "right": 242.00581509134878,
+          "bottom": 268.83555597925704
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 114.41272390147155,
+          "top": 138.09944518017534,
+          "right": 280.69669573472714,
+          "bottom": 313.9904018787803
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 83.79174762961702,
+          "top": 115.46086852400526,
+          "right": 310.9249968132562,
+          "bottom": 354.33379296850745
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 66.01101558606493,
+          "top": 109.02421488655528,
+          "right": 328.9054329044697,
+          "bottom": 384.13547572833386
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 55.893571290593286,
+          "top": 112.22063133069327,
+          "right": 339.74360515588444,
+          "bottom": 407.9176675318038
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 50.31951447446008,
+          "top": 121.09451135544009,
+          "right": 346.4239134595472,
+          "bottom": 428.2363562865653
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "canvas/393x851/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 97.75000000000001,
+        "apexMin": 92.95000000000002,
+        "apexMax": 102.55000000000003,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 161.49428944934337,
+          "top": 213.29162418589652,
+          "right": 236.47985502143985,
+          "bottom": 268.6591413939046
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 125.00298362956157,
+          "top": 184.3493532540329,
+          "right": 283.0412491200031,
+          "bottom": 303.07112613869134
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 93.53208707194445,
+          "top": 164.63533377470463,
+          "right": 324.0553810337893,
+          "bottom": 335.6540378045233
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 76.79293364234854,
+          "top": 158.4791217636456,
+          "right": 347.57269155100573,
+          "bottom": 359.09224016803086
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 68.00657508297124,
+          "top": 160.4902930277695,
+          "right": 361.0196669139481,
+          "bottom": 377.59325701251686
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 160.01368699147724,
+          "top": 255.34988236659092,
+          "right": 236.03995755879532,
+          "bottom": 335.35873388991575
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "canvas/393x851/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 97.75000000000001,
+        "apexMin": 92.95000000000002,
+        "apexMax": 102.55000000000003,
+        "centerFraction": 0.34,
+        "effectScale": 0.4947209653092006
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 149.3925409157455,
+          "top": 199.54218871752937,
+          "right": 240.27719363793653,
+          "bottom": 235.06413735067224
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 104.8925414263054,
+          "top": 169.06277432819587,
+          "right": 277.71606662744585,
+          "bottom": 247.57406649885303
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 70.19172991446719,
+          "top": 150.8675315013424,
+          "right": 307.4319638291016,
+          "bottom": 270.076665116441
+        },
+        {
+          "family": 12,
+          "count": 458,
+          "left": 49.867539824507816,
+          "top": 141.52195277716737,
+          "right": 325.3902414381023,
+          "bottom": 291.74437209814573
+        },
+        {
+          "family": 12,
+          "count": 251,
+          "left": 37.38964025342216,
+          "top": 161.36004101415642,
+          "right": 336.32070675280386,
+          "bottom": 316.6255343872212
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 166.57354208234247,
+          "top": 266.1829245394654,
+          "right": 231.84073631849586,
+          "bottom": 335.5245795424392
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "canvas/393/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/393/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/393/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas: panel pause ownership, Low, OS comfort and reset",
+      "passed": true
+    },
+    {
+      "name": "canvas/1280x800: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "rail": {
+          "x": 1220,
+          "y": 288,
+          "width": 48,
+          "height": 148,
+          "right": 1268,
+          "bottom": 436
+        },
+        "tray": {
+          "x": 0,
+          "y": 724,
+          "width": 1280,
+          "height": 76,
+          "right": 1280,
+          "bottom": 800
+        },
+        "buttons": [
+          {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 336,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 1220,
+            "y": 338,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 386,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 1220,
+            "y": 388,
+            "width": 48,
+            "height": 48,
+            "right": 1268,
+            "bottom": 436,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 304,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 352,
+            "bottom": 792,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 352,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 400,
+            "bottom": 792,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 400,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 448,
+            "bottom": 792,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 448,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 496,
+            "bottom": 792,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 496,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 544,
+            "bottom": 792,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 568,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 616,
+            "bottom": 792,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 616,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 664,
+            "bottom": 792,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 664,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 712,
+            "bottom": 792,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 712,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 760,
+            "bottom": 792,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 760,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 808,
+            "bottom": 792,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 832,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 880,
+            "bottom": 792,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 880,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 928,
+            "bottom": 792,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 928,
+            "y": 744,
+            "width": 48,
+            "height": 48,
+            "right": 976,
+            "bottom": 792,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas/1280x800/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 96.40193370165748,
+        "apexMin": 92.95000000000002,
+        "apexMax": 96.40193370165748,
+        "centerFraction": 0.3484254143646409,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 564.560986115048,
+          "top": 178.63055062116644,
+          "right": 717.5474808047545,
+          "bottom": 340.2396625875261
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 493.5327946913057,
+          "top": 112.29016537139728,
+          "right": 785.8383043408528,
+          "bottom": 418.32247923465826
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 437.25736260671925,
+          "top": 70.68973569529305,
+          "right": 839.0005895708865,
+          "bottom": 487.4768328838293
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 404.0680573071809,
+          "top": 58.36820022384768,
+          "right": 870.4054542445355,
+          "bottom": 538.3494796444558
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 384.82512099329557,
+          "top": 63.65733287806347,
+          "right": 889.1123009781579,
+          "bottom": 578.9223834857473
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 373.9021806188031,
+          "top": 79.38782970411069,
+          "right": 900.4160785883003,
+          "bottom": 616.1102356484342
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "canvas/1280x800/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 97.75000000000001,
+        "apexMin": 92.95000000000002,
+        "apexMax": 102.55000000000003,
+        "centerFraction": 0.34,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 577.3994776951845,
+          "top": 214.89720931860728,
+          "right": 709.4909756585405,
+          "bottom": 312.0842869184265
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 515.8405815347426,
+          "top": 162.43363533775926,
+          "right": 794.9832739722942,
+          "bottom": 371.15846824794005
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 462.983285692765,
+          "top": 128.22522687739604,
+          "right": 871.6278884589539,
+          "bottom": 429.0170946188043
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 434.8500225738424,
+          "top": 116.9980745063142,
+          "right": 916.2276615985307,
+          "bottom": 471.4592950373436
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 420.0111258149719,
+          "top": 120.37718592914746,
+          "right": 941.7639167990707,
+          "bottom": 504.28438080815135
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 574.2945557694262,
+          "top": 289.27923392192594,
+          "right": 707.5896386575126,
+          "bottom": 427.80323288424637
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "canvas/1280x800/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 97.75000000000001,
+        "apexMin": 92.95000000000002,
+        "apexMax": 101.97480237994051,
+        "centerFraction": 0.34,
+        "effectScale": 0.7961240968975778
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 555.5492877263567,
+          "top": 192.23490057581864,
+          "right": 715.1969901103068,
+          "bottom": 254.91735275667838
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 477.36824290047707,
+          "top": 136.42724811420123,
+          "right": 780.6742103993181,
+          "bottom": 277.11006176217654
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 413.0797025207939,
+          "top": 103.41129935095387,
+          "right": 832.4162211181616,
+          "bottom": 315.84077464279824
+        },
+        {
+          "family": 12,
+          "count": 458,
+          "left": 374.13512671542935,
+          "top": 85.5085009950509,
+          "right": 863.5427475405511,
+          "bottom": 354.73364911866196
+        },
+        {
+          "family": 12,
+          "count": 251,
+          "left": 350.34906209544954,
+          "top": 117.52928254068286,
+          "right": 882.3117411169006,
+          "bottom": 397.8425280862497
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 585.2769380030676,
+          "top": 310.39661037480295,
+          "right": 700.3229575512476,
+          "bottom": 430.94557344020234
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "canvas/1280/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/1280/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/1280/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "webgpu-393x851-imperial-crown.png",
+      "backend": "WebGPU",
+      "width": 393,
+      "height": 851,
+      "seed": 20260916,
+      "relativeBurstSeconds": 4.2,
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "imperial-crown",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 3,
+        "active": 1,
+        "particles": 24692,
+        "smoke": 14,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 9.1166666666667,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 677,
+        "signatureStages": [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "backend": "WebGPU",
+        "renderPixels": 334443,
+        "submitMs": 8.799999997019768,
+        "frames": 18,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river,moon",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active",
+          "moon": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 663,
+              "width": 393,
+              "height": 188
+            },
+            "rail": {
+              "x": 337,
+              "y": 257.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 663
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 663
+          },
+          "tray": {
+            "x": 0,
+            "y": 663,
+            "width": 393,
+            "height": 188
+          },
+          "rail": {
+            "x": 337,
+            "y": 257.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 580.125,
+            "width": 393,
+            "height": 82.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 39.78,
+            "width": 393,
+            "height": 424.32
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 464.09999999999997,
+            "width": 393,
+            "height": 119.33999999999999
+          }
+        },
+        "reflectionFrames": 12,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7199999999998208,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7203576432758714
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.03230067267083808,
+          "top": 0.6897517466965779,
+          "right": 0.9728131227244957,
+          "bottom": 0.7293742134974219
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 9.1166666666667,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.678061357915072,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.678518750257742,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.676017679616238,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.4856927962677078,
+          "top": 0.7641524948059258,
+          "right": 2.484468763619641,
+          "bottom": 0.870082548968267
+        },
+        "moon": {
+          "x": 306.54,
+          "y": 140.92559999996493,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "skyMotionTime": 9.1166666666667,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 1,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0.005158021954301915,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7199999999998208,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "signatureBounds": [
+          {
+            "family": 10,
+            "count": 500,
+            "left": 70.72611328306051,
+            "top": 118.794295219051,
+            "right": 327.0540725029816,
+            "bottom": 375.47624163139176
+          }
+        ],
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 9.1166666666667,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 20,
+        "skyResponding": false,
+        "skyAmbientFrames": 9,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 3,
+        "skyLastRenderedTime": 9.1166666666667,
+        "skyFrozen": true
+      }
+    },
+    {
+      "file": "webgpu-393x851-celestial-aurora.png",
+      "backend": "WebGPU",
+      "width": 393,
+      "height": 851,
+      "seed": 20260916,
+      "relativeBurstSeconds": 3.1,
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "celestial-aurora",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 9,
+        "active": 1,
+        "particles": 12417,
+        "smoke": 30,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 7.949999999999977,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 1,
+        "embers": 747,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          1,
+          8,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "backend": "WebGPU",
+        "renderPixels": 334443,
+        "submitMs": 7.600000001490116,
+        "frames": 16,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river,moon",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active",
+          "moon": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 663,
+              "width": 393,
+              "height": 188
+            },
+            "rail": {
+              "x": 337,
+              "y": 257.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 663
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 663
+          },
+          "tray": {
+            "x": 0,
+            "y": 663,
+            "width": 393,
+            "height": 188
+          },
+          "rail": {
+            "x": 337,
+            "y": 257.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 580.125,
+            "width": 393,
+            "height": 82.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 39.78,
+            "width": 393,
+            "height": 424.32
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 464.09999999999997,
+            "width": 393,
+            "height": 119.33999999999999
+          }
+        },
+        "reflectionFrames": 11,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7199999999998208,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7203576432758714
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.03230067267083808,
+          "top": 0.6897517466965779,
+          "right": 0.9728131227244957,
+          "bottom": 0.7293742134974219
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 7.949999999999977,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.692226855097678,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.702791400721491,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.667802270187313,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.4856927962677078,
+          "top": 0.7641524948059258,
+          "right": 2.484468763619641,
+          "bottom": 0.870082548968267
+        },
+        "moon": {
+          "x": 306.54,
+          "y": 140.92559999996493,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "skyMotionTime": 7.949999999999977,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7199999999998208,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "signatureBounds": [
+          {
+            "family": 11,
+            "count": 464,
+            "left": 95.45686269276962,
+            "top": 149.61276034551278,
+            "right": 321.2047390793759,
+            "bottom": 314.5290665156153
+          }
+        ],
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 7.949999999999977,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 20,
+        "skyResponding": false,
+        "skyAmbientFrames": 8,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 3,
+        "skyLastRenderedTime": 7.949999999999977,
+        "skyFrozen": true
+      }
+    },
+    {
+      "file": "webgpu-393x851-royal-phoenix.png",
+      "backend": "WebGPU",
+      "width": 393,
+      "height": 851,
+      "seed": 20260916,
+      "relativeBurstSeconds": 3.1,
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "royal-phoenix",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 7,
+        "active": 1,
+        "particles": 19668,
+        "smoke": 28,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 8.133333333333317,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 1,
+        "embers": 665,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          6,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "backend": "WebGPU",
+        "renderPixels": 334443,
+        "submitMs": 11.5,
+        "frames": 16,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river,moon",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active",
+          "moon": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 851
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 663,
+              "width": 393,
+              "height": 188
+            },
+            "rail": {
+              "x": 337,
+              "y": 257.5,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 8,
+              "y": 8,
+              "width": 95.84375,
+              "height": 17
+            },
+            "control-0": {
+              "x": 76.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 124.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 172.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 220.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 268.5,
+              "y": 679,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 76.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 124.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 172.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 220.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 268.5,
+              "y": 739,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 124.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 172.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 220.5,
+              "y": 799,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 663
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 663
+          },
+          "tray": {
+            "x": 0,
+            "y": 663,
+            "width": 393,
+            "height": 188
+          },
+          "rail": {
+            "x": 337,
+            "y": 257.5,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 580.125,
+            "width": 393,
+            "height": 82.875
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 39.78,
+            "width": 393,
+            "height": 424.32
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 464.09999999999997,
+            "width": 393,
+            "height": 119.33999999999999
+          }
+        },
+        "reflectionFrames": 11,
+        "reflectionWidth": 236,
+        "reflectionHeight": 512,
+        "waterline": 0.7199999999998208,
+        "riverBankScreen": {
+          "x": 0.5,
+          "y": 0.7203576432758714
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.03230067267083808,
+          "top": 0.6897517466965779,
+          "right": 0.9728131227244957,
+          "bottom": 0.7293742134974219
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 8.133333333333317,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 0,
+          "y": 4.65,
+          "z": -178
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -67.21400024268226,
+            "y": 3.8659997463226317,
+            "z": -216.77088601395494
+          },
+          "max": {
+            "x": 67.948913946548,
+            "y": 13.428000504275326,
+            "z": -144.7267179353733
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -29.759999999999998,
+            "y": 4.691948127083949,
+            "z": -115
+          },
+          {
+            "x": 38.44,
+            "y": 4.701592702238838,
+            "z": -165
+          },
+          {
+            "x": -34,
+            "y": 4.67020160691689,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -1.4856927962677078,
+          "top": 0.7641524948059258,
+          "right": 2.484468763619641,
+          "bottom": 0.870082548968267
+        },
+        "moon": {
+          "x": 306.54,
+          "y": 140.92559999996493,
+          "radius": 15.327,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "skyMotionTime": 8.133333333333317,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.7199999999998208,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.6,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "signatureBounds": [
+          {
+            "family": 12,
+            "count": 396,
+            "left": 72.69016495451216,
+            "top": 138.2659893891984,
+            "right": 306.8140863661548,
+            "bottom": 248.33127006117763
+          }
+        ],
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 8.133333333333317,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 20,
+        "skyResponding": false,
+        "skyAmbientFrames": 8,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 3,
+        "skyLastRenderedTime": 8.133333333333317,
+        "skyFrozen": true
+      }
+    },
+    {
+      "file": "webgpu-1280x800-imperial-crown.png",
+      "backend": "WebGPU",
+      "width": 1280,
+      "height": 800,
+      "seed": 20260916,
+      "relativeBurstSeconds": 4.2,
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "imperial-crown",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 3,
+        "active": 1,
+        "particles": 24692,
+        "smoke": 14,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 9.133333333333367,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 0,
+        "embers": 677,
+        "signatureStages": [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 8.299999997019768,
+        "frames": 16,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river,moon",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active",
+          "moon": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 304,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 352,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 400,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 448,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 496,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 568,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 616,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 664,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 712,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 760,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 832,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 880,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 928,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 11,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 9.133333333333367,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.670313531486292,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.659456111598415,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.668740551737999,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 91.9999999999838,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "skyMotionTime": 9.133333333333367,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 1,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0.006689807188837439,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "signatureBounds": [
+          {
+            "family": 10,
+            "count": 500,
+            "left": 404.6306687585672,
+            "top": 65.8685954275882,
+            "right": 872.3666175788157,
+            "bottom": 537.7280849631085
+          }
+        ],
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 9.133333333333367,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 20,
+        "skyResponding": false,
+        "skyAmbientFrames": 8,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 3,
+        "skyLastRenderedTime": 9.133333333333367,
+        "skyFrozen": true
+      }
+    },
+    {
+      "file": "webgpu-1280x800-celestial-aurora.png",
+      "backend": "WebGPU",
+      "width": 1280,
+      "height": 800,
+      "seed": 20260916,
+      "relativeBurstSeconds": 3.1,
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "celestial-aurora",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 9,
+        "active": 1,
+        "particles": 12417,
+        "smoke": 30,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 7.9333333333333105,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 1,
+        "embers": 747,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          1,
+          8,
+          0,
+          0,
+          0,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 7.899999998509884,
+        "frames": 16,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river,moon",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active",
+          "moon": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 304,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 352,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 400,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 448,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 496,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 568,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 616,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 664,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 712,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 760,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 832,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 880,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 928,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 11,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 7.9333333333333105,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.701234663654382,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.651222859886373,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.670886651073057,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 91.9999999999838,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "skyMotionTime": 7.9333333333333105,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "signatureBounds": [
+          {
+            "family": 11,
+            "count": 464,
+            "left": 460.9743169403893,
+            "top": 108.39317304832426,
+            "right": 875.4903999920936,
+            "bottom": 419.0830067393089
+          }
+        ],
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 7.9333333333333105,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 20,
+        "skyResponding": false,
+        "skyAmbientFrames": 8,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 3,
+        "skyLastRenderedTime": 7.9333333333333105,
+        "skyFrozen": true
+      }
+    },
+    {
+      "file": "webgpu-1280x800-royal-phoenix.png",
+      "backend": "WebGPU",
+      "width": 1280,
+      "height": 800,
+      "seed": 20260916,
+      "relativeBurstSeconds": 3.1,
+      "release": {
+        "version": "2026-10-01.2",
+        "sha256": "68b3edd31b552121b7eda0f2262739093e03ef893fc8e2b93d2372f4fdde1b6d"
+      },
+      "snapshot": {
+        "ready": true,
+        "paused": false,
+        "selected": "royal-phoenix",
+        "placement": 0.5,
+        "holding": false,
+        "holdProgress": 0,
+        "show": null,
+        "launched": 1,
+        "bursts": 7,
+        "active": 1,
+        "particles": 19751,
+        "smoke": 28,
+        "quality": "ultra",
+        "message": "Stay for the color and the falling embers.",
+        "time": 8.11666666666665,
+        "launchBlock": "",
+        "committedId": null,
+        "committedFamily": "",
+        "flightProgress": 0,
+        "fuse": false,
+        "phase": "afterglow",
+        "carriers": 1,
+        "embers": 668,
+        "signatureStages": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          6,
+          0
+        ],
+        "reducedMotion": false,
+        "reducedFlashes": true,
+        "backend": "WebGPU",
+        "renderPixels": 1024000,
+        "submitMs": 10.099999994039536,
+        "frames": 17,
+        "authoredAssets": "smoke,paper,normal,flame,rocket,terrace,sky,river,moon",
+        "authoredAssetStates": {
+          "smoke": "active",
+          "paper": "active",
+          "normal": "active",
+          "flame": "active",
+          "rocket": "active",
+          "terrace": "active",
+          "sky": "active",
+          "river": "active",
+          "moon": "active"
+        },
+        "authoredAssetErrors": {},
+        "stageLayout": {
+          "viewport": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 800
+          },
+          "safe": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "controls": {
+            "tray": {
+              "x": 0,
+              "y": 724,
+              "width": 1280,
+              "height": 76
+            },
+            "rail": {
+              "x": 1220,
+              "y": 288,
+              "width": 48,
+              "height": 148
+            },
+            "brand": {
+              "x": 12,
+              "y": 12,
+              "width": 101.578125,
+              "height": 17
+            },
+            "control-0": {
+              "x": 304,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-1": {
+              "x": 352,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-2": {
+              "x": 400,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-3": {
+              "x": 448,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-4": {
+              "x": 496,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-5": {
+              "x": 568,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-6": {
+              "x": 616,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-7": {
+              "x": 664,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-8": {
+              "x": 712,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-9": {
+              "x": 760,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-10": {
+              "x": 832,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-11": {
+              "x": 880,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            },
+            "control-12": {
+              "x": 928,
+              "y": 744,
+              "width": 48,
+              "height": 48
+            }
+          },
+          "heroRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "unobstructedScene": {
+            "x": 0,
+            "y": 0,
+            "width": 1280,
+            "height": 724
+          },
+          "tray": {
+            "x": 0,
+            "y": 724,
+            "width": 1280,
+            "height": 76
+          },
+          "rail": {
+            "x": 1220,
+            "y": 288,
+            "width": 48,
+            "height": 148
+          },
+          "panelOpen": false,
+          "launchArea": {
+            "x": 0,
+            "y": 633.5,
+            "width": 1280,
+            "height": 90.5
+          },
+          "burstCanopy": {
+            "x": 0,
+            "y": 43.44,
+            "width": 1280,
+            "height": 463.36
+          },
+          "reflectionBand": {
+            "x": 0,
+            "y": 506.79999999999995,
+            "width": 1280,
+            "height": 130.32
+          }
+        },
+        "reflectionFrames": 12,
+        "reflectionWidth": 512,
+        "reflectionHeight": 320,
+        "waterline": 0.49999999999991196,
+        "riverBankScreen": {
+          "x": 0.5268040784825556,
+          "y": 0.5013743798117566
+        },
+        "riverVillageScreenBounds": {
+          "left": 0.38931568527958726,
+          "top": 0.46887938020298947,
+          "right": 0.670452500110684,
+          "bottom": 0.5119606796253192
+        },
+        "riverScenery": "Blender river-life-v008",
+        "riverBoats": 3,
+        "riverBoatSource": "Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0",
+        "riverPbrTextures": 6,
+        "riverTextureMemoryEstimateBytes": 71303172,
+        "riverPbrColorMaps": 2,
+        "riverPbrDataMaps": 4,
+        "riverPbrColorSpacesCorrect": true,
+        "riverLampAnchors": 10,
+        "riverReflectionFragments": 80,
+        "riverMotionTime": 8.11666666666665,
+        "riverCandleFlames": 4,
+        "riverPointLights": 1,
+        "riverCandleGlows": 4,
+        "riverWaterContactInstances": 21,
+        "riverSeatedFigures": 2,
+        "riverVillageHomes": 12,
+        "riverVillagePosition": {
+          "x": 40,
+          "y": 4.65,
+          "z": -982
+        },
+        "riverVillageBounds": {
+          "min": {
+            "x": -152.0400006933779,
+            "y": 2.409999275207518,
+            "z": -1092.7739600398713
+          },
+          "max": {
+            "x": 234.13975413299434,
+            "y": 29.730001440786644,
+            "z": -886.9334798153523
+          }
+        },
+        "riverPositions": [
+          {
+            "x": -48,
+            "y": 4.698990961386454,
+            "z": -115
+          },
+          {
+            "x": 62,
+            "y": 4.651630459822775,
+            "z": -165
+          },
+          {
+            "x": -76,
+            "y": 4.671449080819247,
+            "z": -85
+          }
+        ],
+        "terraceScreenBounds": {
+          "left": -0.26960811902604676,
+          "top": 0.8625179699643964,
+          "right": 1.269133712579251,
+          "bottom": 1.05188569624592
+        },
+        "moon": {
+          "x": 998.4000000000001,
+          "y": 91.9999999999838,
+          "radius": 30,
+          "ready": true,
+          "source": "NASA LRO / fixed gibbous"
+        },
+        "skyMotionTime": 8.11666666666665,
+        "skyMotionAllowed": true,
+        "skyPointerX": 0.5,
+        "skyPointerY": 0.25,
+        "skyEngagement": 0,
+        "skyNearParallaxX": 0,
+        "skyNearParallaxY": 0,
+        "skyMaximumParallaxPixels": 3,
+        "skyActiveMeteors": 0,
+        "skyMaximumMeteors": 1,
+        "skyMeteorOpacity": 0,
+        "skyMeteorIntervalSeconds": 36,
+        "skyHorizon": 0.49999999999991196,
+        "skyLayers": 3,
+        "skyTextures": 3,
+        "skyArtWidth": 2048,
+        "skyArtHeight": 1024,
+        "skyCelestialCrop": 0.8,
+        "skyFieldStars": 5200,
+        "skyClusterStars": 3400,
+        "skyNearStars": 128,
+        "skyDustSpecks": 23721,
+        "skyArtRgbaBytes": 25165824,
+        "skyTextureBytesWithMipmaps": 33554432,
+        "stagedRockets": 1,
+        "airborneRockets": 0,
+        "visibleRocketBodies": 1,
+        "shellScreen": null,
+        "apexScreen": null,
+        "signatureBounds": [
+          {
+            "family": 12,
+            "count": 396,
+            "left": 406.6916144356162,
+            "top": 96.20883532818402,
+            "right": 838.0959732429483,
+            "bottom": 283.6411684677747
+          }
+        ],
+        "launchProfile": null,
+        "flight": null,
+        "audioVoices": 0,
+        "audioTimers": 0,
+        "recordedSamples": 0,
+        "audioEnabled": false,
+        "qaStallSamplesUsed": 0,
+        "qaStallSamplesRemaining": 0,
+        "skyState": {
+          "time": 8.11666666666665,
+          "pointerX": 0.5,
+          "pointerY": 0.25,
+          "engagement": 0,
+          "motionAllowed": true
+        },
+        "skyAmbientCadence": 20,
+        "skyResponding": false,
+        "skyAmbientFrames": 8,
+        "skyResponseFrames": 0,
+        "skyOneOffFrames": 3,
+        "skyLastRenderedTime": 8.11666666666665,
+        "skyFrozen": true
+      }
+    }
+  ],
+  "errors": [],
+  "failed": null
+}

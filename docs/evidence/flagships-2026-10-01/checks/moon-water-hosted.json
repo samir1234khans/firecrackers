@@ -1,0 +1,268 @@
+{
+  "url": "https://firecrackers-flagship-preview.allygym-api.workers.dev/",
+  "seed": 9302026,
+  "method": "Headless installed Chrome, emulated viewports; hardware backend identity checked",
+  "checks": [
+    {
+      "name": "webgpu 320x480: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGPU",
+      "moon": {
+        "x": 249.60000000000002,
+        "y": 57.959999999973384,
+        "radius": 15,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 341
+    },
+    {
+      "name": "webgpu 375x667: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGPU",
+      "moon": {
+        "x": 292.5,
+        "y": 100.96999999997504,
+        "radius": 15,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 288
+    },
+    {
+      "name": "webgpu 393x851: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGPU",
+      "moon": {
+        "x": 306.54,
+        "y": 140.92559999996493,
+        "radius": 15.327,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 236
+    },
+    {
+      "name": "webgpu 768x1024: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGPU",
+      "moon": {
+        "x": 599.04,
+        "y": 117.76000000002367,
+        "radius": 29.951999999999998,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 384
+    },
+    {
+      "name": "webgpu 844x390: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGPU",
+      "moon": {
+        "x": 658.32,
+        "y": 44.85000000003747,
+        "radius": 15.21,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 512
+    },
+    {
+      "name": "webgpu 1280x800: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGPU",
+      "moon": {
+        "x": 998.4000000000001,
+        "y": 91.9999999999838,
+        "radius": 30,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 512
+    },
+    {
+      "name": "webgpu 1920x1080: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGPU",
+      "moon": {
+        "x": 1497.6000000000001,
+        "y": 124.20000000013653,
+        "radius": 30,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 512
+    },
+    {
+      "name": "webgpu: moon remains visible in Low quality"
+    },
+    {
+      "name": "webgl 320x480: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGL 2",
+      "moon": {
+        "x": 249.60000000000002,
+        "y": 57.959999999973384,
+        "radius": 15,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 341
+    },
+    {
+      "name": "webgl 375x667: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGL 2",
+      "moon": {
+        "x": 292.5,
+        "y": 100.96999999997504,
+        "radius": 15,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 288
+    },
+    {
+      "name": "webgl 393x851: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGL 2",
+      "moon": {
+        "x": 306.54,
+        "y": 140.92559999996493,
+        "radius": 15.327,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 236
+    },
+    {
+      "name": "webgl 768x1024: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGL 2",
+      "moon": {
+        "x": 599.04,
+        "y": 117.76000000002367,
+        "radius": 29.951999999999998,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 384
+    },
+    {
+      "name": "webgl 844x390: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGL 2",
+      "moon": {
+        "x": 658.32,
+        "y": 44.85000000003747,
+        "radius": 15.21,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 512
+    },
+    {
+      "name": "webgl 1280x800: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGL 2",
+      "moon": {
+        "x": 998.4000000000001,
+        "y": 91.9999999999838,
+        "radius": 30,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 512
+    },
+    {
+      "name": "webgl 1920x1080: textured moon in clear sky, preserved tray/rail",
+      "backend": "WebGL 2",
+      "moon": {
+        "x": 1497.6000000000001,
+        "y": 124.20000000013653,
+        "radius": 30,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      },
+      "reflectionWidth": 512
+    },
+    {
+      "name": "webgl: moon remains visible in Low quality"
+    },
+    {
+      "name": "canvas 320x480: textured moon in clear sky, preserved tray/rail",
+      "backend": "Canvas 2D · compatibility",
+      "moon": {
+        "x": 249.60000000000002,
+        "y": 57.96,
+        "radius": 15,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      }
+    },
+    {
+      "name": "canvas 375x667: textured moon in clear sky, preserved tray/rail",
+      "backend": "Canvas 2D · compatibility",
+      "moon": {
+        "x": 292.5,
+        "y": 100.97000000000001,
+        "radius": 15,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      }
+    },
+    {
+      "name": "canvas 393x851: textured moon in clear sky, preserved tray/rail",
+      "backend": "Canvas 2D · compatibility",
+      "moon": {
+        "x": 306.54,
+        "y": 140.9256,
+        "radius": 15.327,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      }
+    },
+    {
+      "name": "canvas 768x1024: textured moon in clear sky, preserved tray/rail",
+      "backend": "Canvas 2D · compatibility",
+      "moon": {
+        "x": 599.04,
+        "y": 169.5744,
+        "radius": 29.951999999999998,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      }
+    },
+    {
+      "name": "canvas 844x390: textured moon in clear sky, preserved tray/rail",
+      "backend": "Canvas 2D · compatibility",
+      "moon": {
+        "x": 658.32,
+        "y": 63.02,
+        "radius": 15.21,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      }
+    },
+    {
+      "name": "canvas 1280x800: textured moon in clear sky, preserved tray/rail",
+      "backend": "Canvas 2D · compatibility",
+      "moon": {
+        "x": 998.4000000000001,
+        "y": 132.48000000000002,
+        "radius": 30,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      }
+    },
+    {
+      "name": "canvas 1920x1080: textured moon in clear sky, preserved tray/rail",
+      "backend": "Canvas 2D · compatibility",
+      "moon": {
+        "x": 1497.6000000000001,
+        "y": 178.848,
+        "radius": 30,
+        "ready": true,
+        "source": "NASA LRO / fixed gibbous"
+      }
+    },
+    {
+      "name": "canvas: moon remains visible in Low quality"
+    },
+    {
+      "name": "webgl: missing moon preserves playable scenery and immediate launch"
+    },
+    {
+      "name": "canvas: missing moon preserves playable scenery and immediate launch"
+    }
+  ],
+  "errors": []
+}
