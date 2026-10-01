@@ -36,11 +36,15 @@ try{
    if(hardware&&backend==='webgpu'){const a=await page.evaluate(async()=>{const a=await navigator.gpu.requestAdapter();return {vendor:a.info.vendor,architecture:a.info.architecture,fallback:a.info.isFallbackAdapter};});assert.equal(a.fallback,false);pass('Native WebGPU adapter',a);}
    const layout=await inspectStage(page);assert.ok((await snap()).skyHorizon*height<=layout.hero.y+layout.hero.height-30);pass(`${backend}/${width}x${height}: thirteen independent 48px targets and clear waterfront`,{layout});
    for(const [j,id]of ids.entries()){
-    await advance(40);await icon(id).click();let s=await snap();assert.equal(s.phase,'fuse');assert.equal(s.selected,id);const committed=s.committedId,profile=s.launchProfile;
+    await advance(40);const idleLights=(await snap()).visibleLightCount;
+    await icon(id).click();let s=await snap();assert.equal(s.phase,'fuse');assert.equal(s.selected,id);const committed=s.committedId,profile=s.launchProfile;
+    if(backend!=='canvas')assert.equal(s.visibleLightCount,idleLights,`${id}: fuse must not alter the scene light layout`);
     await icon(id).dispatchEvent('click');assert.equal((await snap()).committedId,committed);
     await advance(.8);s=await snap();assert.ok(s.flight&&s.flight.stage==='ascent');
+    if(backend!=='canvas')assert.equal(s.visibleLightCount,idleLights,`${id}: ascent must not alter the scene light layout`);
     const remaining=s.flight.ascent-s.flight.age+.02;await advance(remaining);
-    const stages=(await snap()).signatureStages.slice(j*3,j*3+3);assert.ok(stages[0]>0);
+    s=await snap();const stages=s.signatureStages.slice(j*3,j*3+3);assert.ok(stages[0]>0);
+    if(backend!=='canvas')assert.equal(s.visibleLightCount,idleLights,`${id}: burst must not recompile the waterfront lighting`);
     const samples=[];for(const dt of [.75,1,1.25,1.25,1.25,1.25]){await advance(dt);samples.push(await stageBounds(id,`${backend}/${width}/${id}`));}
     s=await snap();assert.ok(s.signatureStages[j*3+1]>0&&s.signatureStages[j*3+2]>0);pass(`${backend}/${width}x${height}/${id}: unique admission, three stages, safe complete envelope`,{profile,samples,stages:s.signatureStages.slice(j*3,j*3+3)});
     if((width===393||width===1280)&&backend==='webgpu'){

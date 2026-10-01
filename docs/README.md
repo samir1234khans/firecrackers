@@ -1,4 +1,4 @@
-Latest main integration: [merge chain, source parity and release boundary](evidence/control-layout-2026-10-01/MAIN.md). The moon/water, three signature fireworks and open-sky controls are in main; the [isolated preview](https://firecrackers-open-sky-preview.allygym-api.workers.dev/) and [matched gallery](evidence/control-layout-2026-10-01/comparison.html) show build `.3`. Cloudflare production still serves `.8`.
+Latest source follow-up: [rocket-to-burst stall diagnosis, timing and isolated `.4` preview](evidence/burst-performance-2026-10-01/PREVIEW.md). The earlier [main merge chain and release boundary](evidence/control-layout-2026-10-01/MAIN.md), [open-sky preview](https://firecrackers-open-sky-preview.allygym-api.workers.dev/) and [matched gallery](evidence/control-layout-2026-10-01/comparison.html) show build `.3`. Cloudflare production still serves `.8`.
 
 Historical candidate records: [moon/water](evidence/moon-water-2026-10-01/PREVIEW.md), [three signatures](evidence/flagships-2026-10-01/PREVIEW.md) and [open-sky controls](evidence/control-layout-2026-10-01/PREVIEW.md).
 
