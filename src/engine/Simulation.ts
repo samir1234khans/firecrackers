@@ -83,6 +83,8 @@ export class Simulation {
     lights: Light[] = [];
     events: SimEvent[] = [];
     time = 0;
+    /** Integrated water clock: wind changes affect future motion, never past phase. */
+    waterPhase = 0;
     paused = false;
     selected: FamilyId = 'gold-willow';
     placement = 0.5;
@@ -280,6 +282,7 @@ export class Simulation {
         this.lights = [];
         this.events = [];
         this.time = 0;
+        this.waterPhase = 0;
         this.accumulator = 0;
         this.paused = false;
         this.show = null;
@@ -326,7 +329,11 @@ export class Simulation {
         if (this.events.length < 128) this.events.push({ id: ++this.sequence, time: this.time, type, x, y, z, family, strength, duration });
     }
     private step(dt: number) {
+        const previousWind = this.wind;
         this.time += dt;
+        // Trapezoidal integration keeps the fixed-step phase continuous even if
+        // a future wind control changes the field between simulation steps.
+        this.waterPhase += dt * (previousWind + this.wind) * .5;
         if (this.holding) {
             this.holdProgress += dt / 0.65;
             if (this.holdProgress >= 1) this.ignite();
