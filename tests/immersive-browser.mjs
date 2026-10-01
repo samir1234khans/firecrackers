@@ -4,15 +4,16 @@ import { mkdir, writeFile } from 'node:fs/promises';
 const base=process.env.IMMERSIVE_URL || 'http://127.0.0.1:4173/';
 const out=process.argv[2] || 'test-results/immersive';
 await mkdir(out,{recursive:true});
-const browser=await chromium.launch({channel:'chrome',headless:true});
+const browser=await chromium.launch(process.env.IMMERSIVE_SOFTWARE === '1' ? {headless:true,args:['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader']} : {channel:'chrome',headless:true});
 const results=[];
 try {
-for(const backend of ['webgpu','webgl','canvas']) {
+for(const backend of (process.env.IMMERSIVE_BACKENDS || 'webgpu,webgl,canvas').split(',')) {
  const page=await browser.newPage({serviceWorkers:'block'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`${base}?backend=${backend}&qa=1&seed=20260916`);
  await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});
  await page.evaluate(()=>window.__firecrackersQA.freeze(true));
+ assert.equal((await page.evaluate(()=>window.__firecrackersQA.snapshot())).backend, {webgpu:'WebGPU',webgl:'WebGL 2',canvas:'Canvas 2D · compatibility'}[backend]);
  for(const [width,height] of [[320,480],[375,667],[393,851],[768,1024],[844,390],[1280,800],[1920,1080]]) {
   await page.setViewportSize({width,height});
   await page.getByRole('button',{name:/^Show mode:/}).click();
