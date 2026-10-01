@@ -176,7 +176,7 @@ export class WaterReflection {
         const broken = facets.mul(.86).add(.14).mul(skyFacets.b.mul(20).add(.75));
         result.addAssign(color.mul(light.w).mul(illumination).mul(footprint).mul(attenuation).mul(broken));
       });
-      return result.mul(this.strength).mul(.20).clamp(0, .11);
+      return result.mul(this.strength).mul(.65).clamp(0, this.strength.mul(.18));
     })();
     material.colorNode = body.add(skyColor.mul(fresnel).mul(.64)).add(skyFacets).add(moon).add(dynamic).add(burstLight)
       .mul(smoothstep(this.farZ, this.farZ.add(8), positionWorld.z).mul(.2).add(.8));
@@ -311,6 +311,10 @@ export class WaterReflection {
       waterPhase: this.frame.phase, waterWaveCount: this.frame.waveCount, waterFarZ: this.frame.farZ, waterNearZ: this.frame.nearZ,
       waterDisplacementBound: WATER_MAX_DISPLACEMENT, waterMotionAllowed: this.frame.motionAllowed, waterVisible: this.mesh.visible,
       waterBurstLightCount: this.burstCount.value, waterBurstLightCapacity: BURST_LIGHT_CAPACITY,
+      waterBurstLights: this.lightAnchors.slice(0, this.burstCount.value).map((anchor, i) => ({
+        x: anchor.x, y: anchor.y, z: anchor.z, energy: anchor.w,
+        r: this.lightColors[i].x, g: this.lightColors[i].y, b: this.lightColors[i].z,
+      })),
       moonDirection: { x: this.moonDirection.value.x, y: this.moonDirection.value.y, z: this.moonDirection.value.z } };
   }
   dispose() {
