@@ -65,6 +65,16 @@ jobs:
         env:
           FLAGSHIP_PROJECT: ${{ matrix.project }}
         run: node tests/flagship-browser.mjs /tmp/flagship-evidence
+      - name: Open sky controls, placement and responsive rocket contracts
+        if: matrix.project == 'desktop'
+        env:
+          OPEN_SKY_QUICK: '1'
+        run: node tests/open-sky-browser.mjs /tmp/open-sky-evidence
+      - name: Endpoint launch composition
+        if: matrix.project == 'desktop'
+        env:
+          EDGE_QUICK: '1'
+        run: node tests/open-sky-edge-browser.mjs /tmp/open-sky-edge-evidence
       - name: Signature native touch tap, drag and cancellation
         if: matrix.project == 'mobile'
         run: node tests/flagship-touch-browser.mjs /tmp/flagship-touch-evidence
@@ -87,6 +97,8 @@ jobs:
             /tmp/flagship-evidence
             /tmp/flagship-offline-evidence
             /tmp/flagship-touch-evidence
+            /tmp/open-sky-evidence
+            /tmp/open-sky-edge-evidence
             /tmp/grand-server.log
           retention-days: 7
   recovery:
@@ -116,6 +128,9 @@ jobs:
       - name: Galactic input, shared time and bounded ambient lifecycle
         if: always()
         run: node tests/galactic-interaction-browser.mjs /tmp/galactic-evidence
+      - name: Moon preparation, truthful progress and loading recovery
+        if: always()
+        run: node tests/startup-browser.mjs /tmp/startup-evidence
       - name: Compact transparent panels, responsive controls and native focus
         if: always()
         run: node tests/transparent-panels-browser.mjs /tmp/panel-evidence
@@ -144,4 +159,5 @@ jobs:
             /tmp/asset-lifecycle-evidence
             /tmp/galactic-evidence
             /tmp/panel-evidence
+            /tmp/startup-evidence
           retention-days: 7

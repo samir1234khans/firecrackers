@@ -101,7 +101,7 @@ async function settledLayout(page) {
       const measure = () => {
         const rect = element => { const r = element.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; };
         const state = { viewport: { width: innerWidth, height: innerHeight, scale: visualViewport?.scale || 1 },
-          scene: rect(document.querySelector('.scene-host')), groups: [...document.querySelectorAll('[data-edge]')].map(element => ({ name: element.dataset.edge, ...rect(element) })) };
+          scene: rect(document.querySelector('.scene-host')), groups: [...document.querySelectorAll('[data-family-tray], [data-control-rail], [data-mode-control], [data-position-control], [data-control-popup]')].map(element => ({ name: Object.keys(element.dataset).filter(k=>k!=='stageControl').join(','), ...rect(element) })) };
         const serialized = JSON.stringify(state);
         stable = serialized === previous ? stable + 1 : 0; previous = serialized;
         if (stable >= 6) { clearTimeout(deadline); resolve(state); }
@@ -117,7 +117,7 @@ async function layoutObservation(page) {
     return { visibility: document.visibilityState, fontStatus: document.fonts.status,
       activeElement: document.activeElement?.getAttribute('aria-label') || document.activeElement?.tagName,
       viewport: { width: innerWidth, height: innerHeight, scale: visualViewport?.scale || 1 }, scene: rect(document.querySelector('.scene-host')),
-      groups: [...document.querySelectorAll('[data-edge]')].map(element => ({ name: element.dataset.edge, ...rect(element) })) };
+      groups: [...document.querySelectorAll('[data-family-tray], [data-control-rail], [data-mode-control], [data-position-control], [data-control-popup]')].map(element => ({ name: Object.keys(element.dataset).filter(k=>k!=='stageControl').join(','), ...rect(element) })) };
   });
 }
 async function pauseAndIdle(page, label) {

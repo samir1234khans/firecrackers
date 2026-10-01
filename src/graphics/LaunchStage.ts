@@ -1,63 +1,42 @@
 import * as THREE from 'three/webgpu';
-import { color, uv } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
+import type { LaunchPropComposition } from '../engine/LaunchComposition';
 
-/** Original real-time geometry, not a physical launcher design. */
+/** A low weighted support, subdued metal and cached contact darkening. No halo. */
 export class LaunchStage {
   readonly group = new THREE.Group();
-  private readonly ringMaterial = new THREE.MeshBasicMaterial({ color: new THREE.Color(1.7, .79, .25) });
-  private readonly inlayMaterial = new THREE.MeshStandardMaterial({ color: '#b49668', metalness: .72, roughness: .24 });
-  private readonly washMaterial = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false });
-  private readonly contactLight = new THREE.PointLight(0xffbb65, 8, 40, 2);
-  private readonly dial: THREE.Mesh;
+  private readonly contactTexture: THREE.CanvasTexture;
   constructor() {
-    this.group.name = 'Cinematic launch stage';
-    const dark = new THREE.MeshStandardMaterial({ color: '#292d33', roughness: .56, metalness: .58 });
-    const satin = new THREE.MeshStandardMaterial({ color: '#505359', roughness: .37, metalness: .72 });
-    const profile = [new THREE.Vector2(0, -.65), new THREE.Vector2(19.2, -.65), new THREE.Vector2(19.7, -.3), new THREE.Vector2(19.7, .12), new THREE.Vector2(19.2, .45), new THREE.Vector2(0, .45)];
-    const plinth = new THREE.Mesh(new THREE.LatheGeometry(profile, 80), dark);
-    const upper = new THREE.Mesh(new THREE.CylinderGeometry(14.1, 14.7, .38, 80), satin);
-    upper.position.y = .62;
-    this.group.add(plinth, upper);
-    for (const [radius, y, luminous] of [[19.25,.4,0], [14.25,.81,0], [6.5,.84,1]] as const) {
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, luminous ? .13 : .045, 6, 100), luminous ? this.ringMaterial : this.inlayMaterial);
-      ring.rotation.x = -Math.PI / 2; ring.position.y = y; this.group.add(ring);
+    this.group.name = 'Grounded steel launch support';
+    const steel = new THREE.MeshStandardMaterial({ color: '#343b40', roughness: .76, metalness: .48 });
+    const brass = new THREE.MeshStandardMaterial({ color: '#81704b', roughness: .65, metalness: .52 });
+    const lower = new THREE.Mesh(new THREE.CylinderGeometry(1, 1.08, .42, 48), steel);
+    lower.position.y = -.21;
+    const plate = new THREE.Mesh(new THREE.CylinderGeometry(.86, .94, .14, 48), steel);
+    plate.position.y = .07;
+    const edge = new THREE.Mesh(new THREE.TorusGeometry(.86, .018, 6, 64), brass);
+    edge.rotation.x = -Math.PI / 2; edge.position.y = .145;
+    const socket = new THREE.Mesh(new THREE.CylinderGeometry(.08, .10, .25, 16, 1, true), brass);
+    socket.position.y = .24;
+    const shadowCanvas = document.createElement('canvas'); shadowCanvas.width = shadowCanvas.height = 64;
+    const ctx = shadowCanvas.getContext('2d')!, gradient = ctx.createRadialGradient(32,32,8,32,32,31);
+    gradient.addColorStop(0,'rgba(0,0,0,.64)'); gradient.addColorStop(.6,'rgba(0,0,0,.35)'); gradient.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = gradient; ctx.fillRect(0,0,64,64);
+    const texture = new THREE.CanvasTexture(shadowCanvas);
+    this.contactTexture=texture;
+    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.7,2.7), new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));
+    shadow.rotation.x = -Math.PI/2; shadow.position.y = -.425;
+    this.group.add(lower, plate, edge, socket, shadow);
+    for (let i=0;i<6;i++) {
+      const fixing = new THREE.Mesh(new THREE.CylinderGeometry(.033,.036,.035,6), brass), angle=i/6*Math.PI*2;
+      fixing.position.set(Math.sin(angle)*.72,.16,Math.cos(angle)*.72); this.group.add(fixing);
     }
-    const socket = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 2, 1.3, 40, 1, true), this.inlayMaterial);
-    socket.position.y = 1.42; this.group.add(socket);
-    this.dial = new THREE.Mesh(new THREE.RingGeometry(3.2, 3.28, 64, 1, 0, Math.PI * 1.6), this.ringMaterial);
-    this.dial.rotation.x = -Math.PI / 2; this.dial.position.y = .84;
-    this.group.add(this.dial);
-    this.washMaterial.colorNode = color('#b78346');
-    this.washMaterial.opacityNode = uv().sub(.5).length().mul(2).oneMinus().clamp(0, 1).pow(3).mul(.17);
-    const wash = new THREE.Mesh(new THREE.PlaneGeometry(85, 60), this.washMaterial);
-    wash.rotation.x = -Math.PI / 2; wash.position.y = -.72;
-    this.contactLight.position.set(-1, 5, 6);
-    this.group.add(wash, this.contactLight);
-    const lower = new THREE.Mesh(new THREE.CylinderGeometry(22.5, 23.2, .7, 96), dark);
-    lower.position.y = -.95;
-    const edge = new THREE.Mesh(new THREE.TorusGeometry(22.55, .045, 6, 128), this.inlayMaterial);
-    edge.rotation.x = -Math.PI / 2; edge.position.y = -.56;
-    const markers = new THREE.InstancedMesh(new THREE.CylinderGeometry(.36, .36, .16, 6), satin, 8);
-    markers.name = 'Eight restrained steel fixings';
-    const matrix = new THREE.Matrix4(), rotation = new THREE.Quaternion();
-    for (let i = 0; i < 8; i++) {
-      const angle = i / 8 * Math.PI * 2;
-      rotation.setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
-      matrix.compose(new THREE.Vector3(Math.sin(angle) * 16.3, .53, Math.cos(angle) * 16.3), rotation, new THREE.Vector3(1, 1, 1));
-      markers.setMatrixAt(i, matrix);
-    }
-    this.group.add(lower, edge, markers);
   }
-  update(sim: Simulation, visible: boolean) {
+  update(sim: Simulation, visible: boolean, composition?: LaunchPropComposition, padX = sim.committed?.padX ?? sim.placementToX()) {
     this.group.visible = visible;
-    this.group.scale.set(.28, 1, .28);
-    this.group.position.set(sim.committed?.padX ?? sim.placementToX(), sim.ground - 9.8, 0);
-    const fuse = sim.rockets.find(r => r.stage === 'fuse');
-    const contact = sim.holding ? Math.min(1, sim.holdProgress) : fuse ? .75 : 0;
-    const rise = sim.rockets.some(r => r.phase === 'thrust') ? .4 : 0;
-    this.ringMaterial.color.setRGB(.58 + contact * .45, .34 + contact * .22, .14 + contact * .08);
-    this.contactLight.intensity = 8 + contact * 9 + rise * 10;
-    this.dial.rotation.z = sim.holding ? -sim.holdProgress * Math.PI * 2 : 0;
+    const radius = composition?.padRadius ?? 3;
+    this.group.scale.set(radius,1,radius);
+    this.group.position.set(padX, (composition?.contactY ?? 6.82) - .37, 0);
   }
+  dispose() { this.contactTexture.dispose(); }
 }

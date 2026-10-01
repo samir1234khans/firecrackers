@@ -39,9 +39,11 @@ test('selecting and positioning during a committed flight cannot mutate that roc
   const s = new Simulation(); s.select('gold-willow'); s.setPlacement(.28); s.ignite();
   const r = s.committed, x = r.x;
   s.select('multicolor-peony'); s.setPlacement(.72);
-  assert.equal(r.family, 0); assert.equal(r.x, x); assert.equal(s.placement, .28);
+  assert.equal(r.family, 0); assert.equal(r.x, x); assert.equal(r.normalizedPlacement, .28);
+  assert.equal(s.placement, .72, 'position changes the next draft while the admitted launch stays fixed');
   assert.equal(s.selected, 'multicolor-peony'); assert.equal(s.ready, false);
   advance(s, 4); assert.equal(s.ready, true); s.ignite(); assert.equal(s.committed.family, 1);
+  assert.equal(s.committed.normalizedPlacement, .72);
 });
 test('fuse and in-flight pause preserve the same exact state', () => {
   const s = new Simulation(); s.ignite(); advance(s, .2); s.setPaused(true);

@@ -56,7 +56,7 @@ async function enter(page, backend = 'canvas', extra = {}) {
   const url = new URL(base);
   Object.entries({ backend, qa: '1', seed: '20260916', ...extra }).forEach(([key, value]) => url.searchParams.set(key, value));
   await page.goto(url.href, { waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && window.__firecrackersQA,
+  await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && document.querySelector('main')?.dataset.presented === 'true' && window.__firecrackersQA,
     undefined, { timeout: 65000 });
   assert.equal(await page.locator('main').getAttribute('data-version'), expectedVersion);
   assert.equal(await page.locator('main').getAttribute('data-overlay'), 'none');
@@ -102,8 +102,8 @@ async function inspectPanel(page, variant, spec, name) {
   assert.ok(r.x >= 8 && r.right <= v.width - 8 + .5 && r.y >= 8 && r.bottom <= v.height - 8 + .5,
     `${name}: panel must stay inside safe viewport gutters: ${JSON.stringify(geometry)}`);
   assert.ok(r.width <= 360.5, `${name}: width cap ${r.width}`);
-  assert.ok(r.height <= v.height - (compact ? (v.width < 680 ? 188 : v.width < 736 ? 136 : 76) + 16 : 24) + .5, `${name}: height cap ${r.height}`);
-  if (compact) { const tray=await page.locator('[data-family-tray]').boundingBox(); assert.ok(r.bottom<=tray.y-7, `${name}: panel stays above tray`); }
+  assert.ok(r.height <= v.height - (compact ? 76 + 16 : 24) + .5, `${name}: height cap ${r.height}`);
+  if (compact) { const footer=await page.locator('[data-position-control]').boundingBox(); assert.ok(r.bottom<=v.height-76-7, `${name}: panel stays above footer`);assert.ok(r.bottom<=footer.y,`${name}: position remains below panel`); }
   else {
     assert.ok(r.width >= (variant==='controls'?240:320) && r.width <= 360, `${name}: desktop panel width`);
     assert.ok(Math.abs(r.right - (v.width - 72)) <= 1, `${name}: panel adjacent to right rail`);
@@ -116,7 +116,7 @@ async function inspectPanel(page, variant, spec, name) {
   assert.ok(geometry.scrollables.every(value => value.includes('panel-body')), `${name}: only panel body may scroll`);
   // Reach every rendered action through the actual scroll container and test its effective target.
   const targets = dialog.locator('button, a[href], select, input:not([type="hidden"]), summary');
-  const minimum = v.width <= 1023 ? 48 : 44;
+  const minimum = 48;
   let targetCount = 0;
   for (const target of await targets.all()) {
     if (!await target.isVisible()) continue;
@@ -188,7 +188,7 @@ async function matrix(page, spec) {
   await enter(page);
   const invoker=page.getByRole('button',{name:'Controls',exact:true});
   await invoker.click();await inspectPanel(page,'controls',spec,`${spec.name}-controls`);await escapeTo(page,invoker);
-  for(const variant of ['help','show','position']) {
+  for(const variant of ['help']) {
     await openPanel(page,variant);await inspectPanel(page,variant,spec,`${spec.name}-${variant}`);await escapeTo(page,invoker);
   }
   await openPicker(page);await inspectPanel(page,'picker',spec,`${spec.name}-picker-classics`);
@@ -285,7 +285,7 @@ try {
     await page.mouse.move(r.x+r.width/2,r.y+r.height/2);await page.mouse.down();await page.mouse.move(196,180,{steps:12});
     assert.equal(await page.locator('main').getAttribute('data-drag-active'),'true');await page.mouse.up();
     assert.equal((await snap(page)).bursts,before.bursts+1);await page.evaluate(()=>window.__firecrackersQA.advance(35));
-    await openPanel(page,'position');await page.getByRole('button',{name:'Right',exact:true}).click();await page.getByRole('button',{name:'Apply',exact:true}).click();assert.equal((await snap(page)).placement,.8);
+    await page.getByRole('slider',{name:'Next rocket position'}).focus();await page.keyboard.press('End');assert.equal((await snap(page)).placement,1);
     await openPicker(page);await page.getByRole('button',{name:'Grand collection',exact:true}).click();await page.getByRole('button',{name:'Sapphire Saturn',exact:true}).click();assert.equal((await snap(page)).selected,'sapphire-saturn');assert.equal((await snap(page)).launched,before.launched+1);
     record('Real tray drag cancellation/one sky burst, position commit and catalog selection');
   });
@@ -314,7 +314,7 @@ try {
       await page.goto(new URL('?backend=canvas',base).href,{ waitUntil:'domcontentloaded' });
       try {
         const shell = page.locator('.boot-shell'); await shell.waitFor();
-        await inspectAuxiliary(page,shell,spec,`${spec.name}-boot-loading`);
+        await inspectPreparation(page,shell,spec,`${spec.name}-boot-loading`);
       } finally { release(); }
       await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true',undefined,{ timeout:65000 });
     });
@@ -323,9 +323,12 @@ try {
       await page.route('**/assets/main-*.js',route => { aborted++; return route.abort(); });
       await page.goto(base,{ waitUntil:'domcontentloaded' });
       await page.getByText(/The app could not finish loading/).waitFor();
+      // Font metrics can wrap these actions onto separate rows on Linux.
+      // Force that case everywhere; the compact error surface must scroll.
+      if (spec.name === '844x390') await page.addStyleTag({ content:'#boot-recovery a { min-width:220px; }' });
       await inspectAuxiliary(page,page.locator('.boot-shell'),spec,`${spec.name}-entry-recovery`);
       assert.equal(await page.getByRole('link',{ name:'Reload website',exact:true }).isVisible(),true);
-      assert.equal(await page.getByRole('link',{ name:'Open compatibility mode',exact:true }).isVisible(),true);
+      assert.equal(await page.getByRole('link',{ name:/compatibility (mode|graphics)/i }).isVisible(),true);
       assert.equal(aborted,1,'Entry recovery must result from the one deliberately blocked entry module');
     },[/Failed to load resource: net::ERR_FAILED/]);
     await run(`${spec.name}-react-recovery`,spec,async page => {
@@ -334,7 +337,7 @@ try {
       await page.getByRole('heading',{ name:'Sky interrupted',exact:true }).waitFor();
       await inspectAuxiliary(page,page.locator('.boot-shell'),spec,`${spec.name}-react-recovery`);
       assert.equal(await page.getByRole('button',{ name:'Reload website',exact:true }).isVisible(),true);
-      assert.equal(await page.getByRole('link',{ name:'Open compatibility mode',exact:true }).isVisible(),true);
+      assert.equal(await page.getByRole('link',{ name:/compatibility (mode|graphics)/i }).isVisible(),true);
     },[/Injected panel preference capability failure/]);
   }
   await run('renderer-loading-and-recovery',{ width:393,height:851 },async page => {
@@ -344,8 +347,8 @@ try {
     const url = new URL('?backend=webgl&qa=1',base);
     await page.goto(url.href,{ waitUntil:'domcontentloaded' });
     try {
-      await page.locator('.loading-state').waitFor();
-      await inspectAuxiliary(page,page.locator('.loading-state'),viewports[2],'renderer-loading');
+      await page.locator('.startup-screen').waitFor();
+      await inspectPreparation(page,page.locator('.startup-screen'),viewports[2],'renderer-loading');
     } finally { release(); }
     await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && window.__firecrackersQA,
       undefined,{ timeout:65000 });
@@ -391,4 +394,15 @@ async function inspectAuxiliary(page,surface,spec,name) {
     assert.ok(hit.width>=min&&hit.height>=min&&hit.hit&&hit.bottom<=data.viewport.height,`${name}: reachable ${min}px action ${JSON.stringify(hit)}`);
   }
   await capture(page,name); record(`${name}: startup/recovery bounds and reachable actions`,{ geometry:data });
+}
+
+
+async function inspectPreparation(page,surface,spec,name) {
+  const geometry=await surface.evaluate(element=>{const r=element.getBoundingClientRect(),card=element.querySelector('.startup-card').getBoundingClientRect(),moon=element.querySelector('.startup-moon-orbit,.boot-moon').getBoundingClientRect();return{width:r.width,height:r.height,x:r.x,y:r.y,viewport:{width:innerWidth,height:innerHeight},card:card.toJSON(),moon:moon.toJSON(),overflow:document.documentElement.scrollWidth>innerWidth+1};});
+  assert.equal(geometry.overflow,false);assert.equal(geometry.x,0);assert.equal(geometry.y,0);assert.equal(geometry.width,geometry.viewport.width);assert.equal(geometry.height,geometry.viewport.height);
+  assert.ok(geometry.card.x>=8&&geometry.card.right<=geometry.viewport.width-8&&geometry.card.top>=0&&geometry.card.bottom<=geometry.viewport.height,`${name}: readable preparation card`);
+  assert.ok(Math.abs(geometry.moon.x+geometry.moon.width/2-geometry.viewport.width/2)<1&&Math.abs(geometry.moon.y+geometry.moon.height/2-geometry.viewport.height/2)<1,`${name}: centered preparation moon`);
+  const progress=surface.getByRole('progressbar');assert.equal(await progress.getAttribute('aria-valuenow'),null,'Initial graphics preparation must not invent a percentage');
+  for(const target of await surface.locator('a[href],button').all()){if(!await target.isVisible())continue;await target.scrollIntoViewIfNeeded();const hit=await target.evaluate(e=>{const r=e.getBoundingClientRect();return{height:r.height,width:r.width,bottom:r.bottom,hit:e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))};});assert.ok(hit.width>=48&&hit.height>=48&&hit.hit&&hit.bottom<=geometry.viewport.height,`${name}: reachable 48px action ${JSON.stringify(hit)}`);}
+  await capture(page,name);record(`${name}: full preparation cover, centered moon and reachable actions`,{geometry});
 }

@@ -10,5 +10,6 @@ const explain = (text: string) => {
 const timer = window.setTimeout(() => explain('Still loading. You can reload the website or open compatibility graphics.'), 10000);
 void import('./main').then(() => clearTimeout(timer)).catch(() => {
     clearTimeout(timer);
+    if (shell) { shell.dataset.bootState = 'error'; const heading = shell.querySelector('h1'); if (heading) heading.textContent = 'Sky could not start'; }
     explain('The app could not finish loading. Check your connection, then reload. Your saved preferences have not been changed.');
 });

@@ -31,6 +31,7 @@ async function enter(page, suffix = '?backend=webgl&qa=1') {
   await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && Boolean(window.__firecrackersQA), undefined, { timeout: 90000 });
   if (await page.locator('main').getAttribute('data-overlay') === 'help') await page.getByRole('button', { name: 'Skip introduction', exact: true }).click();
   await page.waitForFunction(() => document.querySelector('main')?.dataset.overlay === 'none');
+  await page.waitForSelector('main[data-presented="true"]', { timeout: 90000 });
 }
 async function waitBurst(page, number) {
   await page.waitForFunction(n => Number(document.querySelector('main')?.dataset.bursts) >= n, number, { timeout: 90000 });
@@ -183,6 +184,7 @@ try {
       deliberatelyOffline = true;
       await context.setOffline(true); await page.reload({ waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true', undefined, { timeout: 60000 });
+      await page.waitForSelector('main[data-presented="true"]', { timeout: 90000 });
       assert.ok((await selectedLaunch(page).getAttribute('data-launchable')) === 'true');
       await context.setOffline(false); deliberatelyOffline = false;
       record('desktop: production offline package cold reload');

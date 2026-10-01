@@ -21,6 +21,7 @@
     "src/engine/QualityGovernor.ts",
     "src/engine/VisibleFrame.ts",
     "src/engine/RendererRecovery.ts",
+    "src/engine/StartupProgress.ts",
     "src/engine/SkyState.ts",
     "src/graphics/CelestialScene.ts", "src/graphics/MoonComposition.ts", "src/graphics/WaterWaves.ts"
   ]

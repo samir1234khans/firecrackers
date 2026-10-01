@@ -59,7 +59,7 @@ test('settings preserve manual pause and repeated Space cannot toggle it repeate
   await page.getByRole('button', { name: 'Close panel' }).click();
   await expect(page.locator('main')).toHaveAttribute('data-paused', 'true');
   await page.getByRole('button', { name: 'Resume scene', exact: true }).first().click();
-  await page.locator('body').click({ position: { x: 10, y: 150 } });
+  await page.locator('body').click({ position: { x: 196, y: 24 } });
   await page.keyboard.down('Space');
   await expect(page.locator('main')).toHaveAttribute('data-paused', 'true');
   await page.keyboard.down('Space');

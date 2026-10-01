@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-01",
+  "scope": "Local completed regression inventory; counts belong to separate source/build runs and must not be summed as a single final-build qualification.",
+  "method": "Bundled Chromium software WebGL/Canvas and viewport/touch emulation unless a report explicitly states otherwise. No physical-phone, Safari or hardware-performance qualification.",
+  "runs": [
+    {
+      "count": 42,
+      "build": "2026-10-01.3",
+      "result": "passed",
+      "id": "grand",
+      "era": "before-startup",
+      "reportFingerprint": null,
+      "failed": 0,
+      "note": "Higher-apex flight and blank-scene focus fixtures corrected; all effect guards retained.",
+      "path": "test-results/open-sky-regression/grand/report.json"
+    },
+    {
+      "result": "passed",
+      "count": 28,
+      "id": "original-before-startup",
+      "era": "before-startup",
+      "reportFingerprint": null,
+      "failed": 0,
+      "build": "2026-10-01.3",
+      "path": "test-results/open-sky-regression/video-flow/browser-report.json"
+    },
+    {
+      "count": 28,
+      "build": "2026-10-01.3",
+      "result": "passed",
+      "id": "original-after-startup",
+      "era": "startup-integrated-before-final-cosmetic-build",
+      "reportFingerprint": null,
+      "failed": 0,
+      "note": "Waits presentation barrier on normal and offline entry.",
+      "path": "test-results/open-sky-startup-final/video-flow/browser-report.json"
+    },
+    {
+      "count": 1,
+      "result": "passed",
+      "id": "assets-after-startup",
+      "era": "startup-integrated-before-final-cosmetic-build",
+      "reportFingerprint": null,
+      "failed": 0,
+      "note": "Explicit continuation while assets held; midflight activation and body-clearance guards preserved.",
+      "path": "test-results/open-sky-startup-final/assets.log"
+    },
+    {
+      "result": "passed",
+      "count": 2,
+      "id": "offline-after-startup",
+      "era": "startup-integrated-before-final-cosmetic-build",
+      "reportFingerprint": null,
+      "failed": 0,
+      "path": "test-results/open-sky-startup-final/offline/report.json"
+    },
+    {
+      "count": 35,
+      "result": "passed",
+      "id": "galactic-release",
+      "era": "release-before-final-moon-diameter-fix",
+      "reportFingerprint": null,
+      "runtimeSeconds": 52.3,
+      "failed": 0,
+      "path": "test-results/open-sky-release-galactic/report.json"
+    },
+    {
+      "result": "passed",
+      "count": 7,
+      "id": "asset-lifecycle",
+      "era": "before-startup",
+      "reportFingerprint": null,
+      "failed": 0,
+      "path": "test-results/open-sky-regression/asset-lifecycle/report.json"
+    },
+    {
+      "count": 5,
+      "result": "passed",
+      "id": "overload",
+      "era": "before-startup",
+      "reportFingerprint": null,
+      "failed": 0,
+      "note": "Injected frame samples; not measured hardware performance.",
+      "path": "test-results/open-sky-regression/overload/report.json"
+    },
+    {
+      "result": "passed",
+      "count": 15,
+      "id": "viewability",
+      "era": "before-startup",
+      "reportFingerprint": null,
+      "failed": 0,
+      "path": "test-results/open-sky-regression/viewability/viewability-report.json"
+    },
+    {
+      "result": "passed",
+      "count": 183,
+      "id": "panels-full",
+      "era": "before-startup",
+      "reportFingerprint": "1c56e9b07f3ab2d9d4d72fbf89e4964337c2647811f8cc793a1bf515677a26d0",
+      "failed": 0,
+      "path": "test-results/open-sky-panels-final/panel-report.json"
+    },
+    {
+      "result": "passed",
+      "count": 2,
+      "id": "panels-startup-drag",
+      "era": "release-before-final-moon-diameter-fix",
+      "reportFingerprint": "b2d7720cc630da8f5b9a00be95cb22ad63cd133452eec4712dbf795382ee5f86",
+      "failed": 0,
+      "path": "test-results/open-sky-panels-final-startup-drag/panel-report.json"
+    },
+    {
+      "failed": 0,
+      "reportFingerprint": null,
+      "runtimeSeconds": 31.2,
+      "id": "startup-final",
+      "result": "passed",
+      "note": "Fingerprint supplied by final build run context; this legacy report does not embed it. Exact renderer moon image diameter and center passed.",
+      "path": "test-results/open-sky-release-startup-final/report.json",
+      "count": 8,
+      "era": "final-build",
+      "observedRunFingerprint": "f361634f9edf900ef6530810ffb084c0537c29c955f4b2e7d840e55ce57551a0"
+    }
+  ],
+  "unitEvidence": {
+    "note": "Actual log footer verified. Earlier open-sky-final-units.log contains 208, not 217.",
+    "skipped": 0,
+    "reportFingerprint": null,
+    "durationMilliseconds": 4840.5764,
+    "failed": 0,
+    "path": "test-results/open-sky-loading-units.log",
+    "passed": 217,
+    "tests": 217
+  },
+  "soakEvidence": {
+    "result": "passed",
+    "simulatedSeconds": 7200,
+    "maxSmoke": 64,
+    "maxCues": 9,
+    "maxHeads": 858,
+    "launched": 1290,
+    "wallSeconds": 50.0647289,
+    "maxRockets": 4,
+    "maxTrails": 20000,
+    "note": "Accelerated logical simulation; not a GPU or physical-device soak.",
+    "bursts": 3995,
+    "path": "test-results/open-sky-soak-final.log"
+  },
+  "supersededAttempts": [
+    {
+      "path": "test-results/open-sky-regression/grand-prior-attempt-report.json",
+      "reason": "Obsolete fixed 3.5-second portrait apex fixture; resolved using actual committed ascent duration. Earlier blank-focus point overlapped the new left icon collection.",
+      "replacement": "test-results/open-sky-regression/grand/report.json"
+    },
+    {
+      "path": "test-results/open-sky-startup-final/prior-video-runtime-barrier-report.json",
+      "reason": "Old runtime-ready fixture asserted launch availability before new startup presentation completed.",
+      "replacement": "test-results/open-sky-startup-final/video-flow/browser-report.json"
+    },
+    {
+      "path": "test-results/open-sky-startup-final/prior-font-capture-report.json",
+      "reason": "Controlled stalled asset requests kept screenshot font-ready wait pending; system-font screenshot bypass added while retaining held requests and behavior assertions.",
+      "replacement": "test-results/open-sky-release-startup-final/report.json"
+    },
+    {
+      "path": "test-results/open-sky-panels-startup/panel-report.json",
+      "reason": "Startup presentation barrier not awaited by drag fixture.",
+      "replacement": "test-results/open-sky-panels-final-startup-drag/panel-report.json"
+    },
+    {
+      "path": "test-results/open-sky-panels-startup-drag/panel-report.json",
+      "reason": "Expected fingerprint disagreed with still-running prior build; no behavior checks completed.",
+      "replacement": "test-results/open-sky-panels-final-startup-drag/panel-report.json"
+    }
+  ],
+  "limitations": [
+    "Most legacy regression reports do not embed a source fingerprint; null explicitly means unavailable in that report.",
+    "Historical suites preceded startup changes; final startup and specific startup regressions are listed separately.",
+    "No browser or test execution was performed to assemble this inventory."
+  ]
+}

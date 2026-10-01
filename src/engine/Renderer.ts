@@ -1,12 +1,18 @@
 import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
-import { resolveScreenLaunchProfile } from './LaunchProfile';
+import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from './LaunchProfile';
+import type { LaunchProfile } from './LaunchProfile';
+import type { RendererStartup } from './StartupProgress';
+import type { MoonFrame } from '../graphics/MoonComposition';
+import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjectionDiagnostics } from './LaunchComposition';
+import type { LaunchPropComposition, LaunchBounds } from './LaunchComposition';
 import { signatureEnvelope } from './SignatureDiagnostics';
 import * as THREE from 'three/webgpu';
 import { float, mix, pass, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
-import { BUDGETS, FAMILIES } from './catalog';
+import { BUDGETS, FAMILIES, clamp, familyIndex } from './catalog';
 import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from './LaunchGeometry';
+import { ROCKET_SCALE } from './FusePath';
 import type { FamilyId, Quality } from './catalog';
 import type { Simulation } from './Simulation';
 import type { SkyState } from './SkyState';
@@ -51,6 +57,11 @@ export class FireworkRenderer {
     private pendingAssetCount = 0;
     private assetFrame = 0;
     private layout!: StageLayout;
+    private compositions: LaunchPropComposition[] = [];
+    private launchBounds: LaunchBounds[] = [];
+    private previewProfile?: LaunchProfile;
+    private previewFamily = -1;
+    private previewPlacement = -1;
     setLayout(layout: StageLayout) { this.layout = layout; }
     setSkyState(state: Readonly<SkyState>) { this.environment.setSkyState(state); }
     private mode: DisplayMode = 'interactive';
@@ -164,6 +175,7 @@ export class FireworkRenderer {
         this.camera.lookAt(0, centerY, 0);
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
+        this.resolvePropLayouts();
         this.environment.frameTerrace(this.camera);
         this.water.resize(this.camera);
         this.environment.setPortraitHorizon(aspect < .72, this.water.diagnostics().waterline, aspect);
@@ -188,24 +200,68 @@ export class FireworkRenderer {
         this.bloomPass.strength.value = budget.bloom * (this.sim.reducedFlashes ? .7 : 1);
         this.metrics.renderPixels = Math.round(w * h * ratio * ratio);
     }
-    resolveLaunchProfile(id: FamilyId, placement = this.sim.placement) {
+    private screenPoint(x: number, y: number) {
+        const point = new THREE.Vector3(x, y, 0).project(this.camera);
+        return { x: (point.x + 1) * this.layout.viewport.width / 2, y: (1 - point.y) * this.layout.viewport.height / 2 };
+    }
+    startupMoon(): Readonly<MoonFrame> | null { return this.initialized ? this.environment.startupMoon() : null; }
+    readiness(): RendererStartup {
+        let completed=0,degraded=false,pendingName:WaterfrontAssetName|undefined,activating=false;
+        for(const name of WATERFRONT_ASSET_NAMES) {
+            const state=this.assetStates[name];
+            if(state==='active'||state==='failed')completed++;
+            if(state==='failed')degraded=true;
+            if(!pendingName&&(state==='loading'||state==='ready')){pendingName=name;activating=state==='ready';}
+        }
+        const labels:Record<WaterfrontAssetName,string>={smoke:'smoke',paper:'rocket finish',normal:'rocket surface',flame:'flame',rocket:'rocket artwork',terrace:'terrace',sky:'night sky',river:'waterfront',moon:'moon'};
+        return {completed,total:WATERFRONT_ASSET_NAMES.length,pending:completed<WATERFRONT_ASSET_NAMES.length,degraded,
+            detail:pendingName?`${activating?'Preparing':'Loading'} ${labels[pendingName]}`:degraded?'Scene ready with fallback artwork':'Scene ready'};
+    }
+    private worldPoint(x: number, y: number) {
         const l = this.layout;
         const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-        const point = new THREE.Vector3(), ndc = new THREE.Vector2(0, 0);
-        return resolveScreenLaunchProfile(l, id, stageFraming(l).scale, y => {
-            ndc.y = 1 - y / l.viewport.height * 2;
-            ray.setFromCamera(ndc, this.camera);
-            return ray.ray.intersectPlane(plane, point)?.y ?? this.sim.ground + 72;
-        }, (new THREE.Vector3(this.sim.placementToX(placement), this.sim.ground + 72, 0).project(this.camera).x + 1) * l.viewport.width / 2);
+        ray.setFromCamera(new THREE.Vector2(x / l.viewport.width * 2 - 1, 1 - y / l.viewport.height * 2), this.camera);
+        return ray.ray.intersectPlane(plane, new THREE.Vector3()) ?? new THREE.Vector3(0, this.sim.ground, 0);
     }
-    projectPlacement(clientX: number) {
-        const rect = this.host.getBoundingClientRect();
-        const ndc = (clientX - rect.left) / Math.max(1, rect.width) * 2 - 1;
-        const projected = new THREE.Vector3(0, this.sim.ground, 0).project(this.camera);
-        const ray = new THREE.Raycaster();
-        ray.setFromCamera(new THREE.Vector2(ndc, projected.y), this.camera);
-        const point = ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), new THREE.Vector3());
-        return point ? Math.max(.2, Math.min(.8, .5 + point.x / this.sim.launchSpan)) : .5;
+    private resolvePropLayouts() {
+        const contactY = this.screenPoint(0, PROP_CONTACT_Y).y;
+        this.compositions = FAMILIES.map(f => resolvePropComposition(this.layout, f.id, contactY, y => this.worldPoint(this.layout.viewport.width / 2, y).y));
+        this.launchBounds = this.compositions.map(c => resolveLaunchBounds(this.layout, c, (x,y) => this.screenPoint(x,y), (x,y) => this.worldPoint(x,y).x));
+        this.previewProfile = undefined;
+    }
+    private nextProfile() {
+        const index = familyIndex(this.sim.selected);
+        if (!this.previewProfile || this.previewFamily !== index || this.previewPlacement !== this.sim.placement) {
+            this.previewFamily = index; this.previewPlacement = this.sim.placement;
+            this.previewProfile = this.resolveLaunchProfile(this.sim.selected, this.sim.placement);
+        }
+        return this.previewProfile;
+    }
+    resolveLaunchProfile(id: FamilyId, placement = this.sim.placement) {
+        const index = familyIndex(id), l = this.layout, prop = this.compositions[index], bounds = this.launchBounds[index];
+        const normalizedPlacement = clamp(placement, 0, 1), padX = bounds.worldMin + normalizedPlacement * (bounds.worldMax - bounds.worldMin);
+        const screenX = bounds.screenMin + normalizedPlacement * (bounds.screenMax - bounds.screenMin), scene = l.unobstructedScene;
+        const scale=stageFraming(l).scale;
+        const profile = resolveScreenLaunchProfile(l, id, scale, y => this.worldPoint(scene.x+scene.width/2,y).y, scene.x + scene.width / 2, prop);
+        const effectScale=profile.effectScale??1;
+        const shellY=profile.apexMax+prop.shellOffset;
+        const centralScale=this.screenPoint(1,shellY).x-l.viewport.width/2;
+        let nearDepthFactor=1;
+        if(index>=10)for(const dy of [-95,95]) {
+            const near=new THREE.Vector3(1,shellY+dy*effectScale,65*effectScale).project(this.camera);
+            nearDepthFactor=Math.max(nearDepthFactor,near.x*l.viewport.width/2/centralScale);
+        }
+        const aimScreenX=resolveLaunchAimScreenX(l,id,index>=10?Math.max(scale,centralScale):scale,screenX,effectScale,nearDepthFactor);
+        const aimX = this.worldPoint(aimScreenX, scene.y + scene.height * profile.centerFraction).x;
+        return { ...profile, padX, aimX, normalizedPlacement };
+    }
+    projectPlacement(clientX: number, id = this.sim.selected) {
+        const bounds = this.launchBounds[familyIndex(id)];
+        return clamp((clientX - this.layout.viewport.x - bounds.screenMin) / (bounds.screenMax - bounds.screenMin), 0, 1);
+    }
+    projectLaunchPosition(placement: number): [number, number] {
+        const bounds = this.launchBounds[familyIndex(this.sim.selected)];
+        return [this.layout.viewport.x + bounds.screenMin + clamp(placement,0,1) * (bounds.screenMax - bounds.screenMin), this.layout.viewport.y + bounds.contactScreenY];
     }
     projectBurst(clientX: number, clientY: number): [number, number] | null {
         const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
@@ -269,32 +325,35 @@ export class FireworkRenderer {
         for (const prop of this.props) prop.group.visible = false;
         let slot = 0;
         let staged = 0, airborne = 0;
-        const place = (family: number, x: number, y: number, z: number, burn: number, contact: number, vx = 0, vy = 1, vz = 0, bodyOpacity = 1) => {
+        const next = this.nextProfile();
+        const place = (family: number, x: number, y: number, z: number, burn: number, contact: number, composition: LaunchPropComposition | undefined, vx = 0, vy = 1, vz = 0, bodyOpacity = 1) => {
             const prop = this.props[slot++];
             if (!prop) return;
             prop.group.visible = this.mode === 'interactive' && bodyOpacity > .002;
             prop.group.position.set(x, y, z);
-            prop.group.scale.set(3.8, 3.4, 3.8);
+            const modelScale = composition?.modelScale ?? ROCKET_SCALE;
+            prop.group.scale.set(modelScale[0], modelScale[1], modelScale[2]);
             prop.group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(vx, vy, vz).normalize());
             prop.update(family, burn, contact, sim.time, sim.wind, bodyOpacity);
         };
         if (!sim.committed && !sim.show) {
-            place(FAMILIES.findIndex(f => f.id === sim.selected), sim.placementToX(), sim.ground, 0, -.01, sim.holding ? sim.holdProgress : 0);
+            place(FAMILIES.findIndex(f => f.id === sim.selected), next.padX!, next.ground!, 0, -.01, sim.holding ? sim.holdProgress : 0, next.prop);
             staged++;
         }
         for (const r of sim.rockets) {
             if (r.stage === 'afterglow') continue;
             const axis = flightAxis(r);
             const opacity = r.stage === 'ascent' ? flightBodyOpacity(r.age, r.ascent) : 1;
-            place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, ...axis, opacity);
+            place(r.family, r.x, r.y, r.z, r.stage === 'fuse' ? Math.min(1, r.age / r.fuse) : 1, 0, r.launchProfile?.prop, ...axis, opacity);
             if (r.stage === 'fuse') staged++; else airborne++;
         }
         this.host.dataset.stagedRockets = String(staged);
         this.host.dataset.airborneRockets = String(airborne);
         this.host.dataset.visibleRocketBodies = String(this.props.filter(prop => prop.group.visible).length);
-        this.stage.update(sim, this.mode === 'interactive');
+        const padProfile = sim.committed?.launchProfile ?? next;
+        this.stage.update(sim, this.mode === 'interactive', padProfile.prop, sim.committed?.padX ?? next.padX);
         this.environment.update(sim, this.mode !== 'transparent', !this.host.parentElement?.classList.contains('reduced-motion'));
-        this.projected.set(sim.placementToX(), sim.ground, 0).project(this.camera);
+        this.projected.set(next.padX!, next.prop!.contactY, 0).project(this.camera);
         const groundPixels = (1 + this.projected.y) * .5 * this.host.clientHeight;
         const parent = this.host.parentElement;
         parent?.style.setProperty('--ground-px', `${groundPixels}px`);
@@ -326,8 +385,11 @@ export class FireworkRenderer {
         const r = this.sim.committed;
         const point = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         const projected = point ? new THREE.Vector3(...point).project(this.camera) : null;
-        const apex = r ? new THREE.Vector3(r.x, r.top + SHELL_LOCAL_Y * 3.4, r.z).project(this.camera) : null;
+        const apex = r ? new THREE.Vector3(r.launchProfile?.aimX ?? r.x, r.top + (r.launchProfile?.prop?.shellOffset ?? SHELL_LOCAL_Y * ROCKET_SCALE[1]), r.z).project(this.camera) : null;
+        const profile=r?.launchProfile??this.nextProfile(),prop=profile.prop??this.compositions[familyIndex(this.sim.selected)];
         return {
+            ...propProjectionDiagnostics(prop,r?.padX??profile.padX!, (x,y)=>this.screenPoint(x,y)),
+            launchBounds:this.launchBounds[r?.family??familyIndex(this.sim.selected)],nextLaunchProfile:this.nextProfile(),
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
             authoredAssetStates: { ...this.assetStates },
             authoredAssetErrors: { ...this.assetErrors },
@@ -364,6 +426,7 @@ export class FireworkRenderer {
         this.smokeAtlas.dispose();
         this.paper.dispose();
         this.environment.dispose();
+        this.stage.dispose();
         this.water.dispose();
         for (const name of WATERFRONT_ASSET_NAMES) {
             const active = this.assets[name], pending = this.pendingAssets[name];

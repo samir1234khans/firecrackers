@@ -1,0 +1,88 @@
+{
+  "url": "http://127.0.0.1:4288/",
+  "expectedVersion": "2026-10-01.3",
+  "expectedFingerprint": "c12b1d0bde59ba1e0967c9bbda00768d8c645078267ade88c9f42a7b60af0637",
+  "expectedSourceCount": 80,
+  "startedAt": "2026-09-30T23:51:38.439Z",
+  "selectedCases": [
+    "844x390-entry-recovery",
+    "320x480-entry-recovery"
+  ],
+  "dragOrigin": "row-center",
+  "method": "Bundled Chromium headless, software WebGL/Canvas. Real native dialogs and DOM input; viewport/touch emulation.",
+  "limitations": "No installed-Chrome hardware, physical phone, OS accessibility setting or endurance claim. Zoom method is explicitly emulated.",
+  "checks": [
+    {
+      "name": "320x480-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 12,
+        "y": 158.203125,
+        "width": 296,
+        "height": 237.796875,
+        "right": 308,
+        "bottom": 396,
+        "viewport": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "320x480-entry-recovery: no unexpected application errors"
+    },
+    {
+      "name": "844x390-entry-recovery: startup/recovery bounds and reachable actions",
+      "geometry": {
+        "x": 492,
+        "y": 72,
+        "width": 340,
+        "height": 234,
+        "right": 832,
+        "bottom": 306,
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "overflow": false
+      }
+    },
+    {
+      "name": "844x390-entry-recovery: no unexpected application errors"
+    }
+  ],
+  "failures": [],
+  "screenshots": [
+    "320x480-entry-recovery.png",
+    "844x390-entry-recovery.png"
+  ],
+  "errors": [],
+  "expectedFaults": [
+    {
+      "name": "320x480-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4288/assets/main-rqDUNSVo.js"
+        }
+      ]
+    },
+    {
+      "name": "844x390-entry-recovery",
+      "errors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: net::ERR_FAILED",
+          "url": "http://127.0.0.1:4288/assets/main-rqDUNSVo.js"
+        }
+      ]
+    }
+  ],
+  "browserClosed": true,
+  "browserVersion": "140.0.7339.186",
+  "remainingContexts": 0,
+  "finishedAt": "2026-09-30T23:51:39.499Z"
+}

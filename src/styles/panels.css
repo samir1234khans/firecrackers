@@ -26,7 +26,7 @@
   max-width: 360px;
   max-height: calc(100dvh - var(--tray-height, 76px) - 16px - var(--panel-safe-top) - var(--panel-safe-bottom));
   min-height: 0;
-  margin: auto 0 auto auto;
+  margin: auto 0 0 auto;
   padding: 0;
   overflow: hidden;
   border: 0;

@@ -10,30 +10,48 @@
     <title>Firecrackers</title>
     <style>
       html,body{margin:0;background:#040a14;color:#e9ecf1;font-family:system-ui,sans-serif}
-      .boot-shell{box-sizing:border-box;position:fixed;left:calc(12px + env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(340px,calc(100% - 24px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));max-height:calc(100dvh - 24px);overflow:auto;padding:16px;background:rgba(8,15,24,.78);border:0;border-radius:12px;text-align:left}
-      .boot-label{color:#e5bd80;font-size:12px;margin:0 0 8px}
-      .boot-shell h1{font:600 18px/1.3 system-ui,sans-serif;margin:0 0 8px}
-      .boot-shell p{font-size:14px;line-height:1.5;color:#bac5d2}
-      .boot-actions{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
-      .boot-actions[hidden]{display:none}
-      .boot-actions a,.boot-actions button{box-sizing:border-box;display:inline-flex;align-items:center;background:transparent;color:#f0d09a;min-height:48px;border:0;border-radius:6px;padding:8px;text-decoration:none;font:500 14px/1.4 system-ui;cursor:pointer}
-      .boot-actions a:hover,.boot-actions button:hover{background:#e5bd8014}
-      .boot-actions a:focus-visible,.boot-actions button:focus-visible{outline:2px solid #f0d09a;outline-offset:2px}
+      #boot-shell.boot-shell{box-sizing:border-box;position:fixed;z-index:70;inset:0;display:grid;place-items:center;width:100%;max-width:none;height:100dvh;max-height:none;margin:0;padding:calc(20px + env(safe-area-inset-top,0px)) calc(20px + env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) calc(20px + env(safe-area-inset-left,0px));overflow:auto;border:0;border-radius:0;transform:none;background:radial-gradient(ellipse at 50% 75%,#101d2d 0%,#060c17 58%,#040a14 100%);color:#e9edf2;text-align:left}
+      #boot-shell .startup-card{position:absolute;top:calc(50% + 84px);bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(360px,calc(100% - 40px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));margin:0;padding:2px;box-sizing:border-box;overflow:auto;font:400 14px/1.5 system-ui,sans-serif}
+      .boot-moon{position:fixed;left:50%;top:50%;width:128px;height:128px;transform:translate(-50%,-50%);pointer-events:none}
+      .boot-moon img{display:block;width:100%;height:100%;object-fit:contain;animation:boot-moon-turn 18s linear infinite}
+      .boot-moon img[hidden]{display:none}.boot-moon:not([data-moon-ready='true']):before{content:'';position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle at 65% 35%,#c9d0d5,#8a959f 58%,#263342)}
+      @keyframes boot-moon-turn{to{transform:rotate(360deg)}}
+      #boot-shell .boot-label{color:#d9bf95;font-size:11px;letter-spacing:.14em;margin:0 0 7px}
+      #boot-shell h1{font:400 clamp(22px,4vw,28px)/1.25 Georgia,serif;letter-spacing:-.4px;margin:0 0 10px;color:#eef1f6}
+      #boot-message{margin:0 0 16px;color:#bec9d6;font:14px/1.5 system-ui,sans-serif;overflow-wrap:anywhere}
+      .boot-progress{height:3px;border-radius:3px;background:#b7c7dd20;margin:0 0 10px}
+      .boot-progress:before{content:'';display:block;height:100%;background:linear-gradient(90deg,transparent,#d9bf95,transparent);opacity:.7}
+      #boot-shell .boot-next{margin:16px 0 0;color:#90a1b7;font:12px/1.5 system-ui,sans-serif}
+      #boot-shell .boot-actions{display:flex;flex-wrap:wrap;gap:4px;margin-top:18px}
+      #boot-shell .boot-actions[hidden]{display:none}
+      #boot-shell .boot-actions a,#boot-shell .boot-actions button{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;background:#d9bf950d;color:#dcc69f;min-height:48px;border:0;border-radius:6px;padding:8px 10px;text-decoration:none;font:500 13px/1.4 system-ui;cursor:pointer}
+      #boot-shell .boot-actions a:hover,#boot-shell .boot-actions button:hover{background:#d9bf9522}
+      #boot-shell .boot-actions a:focus-visible,#boot-shell .boot-actions button:focus-visible{outline:2px solid #dcc69f;outline-offset:2px}
+      #boot-shell.boot-shell[data-boot-state='error']{inset:auto calc(12px + env(safe-area-inset-right,0px)) calc(84px + env(safe-area-inset-bottom,0px)) auto;width:min(340px,calc(100vw - 24px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));height:auto;max-width:360px;max-height:min(60dvh,calc(100dvh - 100px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)));padding:12px;border-radius:12px;background:rgba(7,15,25,.76)}
+      #boot-shell[data-boot-state='error'] .boot-moon,#boot-shell[data-boot-state='error'] .boot-progress,#boot-shell[data-boot-state='error'] .boot-next{display:none}
+      #boot-shell[data-boot-state='error'] h1{font:600 16px/1.3 system-ui,sans-serif;letter-spacing:0}
+      #boot-shell[data-boot-state='error'] .startup-card{position:static;transform:none;width:100%;overflow:visible}
+      @media(max-height:540px){.boot-moon{width:80px;height:80px}#boot-shell .startup-card{top:calc(50% + 56px)}#boot-shell .boot-actions{margin-top:12px}}
+      @media(prefers-reduced-motion:reduce){.boot-moon img{animation:none}}
     </style>
   </head>
   <body>
     <div id="root">
-      <section class="boot-shell" id="boot-shell" role="status">
-        <p class="boot-label">Firecrackers</p>
-        <h1>Preparing the night sky</h1>
-        <p id="boot-message">Opening your sky…</p>
-        <div id="boot-recovery" class="boot-actions">
-          <a href="./">Reload website</a>
-          <a href="?backend=canvas">Open compatibility mode</a>
+      <section class="boot-shell" id="boot-shell" aria-label="Preparing Firecrackers">
+        <div class="boot-moon" aria-hidden="true"><img src="./art/moon-lro-v001.png" alt="" width="128" height="128" onload="this.parentElement.dataset.moonReady='true'" onerror="this.hidden=true;this.parentElement.dataset.moonReady='false';this.parentElement.dataset.moonFailed='true'" /></div>
+        <div class="startup-card">
+          <h1>Opening your night sky</h1>
+          <p id="boot-message" role="status" aria-live="polite">Loading the application. Graphics and scene preparation follow.</p>
+          <div class="boot-progress" role="progressbar" aria-label="Application initialization" aria-valuetext="In progress"></div>
+          <div id="boot-recovery" class="boot-actions">
+            <a href="./">Reload website</a>
+            <a href="?backend=canvas">Use compatibility graphics</a>
+          </div>
+          <p class="boot-next">Next: tap a firework to launch. Drag it into the sky for an immediate burst.</p>
         </div>
       </section>
     </div>
-    <noscript>This interactive fireworks simulation needs JavaScript. It uses no accounts or tracking.</noscript>
+    <noscript><style>#boot-shell{display:none}</style><p style="padding:24px;line-height:1.5">This interactive fireworks simulation needs JavaScript. It uses no accounts or tracking.</p></noscript>
     <script type="module" src="./src/bootstrap.ts"></script>
   </body>
 </html>

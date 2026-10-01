@@ -37,7 +37,7 @@ export function canonicalSource(path, text) {
 export async function generateRelease() {
   const paths = [
     'src/graphics/MoonComposition.ts', 'src/graphics/WaterWaves.ts', 'src/graphics/WaterfrontAssets.ts', 'src/graphics/WaterReflection.ts', 'src/engine/Audio.ts',
-    'src/engine/LaunchProfile.ts', 'src/engine/StageLayout.ts', 'src/styles/stage.css', 'src/styles/panels.css', 'index.html',
+    'src/ui/StartupScreen.tsx', 'src/styles/startup.css', 'src/engine/StartupProgress.ts', 'src/engine/LaunchComposition.ts', 'src/engine/LaunchProfile.ts', 'src/engine/StageLayout.ts', 'src/styles/stage.css', 'src/styles/panels.css', 'index.html',
     'src/engine/SignatureDiagnostics.ts', 'src/engine/FlagshipEffects.ts', 'src/engine/Pool.ts', 'src/ui/SignatureGlyph.tsx', 'src/engine/GrandEffects.ts', 'src/ui/FamilyPicker.tsx', 'src/ui/GrandGlyph.tsx', 'src/styles/grand-collection.css',
     'src/bootstrap.ts', 'src/main.tsx', 'src/ui/AppBoundary.tsx', 'src/styles/recovery.css',
     'src/engine/RendererPort.ts', 'src/engine/RendererRecovery.ts', 'src/engine/SkyState.ts', 'src/graphics/CompatibilityRenderer.ts',
@@ -48,7 +48,7 @@ export async function generateRelease() {
     'src/graphics/ParticleScene.ts', 'src/graphics/RocketProp.ts', 'src/graphics/textures.ts',
     'src/styles/completion.css', 'src/styles/flow.css', 'src/styles/hud-v3-art.css', 'src/styles/hud-v3.css',
     'src/ui/CinematicHUD.tsx', 'src/ui/Dialog.tsx', 'src/ui/FireworkGlyph.tsx', 'src/ui/FireworkShelf.tsx',
-    'src/ui/BottomCollection.tsx', 'src/ui/ControlsMenu.tsx', 'src/styles/collection.css', 'src/ui/PanelNav.tsx', 'src/ui/PresentationSettings.tsx',
+    'src/platform/preferences.ts', 'src/ui/ShowModeKnob.tsx', 'src/ui/LaunchPositionControl.tsx', 'src/ui/BottomCollection.tsx', 'src/ui/ControlsMenu.tsx', 'src/styles/collection.css', 'src/ui/PanelNav.tsx', 'src/ui/PresentationSettings.tsx',
   ].sort();
   const hash = value => createHash('sha256').update(value).digest('hex');
   const modules = [];

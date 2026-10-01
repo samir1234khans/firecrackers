@@ -17,6 +17,7 @@ import type { RendererPort } from './RendererPort';
 import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
 import { RenderOverloadGuard, withDeadline } from './RendererRecovery';
 import { SkyInteraction, acceptsSkyPointer, skyCadence, skyMotionAllowed, skyPointFromPointer } from './SkyState';
+import { StartupProgress } from './StartupProgress';
 export type DropTarget = { kind: 'burst'; point: [number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
@@ -34,6 +35,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     const intent = useRef(new PauseIntent());
     const [snapshot, setSnapshot] = useState(() => initial.snapshot());
     const [ready, setReady] = useState(false);
+    const startupControl = useRef(new StartupProgress());
+    const [startupState, setStartupState] = useState(() => startupControl.current.snapshot);
+    const updateStartupRef = useRef<(() => void) | null>(null);
     const [error, setError] = useState('');
     const [backend, setBackend] = useState('Starting');
     const [soundActive, setSoundActive] = useState(false);
@@ -87,17 +91,23 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let contactId: number | null = null;
         alive.current = true;
         setReady(false);
+        const preparation = new StartupProgress();
+        startupControl.current = preparation;
+        setStartupState(preparation.snapshot);
         setError('');
         setBackend('Starting');
         setSoundActive(false);
         soundWanted.current = false;
         soundRequest.current++;
         intent.current.block('graphics', false);
+        intent.current.block('startup', true);
         intent.current.block('hidden', document.hidden);
         const state = new Simulation(presentation.seed);
         sim.current = state;
         state.setLaunchProfileResolver((id, placement) => renderer.current?.resolveLaunchProfile(id, placement));
         state.selected = prefs.current.family;
+        state.setPlacement(prefs.current.placement);
+        state.setPlacementMode(prefs.current.placementMode);
         state.reducedFlashes = prefs.current.reducedFlashes;
         state.quality = prefs.current.quality === 'auto' ? 'standard' : prefs.current.quality;
         state.protectCenter = display.current.protect;
@@ -106,6 +116,25 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const sound = new AudioEngine();
         audio.current = sound;
         sound.setSuspended(intent.current.paused || document.hidden);
+        let startupPending = true;
+        let startupSettled = false;
+        const publishStartup = () => {
+            if (cancelled || !runtimeReady || !graphics || startupSettled) return;
+            const assets = graphics.readiness();
+            const value = preparation.update(assets, performance.now());
+            startupSettled = !assets.pending;
+            setStartupState(previous => previous.phase === value.phase && previous.completed === value.completed &&
+                previous.total === value.total && previous.detail === value.detail && previous.pending === value.pending &&
+                previous.degraded === value.degraded ? previous : value);
+            if (startupPending !== value.pending) {
+                startupPending = value.pending;
+                intent.current.block('startup', value.pending);
+                state.setPaused(intent.current.paused);
+                sound.setSuspended(intent.current.paused || document.hidden);
+                refresh();
+            }
+        };
+        updateStartupRef.current = publishStartup;
         const motionAllowed = () => {
             state.reducedMotion = prefs.current.reducedMotion || Boolean(osMotion?.matches);
             return skyMotionAllowed(state.quality, prefs.current.reducedMotion, Boolean(osMotion?.matches), display.current.mode);
@@ -292,6 +321,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             }
             if (now - lastReport > 120) {
                 lastReport = now;
+                publishStartup();
                 refresh();
                 if (graphics)
                     setMetrics({ ...graphics.metrics, p95Ms: governor.p95 });
@@ -326,7 +356,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         };
         const bounds = typeof ResizeObserver === 'function' ? new ResizeObserver(resize) : null;
         if (host.current) bounds?.observe(host.current);
-        for (const element of host.current?.parentElement?.querySelectorAll('[data-control-rail], [data-family-tray]') || []) bounds?.observe(element);
+        for (const element of host.current?.parentElement?.querySelectorAll('[data-control-rail], [data-family-tray], [data-mode-control], [data-position-control]') || []) bounds?.observe(element);
         window.addEventListener('resize', resize);
         window.visualViewport?.addEventListener('resize', resize);
         const updateLayout = () => {
@@ -398,6 +428,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             if (cancelled || !target) return;
             const preferred = new URLSearchParams(location.search).get('backend');
             const begin = async (candidate: RendererPort) => {
+                setStartupState(preparation.graphics(1, `Starting ${candidate.backend}`));
                 graphics = candidate;
                 renderer.current = candidate;
                 candidate.setDisplay(display.current.mode);
@@ -434,7 +465,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             }
             if (!initialized && !cancelled) {
                 await begin(new CompatibilityRenderer(target, state));
-                if (preferred !== 'canvas') notice('Compatibility graphics is active. All ten fireworks are still playable.');
+                if (preferred !== 'canvas') notice('Compatibility graphics is active. All thirteen fireworks are still playable.');
             }
             if (cancelled || !graphics) return;
             intent.current.block('graphics', false);
@@ -442,6 +473,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             setBackend((graphics as RendererPort).backend);
             setReady(true);
             runtimeReady = true;
+            preparation.initialized(performance.now(), (graphics as RendererPort).readiness());
+            publishStartup();
             updateLayout();
             publishSky(false);
             // Starting a show through an explicit presentation link never activates sound.
@@ -456,7 +489,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining,
+                    snapshot: () => ({ ...state.snapshot(), startup: preparation.snapshot, backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining,
                         skyState: { ...sky.state }, skyAmbientCadence: skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed),
                         skyResponding: sky.responding, skyAmbientFrames, skyResponseFrames, skyOneOffFrames, skyLastRenderedTime, skyFrozen: captureFrozen }),
                     injectOverloadSamples: (count: number, milliseconds: number) => {
@@ -531,6 +564,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             try { graphics?.dispose(); } catch { /* A failed driver must not break React cleanup. */ }
             renderer.current = null;
             audio.current = null;
+            if (updateStartupRef.current === publishStartup) updateStartupRef.current = null;
             if (skyRedraw.current === redrawSky) skyRedraw.current = null;
         };
     }, [epoch, presentation.seed, host, refresh, syncPause]);
@@ -581,6 +615,24 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         sim.current.startShow(preset);
         syncPause();
     };
+    // Configuration changes do not take ownership of the user's explicit pause.
+    const setShowMode = (preset: ShowPreset | null) => {
+        if (!status.current.ready || status.current.error || sim.current.show === preset) return;
+        if (preset) sim.current.startShow(preset);
+        else sim.current.stopShow();
+        syncPause();
+    };
+    const setPlacement = (value: number) => {
+        sim.current.setPlacement(value);
+        sim.current.setPlacementMode('fixed');
+        skyRedraw.current?.();
+        refresh();
+    };
+    const setPlacementMode = (value: 'fixed' | 'random') => {
+        sim.current.setPlacementMode(value);
+        skyRedraw.current?.();
+        refresh();
+    };
     const ignite = () => {
         if (status.current.ready && !status.current.error) {
             sim.current.ignite('manual', familyIndex(sim.current.selected));
@@ -605,7 +657,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const l = measureStage(host.current!, display.current.mode === 'interactive');
         return { ...l.heroRect, x: l.heroRect.x + l.viewport.x, y: l.heroRect.y + l.viewport.y };
     };
-    const dropTarget = (x: number, y: number): DropTarget | null => {
+    const dropTarget = (x: number, y: number, id?: FamilyId): DropTarget | null => {
         const graphics = renderer.current, element = host.current;
         if (!graphics || !element || display.current.mode !== 'interactive' || !Number.isFinite(x) || !Number.isFinite(y)) return null;
         const layout = measureStage(element);
@@ -618,13 +670,13 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             return point ? { kind: 'burst', point, compositionScale: signatureCompositionScale(layout, stageFraming(layout).scale, localX, localY) } : null;
         }
         if (inside(localX, localY, layout.launchArea)) {
-            const placement = graphics.projectPlacement(x);
+            const placement = graphics.projectPlacement(x, id);
             return Number.isFinite(placement) ? { kind: 'launch', placement } : null;
         }
         return null;
     };
     const drop = (id: FamilyId, x: number, y: number) => {
-        const target = dropTarget(x, y);
+        const target = dropTarget(x, y, id);
         if (!target || !status.current.ready || status.current.error) return false;
         const admitted = target.kind === 'burst'
             ? sim.current.burstAt(id, ...target.point, target.compositionScale)
@@ -632,5 +684,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         refresh(); return admitted;
     };
     const positionFromPointer = (clientX: number) => renderer.current?.projectPlacement(clientX) ?? .5;
-    return { sim, ready, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, ignite, igniteFamily, reset, refresh, positionFromPointer, heroRect, dropTarget, drop };
+    const previewPosition = (placement: number) => renderer.current?.projectLaunchPosition(placement) ?? [0, 0];
+    const continueStartup = () => { startupControl.current.continue(); updateStartupRef.current?.(); };
+    const startupMoon = () => renderer.current?.startupMoon() ?? null;
+    return { sim, ready, startup: startupState, continueStartup, startupMoon, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, setShowMode, setPlacement, setPlacementMode, ignite, igniteFamily, reset, refresh, positionFromPointer, previewPosition, heroRect, dropTarget, drop };
 }

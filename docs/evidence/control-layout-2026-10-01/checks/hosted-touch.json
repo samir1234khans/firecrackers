@@ -1,0 +1,17 @@
+{
+  "base": "https://firecrackers-open-sky-preview.allygym-api.workers.dev/",
+  "method": "Chromium mobile viewport and native touch events; no physical-device claim",
+  "checks": [
+    "webgpu/imperial-crown: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "webgpu/celestial-aurora: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "webgpu/royal-phoenix: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "webgl/imperial-crown: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "webgl/celestial-aurora: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "webgl/royal-phoenix: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "canvas/imperial-crown: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "canvas/celestial-aurora: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate",
+    "canvas/royal-phoenix: touch tap, sky/terrace drag, cancel, fresh tap and no duplicate"
+  ],
+  "errors": [],
+  "failed": null
+}

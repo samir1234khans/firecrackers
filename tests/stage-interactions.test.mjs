@@ -35,7 +35,7 @@ test('per-family launch commits the requested rocket once and leaves an in-fligh
  assert.equal(s.launched,1);
  assert.equal(FAMILIES[s.committed.family].id,'sapphire-saturn');
 });
-for(const [label,placement] of [['left',.2],['center',.5],['right',.8]]) test(`pad drop ${label} commits the release position and takes the normal flight path`,()=>{
+for(const [label,placement] of [['left edge',0],['left',.2],['center',.5],['right',.8],['right edge',1]]) test(`pad drop ${label} commits the release position and takes the normal flight path`,()=>{
  const s=new Simulation(951);s.quality='ultra';s.placement=.5;
  assert.equal(s.igniteFamily('sapphire-saturn',placement),true);
  assert.equal(s.selected,'sapphire-saturn');assert.equal(s.placement,placement);

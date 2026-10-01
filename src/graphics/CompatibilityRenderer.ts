@@ -1,17 +1,22 @@
 import { measureStage, stageFraming, waterfrontHorizon } from '../engine/StageLayout';
 import type { StageLayout } from '../engine/StageLayout';
-import { resolveScreenLaunchProfile } from '../engine/LaunchProfile';
+import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from '../engine/LaunchProfile';
+import type { LaunchProfile } from '../engine/LaunchProfile';
+import type { RendererStartup } from '../engine/StartupProgress';
+import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjectionDiagnostics } from '../engine/LaunchComposition';
+import type { LaunchPropComposition, LaunchBounds } from '../engine/LaunchComposition';
 import { signatureBody, signatureTint } from '../engine/FlagshipEffects';
 import { signatureEnvelope } from '../engine/SignatureDiagnostics';
 import { carrierTint } from '../engine/GrandEffects';
-import { BUDGETS, FAMILIES, ROCKET_PROFILES, clamp, randomStream } from '../engine/catalog';
+import { BUDGETS, FAMILIES, ROCKET_PROFILES, clamp, familyIndex, randomStream } from '../engine/catalog';
 import type { FamilyId, Quality } from '../engine/catalog';
 import type { Simulation, Rocket } from '../engine/Simulation';
 import type { RendererPort } from '../engine/RendererPort';
 import { flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from '../engine/LaunchGeometry';
-import { fusePointAt } from '../engine/FusePath';
+import { FUSE_POINTS, fusePointAt, ROCKET_SCALE } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
 import { updateMoonFrame } from './MoonComposition';
+import type { MoonFrame } from './MoonComposition';
 import { sampleWater } from './WaterWaves';
 import { makeGalaxySky } from './GalaxySky';
 import type { SkyState } from '../engine/SkyState';
@@ -29,6 +34,7 @@ export class CompatibilityRenderer implements RendererPort {
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
     private readonly moonImage = new Image();
     private moonReady = false;
+    private moonFailed = false;
     private readonly moonFrame = { x: 0, y: 0, radius: 15 };
     private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
     private readonly canvas = document.createElement('canvas');
@@ -42,6 +48,11 @@ export class CompatibilityRenderer implements RendererPort {
     private readonly riverArt = this.makeRiverArt();
     private readonly reducedSkyMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
     private layout!: StageLayout;
+    private compositions: LaunchPropComposition[] = [];
+    private launchBounds: LaunchBounds[] = [];
+    private previewProfile?: LaunchProfile;
+    private previewFamily = -1;
+    private previewPlacement = -1;
     setLayout(layout: StageLayout) { this.layout = layout; }
     setSkyState(state: Readonly<SkyState>) { this.skyState = state; }
     private mode: DisplayMode = 'interactive';
@@ -231,6 +242,7 @@ export class CompatibilityRenderer implements RendererPort {
     async init() {
         if (this.disposed) return;
         this.moonImage.onload = () => { if (!this.disposed) { this.moonReady = true; this.render(); } };
+        this.moonImage.onerror = () => { if(!this.disposed){this.moonFailed=true;this.render();} };
         this.moonImage.src = `${import.meta.env.BASE_URL}art/moon-lro-v001.png`;
         this.initialized = true;
         this.host.replaceChildren(this.canvas);
@@ -250,8 +262,18 @@ export class CompatibilityRenderer implements RendererPort {
         const framing = stageFraming(this.layout);
         this.baseline = framing.baseline;
         this.scale = framing.scale;
+        const contactY = this.project(0, PROP_CONTACT_Y).y;
+        this.compositions = FAMILIES.map(f => resolvePropComposition(this.layout,f.id,contactY,y=>this.sim.ground+(this.baseline-y)/this.scale));
+        this.launchBounds = this.compositions.map(c=>resolveLaunchBounds(this.layout,c,(x,y)=>this.project(x,y),(x)=> (x-this.width/2)/this.scale));
+        this.previewProfile = undefined;
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / this.scale * .9), 16);
         this.setQuality(this.sim.quality);
+    }
+    startupMoon(): Readonly<MoonFrame> | null { return this.initialized ? this.moonFrame : null; }
+    readiness(): RendererStartup {
+        const settled=this.moonReady||this.moonFailed;
+        return {completed:settled?1:0,total:1,pending:!settled,degraded:this.moonFailed,
+            detail:this.moonReady?'Scene ready':this.moonFailed?'Scene ready with fallback moon':'Loading moon'};
     }
     setQuality(quality: Quality) {
         if (this.disposed) return;
@@ -272,11 +294,30 @@ export class CompatibilityRenderer implements RendererPort {
         return { x: this.width / 2 + x * this.scale * depth, y: this.baseline - (y - this.sim.ground) * this.scale * depth };
     }
     resolveLaunchProfile(id: FamilyId, placement = this.sim.placement) {
-        return resolveScreenLaunchProfile(this.layout, id, this.scale, y => this.sim.ground + (this.baseline - y) / this.scale,
-            this.width / 2 + this.sim.placementToX(placement) * this.scale);
+        const index=familyIndex(id),prop=this.compositions[index],bounds=this.launchBounds[index],scene=this.layout.unobstructedScene;
+        const normalizedPlacement=clamp(placement,0,1),padX=bounds.worldMin+normalizedPlacement*(bounds.worldMax-bounds.worldMin);
+        const screenX=bounds.screenMin+normalizedPlacement*(bounds.screenMax-bounds.screenMin);
+        const profile=resolveScreenLaunchProfile(this.layout,id,this.scale,y=>this.sim.ground+(this.baseline-y)/this.scale,scene.x+scene.width/2,prop);
+        const effectScale=profile.effectScale??1;
+        const nearDepthFactor=index>=10?240/Math.max(140,240-65*effectScale):1;
+        const aimScreenX=resolveLaunchAimScreenX(this.layout,id,this.scale,screenX,effectScale,nearDepthFactor);
+        return {...profile,
+            padX,aimX:(aimScreenX-this.width/2)/this.scale,normalizedPlacement};
     }
-    projectPlacement(clientX: number) {
-        return clamp(.5 + (clientX - this.host.getBoundingClientRect().left - this.width / 2) / (this.scale * this.sim.launchSpan), .2, .8);
+    private nextProfile() {
+        const index=familyIndex(this.sim.selected);
+        if(!this.previewProfile||this.previewFamily!==index||this.previewPlacement!==this.sim.placement) {
+            this.previewFamily=index;this.previewPlacement=this.sim.placement;this.previewProfile=this.resolveLaunchProfile(this.sim.selected,this.sim.placement);
+        }
+        return this.previewProfile;
+    }
+    projectPlacement(clientX: number, id=this.sim.selected) {
+        const bounds=this.launchBounds[familyIndex(id)];
+        return clamp((clientX-this.layout.viewport.x-bounds.screenMin)/(bounds.screenMax-bounds.screenMin),0,1);
+    }
+    projectLaunchPosition(placement:number): [number,number] {
+        const bounds=this.launchBounds[familyIndex(this.sim.selected)];
+        return [this.layout.viewport.x+bounds.screenMin+clamp(placement,0,1)*(bounds.screenMax-bounds.screenMin),this.layout.viewport.y+bounds.contactScreenY];
     }
     projectBurst(clientX: number, clientY: number): [number, number] | null {
         const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
@@ -378,33 +419,31 @@ export class CompatibilityRenderer implements RendererPort {
         c.lineCap = 'butt'; c.globalAlpha = 1;
     }
     private drawStage() {
-        const c = this.ctx, s = this.sim;
-        const x = s.committed?.padX ?? s.placementToX();
-        const p = this.project(x, s.ground - 9.8);
-        const radius = Math.max(24, 22.5 * this.scale);
-        c.globalAlpha = 1; c.fillStyle = '#142337'; c.strokeStyle = '#8393a5'; c.lineWidth = .8;
-        c.beginPath(); c.ellipse(p.x, p.y, radius, radius * .19, 0, 0, Math.PI * 2); c.fill(); c.stroke();
-        for (const size of [.91, .7, .4]) {
-            c.strokeStyle = '#b98d53'; c.beginPath(); c.ellipse(p.x, p.y - 2, radius * size, radius * .19 * size, 0, 0, Math.PI * 2); c.stroke();
-        }
+        const c=this.ctx,s=this.sim,profile=s.committed?.launchProfile??this.nextProfile(),prop=profile.prop!;
+        const p=this.project(s.committed?.padX??profile.padX!,prop.contactY),radius=prop.padRadius*this.scale;
+        c.globalAlpha=.4;c.fillStyle='#000';c.beginPath();c.ellipse(p.x,p.y+3,radius*1.32,radius*.27,0,0,Math.PI*2);c.fill();
+        c.globalAlpha=1;c.fillStyle='#20262b';c.strokeStyle='#4e5455';c.lineWidth=.7;
+        c.beginPath();c.ellipse(p.x,p.y+2,radius*1.08,radius*.22,0,0,Math.PI*2);c.fill();c.stroke();
+        c.fillStyle='#353d41';c.strokeStyle='#81704b';c.beginPath();c.ellipse(p.x,p.y,radius*.9,radius*.19,0,0,Math.PI*2);c.fill();c.stroke();
     }
-    private drawRocket(r: Pick<Rocket, 'x' | 'y' | 'z' | 'stage' | 'age' | 'ascent' | 'fuse' | 'family'>) {
-        const c = this.ctx, p = this.project(r.x, r.y, r.z), k = this.scale * (240 / Math.max(140, 240 - r.z));
-        const alpha = r.stage === 'ascent' ? flightBodyOpacity(r.age, r.ascent) : 1;
-        if (alpha < .002) return;
-        this.bodies++;
-        c.save(); c.translate(p.x, p.y); c.globalAlpha = alpha;
-        const profile = r.family >= 10 ? ROCKET_PROFILES[r.family] : null;
-        const w = Math.max(3.4, 3.8 * k) * (profile?.[0] ?? 1), h = 11 * k * (profile?.[1] ?? 1);
-        c.fillStyle = '#a2865e'; c.fillRect(-.5, -h * .5, 1, 9.4 * k + h * .5);
-        const wrap = c.createLinearGradient(-w / 2, 0, w / 2, 0);
-        wrap.addColorStop(0, '#1d3147'); wrap.addColorStop(.4, signatureBody[r.family - 10] ?? '#657c91'); wrap.addColorStop(1, '#1d3147');
-        c.fillStyle = wrap; c.fillRect(-w / 2, -16.3 * k, w, h);
-        c.strokeStyle = '#bca475'; c.lineWidth = .8; c.strokeRect(-w / 2, -16.3 * k, w, h);
-        c.fillStyle = FAMILIES[r.family].color; c.beginPath(); c.moveTo(-w * .6, -16.3 * k); c.lineTo(0, -20 * k); c.lineTo(w * .6, -16.3 * k); c.closePath(); c.fill();
-        const fuse = r.stage === 'fuse' ? fusePointAt(r.age / r.fuse) : fusePointAt(0);
-        c.strokeStyle = '#c7af72'; c.beginPath(); c.moveTo(w / 2, -5.8 * k); c.quadraticCurveTo(5 * k, -2 * k, 7.8 * k, -2.9 * k); c.stroke();
-        if (r.stage === 'fuse' && r.age >= 0) this.glow(fuse[0] * 3.8 * k, -fuse[1] * 3.4 * k, 3.5, '#ffd18a', 1);
+    private drawRocket(r: Pick<Rocket,'x'|'y'|'z'|'stage'|'age'|'ascent'|'fuse'|'family'> & {launchProfile?:Readonly<LaunchProfile>;vx?:number;vy?:number}) {
+        const c=this.ctx,p=this.project(r.x,r.y,r.z),depth=this.scale*(240/Math.max(140,240-r.z));
+        const model=r.launchProfile?.prop?.modelScale??ROCKET_SCALE,[radius,height]=ROCKET_PROFILES[r.family];
+        const alpha=r.stage==='ascent'?flightBodyOpacity(r.age,r.ascent):1;
+        if(alpha<.002)return;this.bodies++;
+        c.save();c.translate(p.x,p.y);c.globalAlpha=alpha;
+        if(r.stage==='ascent')c.rotate(-Math.atan2(r.vx??0,Math.max(14,r.vy??0)));
+        c.scale(model[0]*depth,-model[1]*depth);
+        c.fillStyle='#795537';c.fillRect(-.3475,-2.72,.115,6);
+        const w=radius,h=3.25*height,lower=3.25-h/2,upper=3.25+h/2;
+        const wrap=c.createLinearGradient(-w/2,0,w/2,0);
+        wrap.addColorStop(0,'#1d3147');wrap.addColorStop(.4,signatureBody[r.family-10]??'#657c91');wrap.addColorStop(1,'#1d3147');
+        c.fillStyle=wrap;c.fillRect(-w/2,lower,w,h);c.strokeStyle='#928267';c.lineWidth=.04;c.strokeRect(-w/2,lower,w,h);
+        const tip=r.launchProfile?.prop?.localTop??upper+1.19;
+        c.fillStyle=FAMILIES[r.family].color;c.beginPath();c.moveTo(-radius*.61,upper);c.lineTo(0,tip);c.lineTo(radius*.61,upper);c.closePath();c.fill();
+        const fuse=r.stage==='fuse'?fusePointAt(r.age/r.fuse):fusePointAt(0);
+        c.strokeStyle='#a19676';c.lineWidth=.044;c.beginPath();c.moveTo(FUSE_POINTS[0][0],FUSE_POINTS[0][1]);c.bezierCurveTo(FUSE_POINTS[1][0],FUSE_POINTS[1][1],FUSE_POINTS[2][0],FUSE_POINTS[2][1],FUSE_POINTS[3][0],FUSE_POINTS[3][1]);c.stroke();
+        if(r.stage==='fuse'&&r.age>=0){c.fillStyle='#ffd18a';c.beginPath();c.arc(fuse[0],fuse[1],.12,0,Math.PI*2);c.fill();}
         c.restore();
     }
     render() {
@@ -453,7 +492,8 @@ export class CompatibilityRenderer implements RendererPort {
             this.drawStage();
             if (!s.committed && !s.show) {
                 this.staged++;
-                this.drawRocket({ x: s.placementToX(), y: s.ground, z: 0, stage: 'fuse', age: -1, ascent: 1, fuse: 1, family: FAMILIES.findIndex(f => f.id === s.selected) });
+                const next=this.nextProfile();
+                this.drawRocket({ x:next.padX!,y:next.ground!,z:0,stage:'fuse',age:-1,ascent:1,fuse:1,family:familyIndex(s.selected),launchProfile:next });
             }
             for (const r of s.rockets) {
                 if (r.stage === 'afterglow') continue;
@@ -507,7 +547,8 @@ export class CompatibilityRenderer implements RendererPort {
         }
         for (const carrier of s.cues) { const p = this.project(carrier.x, carrier.y, carrier.z); this.glow(p.x, p.y, 3.5, this.tone(...carrierTint(carrier.family, carrier.palette)), .8); }
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-        const ground = this.project(s.placementToX(), s.ground);
+        const nextGround = this.nextProfile();
+        const ground = this.project(nextGround.padX!, nextGround.prop!.contactY);
         this.host.parentElement?.style.setProperty('--ground-px', `${this.height - ground.y}px`);
         this.host.parentElement?.style.setProperty('--placement-left', `${ground.x / this.width * 100}%`);
         this.host.dataset.stagedRockets = String(this.staged); this.host.dataset.airborneRockets = String(this.airborne);
@@ -517,7 +558,9 @@ export class CompatibilityRenderer implements RendererPort {
         const signatureBounds = signatureEnvelope(this.sim.heads, (x, y, z) => this.project(x, y, z));
         const r = this.sim.committed;
         const shell = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
-        return { signatureBounds, moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
+        const profile=r?.launchProfile??this.nextProfile(),prop=profile.prop??this.compositions[familyIndex(this.sim.selected)];
+        return { ...propProjectionDiagnostics(prop,r?.padX??profile.padX!,(x,y)=>this.project(x,y)),launchBounds:this.launchBounds[r?.family??familyIndex(this.sim.selected)],nextLaunchProfile:this.nextProfile(),
+            signatureBounds, moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
             ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.horizon, skyLayers: 3, skyTextures: 0,
             skyArtWidth: this.celestialArt.stars.width, skyArtHeight: this.celestialArt.stars.height,
             skyCelestialCrop: Math.max(.6, Math.min(1.35, this.width / this.height / 2)), skyResponseCachePixels: 32768,
@@ -529,13 +572,13 @@ export class CompatibilityRenderer implements RendererPort {
             riverReflectionFragments: this.mode === 'transparent' ? 0 : this.riverArt.lamps.length * (this.sim.quality === 'low' ? 4 : 8),
             riverMotionTime: this.riverTime(), riverPositions: this.riverArt.boats.map(boat => ({ x: boat.screenX, y: boat.screenY, roll: boat.roll })),
             shellScreen: shell ? this.project(...shell) : null,
-            apexScreen: r ? this.project(r.x, r.top + SHELL_LOCAL_Y * 3.4, r.z) : null,
+            apexScreen: r ? this.project(r.launchProfile?.aimX??r.x, r.top + (r.launchProfile?.prop?.shellOffset??SHELL_LOCAL_Y*ROCKET_SCALE[1]), r.z) : null,
             launchProfile: r?.launchProfile ?? null,
             flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell } : null };
     }
     dispose() {
         if (this.disposed) return;
-        this.disposed = true; this.moonImage.onload = null; this.moonImage.src = ""; this.canvas.remove(); this.glows.clear();
+        this.disposed = true; this.moonImage.onload = null; this.moonImage.onerror=null; this.moonImage.src = ""; this.canvas.remove(); this.glows.clear();
         this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
         this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
         this.celestialArt.nearStars.width = this.celestialArt.nearStars.height = 1;
@@ -546,3 +589,4 @@ export class CompatibilityRenderer implements RendererPort {
         this.canvas.width = this.canvas.height = 1;
     }
 }
+

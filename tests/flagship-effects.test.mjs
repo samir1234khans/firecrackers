@@ -42,7 +42,7 @@ test('three silhouettes have different spatial topology and stage schedules',()=
 });
 test('composition resolves finite upper-sky profiles and commits scale through rotation',()=>{
  for(const [w,h]of[[320,480],[393,851],[768,1024],[844,390],[1280,800],[1920,1080]]){
-  const layout={heroRect:{x:0,y:12,width:w,height:h-(w<680?188:76)-12},unobstructedScene:{x:0,y:12,width:w,height:h-(w<680?188:76)-12}};
+  const layout={heroRect:{x:0,y:12,width:w,height:h-76-12},unobstructedScene:{x:0,y:12,width:w,height:h-76-12}};
   for(const id of ids){const p=resolveScreenLaunchProfile(layout,id,3,y=>130-y/3);assert.ok(p.effectScale>0&&p.effectScale<=1);assert.ok(p.apexMax>=p.apexMin);assert.ok(p.centerFraction>=.31&&p.centerFraction<=.37);}
   assert.ok(signatureCompositionScale(layout,3,20,50)<signatureCompositionScale(layout,3,w/2,h*.3));
  }
