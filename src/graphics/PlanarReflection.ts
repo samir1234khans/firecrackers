@@ -8,10 +8,14 @@ import * as THREE from 'three/webgpu';
 export class PlanarReflection {
   readonly camera = new THREE.PerspectiveCamera();
   readonly textureMatrix = new THREE.Matrix4();
+  readonly crop = { top: 0, bottom: 1, height: 1 };
   private readonly viewProjection = new THREE.Matrix4();
   private readonly inverseProjection = new THREE.Matrix4();
+  private readonly cropProjection = new THREE.Matrix4();
   private readonly normal = new THREE.Vector3(0, 1, 0);
   private readonly point = new THREE.Vector3();
+  private readonly farEdge = new THREE.Vector3();
+  private readonly nearEdge = new THREE.Vector3();
   private readonly direction = new THREE.Vector3();
   private readonly look = new THREE.Vector3();
   private readonly rotation = new THREE.Matrix4();
@@ -25,7 +29,7 @@ export class PlanarReflection {
     0, 0, 0, 1,
   );
 
-  update(source: THREE.PerspectiveCamera, waterY: number, coordinateSystem: typeof THREE.WebGLCoordinateSystem | typeof THREE.WebGPUCoordinateSystem) {
+  update(source: THREE.PerspectiveCamera, waterY: number, coordinateSystem: typeof THREE.WebGLCoordinateSystem | typeof THREE.WebGPUCoordinateSystem, bounds?: Readonly<{ farZ: number; nearZ: number }>) {
     source.updateMatrixWorld();
     const camera = this.camera;
     camera.copy(source);
@@ -43,6 +47,30 @@ export class PlanarReflection {
     camera.updateMatrixWorld();
     camera.layers.set(3);
     camera.layers.enable(4);
+
+    // Reflect only the part of the camera whose mean surface is visible. The
+    // emitted burst often mirrors underneath the quay, outside this band. A
+    // homogeneous projection crop preserves the source's existing projection
+    // (including asymmetric/view-offset lenses) without changing that camera.
+    this.crop.top = 0; this.crop.bottom = 1; this.crop.height = 1;
+    if (bounds && bounds.nearZ > bounds.farZ) {
+      this.farEdge.set(0, waterY, bounds.farZ).project(source);
+      this.nearEdge.set(0, waterY, bounds.nearZ).project(source);
+      const farY = (1 - this.farEdge.y) * .5, nearY = (1 - this.nearEdge.y) * .5;
+      if (Number.isFinite(farY) && Number.isFinite(nearY)) {
+        // At least about ten CSS pixels on the existing 800/851px layouts.
+        // Padding covers small wave/sprite extents at the terrace and bank.
+        const padding = .012;
+        const top = THREE.MathUtils.clamp(Math.min(farY, nearY) - padding, 0, 1);
+        const bottom = THREE.MathUtils.clamp(Math.max(farY, nearY) + padding, 0, 1);
+        if (bottom - top > .0001) {
+          this.crop.top = top; this.crop.bottom = bottom; this.crop.height = bottom - top;
+          const center = 1 - top - bottom;
+          this.cropProjection.set(1, 0, 0, 0, 0, 1 / this.crop.height, 0, -center / this.crop.height, 0, 0, 1, 0, 0, 0, 0, 1);
+          camera.projectionMatrix.premultiply(this.cropProjection);
+        }
+      }
+    }
 
     // Projection UV is derived from the undistorted mean surface, before the
     // clipping change. Sampling TSL handles each backend's render-target Y flip.

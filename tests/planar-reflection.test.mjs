@@ -56,6 +56,36 @@ for (const [name, coordinateSystem] of [['WebGPU', THREE.WebGPUCoordinateSystem]
       close(clipNear(plane), 0, 'mean water lies on oblique clip plane', 1e-8);
     }
   });
+  test(`${name}: water-band crop preserves projective positions and maps its boundaries to texture edges`, () => {
+    const source = sourceCamera(coordinateSystem);
+    const before = source.toJSON();
+    const bounds = { farZ: -1000, nearZ: -14.75 };
+    const mirror = new PlanarReflection();
+    const camera = mirror.update(source, waterY, coordinateSystem, bounds);
+    const { top, bottom, height } = mirror.crop;
+    assert.ok(top >= 0 && bottom <= 1 && height > 0 && height < 1);
+    close(height, bottom - top, 'crop extent');
+    const far = new THREE.Vector3(0, waterY, bounds.farZ).project(source);
+    const near = new THREE.Vector3(0, waterY, bounds.nearZ).project(source);
+    assert.ok(top < (1 - far.y) / 2 && bottom > (1 - near.y) / 2, 'crop includes boundary padding');
+    for (const [x, z] of [[0, bounds.farZ], [-34, -85], [62, -165], [0, bounds.nearZ]]) {
+      const original = new THREE.Vector3(x, waterY, z).project(source);
+      const projected = new THREE.Vector4(x, waterY, z, 1).applyMatrix4(mirror.textureMatrix);
+      close(projected.x / projected.w, (1 - original.x) / 2, 'cropped horizontal parity');
+      close(projected.y / projected.w, ((original.y + 1) / 2 - (1 - bottom)) / height, 'cropped projective y');
+      assert.ok(projected.y / projected.w > 0 && projected.y / projected.w < 1, 'water positions remain inside texture');
+      const clipped = clipPoint(new THREE.Vector3(x, waterY, z), camera);
+      close(coordinateSystem === THREE.WebGPUCoordinateSystem ? clipped.z : clipped.z + clipped.w, 0, 'cropped mean plane remains the near clip plane', 1e-8);
+    }
+    for (const [screenY, expectedV] of [[top, 1], [bottom, 0]]) {
+      const ray = new THREE.Vector3(0, 1 - 2 * screenY, .5).unproject(source);
+      const t = (waterY - source.position.y) / (ray.y - source.position.y);
+      ray.sub(source.position).multiplyScalar(t).add(source.position);
+      const projected = new THREE.Vector4(ray.x, ray.y, ray.z, 1).applyMatrix4(mirror.textureMatrix);
+      close(projected.y / projected.w, expectedV, 'crop edge UV');
+    }
+    assert.deepEqual(source.toJSON(), before, 'crop never changes the main camera');
+  });
 }
 test('warm-up uses the requested backend convention before the main renderer updates its camera', () => {
   const source = sourceCamera(THREE.WebGLCoordinateSystem);

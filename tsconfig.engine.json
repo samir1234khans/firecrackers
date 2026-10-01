@@ -23,6 +23,6 @@
     "src/engine/RendererRecovery.ts",
     "src/engine/StartupProgress.ts",
     "src/engine/SkyState.ts",
-    "src/graphics/CelestialScene.ts", "src/graphics/MoonComposition.ts", "src/graphics/WaterWaves.ts", "src/graphics/PlanarReflection.ts", "src/graphics/WaterReflection.ts"
+    "src/graphics/CelestialScene.ts", "src/graphics/MoonComposition.ts", "src/graphics/WaterWaves.ts", "src/graphics/PlanarReflection.ts", "src/graphics/WaterReflection.ts", "src/graphics/ParticleReflectionBounds.ts"
   ]
 }

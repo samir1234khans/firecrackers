@@ -33,7 +33,7 @@ export class FireworkRenderer {
     readonly scene = new THREE.Scene();
     readonly camera = new THREE.PerspectiveCamera(42, 1, 1, 1500);
     private readonly opaqueCamera = new THREE.PerspectiveCamera();
-    readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
+    readonly metrics = { renderPixels: 0, submitMs: 0, waterSubmitMs: 0, frames: 0 };
     private readonly water = new WaterReflection();
     private readonly environment = new NightEnvironment();
     private readonly smokeAtlas = makeSmokeAtlas();
@@ -320,7 +320,7 @@ export class FireworkRenderer {
                     else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
                     else if (name === 'moon') { this.environment.setMoon(asset as HTMLImageElement); this.water.setMoon(true); }
                     else if (name === 'sky') this.environment.setSky(asset as HTMLImageElement);
-                    else if (name === 'river') this.environment.setRiver(asset as THREE.Group);
+                    else if (name === 'river') { this.environment.setRiver(asset as THREE.Group); this.water.invalidate(); }
                     this.assetStates[name] = 'active';
                 } catch (error) {
                     this.assetStates[name] = 'failed';
@@ -392,7 +392,9 @@ export class FireworkRenderer {
         this.water.setFrame(this.environment.waterFrame);
         this.moonLight.position.copy(this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera)).multiplyScalar(240);
         this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
+        const waterStart = performance.now();
         this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
+        this.metrics.waterSubmitMs = performance.now() - waterStart;
         this.post.render();
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;
@@ -416,7 +418,7 @@ export class FireworkRenderer {
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
             authoredAssetStates: { ...this.assetStates },
             authoredAssetErrors: { ...this.assetErrors },
-            stageLayout: this.layout, ...this.water.diagnostics(), ...this.environment.riverDiagnostics(this.camera), ...this.environment.skyDiagnostics(),
+            stageLayout: this.layout, ...this.water.diagnostics(), ...this.particles.reflectionDiagnostics(), ...this.environment.riverDiagnostics(this.camera), ...this.environment.skyDiagnostics(),
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,

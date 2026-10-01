@@ -11,6 +11,18 @@ type BoatPlacement = { object: THREE.Object3D; x: number; z: number; scale: numb
 export class RiverLife {
   readonly group = new THREE.Group();
   private readonly fallback = new THREE.Group();
+  private readonly reflectionProxies = new THREE.Group();
+  private readonly reflectionHulls: THREE.InstancedMesh;
+  private readonly reflectionShelters: THREE.InstancedMesh;
+  private readonly reflectionHomes: THREE.InstancedMesh;
+  private readonly reflectionLamps: THREE.InstancedMesh;
+  private readonly reflectionProxyMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, fog: false, toneMapped: false });
+  private readonly reflectionProxyGeometries = new Set<THREE.BufferGeometry>();
+  private readonly reflectionLocalMatrix = new THREE.Matrix4();
+  private readonly reflectionWorldMatrix = new THREE.Matrix4();
+  private readonly reflectionHomeMatrices = Array.from({ length: 12 }, () => new THREE.Matrix4());
+  private reflectionHomeSource?: THREE.Object3D;
+  private fallbackVillageBodies?: THREE.InstancedMesh;
   private village: THREE.Object3D;
   private readonly villageBounds = new THREE.Box3();
   private boats: BoatPlacement[] = [];
@@ -87,7 +99,37 @@ export class RiverLife {
     this.boats.push({ object: nauka, x: -76, z: -85, scale: 4.1, yaw: .16, phase: 4.6, foreground: true });
     this.village = this.makeVillage(lamp);
     this.fallback.add(this.village);
-    this.enableReflectionMeshes(this.fallback);
+    this.disableReflectionMeshes(this.fallback);
+    // The blurred, sub-512px planar target needs coherent silhouettes, not a
+    // second PBR draw of twenty thousand authored vertices and six material maps.
+    // These four instanced draws are reflection-only and share one basic variant.
+    this.reflectionProxies.name = 'Bounded reflection-only boat, home and lamp silhouettes';
+    this.reflectionProxies.layers.set(3);
+    const proxyShelterGeometry = this.makeReflectionShelter();
+    const proxyHomeGeometry = this.makeReflectionHome();
+    const proxyLampGeometry = new THREE.SphereGeometry(1, 5, 3);
+    for (const geometry of [proxyShelterGeometry, proxyHomeGeometry, proxyLampGeometry]) this.reflectionProxyGeometries.add(geometry);
+    this.reflectionHulls = new THREE.InstancedMesh(hullGeometry, this.reflectionProxyMaterial, 3);
+    this.reflectionShelters = new THREE.InstancedMesh(proxyShelterGeometry, this.reflectionProxyMaterial, 3);
+    this.reflectionHomes = new THREE.InstancedMesh(proxyHomeGeometry, this.reflectionProxyMaterial, 12);
+    this.reflectionLamps = new THREE.InstancedMesh(proxyLampGeometry, this.reflectionProxyMaterial, 10);
+    for (const mesh of [this.reflectionHulls, this.reflectionShelters, this.reflectionHomes, this.reflectionLamps]) {
+      mesh.layers.set(3); mesh.frustumCulled = false; mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+      this.reflectionProxies.add(mesh);
+      for (let i = 0; i < mesh.count; i++) {
+        const lampProxy = mesh === this.reflectionLamps;
+        const boatProxy = mesh === this.reflectionHulls || mesh === this.reflectionShelters;
+        this.color.setRGB(lampProxy ? .26 : boatProxy ? .025 : .016,
+          lampProxy ? .13 : boatProxy ? .019 : .022, lampProxy ? .04 : boatProxy ? .014 : .028);
+        mesh.setColorAt(i, this.color);
+      }
+    }
+    this.reflectionHulls.name = 'Three reflection hulls at exact buoyant poses';
+    this.reflectionShelters.name = 'Bounded reflection shelter silhouettes';
+    this.reflectionHomes.name = 'Twelve reflection homes anchored to source house matrices';
+    this.reflectionLamps.name = 'Ten reflection lamps at actual moving practical anchors';
+    this.group.add(this.reflectionProxies);
+    this.configureReflectionHomes();
     this.reflectionTexture = this.makeReflectionTexture();
     const reflectionMaterial = new THREE.MeshBasicMaterial({ map: this.reflectionTexture, color: 0xffffff,
       transparent: true, opacity: .48, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
@@ -191,12 +233,13 @@ export class RiverLife {
       object.material = Array.isArray(object.material) ? object.material.map(isolateHaze) : isolateHaze(object.material);
     });
     this.group.add(source); this.village = village; this.authored = true;
-    this.enableReflectionMeshes(source);
+    this.disableReflectionMeshes(source);
     this.boats = [{ object: boatA, x: -48, z: -115, scale: 3.5, yaw: .18, phase: 0 },
       { object: boatB, x: 62, z: -165, scale: 3.2, yaw: -.26, phase: 2.3 },
       { object: boatC, x: -76, z: -85, scale: 4.1, yaw: .16, phase: 4.6, foreground: true }];
     this.candles = candles as THREE.Object3D[];
     this.lamps = [lampA, lampB, ...this.candles, ...windows as THREE.Object3D[]];
+    this.configureReflectionHomes(source);
     this.resize(this.phone);
   }
 
@@ -214,6 +257,7 @@ export class RiverLife {
     this.village.rotation.y = -.025;
     this.group.updateMatrixWorld(true);
     this.villageBounds.setFromObject(this.village);
+    this.updateReflectionProxies(true);
   }
 
   private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
@@ -246,8 +290,10 @@ export class RiverLife {
       sampleWater(x, z, time, this.waterSample, frame);
       boat.contactError = Math.abs(height - this.waterSample.height);
     }
+    this.reflectionProxies.visible = visible && sim.quality !== 'low';
     if (!visible) { this.fragments.count = 0; this.waterContact.count = 0; this.flames.count = 0; this.candleLight.intensity = 0; return; }
     this.group.updateMatrixWorld(true);
+    if (sim.quality !== 'low') this.updateReflectionProxies();
     let contacts = 0;
     for (const boat of this.boats) {
       const scale = boat.object.scale.x;
@@ -326,8 +372,77 @@ export class RiverLife {
       .multiply(this.yawRotation.setFromAxisAngle(this.planeAxis, yaw));
   }
 
-  private enableReflectionMeshes(root: THREE.Object3D) {
-    root.traverse(object => { if (object instanceof THREE.Mesh) object.layers.enable(3); });
+  private disableReflectionMeshes(root: THREE.Object3D) {
+    root.traverse(object => { if (object instanceof THREE.Mesh) object.layers.disable(3); });
+  }
+
+  private configureReflectionHomes(source?: THREE.Object3D) {
+    if (!source && this.fallbackVillageBodies) {
+      this.reflectionHomeSource = this.fallbackVillageBodies;
+      this.reflectionHomes.count = this.fallbackVillageBodies.count;
+      for (let i = 0; i < this.reflectionHomes.count; i++) this.fallbackVillageBodies.getMatrixAt(i, this.reflectionHomeMatrices[i]);
+      return;
+    }
+    let plaster: THREE.Mesh | undefined;
+    source?.traverse(object => {
+      if (!(object instanceof THREE.Mesh)) return;
+      const material = Array.isArray(object.material) ? object.material[0] : object.material;
+      if (material.name === 'RiverLife | quiet weathered plaster') plaster = object;
+    });
+    if (!(plaster instanceof THREE.Mesh)) { this.reflectionHomes.count = 0; return; }
+    // The pinned authored export joins twelve cuboid plaster walls in order,
+    // each with 24 face vertices. Preserve each house's child transform and
+    // actual local bounds; no guessed village arrangement or per-frame parsing.
+    const positions = plaster.geometry.getAttribute('position');
+    if (!positions || positions.count !== 12 * 24) { this.reflectionHomes.count = 0; return; }
+    this.reflectionHomeSource = plaster; this.reflectionHomes.count = 12;
+    for (let house = 0; house < 12; house++) {
+      let left = Infinity, bottom = Infinity, far = Infinity, right = -Infinity, top = -Infinity, near = -Infinity;
+      for (let vertex = house * 24; vertex < (house + 1) * 24; vertex++) {
+        const x = positions.getX(vertex), y = positions.getY(vertex), z = positions.getZ(vertex);
+        left = Math.min(left, x); right = Math.max(right, x); bottom = Math.min(bottom, y); top = Math.max(top, y);
+        far = Math.min(far, z); near = Math.max(near, z);
+      }
+      this.reflectionHomeMatrices[house].makeScale(right - left, top - bottom, near - far)
+        .setPosition((left + right) * .5, (bottom + top) * .5, (far + near) * .5);
+    }
+  }
+
+  private updateReflectionProxies(homes = false) {
+    let shelters = 0;
+    for (let i = 0; i < this.boats.length; i++) {
+      const boat = this.boats[i];
+      this.reflectionLocalMatrix.makeScale(boat.foreground ? 9.5 / 5.5 : 1, 1, boat.foreground ? 3 / 1.64 : 1.75 / 1.64);
+      this.reflectionWorldMatrix.multiplyMatrices(boat.object.matrixWorld, this.reflectionLocalMatrix);
+      this.reflectionHulls.setMatrixAt(i, this.reflectionWorldMatrix);
+      // Authored small canoes remain open. Only the covered nauka carries a
+      // shelter; procedural cabins retain their own fallback silhouettes.
+      if (!boat.foreground && this.authored) continue;
+      const covered = Boolean(boat.foreground);
+      this.reflectionLocalMatrix.makeScale(covered ? this.authored ? 5.3 : 4.2 : 1.55,
+        covered ? this.authored ? 1.19 : 1.4 : .66, covered ? this.authored ? 2.46 : 2.8 : 1.08)
+        .setPosition(covered ? 0 : -.3, covered ? this.authored ? 1.044 : .48 : .15, 0);
+      this.reflectionWorldMatrix.multiplyMatrices(boat.object.matrixWorld, this.reflectionLocalMatrix);
+      this.reflectionShelters.setMatrixAt(shelters++, this.reflectionWorldMatrix);
+    }
+    this.reflectionHulls.count = this.boats.length; this.reflectionShelters.count = shelters;
+    this.reflectionHulls.instanceMatrix.needsUpdate = true; this.reflectionShelters.instanceMatrix.needsUpdate = true;
+    if (homes && this.reflectionHomeSource) {
+      for (let i = 0; i < this.reflectionHomes.count; i++) {
+        this.reflectionWorldMatrix.multiplyMatrices(this.reflectionHomeSource.matrixWorld, this.reflectionHomeMatrices[i]);
+        this.reflectionHomes.setMatrixAt(i, this.reflectionWorldMatrix);
+      }
+      this.reflectionHomes.instanceMatrix.needsUpdate = true;
+    }
+    this.reflectionLamps.count = Math.min(10, this.lamps.length);
+    for (let i = 0; i < this.reflectionLamps.count; i++) {
+      this.lamps[i].getWorldPosition(this.point);
+      const scale = i < 2 ? this.boats[i].object.scale.x : i < 6 ? this.boats[2].object.scale.x : this.village.scale.x;
+      this.reflectionLocalMatrix.makeScale((i < 2 ? .05 : i < 6 ? .025 : .30) * scale,
+        (i < 2 ? .075 : i < 6 ? .035 : .40) * scale, (i < 6 ? .05 : .025) * scale).setPosition(this.point);
+      this.reflectionLamps.setMatrixAt(i, this.reflectionLocalMatrix);
+    }
+    this.reflectionLamps.instanceMatrix.needsUpdate = true;
   }
 
   /** Caller owns the vector; use the anchor itself, with no temporary arrays. */
@@ -354,6 +469,12 @@ export class RiverLife {
     const contactMatrices = this.waterContact.instanceMatrix.array, reflectionMatrices = this.fragments.instanceMatrix.array;
     for (let i = 0; i < this.waterContact.count * 16; i++) riverContactChecksum += contactMatrices[i] * (1 + i % 17);
     for (let i = 0; i < this.fragments.count * 16; i++) riverReflectionChecksum += reflectionMatrices[i] * (1 + i % 19);
+    let riverReflectionProxyChecksum = 0, riverReflectionProxyTriangles = 0;
+    for (const mesh of [this.reflectionHulls, this.reflectionShelters, this.reflectionHomes, this.reflectionLamps]) {
+      const matrices = mesh.instanceMatrix.array;
+      for (let i = 0; i < mesh.count * 16; i++) riverReflectionProxyChecksum += matrices[i] * (1 + i % 23);
+      riverReflectionProxyTriangles += (mesh.geometry.index?.count ?? mesh.geometry.getAttribute('position').count) / 3 * mesh.count;
+    }
 
     return { riverBankScreen, riverVillageScreenBounds, riverScenery: this.authored ? 'Blender river-life-v008' : 'procedural river fallback', riverBoats: this.boats.length,
       riverBoatSource: this.authored ? 'Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0' : 'original procedural boats',
@@ -367,6 +488,11 @@ export class RiverLife {
       riverWaterPhase: this.lastWaterFrame.phase, riverWaterWaveCount: this.lastWaterFrame.waveCount,
       riverContactChecksum, riverReflectionChecksum, riverHullSampleCount: this.boats.length * 4,
       riverContactCapacity: 21, riverReflectionCapacity: 80,
+      riverReflectionProxyBoats: this.reflectionHulls.count, riverReflectionProxyShelters: this.reflectionShelters.count,
+      riverReflectionProxyHomes: this.reflectionHomes.count, riverReflectionProxyLamps: this.reflectionLamps.count,
+      riverReflectionProxyDraws: 4, riverReflectionProxyTriangles, riverReflectionProxyChecksum,
+      riverReflectionProxyVisible: this.reflectionProxies.visible && this.group.visible,
+      riverReflectionProxySource: 'bounded silhouettes at actual buoyant hull, house and practical-light anchors',
       riverContactAlignment: 'four hull points and wave-conforming fragments',
       riverHullSamples: this.boats.map(boat => ({ height: boat.sampledHeight ?? 0, pitch: boat.sampledPitch ?? 0,
         roll: boat.sampledRoll ?? 0, centerDeviation: boat.contactError ?? 0 })),
@@ -391,6 +517,41 @@ export class RiverLife {
     geometry.setIndex(indices); geometry.computeVertexNormals(); return geometry;
   }
 
+  private makeReflectionShelter() {
+    const positions: number[] = [], indices: number[] = [];
+    const segments = 6;
+    for (const x of [-.5, .5]) for (let i = 0; i <= segments; i++) {
+      const angle = i / segments * Math.PI;
+      positions.push(x, Math.sin(angle), Math.cos(angle) * .5);
+    }
+    for (let i = 0; i < segments; i++) {
+      const opposite = i + segments + 1;
+      indices.push(i, opposite, i + 1, i + 1, opposite, opposite + 1);
+    }
+    for (let i = 1; i < segments; i++) {
+      indices.push(0, i + 1, i, segments + 1, segments + 1 + i, segments + 2 + i);
+    }
+    indices.push(0, segments, segments + 1, segments, segments * 2 + 1, segments + 1);
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3)); geometry.setIndex(indices);
+    geometry.computeVertexNormals(); return geometry;
+  }
+
+  private makeReflectionHome() {
+    // A unit wall with a restrained pitched roof, scaled to each actual wall.
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute([
+      -.5, -.5, -.5, .5, -.5, -.5, .5, .5, -.5, -.5, .5, -.5,
+      -.5, -.5, .5, .5, -.5, .5, .5, .5, .5, -.5, .5, .5,
+      0, .75, -.5, 0, .75, .5,
+    ], 3));
+    geometry.setIndex([
+      0, 3, 2, 0, 2, 1, 4, 5, 6, 4, 6, 7, 0, 1, 5, 0, 5, 4,
+      0, 4, 7, 0, 7, 3, 1, 2, 6, 1, 6, 5, 3, 8, 2, 7, 6, 9,
+      3, 7, 9, 3, 9, 8, 2, 8, 9, 2, 9, 6,
+    ]); geometry.computeVertexNormals(); return geometry;
+  }
+
   private makeVillage(lamp: THREE.Material) {
     const group = new THREE.Group(); group.name = 'Fallback clustered far-bank homes';
     const rand = randomStream(6302026), centers = [-37, -31, -25, -12, -7, 1, 18, 24, 35];
@@ -401,6 +562,7 @@ export class RiverLife {
     const windowGeometry = new THREE.PlaneGeometry(.32, .40);
     for (const geometry of [bodyGeometry, roofGeometry, windowGeometry]) this.fallbackGeometries.add(geometry);
     const bodies = new THREE.InstancedMesh(bodyGeometry, wall, centers.length), roofs = new THREE.InstancedMesh(roofGeometry, roof, centers.length);
+    this.fallbackVillageBodies = bodies;
     const matrix = new THREE.Matrix4(), tint = new THREE.Color();
     for (let i = 0; i < centers.length; i++) {
       const height = 1.7 + rand() * 2.3, width = 2.1 + rand() * 2.0, depth = 2.2 + rand() * 2.3, z = (rand() - .5) * 5;
@@ -431,5 +593,8 @@ export class RiverLife {
     this.waterContact.geometry.dispose(); (this.waterContact.material as THREE.Material).dispose();
     this.flames.geometry.dispose(); (this.flames.material as THREE.Material).dispose(); this.candleLight.dispose();
     this.glowMaterial.dispose();
+    for (const geometry of this.reflectionProxyGeometries) geometry.dispose();
+    this.reflectionProxyMaterial.dispose();
+    for (const mesh of [this.reflectionHulls, this.reflectionShelters, this.reflectionHomes, this.reflectionLamps]) mesh.dispose();
   }
 }

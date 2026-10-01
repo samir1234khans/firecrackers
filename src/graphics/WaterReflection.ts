@@ -3,7 +3,7 @@ import { WATER_Y, WATER_NEAR_Z, WATER_WAVES, WATER_MAX_DISPLACEMENT, WATER_FAR_F
 import type { WaterFrame } from './WaterWaves.js';
 import { PlanarReflection } from './PlanarReflection.js';
 import * as THREE from 'three/webgpu';
-import { Fn, If, Loop, cameraPosition, cameraProjectionMatrix, cameraViewMatrix, float, int, modelWorldMatrix, positionLocal, positionWorld, reflect, smoothstep, texture, uniform, uniformArray, varying, vec2, vec3, vec4 } from 'three/tsl';
+import { Fn, If, Loop, cameraPosition, float, int, modelWorldMatrix, positionLocal, positionWorld, reflect, smoothstep, texture, uniform, uniformArray, varying, vec2, vec3, vec4 } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
 import type { Quality } from '../engine/catalog';
 
@@ -52,6 +52,7 @@ export class WaterReflection {
   private readonly burstAnchors = uniformArray(this.lightAnchors);
   private readonly burstColors = uniformArray(this.lightColors);
   private readonly burstCount = uniform(0, 'int');
+  private readonly skyProjectionMatrix = uniform(new THREE.Matrix4());
   private readonly reflectionMatrix = uniform(this.planar.textureMatrix);
   private readonly reflectionTexel = uniform(new THREE.Vector2(1, 1));
   private readonly waterline = uniform(.49);
@@ -119,7 +120,7 @@ export class WaterReflection {
     // Project reflected world directions into the existing sky composition.
     // A coarse mip supplies cloud illumination without mirroring stars or the
     // separately composited moon disc. World normals determine the distortion.
-    const skyProjection = cameraProjectionMatrix.mul(cameraViewMatrix.mul(vec4(skyDirection, 0)));
+    const skyProjection = this.skyProjectionMatrix.mul(vec4(skyDirection, 0));
     const skyScreen = skyProjection.xy.div(skyProjection.w.max(.001)).mul(vec2(.5, -.5)).add(.5);
     const skyUV = vec2(skyScreen.x.sub(.5).mul(this.shoreCrop).add(.5),
       skyScreen.y.mul(.872).div(this.waterline.max(.08)).clamp(0, .88).oneMinus());
@@ -146,7 +147,8 @@ export class WaterReflection {
 
     // Mean-plane projective coordinates preserve actual reflected positions.
     // Shared slopes fragment the image; there is no vertical screen remapping.
-    const projected = this.reflectionMatrix.mul(vec4(positionWorld.x, WATER_Y, positionWorld.z, 1));
+    // Interpolate homogeneous coordinates, then divide in the fragment stage.
+    const projected = varying(this.reflectionMatrix.mul(vec4(positionWorld.x, WATER_Y, positionWorld.z, 1)));
     const uv = projected.xy.div(projected.w.max(.0001));
     const distortion = totalSlope.mul(.018).mul(foreground.mul(.65).add(.35));
     const reflectionUV = uv.add(distortion);
@@ -206,7 +208,11 @@ export class WaterReflection {
   setShore(value: THREE.Texture) { this.shoreNode.value = value; }
   setMoon(active: boolean) { this.moonActive.value = active ? 1 : 0; }
   setShoreComposition(crop: number, active: number) { this.shoreCrop.value = crop; this.shoreActive.value = active; }
+  /** Refresh a changed scene once even when its fixed clock is paused. */
+  invalidate() { this.last = -Infinity; }
   setFrame(frame: Readonly<WaterFrame>) {
+    if (frame.farZ !== this.frame.farZ || frame.nearZ !== this.frame.nearZ ||
+      frame.waveCount !== this.frame.waveCount || frame.motionAllowed !== this.frame.motionAllowed) this.invalidate();
     this.frame.phase = frame.phase; this.frame.waveCount = frame.waveCount;
     this.frame.farZ = frame.farZ; this.frame.nearZ = frame.nearZ; this.frame.motionAllowed = frame.motionAllowed;
     this.phase.value = frame.phase; this.waveCount.value = frame.waveCount;
@@ -216,6 +222,7 @@ export class WaterReflection {
     this.nearFadeWidth.value = Math.min(WATER_NEAR_FADE_MAX, span * WATER_NEAR_FADE_FRACTION);
   }
   setMoonFrame(frame: Readonly<MoonFrame>, width: number, height: number, camera: THREE.PerspectiveCamera) {
+    this.skyProjectionMatrix.value.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
     this.moonRay.set(frame.x / Math.max(1, width) * 2 - 1, 1 - frame.y / Math.max(1, height) * 2, .5).unproject(camera);
     this.moonDirection.value.copy(this.moonRay).sub(camera.position).normalize();
     return this.moonDirection.value;
@@ -224,11 +231,19 @@ export class WaterReflection {
     if (this.target) { this.reflectionNode.value = this.neutralReflection; this.target.dispose(); this.target = null; }
     this.enabled.value = 0; this.hz = 0; this.last = -Infinity;
   }
+  private reflectionRate(quality: Quality, aspect: number) {
+    if (quality === 'low') return 0;
+    return quality === 'ultra' ? aspect < .72 ? 15 : 30 : aspect < .72 ? 10 : 15;
+  }
   private ensureTarget(quality: Quality, aspect: number) {
     if (quality === 'low') { this.releaseTarget(); return; }
     const cap = quality === 'ultra' ? 512 : 256;
-    this.hz = quality === 'ultra' ? 30 : 15;
-    const width = Math.max(1, Math.round(cap * Math.min(1, aspect))), height = Math.max(1, Math.round(cap / Math.max(1, aspect)));
+    this.hz = this.reflectionRate(quality, aspect);
+    // Retain the full-view horizontal sampling density, but allocate only its
+    // water-band rows. Cropping the camera raises its effective aspect by the
+    // inverse band height; target dimensions must make the same adjustment.
+    const width = Math.max(1, Math.round(cap * Math.min(1, aspect)));
+    const height = Math.max(1, Math.round(cap / Math.max(1, aspect) * this.planar.crop.height));
     if (!this.target) {
       this.target = new THREE.RenderTarget(width, height, { type: THREE.HalfFloatType, depthBuffer: true });
       this.target.texture.name = 'Bounded planar waterfront reflection';
@@ -242,8 +257,8 @@ export class WaterReflection {
     this.reflectionTexel.value.set(1 / width, 1 / height);
   }
   async warmup(renderer: THREE.WebGPURenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, quality: Quality, orient: OrientPass) {
+    this.planar.update(camera, WATER_Y, renderer.coordinateSystem, this.frame);
     this.ensureTarget(quality, camera.aspect); if (!this.target) return;
-    this.planar.update(camera, WATER_Y, renderer.coordinateSystem);
     const oldTarget = renderer.getRenderTarget(), oldMRT = renderer.getMRT();
     renderer.getViewport(this.oldViewport); renderer.getScissor(this.oldScissor);
     const oldScissorTest = renderer.getScissorTest();
@@ -284,10 +299,14 @@ export class WaterReflection {
     }
     this.streaks.instanceMatrix.needsUpdate = true; if (this.streaks.instanceColor) this.streaks.instanceColor.needsUpdate = true;
     if (!visible) { this.releaseTarget(); return; }
+    if (sim.quality === 'low') { this.releaseTarget(); return; }
+    const desiredHz = this.reflectionRate(sim.quality, camera.aspect);
+    if (this.target && this.hz === desiredHz && sim.time >= this.last && sim.time - this.last < 1 / desiredHz) return;
+    // Crop does not depend on wave phase or a burst. Resize/layout changes can
+    // adjust it while the fixed clock is paused, so resolve before scheduling.
+    this.planar.update(camera, WATER_Y, renderer.coordinateSystem, this.frame);
     this.ensureTarget(sim.quality, camera.aspect); if (!this.target) return;
-    if (sim.time >= this.last && sim.time - this.last < 1 / this.hz) return;
     this.last = sim.time;
-    this.planar.update(camera, WATER_Y, renderer.coordinateSystem);
     this.clipCoordinateSystem = renderer.coordinateSystem === THREE.WebGPUCoordinateSystem ? 'webgpu' : 'webgl';
     const oldTarget = renderer.getRenderTarget(), oldMRT = renderer.getMRT(), oldAutoClear = renderer.autoClear, alpha = renderer.getClearAlpha();
     renderer.getClearColor(this.oldClear); renderer.getViewport(this.oldViewport); renderer.getScissor(this.oldScissor);
@@ -306,6 +325,7 @@ export class WaterReflection {
   diagnostics() {
     return { reflectionFrames: this.frames, reflectionWidth: this.target?.width ?? 0, reflectionHeight: this.target?.height ?? 0,
       reflectionAllocated: Boolean(this.target), reflectionTargets: this.target ? 1 : 0, reflectionHz: this.hz,
+      reflectionCropTop: this.planar.crop.top, reflectionCropBottom: this.planar.crop.bottom, reflectionCropHeight: this.planar.crop.height,
       reflectionMode: this.target ? 'planar' : 'disabled', reflectionCameraY: this.camera.position.y, reflectionPlaneY: WATER_Y,
       reflectionClipCoordinateSystem: this.clipCoordinateSystem, waterline: this.waterline.value,
       waterPhase: this.frame.phase, waterWaveCount: this.frame.waveCount, waterFarZ: this.frame.farZ, waterNearZ: this.frame.nearZ,

@@ -5,6 +5,7 @@ import { BUDGETS, hash01 } from '../engine/catalog';
 import { carrierTint } from '../engine/GrandEffects';
 import { signatureTint } from '../engine/FlagshipEffects';
 import { rocketPoint, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, flightBodyOpacity } from '../engine/LaunchGeometry';
+import { ParticleReflectionBounds, TRAIL_CAP_EXTENSION } from './ParticleReflectionBounds';
 const BUCKETS = 6;
 const bucketFor = (z: number) => Math.max(0, Math.min(BUCKETS - 1, Math.floor((z + 75) / 25)));
 export class ParticleUniforms {
@@ -19,6 +20,8 @@ export class ParticleUniforms {
     readonly energy = uniform(1);
 }
 class Batch {
+    readonly reflectionBounds = new ParticleReflectionBounds();
+    savedVisible = true;
     readonly geometry = new THREE.InstancedBufferGeometry();
     readonly material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, depthTest: true, side: THREE.DoubleSide });
     readonly mesh: THREE.Mesh;
@@ -108,7 +111,7 @@ export class ParticleScene {
             const t = new Batch(24000, { iA: 3, iB: 3, iWidth: 1, iAlpha: 1, iColor: 3 }, 11 + bucket * 3, true);
             const start = attribute('iA', 'vec3'), end = attribute('iB', 'vec3');
             // Overlapping soft caps hide seams between retained adjacent samples.
-            const middle = mix(start, end, uv().y.mul(1.14).sub(.07));
+            const middle = mix(start, end, uv().y.mul(1 + 2 * TRAIL_CAP_EXTENSION).sub(TRAIL_CAP_EXTENSION));
             const tangent = end.sub(start).add(vec3(0, .00001, 0));
             const side = tangent.cross(u.camera.sub(middle)).normalize();
             t.material.positionNode = middle.add(side.mul(positionGeometry.x).mul(attribute('iWidth', 'float')).mul(uv().y.mul(.08).add(.92)));
@@ -124,12 +127,30 @@ export class ParticleScene {
         }
     }
     private savedProtection = 0;
+    private reflecting = false;
+    private readonly reflectionFrustum = new THREE.Frustum();
+    private readonly reflectionProjection = new THREE.Matrix4();
+    private reflectedBatches = 0;
+    private culledBatches = 0;
     orientPass(camera: THREE.PerspectiveCamera, reflecting = false) {
         if (reflecting) {
             this.savedProtection = this.uniforms.protect.value;
             this.uniforms.protect.value = 0;
-        } else {
+            this.reflecting = true;
+            this.reflectionProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+            this.reflectionFrustum.setFromProjectionMatrix(this.reflectionProjection, camera.coordinateSystem);
+            this.reflectedBatches = this.culledBatches = 0;
+            for (const group of [this.heads, this.trails]) for (const batch of group) {
+                batch.savedVisible = batch.mesh.visible;
+                // Empty startup streams stay visible so compileAsync prepares
+                // every material before a launch, including the mirror variant.
+                batch.mesh.visible = batch.savedVisible && (batch.reflectionBounds.box.isEmpty() || this.reflectionFrustum.intersectsBox(batch.reflectionBounds.box));
+                if (batch.count) batch.mesh.visible ? this.reflectedBatches++ : this.culledBatches++;
+            }
+        } else if (this.reflecting) {
             this.uniforms.protect.value = this.savedProtection;
+            for (const group of [this.heads, this.trails]) for (const batch of group) batch.mesh.visible = batch.savedVisible;
+            this.reflecting = false;
         }
         this.orient(camera);
     }
@@ -147,7 +168,9 @@ export class ParticleScene {
         u.protect.value = sim.protectCenter ? 1 : 0;
         u.safeRect.value.set(...sim.safeRect);
         u.energy.value = sim.reducedFlashes ? .90 : 1.12;
-        for (const group of [this.heads, this.trails, this.smoke]) for (const batch of group) batch.count = 0;
+        for (const group of [this.heads, this.trails, this.smoke]) for (const batch of group) {
+            batch.count = 0; batch.reflectionBounds.reset();
+        }
         const pixelFactor = 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, height);
         const p = sim.heads;
         for (let i = 0; i < p.count; i++) {
@@ -155,6 +178,7 @@ export class ParticleScene {
             const b = this.heads[bucketFor(p.z[i])], n = b.count++, a = b.attrs, t = p.age[i] / p.life[i];
             const unit = Math.max(.035, (camera.position.z - p.z[i]) * pixelFactor);
             const size = Math.max(p.size[i] * (1 - t * .38), unit * .9) * 5;
+            b.reflectionBounds.include(p.x[i], p.y[i], p.z[i], size * 1.2);
             const fade = Math.pow(Math.max(0, 1 - t), .72), red = p.family[i] === 2 ? Math.max(0, (t - .4) * 1.1) : 0;
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
@@ -168,6 +192,7 @@ export class ParticleScene {
             const age = embers.age[i] / embers.life[i];
             const pixel = Math.max(.03, (camera.position.z - embers.z[i]) * pixelFactor);
             const size = Math.max(.07, pixel * .44) * 4;
+            b.reflectionBounds.include(embers.x[i], embers.y[i], embers.z[i], size * 1.2);
             a.iPosition.setXYZ(n, embers.x[i], embers.y[i], embers.z[i]);
             a.iScale.setXY(n, size, size * 1.35);
             a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * .75);
@@ -175,6 +200,7 @@ export class ParticleScene {
         }
         const addHead = (x: number, y: number, z: number, size: number, r: number, g: number, blue: number) => {
             const b = this.heads[bucketFor(z)], n = b.count++, a = b.attrs;
+            b.reflectionBounds.include(x, y, z, size * 1.2);
             a.iPosition.setXYZ(n, x, y, z);
             a.iScale.setXY(n, size, size * 1.6);
             a.iColor.setXYZ(n, r, g, blue); a.iAlpha.setX(n, .88);
@@ -201,6 +227,7 @@ export class ParticleScene {
             // At full heat the Gaussian core covers a pixel, avoiding stippled diagonal lines.
             // Older sections taper to a dim, fine ember rather than retaining a thick neon line.
             const width = Math.max(physicalWidth * (1 - age * .72), pixel * (1.04 - age * .62)) * 4.5;
+            b.reflectionBounds.includeSegment(ax, ay, az, bx, by, bz, width);
             a.iA.setXYZ(n, ax, ay, az);
             a.iB.setXYZ(n, bx, by, bz);
             a.iWidth.setX(n, width);
@@ -255,4 +282,5 @@ export class ParticleScene {
     dispose() {
         for (const group of [this.heads, this.trails, this.smoke]) for (const b of group) b.dispose();
     }
+    reflectionDiagnostics() { return { reflectionParticleBatches: this.reflectedBatches, reflectionCulledParticleBatches: this.culledBatches, reflectionParticleBatchCapacity: BUCKETS * 2 }; }
 }
