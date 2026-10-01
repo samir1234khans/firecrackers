@@ -164,3 +164,7 @@ The isolated configuration is `wrangler.open-sky-preview.jsonc`; it has no produ
 
 
 `node tests/startup-browser.mjs test-results/startup` uses actual blocked entry/art requests to verify first-paint coverage, truthful asset progress, inert launch controls, moon handover, explicit early entry, failures, cache reuse and reduced motion. `STARTUP_URL` selects the built candidate. `node tests/open-sky-edge-browser.mjs test-results/edges` tests full usable terrace endpoints; `EDGE_HARDWARE=1` verifies native backends, and `EDGE_QUICK=1` is the bounded CI subset. The original effects' natural tails are visually inspected; signature principal-head envelopes have strict projected-bound assertions.
+
+## Always Play
+
+The [implementation receipt](docs/evidence/always-play-2026-10-02/IMPLEMENTATION.md) records the bounded four-pace director and current qualification. Unit checks are in `npm test`; `tests/always-play-soak.mjs`, `tests/always-play-browser.mjs` and `tests/always-play-performance.mjs` provide logical endurance, native interaction and sequential timing/video evidence. Use `ALWAYS_URL` for the isolated preview. CI uses explicitly labeled software WebGL/Canvas; physical-phone and flash-conformance claims require their own evidence.
