@@ -41,6 +41,8 @@ export class FireworkRenderer {
     private readonly props = Array.from({ length: 8 }, () => new RocketProp(this.paper));
     private readonly stage = new LaunchStage();
     private readonly blastLight = new THREE.PointLight(0xffcc88, 0, 160, 2);
+    private readonly fuseLight = new THREE.PointLight(0xffb45d, 0, 10, 2);
+    private readonly fusePosition = new THREE.Vector3();
     private readonly opaqueDepth: OpaqueDepth;
     private readonly opaquePass: ReturnType<typeof pass>;
     private readonly scenePass: ReturnType<typeof pass>;
@@ -86,9 +88,13 @@ export class FireworkRenderer {
         key.position.set(-8, 35, 45);
         const moon = new THREE.DirectionalLight(0x8eafd1, .8);
         moon.position.set(-80, 150, -180);
-        this.scene.add(key, moon, this.blastLight);
+        // Keep one fuse light in the render list for the lifetime of the scene.
+        // Per-prop lights otherwise add/remove a light as props appear and fade,
+        // forcing every lit waterfront material to relink during each launch.
+        this.scene.add(key, moon, this.blastLight, this.fuseLight);
         this.scene.add(this.stage.group);
         for (const prop of this.props) {
+            prop.lamp.layers.set(2);
             prop.group.visible = false;
             this.scene.add(prop.group);
         }
@@ -323,6 +329,7 @@ export class FireworkRenderer {
         this.particles.update(sim, this.camera, this.host.clientHeight * this.renderer.getPixelRatio());
         this.bloomPass.strength.value = BUDGETS[sim.quality].bloom * (sim.reducedFlashes ? .7 : 1);
         for (const prop of this.props) prop.group.visible = false;
+        this.fuseLight.intensity = 0;
         let slot = 0;
         let staged = 0, airborne = 0;
         const next = this.nextProfile();
@@ -335,6 +342,11 @@ export class FireworkRenderer {
             prop.group.scale.set(modelScale[0], modelScale[1], modelScale[2]);
             prop.group.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(vx, vy, vz).normalize());
             prop.update(family, burn, contact, sim.time, sim.wind, bodyOpacity);
+            if (prop.group.visible && prop.lamp.intensity > this.fuseLight.intensity) {
+                this.fuseLight.intensity = prop.lamp.intensity;
+                this.fusePosition.copy(prop.lamp.position).multiply(prop.group.scale).applyQuaternion(prop.group.quaternion).add(prop.group.position);
+                this.fuseLight.position.copy(this.fusePosition);
+            }
         };
         if (!sim.committed && !sim.show) {
             place(FAMILIES.findIndex(f => f.id === sim.selected), next.padX!, next.ground!, 0, -.01, sim.holding ? sim.holdProgress : 0, next.prop);
@@ -377,6 +389,8 @@ export class FireworkRenderer {
         this.metrics.frames++;
     }
     diagnostics() {
+        let visibleLightCount = 0;
+        this.scene.traverseVisible(object => { if (object instanceof THREE.Light && object.layers.test(this.camera.layers)) visibleLightCount++; });
         const sample = new THREE.Vector3();
         const signatureBounds = signatureEnvelope(this.sim.heads, (x, y, z) => {
             sample.set(x, y, z).project(this.camera);
@@ -397,6 +411,7 @@ export class FireworkRenderer {
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,
+            visibleLightCount,
             shellScreen: projected ? { x: (projected.x + 1) * this.host.clientWidth / 2, y: (1 - projected.y) * this.host.clientHeight / 2 } : null,
             apexScreen: apex ? { x: (apex.x + 1) * this.host.clientWidth / 2, y: (1 - apex.y) * this.host.clientHeight / 2 } : null,
             signatureBounds, launchProfile: r?.launchProfile ?? null,
