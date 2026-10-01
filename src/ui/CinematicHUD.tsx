@@ -26,6 +26,6 @@ export function CinematicHUD(p: Props) {
     <div className='collection-chrome chrome' inert={p.hidden || undefined}>
       <BottomCollection selectedId={p.selectedId} available={p.available} canLaunchFamily={p.canLaunchFamily} onLaunchFamily={p.onLaunchFamily} onDragStart={p.onDragStart} notice={p.notice} noticeFamilyId={p.noticeFamily}/>
     </div>
-    <span id='launch-feedback' className='sr-only' role='status'>{state}. {p.committedFamily ? `${p.committedFamily} is committed; selection affects the next launch.` : 'Tap a firework to launch it.'} {p.notice}</span>
+    <span aria-hidden={p.hidden} id='launch-feedback' className='sr-only' role='status'>{state}. {p.committedFamily ? `${p.committedFamily} is committed; selection affects the next launch.` : 'Tap a firework to launch it.'} {p.notice}</span>
   </>;
 }

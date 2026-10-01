@@ -1,0 +1,2446 @@
+{
+  "base": "http://127.0.0.1:4173/",
+  "seed": 20260916,
+  "method": "Installed Chrome on this PC; native WebGPU adapter and native WebGL driver checked separately; Canvas 2D compatibility. Viewports and touch are emulated. Physical phones, GPU completion timing and thermal endurance are not qualified.",
+  "checks": [
+    {
+      "name": "Native WebGPU adapter",
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "fallback": false
+    },
+    {
+      "name": "webgpu: source fingerprint",
+      "release": {
+        "formatVersion": 2,
+        "version": "2026-10-01.9",
+        "scope": "delivered-upgrade-modules",
+        "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+        "sha256": "8c683a81629abd59a15e5d6a47c015c60b492298d4a7bd39ced7ced6c33d7d63",
+        "modules": [
+          {
+            "path": "index.html",
+            "sha256": "ba6a0f7751f3e60b74f73b5417d9e59e86b3f0ded3cbb7170eea6c1df7feceab",
+            "rawSha256": "ba6a0f7751f3e60b74f73b5417d9e59e86b3f0ded3cbb7170eea6c1df7feceab",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/ignition-flame.png",
+            "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+            "rawSha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/moon-lro-v001.png",
+            "sha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+            "rawSha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/paper-color.png",
+            "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+            "rawSha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/river-life-v007.glb",
+            "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+            "rawSha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/river-life-v008.glb",
+            "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+            "rawSha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/rocket.glb",
+            "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+            "rawSha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/smoke-density-light-v005.png",
+            "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+            "rawSha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/smoke-density-light.png",
+            "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+            "rawSha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/terrace-v004.glb",
+            "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+            "rawSha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/terrace-v008.glb",
+            "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+            "rawSha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/water-normal-v005.png",
+            "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+            "rawSha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/water-normal.png",
+            "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+            "rawSha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/waterfront-night-v005.webp",
+            "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+            "rawSha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-01.wav",
+            "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+            "rawSha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-02.wav",
+            "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+            "rawSha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-03.wav",
+            "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+            "rawSha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/App.tsx",
+            "sha256": "5b5316ef8d9cbf6999c21480392f8b2d4e2944b56db0ef014c7d98e5acd4cf14",
+            "rawSha256": "974442e4d89043a0380420d123e66f2fb3de38515c64307471974698203e34e9",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/bootstrap.ts",
+            "sha256": "92282ed4ebe9b4622a567a3075070bd67b61c7dda491d819da6646fbae4d5ce5",
+            "rawSha256": "92282ed4ebe9b4622a567a3075070bd67b61c7dda491d819da6646fbae4d5ce5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Audio.ts",
+            "sha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+            "rawSha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/catalog.ts",
+            "sha256": "59bfd4f4b927302a52baec8d62947e127ba6a271d0c8f73f51b7ad51e5afec00",
+            "rawSha256": "59bfd4f4b927302a52baec8d62947e127ba6a271d0c8f73f51b7ad51e5afec00",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/FlagshipEffects.ts",
+            "sha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+            "rawSha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/FusePath.ts",
+            "sha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+            "rawSha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/GrandEffects.ts",
+            "sha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+            "rawSha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchComposition.ts",
+            "sha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+            "rawSha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchGeometry.ts",
+            "sha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+            "rawSha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchProfile.ts",
+            "sha256": "e5767c4c65a0179ed1574fb6b8111ccf0c7897c6f9d4c9e7c156567c42627263",
+            "rawSha256": "e5767c4c65a0179ed1574fb6b8111ccf0c7897c6f9d4c9e7c156567c42627263",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Pool.ts",
+            "sha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+            "rawSha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Renderer.ts",
+            "sha256": "2636db95afdceee78a4facdc432ac7468e1d9425ea5eb9229d60e1907c86d44e",
+            "rawSha256": "2636db95afdceee78a4facdc432ac7468e1d9425ea5eb9229d60e1907c86d44e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/RendererPort.ts",
+            "sha256": "5a7c9865e0d020ec848ce0458d7d0cb26c7de6b06be9c1934afd8589b2690edb",
+            "rawSha256": "5a7c9865e0d020ec848ce0458d7d0cb26c7de6b06be9c1934afd8589b2690edb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/RendererRecovery.ts",
+            "sha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+            "rawSha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/SignatureDiagnostics.ts",
+            "sha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+            "rawSha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Simulation.ts",
+            "sha256": "506b96faf8a5a1b7212f53d18bcc761de09614938f7fe8a3bb2b00e9aae536dc",
+            "rawSha256": "506b96faf8a5a1b7212f53d18bcc761de09614938f7fe8a3bb2b00e9aae536dc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/SkyState.ts",
+            "sha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+            "rawSha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/StageLayout.ts",
+            "sha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+            "rawSha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/StartupProgress.ts",
+            "sha256": "65c279ba8601f49676aab6336ef3d71791ebd13383c7bf4aa5c1c5ac58fa448f",
+            "rawSha256": "65c279ba8601f49676aab6336ef3d71791ebd13383c7bf4aa5c1c5ac58fa448f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/useWorld.ts",
+            "sha256": "2780e41c0b2d68dd31401eb77f7209d199d4e7d4223752a4c772f5a9cb98c7ea",
+            "rawSha256": "2780e41c0b2d68dd31401eb77f7209d199d4e7d4223752a4c772f5a9cb98c7ea",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/VisibleFrame.ts",
+            "sha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+            "rawSha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/CelestialScene.ts",
+            "sha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+            "rawSha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/CompatibilityRenderer.ts",
+            "sha256": "725354140f943596d0e5e32a69b79497fcf7cf9119d720f7619e03895ea2d1d0",
+            "rawSha256": "725354140f943596d0e5e32a69b79497fcf7cf9119d720f7619e03895ea2d1d0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/GalaxySky.ts",
+            "sha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+            "rawSha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/LaunchStage.ts",
+            "sha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+            "rawSha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/MoonComposition.ts",
+            "sha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+            "rawSha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/NightEnvironment.ts",
+            "sha256": "c79f4e46c3233d6feab6e6fb2b220c5ed7223bf07afed2c659819ee9f9aeb6ff",
+            "rawSha256": "c79f4e46c3233d6feab6e6fb2b220c5ed7223bf07afed2c659819ee9f9aeb6ff",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/OpaqueDepth.ts",
+            "sha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+            "rawSha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/ParticleReflectionBounds.ts",
+            "sha256": "07da62438ac58add2479bc598e6d3342fd3d808dbff25be21c5295670839c822",
+            "rawSha256": "07da62438ac58add2479bc598e6d3342fd3d808dbff25be21c5295670839c822",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/ParticleScene.ts",
+            "sha256": "fac7d03ad8f0590c61847ed813a6ca98e0cd110263dc25ffcd6e2b8205206ec4",
+            "rawSha256": "fac7d03ad8f0590c61847ed813a6ca98e0cd110263dc25ffcd6e2b8205206ec4",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/PlanarReflection.ts",
+            "sha256": "6b36d9eabc0663bc1b29decb683924a21b8df376a93d2e60cc455b035d2e3ee5",
+            "rawSha256": "6b36d9eabc0663bc1b29decb683924a21b8df376a93d2e60cc455b035d2e3ee5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/RiverLife.ts",
+            "sha256": "c20b129c726e7f9d183fccc019d9c2b8334177bcf1aa79b227cca595151bea9d",
+            "rawSha256": "c20b129c726e7f9d183fccc019d9c2b8334177bcf1aa79b227cca595151bea9d",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/RocketProp.ts",
+            "sha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+            "rawSha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/textures.ts",
+            "sha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+            "rawSha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterfrontAssets.ts",
+            "sha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+            "rawSha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterReflection.ts",
+            "sha256": "b772ca54fc0c3f208d6ae582b6de605b51d1052032af9b9ddf13e7b82e9102fb",
+            "rawSha256": "b772ca54fc0c3f208d6ae582b6de605b51d1052032af9b9ddf13e7b82e9102fb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterSurfaceGeometry.ts",
+            "sha256": "37ba2b10d71973b7a4bd7f3f84cb722ca2d5320e534d54ee0aa0cd3690a0dffe",
+            "rawSha256": "37ba2b10d71973b7a4bd7f3f84cb722ca2d5320e534d54ee0aa0cd3690a0dffe",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterWaves.ts",
+            "sha256": "7112c6832459d9e2e1667fa949a451debe2023e96ab51f7c743f581045f57fff",
+            "rawSha256": "7112c6832459d9e2e1667fa949a451debe2023e96ab51f7c743f581045f57fff",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/main.tsx",
+            "sha256": "cc4dfafa95000c56ddbc210b2d7836fe2ab7c178072823a6193e45c6a343b407",
+            "rawSha256": "e1b67a93c2c90ec50a3d9d902c8da9bd52ab34ae22f2823edf046df2564bb3d8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/platform/preferences.ts",
+            "sha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+            "rawSha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/platform/usePlatform.ts",
+            "sha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+            "rawSha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/collection.css",
+            "sha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+            "rawSha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/completion.css",
+            "sha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+            "rawSha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/flow.css",
+            "sha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+            "rawSha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/grand-collection.css",
+            "sha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+            "rawSha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/hud-v3-art.css",
+            "sha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+            "rawSha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/hud-v3.css",
+            "sha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+            "rawSha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/panels.css",
+            "sha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+            "rawSha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/recovery.css",
+            "sha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+            "rawSha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/stage.css",
+            "sha256": "39194be39d5e69e39b70121a09e8d8b6fc0f6573bea9a82310458bb5579a0a88",
+            "rawSha256": "39194be39d5e69e39b70121a09e8d8b6fc0f6573bea9a82310458bb5579a0a88",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/startup.css",
+            "sha256": "1ae5811cc870ff3c9a4f134ac9c54ff940c86cb2c13b71d387cccee1a1d66059",
+            "rawSha256": "1ae5811cc870ff3c9a4f134ac9c54ff940c86cb2c13b71d387cccee1a1d66059",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/AppBoundary.tsx",
+            "sha256": "dde8cc764a8ef641e484d7f51c3f21c92a752483ddabac1c7137504032f9ca5e",
+            "rawSha256": "847cd2eff02698f6bf91040ad693cf80d48a562acfdc46a60fe2508238179699",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/BottomCollection.tsx",
+            "sha256": "eb19c7466462dbe8a9e740bebab6db596ad238ce997799e3a11eb5bfe83a2c72",
+            "rawSha256": "b8b9ea4b409077f2aa2381ca7e222d5aade274ddceab8628d7deb438efa77a80",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/CinematicHUD.tsx",
+            "sha256": "2766fe99a78c1adcab4d8c9c1c3a967dd609d0a5151c48cd289161431e90b377",
+            "rawSha256": "8109cbd6caa6aac1ab547426ccf46be50fb8cc14abba1eabb0d3ae212cfedc17",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/ControlsMenu.tsx",
+            "sha256": "87f806035b53e3b48794a6e694d11475b3c834d58132f1c56263a033239a71d0",
+            "rawSha256": "de82ea508062c290da78a7359f74498076e5534c527ad4a2c5ddc21b3c59da9c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/Dialog.tsx",
+            "sha256": "d229d37a2a32994d2b75f20c02c314832752c7cffe577c5337b812ad027aa9e3",
+            "rawSha256": "73b1ec3e58fdfafabeea3a9f328c90cc5a86ead50e84c9d16c175cac9375408c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FamilyPicker.tsx",
+            "sha256": "88515f34c91f7aa17041ada5bdf0c88d19506d80caaa9cc7aca0f367dac4cde2",
+            "rawSha256": "e9570da9b36deb41437b4edfaa9b5cef5b50b318fa842c4d5e101d1d3c886740",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FireworkGlyph.tsx",
+            "sha256": "cd95c79b9c865736cc3a52defb41e4a616494cbe5c9031d04baafd71d6138f69",
+            "rawSha256": "afb0b9c9e83e99ed45536846b091515955cb43a4b111402c990e817f89fdd9ab",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FireworkShelf.tsx",
+            "sha256": "50f36b417e75908cd2b7ba7975dc8b00f864db6d2b13ab6196f6a32c1694ded7",
+            "rawSha256": "282f2a3cf3cdcd5a246144a985d07b2c816c874694f99bd08ef00af3e2cf38c0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/GrandGlyph.tsx",
+            "sha256": "d4e3a1228455b6402829e8aa84eb231826c5a68ac5e6bb7950c574411e0a7dfa",
+            "rawSha256": "a376d9ed9aadbfbb6be57583115fd86ec26ad6eb6e1884e1f0bd49c13871f098",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/LaunchPositionControl.tsx",
+            "sha256": "4770b1dbede3030e6334f26c0470c5e32db1ca59477bdc1935a03949ff1cf7e2",
+            "rawSha256": "b03e6e99ec016375f58e5da290e76daa22a7e2dbca139e913aea8aa03e2a3ffa",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/PanelNav.tsx",
+            "sha256": "c0fb96d449a86ec3502c42429289d4f6dbaf39eb6598bf1c0fda70e95d8867a3",
+            "rawSha256": "7f2ef57fe58c3975e9220ee62fb9751f3443a0566f1a2b4dc17b51830909cfe1",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/PresentationSettings.tsx",
+            "sha256": "41146b03974d0bd7f9e12e51ac31a837eb464b3512456f0f27da9ec3e1fee95c",
+            "rawSha256": "8c5b23c0002b4021f368d68d26ee58244af9e4b70c715a60ba5bcc725805bd70",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/ShowModeKnob.tsx",
+            "sha256": "bf606a902cb22fb0c2d26cfbe0dc7649e3dbf0c003bace7bce935d40ee797205",
+            "rawSha256": "6320957816d3d0d572223fd8a360b53f6c1411aebd1386e7ba3efa5c9c2780fc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/SignatureGlyph.tsx",
+            "sha256": "d51524f1fcbb143c1a56aab1fb39020413db29220644ec73f0675b8626131fdd",
+            "rawSha256": "aff5bdaf3c15ce39a39e8b7567fae5cac0e7f29aed947f922fc3fc10227b6ed4",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/StartupScreen.tsx",
+            "sha256": "99da585f5f3216862c52b0ff8f247c304ef4990ce816a72b13f3a6ca137bc136",
+            "rawSha256": "178f3008e70c4ca21248490be35021708a818376bdd7de24efe8cb84a4891304",
+            "removedHostAttributes": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "webgpu/320x480: shared surface, hull contact and bounded reflections",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 0.457427934058006,
+      "waves": 4,
+      "dimensions": [
+        256,
+        48
+      ],
+      "reflectionHz": 12,
+      "hulls": [
+        {
+          "height": -0.18275662470601145,
+          "pitch": 0.0007537707376127835,
+          "roll": 0.013994373808874848,
+          "centerDeviation": 0.019309483780128506
+        },
+        {
+          "height": -0.18681073672914225,
+          "pitch": -0.003995509508357582,
+          "roll": 0.02144967306182494,
+          "centerDeviation": 0.0019124322499510793
+        },
+        {
+          "height": -0.3191743667018061,
+          "pitch": -0.0075340582448865726,
+          "roll": -0.0035191395072389085,
+          "centerDeviation": 0.03156390953041738
+        }
+      ]
+    },
+    {
+      "name": "webgpu/375x667: shared surface, hull contact and bounded reflections",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 0.5441065517628155,
+      "waves": 4,
+      "dimensions": [
+        216,
+        62
+      ],
+      "reflectionHz": 12,
+      "hulls": [
+        {
+          "height": -0.16589436832537557,
+          "pitch": 0.00018650319679895498,
+          "roll": 0.014577352057424504,
+          "centerDeviation": 0.01891450146844495
+        },
+        {
+          "height": -0.18804074698818934,
+          "pitch": -0.0038522028711324326,
+          "roll": 0.02187041680032746,
+          "centerDeviation": 0.0024589137624055346
+        },
+        {
+          "height": -0.30894914171951704,
+          "pitch": -0.007521682916485319,
+          "roll": -0.0030687259113002913,
+          "centerDeviation": 0.02842962186915804
+        }
+      ]
+    },
+    {
+      "name": "webgpu/393x851: shared surface, hull contact and bounded reflections",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 0.6310723345821649,
+      "waves": 4,
+      "dimensions": [
+        177,
+        68
+      ],
+      "reflectionHz": 12,
+      "hulls": [
+        {
+          "height": -0.14851263888262875,
+          "pitch": -0.00039265017975276636,
+          "roll": 0.015097778906432553,
+          "centerDeviation": 0.01841713967049466
+        },
+        {
+          "height": -0.18872121892028093,
+          "pitch": -0.003700714222578696,
+          "roll": 0.022213703287557597,
+          "centerDeviation": 0.002997783787712649
+        },
+        {
+          "height": -0.29781338822278247,
+          "pitch": -0.007479314040670457,
+          "roll": -0.002577320200583669,
+          "centerDeviation": 0.025175420900650503
+        }
+      ]
+    },
+    {
+      "name": "webgpu/768x1024: shared surface, hull contact and bounded reflections",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 0.718324999446725,
+      "waves": 4,
+      "dimensions": [
+        384,
+        209
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": 0.00838880180129276,
+          "pitch": -0.008130154685259778,
+          "roll": 0.008766481558534427,
+          "centerDeviation": 0.0032837162510590944
+        },
+        {
+          "height": -0.29710800922386205,
+          "pitch": 0.002102138586041659,
+          "roll": -0.0007016605812851032,
+          "centerDeviation": 0.007121578642000526
+        },
+        {
+          "height": 0.08603068908539646,
+          "pitch": -0.006627859466390417,
+          "roll": 0.0005009617327416944,
+          "centerDeviation": 0.039439080018028504
+        }
+      ]
+    },
+    {
+      "name": "webgpu/844x390: shared surface, hull contact and bounded reflections",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 0.8058642219766482,
+      "waves": 4,
+      "dimensions": [
+        512,
+        71
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": 0.030174043733132382,
+          "pitch": -0.007629617251617947,
+          "roll": 0.009521968379760248,
+          "centerDeviation": 0.005062231510222091
+        },
+        {
+          "height": -0.28621755455045933,
+          "pitch": 0.00217096101993218,
+          "roll": -0.0005822193258933992,
+          "centerDeviation": 0.005864423878529146
+        },
+        {
+          "height": 0.0888134478490814,
+          "pitch": -0.006718890426910277,
+          "roll": -0.00005378029923189049,
+          "centerDeviation": 0.04261445001914559
+        }
+      ]
+    },
+    {
+      "name": "webgpu/1280x800: shared surface, hull contact and bounded reflections",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 0.8936896365282778,
+      "waves": 4,
+      "dimensions": [
+        512,
+        125
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": 0.05179011485613305,
+          "pitch": -0.007093787096514157,
+          "roll": 0.01025339969588287,
+          "centerDeviation": 0.006798741915880632
+        },
+        {
+          "height": -0.2745046635534574,
+          "pitch": 0.0022375439030520024,
+          "roll": -0.00043439847979559346,
+          "centerDeviation": 0.004575173622931694
+        },
+        {
+          "height": 0.09163549175641879,
+          "pitch": -0.0067931635355691095,
+          "roll": -0.0006014822619526852,
+          "centerDeviation": 0.0454530295097897
+        }
+      ]
+    },
+    {
+      "name": "webgpu/1920x1080: shared surface, hull contact and bounded reflections",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 0.9818008362468007,
+      "waves": 4,
+      "dimensions": [
+        512,
+        118
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": 0.0731594355503775,
+          "pitch": -0.006524558243079853,
+          "roll": 0.010954245459876359,
+          "centerDeviation": 0.00848326460304294
+        },
+        {
+          "height": -0.262039326684271,
+          "pitch": 0.0022993826742833414,
+          "roll": -0.0002568465045947754,
+          "centerDeviation": 0.0032632277190914327
+        },
+        {
+          "height": 0.09450377828148794,
+          "pitch": -0.0068499048051585566,
+          "roll": -0.0011379370991313645,
+          "centerDeviation": 0.04793493023260758
+        }
+      ]
+    },
+    {
+      "name": "webgpu: pause freezes wave, boat, contact and reflected fragment transforms"
+    },
+    {
+      "name": "webgpu: controlled hidden-page transition holds water and requires explicit resume",
+      "method": "document.hidden override plus visibilitychange, matching existing galactic CI; not OS background endurance"
+    },
+    {
+      "name": "webgpu: standard water tier",
+      "backend": "WebGPU",
+      "quality": "standard",
+      "phase": 1.7875745212095113,
+      "waves": 2,
+      "dimensions": [
+        256,
+        62
+      ],
+      "reflectionHz": 15,
+      "hulls": [
+        {
+          "height": 0.1735065325313181,
+          "pitch": 0.001886167537364439,
+          "roll": 0.010347435382243189,
+          "centerDeviation": 0.0023108911036133772
+        },
+        {
+          "height": -0.19982317712421074,
+          "pitch": 0.0013383071749499217,
+          "roll": 0.008227599126276354,
+          "centerDeviation": 0.004422795957106235
+        },
+        {
+          "height": 0.15091067195376845,
+          "pitch": -0.005980561323323546,
+          "roll": -0.0012905993151594854,
+          "centerDeviation": 0.0002210314103676947
+        }
+      ]
+    },
+    {
+      "name": "webgpu: low water tier",
+      "backend": "WebGPU",
+      "quality": "low",
+      "phase": 0,
+      "waves": 0,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": 0,
+          "pitch": 0,
+          "roll": 0,
+          "centerDeviation": 0
+        },
+        {
+          "height": 0,
+          "pitch": 0,
+          "roll": 0,
+          "centerDeviation": 0
+        },
+        {
+          "height": 0,
+          "pitch": 0,
+          "roll": 0,
+          "centerDeviation": 0
+        }
+      ]
+    },
+    {
+      "name": "webgpu: ultra water tier",
+      "backend": "WebGPU",
+      "quality": "ultra",
+      "phase": 1.9697284468500007,
+      "waves": 4,
+      "dimensions": [
+        512,
+        125
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": 0.2722059607113492,
+          "pitch": 0.0011728845753124677,
+          "roll": 0.014918457748919261,
+          "centerDeviation": 0.021152697843945578
+        },
+        {
+          "height": -0.09832638029351506,
+          "pitch": 0.002004783286072106,
+          "roll": 0.0036436660444858562,
+          "centerDeviation": 0.009759409134896924
+        },
+        {
+          "height": 0.1286760539833201,
+          "pitch": -0.006127775624051548,
+          "roll": -0.005197541921325603,
+          "centerDeviation": 0.04872929321547824
+        }
+      ]
+    },
+    {
+      "name": "webgpu: reduced motion uses a stable shared water pose"
+    },
+    {
+      "name": "webgpu: reduced flashes remains independent of water motion"
+    },
+    {
+      "name": "webgpu: transparent output removes waterfront and its reflection allocation"
+    },
+    {
+      "name": "Native WebGL driver",
+      "driver": "ANGLE (Intel, Intel(R) UHD Graphics 770 (0x0000A780) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "name": "webgl: source fingerprint",
+      "release": {
+        "formatVersion": 2,
+        "version": "2026-10-01.9",
+        "scope": "delivered-upgrade-modules",
+        "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+        "sha256": "8c683a81629abd59a15e5d6a47c015c60b492298d4a7bd39ced7ced6c33d7d63",
+        "modules": [
+          {
+            "path": "index.html",
+            "sha256": "ba6a0f7751f3e60b74f73b5417d9e59e86b3f0ded3cbb7170eea6c1df7feceab",
+            "rawSha256": "ba6a0f7751f3e60b74f73b5417d9e59e86b3f0ded3cbb7170eea6c1df7feceab",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/ignition-flame.png",
+            "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+            "rawSha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/moon-lro-v001.png",
+            "sha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+            "rawSha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/paper-color.png",
+            "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+            "rawSha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/river-life-v007.glb",
+            "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+            "rawSha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/river-life-v008.glb",
+            "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+            "rawSha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/rocket.glb",
+            "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+            "rawSha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/smoke-density-light-v005.png",
+            "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+            "rawSha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/smoke-density-light.png",
+            "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+            "rawSha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/terrace-v004.glb",
+            "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+            "rawSha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/terrace-v008.glb",
+            "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+            "rawSha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/water-normal-v005.png",
+            "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+            "rawSha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/water-normal.png",
+            "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+            "rawSha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/waterfront-night-v005.webp",
+            "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+            "rawSha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-01.wav",
+            "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+            "rawSha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-02.wav",
+            "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+            "rawSha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-03.wav",
+            "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+            "rawSha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/App.tsx",
+            "sha256": "5b5316ef8d9cbf6999c21480392f8b2d4e2944b56db0ef014c7d98e5acd4cf14",
+            "rawSha256": "974442e4d89043a0380420d123e66f2fb3de38515c64307471974698203e34e9",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/bootstrap.ts",
+            "sha256": "92282ed4ebe9b4622a567a3075070bd67b61c7dda491d819da6646fbae4d5ce5",
+            "rawSha256": "92282ed4ebe9b4622a567a3075070bd67b61c7dda491d819da6646fbae4d5ce5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Audio.ts",
+            "sha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+            "rawSha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/catalog.ts",
+            "sha256": "59bfd4f4b927302a52baec8d62947e127ba6a271d0c8f73f51b7ad51e5afec00",
+            "rawSha256": "59bfd4f4b927302a52baec8d62947e127ba6a271d0c8f73f51b7ad51e5afec00",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/FlagshipEffects.ts",
+            "sha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+            "rawSha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/FusePath.ts",
+            "sha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+            "rawSha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/GrandEffects.ts",
+            "sha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+            "rawSha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchComposition.ts",
+            "sha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+            "rawSha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchGeometry.ts",
+            "sha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+            "rawSha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchProfile.ts",
+            "sha256": "e5767c4c65a0179ed1574fb6b8111ccf0c7897c6f9d4c9e7c156567c42627263",
+            "rawSha256": "e5767c4c65a0179ed1574fb6b8111ccf0c7897c6f9d4c9e7c156567c42627263",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Pool.ts",
+            "sha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+            "rawSha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Renderer.ts",
+            "sha256": "2636db95afdceee78a4facdc432ac7468e1d9425ea5eb9229d60e1907c86d44e",
+            "rawSha256": "2636db95afdceee78a4facdc432ac7468e1d9425ea5eb9229d60e1907c86d44e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/RendererPort.ts",
+            "sha256": "5a7c9865e0d020ec848ce0458d7d0cb26c7de6b06be9c1934afd8589b2690edb",
+            "rawSha256": "5a7c9865e0d020ec848ce0458d7d0cb26c7de6b06be9c1934afd8589b2690edb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/RendererRecovery.ts",
+            "sha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+            "rawSha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/SignatureDiagnostics.ts",
+            "sha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+            "rawSha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Simulation.ts",
+            "sha256": "506b96faf8a5a1b7212f53d18bcc761de09614938f7fe8a3bb2b00e9aae536dc",
+            "rawSha256": "506b96faf8a5a1b7212f53d18bcc761de09614938f7fe8a3bb2b00e9aae536dc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/SkyState.ts",
+            "sha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+            "rawSha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/StageLayout.ts",
+            "sha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+            "rawSha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/StartupProgress.ts",
+            "sha256": "65c279ba8601f49676aab6336ef3d71791ebd13383c7bf4aa5c1c5ac58fa448f",
+            "rawSha256": "65c279ba8601f49676aab6336ef3d71791ebd13383c7bf4aa5c1c5ac58fa448f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/useWorld.ts",
+            "sha256": "2780e41c0b2d68dd31401eb77f7209d199d4e7d4223752a4c772f5a9cb98c7ea",
+            "rawSha256": "2780e41c0b2d68dd31401eb77f7209d199d4e7d4223752a4c772f5a9cb98c7ea",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/VisibleFrame.ts",
+            "sha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+            "rawSha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/CelestialScene.ts",
+            "sha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+            "rawSha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/CompatibilityRenderer.ts",
+            "sha256": "725354140f943596d0e5e32a69b79497fcf7cf9119d720f7619e03895ea2d1d0",
+            "rawSha256": "725354140f943596d0e5e32a69b79497fcf7cf9119d720f7619e03895ea2d1d0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/GalaxySky.ts",
+            "sha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+            "rawSha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/LaunchStage.ts",
+            "sha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+            "rawSha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/MoonComposition.ts",
+            "sha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+            "rawSha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/NightEnvironment.ts",
+            "sha256": "c79f4e46c3233d6feab6e6fb2b220c5ed7223bf07afed2c659819ee9f9aeb6ff",
+            "rawSha256": "c79f4e46c3233d6feab6e6fb2b220c5ed7223bf07afed2c659819ee9f9aeb6ff",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/OpaqueDepth.ts",
+            "sha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+            "rawSha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/ParticleReflectionBounds.ts",
+            "sha256": "07da62438ac58add2479bc598e6d3342fd3d808dbff25be21c5295670839c822",
+            "rawSha256": "07da62438ac58add2479bc598e6d3342fd3d808dbff25be21c5295670839c822",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/ParticleScene.ts",
+            "sha256": "fac7d03ad8f0590c61847ed813a6ca98e0cd110263dc25ffcd6e2b8205206ec4",
+            "rawSha256": "fac7d03ad8f0590c61847ed813a6ca98e0cd110263dc25ffcd6e2b8205206ec4",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/PlanarReflection.ts",
+            "sha256": "6b36d9eabc0663bc1b29decb683924a21b8df376a93d2e60cc455b035d2e3ee5",
+            "rawSha256": "6b36d9eabc0663bc1b29decb683924a21b8df376a93d2e60cc455b035d2e3ee5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/RiverLife.ts",
+            "sha256": "c20b129c726e7f9d183fccc019d9c2b8334177bcf1aa79b227cca595151bea9d",
+            "rawSha256": "c20b129c726e7f9d183fccc019d9c2b8334177bcf1aa79b227cca595151bea9d",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/RocketProp.ts",
+            "sha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+            "rawSha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/textures.ts",
+            "sha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+            "rawSha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterfrontAssets.ts",
+            "sha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+            "rawSha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterReflection.ts",
+            "sha256": "b772ca54fc0c3f208d6ae582b6de605b51d1052032af9b9ddf13e7b82e9102fb",
+            "rawSha256": "b772ca54fc0c3f208d6ae582b6de605b51d1052032af9b9ddf13e7b82e9102fb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterSurfaceGeometry.ts",
+            "sha256": "37ba2b10d71973b7a4bd7f3f84cb722ca2d5320e534d54ee0aa0cd3690a0dffe",
+            "rawSha256": "37ba2b10d71973b7a4bd7f3f84cb722ca2d5320e534d54ee0aa0cd3690a0dffe",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterWaves.ts",
+            "sha256": "7112c6832459d9e2e1667fa949a451debe2023e96ab51f7c743f581045f57fff",
+            "rawSha256": "7112c6832459d9e2e1667fa949a451debe2023e96ab51f7c743f581045f57fff",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/main.tsx",
+            "sha256": "cc4dfafa95000c56ddbc210b2d7836fe2ab7c178072823a6193e45c6a343b407",
+            "rawSha256": "e1b67a93c2c90ec50a3d9d902c8da9bd52ab34ae22f2823edf046df2564bb3d8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/platform/preferences.ts",
+            "sha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+            "rawSha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/platform/usePlatform.ts",
+            "sha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+            "rawSha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/collection.css",
+            "sha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+            "rawSha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/completion.css",
+            "sha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+            "rawSha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/flow.css",
+            "sha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+            "rawSha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/grand-collection.css",
+            "sha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+            "rawSha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/hud-v3-art.css",
+            "sha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+            "rawSha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/hud-v3.css",
+            "sha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+            "rawSha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/panels.css",
+            "sha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+            "rawSha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/recovery.css",
+            "sha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+            "rawSha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/stage.css",
+            "sha256": "39194be39d5e69e39b70121a09e8d8b6fc0f6573bea9a82310458bb5579a0a88",
+            "rawSha256": "39194be39d5e69e39b70121a09e8d8b6fc0f6573bea9a82310458bb5579a0a88",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/startup.css",
+            "sha256": "1ae5811cc870ff3c9a4f134ac9c54ff940c86cb2c13b71d387cccee1a1d66059",
+            "rawSha256": "1ae5811cc870ff3c9a4f134ac9c54ff940c86cb2c13b71d387cccee1a1d66059",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/AppBoundary.tsx",
+            "sha256": "dde8cc764a8ef641e484d7f51c3f21c92a752483ddabac1c7137504032f9ca5e",
+            "rawSha256": "847cd2eff02698f6bf91040ad693cf80d48a562acfdc46a60fe2508238179699",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/BottomCollection.tsx",
+            "sha256": "eb19c7466462dbe8a9e740bebab6db596ad238ce997799e3a11eb5bfe83a2c72",
+            "rawSha256": "b8b9ea4b409077f2aa2381ca7e222d5aade274ddceab8628d7deb438efa77a80",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/CinematicHUD.tsx",
+            "sha256": "2766fe99a78c1adcab4d8c9c1c3a967dd609d0a5151c48cd289161431e90b377",
+            "rawSha256": "8109cbd6caa6aac1ab547426ccf46be50fb8cc14abba1eabb0d3ae212cfedc17",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/ControlsMenu.tsx",
+            "sha256": "87f806035b53e3b48794a6e694d11475b3c834d58132f1c56263a033239a71d0",
+            "rawSha256": "de82ea508062c290da78a7359f74498076e5534c527ad4a2c5ddc21b3c59da9c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/Dialog.tsx",
+            "sha256": "d229d37a2a32994d2b75f20c02c314832752c7cffe577c5337b812ad027aa9e3",
+            "rawSha256": "73b1ec3e58fdfafabeea3a9f328c90cc5a86ead50e84c9d16c175cac9375408c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FamilyPicker.tsx",
+            "sha256": "88515f34c91f7aa17041ada5bdf0c88d19506d80caaa9cc7aca0f367dac4cde2",
+            "rawSha256": "e9570da9b36deb41437b4edfaa9b5cef5b50b318fa842c4d5e101d1d3c886740",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FireworkGlyph.tsx",
+            "sha256": "cd95c79b9c865736cc3a52defb41e4a616494cbe5c9031d04baafd71d6138f69",
+            "rawSha256": "afb0b9c9e83e99ed45536846b091515955cb43a4b111402c990e817f89fdd9ab",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FireworkShelf.tsx",
+            "sha256": "50f36b417e75908cd2b7ba7975dc8b00f864db6d2b13ab6196f6a32c1694ded7",
+            "rawSha256": "282f2a3cf3cdcd5a246144a985d07b2c816c874694f99bd08ef00af3e2cf38c0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/GrandGlyph.tsx",
+            "sha256": "d4e3a1228455b6402829e8aa84eb231826c5a68ac5e6bb7950c574411e0a7dfa",
+            "rawSha256": "a376d9ed9aadbfbb6be57583115fd86ec26ad6eb6e1884e1f0bd49c13871f098",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/LaunchPositionControl.tsx",
+            "sha256": "4770b1dbede3030e6334f26c0470c5e32db1ca59477bdc1935a03949ff1cf7e2",
+            "rawSha256": "b03e6e99ec016375f58e5da290e76daa22a7e2dbca139e913aea8aa03e2a3ffa",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/PanelNav.tsx",
+            "sha256": "c0fb96d449a86ec3502c42429289d4f6dbaf39eb6598bf1c0fda70e95d8867a3",
+            "rawSha256": "7f2ef57fe58c3975e9220ee62fb9751f3443a0566f1a2b4dc17b51830909cfe1",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/PresentationSettings.tsx",
+            "sha256": "41146b03974d0bd7f9e12e51ac31a837eb464b3512456f0f27da9ec3e1fee95c",
+            "rawSha256": "8c5b23c0002b4021f368d68d26ee58244af9e4b70c715a60ba5bcc725805bd70",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/ShowModeKnob.tsx",
+            "sha256": "bf606a902cb22fb0c2d26cfbe0dc7649e3dbf0c003bace7bce935d40ee797205",
+            "rawSha256": "6320957816d3d0d572223fd8a360b53f6c1411aebd1386e7ba3efa5c9c2780fc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/SignatureGlyph.tsx",
+            "sha256": "d51524f1fcbb143c1a56aab1fb39020413db29220644ec73f0675b8626131fdd",
+            "rawSha256": "aff5bdaf3c15ce39a39e8b7567fae5cac0e7f29aed947f922fc3fc10227b6ed4",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/StartupScreen.tsx",
+            "sha256": "99da585f5f3216862c52b0ff8f247c304ef4990ce816a72b13f3a6ca137bc136",
+            "rawSha256": "178f3008e70c4ca21248490be35021708a818376bdd7de24efe8cb84a4891304",
+            "removedHostAttributes": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "webgl/320x480: shared surface, hull contact and bounded reflections",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 0.24198922159099479,
+      "waves": 4,
+      "dimensions": [
+        256,
+        48
+      ],
+      "reflectionHz": 12,
+      "hulls": [
+        {
+          "height": -0.22242833623474456,
+          "pitch": 0.0020981055119319763,
+          "roll": 0.012296531718572853,
+          "centerDeviation": 0.01985439728058963
+        },
+        {
+          "height": -0.18146850698767916,
+          "pitch": -0.004308343186242446,
+          "roll": 0.02007805289732268,
+          "centerDeviation": 0.0005494384879386194
+        },
+        {
+          "height": -0.34049034848217535,
+          "pitch": -0.007434903219555061,
+          "roll": -0.00445801849300798,
+          "centerDeviation": 0.03874749145366063
+        }
+      ]
+    },
+    {
+      "name": "webgl/375x667: shared surface, hull contact and bounded reflections",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 0.3279489595331075,
+      "waves": 4,
+      "dimensions": [
+        216,
+        62
+      ],
+      "reflectionHz": 12,
+      "hulls": [
+        {
+          "height": -0.2070047467726785,
+          "pitch": 0.0015750299267390721,
+          "roll": 0.013013575153883872,
+          "centerDeviation": 0.019711501700032802
+        },
+        {
+          "height": -0.1839801265426445,
+          "pitch": -0.004191873675347394,
+          "roll": 0.020679512448333583,
+          "centerDeviation": 0.0010906628075609548
+        },
+        {
+          "height": -0.332715002366747,
+          "pitch": -0.0074966891304641585,
+          "roll": -0.0041150732124763285,
+          "centerDeviation": 0.0359974413513896
+        }
+      ]
+    },
+    {
+      "name": "webgl/393x851: shared surface, hull contact and bounded reflections",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 0.4141963892767209,
+      "waves": 4,
+      "dimensions": [
+        177,
+        68
+      ],
+      "reflectionHz": 12,
+      "hulls": [
+        {
+          "height": -0.19098265150854604,
+          "pitch": 0.0010318858720954288,
+          "roll": 0.013680971525642667,
+          "centerDeviation": 0.019468756475104293
+        },
+        {
+          "height": -0.18599592049308616,
+          "pitch": -0.004063623929379902,
+          "roll": 0.02121111160602196,
+          "centerDeviation": 0.001638089815336946
+        },
+        {
+          "height": -0.32393238423573917,
+          "pitch": -0.007529031820062303,
+          "roll": -0.003728538604785993,
+          "centerDeviation": 0.03307985836248856
+        }
+      ]
+    },
+    {
+      "name": "webgl/768x1024: shared surface, hull contact and bounded reflections",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 0.5007313311941076,
+      "waves": 4,
+      "dimensions": [
+        384,
+        209
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": -0.046293917006965286,
+          "pitch": -0.009216836004232955,
+          "roll": 0.006814849517186964,
+          "centerDeviation": 0.001278945705508544
+        },
+        {
+          "height": -0.3203181962883921,
+          "pitch": 0.0019364465997258047,
+          "roll": -0.0008877905147808401,
+          "centerDeviation": 0.01006652965453192
+        },
+        {
+          "height": 0.07918103358489734,
+          "pitch": -0.006332218530127355,
+          "roll": 0.0018912278222855715,
+          "centerDeviation": 0.030177779148729357
+        }
+      ]
+    },
+    {
+      "name": "webgl/844x390: shared surface, hull contact and bounded reflections",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 0.5875535642562838,
+      "waves": 4,
+      "dimensions": [
+        512,
+        71
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": -0.024433242942847034,
+          "pitch": -0.00881123649225833,
+          "roll": 0.007602315898946484,
+          "centerDeviation": 0.0005595698123755828
+        },
+        {
+          "height": -0.31175966215493267,
+          "pitch": 0.002000122043029145,
+          "roll": -0.0008313527135040255,
+          "centerDeviation": 0.00892767740574879
+        },
+        {
+          "height": 0.0819097388878097,
+          "pitch": -0.006461633965187815,
+          "roll": 0.0013371137710704133,
+          "centerDeviation": 0.03409361556442612
+        }
+      ]
+    },
+    {
+      "name": "webgl/1280x800: shared surface, hull contact and bounded reflections",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 0.6746628260648372,
+      "waves": 4,
+      "dimensions": [
+        512,
+        125
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": -0.0025426249015382428,
+          "pitch": -0.008366662582324314,
+          "roll": 0.008381748210921278,
+          "centerDeviation": 0.0023818911108662603
+        },
+        {
+          "height": -0.3022241681303634,
+          "pitch": 0.002067664652032212,
+          "roll": -0.0007512503413855986,
+          "centerDeviation": 0.007735302511814646
+        },
+        {
+          "height": 0.08465127556166321,
+          "pitch": -0.006576307278104047,
+          "roll": 0.000779660676833124,
+          "centerDeviation": 0.03773194252178211
+        }
+      ]
+    },
+    {
+      "name": "webgl/1920x1080: shared surface, hull contact and bounded reflections",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 0.7620588128897122,
+      "waves": 4,
+      "dimensions": [
+        512,
+        118
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": 0.01929766159560535,
+          "pitch": -0.007884406537537306,
+          "roll": 0.0091468247230755,
+          "centerDeviation": 0.004177590782842706
+        },
+        {
+          "height": -0.2917697900473779,
+          "pitch": 0.0021366738072387485,
+          "roll": -0.0006453899412471526,
+          "centerDeviation": 0.006497584074526053
+        },
+        {
+          "height": 0.08741767834526305,
+          "pitch": -0.006675420473882793,
+          "roll": 0.00022297357140160643,
+          "centerDeviation": 0.04106752954363681
+        }
+      ]
+    },
+    {
+      "name": "webgl: pause freezes wave, boat, contact and reflected fragment transforms"
+    },
+    {
+      "name": "webgl: controlled hidden-page transition holds water and requires explicit resume",
+      "method": "document.hidden override plus visibilitychange, matching existing galactic CI; not OS background endurance"
+    },
+    {
+      "name": "webgl: standard water tier",
+      "backend": "WebGL 2",
+      "quality": "standard",
+      "phase": 1.56145481190327,
+      "waves": 2,
+      "dimensions": [
+        256,
+        62
+      ],
+      "reflectionHz": 15,
+      "hulls": [
+        {
+          "height": 0.12876620865350635,
+          "pitch": 0.0012072398366219886,
+          "roll": 0.010725948975384123,
+          "centerDeviation": 0.0007202585290661256
+        },
+        {
+          "height": -0.22653402258047814,
+          "pitch": 0.00250523811148866,
+          "roll": 0.008218750282724757,
+          "centerDeviation": 0.0049287951541308606
+        },
+        {
+          "height": 0.150097513067275,
+          "pitch": -0.006694523548703917,
+          "roll": -0.0011319987986887802,
+          "centerDeviation": 0.0033234405152523794
+        }
+      ]
+    },
+    {
+      "name": "webgl: low water tier",
+      "backend": "WebGL 2",
+      "quality": "low",
+      "phase": 0,
+      "waves": 0,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": 0,
+          "pitch": 0,
+          "roll": 0,
+          "centerDeviation": 0
+        },
+        {
+          "height": 0,
+          "pitch": 0,
+          "roll": 0,
+          "centerDeviation": 0
+        },
+        {
+          "height": 0,
+          "pitch": 0,
+          "roll": 0,
+          "centerDeviation": 0
+        }
+      ]
+    },
+    {
+      "name": "webgl: ultra water tier",
+      "backend": "WebGL 2",
+      "quality": "ultra",
+      "phase": 1.7422104403156669,
+      "waves": 4,
+      "dimensions": [
+        512,
+        125
+      ],
+      "reflectionHz": 20,
+      "hulls": [
+        {
+          "height": 0.23480831283075426,
+          "pitch": -0.0006990596363727043,
+          "roll": 0.014798477581575343,
+          "centerDeviation": 0.01945264084455578
+        },
+        {
+          "height": -0.1369444361664855,
+          "pitch": 0.002296561298528939,
+          "roll": 0.0024845115279217744,
+          "centerDeviation": 0.0073704198570653245
+        },
+        {
+          "height": 0.12075857933574916,
+          "pitch": -0.006527150457027945,
+          "roll": -0.004683496811524446,
+          "centerDeviation": 0.052903237007539475
+        }
+      ]
+    },
+    {
+      "name": "webgl: reduced motion uses a stable shared water pose"
+    },
+    {
+      "name": "webgl: reduced flashes remains independent of water motion"
+    },
+    {
+      "name": "webgl: transparent output removes waterfront and its reflection allocation"
+    },
+    {
+      "name": "canvas: source fingerprint",
+      "release": {
+        "formatVersion": 2,
+        "version": "2026-10-01.9",
+        "scope": "delivered-upgrade-modules",
+        "normalization": "typescript-5.9.2-printer-static-appdeploy-source-id-only",
+        "sha256": "8c683a81629abd59a15e5d6a47c015c60b492298d4a7bd39ced7ced6c33d7d63",
+        "modules": [
+          {
+            "path": "index.html",
+            "sha256": "ba6a0f7751f3e60b74f73b5417d9e59e86b3f0ded3cbb7170eea6c1df7feceab",
+            "rawSha256": "ba6a0f7751f3e60b74f73b5417d9e59e86b3f0ded3cbb7170eea6c1df7feceab",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/ignition-flame.png",
+            "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+            "rawSha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/moon-lro-v001.png",
+            "sha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+            "rawSha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/paper-color.png",
+            "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+            "rawSha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/river-life-v007.glb",
+            "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+            "rawSha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/river-life-v008.glb",
+            "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+            "rawSha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/rocket.glb",
+            "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+            "rawSha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/smoke-density-light-v005.png",
+            "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+            "rawSha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/smoke-density-light.png",
+            "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+            "rawSha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/terrace-v004.glb",
+            "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+            "rawSha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/terrace-v008.glb",
+            "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+            "rawSha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/water-normal-v005.png",
+            "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+            "rawSha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/water-normal.png",
+            "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+            "rawSha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/art/waterfront-night-v005.webp",
+            "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+            "rawSha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-01.wav",
+            "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+            "rawSha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-02.wav",
+            "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+            "rawSha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "public/audio/report-03.wav",
+            "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+            "rawSha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/App.tsx",
+            "sha256": "5b5316ef8d9cbf6999c21480392f8b2d4e2944b56db0ef014c7d98e5acd4cf14",
+            "rawSha256": "974442e4d89043a0380420d123e66f2fb3de38515c64307471974698203e34e9",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/bootstrap.ts",
+            "sha256": "92282ed4ebe9b4622a567a3075070bd67b61c7dda491d819da6646fbae4d5ce5",
+            "rawSha256": "92282ed4ebe9b4622a567a3075070bd67b61c7dda491d819da6646fbae4d5ce5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Audio.ts",
+            "sha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+            "rawSha256": "ba9e4e709799ca73b258fc9759adcb329d11837676233351b4bb6e1c7328f5f7",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/catalog.ts",
+            "sha256": "59bfd4f4b927302a52baec8d62947e127ba6a271d0c8f73f51b7ad51e5afec00",
+            "rawSha256": "59bfd4f4b927302a52baec8d62947e127ba6a271d0c8f73f51b7ad51e5afec00",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/FlagshipEffects.ts",
+            "sha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+            "rawSha256": "7ce34c8f51eba6f884e846e416476b728852ec0d86fc0668d44a2832f630aa31",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/FusePath.ts",
+            "sha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+            "rawSha256": "d36eb83f98b9ad02d6f658eb9e2031de410294af10f6e0ad32da4a75ca419ca6",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/GrandEffects.ts",
+            "sha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+            "rawSha256": "2b5c84259d825fce23fd656f0bfcdd1a0a14be5786dc555924ed370ef5785cc7",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchComposition.ts",
+            "sha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+            "rawSha256": "b7a169cfcbbef03cc176139adfee866241eb3fb113450892089f5200972ea39e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchGeometry.ts",
+            "sha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+            "rawSha256": "6c25ac9ee8cab9c8f11b330d960d89900440ac85c738287f4d5d23fa5d41be57",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/LaunchProfile.ts",
+            "sha256": "e5767c4c65a0179ed1574fb6b8111ccf0c7897c6f9d4c9e7c156567c42627263",
+            "rawSha256": "e5767c4c65a0179ed1574fb6b8111ccf0c7897c6f9d4c9e7c156567c42627263",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Pool.ts",
+            "sha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+            "rawSha256": "89d19d4a4259022ee0347524e51602fe32225e75a51f49bcc3f8901b8230af62",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Renderer.ts",
+            "sha256": "2636db95afdceee78a4facdc432ac7468e1d9425ea5eb9229d60e1907c86d44e",
+            "rawSha256": "2636db95afdceee78a4facdc432ac7468e1d9425ea5eb9229d60e1907c86d44e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/RendererPort.ts",
+            "sha256": "5a7c9865e0d020ec848ce0458d7d0cb26c7de6b06be9c1934afd8589b2690edb",
+            "rawSha256": "5a7c9865e0d020ec848ce0458d7d0cb26c7de6b06be9c1934afd8589b2690edb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/RendererRecovery.ts",
+            "sha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+            "rawSha256": "87601a4fb50cfbe9ce3237d44e956321707b4ba6263100bba7766d09e165f067",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/SignatureDiagnostics.ts",
+            "sha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+            "rawSha256": "9a82da55658fdedece3d7b89b54d9ec430040cced73e332ed24d349ae95f9dcd",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/Simulation.ts",
+            "sha256": "506b96faf8a5a1b7212f53d18bcc761de09614938f7fe8a3bb2b00e9aae536dc",
+            "rawSha256": "506b96faf8a5a1b7212f53d18bcc761de09614938f7fe8a3bb2b00e9aae536dc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/SkyState.ts",
+            "sha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+            "rawSha256": "eb90f6aa95c2f720c0b2f5546f757af5b09d7b64ca5ed3fd0826f734515bdd89",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/StageLayout.ts",
+            "sha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+            "rawSha256": "c2b475f7b0236bd006577597f0dd287b9ea724c824ae564490b14d5c7908a1f3",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/StartupProgress.ts",
+            "sha256": "65c279ba8601f49676aab6336ef3d71791ebd13383c7bf4aa5c1c5ac58fa448f",
+            "rawSha256": "65c279ba8601f49676aab6336ef3d71791ebd13383c7bf4aa5c1c5ac58fa448f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/useWorld.ts",
+            "sha256": "2780e41c0b2d68dd31401eb77f7209d199d4e7d4223752a4c772f5a9cb98c7ea",
+            "rawSha256": "2780e41c0b2d68dd31401eb77f7209d199d4e7d4223752a4c772f5a9cb98c7ea",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/engine/VisibleFrame.ts",
+            "sha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+            "rawSha256": "0794f4b0cda2793ff216b11e245935670d89b2d61738a4b90831f640913eb7f0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/CelestialScene.ts",
+            "sha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+            "rawSha256": "5bd500bfbf3e2efeece0d3a840b3557952bcf01a5c754d061008e9e3b2f33514",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/CompatibilityRenderer.ts",
+            "sha256": "725354140f943596d0e5e32a69b79497fcf7cf9119d720f7619e03895ea2d1d0",
+            "rawSha256": "725354140f943596d0e5e32a69b79497fcf7cf9119d720f7619e03895ea2d1d0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/GalaxySky.ts",
+            "sha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+            "rawSha256": "d413d7cc3c6c13a4b7c6f595c1351ce268eb49b79ff355e1d13d9c4575391364",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/LaunchStage.ts",
+            "sha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+            "rawSha256": "55e1d68aa24db4b9d80a382f369d79fa8dc49998505d003248db369807de1c39",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/MoonComposition.ts",
+            "sha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+            "rawSha256": "a3d95f66554bcfc76a7c987d2e04e683b4810e9728f35634658a6e1f677acc43",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/NightEnvironment.ts",
+            "sha256": "c79f4e46c3233d6feab6e6fb2b220c5ed7223bf07afed2c659819ee9f9aeb6ff",
+            "rawSha256": "c79f4e46c3233d6feab6e6fb2b220c5ed7223bf07afed2c659819ee9f9aeb6ff",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/OpaqueDepth.ts",
+            "sha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+            "rawSha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/ParticleReflectionBounds.ts",
+            "sha256": "07da62438ac58add2479bc598e6d3342fd3d808dbff25be21c5295670839c822",
+            "rawSha256": "07da62438ac58add2479bc598e6d3342fd3d808dbff25be21c5295670839c822",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/ParticleScene.ts",
+            "sha256": "fac7d03ad8f0590c61847ed813a6ca98e0cd110263dc25ffcd6e2b8205206ec4",
+            "rawSha256": "fac7d03ad8f0590c61847ed813a6ca98e0cd110263dc25ffcd6e2b8205206ec4",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/PlanarReflection.ts",
+            "sha256": "6b36d9eabc0663bc1b29decb683924a21b8df376a93d2e60cc455b035d2e3ee5",
+            "rawSha256": "6b36d9eabc0663bc1b29decb683924a21b8df376a93d2e60cc455b035d2e3ee5",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/RiverLife.ts",
+            "sha256": "c20b129c726e7f9d183fccc019d9c2b8334177bcf1aa79b227cca595151bea9d",
+            "rawSha256": "c20b129c726e7f9d183fccc019d9c2b8334177bcf1aa79b227cca595151bea9d",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/RocketProp.ts",
+            "sha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+            "rawSha256": "f63aeb2d8c1fc9f24dee1c5eefcd3397a6b55ff1a98e9c4c3dedf4583b38619f",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/textures.ts",
+            "sha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+            "rawSha256": "a8110ce4f019f1cd690146a35f4cf7985d8516eb5da184256217e297792509f1",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterfrontAssets.ts",
+            "sha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+            "rawSha256": "7dbf588ed769d142c767f42a579a6b748003d68cc9cf0e22dc09d93e18400cfb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterReflection.ts",
+            "sha256": "b772ca54fc0c3f208d6ae582b6de605b51d1052032af9b9ddf13e7b82e9102fb",
+            "rawSha256": "b772ca54fc0c3f208d6ae582b6de605b51d1052032af9b9ddf13e7b82e9102fb",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterSurfaceGeometry.ts",
+            "sha256": "37ba2b10d71973b7a4bd7f3f84cb722ca2d5320e534d54ee0aa0cd3690a0dffe",
+            "rawSha256": "37ba2b10d71973b7a4bd7f3f84cb722ca2d5320e534d54ee0aa0cd3690a0dffe",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/graphics/WaterWaves.ts",
+            "sha256": "7112c6832459d9e2e1667fa949a451debe2023e96ab51f7c743f581045f57fff",
+            "rawSha256": "7112c6832459d9e2e1667fa949a451debe2023e96ab51f7c743f581045f57fff",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/main.tsx",
+            "sha256": "cc4dfafa95000c56ddbc210b2d7836fe2ab7c178072823a6193e45c6a343b407",
+            "rawSha256": "e1b67a93c2c90ec50a3d9d902c8da9bd52ab34ae22f2823edf046df2564bb3d8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/platform/preferences.ts",
+            "sha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+            "rawSha256": "3fd22633be3259e1ff588cdaf8e955d0e0eae471bd9aed61c368554ea72d3dd8",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/platform/usePlatform.ts",
+            "sha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+            "rawSha256": "03bc053093228de8a51be57255d609b0b62db1394e1790e5c3d9d52c2b45c8bd",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/collection.css",
+            "sha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+            "rawSha256": "c913544d3f6c149feaf3a95bbe8655954a0afea1549bfff3f2bccec02994facc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/completion.css",
+            "sha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+            "rawSha256": "49a59ee49e7dbdd8475427f997c1ab6aedf44f948fdc828d3dcf7f7e3e795d55",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/flow.css",
+            "sha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+            "rawSha256": "566e0b226adf9626776e52b4f7f830af808701d06c20846fa0e08fddf0d68699",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/grand-collection.css",
+            "sha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+            "rawSha256": "0c360b9baad8912e641341c48a8cf3a4c632f3bef282d2436b1fcec5549f623a",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/hud-v3-art.css",
+            "sha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+            "rawSha256": "93a8827e89c256a627153507bb3f2cea9b4e696df71f7e8d2576b6b86230025e",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/hud-v3.css",
+            "sha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+            "rawSha256": "096c1d274132d9d0ed97320766f674089b0baa5cc6041826aa5d62aab312ed6b",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/panels.css",
+            "sha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+            "rawSha256": "8d4abc5e04ec733812817b46b400cdd29a0601024bebe94e1bcebc22ce49a492",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/recovery.css",
+            "sha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+            "rawSha256": "11450177fdb3976384b704415b311a20c71c8a1154034f696660c17baacb7d0d",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/stage.css",
+            "sha256": "39194be39d5e69e39b70121a09e8d8b6fc0f6573bea9a82310458bb5579a0a88",
+            "rawSha256": "39194be39d5e69e39b70121a09e8d8b6fc0f6573bea9a82310458bb5579a0a88",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/styles/startup.css",
+            "sha256": "1ae5811cc870ff3c9a4f134ac9c54ff940c86cb2c13b71d387cccee1a1d66059",
+            "rawSha256": "1ae5811cc870ff3c9a4f134ac9c54ff940c86cb2c13b71d387cccee1a1d66059",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/AppBoundary.tsx",
+            "sha256": "dde8cc764a8ef641e484d7f51c3f21c92a752483ddabac1c7137504032f9ca5e",
+            "rawSha256": "847cd2eff02698f6bf91040ad693cf80d48a562acfdc46a60fe2508238179699",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/BottomCollection.tsx",
+            "sha256": "eb19c7466462dbe8a9e740bebab6db596ad238ce997799e3a11eb5bfe83a2c72",
+            "rawSha256": "b8b9ea4b409077f2aa2381ca7e222d5aade274ddceab8628d7deb438efa77a80",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/CinematicHUD.tsx",
+            "sha256": "2766fe99a78c1adcab4d8c9c1c3a967dd609d0a5151c48cd289161431e90b377",
+            "rawSha256": "8109cbd6caa6aac1ab547426ccf46be50fb8cc14abba1eabb0d3ae212cfedc17",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/ControlsMenu.tsx",
+            "sha256": "87f806035b53e3b48794a6e694d11475b3c834d58132f1c56263a033239a71d0",
+            "rawSha256": "de82ea508062c290da78a7359f74498076e5534c527ad4a2c5ddc21b3c59da9c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/Dialog.tsx",
+            "sha256": "d229d37a2a32994d2b75f20c02c314832752c7cffe577c5337b812ad027aa9e3",
+            "rawSha256": "73b1ec3e58fdfafabeea3a9f328c90cc5a86ead50e84c9d16c175cac9375408c",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FamilyPicker.tsx",
+            "sha256": "88515f34c91f7aa17041ada5bdf0c88d19506d80caaa9cc7aca0f367dac4cde2",
+            "rawSha256": "e9570da9b36deb41437b4edfaa9b5cef5b50b318fa842c4d5e101d1d3c886740",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FireworkGlyph.tsx",
+            "sha256": "cd95c79b9c865736cc3a52defb41e4a616494cbe5c9031d04baafd71d6138f69",
+            "rawSha256": "afb0b9c9e83e99ed45536846b091515955cb43a4b111402c990e817f89fdd9ab",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/FireworkShelf.tsx",
+            "sha256": "50f36b417e75908cd2b7ba7975dc8b00f864db6d2b13ab6196f6a32c1694ded7",
+            "rawSha256": "282f2a3cf3cdcd5a246144a985d07b2c816c874694f99bd08ef00af3e2cf38c0",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/GrandGlyph.tsx",
+            "sha256": "d4e3a1228455b6402829e8aa84eb231826c5a68ac5e6bb7950c574411e0a7dfa",
+            "rawSha256": "a376d9ed9aadbfbb6be57583115fd86ec26ad6eb6e1884e1f0bd49c13871f098",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/LaunchPositionControl.tsx",
+            "sha256": "4770b1dbede3030e6334f26c0470c5e32db1ca59477bdc1935a03949ff1cf7e2",
+            "rawSha256": "b03e6e99ec016375f58e5da290e76daa22a7e2dbca139e913aea8aa03e2a3ffa",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/PanelNav.tsx",
+            "sha256": "c0fb96d449a86ec3502c42429289d4f6dbaf39eb6598bf1c0fda70e95d8867a3",
+            "rawSha256": "7f2ef57fe58c3975e9220ee62fb9751f3443a0566f1a2b4dc17b51830909cfe1",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/PresentationSettings.tsx",
+            "sha256": "41146b03974d0bd7f9e12e51ac31a837eb464b3512456f0f27da9ec3e1fee95c",
+            "rawSha256": "8c5b23c0002b4021f368d68d26ee58244af9e4b70c715a60ba5bcc725805bd70",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/ShowModeKnob.tsx",
+            "sha256": "bf606a902cb22fb0c2d26cfbe0dc7649e3dbf0c003bace7bce935d40ee797205",
+            "rawSha256": "6320957816d3d0d572223fd8a360b53f6c1411aebd1386e7ba3efa5c9c2780fc",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/SignatureGlyph.tsx",
+            "sha256": "d51524f1fcbb143c1a56aab1fb39020413db29220644ec73f0675b8626131fdd",
+            "rawSha256": "aff5bdaf3c15ce39a39e8b7567fae5cac0e7f29aed947f922fc3fc10227b6ed4",
+            "removedHostAttributes": 0
+          },
+          {
+            "path": "src/ui/StartupScreen.tsx",
+            "sha256": "99da585f5f3216862c52b0ff8f247c304ef4990ce816a72b13f3a6ca137bc136",
+            "rawSha256": "178f3008e70c4ca21248490be35021708a818376bdd7de24efe8cb84a4891304",
+            "removedHostAttributes": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "canvas/320x480: shared surface, hull contact and bounded reflections",
+      "backend": "Canvas 2D · compatibility",
+      "quality": "ultra",
+      "phase": 0.48628888361920297,
+      "waves": 4,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": -0.12036846379178423,
+          "pitch": -0.019464120408293515,
+          "roll": 0,
+          "centerDeviation": 0.00006363782678114882
+        },
+        {
+          "height": 0.3839395287159057,
+          "pitch": -0.03873711443013583,
+          "roll": 0,
+          "centerDeviation": 0.015161848717834103
+        },
+        {
+          "height": -0.10170120207600551,
+          "pitch": -0.02533943360453088,
+          "roll": 0,
+          "centerDeviation": 0.00011763412863603773
+        }
+      ]
+    },
+    {
+      "name": "canvas/375x667: shared surface, hull contact and bounded reflections",
+      "backend": "Canvas 2D · compatibility",
+      "quality": "ultra",
+      "phase": 0.573063251929232,
+      "waves": 4,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": -0.11887384254993649,
+          "pitch": -0.015521489427779825,
+          "roll": 0,
+          "centerDeviation": 0.0004358523223225025
+        },
+        {
+          "height": 0.379946265674251,
+          "pitch": -0.03443241032740221,
+          "roll": 0,
+          "centerDeviation": 0.010261979708524105
+        },
+        {
+          "height": -0.10227421465502316,
+          "pitch": -0.020983181001974164,
+          "roll": 0,
+          "centerDeviation": 0.0011419652997928936
+        }
+      ]
+    },
+    {
+      "name": "canvas/393x851: shared surface, hull contact and bounded reflections",
+      "backend": "Canvas 2D · compatibility",
+      "quality": "ultra",
+      "phase": 0.6601246955900542,
+      "waves": 4,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": -0.11720458030146062,
+          "pitch": -0.013185085904733976,
+          "roll": 0,
+          "centerDeviation": 0.000785038477501207
+        },
+        {
+          "height": 0.37135374505573737,
+          "pitch": -0.03367788731586098,
+          "roll": 0,
+          "centerDeviation": 0.008593508013393314
+        },
+        {
+          "height": -0.10320337196991564,
+          "pitch": -0.018395287275813858,
+          "roll": 0,
+          "centerDeviation": 0.0021918103936123534
+        }
+      ]
+    },
+    {
+      "name": "canvas/768x1024: shared surface, hull contact and bounded reflections",
+      "backend": "Canvas 2D · compatibility",
+      "quality": "ultra",
+      "phase": 0.7474729177573444,
+      "waves": 4,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": -0.30585881221135064,
+          "pitch": 0.05518828827719552,
+          "roll": 0,
+          "centerDeviation": 0.045948439084303905
+        },
+        {
+          "height": 0.1763366516025504,
+          "pitch": -0.08301373547240082,
+          "roll": 0,
+          "centerDeviation": 0.034188767937833375
+        },
+        {
+          "height": 0.2355945565178723,
+          "pitch": -0.04753570663299014,
+          "roll": 0,
+          "centerDeviation": 0.006721339025984624
+        }
+      ]
+    },
+    {
+      "name": "canvas/844x390: shared surface, hull contact and bounded reflections",
+      "backend": "Canvas 2D · compatibility",
+      "quality": "ultra",
+      "phase": 0.8351075802911685,
+      "waves": 4,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": -0.15612684409775945,
+          "pitch": 0.04045676538196098,
+          "roll": 0,
+          "centerDeviation": 0.06555763721904656
+        },
+        {
+          "height": 0.16242753599692275,
+          "pitch": -0.023696936627321596,
+          "roll": 0,
+          "centerDeviation": 0.15120514540011296
+        },
+        {
+          "height": 0.11583833644316854,
+          "pitch": -0.034136898103215726,
+          "roll": 0,
+          "centerDeviation": 0.059059783984193905
+        }
+      ]
+    },
+    {
+      "name": "canvas/1280x800: shared surface, hull contact and bounded reflections",
+      "backend": "Canvas 2D · compatibility",
+      "quality": "ultra",
+      "phase": 0.9230283038046744,
+      "waves": 4,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": -0.29583189261872733,
+          "pitch": 0.03567877914640432,
+          "roll": 0,
+          "centerDeviation": 0.05217843950037332
+        },
+        {
+          "height": 0.1455095376284903,
+          "pitch": -0.05151421227693396,
+          "roll": 0,
+          "centerDeviation": 0.04810778490652165
+        },
+        {
+          "height": 0.21484980787865898,
+          "pitch": -0.026779803233663777,
+          "roll": 0,
+          "centerDeviation": 0.0060205088830909415
+        }
+      ]
+    },
+    {
+      "name": "canvas/1920x1080: shared surface, hull contact and bounded reflections",
+      "backend": "Canvas 2D · compatibility",
+      "quality": "ultra",
+      "phase": 1.011234667718723,
+      "waves": 4,
+      "dimensions": [
+        0,
+        0
+      ],
+      "reflectionHz": 0,
+      "hulls": [
+        {
+          "height": -0.31515652220564977,
+          "pitch": 0.025504939003905696,
+          "roll": 0,
+          "centerDeviation": 0.029000380820050964
+        },
+        {
+          "height": 0.15720966121953622,
+          "pitch": -0.03838092151474416,
+          "roll": 0,
+          "centerDeviation": 0.026852316152173705
+        },
+        {
+          "height": 0.2138442333198167,
+          "pitch": -0.01873663395182902,
+          "roll": 0,
+          "centerDeviation": 0.002037077452290398
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "expectedFailures": [],
+  "failed": "page.evaluate: Target page, context or browser has been closed\n    at snap (C:\\Users\\samir\\Documents\\ChatGPT\\FireCrackers Webapp\\repo\\tests\\moonlit-water-browser.mjs:19:25)\n    at C:\\Users\\samir\\Documents\\ChatGPT\\FireCrackers Webapp\\repo\\tests\\moonlit-water-browser.mjs:155:24"
+}

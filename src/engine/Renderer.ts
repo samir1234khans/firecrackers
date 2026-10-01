@@ -33,7 +33,7 @@ export class FireworkRenderer {
     readonly scene = new THREE.Scene();
     readonly camera = new THREE.PerspectiveCamera(42, 1, 1, 1500);
     private readonly opaqueCamera = new THREE.PerspectiveCamera();
-    readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
+    readonly metrics = { renderPixels: 0, submitMs: 0, waterSubmitMs: 0, frames: 0 };
     private readonly water = new WaterReflection();
     private readonly environment = new NightEnvironment();
     private readonly smokeAtlas = makeSmokeAtlas();
@@ -42,6 +42,7 @@ export class FireworkRenderer {
     private readonly stage = new LaunchStage();
     private readonly blastLight = new THREE.PointLight(0xffcc88, 0, 160, 2);
     private readonly fuseLight = new THREE.PointLight(0xffb45d, 0, 10, 2);
+    private readonly moonLight = new THREE.DirectionalLight(0x8eafd1, .8);
     private readonly fusePosition = new THREE.Vector3();
     private readonly opaqueDepth: OpaqueDepth;
     private readonly opaquePass: ReturnType<typeof pass>;
@@ -86,12 +87,16 @@ export class FireworkRenderer {
         this.scene.add(new THREE.HemisphereLight(0x9fb7d3, 0x202027, .70));
         const key = new THREE.DirectionalLight(0xffdcaf, .85);
         key.position.set(-8, 35, 45);
-        const moon = new THREE.DirectionalLight(0x8eafd1, .8);
+        const moon = this.moonLight;
         moon.position.set(-80, 150, -180);
         // Keep one fuse light in the render list for the lifetime of the scene.
         // Per-prop lights otherwise add/remove a light as props appear and fade,
         // forcing every lit waterfront material to relink during each launch.
         this.scene.add(key, moon, this.blastLight, this.fuseLight);
+        // A stable light list in both views avoids launch-time pipeline variants.
+        for (const light of this.scene.children) if (light instanceof THREE.Light) {
+            light.layers.enable(3); light.layers.enable(4);
+        }
         this.scene.add(this.stage.group);
         for (const prop of this.props) {
             prop.lamp.layers.set(2);
@@ -130,6 +135,8 @@ export class FireworkRenderer {
         this.host.dataset.realism = 'observatory-v3';
         this.host.dataset.backend = this.backend;
         this.resize();
+        if (this.mode !== 'transparent') await this.water.warmup(this.renderer, this.scene, this.camera, this.sim.quality,
+            (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
         if (!this.disposed) this.render();
         this.host.dataset.assets = 'procedural fallback';
         void loadWaterfrontAssets((name, asset) => {
@@ -313,7 +320,7 @@ export class FireworkRenderer {
                     else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
                     else if (name === 'moon') { this.environment.setMoon(asset as HTMLImageElement); this.water.setMoon(true); }
                     else if (name === 'sky') this.environment.setSky(asset as HTMLImageElement);
-                    else if (name === 'river') this.environment.setRiver(asset as THREE.Group);
+                    else if (name === 'river') { this.environment.setRiver(asset as THREE.Group); this.water.invalidate(); }
                     this.assetStates[name] = 'active';
                 } catch (error) {
                     this.assetStates[name] = 'failed';
@@ -381,10 +388,24 @@ export class FireworkRenderer {
             this.blastLight.intensity = 0;
             parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
-        this.opaqueDepth.update();
+        this.water.setFrame(this.environment.waterFrame);
+        this.moonLight.position.copy(this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera)).multiplyScalar(240);
         this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
-        this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), camera => this.particles.orient(camera));
-        this.post.render();
+        // Opaque depth resolves all current scene transforms once. Reflection
+        // and main passes can share that pose instead of traversing the same
+        // authored scene again for each render. Restore automatic updates even
+        // when a pass throws, so preparation/recovery keeps its normal contract.
+        this.opaqueDepth.update();
+        const automaticMatrices = this.scene.matrixWorldAutoUpdate;
+        this.scene.matrixWorldAutoUpdate = false;
+        try {
+            const waterStart = performance.now();
+            this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
+            this.metrics.waterSubmitMs = performance.now() - waterStart;
+            this.post.render();
+        } finally {
+            this.scene.matrixWorldAutoUpdate = automaticMatrices;
+        }
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;
     }
@@ -407,7 +428,7 @@ export class FireworkRenderer {
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
             authoredAssetStates: { ...this.assetStates },
             authoredAssetErrors: { ...this.assetErrors },
-            stageLayout: this.layout, ...this.water.diagnostics(), ...this.environment.riverDiagnostics(this.camera), ...this.environment.skyDiagnostics(),
+            stageLayout: this.layout, ...this.water.diagnostics(), ...this.particles.reflectionDiagnostics(), ...this.environment.riverDiagnostics(this.camera), ...this.environment.skyDiagnostics(),
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,

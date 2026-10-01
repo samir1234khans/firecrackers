@@ -149,6 +149,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             sky.release();
         };
         const cacheHorizon = () => {
+            // The candidate has no launch bounds until its first resize in init.
+            if (!runtimeReady || !graphics) return;
             const horizon = graphics?.diagnostics().skyHorizon;
             if (typeof horizon === 'number' && Number.isFinite(horizon)) skyHorizon = Math.max(0, Math.min(1, horizon));
         };
@@ -329,9 +331,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             frame = requestAnimationFrame(tick);
         };
         const resize = () => {
+            // Initial observer notifications can arrive while GPU preparation is
+            // awaiting its device or reflection materials. Startup owns that view.
+            if (cancelled || !runtimeReady || switchingGraphics || !graphics) return;
             // Resizing also redraws an idle/paused canvas. Failures retain recovery controls.
             try {
-                if (switchingGraphics) return;
                 updateLayout();
                 graphics?.resize();
                 cacheHorizon();
@@ -475,8 +479,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             runtimeReady = true;
             preparation.initialized(performance.now(), (graphics as RendererPort).readiness());
             publishStartup();
-            updateLayout();
-            publishSky(false);
+            // Replay current dimensions after preparation: resize events during
+            // asynchronous warm-up were deferred rather than touching that pass.
+            resize();
             // Starting a show through an explicit presentation link never activates sound.
             if (display.current.mode !== 'interactive' && display.current.show)
                 state.startShow(display.current.show);

@@ -1,3 +1,9 @@
+**Latest candidate:** [build `.11` qualification](docs/evidence/moonlit-water-2026-10-01/FINAL-QUALIFICATION.md) records the implemented water and immersion changes, final preview and remaining release gates. Production remains `.4`.
+
+**Immersive shows:** Calm, Festival and Finale now offer an opt-in toggle that smoothly hides every ordinary control, leaving one Show controls button. [Implementation and verification](docs/evidence/moonlit-water-2026-10-01/IMMERSIVE-UI-IMPLEMENTATION.md). Production remains unchanged.
+
+**Moonlit water candidate: `2026-10-01.11`** in [PR #31](https://github.com/samir1234khans/firecrackers/pull/31), with an [isolated preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/). Shared swells, broken moonlight, planar reflections, hull immersion and damp coping preserve all thirteen effects. [Plan](docs/evidence/moonlit-water-2026-10-01/PLAN.md) · [qualification and preview receipt](docs/evidence/moonlit-water-2026-10-01/PREVIEW.md). Production remains `.4`.
+
 **Current production: `2026-10-01.4`** at [Firecrackers](https://firecrackers.mainandmany.com/). Main includes the realistic moon and water, all thirteen fireworks, open-sky controls, responsive launch support, moon-led startup and the rocket-to-burst stall fix. [Production and branch reconciliation receipt](docs/evidence/latest-production-2026-10-01/PRODUCTION.md) · [retained isolated preview](https://firecrackers-burst-preview.allygym-api.workers.dev/) · [matched captures and moon intro](docs/evidence/control-layout-2026-10-01/comparison.html).
 
 Deployed from clean source main `8b491d2` after [PR #29](https://github.com/samir1234khans/firecrackers/pull/29) and main CI passed. Worker `57796211-f2a8-4fc1-8381-4c9235bfb5bd`; fingerprint `965c6eaa6ebd5aef2f5922831504a6bbe1c3879e24a26532432af279f5e09d51`. The previous `.8` Worker is retained for rollback. Physical phones, Safari and sustained GPU/thermal qualification remain untested.
