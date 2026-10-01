@@ -1,3 +1,5 @@
+New moon/water candidate: [try the isolated preview](https://firecrackers-moon-preview.allygym-api.workers.dev/) or [view matched before/after captures](docs/evidence/moon-water-2026-10-01/comparison.html). NASA lunar detail, subdued moonlight on crossing ripples and coherent boat buoyancy are implemented; [evidence and qualification limits](docs/evidence/moon-water-2026-10-01/PREVIEW.md). Production remains the release below.
+
 Released **bottom collection and upper canopy**, build `2026-09-30.8`. [Verified production receipt](docs/evidence/bottom-collection-2026-09-30/PRODUCTION.md) · [isolated Cloudflare preview](https://firecrackers-redesign-preview.allygym-api.workers.dev/) · [matched before/after](docs/evidence/bottom-collection-2026-09-30/comparison.html).
 
 # Firecrackers

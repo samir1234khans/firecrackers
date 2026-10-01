@@ -1,5 +1,7 @@
+import { MOON_X } from './MoonComposition';
+import { WATER_WAVES } from './WaterWaves';
 import * as THREE from 'three/webgpu';
-import { float, positionWorld, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
+import { float, positionWorld, screenUV, sin, smoothstep, texture, uniform, varying, vec2, vec3 } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
 
 /** Selective screen-space waterfront reflection, throttled and composition-aware. Layer 1 contains effects only. */
@@ -7,8 +9,8 @@ export class WaterReflection {
   readonly target = new THREE.RenderTarget(1, 1, { type: THREE.HalfFloatType, depthBuffer: true });
   readonly camera = new THREE.PerspectiveCamera();
   readonly mesh: THREE.Mesh;
-  private readonly wideSurface = new THREE.PlaneGeometry(1400, 1200);
-  private readonly phoneSurface = new THREE.PlaneGeometry(1400, 380);
+  private readonly wideSurface = new THREE.PlaneGeometry(1400, 1200, 128, 96);
+  private readonly phoneSurface = new THREE.PlaneGeometry(1400, 380, 128, 48);
   private readonly projectedEdge = new THREE.Vector3();
   private readonly normalTexture = new THREE.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1);
   private readonly shoreTexture = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1);
@@ -22,6 +24,7 @@ export class WaterReflection {
   private readonly time = uniform(0);
   private readonly strength = uniform(.4);
   private readonly enabled = uniform(1);
+  private readonly moonActive = uniform(0);
   private readonly waterline = uniform(.49);
   private last = -Infinity;
   private frames = 0;
@@ -36,8 +39,16 @@ export class WaterReflection {
     const wave = sin(positionWorld.z.mul(1.7).add(positionWorld.x.mul(.23)).add(this.time.mul(1.2)));
     const detail = sin(positionWorld.z.mul(7.1).sub(this.time.mul(.8)).add(positionWorld.x.mul(.51)));
     const normal = this.normalNode.sample(positionWorld.xz.mul(.028).add(vec2(this.time.mul(.006), this.time.mul(.002)))).rg.sub(.5);
+    let slopeX = float(0).add(0), slopeZ = float(0).add(0);
+    for (const w of WATER_WAVES) {
+      const phase = positionWorld.x.mul(w.x).add(positionWorld.z.mul(w.z)).sub(this.time.mul(w.speed)).add(w.phase);
+      const slope = phase.cos().mul(w.amplitude);
+      slopeX = slopeX.add(slope.mul(w.x)); slopeZ = slopeZ.add(slope.mul(w.z));
+    }
+    const waterSlope = varying(vec2(slopeX, slopeZ));
+    const swell = waterSlope.mul(3.5);
     const distance = depth.mul(.65).add(.35);
-    const offset = vec2(wave.mul(.008).add(detail.mul(.003)), detail.mul(.003)).add(normal.mul(.022)).mul(distance);
+    const offset = vec2(wave.mul(.008).add(detail.mul(.003)), detail.mul(.003)).add(normal.mul(.016)).add(swell).mul(distance);
     const center = texture(this.target.texture, uv.add(offset)).rgb;
     const blurWidth = depth.mul(.010).add(.003);
     const blur = texture(this.target.texture, uv.add(offset).add(vec2(blurWidth, .006))).rgb.add(texture(this.target.texture, uv.add(offset).sub(vec2(blurWidth, .006))).rgb);
@@ -60,7 +71,15 @@ export class WaterReflection {
     const microGlints = normal.x.mul(normal.y).abs().mul(vec3(.012, .018, .025)).add(skyGlints);
     const warm = shore.r.sub(shore.b.mul(1.1)).max(0);
     const shoreGlints = shore.mul(warm.mul(3).clamp(0, 1)).mul(this.shoreActive).mul(depth.oneMinus().pow(1.8)).mul(fragments).mul(.8);
-    material.colorNode = surface.max(0).add(microGlints).add(reflectedSky.mul(this.shoreActive).mul(.34)).add(shoreGlints).add(center.mul(.60).add(blur.mul(.20)).mul(fragments).mul(this.strength).mul(this.enabled).mul(band).mul(depth.mul(.25).add(.75)));
+    // Crossing filtered normals break the reflection into irregular wave facets.
+    // Broadens toward the viewer; never a white painted stripe or mirrored disc.
+    const pathWidth = depth.mul(.075).add(.008);
+    const pathX = screenUV.x.sub(MOON_X).add(normal.x.mul(.016)).add(broadNormal.x.mul(.025)).div(pathWidth);
+    const path = pathX.mul(pathX).mul(-2.2).exp();
+    const facets = smoothstep(.01, .13, normal.y.add(crossNormal.x.mul(.65)).add(waterSlope.y.mul(8)));
+    const grazing = depth.oneMinus().pow(5).mul(.72).add(.08);
+    const moonlight = vec3(.40, .48, .58).mul(path).mul(facets.pow(1.5).mul(.82).add(.018)).mul(grazing.add(depth.mul(.35))).mul(band).mul(this.moonActive).mul(.52);
+    material.colorNode = surface.max(0).add(moonlight).add(microGlints).add(reflectedSky.mul(this.shoreActive).mul(.34)).add(shoreGlints).add(center.mul(.60).add(blur.mul(.20)).mul(fragments).mul(this.strength).mul(this.enabled).mul(band).mul(depth.mul(.25).add(.75)));
     this.mesh = new THREE.Mesh(this.wideSurface, material);
     this.mesh.name = 'Dark rippled waterfront'; this.mesh.rotation.x = -Math.PI / 2;
     this.mesh.position.set(0, 4.65, -400);
@@ -86,10 +105,11 @@ export class WaterReflection {
   }
   setNormal(value: THREE.Texture) { this.normalNode.value = value; }
   setShore(value: THREE.Texture) { this.shoreNode.value = value; }
+  setMoon(active: boolean) { this.moonActive.value = active ? 1 : 0; }
   setShoreComposition(crop: number, active: number) { this.shoreCrop.value = crop; this.shoreActive.value = active; }
-  update(renderer: THREE.WebGPURenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, sim: Simulation, visible: boolean, orient: (camera: THREE.PerspectiveCamera) => void) {
+  update(renderer: THREE.WebGPURenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, sim: Simulation, visible: boolean, motionAllowed: boolean, orient: (camera: THREE.PerspectiveCamera) => void) {
     this.mesh.visible = visible;
-    this.time.value = sim.time * sim.wind;
+    this.time.value = motionAllowed && sim.quality !== "low" ? sim.time * sim.wind : 0;
     this.strength.value = sim.reducedFlashes ? .38 : .64;
     this.enabled.value = sim.quality === 'low' ? 0 : 1;
     this.streaks.count = 0;

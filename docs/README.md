@@ -1,3 +1,5 @@
+Moon and natural water candidate: [research/implementation](evidence/moon-water-2026-10-01/RESEARCH.md), [verified preview](evidence/moon-water-2026-10-01/PREVIEW.md), [matched captures](evidence/moon-water-2026-10-01/comparison.html). This isolated candidate has not replaced production `.8`.
+
 # Current production redesign
 
 [Bottom collection production evidence](evidence/bottom-collection-2026-09-30/PRODUCTION.md) records verified build `.8`, exact source/deployment, passed PR/main CI, hosted checks, retained failures and remaining physical qualification. [Implementation](evidence/bottom-collection-2026-09-30/IMPLEMENTATION.md), [preview](evidence/bottom-collection-2026-09-30/PREVIEW.md) and [matched captures](evidence/bottom-collection-2026-09-30/comparison.html) are available. Waterfront `.7` remains historical and is retained for rollback.

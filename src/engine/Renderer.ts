@@ -248,6 +248,7 @@ export class FireworkRenderer {
                     else if (name === 'normal') this.water.setNormal(asset as THREE.Texture);
                     else if (name === 'rocket') for (const prop of this.props) prop.setAuthoredGeometry(asset as THREE.Group);
                     else if (name === 'terrace') this.environment.setTerrace(asset as THREE.Group);
+                    else if (name === 'moon') { this.environment.setMoon(asset as HTMLImageElement); this.water.setMoon(true); }
                     else if (name === 'sky') this.environment.setSky(asset as HTMLImageElement);
                     else if (name === 'river') this.environment.setRiver(asset as THREE.Group);
                     this.assetStates[name] = 'active';
@@ -310,7 +311,7 @@ export class FireworkRenderer {
         }
         this.opaqueDepth.update();
         this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
-        this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', camera => this.particles.orient(camera));
+        this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), camera => this.particles.orient(camera));
         this.post.render();
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;

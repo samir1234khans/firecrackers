@@ -1,0 +1,53 @@
+{
+  "method": "Installed headless Chrome hardware WebGPU, 6-second Festival sample, sequential source runs. rAF and CPU submission only; not completed GPU timing or physical endurance.",
+  "results": [
+    {
+      "source": "before",
+      "url": "https://firecrackers.mainandmany.com/",
+      "width": 393,
+      "height": 851,
+      "samples": 1302,
+      "elapsedMs": 6003.699999998509,
+      "rafP50": 4.199999999998909,
+      "rafP95": 4.299999999999272,
+      "submissionP95": 5.800000004470348,
+      "backend": "WebGPU"
+    },
+    {
+      "source": "before",
+      "url": "https://firecrackers.mainandmany.com/",
+      "width": 1280,
+      "height": 800,
+      "samples": 1300,
+      "elapsedMs": 6000.60000000149,
+      "rafP50": 4.199999999998909,
+      "rafP95": 4.299999999999272,
+      "submissionP95": 5.5,
+      "backend": "WebGPU"
+    },
+    {
+      "source": "after",
+      "url": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+      "width": 393,
+      "height": 851,
+      "samples": 1228,
+      "elapsedMs": 6002.099999998511,
+      "rafP50": 4.199999999999818,
+      "rafP95": 4.300000000001091,
+      "submissionP95": 7.700000002980232,
+      "backend": "WebGPU"
+    },
+    {
+      "source": "after",
+      "url": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+      "width": 1280,
+      "height": 800,
+      "samples": 1155,
+      "elapsedMs": 6001.00000000149,
+      "rafP50": 4.199999999999818,
+      "rafP95": 8.399999999999636,
+      "submissionP95": 7.600000001490116,
+      "backend": "WebGPU"
+    }
+  ]
+}

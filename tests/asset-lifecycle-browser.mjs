@@ -75,7 +75,7 @@ async function enter(extra = '') {
 async function active() {
   await page.waitForFunction(() => {
     const states = window.__firecrackersQA.snapshot().authoredAssetStates;
-    return states && Object.keys(states).length === 8 && Object.values(states).every(state => state === 'active');
+    return states && Object.keys(states).length === 9 && Object.values(states).every(state => state === 'active');
   },
     undefined, { timeout: 60000 });
 }
@@ -92,7 +92,7 @@ try {
   assertRiverMaps(frame);
   assert.equal(frame.riverBoatSource, 'Wooden Canoe by OuterSpaceSimon, BlenderKit, CC0');
   assert.equal(await page.evaluate(() => window.__assetLifecycle.blockedBlobFetches), 0);
-  pass('All eight enhancements and six shared PBR maps load without a second embedded-image fetch');
+  pass('All nine enhancements and six shared PBR maps load without a second embedded-image fetch');
 
   await enter('&holdDecode=1');
   await page.waitForFunction(() => window.__assetLifecycle.pending === 3, undefined, { timeout: 60000 });
@@ -122,7 +122,7 @@ try {
   assertRiverMaps(frame);
   assert.ok(report.blobRequests.length > 0, 'The legacy path must use actual native image requests');
   assert.deepEqual(report.consoleErrors, []); assert.deepEqual(report.pageErrors, []);
-  pass('Native legacy ImageLoader retains all eight enhancements and six correctly configured PBR maps');
+  pass('Native legacy ImageLoader retains all nine enhancements and six correctly configured PBR maps');
 
   await enter('&legacyImages=1&failDecode=1');
   await page.waitForFunction(() => {

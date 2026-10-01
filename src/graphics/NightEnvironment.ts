@@ -1,8 +1,9 @@
 import * as THREE from 'three/webgpu';
-import { cos, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
+import { Fn, If, cos, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
 import { makeGalaxySky } from './GalaxySky';
+import { updateMoonFrame } from './MoonComposition';
 import { RiverLife } from './RiverLife';
 import type { SkyState } from '../engine/SkyState';
 import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
@@ -27,6 +28,12 @@ export class NightEnvironment {
   private readonly celestialArt = makeGalaxySky();
   private readonly galaxyTexture = new THREE.CanvasTexture(this.celestialArt.dust);
   private readonly nearStarTexture = new THREE.CanvasTexture(this.celestialArt.nearStars);
+  private readonly moonTexture = new THREE.DataTexture(new Uint8Array([0, 0, 0, 0]), 1, 1);
+  private readonly moonNode = texture(this.moonTexture);
+  private readonly moonCenter = uniform(new THREE.Vector2());
+  private readonly moonRadius = uniform(15);
+  private readonly moonActive = uniform(0);
+  private readonly moonFrame = { x: 0, y: 0, radius: 15 };
   private readonly skyTime = uniform(0);
   private readonly galaxyStrength = uniform(.55);
   private readonly nearStrength = uniform(.7);
@@ -90,7 +97,22 @@ export class NightEnvironment {
     const projection = fragment.sub(this.meteorTail).dot(direction).div(direction.dot(direction).max(.0001)).clamp(0, 1);
     const distance = fragment.sub(this.meteorTail.add(direction.mul(projection))).length();
     const meteor = smoothstep(.16, .85, distance).oneMinus().mul(projection.pow(2)).mul(this.meteorOpacity);
-    skyMaterial.colorNode = texture(this.skyTexture, skyUV).rgb.add(celestial).add(nearLight).add(vec3(.34, .45, .62).mul(meteor));
+    this.moonTexture.colorSpace = THREE.SRGBColorSpace; this.moonTexture.needsUpdate = true;
+    const night = texture(this.skyTexture, skyUV).rgb.add(celestial).add(nearLight).add(vec3(.34, .45, .62).mul(meteor));
+    // Only this small coherent pixel region samples/shades the lunar texture.
+    // Avoid a fourth texture sample and exponential at every sky pixel.
+    skyMaterial.colorNode = Fn(() => {
+      const result = night.toVar();
+      const delta = fragment.sub(this.moonCenter).div(this.moonRadius.mul(2 / .95));
+      If(delta.x.abs().lessThan(1.3).and(delta.y.abs().lessThan(1.3)).and(this.moonActive.greaterThan(.5)), () => {
+        const lunar = this.moonNode.sample(delta.add(.5).clamp(0, 1));
+        const inside = smoothstep(.499, .501, delta.x.abs().max(delta.y.abs())).oneMinus();
+        const alpha = lunar.a.mul(inside);
+        const halo = delta.length().mul(2 / .95).sub(1).max(0).mul(-4.8).exp().mul(.018);
+        result.assign(result.add(vec3(.62, .70, .82).mul(halo)).mul(alpha.oneMinus()).add(lunar.rgb.mul(alpha).mul(.90)));
+      });
+      return result;
+    })();
     this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 32, 16), skyMaterial);
     this.sky.rotation.y = Math.PI * .5;
     this.sky.renderOrder = -100;
@@ -210,6 +232,11 @@ export class NightEnvironment {
     }
     return { ...this.river.diagnostics(camera), terraceScreenBounds: this.terrace ? { left, top, right, bottom } : null };
   }
+  setMoon(image: HTMLImageElement) {
+    const lunar = new THREE.Texture(image); lunar.colorSpace = THREE.SRGBColorSpace; lunar.needsUpdate = true;
+    if (this.moonNode.value !== this.moonTexture) this.moonNode.value.dispose();
+    this.moonNode.value = lunar; this.moonActive.value = 1;
+  }
   setSkyState(state: Readonly<SkyState>) { this.skyState = state; }
   setViewport(width: number, height: number) {
     this.cssViewport.value.set(Math.max(1, width), Math.max(1, height));
@@ -219,8 +246,9 @@ export class NightEnvironment {
     this.celestialYSpan.value = 2 * crop / aspect;
     this.celestialYShift.value = Math.min(0, 1 - this.celestialYSpan.value) * .065;
   }
+  skyMotionAllowed() { return this.skyState.motionAllowed && !this.reducedSkyMotion?.matches; }
   skyDiagnostics() {
-    return { ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.skyWaterline.value,
+    return { moon: { ...this.moonFrame, ready: this.moonActive.value === 1, source: "NASA LRO / fixed gibbous" }, ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.skyWaterline.value,
       skyLayers: 3, skyTextures: 3, skyArtWidth: this.celestialArt.stars.width,
       skyArtHeight: this.celestialArt.stars.height, skyCelestialCrop: this.celestialCrop.value,
       skyFieldStars: this.celestialArt.metadata.fieldStars, skyClusterStars: this.celestialArt.metadata.clusteredStars,
@@ -244,6 +272,8 @@ export class NightEnvironment {
     this.group.visible = visible;
     updateCelestialFrame(this.celestialFrame, this.skyState, this.cssViewport.value.x, this.cssViewport.value.y,
       visible && sim.quality !== 'low' && motionAllowed && !this.reducedSkyMotion?.matches, sim.reducedFlashes);
+    updateMoonFrame(this.cssViewport.value.x, this.cssViewport.value.y, this.skyWaterline.value, this.moonFrame);
+    this.moonCenter.value.set(this.moonFrame.x, this.moonFrame.y); this.moonRadius.value = this.moonFrame.radius;
     const frame = this.celestialFrame;
     this.skyTime.value = frame.time;
     this.galaxyStrength.value = (sim.quality === 'ultra' ? .78 : sim.quality === 'standard' ? .62 : .38) * (sim.reducedFlashes ? .72 : 1);
@@ -334,7 +364,7 @@ export class NightEnvironment {
     const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
   dispose() {
-    this.river.dispose();
+    this.river.dispose(); this.moonTexture.dispose(); if (this.moonNode.value !== this.moonTexture) this.moonNode.value.dispose();
     this.skyTexture.dispose(); this.galaxyTexture.dispose(); this.nearStarTexture.dispose(); this.probe.dispose(); this.washTexture.dispose(); this.floorTexture.dispose();
     this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
     this.celestialArt.dust.width = this.celestialArt.dust.height = 1;

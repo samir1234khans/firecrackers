@@ -40,7 +40,7 @@ try {
       const url = new URL(origin); url.search = `?backend=${backend}&qa=1&seed=20260916`;
       await page.goto(url.href);
       await page.waitForFunction(() => document.querySelector('main')?.dataset.ready === 'true' && window.__firecrackersQA, undefined, { timeout:90000 });
-      if (backend !== 'canvas') await page.waitForFunction(() => Object.values(window.__firecrackersQA.snapshot().authoredAssetStates || {}).filter(x=>x==='active').length===8, undefined, { timeout:90000 });
+      if (backend !== 'canvas') await page.waitForFunction(() => Object.values(window.__firecrackersQA.snapshot().authoredAssetStates || {}).filter(x=>x==='active').length===9, undefined, { timeout:90000 });
       assert.equal((await snapshot()).backend, backend==='webgpu'?'WebGPU':backend==='webgl'?'WebGL 2':'Canvas 2D · compatibility');
       const hardware = await page.evaluate(() => {
         const canvas=document.querySelector('.scene-host canvas');let gl;try {gl=canvas.getContext('webgl2');}catch{}

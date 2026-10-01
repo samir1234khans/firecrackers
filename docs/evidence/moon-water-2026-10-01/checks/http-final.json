@@ -1,0 +1,32 @@
+{
+  "base": "https://firecrackers-moon-preview.allygym-api.workers.dev/",
+  "release": "2e9aff20f01bdcbd7c57663d19c442b43b1eb305498795906f39b96048aaafc9",
+  "production": "2026-09-30.8",
+  "checks": [
+    "icon.svg",
+    "index.html",
+    "manifest.webmanifest",
+    "release.json",
+    "sw.js",
+    "THIRD_PARTY_NOTICES.txt",
+    "workbox-35e397ac.js",
+    "assets/index-CIJgD2wW.js",
+    "assets/main-r3052RpS.css",
+    "assets/main-snAb-5_E.js",
+    "assets/Renderer-Bzru-R0q.js",
+    "assets/workbox-window.prod.es5-BBnX5xw4.js",
+    "art/ignition-flame.png",
+    "art/moon-lro-v001.png",
+    "art/paper-color.png",
+    "art/river-life-v007.glb",
+    "art/river-life-v008.glb",
+    "art/rocket.glb",
+    "art/smoke-density-light-v005.png",
+    "art/smoke-density-light.png",
+    "art/terrace-v004.glb",
+    "art/terrace-v008.glb",
+    "art/water-normal-v005.png",
+    "art/water-normal.png",
+    "art/waterfront-night-v005.webp"
+  ]
+}

@@ -9,9 +9,10 @@ export type WaterfrontAssets = {
   rocket: THREE.Group;
   terrace: THREE.Group;
   sky: HTMLImageElement;
+  moon: HTMLImageElement;
   river: THREE.Group;
 };
-export const WATERFRONT_ASSET_NAMES = ['smoke', 'paper', 'normal', 'flame', 'rocket', 'terrace', 'sky', 'river'] as const;
+export const WATERFRONT_ASSET_NAMES = ['smoke', 'paper', 'normal', 'flame', 'rocket', 'terrace', 'sky', 'river', 'moon'] as const;
 export type WaterfrontAssetName = typeof WATERFRONT_ASSET_NAMES[number];
 const ASSET_LOAD_DEADLINE_MS = 60_000;
 
@@ -98,6 +99,7 @@ export async function loadWaterfrontAssets(
       ctx.translate(0, canvas.height); ctx.scale(1, -1); ctx.drawImage(img, 0, 0);
       return ctx.getImageData(0, 0, canvas.width, canvas.height);
     } },
+    { name: 'moon', load: () => image('moon-lro-v001.png') },
     { name: 'paper', load: () => image('paper-color.png') },
     { name: 'normal', load: async () => {
       const t = await textureLoader.loadAsync(url('water-normal-v005.png'));

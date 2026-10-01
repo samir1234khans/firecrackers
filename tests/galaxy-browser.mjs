@@ -12,7 +12,7 @@ const base = process.env.GALAXY_URL || 'http://127.0.0.1:4183/';
 const output = path.resolve(process.argv[2] || 'test-results/galaxy');
 const catalog = await readFile(new URL('../src/engine/catalog.ts', import.meta.url), 'utf8');
 const expectedVersion = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)[1];
-const expectedAssetCount = 8;
+const expectedAssetCount = 9;
 const seed = 20260916;
 const headless = process.env.GALAXY_HEADLESS === '1';
 const report = { url: base, expectedVersion, expectedAssetCount, seed, startedAt: new Date().toISOString(),
@@ -213,7 +213,7 @@ try {
     await openPanel(page, 'settings');
     assert.equal(await page.getByRole('checkbox', { name: 'Reduced flashes', exact: true }).isChecked(), true);
     await page.getByRole('button', { name: 'Close panel', exact: true }).click();
-    check(`${project.label}: all eight assets, default Ultra and reduced flashes on actual hardware`);
+    check(`${project.label}: all nine assets, default Ultra and reduced flashes on actual hardware`);
     if (backend === 'webgpu' && device.name !== 'landscape')
       await qualifyGalacticSky(page, project.label, check, phase => capture(page, project, phase), { touch: device.mobile });
     await resetFrozen(page); await capture(page, project, 'idle'); await riverDetail(page, project);
