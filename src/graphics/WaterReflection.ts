@@ -245,11 +245,11 @@ export class WaterReflection {
   }
   private reflectionRate(quality: Quality, aspect: number) {
     if (quality === 'low') return 0;
-    return quality === 'ultra' ? aspect < .72 ? 15 : 20 : aspect < .72 ? 10 : 15;
+    return quality === 'ultra' ? aspect < .72 ? 12 : 20 : aspect < .72 ? 10 : 15;
   }
   private ensureTarget(quality: Quality, aspect: number) {
     if (quality === 'low') { this.releaseTarget(); return; }
-    const cap = quality === 'ultra' ? 512 : 256;
+    const cap = quality === 'ultra' ? aspect < .72 ? 384 : 512 : 256;
     this.hz = this.reflectionRate(quality, aspect);
     // Retain the full-view horizontal sampling density, but allocate only its
     // water-band rows. Cropping the camera raises its effective aspect by the

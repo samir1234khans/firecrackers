@@ -422,8 +422,8 @@ export class CompatibilityRenderer implements RendererPort {
             c.lineWidth = .8 + depth * 2.2; c.beginPath();
             for (let segment = 0; segment <= 8; segment++) {
                 const x = left + segment / 8 * length;
-                this.sampleScreenWater(x, y, this.waterSample);
-                const py = y - this.waterSample.height * (4 + depth * 14) + Math.sin(segment * .39 + band) * depth * 2;
+                const facetHeight = this.screenWaterHeight(x, y);
+                const py = y - facetHeight * (4 + depth * 14) + Math.sin(segment * .39 + band) * depth * 2;
                 if (!segment) c.moveTo(x, py); else c.lineTo(x, py);
             }
             c.stroke();
@@ -444,9 +444,9 @@ export class CompatibilityRenderer implements RendererPort {
             c.fillStyle = '#9bacbf'; c.globalAlpha = this.moonReady ? (.034 + depth * .085) * facet : .008;
             c.fillRect(moonX + drift - halfWidth, y, halfWidth * 2, .45 + depth * .8);
             const x = ((i * .61803398875 + riverTime * .0014) % 1) * this.width;
-            this.sampleScreenWater(x, baseY, this.waterSample);
+            const ambientHeight = this.screenWaterHeight(x, baseY);
             c.fillStyle = '#4a687e'; c.globalAlpha = (.034 + depth * .065) * (.7 + crossing * .3);
-            c.fillRect(x, baseY - this.waterSample.height * (3 + depth * 12), 1 + depth * (8 + i % 7 * 3), .4 + depth * .5);
+            c.fillRect(x, baseY - ambientHeight * (3 + depth * 12), 1 + depth * (8 + i % 7 * 3), .4 + depth * .5);
         }
         this.drawRiverReflections(riverTime);
         const p = s.heads, step = Math.max(1, Math.ceil(p.count / 450));

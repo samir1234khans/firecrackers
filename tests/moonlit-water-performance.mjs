@@ -10,6 +10,8 @@ const baseline = process.env.WATER_BASELINE_URL || 'https://firecrackers.mainand
 const candidate = process.env.WATER_URL || 'http://127.0.0.1:4173/';
 const out = process.argv[2] || 'test-results/moonlit-water-performance';
 const seed = 20260916;
+const repeatCount = Number(process.env.WATER_PERFORMANCE_REPEATS || 2);
+assert.ok(Number.isInteger(repeatCount) && repeatCount >= 2 && repeatCount <= 6, 'Use two to six complete counterbalanced repetitions');
 const backends = process.env.WATER_PERFORMANCE_BACKENDS?.split(',') || ['webgpu', 'webgl', 'canvas'];
 const viewports = [[393, 851], [1280, 800]].filter(([width]) => !process.env.WATER_PERFORMANCE_WIDTH || width === Number(process.env.WATER_PERFORMANCE_WIDTH));
 const expected = { webgpu: 'WebGPU', webgl: 'WebGL 2', canvas: 'Canvas 2D · compatibility' };
@@ -17,9 +19,9 @@ const idleMilliseconds = 3000, launchMilliseconds = 7500, warmupMilliseconds = 1
 const analyzeOnly = process.env.WATER_PERFORMANCE_ANALYZE === '1';
 const report = {
   baseline, candidate, seed, browser: null,
-  method: 'Installed headless Chrome, sequential counterbalanced AB/BA pairs, two repetitions at each backend and viewport. All authored assets are active before reset and realtime idle warmup. Service workers are blocked. CDP Runtime closure scopes bind a private test-only scalar reader to the existing renderer metrics and Simulation, symmetrically for both sources; Debugger is never enabled and no app/public API is changed. Full QA snapshot verifies bindings before and after sampling. Each interval preallocates 8192 numeric records and materializes objects afterward, avoiding full diagnostic graphs on every rAF. Sampling observes realtime requestAnimationFrame and app submitMs, retaining CPU samples only when the renderer frame counter advances. Measurement never drives a frozen QA render loop.',
+  method: 'Installed headless Chrome, sequential counterbalanced AB/BA pairs, the recorded number of complete repetitions at each backend and viewport. All authored assets are active before reset and realtime idle warmup. Service workers are blocked. CDP Runtime closure scopes bind a private test-only scalar reader to the existing renderer metrics and Simulation, symmetrically for both sources; Debugger is never enabled and no app/public API is changed. Full QA snapshot verifies bindings before and after sampling. Each interval preallocates 8192 numeric records and materializes objects afterward, avoiding full diagnostic graphs on every rAF. Sampling observes realtime requestAnimationFrame and app submitMs, retaining CPU samples only when the renderer frame counter advances. Measurement never drives a frozen QA render loop.',
   limits: 'rAF cadence and CPU submission are recorded separately; neither is completed GPU time. Phone-sized viewports are emulated on this PC. Physical-phone performance and thermal endurance are unqualified. Scalar observer overhead is measured; this does not prove older collections were entirely caused by QA diagnostics. Legacy failed full-snapshot reports remain separate retained evidence; percentile methods and performance assertions are unchanged.',
-  settings: { quality: 'ultra', reducedFlashes: true, reducedMotion: false, sound: false, haptics: false, placement: .5, idleMilliseconds, launchMilliseconds, warmupMilliseconds, repeats: 2 },
+  settings: { quality: 'ultra', reducedFlashes: true, reducedMotion: false, sound: false, haptics: false, placement: .5, idleMilliseconds, launchMilliseconds, warmupMilliseconds, repeats: repeatCount },
   runs: [], comparisons: [], errors: [], failed: null,
 };
 await mkdir(out, { recursive: true });
@@ -189,9 +191,9 @@ if (analyzeOnly) {
   if (!saved.acceptance.rafWithinAllowance || !saved.acceptance.appRenderedCadenceWithinAllowance || !saved.acceptance.noRepeatedNewTransitionOver100 || !saved.acceptance.noRepeatedNewRenderedTransitionOver50 || !saved.acceptance.noRepeatedNewRenderedTransitionOver100 || saved.errors.length) process.exitCode = 1;
 } else {
 try {
-  for (const [width, height] of viewports) for (const backend of backends) for (const repeat of [1, 2]) {
+  for (const [width, height] of viewports) for (const backend of backends) for (let repeat = 1; repeat <= repeatCount; repeat++) {
     const pair = {};
-    const order = repeat === 1 ? [['baseline', baseline], ['candidate', candidate]] : [['candidate', candidate], ['baseline', baseline]];
+    const order = repeat % 2 === 1 ? [['baseline', baseline], ['candidate', candidate]] : [['candidate', candidate], ['baseline', baseline]];
     for (let index = 0; index < order.length; index++) {
       const [source, origin] = order[index];
       pair[source] = await runCondition(source, origin, backend, width, height, repeat, index + 1);

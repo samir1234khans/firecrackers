@@ -61,7 +61,7 @@ function inspectWater(state, backend, quality, visible = true) {
     assert.ok(state.reflectionWidth > 0 && state.reflectionHeight > 0);
     assert.ok(Math.max(state.reflectionWidth, state.reflectionHeight) <= cap);
     const portraitWater = state.waterFarZ === -180;
-    const expectedHz = quality === 'ultra' ? (portraitWater ? 15 : 20) : (portraitWater ? 10 : 15);
+    const expectedHz = quality === 'ultra' ? (portraitWater ? 12 : 20) : (portraitWater ? 10 : 15);
     assert.equal(state.reflectionHz, expectedHz, 'Selected mirror cadence follows the explicit portrait budget');
     assert.equal(state.reflectionMode, 'planar');
     assert.equal(state.reflectionClipCoordinateSystem, backend);
