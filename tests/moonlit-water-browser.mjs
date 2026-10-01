@@ -42,6 +42,17 @@ function inspectWater(state, backend, quality, visible = true) {
     assert.ok(Math.abs(hull.pitch) < .2 && Math.abs(hull.roll) < .2, 'Calm water keeps the hull stable');
     assert.ok(Math.abs(hull.centerDeviation) <= .510001);
   }
+  if (backend !== 'canvas') {
+    assert.equal(state.riverReflectionProxyDraws, 4);
+    assert.equal(state.riverReflectionProxyBoats, 3);
+    assert.ok(state.riverReflectionProxyShelters >= 0 && state.riverReflectionProxyShelters <= 3);
+    assert.ok(state.riverReflectionProxyHomes >= 0 && state.riverReflectionProxyHomes <= 12);
+    assert.ok(state.riverReflectionProxyLamps >= 0 && state.riverReflectionProxyLamps <= 10);
+    assert.ok(Number.isFinite(state.riverReflectionProxyChecksum));
+    assert.equal(state.reflectionParticleBatchCapacity, 12);
+    assert.ok(state.reflectionParticleBatches >= 0 && state.reflectionCulledParticleBatches >= 0);
+    assert.ok(state.reflectionParticleBatches + state.reflectionCulledParticleBatches <= 12);
+  }
   const planar = backend !== 'canvas' && quality !== 'low' && visible;
   assert.equal(state.reflectionAllocated, planar);
   assert.equal(state.reflectionTargets, planar ? 1 : 0);
@@ -49,10 +60,15 @@ function inspectWater(state, backend, quality, visible = true) {
     const cap = quality === 'ultra' ? 512 : 256;
     assert.ok(state.reflectionWidth > 0 && state.reflectionHeight > 0);
     assert.ok(Math.max(state.reflectionWidth, state.reflectionHeight) <= cap);
-    assert.equal(state.reflectionHz, quality === 'ultra' ? 30 : 15);
+    const portraitWater = state.waterFarZ === -180;
+    const expectedHz = quality === 'ultra' ? (portraitWater ? 15 : 30) : (portraitWater ? 10 : 15);
+    assert.equal(state.reflectionHz, expectedHz, 'Selected mirror cadence follows the explicit portrait budget');
     assert.equal(state.reflectionMode, 'planar');
     assert.equal(state.reflectionClipCoordinateSystem, backend);
     assert.ok(state.reflectionCameraY < state.reflectionPlaneY, 'Reflection camera lies below the mean water plane');
+    assert.ok(state.reflectionCropTop >= 0 && state.reflectionCropBottom <= 1);
+    assert.ok(state.reflectionCropHeight > 0 && state.reflectionCropHeight <= 1);
+    assert.ok(Math.abs(state.reflectionCropBottom - state.reflectionCropTop - state.reflectionCropHeight) < 1e-10);
   } else {
     assert.equal(state.reflectionWidth, 0); assert.equal(state.reflectionHeight, 0); assert.equal(state.reflectionHz, 0);
   }
@@ -67,6 +83,7 @@ function waterPose(state) {
   return {
     phase: state.waterPhase, riverPhase: state.riverWaterPhase, positions: state.riverPositions,
     hulls: state.riverHullSamples, contacts: state.riverContactChecksum, reflections: state.riverReflectionChecksum,
+    reflectionProxies: state.riverReflectionProxyChecksum,
   };
 }
 
@@ -190,6 +207,7 @@ try {
     inspectWater(await snap(), backend, 'ultra');
     await page.locator('[data-family-icon="gold-willow"]').click(); await advance(1);
     const state = await snap(); assert.equal(state.launched, 1); assert.equal(state.backend, labels[backend]);
+    inspectWater(state, backend, 'ultra');
     pass(`${backend}: missing normal texture preserves playable water and launch`);
     await page.close();
   }

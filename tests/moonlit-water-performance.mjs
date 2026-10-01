@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { openPanel, settingsTab } from './stage-helpers.mjs';
+import { installWaterTimingProbe, validateWaterTimingProbe, sampleWaterTiming } from './moonlit-water-probe.mjs';
 
 // Run by itself. Sampling observes the normal app animation loop; it never
 // repeatedly invokes QA.render() on a frozen scene during a measurement.
@@ -16,8 +17,8 @@ const idleMilliseconds = 3000, launchMilliseconds = 7500, warmupMilliseconds = 1
 const analyzeOnly = process.env.WATER_PERFORMANCE_ANALYZE === '1';
 const report = {
   baseline, candidate, seed, browser: null,
-  method: 'Installed headless Chrome, sequential counterbalanced AB/BA pairs, two repetitions at each backend and viewport. All authored assets are active before reset and realtime idle warmup. Service workers are blocked. Sampling observes realtime requestAnimationFrame and app submitMs, retaining CPU samples only when the renderer frame counter advances. Measurement never drives a frozen QA render loop.',
-  limits: 'rAF cadence and CPU submission are recorded separately; neither is completed GPU time. Phone-sized viewports are emulated on this PC. Physical-phone performance and thermal endurance are unqualified. QA snapshot observer overhead is measured and reported.',
+  method: 'Installed headless Chrome, sequential counterbalanced AB/BA pairs, two repetitions at each backend and viewport. All authored assets are active before reset and realtime idle warmup. Service workers are blocked. CDP Runtime closure scopes bind a private test-only scalar reader to the existing renderer metrics and Simulation, symmetrically for both sources; Debugger is never enabled and no app/public API is changed. Full QA snapshot verifies bindings before and after sampling. Each interval preallocates 8192 numeric records and materializes objects afterward, avoiding full diagnostic graphs on every rAF. Sampling observes realtime requestAnimationFrame and app submitMs, retaining CPU samples only when the renderer frame counter advances. Measurement never drives a frozen QA render loop.',
+  limits: 'rAF cadence and CPU submission are recorded separately; neither is completed GPU time. Phone-sized viewports are emulated on this PC. Physical-phone performance and thermal endurance are unqualified. Scalar observer overhead is measured; this does not prove older collections were entirely caused by QA diagnostics. Legacy failed full-snapshot reports remain separate retained evidence; percentile methods and performance assertions are unchanged.',
   settings: { quality: 'ultra', reducedFlashes: true, reducedMotion: false, sound: false, haptics: false, placement: .5, idleMilliseconds, launchMilliseconds, warmupMilliseconds, repeats: 2 },
   runs: [], comparisons: [], errors: [], failed: null,
 };
@@ -53,29 +54,7 @@ function summarize(frames) {
 }
 
 async function sample(workload, duration, targetBurst) {
-  const frames = await page.evaluate(({ duration, targetBurst }) => new Promise(resolve => {
-    const frames = []; let start = null, previous = null, previousRenderTime = null, previousRenderFrame = null;
-    const tick = now => {
-      if (start === null) start = now;
-      const snapshotStart = performance.now(), state = window.__firecrackersQA.snapshot();
-      const snapshotMs = performance.now() - snapshotStart;
-      const newRender = state.frames !== previousRenderFrame;
-      if (previous !== null) frames.push({
-        t: now - start, rafMs: now - previous, submitMs: state.submitMs,
-        newRender, renderedIntervalMs: newRender && previousRenderTime !== null ? now - previousRenderTime : null,
-        snapshotMs, renderFrames: state.frames, simulationTime: state.time, bursts: state.bursts,
-        backend: state.backend, quality: state.quality, particles: state.particles,
-      });
-      if (newRender) { previousRenderFrame = state.frames; previousRenderTime = now; }
-      previous = now;
-      if (now - start < duration) requestAnimationFrame(tick);
-      else {
-        const burstAt = targetBurst === null ? null : frames.find(frame => frame.bursts >= targetBurst)?.t;
-        resolve({ frames, burstAt });
-      }
-    };
-    requestAnimationFrame(tick);
-  }), { duration, targetBurst });
+  const frames = await sampleWaterTiming(page, workload, duration, targetBurst);
   if (targetBurst !== null) assert.ok(Number.isFinite(frames.burstAt), `${workload} must complete its burst`);
   const raw = frames.frames.map(frame => ({ ...frame, relativeToBurstMs: frames.burstAt === null ? null : frame.t - frames.burstAt }));
   const transition = targetBurst === null ? [] : raw.filter(frame => Math.abs(frame.relativeToBurstMs) <= 1200);
@@ -115,6 +94,7 @@ async function runCondition(source, origin, backend, width, height, repeat, posi
   }, backend);
   if (backend === 'webgpu') { assert.ok(identity); assert.equal(identity.fallback, false); }
   if (backend === 'webgl') { assert.ok(identity.driver); assert.ok(!/swiftshader|llvmpipe|software|microsoft basic render/i.test(identity.driver), identity.driver); }
+  const timingProbe = await installWaterTimingProbe(page);
   // Reset through the normal UI after assets and pipeline preparation, bringing
   // the simulation/RNG to the same state independently of network startup time.
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
@@ -139,11 +119,14 @@ async function runCondition(source, origin, backend, width, height, repeat, posi
     measurements.push(await sample(`launch-${launch}`, launchMilliseconds, previousBursts + 1));
   }
   const final = await page.evaluate(() => window.__firecrackersQA.snapshot());
+  await validateWaterTimingProbe(page);
   assert.equal(final.backend, expected[backend]); assert.equal(final.quality, 'ultra');
+  const finalRelease = await page.evaluate(() => fetch('/release.json').then(response => response.json()));
+  assert.equal(finalRelease.sha256, release.sha256, 'Source fingerprint must remain stable throughout each condition');
   const stem = `${source}-${backend}-${width}x${height}-repeat-${repeat}`;
   await writeFile(`${out}/${stem}-frames.json`, JSON.stringify(measurements.map(({ workload, raw }) => ({ workload, frames: raw }))));
   const run = { source, origin, requestedBackend: backend, backend: final.backend, width, height, repeat, positionInPair,
-    release, identity, authoredAssetStates: initial.authoredAssetStates || { moon: initial.moon.ready ? 'active' : 'failed' },
+    release, identity, timingProbe, authoredAssetStates: initial.authoredAssetStates || { moon: initial.moon.ready ? 'active' : 'failed' },
     settings: { quality: initial.quality, reducedFlashes: initial.reducedFlashes, reducedMotion: initial.reducedMotion },
     initialTime: initial.time, initialSkyCadence: initial.skyAmbientCadence,
     rawPath: `${stem}-frames.json`, measurements: measurements.map(({ raw, ...measurement }) => measurement), errors };
