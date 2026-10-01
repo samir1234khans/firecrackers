@@ -64,3 +64,19 @@ export function sampleWater(x: number, z: number, phase: number, out: WaterSampl
   out.slopeX *= fade;
   return out;
 }
+
+/** Height-only path for nearby Canvas reflection facets; hull/normal callers
+ * continue using the complete analytic sample. No temporary sample is allocated.
+ */
+export function sampleWaterHeight(x: number, z: number, phase: number, bounds: Readonly<WaterBounds> = DEFAULT_BOUNDS) {
+  const span = bounds.nearZ - bounds.farZ;
+  if (span <= 0 || z <= bounds.farZ || z >= bounds.nearZ || bounds.waveCount <= 0) return 0;
+  let height = 0;
+  for (let i = 0; i < Math.min(WATER_WAVES.length, bounds.waveCount); i++) {
+    const wave = WATER_WAVES[i];
+    height += Math.sin(x * wave.x + z * wave.z - phase * wave.speed + wave.phase) * wave.amplitude;
+  }
+  const farT = Math.min(1, (z - bounds.farZ) / Math.min(WATER_FAR_FADE_MAX, span * WATER_FAR_FADE_FRACTION));
+  const nearT = Math.min(1, (bounds.nearZ - z) / Math.min(WATER_NEAR_FADE_MAX, span * WATER_NEAR_FADE_FRACTION));
+  return height * (farT * farT * (3 - 2 * farT)) * (nearT * nearT * (3 - 2 * nearT));
+}

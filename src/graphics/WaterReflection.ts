@@ -1,6 +1,7 @@
 import type { MoonFrame } from './MoonComposition';
 import { WATER_Y, WATER_NEAR_Z, WATER_WAVES, WATER_MAX_DISPLACEMENT, WATER_FAR_FADE_MAX, WATER_FAR_FADE_FRACTION, WATER_NEAR_FADE_MAX, WATER_NEAR_FADE_FRACTION } from './WaterWaves.js';
 import type { WaterFrame } from './WaterWaves.js';
+import { fitWaterSurfaceGrid } from './WaterSurfaceGeometry.js';
 import { PlanarReflection } from './PlanarReflection.js';
 import * as THREE from 'three/webgpu';
 import { Fn, If, Loop, cameraPosition, float, int, modelWorldMatrix, positionLocal, positionWorld, reflect, smoothstep, texture, uniform, uniformArray, varying, vec2, vec3, vec4 } from 'three/tsl';
@@ -20,8 +21,8 @@ export class WaterReflection {
   readonly mesh: THREE.Mesh;
   private readonly planar = new PlanarReflection();
   readonly camera = this.planar.camera;
-  private readonly wideSurface = new THREE.PlaneGeometry(1400, 1200, 128, 96);
-  private readonly phoneSurface = new THREE.PlaneGeometry(1400, 380, 128, 48);
+  private readonly wideSurface = new THREE.PlaneGeometry(1400, 1200, 96, 64);
+  private readonly phoneSurface = new THREE.PlaneGeometry(1400, 380, 64, 48);
   private readonly projectedEdge = new THREE.Vector3();
   private readonly farSide = new THREE.Vector3();
   private readonly moonRay = new THREE.Vector3();
@@ -201,6 +202,17 @@ export class WaterReflection {
     const farX = camera.position.x + (this.farSide.x - camera.position.x) * distance;
     this.mesh.scale.x = Math.max(1, (Math.abs(farX) + 40) / 700);
     this.streaks.scale.x = 1 / this.mesh.scale.x;
+    const farHalfWidth = Math.abs(farX) + 40;
+    this.projectedEdge.set(0, WATER_Y, WATER_NEAR_Z).project(camera);
+    this.farSide.set(1, this.projectedEdge.y, .5).unproject(camera);
+    const nearDistance = (WATER_Y - camera.position.y) / (this.farSide.y - camera.position.y);
+    const nearHalfWidth = Math.abs(camera.position.x + (this.farSide.x - camera.position.x) * nearDistance) + 40;
+    const positions = this.mesh.geometry.getAttribute('position');
+    fitWaterSurfaceGrid(positions.array as Float32Array, phone ? 64 : 96, phone ? 48 : 64,
+      phone ? -180 : -1000, WATER_NEAR_Z, this.mesh.position.z, this.mesh.scale.x, nearHalfWidth, farHalfWidth);
+    positions.needsUpdate = true;
+    this.mesh.geometry.computeBoundingSphere();
+    this.projectedEdge.set(0, WATER_Y, phone ? -180 : -1000).project(camera);
     this.waterline.value = THREE.MathUtils.clamp((1 - this.projectedEdge.y) * .5, 0, 1);
     this.mesh.updateMatrixWorld(true); this.last = -Infinity;
   }
@@ -323,7 +335,7 @@ export class WaterReflection {
     }
   }
   diagnostics() {
-    return { reflectionFrames: this.frames, reflectionWidth: this.target?.width ?? 0, reflectionHeight: this.target?.height ?? 0,
+    return { waterSurfaceVertices: this.mesh.geometry.getAttribute('position').count, reflectionFrames: this.frames, reflectionWidth: this.target?.width ?? 0, reflectionHeight: this.target?.height ?? 0,
       reflectionAllocated: Boolean(this.target), reflectionTargets: this.target ? 1 : 0, reflectionHz: this.hz,
       reflectionCropTop: this.planar.crop.top, reflectionCropBottom: this.planar.crop.bottom, reflectionCropHeight: this.planar.crop.height,
       reflectionMode: this.target ? 'planar' : 'disabled', reflectionCameraY: this.camera.position.y, reflectionPlaneY: WATER_Y,

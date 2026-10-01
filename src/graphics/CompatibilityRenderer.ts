@@ -17,7 +17,7 @@ import { FUSE_POINTS, fusePointAt, ROCKET_SCALE } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
 import { updateMoonFrame } from './MoonComposition';
 import type { MoonFrame } from './MoonComposition';
-import { sampleWater, updateWaterFrame, WATER_MAX_DISPLACEMENT, WATER_NEAR_Z } from './WaterWaves';
+import { sampleWater, sampleWaterHeight, updateWaterFrame, WATER_MAX_DISPLACEMENT, WATER_NEAR_Z } from './WaterWaves';
 import type { WaterFrame, WaterSample } from './WaterWaves';
 import { makeGalaxySky } from './GalaxySky';
 import type { SkyState } from '../engine/SkyState';
@@ -175,6 +175,13 @@ export class CompatibilityRenderer implements RendererPort {
         const nearWidth = this.width < 680 ? 96 : 260;
         const worldX = (x / this.width - .5) * (nearWidth - z * 1.7);
         return sampleWater(worldX, z, this.waterFrame.phase, out, this.waterFrame);
+    }
+    private screenWaterHeight(x: number, y: number) {
+        const horizon = this.height * this.horizon, span = Math.max(1, this.height * .92 - horizon);
+        const depth = clamp((y - horizon) / span, 0, 1);
+        const z = this.waterFrame.nearZ + (this.waterFrame.farZ - this.waterFrame.nearZ) * (1 - depth) / (1 + depth * 7);
+        const nearWidth = this.width < 680 ? 96 : 260;
+        return sampleWaterHeight((x / this.width - .5) * (nearWidth - z * 1.7), z, this.waterFrame.phase, this.waterFrame);
     }
     private prepareRiver(horizon: number, time: number) {
         const shoreHeight = clamp(this.height * .028, 16, 26), shoreTop = horizon - shoreHeight + 1;
@@ -452,10 +459,12 @@ export class CompatibilityRenderer implements RendererPort {
             if (elevation <= 0) continue;
             const reflected = horizon + waterHeight * elevation / (.46 + elevation);
             c.fillStyle = this.tone(p.r[i], p.g[i], p.b[i]);
+            // Three adjacent marks belong to one coherent wave facet. Sample
+            // its center once; hull contacts retain their exact four-point field.
+            const facetHeight = this.screenWaterHeight(point.x, reflected + 3);
             for (let j = 0; j < 3; j++) {
                 const baseY = reflected + j * 3;
-                this.sampleScreenWater(point.x, baseY, this.waterSample);
-                const y = baseY - this.waterSample.height * 9, ripple = Math.sin(y * .7 + riverTime * 2) * Math.sin(i * 1.37 - riverTime * .43);
+                const y = baseY - facetHeight * 9, ripple = Math.sin(y * .7 + riverTime * 2) * Math.sin(i * 1.37 - riverTime * .43);
                 c.globalAlpha = p.gain[i] * Math.max(0, 1 - p.age[i] / p.life[i]) * (s.reducedFlashes ? .10 : .16) * (1 - j * .2);
                 c.fillRect(point.x + ripple * 4 - 2, y, 3 + (ripple + 1) * 4, 1);
             }
