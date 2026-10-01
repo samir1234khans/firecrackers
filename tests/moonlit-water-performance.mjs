@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { openPanel, settingsTab } from './stage-helpers.mjs';
 
 // Run by itself. Sampling observes the normal app animation loop; it never
@@ -13,6 +13,7 @@ const backends = process.env.WATER_PERFORMANCE_BACKENDS?.split(',') || ['webgpu'
 const viewports = [[393, 851], [1280, 800]].filter(([width]) => !process.env.WATER_PERFORMANCE_WIDTH || width === Number(process.env.WATER_PERFORMANCE_WIDTH));
 const expected = { webgpu: 'WebGPU', webgl: 'WebGL 2', canvas: 'Canvas 2D · compatibility' };
 const idleMilliseconds = 3000, launchMilliseconds = 7500, warmupMilliseconds = 1500;
+const analyzeOnly = process.env.WATER_PERFORMANCE_ANALYZE === '1';
 const report = {
   baseline, candidate, seed, browser: null,
   method: 'Installed headless Chrome, sequential counterbalanced AB/BA pairs, two repetitions at each backend and viewport. All authored assets are active before reset and realtime idle warmup. Service workers are blocked. Sampling observes realtime requestAnimationFrame and app submitMs, retaining CPU samples only when the renderer frame counter advances. Measurement never drives a frozen QA render loop.',
@@ -21,8 +22,8 @@ const report = {
   runs: [], comparisons: [], errors: [], failed: null,
 };
 await mkdir(out, { recursive: true });
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
-report.browser = await browser.version();
+const browser = analyzeOnly ? null : await chromium.launch({ channel: 'chrome', headless: true });
+report.browser = browser ? await browser.version() : null;
 let page;
 
 const quantile = (values, fraction) => {
@@ -32,6 +33,7 @@ const quantile = (values, fraction) => {
 };
 const distribution = values => ({
   count: values.length, p50Ms: quantile(values, .5), p95Ms: quantile(values, .95), worstMs: quantile(values, 1),
+  p95NearestRankMs: values.length ? [...values].sort((a, b) => a - b)[Math.max(0, Math.ceil(values.length * .95) - 1)] : null,
   over33Ms: values.filter(value => value > 33).length,
   over50Ms: values.filter(value => value > 50).length,
   over100Ms: values.filter(value => value > 100).length,
@@ -154,10 +156,55 @@ async function runCondition(source, origin, backend, width, height, repeat, posi
 }
 
 function compareP95(before, after) {
+  assert.ok(Number.isFinite(before) && Number.isFinite(after), 'A cadence comparison requires measured samples from both sources');
   const allowanceMs = Math.max(2, before * .20);
   return { baselineMs: before, candidateMs: after, deltaMs: after - before, allowanceMs, withinAllowance: after - before <= allowanceMs };
 }
 const observations = [];
+async function addRenderedCadenceAssessment(dataset) {
+  const rawByRun = new Map();
+  for (const run of dataset.runs) rawByRun.set(run, JSON.parse(await readFile(`${out}/${run.rawPath}`, 'utf8')));
+  const framesFor = (comparison, source) => dataset.runs
+    .filter(run => run.source === source && run.requestedBackend === comparison.backend && run.width === comparison.width && run.height === comparison.height && (comparison.type === 'combined' || run.repeat === comparison.repeat))
+    .flatMap(run => rawByRun.get(run).find(measurement => measurement.workload === comparison.workload).frames);
+  for (const comparison of dataset.comparisons) {
+    const beforeFrames = framesFor(comparison, 'baseline'), afterFrames = framesFor(comparison, 'candidate');
+    const before = summarize(beforeFrames), after = summarize(afterFrames);
+    const inTransition = frames => frames.filter(frame => frame.relativeToBurstMs !== null && Math.abs(frame.relativeToBurstMs) <= 1200);
+    const beforeTransition = summarize(inTransition(beforeFrames)), afterTransition = summarize(inTransition(afterFrames));
+    comparison.renderedCadenceP95 = compareP95(before.renderedCadence.p95Ms, after.renderedCadence.p95Ms);
+    comparison.renderedCadenceNearestRankP95 = compareP95(before.renderedCadence.p95NearestRankMs, after.renderedCadence.p95NearestRankMs);
+    comparison.transitionRenderedCadenceP95 = comparison.workload === 'idle' ? null : compareP95(beforeTransition.renderedCadence.p95Ms, afterTransition.renderedCadence.p95Ms);
+    comparison.transitionRenderedCadenceNearestRankP95 = comparison.workload === 'idle' ? null : compareP95(beforeTransition.renderedCadence.p95NearestRankMs, afterTransition.renderedCadence.p95NearestRankMs);
+    comparison.transitionRenderedIntervals = comparison.workload === 'idle' ? null : { baseline: beforeTransition.renderedCadence, candidate: afterTransition.renderedCadence };
+    comparison.renderedCadenceSummaries = { baseline: before.renderedCadence, candidate: after.renderedCadence };
+  }
+  const combined = dataset.comparisons.filter(comparison => comparison.type === 'combined');
+  for (const comparison of combined) {
+    const paired = dataset.comparisons.filter(pair => pair.type === 'paired' && pair.backend === comparison.backend && pair.width === comparison.width && pair.height === comparison.height && pair.workload === comparison.workload);
+    comparison.repeatedRenderedCadenceRegression = paired.every(pair => !pair.renderedCadenceP95.withinAllowance);
+    comparison.repeatedNewRenderedTransitionOver50 = comparison.workload !== 'idle' && paired.every(pair => pair.transitionRenderedIntervals.candidate.over50Ms > 0 && pair.transitionRenderedIntervals.baseline.over50Ms === 0);
+    comparison.repeatedNewRenderedTransitionOver100 = comparison.workload !== 'idle' && paired.every(pair => pair.transitionRenderedIntervals.candidate.over100Ms > 0 && pair.transitionRenderedIntervals.baseline.over100Ms === 0);
+  }
+  dataset.acceptance.primaryMetric = 'App-rendered frame interval, from changes to the existing renderer frame counter; active scene capped at 60fps, idle retains its bounded cadence';
+  dataset.acceptance.percentileMethod = 'p95Ms uses sorted[min(N-1,floor(N*.95))]; nearest-rank p95 is also retained as sorted[ceil(N*.95)-1]. Timings remain unrounded.';
+  dataset.acceptance.appRenderedCadenceWithinAllowance = combined.every(comparison => comparison.renderedCadenceP95.withinAllowance && (!comparison.transitionRenderedCadenceP95 || comparison.transitionRenderedCadenceP95.withinAllowance));
+  dataset.acceptance.appRenderedCadenceNearestRankWithinAllowance = combined.every(comparison => comparison.renderedCadenceNearestRankP95.withinAllowance && (!comparison.transitionRenderedCadenceNearestRankP95 || comparison.transitionRenderedCadenceNearestRankP95.withinAllowance));
+  dataset.acceptance.noRepeatedNewRenderedTransitionOver50 = combined.every(comparison => !comparison.repeatedNewRenderedTransitionOver50);
+  dataset.acceptance.noRepeatedNewRenderedTransitionOver100 = combined.every(comparison => !comparison.repeatedNewRenderedTransitionOver100);
+  dataset.acceptance.observerRafWithinAllowance = dataset.acceptance.rafWithinAllowance;
+  const renderedNote = 'App-rendered cadence is the primary frame-interval assessment; observer rAF failures and raw intervals are retained as a separate scheduling assessment. Original rAF assertions remain in the script exit status.';
+  if (!dataset.acceptance.note.includes(renderedNote)) dataset.acceptance.note += ` ${renderedNote}`;
+}
+if (analyzeOnly) {
+  const saved = JSON.parse(await readFile(`${out}/report.json`, 'utf8'));
+  assert.ok(saved.acceptance && !saved.failed, 'Analyze only an experiment that completed its configured measurements');
+  assert.equal(saved.runs.length, saved.comparisons.filter(comparison => comparison.type === 'paired').length * 2 / 3, 'Analyze only a completed paired experiment');
+  await addRenderedCadenceAssessment(saved);
+  await writeFile(`${out}/report.json`, JSON.stringify(saved, null, 2));
+  console.log(JSON.stringify({ runs: saved.runs.length, acceptance: saved.acceptance, failed: saved.failed }));
+  if (!saved.acceptance.rafWithinAllowance || !saved.acceptance.appRenderedCadenceWithinAllowance || !saved.acceptance.noRepeatedNewTransitionOver100 || !saved.acceptance.noRepeatedNewRenderedTransitionOver50 || !saved.acceptance.noRepeatedNewRenderedTransitionOver100 || saved.errors.length) process.exitCode = 1;
+} else {
 try {
   for (const [width, height] of viewports) for (const backend of backends) for (const repeat of [1, 2]) {
     const pair = {};
@@ -200,7 +247,9 @@ try {
     runtimeErrors: report.errors.length,
     note: 'The 100 ms repeatable hitch indicator supplements raw 33/50/100 ms interval counts; review the raw burst-relative frames for smaller repeated stalls. CPU submission allowances are reported separately and do not substitute for cadence or completed GPU measurements.',
   };
+  await addRenderedCadenceAssessment(report);
   if (!report.acceptance.rafWithinAllowance || !report.acceptance.noRepeatedNewTransitionOver100 || report.errors.length) process.exitCode = 1;
+  if (!report.acceptance.appRenderedCadenceWithinAllowance || !report.acceptance.noRepeatedNewRenderedTransitionOver50 || !report.acceptance.noRepeatedNewRenderedTransitionOver100) process.exitCode = 1;
 } catch (error) {
   report.failed = error.stack; process.exitCode = 1; console.error(error);
   if (page && !page.isClosed()) await page.screenshot({ path: `${out}/FAILED.png` }).catch(() => {});
@@ -208,3 +257,4 @@ try {
   await browser.close(); await writeFile(`${out}/report.json`, JSON.stringify(report, null, 2));
 }
 console.log(JSON.stringify({ runs: report.runs.length, acceptance: report.acceptance, failed: report.failed }));
+}
