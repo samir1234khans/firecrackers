@@ -7,13 +7,15 @@ const candidate=process.env.ALWAYS_URL||'http://127.0.0.1:4173/';
 const baseline=process.env.ALWAYS_BASELINE||'https://firecrackers.mainandmany.com/';
 const out=process.argv[2]||'test-results/always-performance';await mkdir(out,{recursive:true});
 const backends=(process.env.ALWAYS_PERF_BACKENDS||'webgpu,webgl,canvas').split(',');
-const repeats=Number(process.env.ALWAYS_PERF_REPEATS||4);
-const seconds=Number(process.env.ALWAYS_PERF_SECONDS||15);
+const quick=process.env.ALWAYS_PERF_QUICK==='1';
+const repeats=Number(process.env.ALWAYS_PERF_REPEATS||(quick?1:4));
+const seconds=Number(process.env.ALWAYS_PERF_SECONDS||(quick?30:15));
 const quality=process.env.ALWAYS_PERF_QUALITY||'standard';
 assert.ok(['low','standard','ultra'].includes(quality));
-assert.ok(Number.isInteger(repeats)&&repeats>=4&&repeats<=6);
+assert.ok(Number.isInteger(repeats)&&repeats>=(quick?1:4)&&repeats<=6);
 assert.ok(Number.isFinite(seconds)&&seconds>=15);
 const report={candidate,baseline,completed:false,method:'Sequential installed Chrome, counterbalanced baseline/candidate legacy workloads, then four paces with alternating order. Both sources receive compatible v2 preferences. Existing test-only closure fixture resets the seeded Simulation outside sampling, with the clock frozen until UI Start. Fixed scalar observer; normal real-time clock. No completed GPU timing or physical-phone qualification.',runs:[],comparisons:[],errors:[],failed:null};
+report.quick=quick;report.qualification=quick?'User-requested shortened new-mode spot checks and five-minute peak; one unrecorded pass per pace/backend. No new paired legacy comparison or four-repeat density qualification is claimed.':'Full counterbalanced legacy comparison, repeated new-mode samples and ten-minute peak';
 const isolation=await performanceIsolation();report.isolation=isolation.evidence;
 let browser;
 const quantile=(v,q)=>{if(!v.length)return null;const a=[...v].sort((a,b)=>a-b);return a[Math.min(a.length-1,Math.floor(a.length*q))];};
@@ -21,7 +23,7 @@ function summary(frames){const rendered=frames.filter(f=>f.newRender&&f.rendered
 const labels=['Low','Medium','High','Super High'];
 async function condition(origin,source,backend,workload,repeat,duration){
  isolation.check();
- const errors=[];const context=await browser.newContext({viewport:{width:1280,height:800},serviceWorkers:'block',reducedMotion:'no-preference',...(source==='candidate'&&repeat===0&&typeof workload==='number'?{recordVideo:{dir:`${out}/videos`,size:{width:1280,height:800}}}:{})});
+ const errors=[];const context=await browser.newContext({viewport:{width:1280,height:800},serviceWorkers:'block',reducedMotion:'no-preference',...(!quick&&source==='candidate'&&repeat===0&&typeof workload==='number'?{recordVideo:{dir:`${out}/videos`,size:{width:1280,height:800}}}:{})});
  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(quality=>localStorage.setItem('firecrackers.preferences.v1',JSON.stringify({version:2,onboarded:true,quality,reducedFlashes:false,sound:false,placementMode:'random'})),quality);
  const url=new URL(origin);url.searchParams.set('backend',backend);url.searchParams.set('qa','1');url.searchParams.set('seed','42');
@@ -62,7 +64,7 @@ async function condition(origin,source,backend,workload,repeat,duration){
 }
 try{
  isolation.check();browser=await chromium.launch({channel:'chrome',headless:true});
- for(const backend of backends){
+ if(!quick)for(const backend of backends){
   for(let repeat=0;repeat<repeats;repeat++){
    for(const source of repeat%2?['candidate','baseline']:['baseline','candidate'])await condition(source==='baseline'?baseline:candidate,source,backend,'festival',repeat,seconds);
   }
@@ -70,8 +72,8 @@ try{
   const before=await frames('baseline'),after=await frames('candidate');const allowance=Math.max(2,before.renderP95*.2);
   const comparison={backend,before,after,allowance,passed:after.renderP95-before.renderP95<=allowance};report.comparisons.push(comparison);
  }
- for(const backend of backends)for(let repeat=0;repeat<repeats;repeat++)for(const pace of repeat%2?[4,3,2,1]:[1,2,3,4])await condition(candidate,'candidate',backend,pace,repeat,repeat===0?60:seconds);
- if(process.env.ALWAYS_PERF_PEAK!=='0')await condition(candidate,'candidate',backends[0],4,'peak',600);
+ for(const backend of backends)for(let repeat=0;repeat<repeats;repeat++)for(const pace of repeat%2?[4,3,2,1]:[1,2,3,4])await condition(candidate,'candidate',backend,pace,repeat,!quick&&repeat===0?60:seconds);
+ if(process.env.ALWAYS_PERF_PEAK!=='0')await condition(candidate,'candidate',backends[0],4,'peak',quick?300:600);
  assert.deepEqual(report.errors,[]);assert.ok(report.comparisons.every(c=>c.passed),'Legacy p95 regression gate failed; preserve all measured evidence');
  isolation.check();report.completed=true;
 }catch(e){report.failed=e.stack;process.exitCode=1;console.error(e);}finally{await browser?.close();await new Promise(resolve=>setTimeout(resolve,2500));try{isolation.check();}catch(e){report.failed=e.stack;report.completed=false;process.exitCode=1;}isolation.close();await writeFile(`${out}/report.json`,JSON.stringify(report,null,2));}
