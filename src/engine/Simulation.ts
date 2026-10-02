@@ -442,7 +442,7 @@ export class Simulation {
     private directShow() {
         if (this.show === 'always') {
             this.always.tick(1 / 60);
-            const family = this.always.choose(this.time);
+            const family = this.always.choose(this.time, this.reducedFlashes);
             if (family < 0) return;
             const b = BUDGETS[this.quality];
             const heads = this.heads.count + this.futureHeads;

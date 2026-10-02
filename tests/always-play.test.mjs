@@ -80,3 +80,9 @@ test('featured bag entries cannot repeat the immediately preceding connector',()
  for(let i=0;i<36000;i++){const t=i/60;d.tick(1/60);const family=d.choose(t);if(family>=0){assert.notEqual(family,previous);previous=family;d.result(t,true,0,false);}}
  assert.ok(d.counts.every(n=>n>0));
 });
+
+test('enabling reduced flashes retimes an already scheduled fast cue before admission',()=>{
+ const s=show(4);run(s,1);assert.equal(s.always.admitted,1);const last=s.always.lastAdmission;
+ s.reducedFlashes=true;run(s,2);assert.equal(s.always.admitted,1);assert.ok(s.time<last+3);
+ run(s,1);assert.equal(s.always.admitted,2);assert.ok(s.always.lastAdmission>=last+3);
+});

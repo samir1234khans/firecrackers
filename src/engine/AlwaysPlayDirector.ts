@@ -12,6 +12,7 @@ export class AlwaysPlayDirector {
     pace: AlwaysPace = 2;
     interval = INTERVALS[1];
     next = 0;
+    lastAdmission = -3;
     family = -1;
     feature = false;
     admitted = 0;
@@ -42,7 +43,7 @@ export class AlwaysPlayDirector {
     reset(time: number) {
         this.rand = randomStream(this.seed ^ 0x73cf41b5);
         this.interval = INTERVALS[this.pace - 1];
-        this.next = time + .5; this.nextFeature = time; this.nextRest = time + 30 + this.rand() * 15;
+        this.next = time + .5; this.lastAdmission = time - 3; this.nextFeature = time; this.nextRest = time + 30 + this.rand() * 15;
         this.cursor = 13; this.family = -1; this.lastHeavy = -100; this.previous = -1; this.phrase = 0;
         this.admitted = this.denied = this.expired = this.pressure = 0; this.counts.fill(0); this.denialReasons.fill(0);
         this.demand = 1; this.limited = false; this.sampleCount = this.sampleIndex = 0;
@@ -56,7 +57,8 @@ export class AlwaysPlayDirector {
         if (this.bag[0] === this.previous) { const v = this.bag[0]; this.bag[0] = this.bag[1]; this.bag[1] = v; }
         this.cursor = 0;
     }
-    choose(time: number): number {
+    choose(time: number, reducedFlashes = false): number {
+        if (reducedFlashes && time < this.lastAdmission + 3) return -1;
         if (time < this.next) return -1;
         if (this.family >= 0) return this.family;
         this.feature = time >= this.nextFeature;
@@ -86,6 +88,7 @@ export class AlwaysPlayDirector {
             this.next = time + .5 + this.rand() * .25;
             return;
         }
+        this.lastAdmission = time;
         this.admitted++; this.counts[this.family]++; this.previous = this.family;
         if (this.family >= 4) this.lastHeavy = time;
         if (this.feature) { this.cursor++; this.nextFeature = time + FEATURE_GAPS[this.pace - 1]; }
@@ -118,7 +121,7 @@ export class AlwaysPlayDirector {
         } else { this.slowSince = this.healthySince = -1; }
     }
     snapshot() {
-        return { pace: this.pace, interval: this.interval, demand: this.demand, next: this.next, pending: this.family,
+        return { pace: this.pace, interval: this.interval, demand: this.demand, next: this.next, lastAdmission: this.lastAdmission, pending: this.family,
             feature: this.feature, phrase: this.phrase, admitted: this.admitted, denied: this.denied, expired: this.expired,
             counts: Array.from(this.counts), deniedCapacity: this.denialReasons[0], deniedHeadroom: this.denialReasons[1], deniedPressure: this.denialReasons[2], limited: this.limited, pressure: this.pressure, bufferCapacity: 13, feedbackCapacity: 120 };
     }
