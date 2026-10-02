@@ -30,7 +30,7 @@ async function condition(origin,source,backend,workload,repeat,duration){
  if(backend!=='canvas')await page.waitForFunction(()=>Object.values(window.__firecrackersQA.snapshot().authoredAssetStates||{}).every(v=>v==='active'),{},{timeout:90000});
  const release=await page.evaluate(()=>fetch('/release.json').then(r=>r.json()));
  const identity=await page.evaluate(async backend=>{
-  if(backend==='webgpu'){const a=await navigator.gpu.requestAdapter();return a?{vendor:a.info.vendor,architecture:a.info.architecture,fallback:a.info.isFallbackAdapter}:null;}
+  if(backend==='webgpu'){const a=await navigator.gpu.requestAdapter({powerPreference:'high-performance'});return a?{vendor:a.info.vendor,architecture:a.info.architecture,fallback:a.info.isFallbackAdapter}:null;}
   if(backend==='webgl'){const c=[...document.querySelectorAll('canvas')].find(c=>c.getContext('webgl2'));const g=c?.getContext('webgl2');const e=g?.getExtension('WEBGL_debug_renderer_info');return{driver:e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):''};}
   return {implementation:'Canvas 2D'};
  },backend);
@@ -48,6 +48,7 @@ async function condition(origin,source,backend,workload,repeat,duration){
  const before=await page.evaluate(()=>window.__firecrackersQA.snapshot());const frames=[];
  for(let remaining=duration;remaining>0;remaining-=15){isolation.check();const data=await sampleWaterTiming(page,'always',Math.min(15,remaining)*1000,null);frames.push(...data.frames);isolation.check();}
  const after=await page.evaluate(()=>window.__firecrackersQA.snapshot());await validateWaterTimingProbe(page);
+ const finalRelease=await page.evaluate(()=>fetch('/release.json').then(r=>r.json()));assert.equal(finalRelease.sha256,release.sha256,'Source changed during collection');assert.equal(before.quality,quality);assert.equal(after.quality,quality);
  assert.equal(after.backend,{webgpu:'WebGPU',webgl:'WebGL 2',canvas:'Canvas 2D · compatibility'}[backend]);assert.equal(after.show,typeof workload==='number'?'always':'festival');
  const stem=`${source}-${backend}-${workload}-${repeat}`;const timing=summary(frames);
  await writeFile(`${out}/${stem}-frames.json`,JSON.stringify(frames));await page.screenshot({path:`${out}/${stem}-running.png`});
