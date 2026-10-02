@@ -11,7 +11,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/engine/catalog.ts",
+    "src/engine/catalog.ts", "src/platform/preferences.ts",
     "src/engine/Pool.ts",
     "src/engine/Simulation.ts",
     "src/engine/Trails.ts",

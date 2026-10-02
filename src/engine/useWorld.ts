@@ -11,6 +11,7 @@ import { advanceVisibleFrame } from './VisibleFrame';
 import { PauseIntent } from '../platform/PauseIntent';
 import { parsePresentation } from '../platform/presentation';
 import type { Presentation } from '../platform/presentation';
+import type { AlwaysPace } from './AlwaysPlayDirector';
 import type { ShowPreset } from './catalog';
 import type { Preferences } from '../platform/preferences';
 import type { RendererPort } from './RendererPort';
@@ -105,6 +106,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const state = new Simulation(presentation.seed);
         sim.current = state;
         state.setLaunchProfileResolver((id, placement) => renderer.current?.resolveLaunchProfile(id, placement));
+        state.always.setPace(display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace);
         state.selected = prefs.current.family;
         state.setPlacement(prefs.current.placement);
         state.setPlacementMode(prefs.current.placementMode);
@@ -288,6 +290,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                         qaStallSamplesRemaining--;
                         qaStallSamplesUsed++;
                     }
+                    if (rendered && warmFrames > 60 && state.show === 'always') state.always.observe(state.time, observedMs, continuous);
                     if (rendered && graphics && !graphics.backend.startsWith('Canvas') &&
                         overload.observe(observedMs, continuous))
                         void recoverOverload();
@@ -613,10 +616,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         intent.current.block('overlay', value);
         syncPause();
     }, [syncPause]);
-    const start = (preset: ShowPreset) => {
+    const start = (preset: ShowPreset, pace?: AlwaysPace) => {
         if (!status.current.ready || status.current.error)
             return;
         intent.current.setManual(false);
+        if (preset === 'always') sim.current.always.setPace(pace ?? (display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace));
         sim.current.startShow(preset);
         syncPause();
     };

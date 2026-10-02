@@ -1,3 +1,7 @@
+Always Play implementation: [candidate evidence](evidence/always-play-2026-10-02/IMPLEMENTATION.md), [isolated preview](https://firecrackers-always-preview.allygym-api.workers.dev/) and [PR #32](https://github.com/samir1234khans/firecrackers/pull/32). Production remains `.11`; qualification is in progress.
+
+Planned next mode: [Always Play with four quantity levels](plans/ALWAYS-PLAY.md) defines Low, Medium, High and Super High endless playback, controls, bounded scheduling and qualification. Planning only; no application changes or deployment.
+
 Latest production: [moonlit water and immersive controls / build `.11`](evidence/moonlit-water-2026-10-01/PRODUCTION.md) records the owner-authorized main promotion, passed qualification, actual deployment and rollback. Earlier candidate/release entries below are historical.
 
 Current water/immersion candidate: [build `.11` qualification](evidence/moonlit-water-2026-10-01/FINAL-QUALIFICATION.md), [matched captures](evidence/moonlit-water-2026-10-01/final/comparisons.html) and [isolated preview](https://firecrackers-moonlit-preview.allygym-api.workers.dev/). Production remains `.4` pending performance and CI.

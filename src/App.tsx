@@ -196,7 +196,9 @@ export default function App() {
   };
   const chooseMode = (preset: ShowPreset | null) => {
     if (preset) change('preset', preset);
-    world.setShowMode(preset);
+    world.sim.current.always.setPace(prefs.alwaysPace);
+    if (preset === 'always' && world.sim.current.show !== 'always') world.start(preset);
+    else world.setShowMode(preset);
     wake();
   };
   const onModeOpen = useCallback((value: boolean) => {
@@ -300,7 +302,7 @@ export default function App() {
     </>}</div>
 
     <div className='lower-controls chrome' inert={hidden || Boolean(overlay) || preparing || undefined}>
-      <ShowModeKnob value={state.show} disabled={!world.ready || Boolean(world.error)} onChange={chooseMode} onOpenChange={onModeOpen}/>
+      <ShowModeKnob pace={prefs.alwaysPace} limited={state.always.limited} reducedFlashes={prefs.reducedFlashes} onPaceChange={pace => { world.sim.current.always.setPace(pace); change('alwaysPace', pace); world.refresh(); }} value={state.show} disabled={!world.ready || Boolean(world.error)} onChange={chooseMode} onOpenChange={onModeOpen}/>
       <div inert={modeOpen || undefined}>
         <LaunchPositionControl value={state.placement} random={state.placementMode === 'random'} disabled={!world.ready || Boolean(world.error)} onChange={choosePosition} onRandomChange={chooseRandom} onPreview={setPositionPreview}/>
       </div>
@@ -349,7 +351,7 @@ export default function App() {
       <section className='panel-pane settings-tab-panel' role='tabpanel' id='settings-display' aria-labelledby='settings-tab-display' hidden={settingsSection !== 'display'} tabIndex={0}>
       <PresentationSettings value={presentation} onChange={setPresentation} disabled={!world.ready || Boolean(world.error)} onStart={() => {
         setPresentation(p => ({ ...p, mode: p.mode === 'interactive' ? 'scene' : p.mode, show: p.show || 'calm' }));
-        world.start(presentation.show || 'calm');
+        world.start(presentation.show || 'calm', presentation.pace);
         world.setOverlay(false);
         setOverlay(null);
         setHidden(true);

@@ -1,6 +1,7 @@
 import { BUDGETS, FAMILIES, clamp, familyIndex, familyReservation, splitChildCount, hash01, randomStream } from './catalog.js';
 import type { FamilyId, Quality, ShowPreset } from './catalog.js';
 import type { LaunchProfile } from './LaunchProfile.js';
+import { AlwaysPlayDirector } from './AlwaysPlayDirector.js';
 import { Pool } from './Pool.js';
 import { grandRecipe, coolGrandStar, carrierTint } from './GrandEffects.js';
 import { signatureRecipe, evolveSignature, signatureTint } from './FlagshipEffects.js';
@@ -92,6 +93,7 @@ export class Simulation {
     prepared = true;
     holding = false;
     holdProgress = 0;
+    readonly always: AlwaysPlayDirector;
     show: ShowPreset | null = null;
     launched = 0;
     bursts = 0;
@@ -118,6 +120,7 @@ export class Simulation {
     private launchProfileResolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null = null;
     setLaunchProfileResolver(resolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
     constructor(readonly seed = 20260916) {
+        this.always = new AlwaysPlayDirector(seed);
         this.launchRng = randomStream(seed);
         this.showRng = randomStream(seed ^ 0x5bf03635);
         this.smokeRng = randomStream(seed ^ 0x34167829);
@@ -188,6 +191,7 @@ export class Simulation {
     ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement?: number) {
         if (placement !== undefined && !Number.isFinite(placement)) return false;
         if (this.paused) return false;
+        if (source === 'manual' && this.show === 'always') this.stopShow(false);
         if (source === 'manual' && (!this.prepared || this.committed)) return false;
         const f = FAMILIES[family];
         const reserve = this.reserveFor(family);
@@ -231,6 +235,8 @@ export class Simulation {
     }
     /** Launch one explicit family through the normal fuse and flight, committing selection and pad placement only on admission. */
     igniteFamily(id: FamilyId, placement?: number) {
+        const takingOver = this.show === 'always';
+        if (takingOver) { this.stopShow(false); if (FAMILIES.some(entry => entry.id === id)) this.selected = id; }
         const family = FAMILIES.findIndex(entry => entry.id === id);
         if (family < 0 || (placement !== undefined && !Number.isFinite(placement)) || !this.ignite('manual', family, placement)) return false;
         this.selected = id;
@@ -239,6 +245,7 @@ export class Simulation {
     }
     /** Explicit drawer drop: same admission/reservation and seeded recipe as a rocket. */
     burstAt(id: FamilyId, x: number, y: number, effectScale = 1) {
+        if (this.show === 'always') this.stopShow(false);
         if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(effectScale) || effectScale <= 0 || effectScale > 1 || !this.canLaunchFamily(id)) return false;
         const family = familyIndex(id);
         if (!this.ignite('manual', family, this.placement)) return false;
@@ -264,12 +271,14 @@ export class Simulation {
         this.paused = false;
         this.show = preset;
         this.showStart = this.time;
+        if (preset === 'always') this.always.reset(this.time);
         this.nextCue = this.time + 0.5;
         this.message = preset === 'finale' ? 'A finale, then a quiet sky.' : 'The night is in good hands.';
     }
     stopShow(announce = true) {
         if (this.show && announce) this.message = 'Automatic show stopped. The sky is yours.';
         this.show = null;
+        this.always.family = -1;
     }
     reset() {
         this.signatureStages.fill(0);
@@ -286,6 +295,7 @@ export class Simulation {
         this.accumulator = 0;
         this.paused = false;
         this.show = null;
+        this.always.reset(0);
         this.launched = 0;
         this.bursts = 0;
         this.sequence = 0;
@@ -313,6 +323,7 @@ export class Simulation {
     drainEvents() { const e = this.events; this.events = []; return e; }
     snapshot() {
         return {
+            always: this.always.snapshot(), futureHeads: this.futureHeads, activeUnits: this.activeUnits, headCount: this.heads.count, trailCount: this.trails.count,
             ready: this.ready, paused: this.paused, selected: this.selected, placement: this.placement,
             placementMode: this.placementMode, nextPlacement: this.placement, committedPlacement: this.committed?.normalizedPlacement ?? null,
             holding: this.holding, holdProgress: this.holdProgress, show: this.show, launched: this.launched,
@@ -429,6 +440,19 @@ export class Simulation {
         }
     }
     private directShow() {
+        if (this.show === 'always') {
+            this.always.tick(1 / 60);
+            const family = this.always.choose(this.time, this.reducedFlashes);
+            if (family < 0) return;
+            const b = BUDGETS[this.quality];
+            const heads = this.heads.count + this.futureHeads;
+            const pressure = Math.max(heads / this.heads.capacity, this.trails.count / b.trails, this.smoke.count / b.smoke * .94);
+            const solo = this.activeUnits === 0 && heads === 0;
+            const room = solo || this.always.feature || (this.activeUnits + FAMILIES[family].cost <= b.units - 1 && heads + this.reserveFor(family) <= this.heads.capacity - 520);
+            const admitted = room && (heads / this.heads.capacity < .90 || solo) && this.canReserve(family) && this.ignite('auto', family);
+            this.always.result(this.time, admitted, pressure, this.reducedFlashes, !room ? 1 : heads / this.heads.capacity >= .90 && !solo ? 2 : 0);
+            return;
+        }
         if (this.show === 'finale' && this.time - this.showStart >= 32) {
             this.stopShow(false);
             this.message = 'Finale complete. Stay for the embers.';

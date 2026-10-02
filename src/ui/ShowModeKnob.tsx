@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Crown, Hand, Leaf, Sparkles, X } from 'lucide-react';
+import { Crown, Hand, Leaf, Sparkles, Infinity, X } from 'lucide-react';
+import { PACE_LABELS, type AlwaysPace } from '../engine/AlwaysPlayDirector';
 import type { ShowPreset } from '../engine/catalog';
 
-type Props = { value: ShowPreset | null; disabled?: boolean; onChange: (value: ShowPreset | null) => void; onOpenChange?: (open: boolean) => void };
+type Props = { pace: AlwaysPace; limited: boolean; reducedFlashes: boolean; onPaceChange: (pace: AlwaysPace) => void; value: ShowPreset | null; disabled?: boolean; onChange: (value: ShowPreset | null) => void; onOpenChange?: (open: boolean) => void };
 const MODES = [
   { value: null, label: 'Manual', direction: 'up', Icon: Hand },
   { value: 'calm' as const, label: 'Calm', direction: 'right', Icon: Leaf },
@@ -10,7 +11,8 @@ const MODES = [
   { value: 'finale' as const, label: 'Finale', direction: 'left', Icon: Crown },
 ];
 function direction(dx: number, dy: number) { return Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 1 : 3 : dy > 0 ? 2 : 0; }
-export function ShowModeKnob({ value, disabled = false, onChange, onOpenChange }: Props) {
+export function ShowModeKnob({ value, pace, limited, reducedFlashes, onPaceChange, disabled = false, onChange, onOpenChange }: Props) {
+  const [alwaysPanel, setAlwaysPanel] = useState(false);
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState<number | null>(null);
   const button = useRef<HTMLButtonElement>(null);
@@ -25,12 +27,12 @@ export function ShowModeKnob({ value, disabled = false, onChange, onOpenChange }
   useEffect(() => {
     if (!open) return;
     const d = dialog.current; d?.showModal();
-    d?.querySelector<HTMLButtonElement>(`[data-direction='${MODES.find(m => m.value === value)?.direction ?? 'up'}']`)?.focus();
+    d?.querySelector<HTMLButtonElement>(`[data-direction='${value === 'always' ? 'always' : MODES.find(m => m.value === value)?.direction ?? 'up'}']`)?.focus();
     return () => { d?.close(); };
   }, [open]); // Selection does not rewrite focus while a chooser is open.
   useEffect(() => () => { if (opened.current) notify.current?.(false); }, []);
   useEffect(() => { if (disabled) { cancelGesture(); if (open) close(); } }, [disabled]);
-  const selected = MODES.find(m => m.value === value) ?? MODES[0];
+  const selected = value === 'always' ? { value: 'always', label: 'Always Play', Icon: Infinity } : MODES.find(m => m.value === value) ?? MODES[0];
   const current = preview === null ? selected : MODES[preview];
   return <div className='show-mode-control chrome' data-mode-control data-stage-control onKeyDown={event => {
     if (event.key === 'Escape' && gesture.current) { event.preventDefault(); event.stopPropagation(); cancelGesture(); }
@@ -50,7 +52,7 @@ export function ShowModeKnob({ value, disabled = false, onChange, onOpenChange }
       if (g.active) { suppressClick.current = true; if (g.index !== null) onChange(MODES[g.index].value); ownPause(false); setPreview(null); event.preventDefault(); event.stopPropagation(); }
     }} onPointerCancel={cancelGesture} onLostPointerCapture={() => { if (gesture.current) cancelGesture(); }} onClick={event => {
       event.stopPropagation(); if (suppressClick.current && event.detail > 0) { suppressClick.current = false; return; }
-      suppressClick.current = false; setOpen(true); ownPause(true);
+      suppressClick.current = false; setAlwaysPanel(value === 'always'); setOpen(true); ownPause(true);
     }}><current.Icon size={25} aria-hidden='true'/></button>
     {preview !== null && <span className='mode-preview' data-control-popup role='status'>{current.label}</span>}
     {open && <dialog ref={dialog} className='mode-selector' data-control-popup data-stage-control aria-label='Choose show mode' onCancel={event => { event.preventDefault(); close(); }} onClick={event => {
@@ -58,10 +60,10 @@ export function ShowModeKnob({ value, disabled = false, onChange, onOpenChange }
     }} onKeyDown={event => {
       event.stopPropagation();
       if (event.key !== 'Tab' || event.ctrlKey || event.metaKey || event.altKey) return;
-      const stops = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')).filter(element => element.tabIndex >= 0 && element.getClientRects().length > 0);
+      const stops = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled)')).filter(element => element.tabIndex >= 0 && element.getClientRects().length > 0);
       const first = stops[0], last = stops[stops.length - 1];
       const active = document.activeElement;
-      if (!first || !last || !stops.includes(active as HTMLButtonElement) || (event.shiftKey ? active === first : active === last)) {
+      if (!first || !last || !stops.includes(active as HTMLElement) || (event.shiftKey ? active === first : active === last)) {
         event.preventDefault();
         (event.shiftKey ? last : first)?.focus({ preventScroll: true });
         if (!first) event.currentTarget.focus({ preventScroll: true });
@@ -69,6 +71,15 @@ export function ShowModeKnob({ value, disabled = false, onChange, onOpenChange }
     }}>
       <button className='mode-selector-close' type='button' aria-label='Close show mode' onClick={close}><X size={17}/></button>
       {MODES.map(mode => <button key={mode.direction} type='button' data-direction={mode.direction} aria-pressed={value === mode.value} onClick={() => { onChange(mode.value); close(); }}><mode.Icon size={21} aria-hidden='true'/><span>{mode.label}</span></button>)}
+      <button className='always-entry' type='button' data-direction='always' aria-pressed={value === 'always'} aria-expanded={alwaysPanel} onClick={() => setAlwaysPanel(v => !v)}><Infinity size={21} aria-hidden='true'/><span>Always Play</span></button>
+      {alwaysPanel && <section className='always-settings' aria-label='Always Play settings'>
+        <p>Keep the night going until you stop it.</p>
+        <fieldset><legend>Quantity</legend><div className='pace-options'>{PACE_LABELS.map((label, index) => <label key={label}>
+          <input type='radio' name='always-pace' value={index + 1} checked={pace === index + 1} onChange={() => onPaceChange((index + 1) as AlwaysPace)}/><span>{index + 1} {label}</span>
+        </label>)}</div></fieldset>
+        {value === 'always' && (limited || reducedFlashes) && <p className='pace-notice'>{PACE_LABELS[pace - 1]} · {reducedFlashes ? 'reduced flashes' : 'adjusted for smooth playback'}</p>}
+        <button className='always-action' type='button' onClick={() => { onChange(value === 'always' ? null : 'always'); close(); }}>{value === 'always' ? 'Stop Always Play' : 'Start Always Play'}</button>
+      </section>}
     </dialog>}
   </div>;
 }

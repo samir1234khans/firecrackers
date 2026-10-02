@@ -76,6 +76,13 @@ jobs:
           IMMERSIVE_SOFTWARE: '1'
           IMMERSIVE_BACKENDS: webgl,canvas
         run: node tests/immersive-browser.mjs /tmp/immersive-evidence
+      - name: Four-pace Always Play and manual/immersive lifecycle
+        if: matrix.project == 'desktop'
+        env:
+          ALWAYS_SOFTWARE: '1'
+          ALWAYS_BACKENDS: webgl,canvas
+          ALWAYS_CAPTURES: /tmp/always-play-captures
+        run: node tests/always-play-browser.mjs /tmp/always-play-evidence
       - name: Endpoint launch composition
         if: matrix.project == 'desktop'
         env:
