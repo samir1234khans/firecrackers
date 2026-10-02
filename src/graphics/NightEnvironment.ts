@@ -29,6 +29,7 @@ export class NightEnvironment {
   private terraceDepth = 5.3;
   private readonly terraceBounds = new THREE.Box3();
   private readonly projectedTerrace = new THREE.Vector3();
+  private readonly contactIllumination = new Float32Array(3);
   private readonly floor: THREE.Mesh;
   private readonly sky: THREE.Mesh;
   readonly skyTexture: THREE.CanvasTexture;
@@ -317,13 +318,10 @@ export class NightEnvironment {
     this.river.update(sim, visible, motionAllowed, this.waterFrame);
     this.wetEdge.visible = visible && Boolean(this.terrace);
     if (this.terrace) this.terrace.visible = visible;
-    let energy = 0, r = 0, g = 0, b = 0;
-    for (const light of sim.lights) {
-      const e = Math.exp(-light.age * 1.7) * light.strength;
-      energy += e; r += light.r * e; g += light.g * e; b += light.b * e;
-    }
+    sim.burstLights.sample(0, 4.65, -8, 70, this.contactIllumination);
+    const [r, g, b] = this.contactIllumination, energy = Math.max(r, g, b);
     if (energy > .001) this.washMaterial.color.setRGB(r / energy, g / energy, b / energy);
-    this.washMaterial.opacity = Math.min(.18, energy * (sim.reducedFlashes ? .08 : .12));
+    this.washMaterial.opacity = Math.min(.12, energy * .10);
     this.wetEdgeMaterial.emissive.setRGB(.006 + r * .012, .010 + g * .012, .016 + b * .012);
   }
 

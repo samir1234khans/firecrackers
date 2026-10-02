@@ -11,6 +11,7 @@
     "skipLibCheck": true
   },
   "include": [
+    "src/engine/ShowMusic.ts",
     "src/engine/catalog.ts", "src/platform/preferences.ts",
     "src/engine/Pool.ts",
     "src/engine/Simulation.ts",

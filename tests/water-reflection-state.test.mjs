@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three/webgpu';
 import { WaterReflection } from '../.test-build/graphics/WaterReflection.js';
+import { BurstLightFrame } from '../.test-build/engine/BurstLightFrame.js';
 
 function fixture() {
   const water = new WaterReflection();
@@ -41,7 +42,7 @@ function fixture() {
     },
   };
   const orient = (view, reflecting = false) => { state.orient = view; state.reflecting = reflecting; };
-  const sim = { quality: 'ultra', reducedFlashes: true, time: 4, lights: [] };
+  const sim = { quality: 'ultra', reducedFlashes: true, time: 4, lights: [], burstLights: new BurstLightFrame() };
   const restored = () => {
     for (const key of ['target', 'mrt', 'autoClear', 'alpha', 'scissorTest']) assert.equal(state[key], original[key], key);
     for (const key of ['clear', 'viewport', 'scissor']) assert.deepEqual(state[key], original[key], key);

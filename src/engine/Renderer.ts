@@ -70,6 +70,14 @@ export class FireworkRenderer {
     private mode: DisplayMode = 'interactive';
     private disposed = false;
     private initialized = false;
+    private gpuFailure = '';
+    private readonly gpuErrors: string[] = [];
+    private device?: GPUDevice;
+    private readonly gpuErrorHandler = (event: GPUUncapturedErrorEvent) => {
+        if (this.disposed) return;
+        if (this.gpuErrors.length === 8) this.gpuErrors.shift();
+        this.gpuErrors.push(`${event.error.constructor.name}: ${event.error.message}`);
+    };
     private lossHandler: (event: Event) => void;
     backend = 'Starting';
     constructor(private host: HTMLDivElement, private sim: Simulation, private onFailure: (message: string) => void, forceWebGL = false) {
@@ -118,6 +126,7 @@ export class FireworkRenderer {
         this.post.outputNode = vec4(source.rgb.add(glow), alpha);
         this.lossHandler = (event: Event) => {
             event.preventDefault();
+            this.gpuFailure = 'webglcontextlost';
             if (!this.disposed) this.onFailure('Graphics were interrupted. Retry to return to a fresh sky.');
         };
         this.renderer.domElement.addEventListener('webglcontextlost', this.lossHandler);
@@ -127,8 +136,14 @@ export class FireworkRenderer {
         if (this.disposed) { this.renderer.dispose(); return; }
         this.initialized = true;
         this.backend = (this.renderer.backend as unknown as { isWebGPUBackend?: boolean }).isWebGPUBackend ? 'WebGPU' : 'WebGL 2';
-        const device = (this.renderer.backend as unknown as { device?: { lost: Promise<unknown> } }).device;
-        device?.lost.then(() => { if (!this.disposed) this.onFailure('Graphics were interrupted. Retry with lower quality.'); });
+        const device = (this.renderer.backend as unknown as { device?: GPUDevice }).device;
+        this.device = device;
+        device?.addEventListener('uncapturederror', this.gpuErrorHandler);
+        device?.lost.then(info => {
+            if (this.disposed) return;
+            this.gpuFailure = `device-lost:${info.reason}:${info.message}`;
+            this.onFailure('Graphics were interrupted. Retry with lower quality.');
+        });
         this.host.replaceChildren(this.renderer.domElement);
         this.host.dataset.renderer = 'cinematic-v2';
         this.host.dataset.stage = 'spatial-v3';
@@ -287,6 +302,7 @@ export class FireworkRenderer {
     render() {
         if (this.disposed || !this.initialized) return;
         const start = performance.now(), sim = this.sim;
+        sim.burstLights.update(sim.lights, sim.quality, sim.reducedFlashes);
         // Apply at a frame boundary. Paper and rocket meshes wait for an interval
         // without an airborne body; an eight-second cap also serves continuous shows.
         if (this.pendingAssetCount) {
@@ -377,9 +393,9 @@ export class FireworkRenderer {
         const parent = this.host.parentElement;
         parent?.style.setProperty('--ground-px', `${groundPixels}px`);
         parent?.style.setProperty('--placement-left', `${(this.projected.x + 1) * 50}%`);
-        const light = sim.lights[sim.lights.length - 1];
+        const light = sim.burstLights.count ? sim.burstLights.sources[0] : null;
         if (light) {
-            const intensity = Math.exp(-light.age * 2) * light.strength;
+            const intensity = sim.burstLights.energies[0];
             this.blastLight.position.set(light.x, light.y, light.z);
             this.blastLight.color.setRGB(light.r, light.g, light.b);
             this.blastLight.intensity = intensity * 60;
@@ -423,6 +439,7 @@ export class FireworkRenderer {
         const apex = r ? new THREE.Vector3(r.launchProfile?.aimX ?? r.x, r.top + (r.launchProfile?.prop?.shellOffset ?? SHELL_LOCAL_Y * ROCKET_SCALE[1]), r.z).project(this.camera) : null;
         const profile=r?.launchProfile??this.nextProfile(),prop=profile.prop??this.compositions[familyIndex(this.sim.selected)];
         return {
+            gpuFailure: this.gpuFailure, gpuErrors: [...this.gpuErrors], pendingGraphicsAssets: this.pendingAssetCount,
             ...propProjectionDiagnostics(prop,r?.padX??profile.padX!, (x,y)=>this.screenPoint(x,y)),
             launchBounds:this.launchBounds[r?.family??familyIndex(this.sim.selected)],nextLaunchProfile:this.nextProfile(),
             authoredAssets: this.host.dataset.assets || 'procedural fallback',
@@ -442,6 +459,7 @@ export class FireworkRenderer {
     dispose() {
         if (this.disposed) return;
         this.disposed = true;
+        this.device?.removeEventListener('uncapturederror', this.gpuErrorHandler);
         cancelAnimationFrame(this.assetFrame);
         this.renderer.domElement.removeEventListener('webglcontextlost', this.lossHandler);
         this.particles.dispose();

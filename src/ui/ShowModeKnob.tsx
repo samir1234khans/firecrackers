@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Crown, Hand, Leaf, Sparkles, Infinity, X } from 'lucide-react';
 import { PACE_LABELS, type AlwaysPace } from '../engine/AlwaysPlayDirector';
 import type { ShowPreset } from '../engine/catalog';
+import { SHOW_THEMES, THEME_NAMES, type ShowTheme, type EndlessTheme } from '../engine/CinematicDirector';
 
-type Props = { pace: AlwaysPace; limited: boolean; reducedFlashes: boolean; onPaceChange: (pace: AlwaysPace) => void; value: ShowPreset | null; disabled?: boolean; onChange: (value: ShowPreset | null) => void; onOpenChange?: (open: boolean) => void };
+type Props = { finaleTheme: ShowTheme; endlessTheme: EndlessTheme; pendingTheme: EndlessTheme | null; onThemeChange: (finale: ShowTheme, endless: EndlessTheme) => void; pace: AlwaysPace; limited: boolean; reducedFlashes: boolean; onPaceChange: (pace: AlwaysPace) => void; value: ShowPreset | null; disabled?: boolean; onChange: (value: ShowPreset | null) => void; onOpenChange?: (open: boolean) => void };
 const MODES = [
   { value: null, label: 'Manual', direction: 'up', Icon: Hand },
   { value: 'calm' as const, label: 'Calm', direction: 'right', Icon: Leaf },
@@ -11,7 +12,7 @@ const MODES = [
   { value: 'finale' as const, label: 'Finale', direction: 'left', Icon: Crown },
 ];
 function direction(dx: number, dy: number) { return Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 1 : 3 : dy > 0 ? 2 : 0; }
-export function ShowModeKnob({ value, pace, limited, reducedFlashes, onPaceChange, disabled = false, onChange, onOpenChange }: Props) {
+export function ShowModeKnob({ finaleTheme, endlessTheme, pendingTheme, onThemeChange, value, pace, limited, reducedFlashes, onPaceChange, disabled = false, onChange, onOpenChange }: Props) {
   const [alwaysPanel, setAlwaysPanel] = useState(false);
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState<number | null>(null);
@@ -60,7 +61,7 @@ export function ShowModeKnob({ value, pace, limited, reducedFlashes, onPaceChang
     }} onKeyDown={event => {
       event.stopPropagation();
       if (event.key !== 'Tab' || event.ctrlKey || event.metaKey || event.altKey) return;
-      const stops = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled)')).filter(element => element.tabIndex >= 0 && element.getClientRects().length > 0);
+      const stops = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select:not(:disabled)')).filter(element => element.tabIndex >= 0 && element.getClientRects().length > 0);
       const first = stops[0], last = stops[stops.length - 1];
       const active = document.activeElement;
       if (!first || !last || !stops.includes(active as HTMLElement) || (event.shiftKey ? active === first : active === last)) {
@@ -72,6 +73,11 @@ export function ShowModeKnob({ value, pace, limited, reducedFlashes, onPaceChang
       <button className='mode-selector-close' type='button' aria-label='Close show mode' onClick={close}><X size={17}/></button>
       {MODES.map(mode => <button key={mode.direction} type='button' data-direction={mode.direction} aria-pressed={value === mode.value} onClick={() => { onChange(mode.value); close(); }}><mode.Icon size={21} aria-hidden='true'/><span>{mode.label}</span></button>)}
       <button className='always-entry' type='button' data-direction='always' aria-pressed={value === 'always'} aria-expanded={alwaysPanel} onClick={() => setAlwaysPanel(v => !v)}><Infinity size={21} aria-hidden='true'/><span>Always Play</span></button>
+      <section className='show-styles' aria-label='Show styles'>
+        <label><span>Finale show · 90 seconds</span><select aria-label='Finale show' value={finaleTheme} onChange={event => onThemeChange(event.target.value as ShowTheme, endlessTheme)}>{SHOW_THEMES.map(theme => <option key={theme} value={theme}>{THEME_NAMES[theme]}</option>)}</select></label>
+        <label><span>Festival & Always Play</span><select aria-label='Endless show' value={endlessTheme} onChange={event => onThemeChange(finaleTheme, event.target.value as EndlessTheme)}><option value='cycle'>Cycle all three</option>{SHOW_THEMES.map(theme => <option key={theme} value={theme}>{THEME_NAMES[theme]}</option>)}</select></label>
+        {pendingTheme && <p role='status'>Changes at next phrase</p>}
+      </section>
       {alwaysPanel && <section className='always-settings' aria-label='Always Play settings'>
         <p>Keep the night going until you stop it.</p>
         <fieldset><legend>Quantity</legend><div className='pace-options'>{PACE_LABELS.map((label, index) => <label key={label}>

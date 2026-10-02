@@ -39,6 +39,7 @@ export class CompatibilityRenderer implements RendererPort {
     private moonFailed = false;
     private readonly moonFrame = { x: 0, y: 0, radius: 15 };
     private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
+    private readonly contactIllumination = new Float32Array(3);
     private readonly hullSamples = Array.from({ length: 4 }, () => ({ height: 0, slopeX: 0, slopeZ: 0 }));
     private readonly waterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: true };
     private readonly waterFacetPose = new Float64Array(96 * 3);
@@ -461,6 +462,18 @@ export class CompatibilityRenderer implements RendererPort {
             c.fillRect(x, baseY - ambientHeight * (3 + depth * 12), 1 + depth * (8 + i % 7 * 3), .4 + depth * .5);
         }
         this.drawRiverReflections(riverTime);
+        // One bounded source illuminates local facets in the compatibility tier.
+        if (s.burstLights.count) {
+            const light = s.burstLights.sources[0], energy = s.burstLights.energies[0];
+            const anchor = this.project(light.x, 4.65, -40);
+            c.fillStyle = this.tone(light.r, light.g, light.b);
+            for (let i = 0; i < 24; i++) {
+                const depth = (i + .5) / 24, y = horizon + depth * waterHeight;
+                const facet = Math.sin(i * 2.399 + riverTime * .4), width = (2 + depth * this.width * .035) * (.7 + facet * .25);
+                c.globalAlpha = energy * .065 * (1 - depth * .3);
+                c.fillRect(anchor.x + facet * (3 + depth * 9) - width / 2, y - this.screenWaterHeight(anchor.x, y) * 9, width, .6 + depth);
+            }
+        }
         const p = s.heads, step = Math.max(1, Math.ceil(p.count / 128));
         for (let i = 0; i < p.count; i += step) {
             if (p.age[i] < 0) continue;
@@ -489,7 +502,8 @@ export class CompatibilityRenderer implements RendererPort {
         c.fillStyle = '#07111a'; c.beginPath(); c.moveTo(0, terraceY);
         for (let x = 0; x <= this.width; x += 16) c.lineTo(x, terraceY + 1.8 + Math.sin(x * .047) * .6 + Math.sin(x * .113) * .35);
         c.lineTo(this.width, terraceY); c.closePath(); c.fill();
-        c.strokeStyle = '#4a657a'; c.lineWidth = .6; c.globalAlpha = .20;
+        s.burstLights.sample(0, 4.65, -8, 70, this.contactIllumination, 1);
+        c.strokeStyle = this.tone(.29 + this.contactIllumination[0] * .04, .40 + this.contactIllumination[1] * .04, .48 + this.contactIllumination[2] * .04); c.lineWidth = .6; c.globalAlpha = .20;
         for (let i = 0; i < 18; i++) {
             const x = ((i * .61803398875) % 1) * this.width;
             c.beginPath(); c.moveTo(x, terraceY + 1); c.lineTo(x + 3 + i % 4 * 2.3, terraceY + 1.2); c.stroke();
@@ -556,6 +570,7 @@ export class CompatibilityRenderer implements RendererPort {
         c.restore();
     }
     render() {
+        this.sim.burstLights.update(this.sim.lights, 'low', this.sim.reducedFlashes);
         if (this.disposed || !this.initialized) return;
         const started = performance.now(), c = this.ctx, s = this.sim;
         c.setTransform(this.ratio, 0, 0, this.ratio, 0, 0);
@@ -623,9 +638,10 @@ export class CompatibilityRenderer implements RendererPort {
             const p = this.project(smoke.x[i], smoke.y[i], smoke.z[i]);
             const radius = Math.max(2, smoke.size[i] * this.scale * 1.6);
             let red = .14, green = .18, blue = .23;
-            for (const light of s.lights) {
+            for (let k = 0; k < Math.min(1, s.burstLights.count); k++) {
+                const light = s.burstLights.sources[k];
                 const distance = Math.hypot(light.x - smoke.x[i], light.y - smoke.y[i], light.z - smoke.z[i]);
-                const energy = Math.max(0, 1 - distance / 39) ** 2 * Math.exp(-light.age * .72) * .7;
+                const energy = Math.max(0, 1 - distance / 39) ** 2 * s.burstLights.energies[k] * .7;
                 red += light.r * energy; green += light.g * energy; blue += light.b * energy;
             }
             const haze = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius);

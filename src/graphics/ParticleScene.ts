@@ -95,7 +95,9 @@ export class ParticleScene {
             const diffuse = dot(normal, localDirection).max(0);
             const rim = gradient.length().clamp(0, 1).mul(.55).add(.065);
             const transmission = density.r.mul(-1.85).exp();
-            const shading = diffuse.mul(.72).add(rim).mul(transmission);
+            // Small forward-scattering lobes reveal depth without whitening the cloud.
+            const forward = localDirection.z.max(0).pow(3).mul(rim).mul(.22);
+            const shading = diffuse.mul(.72).add(rim).add(forward).mul(transmission);
             s.material.colorNode = vec3(.020, .027, .039).mul(float(1).sub(density.r.mul(.42))).add(attribute('iColor', 'vec3').mul(shading));
             s.material.opacityNode = density.a.mul(attribute('iAlpha', 'float')).mul(density.r.mul(.28).add(.82)).mul(soft).mul(protectedMask);
             this.smoke.push(s); scene.add(s.mesh);
@@ -255,10 +257,11 @@ export class ParticleScene {
         for (const i of order) {
             const b = this.smoke[bucketFor(smoke.z[i])], n = b.count++, a = b.attrs;
             let lr = 0, lg = 0, lb = 0, dx = 0, dy = 0, dz = 0;
-            for (const light of sim.lights) {
+            for (let lightIndex = 0; lightIndex < sim.burstLights.count; lightIndex++) {
+                const light = sim.burstLights.sources[lightIndex];
                 const lx = light.x - smoke.x[i], ly = light.y - smoke.y[i], lz = light.z - smoke.z[i];
                 const d = Math.hypot(lx, ly, lz), falloff = Math.max(0, 1 - d / 39);
-                const power = falloff * falloff * Math.exp(-light.age * .72) * light.strength * (sim.reducedFlashes ? 1.0 : 1.25);
+                const power = falloff * falloff * sim.burstLights.energies[lightIndex] * 1.25;
                 lr += light.r * power; lg += light.g * power; lb += light.b * power;
                 const directionScale = power / Math.max(1, d);
                 dx += (lx * u.right.value.x + ly * u.right.value.y + lz * u.right.value.z) * directionScale;

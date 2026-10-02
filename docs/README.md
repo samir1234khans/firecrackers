@@ -1,3 +1,5 @@
+Cinematic candidate: [implementation and release gates](evidence/cinematic-shows-2026-10-02/IMPLEMENTATION.md), [approved contract](plans/CINEMATIC-SHOWS.md), [original music provenance](../assets-source/music/PROVENANCE.md). Production stays `.3` until final qualification.
+
 Latest production: [Always Play / build `.3`](evidence/always-play-2026-10-02/PRODUCTION.md), [qualification](evidence/always-play-2026-10-02/IMPLEMENTATION.md), [public controls](evidence/always-play-2026-10-02/final/controls.html) and [PR #32](https://github.com/samir1234khans/firecrackers/pull/32). Four quantity levels, smooth immersive controls, main promotion and actual production verification are recorded. The original longer performance plan remains partially unqualified; earlier entries below preserve historical checkpoints.
 
 Historical Always Play plan: [Always Play with four quantity levels](plans/ALWAYS-PLAY.md) defines Low, Medium, High and Super High endless playback, controls, bounded scheduling and qualification. This paragraph records the earlier planning checkpoint; implementation and production delivery are documented above.

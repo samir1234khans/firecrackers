@@ -168,3 +168,8 @@ The isolated configuration is `wrangler.open-sky-preview.jsonc`; it has no produ
 ## Always Play
 
 The [implementation receipt](docs/evidence/always-play-2026-10-02/IMPLEMENTATION.md) records the bounded four-pace director and current qualification. Unit checks are in `npm test`; `tests/always-play-soak.mjs`, `tests/always-play-browser.mjs` and `tests/always-play-performance.mjs` provide logical endurance, native interaction and sequential timing/video evidence. Use `ALWAYS_URL` for the isolated preview. CI uses explicitly labeled software WebGL/Canvas; physical-phone and flash-conformance claims require their own evidence.
+
+
+## Cinematic scores and original recordings
+
+Run `tests/cinematic-shows-browser.mjs` with `SHOW_URL` and `SHOW_BACKENDS` for the three native backends/seven viewports. `SHOW_SOFTWARE=1` explicitly labels CI WebGL/Canvas emulation. `tests/cinematic-lifecycle-browser.mjs` protects opt-in/hidden/offline/missing-audio/overload behavior. Both run in the complete CI workflow. Recordings are reproducible with `scripts/generate-show-music.py --flac <verified FLAC 1.5.0 encoder>`; see [music provenance](assets-source/music/PROVENANCE.md). The isolated Worker uses `wrangler.cinematic-preview.jsonc` with no production route. [Approved release gate](docs/plans/CINEMATIC-SHOWS.md) holds production if WebGPU stability or shared-PC timing remains unqualified.

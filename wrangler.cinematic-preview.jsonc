@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "firecrackers-cinematic-preview",
-  "compatibility_date": "2026-09-29",
+  "name": "firecrackers-shows-preview",
+  "compatibility_date": "2026-10-02",
   "workers_dev": true,
   "routes": [],
   "assets": { "directory": "./dist", "not_found_handling": "single-page-application" }

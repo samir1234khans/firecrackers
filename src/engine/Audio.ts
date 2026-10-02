@@ -1,5 +1,8 @@
 import { randomStream } from './catalog';
 import type { SimEvent } from './Simulation';
+import { ShowMusic } from './ShowMusic';
+import type { CinematicDirector } from './CinematicDirector';
+import type { ShowPreset } from './catalog';
 /** Opt-in CC0 field recordings plus original synthesis. No autoplay or pre-consent fetch. */
 export class AudioEngine {
     private readonly variation = randomStream(82171);
@@ -21,6 +24,15 @@ export class AudioEngine {
     private volume = 0.45;
     private ambient = false;
     private disposed = false;
+    private music: ShowMusic | null = null;
+    private musicEnabled = false;
+    private musicVolume = .30;
+    constructor(private readonly onMusicFailure?: (message: string) => void) {}
+    setMusicOptions(enabled: boolean, volume: number) {
+        this.musicEnabled = enabled; this.musicVolume = volume;
+        this.music?.options(enabled && this.enabled, volume);
+    }
+    updateMusic(mode: ShowPreset | null, score: CinematicDirector, time: number) { this.music?.update(mode, score, time); }
     async configure(enabled: boolean, volume: number, haptics: boolean, ambience: boolean) {
         if (this.disposed)
             return false;
@@ -30,6 +42,7 @@ export class AudioEngine {
         this.ambient = ambience;
         if (!enabled) {
             this.enabled = false;
+            this.music?.options(false, this.musicVolume);
             this.stop();
             return false;
         }
@@ -41,6 +54,7 @@ export class AudioEngine {
             if (this.disposed || request !== this.requestGeneration || this.context!.state !== 'running')
                 return false;
             this.enabled = true;
+            this.music?.options(this.musicEnabled, this.musicVolume);
             void this.loadSamples();
             if (this.suspended)
                 this.stop();
@@ -71,7 +85,8 @@ export class AudioEngine {
         }));
         this.loadingSamples = false;
     }
-    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled }; }
+    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled,
+        musicEnabled: false, musicVoices: 0, musicBuffers: 0, musicBytes: 0, musicLoading: 0, musicFailure: '', ...this.music?.diagnostics() }; }
     private recordedReport(event: SimEvent, at: number, pan: number, distance: number) {
         const c = this.context, buffer = this.samples[event.id % 3];
         if (!c || !buffer) return false;
@@ -101,6 +116,7 @@ export class AudioEngine {
         if (this.suspended === value)
             return;
         this.suspended = value;
+        this.music?.suspend(value);
         if (value)
             this.stop();
         else if (this.enabled && this.context?.state === 'running' && this.master) {
@@ -121,6 +137,8 @@ export class AudioEngine {
         this.compressor.release.value = 0.28;
         this.master.connect(this.compressor);
         this.compressor.connect(c.destination);
+        this.music = new ShowMusic(c, this.master, import.meta.env.BASE_URL, this.onMusicFailure);
+        this.music.suspend(this.suspended);
         this.noise = c.createBuffer(1, c.sampleRate * 3, c.sampleRate);
         const values = this.noise.getChannelData(0), rand = randomStream(839721);
         let pink = 0;
@@ -152,6 +170,7 @@ export class AudioEngine {
                     this.tone(at, 0.65, 940, 510, 0.018, pan);
             }
             if (e.type === 'burst') {
+                this.music?.duck();
                 const recorded = this.recordedReport(e, at, pan, distance);
                 this.noiseVoice(at, 1.6, 310, (recorded ? .12 : .45) * e.strength, pan, 'lowpass');
                 this.noiseVoice(at, 0.28, 1600, 0.13 * e.strength, pan, 'highpass');
@@ -233,6 +252,7 @@ export class AudioEngine {
         }
     }
     stop() {
+        this.music?.stop();
         if (this.master && this.context) {
             this.master.gain.cancelScheduledValues(this.context.currentTime);
             this.master.gain.setValueAtTime(0, this.context.currentTime);
@@ -258,5 +278,5 @@ export class AudioEngine {
             navigator.vibrate(0);
         this.hapticActive = false;
     }
-    dispose() { this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); void this.context?.close(); this.context = null; }
+    dispose() { this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); this.music?.dispose(); void this.context?.close(); this.context = null; }
 }

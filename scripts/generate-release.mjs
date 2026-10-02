@@ -36,6 +36,7 @@ export function canonicalSource(path, text) {
 
 export async function generateRelease() {
   const paths = [
+    'src/engine/CinematicDirector.ts', 'src/engine/BurstLightFrame.ts', 'src/engine/ShowMusic.ts', 'assets-source/music/manifest.json',
     'src/graphics/MoonComposition.ts', 'src/graphics/WaterWaves.ts', 'src/graphics/WaterSurfaceGeometry.ts', 'src/graphics/PlanarReflection.ts', 'src/graphics/ParticleReflectionBounds.ts', 'src/graphics/WaterfrontAssets.ts', 'src/graphics/WaterReflection.ts', 'src/engine/Audio.ts',
     'src/ui/StartupScreen.tsx', 'src/styles/startup.css', 'src/engine/StartupProgress.ts', 'src/engine/LaunchComposition.ts', 'src/engine/LaunchProfile.ts', 'src/engine/StageLayout.ts', 'src/styles/stage.css', 'src/styles/panels.css', 'index.html',
     'src/engine/SignatureDiagnostics.ts', 'src/engine/FlagshipEffects.ts', 'src/engine/Pool.ts', 'src/ui/SignatureGlyph.tsx', 'src/engine/GrandEffects.ts', 'src/ui/FamilyPicker.tsx', 'src/ui/GrandGlyph.tsx', 'src/styles/grand-collection.css',
@@ -57,7 +58,7 @@ export async function generateRelease() {
     const normalized = canonicalSource(path, source);
     modules.push({ path, sha256: hash(normalized.text), rawSha256: hash(source), removedHostAttributes: normalized.removedHostAttributes });
   }
-  for (const dir of ['public/art', 'public/audio']) for (const name of (await readdir(dir)).sort()) {
+  for (const dir of ['public/art', 'public/audio', 'public/music']) for (const name of (await readdir(dir)).sort()) {
     const path = `${dir}/${name}`, bytes = await readFile(path);
     modules.push({ path, sha256: hash(bytes), rawSha256: hash(bytes), removedHostAttributes: 0 });
   }

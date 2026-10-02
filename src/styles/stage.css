@@ -59,9 +59,16 @@
 
 /* Keep the four-direction compass; the fifth mode has an explicit dialog entry. */
 .mode-selector { width: min(288px, calc(100vw - 16px - var(--safe-left) - var(--safe-right))); height: auto; }
-.mode-selector[open] { justify-content:center; grid-template-rows:repeat(3,48px) auto auto; row-gap:4px; }
+.mode-selector[open] { justify-content:center; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,48px) auto auto auto; row-gap:4px; }
 .mode-selector .always-entry { grid-column:1 / -1; grid-row:4; width:100%; flex-direction:row; gap:8px; font-size:12px; }
-.always-settings { grid-column:1 / -1; grid-row:5; width:100%; }
+.always-settings { grid-column:1 / -1; grid-row:6; width:100%; }
+.show-styles { grid-column:1 / -1; grid-row:5; border-top:1px solid #b8cbe01c; padding:8px 0; }
+.show-styles label { display:grid; gap:3px; font:11px/1.4 system-ui,sans-serif; color:#c1cbd8; margin-bottom:6px; }
+.show-styles select { width:100%; min-height:48px; border:0; border-radius:6px; padding:6px; color:#edf1f6; background:#ccdcef0c; font:12px/1.4 system-ui,sans-serif; }
+.show-styles p { font:11px/1.4 system-ui,sans-serif; color:#efd0a0; margin:4px 0; }
+.show-styles option { background:#071019; color:#edf1f6; }
+.mode-selector button { justify-self:center; }
+.mode-selector .mode-selector-close { position:sticky; top:0; z-index:3; background:#071019; }
 .always-settings p { margin:8px 0; font:11px/1.5 system-ui,sans-serif; color:#b7c5d5; }
 .always-settings fieldset { border:0; margin:0; padding:0; }
 .always-settings legend { font:12px/1.5 system-ui,sans-serif; margin-bottom:4px; }

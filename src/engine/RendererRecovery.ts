@@ -28,6 +28,7 @@ export class RenderOverloadGuard {
     private cursor = 0;
     private verySlowStreak = 0;
     reset() { this.count = 0; this.cursor = 0; this.verySlowStreak = 0; }
+    snapshot() { return { samples: Array.from(this.samples), count: this.count, verySlowStreak: this.verySlowStreak }; }
     observe(frameMs: number, active: boolean): boolean {
         if (!active) { this.reset(); return false; }
         if (!Number.isFinite(frameMs) || frameMs <= 0) return false;

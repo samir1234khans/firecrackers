@@ -19,6 +19,7 @@ import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
 import { RenderOverloadGuard, withDeadline } from './RendererRecovery';
 import { SkyInteraction, acceptsSkyPointer, skyCadence, skyMotionAllowed, skyPointFromPointer } from './SkyState';
 import { StartupProgress } from './StartupProgress';
+import type { ShowTheme } from './CinematicDirector';
 export type DropTarget = { kind: 'burst'; point: [number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
@@ -85,6 +86,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const startup = new AbortController();
         const governor = new QualityGovernor();
         const overload = new RenderOverloadGuard();
+        const recoveryHistory: unknown[] = [];
         const sky = new SkyInteraction();
         const osMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
         let stageLayout: StageLayout | null = null;
@@ -107,6 +109,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         sim.current = state;
         state.setLaunchProfileResolver((id, placement) => renderer.current?.resolveLaunchProfile(id, placement));
         state.always.setPace(display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace);
+        state.setShowThemes(display.current.mode === 'interactive' ? prefs.current.finaleTheme : display.current.theme ?? prefs.current.finaleTheme,
+            display.current.mode === 'interactive' ? prefs.current.endlessTheme : display.current.theme ?? prefs.current.endlessTheme);
         state.selected = prefs.current.family;
         state.setPlacement(prefs.current.placement);
         state.setPlacementMode(prefs.current.placementMode);
@@ -115,8 +119,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         state.protectCenter = display.current.protect;
         state.safeRect = [...display.current.safeRect];
         state.setPaused(intent.current.paused);
-        const sound = new AudioEngine();
+        const sound = new AudioEngine(notice);
         audio.current = sound;
+        sound.setMusicOptions(prefs.current.showMusic, prefs.current.musicVolume);
         sound.setSuspended(intent.current.paused || document.hidden);
         let startupPending = true;
         let startupSettled = false;
@@ -191,6 +196,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             const previous = graphics;
             if (cancelled || switchingGraphics || !target || !previous || previous.backend.startsWith('Canvas')) return;
             switchingGraphics = true;
+            if (recoveryHistory.length === 8) recoveryHistory.shift();
+            recoveryHistory.push({ time: state.time, from: previous.backend, reason, overload: overload.snapshot(), graphics: previous.diagnostics() });
             setBackend('Recovering graphics');
             let replacement: RendererPort | null = null;
             try {
@@ -252,6 +259,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             if (!document.hidden && !state.paused && !captureFrozen) {
                 advanceVisibleFrame(state, elapsed);
                 sound.consume(state.drainEvents(), state.width);
+                sound.updateMusic(state.show, state.cinematic, state.time);
                 publishSky();
                 const targetFps = display.current.fps === 30 || state.quality === 'low' || graphics?.backend.startsWith('Canvas') ? 30 : 60;
                 // Firework activity, recovery and quality measurement keep their original
@@ -497,7 +505,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), startup: preparation.snapshot, backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining,
+                    snapshot: () => ({ ...state.snapshot(), recoveryHistory: [...recoveryHistory], startup: preparation.snapshot, backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining,
                         skyState: { ...sky.state }, skyAmbientCadence: skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed),
                         skyResponding: sky.responding, skyAmbientFrames, skyResponseFrames, skyOneOffFrames, skyLastRenderedTime, skyFrozen: captureFrozen }),
                     injectOverloadSamples: (count: number, milliseconds: number) => {
@@ -583,14 +591,19 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             renderer.current?.setQuality(preferences.quality);
         }
         audio.current?.setOptions(preferences.volume, preferences.haptics, preferences.ambience);
+        audio.current?.setMusicOptions(preferences.showMusic, preferences.musicVolume);
+        sim.current.setShowThemes(display.current.mode === 'interactive' ? preferences.finaleTheme : display.current.theme ?? preferences.finaleTheme,
+            display.current.mode === 'interactive' ? preferences.endlessTheme : display.current.theme ?? preferences.endlessTheme);
         skyRedraw.current?.();
-    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience]);
+    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience, preferences.showMusic, preferences.musicVolume, preferences.finaleTheme, preferences.endlessTheme]);
     useEffect(() => {
         sim.current.protectCenter = presentation.protect;
         sim.current.safeRect = [...presentation.safeRect];
+        sim.current.setShowThemes(presentation.mode === 'interactive' ? prefs.current.finaleTheme : presentation.theme ?? prefs.current.finaleTheme,
+            presentation.mode === 'interactive' ? prefs.current.endlessTheme : presentation.theme ?? prefs.current.endlessTheme);
         renderer.current?.setDisplay(presentation.mode);
         skyRedraw.current?.();
-    }, [presentation.mode, presentation.protect, presentation.safeRect]);
+    }, [presentation.mode, presentation.protect, presentation.safeRect, presentation.theme]);
     const configureSound = async (enabled: boolean) => {
         const request = ++soundRequest.current;
         soundWanted.current = enabled;
@@ -616,11 +629,12 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         intent.current.block('overlay', value);
         syncPause();
     }, [syncPause]);
-    const start = (preset: ShowPreset, pace?: AlwaysPace) => {
+    const start = (preset: ShowPreset, pace?: AlwaysPace, theme?: ShowTheme) => {
         if (!status.current.ready || status.current.error)
             return;
         intent.current.setManual(false);
         if (preset === 'always') sim.current.always.setPace(pace ?? (display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace));
+        sim.current.setShowThemes(theme ?? (display.current.mode === 'interactive' ? prefs.current.finaleTheme : display.current.theme ?? prefs.current.finaleTheme), theme ?? (display.current.mode === 'interactive' ? prefs.current.endlessTheme : display.current.theme ?? prefs.current.endlessTheme));
         sim.current.startShow(preset);
         syncPause();
     };

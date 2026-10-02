@@ -9,6 +9,8 @@ type BoatPlacement = { object: THREE.Object3D; x: number; z: number; scale: numb
 
 /** Two quiet fishing boats, a foreground nauka and a sparse distant village. */
 export class RiverLife {
+  private readonly shoreMaterials: { material: THREE.MeshStandardMaterial; base: THREE.Color }[] = [];
+  private readonly contactIllumination = new Float32Array(3);
   readonly group = new THREE.Group();
   private readonly fallback = new THREE.Group();
   private readonly reflectionProxies = new THREE.Group();
@@ -226,6 +228,7 @@ export class RiverLife {
           // shore treatment while keeping the original texture allocations.
           const clone = original.clone();
           clone.fog = false; clone.color.multiplyScalar(.24); clone.envMapIntensity = .08;
+          this.shoreMaterials.push({ material: clone, base: clone.emissive.clone() });
           villageMaterials.set(original, clone); material = clone;
         }
         return material;
@@ -293,6 +296,10 @@ export class RiverLife {
     this.reflectionProxies.visible = visible && sim.quality !== 'low';
     if (!visible) { this.fragments.count = 0; this.waterContact.count = 0; this.flames.count = 0; this.candleLight.intensity = 0; return; }
     this.group.updateMatrixWorld(true);
+    this.village.getWorldPosition(this.point);
+    sim.burstLights.sample(this.point.x, this.point.y, this.point.z, 70, this.contactIllumination);
+    for (const { material, base } of this.shoreMaterials) material.emissive.setRGB(base.r + this.contactIllumination[0] * .014,
+      base.g + this.contactIllumination[1] * .014, base.b + this.contactIllumination[2] * .014);
     if (sim.quality !== 'low') this.updateReflectionProxies();
     let contacts = 0;
     for (const boat of this.boats) {
@@ -300,6 +307,7 @@ export class RiverLife {
       const length = (boat.foreground ? 9.5 : 5.5) * scale;
       const beam = (boat.foreground ? 3 : 1.75) * scale;
       const x = boat.object.position.x, z = boat.object.position.z;
+      sim.burstLights.sample(x, WATER_Y, z, 70, this.contactIllumination);
       sampleWater(x, z, time, this.waterSample, frame);
       this.point.set(x, WATER_Y + this.waterSample.height + .018, z);
       this.size.set(length * .91, beam * .52, 1);
@@ -324,7 +332,7 @@ export class RiverLife {
         this.matrix.compose(this.point, this.footprintRotation, this.size);
         this.waterContact.setMatrixAt(contacts, this.matrix);
         const energy = .018 + .18 * (1 - phase) * (.4 + .6 * Math.sin(Math.PI * phase));
-        this.color.setRGB(energy * .64, energy * .83, energy);
+        this.color.setRGB(energy * .64 + this.contactIllumination[0] * .018, energy * .83 + this.contactIllumination[1] * .018, energy + this.contactIllumination[2] * .018);
         this.waterContact.setColorAt(contacts++, this.color);
       }
     }

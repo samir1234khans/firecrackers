@@ -179,7 +179,7 @@ export class WaterReflection {
         const broken = facets.mul(.86).add(.14).mul(skyFacets.b.mul(20).add(.75));
         result.addAssign(color.mul(light.w).mul(illumination).mul(footprint).mul(attenuation).mul(broken));
       });
-      return result.mul(this.strength).mul(.65).clamp(0, this.strength.mul(.18));
+      return result.mul(.38).clamp(0, .09);
     })();
     material.colorNode = body.add(skyColor.mul(fresnel).mul(.64)).add(skyFacets).add(moon).add(dynamic).add(burstLight)
       .mul(smoothstep(this.farZ, this.farZ.add(8), positionWorld.z).mul(.2).add(.8));
@@ -290,19 +290,14 @@ export class WaterReflection {
     // simulation or allocating temporary arrays during a composite firework.
     this.burstCount.value = 0;
     for (const anchor of this.lightAnchors) anchor.w = 0;
-    for (const light of sim.lights) {
-      const energy = Math.exp(-light.age * 1.55) * light.strength;
-      if (energy < .0002) continue;
-      for (let i = 0; i < BURST_LIGHT_CAPACITY; i++) if (energy > this.lightAnchors[i].w) {
-        for (let j = BURST_LIGHT_CAPACITY - 1; j > i; j--) {
-          this.lightAnchors[j].copy(this.lightAnchors[j - 1]); this.lightColors[j].copy(this.lightColors[j - 1]);
-        }
-        this.lightAnchors[i].set(light.x, light.y, light.z, energy); this.lightColors[i].set(light.r, light.g, light.b);
-        this.burstCount.value = Math.min(BURST_LIGHT_CAPACITY, this.burstCount.value + 1); break;
-      }
+    for (let i = 0; i < sim.burstLights.count; i++) {
+      const light = sim.burstLights.sources[i];
+      this.lightAnchors[i].set(light.x, light.y, light.z, sim.burstLights.energies[i]); this.lightColors[i].set(light.r, light.g, light.b);
+      this.burstCount.value++;
     }
-    if (visible && sim.quality === 'low') for (const light of sim.lights) for (let j = 0; j < 24; j++) {
-      const energy = Math.exp(-light.age * 1.5) * light.strength * (1 - j / 24) * (sim.reducedFlashes ? .22 : .34);
+    if (visible && sim.quality === 'low') for (let k = 0; k < sim.burstLights.count; k++) for (let j = 0; j < 24; j++) {
+      const light = sim.burstLights.sources[k];
+      const energy = sim.burstLights.energies[k] * (1 - j / 24) * .28;
       if (energy < .003 || this.streaks.count >= 288) continue;
       const i = this.streaks.count++, width = (2 + j * .65) * (.5 + .5 * Math.sin(j * 1.3 + this.frame.phase));
       this.matrix.makeScale(width, .22 + j * .015, 1); this.matrix.setPosition(light.x + Math.sin(j + this.frame.phase) * 2, -320 + j * 3, 0);

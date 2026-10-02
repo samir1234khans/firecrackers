@@ -102,14 +102,14 @@ test('sky drops and explicit terrace drops never consume random placement',()=>{
  assert.equal(terrace.igniteFamily('gold-willow',.91),true);near(terrace.committed.normalizedPlacement,.91,'explicit terrace overrides policy');assert.equal(terrace.placementMode,'random');run(terrace,40);
  const expected=admit(reference).position;near(admit(sky).position,expected,'sky leaves next random draw');near(admit(terrace).position,expected,'terrace leaves next random draw');
 });
-test('automatic shows use fixed draft or independent random placement across all modes',()=>{
- for(const mode of ['calm','festival','finale']){
+test('Calm retains saved placement while cinematic modes preserve it for manual takeover',()=>{
+ for(const mode of ['calm','festival','finale','always']){
   const fixed=new Simulation(551),a=randomSim(551),b=randomSim(551);fixed.quality='ultra';fixed.setPlacement(.93);
-  for(const sim of [fixed,a,b]){sim.startShow(mode);run(sim,1);assert.ok(sim.committed);}
-  near(fixed.committed.normalizedPlacement,.93,`${mode}: fixed draft`);
-  near(a.committed.normalizedPlacement,b.committed.normalizedPlacement,`${mode}: seeded random`);
-  assert.notEqual(a.committed.normalizedPlacement,.93);
-  assert.equal(a.committed.family,fixed.committed.family,'show choreography stream stays independent');
+  for(const sim of [fixed,a,b]){sim.startShow(mode);for(let t=0;t<300&&!sim.committed;t++)sim.advance(1/60);assert.ok(sim.committed);}
+  if(mode==='calm')near(fixed.committed.normalizedPlacement,.93,'Calm: fixed draft');
+  else {assert.ok([.2,.5,.8].includes(fixed.committed.normalizedPlacement));near(fixed.placement,.93,'saved Manual placement');}
+  near(a.committed.normalizedPlacement,b.committed.normalizedPlacement,`${mode}: deterministic placement`);
+  assert.equal(a.committed.family,fixed.committed.family,'placement never changes family choice');
  }
 });
 test('reset restarts the seeded random placement sequence and restores fixed center',()=>{

@@ -83,6 +83,13 @@ jobs:
           ALWAYS_BACKENDS: webgl,canvas
           ALWAYS_CAPTURES: /tmp/always-play-captures
         run: node tests/always-play-browser.mjs /tmp/always-play-evidence
+      - name: Cinematic scores, original recordings and theme controls
+        if: matrix.project == 'desktop'
+        env:
+          SHOW_SOFTWARE: '1'
+          SHOW_BACKENDS: webgl,canvas
+          SHOW_URL: http://127.0.0.1:4173/
+        run: node tests/cinematic-shows-browser.mjs /tmp/cinematic-shows-evidence
       - name: Endpoint launch composition
         if: matrix.project == 'desktop'
         env:
@@ -111,6 +118,7 @@ jobs:
             /tmp/flagship-offline-evidence
             /tmp/flagship-touch-evidence
             /tmp/immersive-evidence
+            /tmp/cinematic-shows-evidence
             /tmp/open-sky-evidence
             /tmp/open-sky-edge-evidence
             /tmp/grand-server.log
@@ -157,6 +165,12 @@ jobs:
       - name: Runtime graphics overload recovery
         if: always()
         run: node tests/overload-browser.mjs /tmp/overload-evidence
+      - name: Recorded-score offline, visibility, missing assets and graphics recovery
+        if: always()
+        env:
+          SHOW_SOFTWARE: '1'
+          SHOW_URL: http://127.0.0.1:4173/
+        run: node tests/cinematic-lifecycle-browser.mjs /tmp/cinematic-lifecycle-evidence
       - name: Recovery fault injection and smallest layouts
         if: always()
         env:
@@ -174,4 +188,5 @@ jobs:
             /tmp/galactic-evidence
             /tmp/panel-evidence
             /tmp/startup-evidence
+            /tmp/cinematic-lifecycle-evidence
           retention-days: 7
