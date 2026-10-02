@@ -17,11 +17,12 @@ const viewports = [[393, 851], [1280, 800]].filter(([width]) => !process.env.WAT
 const expected = { webgpu: 'WebGPU', webgl: 'WebGL 2', canvas: 'Canvas 2D · compatibility' };
 const idleMilliseconds = 3000, launchMilliseconds = 7500, warmupMilliseconds = 1500;
 const analyzeOnly = process.env.WATER_PERFORMANCE_ANALYZE === '1';
+const warmParticleDrawing = process.env.WATER_PERFORMANCE_WARM_LAUNCH === '1';
 const report = {
   baseline, candidate, seed, browser: null,
   method: 'Installed headless Chrome, sequential counterbalanced AB/BA pairs, the recorded number of complete repetitions at each backend and viewport. All authored assets are active before reset and realtime idle warmup. Service workers are blocked. CDP Runtime closure scopes bind a private test-only scalar reader to the existing renderer metrics and Simulation, symmetrically for both sources; Debugger is never enabled and no app/public API is changed. Full QA snapshot verifies bindings before and after sampling. Each interval preallocates 8192 numeric records and materializes objects afterward, avoiding full diagnostic graphs on every rAF. Sampling observes realtime requestAnimationFrame and app submitMs, retaining CPU samples only when the renderer frame counter advances. Measurement never drives a frozen QA render loop.',
   limits: 'rAF cadence and CPU submission are recorded separately; neither is completed GPU time. Phone-sized viewports are emulated on this PC. Physical-phone performance and thermal endurance are unqualified. Scalar observer overhead is measured; this does not prove older collections were entirely caused by QA diagnostics. Legacy failed full-snapshot reports remain separate retained evidence; percentile methods and performance assertions are unchanged.',
-  settings: { quality: 'ultra', reducedFlashes: true, reducedMotion: false, sound: false, haptics: false, placement: .5, idleMilliseconds, launchMilliseconds, warmupMilliseconds, repeats: repeatCount },
+  settings: { quality: 'ultra', reducedFlashes: true, reducedMotion: false, sound: false, haptics: false, placement: .5, idleMilliseconds, launchMilliseconds, warmupMilliseconds, repeats: repeatCount, warmParticleDrawing },
   runs: [], comparisons: [], errors: [], failed: null,
 };
 await mkdir(out, { recursive: true });
@@ -97,6 +98,16 @@ async function runCondition(source, origin, backend, width, height, repeat, posi
   if (backend === 'webgpu') { assert.ok(identity); assert.equal(identity.fallback, false); }
   if (backend === 'webgl') { assert.ok(identity.driver); assert.ok(!/swiftshader|llvmpipe|software|microsoft basic render/i.test(identity.driver), identity.driver); }
   const timingProbe = await installWaterTimingProbe(page);
+  if (warmParticleDrawing) {
+    // Asset/pipeline preparation does not exercise Canvas's particle drawing.
+    // Warm the same representative effect on BOTH sources, outside sampling;
+    // the normal reset below restores their seed and scene before comparison.
+    await page.evaluate(() => window.__firecrackersQA.freeze(true));
+    await page.locator('[data-family-icon="gold-willow"]').click();
+    await page.evaluate(() => window.__firecrackersQA.advance(4));
+    await page.evaluate(() => window.__firecrackersQA.freeze(false));
+    await page.waitForTimeout(3000);
+  }
   // Reset through the normal UI after assets and pipeline preparation, bringing
   // the simulation/RNG to the same state independently of network startup time.
   await page.evaluate(() => window.__firecrackersQA.freeze(true));
