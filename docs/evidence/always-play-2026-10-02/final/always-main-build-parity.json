@@ -1,0 +1,13 @@
+{
+  "mainSource": "074c4c1c089864a97c3ee44d596d7e687d9f7781",
+  "ciRun": 36958091880,
+  "localFiles": 28,
+  "ciFiles": 30,
+  "mismatches": [
+    "icon.svg",
+    "index.html",
+    "sw.js",
+    "workbox-35e397ac.js"
+  ],
+  "release": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+}

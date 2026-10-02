@@ -1,0 +1,251 @@
+{
+  "source": "074c4c1c089864a97c3ee44d596d7e687d9f7781",
+  "ciRun": 36958091880,
+  "base": "https://firecrackers.mainandmany.com/",
+  "files": 30,
+  "mismatches": [
+    "index.html"
+  ],
+  "rows": [
+    {
+      "file": "icon.svg",
+      "status": 200,
+      "bytes": 505,
+      "expected": "7cdb58c3cf72b7b731d4983f2d82f4c0ca3c89b03dccf7d50fb759f24779cd7f",
+      "actual": "7cdb58c3cf72b7b731d4983f2d82f4c0ca3c89b03dccf7d50fb759f24779cd7f",
+      "matches": true
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "bytes": 6305,
+      "expected": "6464ebf6fc94d118611fdc5bcd38d267301b0135095702f747b0f00ef08dbbaa",
+      "actual": "040a0723bbc06de53def242945591b13240baf294656cbd3bee6c59e82db8cc2",
+      "matches": false
+    },
+    {
+      "file": "manifest.webmanifest",
+      "status": 200,
+      "bytes": 434,
+      "expected": "d165b107228a7e84a5bceba3f50fd94fb73495e07dd2ed3fbd06077ccc49a2dd",
+      "actual": "d165b107228a7e84a5bceba3f50fd94fb73495e07dd2ed3fbd06077ccc49a2dd",
+      "matches": true
+    },
+    {
+      "file": "release.json",
+      "status": 200,
+      "bytes": 22456,
+      "expected": "41d18de7b044ad5bc7c8c67125b5a1d0af71a01e467ce4d5ec3d6b1a00e0e277",
+      "actual": "41d18de7b044ad5bc7c8c67125b5a1d0af71a01e467ce4d5ec3d6b1a00e0e277",
+      "matches": true
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "bytes": 2171,
+      "expected": "a8a684aa8152a0ae8c29b811378d6c51a4a4952ce4503b573644a2b4af98e7f0",
+      "actual": "a8a684aa8152a0ae8c29b811378d6c51a4a4952ce4503b573644a2b4af98e7f0",
+      "matches": true
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.txt",
+      "status": 200,
+      "bytes": 26095,
+      "expected": "efc70f5095bc017f6a22c56a3bd106813054ef83802111fccc431f76a0342594",
+      "actual": "efc70f5095bc017f6a22c56a3bd106813054ef83802111fccc431f76a0342594",
+      "matches": true
+    },
+    {
+      "file": "workbox-35e397ac.js",
+      "status": 200,
+      "bytes": 21777,
+      "expected": "13414e5aadee63156102efd53f785aebdbae5bb5432f30723c3eb9d36b3e47a8",
+      "actual": "13414e5aadee63156102efd53f785aebdbae5bb5432f30723c3eb9d36b3e47a8",
+      "matches": true
+    },
+    {
+      "file": "art/ignition-flame.png",
+      "status": 200,
+      "bytes": 42893,
+      "expected": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+      "actual": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+      "matches": true
+    },
+    {
+      "file": "art/moon-lro-v001.png",
+      "status": 200,
+      "bytes": 319502,
+      "expected": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+      "actual": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+      "matches": true
+    },
+    {
+      "file": "art/paper-color.png",
+      "status": 200,
+      "bytes": 188989,
+      "expected": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+      "actual": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+      "matches": true
+    },
+    {
+      "file": "art/river-life-v007.glb",
+      "status": 200,
+      "bytes": 7620280,
+      "expected": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+      "actual": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+      "matches": true
+    },
+    {
+      "file": "art/river-life-v008.glb",
+      "status": 200,
+      "bytes": 8006212,
+      "expected": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+      "actual": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+      "matches": true
+    },
+    {
+      "file": "art/rocket.glb",
+      "status": 200,
+      "bytes": 240240,
+      "expected": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+      "actual": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+      "matches": true
+    },
+    {
+      "file": "art/smoke-density-light-v005.png",
+      "status": 200,
+      "bytes": 555389,
+      "expected": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+      "actual": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+      "matches": true
+    },
+    {
+      "file": "art/smoke-density-light.png",
+      "status": 200,
+      "bytes": 862060,
+      "expected": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+      "actual": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+      "matches": true
+    },
+    {
+      "file": "art/terrace-v004.glb",
+      "status": 200,
+      "bytes": 547136,
+      "expected": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+      "actual": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+      "matches": true
+    },
+    {
+      "file": "art/terrace-v008.glb",
+      "status": 200,
+      "bytes": 2229768,
+      "expected": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+      "actual": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+      "matches": true
+    },
+    {
+      "file": "art/water-normal-v005.png",
+      "status": 200,
+      "bytes": 230518,
+      "expected": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+      "actual": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+      "matches": true
+    },
+    {
+      "file": "art/water-normal.png",
+      "status": 200,
+      "bytes": 98053,
+      "expected": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+      "actual": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+      "matches": true
+    },
+    {
+      "file": "art/waterfront-night-v005.webp",
+      "status": 200,
+      "bytes": 36060,
+      "expected": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+      "actual": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+      "matches": true
+    },
+    {
+      "file": "assets/index-vrgBjBDG.js",
+      "status": 200,
+      "bytes": 2770,
+      "expected": "193f7f615a7f6a76987aa1c389ba475acc25c0edfa831af6025c7ef32b87ab61",
+      "actual": "193f7f615a7f6a76987aa1c389ba475acc25c0edfa831af6025c7ef32b87ab61",
+      "matches": true
+    },
+    {
+      "file": "assets/main-BjF6l8Kf.css",
+      "status": 200,
+      "bytes": 84760,
+      "expected": "c3caeb765a7a1da6c0b3bb0d48e98a6c20574687d4ede8aa57183fe9610b2c66",
+      "actual": "c3caeb765a7a1da6c0b3bb0d48e98a6c20574687d4ede8aa57183fe9610b2c66",
+      "matches": true
+    },
+    {
+      "file": "assets/main-pBrU3qgB.js",
+      "status": 200,
+      "bytes": 370048,
+      "expected": "8554a351998e2f6e3e0ada6ae073c3ed9557d119e06d0eceba161e4229770630",
+      "actual": "8554a351998e2f6e3e0ada6ae073c3ed9557d119e06d0eceba161e4229770630",
+      "matches": true
+    },
+    {
+      "file": "assets/Renderer-BL_G-rnh.js",
+      "status": 200,
+      "bytes": 943918,
+      "expected": "c776999260a31ba94b22b45d0da3e83339fe1a851b2764bc3c801df05fbf72a7",
+      "actual": "c776999260a31ba94b22b45d0da3e83339fe1a851b2764bc3c801df05fbf72a7",
+      "matches": true
+    },
+    {
+      "file": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "bytes": 5748,
+      "expected": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+      "actual": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+      "matches": true
+    },
+    {
+      "file": "audio/report-01.wav",
+      "status": 200,
+      "bytes": 53612,
+      "expected": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+      "actual": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+      "matches": true
+    },
+    {
+      "file": "audio/report-02.wav",
+      "status": 200,
+      "bytes": 49026,
+      "expected": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+      "actual": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+      "matches": true
+    },
+    {
+      "file": "audio/report-03.wav",
+      "status": 200,
+      "bytes": 59256,
+      "expected": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+      "actual": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+      "matches": true
+    },
+    {
+      "file": "icons/icon-192.png",
+      "status": 200,
+      "bytes": 1029,
+      "expected": "b131db8470526082476710c00af26c4ea745968fefdc43b1d04861c268a9c513",
+      "actual": "b131db8470526082476710c00af26c4ea745968fefdc43b1d04861c268a9c513",
+      "matches": true
+    },
+    {
+      "file": "icons/icon-512.png",
+      "status": 200,
+      "bytes": 3700,
+      "expected": "bb5d0d5da7a19af5f0006b0aa030d99b811c8c37fbb1024bd7b638153c3f7d73",
+      "actual": "bb5d0d5da7a19af5f0006b0aa030d99b811c8c37fbb1024bd7b638153c3f7d73",
+      "matches": true
+    }
+  ]
+}

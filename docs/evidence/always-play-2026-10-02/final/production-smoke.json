@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "requestedBackend": "webgpu",
+      "actualBackend": "WebGL 2",
+      "version": "2026-10-02.3",
+      "fingerprint": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8",
+      "admitted": 1,
+      "checks": "fresh manual startup, four selector levels, real-time explicit Start, immersion/reveal, Stop"
+    },
+    {
+      "requestedBackend": "webgl",
+      "actualBackend": "WebGL 2",
+      "version": "2026-10-02.3",
+      "fingerprint": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8",
+      "admitted": 2,
+      "checks": "fresh manual startup, four selector levels, real-time explicit Start, immersion/reveal, Stop"
+    },
+    {
+      "requestedBackend": "canvas",
+      "actualBackend": "Canvas 2D · compatibility",
+      "version": "2026-10-02.3",
+      "fingerprint": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8",
+      "admitted": 2,
+      "checks": "fresh manual startup, four selector levels, real-time explicit Start, immersion/reveal, Stop"
+    }
+  ],
+  "errors": [],
+  "failed": null
+}

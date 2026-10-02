@@ -1,6 +1,6 @@
-Always Play implementation: [candidate evidence](evidence/always-play-2026-10-02/IMPLEMENTATION.md), [isolated preview](https://firecrackers-always-preview.allygym-api.workers.dev/) and [PR #32](https://github.com/samir1234khans/firecrackers/pull/32). Production remains `.11`; qualification is in progress.
+Latest production: [Always Play / build `.3`](evidence/always-play-2026-10-02/PRODUCTION.md), [qualification](evidence/always-play-2026-10-02/IMPLEMENTATION.md), [public controls](evidence/always-play-2026-10-02/final/controls.html) and [PR #32](https://github.com/samir1234khans/firecrackers/pull/32). Four quantity levels, smooth immersive controls, main promotion and actual production verification are recorded. The original longer performance plan remains partially unqualified; earlier entries below preserve historical checkpoints.
 
-Planned next mode: [Always Play with four quantity levels](plans/ALWAYS-PLAY.md) defines Low, Medium, High and Super High endless playback, controls, bounded scheduling and qualification. Planning only; no application changes or deployment.
+Historical Always Play plan: [Always Play with four quantity levels](plans/ALWAYS-PLAY.md) defines Low, Medium, High and Super High endless playback, controls, bounded scheduling and qualification. This paragraph records the earlier planning checkpoint; implementation and production delivery are documented above.
 
 Latest production: [moonlit water and immersive controls / build `.11`](evidence/moonlit-water-2026-10-01/PRODUCTION.md) records the owner-authorized main promotion, passed qualification, actual deployment and rollback. Earlier candidate/release entries below are historical.
 

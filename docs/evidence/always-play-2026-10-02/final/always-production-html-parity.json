@@ -1,0 +1,8 @@
+{
+  "rawHtmlMatches": false,
+  "applicationHtmlMatches": true,
+  "exception": "Exactly one Cloudflare edge beacon module plus closing-body indentation; all other bytes equal the CI HTML",
+  "expectedSha256": "6464ebf6fc94d118611fdc5bcd38d267301b0135095702f747b0f00ef08dbbaa",
+  "liveSha256": "040a0723bbc06de53def242945591b13240baf294656cbd3bee6c59e82db8cc2",
+  "injectedBytes": 367
+}

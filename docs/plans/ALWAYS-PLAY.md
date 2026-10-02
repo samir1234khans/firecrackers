@@ -1,6 +1,6 @@
 # Always Play — four-pace endless autoplay
 
-Status: proposed implementation plan, 2 October 2026. No application changes or deployment are included in this planning checkpoint.
+Status: historical implementation plan, 2 October 2026. Delivered in build `2026-10-02.3` through PR #32. The [production receipt](../evidence/always-play-2026-10-02/PRODUCTION.md) records actual delivery, owner-shortened testing and remaining qualification limits; numerical targets below remain planning targets.
 
 ## 1. Product decision
 

@@ -1,0 +1,291 @@
+{
+  "runtimeMain": "074c4c1c089864a97c3ee44d596d7e687d9f7781",
+  "refs": 71,
+  "exception": "Historical alternate five-effect JavaScript implementation is intentionally preserved, per AGENTS.md",
+  "rows": [
+    {
+      "ref": "codex/always-play",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "codex/always-play-planning",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "codex/moonlit-water-realism",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/branch-reconciliation-2026-09-30",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/cinematic-release-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/graphics-recovery-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/latest-production-reconciliation",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/pad-launch-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/promote-latest-to-main",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/realism-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/river-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/transparent-panels-release",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/waterfront-production-2026-09-30",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/waterfront-release-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "docs/webgpu-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/bottom-tray-upper-canopy",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/cinematic-realism-v2",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/cinematic-waterfront",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/cloudflare-production",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/drag-to-pad-cinematic-controls",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/flagship-signatures",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/frictionless-firework-shelves",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/galaxy-night-sky",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/interactive-galactic-sky",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/moon-natural-water",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/open-sky-controls",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/realism-refinement",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/transparent-edge-panels",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "feat/waterfront-realism",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "fix/burst-transition-stalls",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "fix/graphics-loading-budget",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "fix/webgpu-asset-startup",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "main",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/codex/always-play",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/codex/moonlit-water-realism",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/branch-reconciliation-2026-09-30",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/cinematic-release-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/graphics-recovery-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/latest-production-reconciliation",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/pad-launch-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/promote-latest-to-main",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/realism-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/river-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/waterfront-production-2026-09-30",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/waterfront-release-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/docs/webgpu-production-receipt",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/bottom-tray-upper-canopy",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/cinematic-realism-v2",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/cinematic-waterfront",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/cloudflare-production",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/drag-to-pad-cinematic-controls",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/fireworks-v1",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/fireworks-v1-implementation",
+      "commitsNotInRuntimeMain": 7
+    },
+    {
+      "ref": "origin/feat/flagship-signatures",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/frictionless-firework-shelves",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/galaxy-night-sky",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/grand-collection",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/interactive-galactic-sky",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/moon-natural-water",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/open-sky-controls",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/realism-refinement",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/transparent-edge-panels",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/feat/waterfront-realism",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/fix/burst-transition-stalls",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/fix/graphics-loading-budget",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/fix/ignition-reliability",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/fix/video-launch-flow",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/fix/viewability-recovery",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/fix/webgpu-asset-startup",
+      "commitsNotInRuntimeMain": 0
+    },
+    {
+      "ref": "origin/main",
+      "commitsNotInRuntimeMain": 0
+    }
+  ]
+}
