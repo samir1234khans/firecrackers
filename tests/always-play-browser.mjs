@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
+import { openPanel, settingsTab } from './stage-helpers.mjs';
 import { mkdir, writeFile } from 'node:fs/promises';
 const base=process.env.ALWAYS_URL||'http://127.0.0.1:4173/';
 const out=process.argv[2]||'test-results/always-play-browser';await mkdir(out,{recursive:true});
@@ -78,7 +79,11 @@ try{
   await fresh.context().setOffline(true);await fresh.reload({waitUntil:'domcontentloaded'});await fresh.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});
   await fresh.evaluate(()=>window.__firecrackersQA.freeze(true));await panel(fresh);await fresh.getByRole('button',{name:'Always Play',exact:true}).click();await fresh.getByRole('button',{name:'Start Always Play',exact:true}).click();
   await fresh.evaluate(()=>window.__firecrackersQA.advance(30));assert.equal((await snap(fresh)).show,'always');assert.ok((await snap(fresh)).always.admitted>=3);
-  await fresh.context().setOffline(false);await fresh.close();
+  await fresh.context().setOffline(false);
+  await openPanel(fresh,'settings');await settingsTab(fresh,'Display');
+  await fresh.getByLabel('Display pacing',{exact:true}).selectOption('always');await fresh.getByLabel('Always Play quantity',{exact:true}).selectOption('1');
+  await fresh.getByRole('button',{name:'Start display',exact:true}).click();assert.equal((await snap(fresh)).always.pace,1);assert.equal((await snap(fresh)).show,'always');
+  await fresh.close();
  }
  assert.deepEqual(errors,[]);
 }catch(e){failed=e.stack;throw e;}finally{await browser.close();await writeFile(`${out}/report.json`,JSON.stringify({base,method:'Installed Chrome native backends; phone sizes emulated. Browser plugin unavailable; repository Playwright.',results,errors,failed,captures},null,2));}

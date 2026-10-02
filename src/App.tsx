@@ -351,7 +351,7 @@ export default function App() {
       <section className='panel-pane settings-tab-panel' role='tabpanel' id='settings-display' aria-labelledby='settings-tab-display' hidden={settingsSection !== 'display'} tabIndex={0}>
       <PresentationSettings value={presentation} onChange={setPresentation} disabled={!world.ready || Boolean(world.error)} onStart={() => {
         setPresentation(p => ({ ...p, mode: p.mode === 'interactive' ? 'scene' : p.mode, show: p.show || 'calm' }));
-        world.start(presentation.show || 'calm');
+        world.start(presentation.show || 'calm', presentation.pace);
         world.setOverlay(false);
         setOverlay(null);
         setHidden(true);
