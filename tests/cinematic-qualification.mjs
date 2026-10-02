@@ -4,10 +4,12 @@ import assert from 'node:assert/strict';
 import { performanceIsolation } from './performance-isolation.mjs';
 const out=process.argv[2]||'test-results/cinematic-qualification',origin=process.env.SHOW_URL||'http://127.0.0.1:4188/';await mkdir(out,{recursive:true});
 const started=Date.now(),browsers=new Set(),originalLaunch=chromium.launch.bind(chromium);
+const maximumMinutes=Number(process.env.QUALIFICATION_MINUTES||20);
+assert.ok(Number.isFinite(maximumMinutes)&&maximumMinutes>0&&maximumMinutes<=20,'Qualification window must stay within the owner-approved 20 minutes');
 chromium.launch=async(...args)=>{const b=await originalLaunch(...args);browsers.add(b);return b;};
-const report={origin,started:new Date(started).toISOString(),maximumMinutes:20,completed:false,stable:false,paired:null,stability:[],isolation:null,errors:[],failed:null};
+const report={origin,started:new Date(started).toISOString(),maximumMinutes,completed:false,stable:false,paired:null,stability:[],isolation:null,errors:[],failed:null};
 let timedOut=false,isolation;
-const deadline=setTimeout(()=>{timedOut=true;for(const b of browsers)void b.close();},20*60*1000);
+const deadline=setTimeout(()=>{timedOut=true;for(const b of browsers)void b.close();},maximumMinutes*60*1000);
 const check=()=>{if(timedOut)throw Error('Owner-capped 20-minute window exhausted');isolation.check();};
 try{
  isolation=await performanceIsolation();report.isolation=isolation.evidence;check();

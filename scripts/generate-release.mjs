@@ -35,7 +35,15 @@ export function canonicalSource(path, text) {
 }
 
 export async function generateRelease() {
+  const catalog = await readFile('src/engine/catalog.ts', 'utf8');
+  const version = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)?.[1];
+  if (!version) throw new Error('Missing release version in the catalog.');
+  const lifecycle = await readFile('assets-source/service-worker/cache-lifecycle.template.js', 'utf8');
+  if (!lifecycle.includes('__FIRECRACKERS_RELEASE__')) throw new Error('Missing cache migration release placeholder.');
+  await mkdir('public', { recursive: true });
+  await writeFile('public/cache-lifecycle.js', lifecycle.replace('__FIRECRACKERS_RELEASE__', version));
   const paths = [
+    'assets-source/service-worker/cache-lifecycle.template.js', 'public/cache-lifecycle.js', 'public/_headers', 'vite.config.ts',
     'src/engine/CinematicDirector.ts', 'src/engine/BurstLightFrame.ts', 'src/engine/ShowMusic.ts', 'assets-source/music/manifest.json',
     'src/graphics/MoonComposition.ts', 'src/graphics/WaterWaves.ts', 'src/graphics/WaterSurfaceGeometry.ts', 'src/graphics/PlanarReflection.ts', 'src/graphics/ParticleReflectionBounds.ts', 'src/graphics/WaterfrontAssets.ts', 'src/graphics/WaterReflection.ts', 'src/engine/Audio.ts',
     'src/ui/StartupScreen.tsx', 'src/styles/startup.css', 'src/engine/StartupProgress.ts', 'src/engine/LaunchComposition.ts', 'src/engine/LaunchProfile.ts', 'src/engine/StageLayout.ts', 'src/styles/stage.css', 'src/styles/panels.css', 'index.html',
@@ -63,9 +71,6 @@ export async function generateRelease() {
     modules.push({ path, sha256: hash(bytes), rawSha256: hash(bytes), removedHostAttributes: 0 });
   }
   modules.sort((a, b) => a.path.localeCompare(b.path));
-  const catalog = await readFile('src/engine/catalog.ts', 'utf8');
-  const version = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)?.[1];
-  if (!version) throw new Error('Missing release version in the catalog.');
   const sha256 = hash(JSON.stringify(modules.map(({ path, sha256 }) => ({ path, sha256 }))));
   const receipt = {
     formatVersion: 2, version, scope: 'delivered-upgrade-modules',

@@ -2,6 +2,10 @@
 
 Implemented source `7342b4eccf13d81e28a088a22e1000ad7ea9c93f`, based on refreshed main `61c41165ef099675c2e709313c0e47e02cdbd061`. [PR #33](https://github.com/samir1234khans/firecrackers/pull/33) retains implementation, test correction and evidence. [Implementation](IMPLEMENTATION.md) · [approved contract](../../plans/CINEMATIC-SHOWS.md).
 
+## Owner-requested cache follow-up
+
+Candidate `2026-10-02.5` adds [automatic cache-safe updates](CACHE-UPDATES.md), fingerprint `c5207035d171b38844d852c53009e630997724bddb4e3f3b730284f90072cfd7`. Actual `.3` production-artifact upgrade, multiple tabs, preserved preferences, obsolete-cache deletion, offline reload, rollback and redeployment passed. 283 units and type/lint/build passed. The complete cinematic workflow on `ba3aef8`, [run 37027589240](https://github.com/samir1234khans/firecrackers/actions/runs/37027589240), passed all four jobs; the cache follow-up must pass its own full workflow. The `.4` preview receipts below remain historical until the new exact artifact is deployed. Clean short hardware qualification remains pending; the rejected dataset is retained below.
+
 ## Isolated preview
 
 [Open the preview](https://firecrackers-shows-preview.allygym-api.workers.dev/) on desktop or mobile. Build `2026-10-02.4`, fingerprint `125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c`, 107 source/asset entries. Worker `firecrackers-shows-preview`, version `fd63ee8b-303f-493f-a5b2-45faee80cdc6`, has no production route. The deployed directory was downloaded from the engine job's exact [CI artifact 11235491011](https://github.com/samir1234khans/firecrackers/actions/runs/37024777051/artifacts/11235491011), rather than rebuilt for hosting.

@@ -171,6 +171,9 @@ jobs:
           SHOW_SOFTWARE: '1'
           SHOW_URL: http://127.0.0.1:4173/
         run: node tests/cinematic-lifecycle-browser.mjs /tmp/cinematic-lifecycle-evidence
+      - name: Legacy cache migration, automatic updates, offline reload and rollback
+        if: always()
+        run: node tests/cache-upgrade-browser.mjs /tmp/cache-upgrade-evidence
       - name: Recovery fault injection and smallest layouts
         if: always()
         env:
@@ -189,4 +192,5 @@ jobs:
             /tmp/panel-evidence
             /tmp/startup-evidence
             /tmp/cinematic-lifecycle-evidence
+            /tmp/cache-upgrade-evidence
           retention-days: 7

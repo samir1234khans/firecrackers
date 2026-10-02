@@ -21,6 +21,13 @@ export function usePlatform(notice: (text: string) => void) {
     useEffect(() => {
         let alive = true;
         let registration: ServiceWorkerRegistration | undefined;
+        let detachRegistration = () => {};
+        let detachInstalling = () => {};
+        const activateWaiting = () => {
+            // Also permits an explicitly deployed rollback to an older prompt-mode worker.
+            try { if (navigator.serviceWorker.controller) registration?.waiting?.postMessage({ type: 'SKIP_WAITING' }); }
+            catch { /* A worker can become redundant while an update is checked. */ }
+        };
         const checkUpdate = () => { if (!document.hidden && navigator.onLine) void registration?.update().catch(() => { /* Offline is normal. */ }); };
         const api = (navigator as unknown as {
             wakeLock?: {
@@ -39,6 +46,26 @@ export function usePlatform(notice: (text: string) => void) {
                     setUpdateReady(true); },
                 onRegisteredSW: (_url, registered) => {
                     registration = registered;
+                    if (registered) {
+                        const followInstalling = () => {
+                            detachInstalling();
+                            const next = registered.installing;
+                            if (!next) return;
+                            const changed = () => {
+                                if (next.state === 'installed') {
+                                    try { if (alive && navigator.serviceWorker.controller) next.postMessage({ type: 'SKIP_WAITING' }); }
+                                    catch { /* Another tab may already have activated it. */ }
+                                    detachInstalling();
+                                } else if (next.state === 'redundant') detachInstalling();
+                            };
+                            next.addEventListener('statechange', changed);
+                            detachInstalling = () => next.removeEventListener('statechange', changed);
+                            changed();
+                        };
+                        registered.addEventListener('updatefound', followInstalling);
+                        detachRegistration = () => registered.removeEventListener('updatefound', followInstalling);
+                        followInstalling(); activateWaiting();
+                    }
                     if (registration?.active)
                         void navigator.serviceWorker.ready.then(async () => {
                             try {
@@ -56,19 +83,21 @@ export function usePlatform(notice: (text: string) => void) {
         const onInstall = (event: Event) => { event.preventDefault(); install.current = event as InstallEvent; setInstallable(true); };
         const onInstalled = () => { install.current = null; setInstallable(false); notice('App installed. Your sky is ready.'); };
         const onFullscreen = () => setFullscreen(Boolean(document.fullscreenElement));
-        const onHidden = () => { if (document.hidden)
-            controller.release(); };
+        const onHidden = () => { if (document.hidden) controller.release(); else checkUpdate(); };
         window.addEventListener('focus', checkUpdate);
+        window.addEventListener('online', checkUpdate);
         window.addEventListener('beforeinstallprompt', onInstall);
         window.addEventListener('appinstalled', onInstalled);
         document.addEventListener('fullscreenchange', onFullscreen);
         document.addEventListener('visibilitychange', onHidden);
         return () => {
             alive = false;
+            detachRegistration(); detachInstalling();
             controller.dispose();
             if (wake.current === controller)
                 wake.current = null;
             window.removeEventListener('focus', checkUpdate);
+            window.removeEventListener('online', checkUpdate);
             window.removeEventListener('beforeinstallprompt', onInstall);
             window.removeEventListener('appinstalled', onInstalled);
             document.removeEventListener('fullscreenchange', onFullscreen);

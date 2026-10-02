@@ -2,6 +2,10 @@
 
 Owner-approved on 2 October 2026. Baseline main `61c41165ef099675c2e709313c0e47e02cdbd061`, production `2026-10-02.3`. This phase upgrades Festival/Finale and integrates authored phrases into four-pace Always Play. Manual, Calm, the composition and all thirteen identities remain.
 
+## Owner-requested cache freshness addendum
+
+The owner subsequently requested automatic current-version delivery and removal of obsolete caches when production is promoted. This supersedes the earlier manual-update preference for this release. Online installation activates the verified replacement worker and refreshes controlled scene tabs; an open scene can restart. Check again on focus, visibility and reconnection. Version only Firecrackers runtime caches; delete obsolete app caches, preserve preferences and unrelated storage, retain bounded consent-only music caching and offline play. Entry HTML, service-worker scripts, manifest and release receipt must revalidate with `no-store`; content-hashed bundles may remain immutable. Validate an actual production-artifact upgrade, multiple old tabs, fresh installation, no reload loop, offline reload, rollback and redeployment. Offline visitors receive the update after reconnecting; do not promise immediate global delivery to disconnected devices. Existing production qualification and CI gates remain.
+
 ## Shows and controls
 
 Three original 90-second shows: Moonlit Silver (D minor), Golden Celebration (D major), Prismatic Grand (C major). Each uses six 15-second phrases at 96 BPM: opening, dialogue, development, lift, crest, resolution. Finale defaults to Prismatic Grand and ends at 90 seconds, retaining falling effects. Festival/Always default to cycling the three themes in that order. Fixed themes are available. Theme changes wait for the next phrase, preserving score position and airborne effects. Quantity changes never change music tempo.
