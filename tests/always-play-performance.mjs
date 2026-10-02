@@ -10,7 +10,7 @@ const repeats=Number(process.env.ALWAYS_PERF_REPEATS||4);
 const seconds=Number(process.env.ALWAYS_PERF_SECONDS||15);
 const quality=process.env.ALWAYS_PERF_QUALITY||'standard';
 assert.ok(['low','standard','ultra'].includes(quality));
-const report={candidate,baseline,method:'Sequential installed Chrome, counterbalanced baseline/candidate legacy workloads, then four paces with alternating order. Fixed scalar observer; normal real-time clock. No completed GPU timing or physical-phone qualification.',runs:[],comparisons:[],errors:[],failed:null};
+const report={candidate,baseline,method:'Sequential installed Chrome, counterbalanced baseline/candidate legacy workloads, then four paces with alternating order. Both sources receive compatible v2 preferences. Existing test-only closure fixture resets the seeded Simulation outside sampling, with the clock frozen until UI Start. Fixed scalar observer; normal real-time clock. No completed GPU timing or physical-phone qualification.',runs:[],comparisons:[],errors:[],failed:null};
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const quantile=(v,q)=>{if(!v.length)return null;const a=[...v].sort((a,b)=>a-b);return a[Math.min(a.length-1,Math.floor(a.length*q))];};
 function summary(frames){const rendered=frames.filter(f=>f.newRender&&f.renderedIntervalMs!==null);return{samples:frames.length,frames:rendered.length,renderP50:quantile(rendered.map(f=>f.renderedIntervalMs),.5),renderP95:quantile(rendered.map(f=>f.renderedIntervalMs),.95),renderP99:quantile(rendered.map(f=>f.renderedIntervalMs),.99),rafP95:quantile(frames.map(f=>f.rafMs),.95),cpuP95:quantile(rendered.map(f=>f.submitMs),.95),over50:rendered.filter(f=>f.renderedIntervalMs>50).length,over100:rendered.filter(f=>f.renderedIntervalMs>100).length};}
@@ -18,7 +18,7 @@ const labels=['Low','Medium','High','Super High'];
 async function condition(origin,source,backend,workload,repeat,duration){
  const errors=[];const context=await browser.newContext({viewport:{width:1280,height:800},serviceWorkers:'block',reducedMotion:'no-preference',...(source==='candidate'&&repeat===0&&typeof workload==='number'?{recordVideo:{dir:`${out}/videos`,size:{width:1280,height:800}}}:{})});
  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
- await page.addInitScript(quality=>localStorage.setItem('firecrackers.preferences.v1',JSON.stringify({version:3,onboarded:true,quality,reducedFlashes:false,sound:false,placementMode:'random'})),quality);
+ await page.addInitScript(quality=>localStorage.setItem('firecrackers.preferences.v1',JSON.stringify({version:2,onboarded:true,quality,reducedFlashes:false,sound:false,placementMode:'random'})),quality);
  const url=new URL(origin);url.searchParams.set('backend',backend);url.searchParams.set('qa','1');url.searchParams.set('seed','42');
  await page.goto(url.href);await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});
  await page.waitForFunction(()=>window.__firecrackersQA.snapshot().moon?.ready,{},{timeout:90000});
@@ -31,12 +31,15 @@ async function condition(origin,source,backend,workload,repeat,duration){
  },backend);
  if(backend==='webgpu'){assert.ok(identity);assert.equal(identity.fallback,false);}if(backend==='webgl')assert.ok(identity.driver&&!/swiftshader|llvmpipe|software/i.test(identity.driver));
  await installWaterTimingProbe(page);await validateWaterTimingProbe(page);
+ await page.evaluate(()=>{window.__firecrackersQA.freeze(true);const state=window.__moonlitWaterTiming.simulation;state.reset();state.placementMode='random';});
+ const prepared=await page.evaluate(()=>window.__firecrackersQA.snapshot());assert.equal(prepared.time,0);assert.equal(prepared.quality,quality);assert.equal(prepared.reducedFlashes,false);
  await page.getByRole('button',{name:/^Show mode:/}).click();
  if(typeof workload==='number'){
   await page.getByRole('button',{name:'Always Play',exact:true}).click();await page.getByRole('radio',{name:`${workload} ${labels[workload-1]}`,exact:true}).check();
   await page.screenshot({path:`${out}/${backend}-${workload}-${repeat}-panel.png`});await page.getByRole('button',{name:'Start Always Play',exact:true}).click();
  }else await page.getByRole('button',{name:'Festival',exact:true}).click();
- await page.waitForTimeout(10000); // natural warm-up; no QA advancing/freezing
+ await page.evaluate(()=>window.__firecrackersQA.freeze(false));
+ await page.waitForTimeout(10000); // natural warm-up; no QA advancement or frozen measured frames
  const before=await page.evaluate(()=>window.__firecrackersQA.snapshot());const frames=[];
  for(let remaining=duration;remaining>0;remaining-=15){const data=await sampleWaterTiming(page,'always',Math.min(15,remaining)*1000,null);frames.push(...data.frames);}
  const after=await page.evaluate(()=>window.__firecrackersQA.snapshot());await validateWaterTimingProbe(page);
