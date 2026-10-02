@@ -2,7 +2,7 @@ name: Grand collection source bundle
 on:
   workflow_dispatch:
   push:
-    branches: [feat/grand-collection]
+    branches: [feat/grand-collection, fix/full-sky-bursts-waterlight]
     paths: [.github/workflows/grand-collection-bundle.yml]
 permissions:
   contents: read
