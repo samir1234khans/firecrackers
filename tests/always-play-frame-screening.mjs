@@ -8,14 +8,14 @@ import { stat, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 const [out,...files]=process.argv.slice(2);
 if(!out||!files.length)throw Error('Usage: node tests/always-play-frame-screening.mjs output.json video.webm ...');
-const server=createServer(async(req,res)=>{const index=Number(req.url?.slice(1));if(!Number.isInteger(index)||!files[index]){res.writeHead(404).end();return;}const file=files[index],size=(await stat(file)).size;
+const server=createServer(async(req,res)=>{const screen=req.url?.match(/^\/screen\/(\d+)$/);if(screen){res.writeHead(200,{'Content-Type':'text/html'}).end(`<video preload="auto" src="/${Number(screen[1])}"></video>`);return;}const index=Number(req.url?.slice(1));if(!Number.isInteger(index)||!files[index]){res.writeHead(404).end();return;}const file=files[index],size=(await stat(file)).size;
  const range=req.headers.range;const match=range?.match(/bytes=(\d+)-(\d*)/);const start=match?Number(match[1]):0,end=match&&match[2]?Math.min(size-1,Number(match[2])):size-1;
  res.writeHead(match?206:200,{'Content-Type':'video/webm','Accept-Ranges':'bytes','Content-Length':end-start+1,...(match?{'Content-Range':`bytes ${start}-${end}/${size}`}:{})});createReadStream(file,{start,end}).pipe(res);
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const port=server.address().port;
 const browser=await chromium.launch({channel:'chrome',headless:true});const rows=[];
 try{for(let index=0;index<files.length;index++){
- const page=await browser.newPage();await page.goto(`http://127.0.0.1:${port}/${index}`);
+ const page=await browser.newPage();await page.goto(`http://127.0.0.1:${port}/screen/${index}`);
  const result=await page.evaluate(async()=>{
   const video=document.querySelector('video');if(video.readyState<1)await new Promise(resolve=>video.addEventListener('loadedmetadata',resolve,{once:true}));video.pause();
   const width=Math.round(video.videoWidth/4),height=Math.round(video.videoHeight/4),canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d',{willReadFrequently:true});
