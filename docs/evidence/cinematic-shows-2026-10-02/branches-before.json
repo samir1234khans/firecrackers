@@ -1,0 +1,240 @@
+{
+  "branches": [
+    {
+      "ref": "origin",
+      "sha": "61c41165ef099675c2e709313c0e47e02cdbd061",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/codex/always-play",
+      "sha": "44161d9d1be5b506ec3adc6da4a5540fd1405976",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/codex/cinematic-shows",
+      "sha": "557dc3c718adec87e14d9f3c875f4431e6dd6c3e",
+      "includedInMain": false,
+      "classification": "Current approved candidate"
+    },
+    {
+      "ref": "origin/codex/moonlit-water-realism",
+      "sha": "19bd10c53426e8db13adb1c0bb4746d3fa5a0aae",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/branch-reconciliation-2026-09-30",
+      "sha": "de65875a11f8d033ce8678cf71089ecd18f03eaa",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/cinematic-release-receipt",
+      "sha": "75e87a3fa6eab6e031decd41940dd00a1b7329b2",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/graphics-recovery-production-receipt",
+      "sha": "2b33a4f5f3bf1e15fbeb79dfcda3f35bb62a50e0",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/latest-production-reconciliation",
+      "sha": "add8934ed095ce69db223f524f54d8c68b661a14",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/pad-launch-production-receipt",
+      "sha": "dcc2677863158d122d90c66f7f484a677ff50707",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/promote-latest-to-main",
+      "sha": "378aa88353ae6606de33c9afcfbd13a53de2b96c",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/realism-production-receipt",
+      "sha": "334d91b8103ebb57ae543a0c98d09ae843a3ed2a",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/river-production-receipt",
+      "sha": "a050849fecc25a7e1566dee3931e58ded0432a1e",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/waterfront-production-2026-09-30",
+      "sha": "9a8e7e701ce2a7ae94c43eb51af673a3f8a69945",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/waterfront-release-receipt",
+      "sha": "11f18242c228bd8151a734fddf2befe53f554d77",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/docs/webgpu-production-receipt",
+      "sha": "6601d97098fe3896a057e7fdb41bdcab13f7b9d7",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/bottom-tray-upper-canopy",
+      "sha": "a57f4235bf02a5294d9d378fba3b28dd05e067e6",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/cinematic-realism-v2",
+      "sha": "720bf0e1baa95d8bb1c50b8054426f2369d01154",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/cinematic-waterfront",
+      "sha": "a300a61bc045b3ea200227f0d84764392cee917a",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/cloudflare-production",
+      "sha": "838c61db35bf1a8a27e3ff2559c9fb73d2621ba3",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/drag-to-pad-cinematic-controls",
+      "sha": "0fea477f324262f128f4ad8d74e06ff5a86abda0",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/fireworks-v1",
+      "sha": "589fe284a097a3dd9b9c691e95a9c15189b0bbc3",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/fireworks-v1-implementation",
+      "sha": "16d9d1d8056ff6cb1d47b7fff92c3731395efdce",
+      "includedInMain": false,
+      "classification": "Preserved historical alternate per AGENTS.md"
+    },
+    {
+      "ref": "origin/feat/flagship-signatures",
+      "sha": "7946153d44a3ad42de8cdbb5b792af7b19c7f6f5",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/frictionless-firework-shelves",
+      "sha": "2724050f29449a642b7c7ed95469183b74fb42b6",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/galaxy-night-sky",
+      "sha": "24a68b3cf961953e35ec96b2623847acb5371e0c",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/grand-collection",
+      "sha": "44ee6527121c7ebc5a26179b26bb77f765623851",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/interactive-galactic-sky",
+      "sha": "f179c736617c3eb5c0f9ad3106e25f2b83c7b0a2",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/moon-natural-water",
+      "sha": "b064fe43c87b9315afa91dda18364b88e70ee830",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/open-sky-controls",
+      "sha": "087e3bc82cb7b5d4ccf59a783ae703ccb1069db0",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/realism-refinement",
+      "sha": "0ea48b7328b2612b28c5b55a83a2f5b36f947268",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/transparent-edge-panels",
+      "sha": "0fc44a5ffdeaddc875b103d970e0e0be1d059470",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/feat/waterfront-realism",
+      "sha": "9603a096be6509304ba5c2e4fc4b4b1b3ea421ef",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/fix/burst-transition-stalls",
+      "sha": "57b20cfd6b5ceb4bdb8b1cd5d19c6c24a9f0ae69",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/fix/graphics-loading-budget",
+      "sha": "32bacb64ba0f9231f7bf1072365618435d249fe0",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/fix/ignition-reliability",
+      "sha": "6b1a5fa4c5613e30b5a81ff314a5377d0861c62b",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/fix/video-launch-flow",
+      "sha": "501b346e9624e9c665a19ddcff561e0657c382c0",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/fix/viewability-recovery",
+      "sha": "f48a8bf4a153ce5077a8901738bb4883aebc456b",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/fix/webgpu-asset-startup",
+      "sha": "b7ad56c52c72cfd9452e8f88903fa1134ef5d9e4",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    },
+    {
+      "ref": "origin/main",
+      "sha": "61c41165ef099675c2e709313c0e47e02cdbd061",
+      "includedInMain": true,
+      "classification": "Preserved ancestor"
+    }
+  ],
+  "main": "61c41165ef099675c2e709313c0e47e02cdbd061",
+  "at": "2026-10-02T16:30:06.6963374Z"
+}
