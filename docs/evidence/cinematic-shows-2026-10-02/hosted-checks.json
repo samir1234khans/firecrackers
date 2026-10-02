@@ -1,0 +1,90 @@
+{
+  "origin": "https://firecrackers-shows-preview.allygym-api.workers.dev/",
+  "source": "7342b4eccf13d81e28a088a22e1000ad7ea9c93f",
+  "cases": [
+    {
+      "backend": "webgpu",
+      "width": 393,
+      "height": 851,
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "gpuErrors": [],
+      "recoveryHistory": []
+    },
+    {
+      "backend": "webgpu",
+      "width": 1280,
+      "height": 800,
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "gpuErrors": [],
+      "recoveryHistory": []
+    },
+    {
+      "backend": "webgl",
+      "width": 393,
+      "height": 851,
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "gpuErrors": [],
+      "recoveryHistory": []
+    },
+    {
+      "backend": "webgl",
+      "width": 1280,
+      "height": 800,
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "gpuErrors": [],
+      "recoveryHistory": []
+    },
+    {
+      "backend": "canvas",
+      "width": 393,
+      "height": 851,
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    },
+    {
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800,
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    }
+  ],
+  "errors": [],
+  "failed": null
+}

@@ -173,3 +173,7 @@ The [implementation receipt](docs/evidence/always-play-2026-10-02/IMPLEMENTATION
 ## Cinematic scores and original recordings
 
 Run `tests/cinematic-shows-browser.mjs` with `SHOW_URL` and `SHOW_BACKENDS` for the three native backends/seven viewports. `SHOW_SOFTWARE=1` explicitly labels CI WebGL/Canvas emulation. `tests/cinematic-lifecycle-browser.mjs` protects opt-in/hidden/offline/missing-audio/overload behavior. Both run in the complete CI workflow. Recordings are reproducible with `scripts/generate-show-music.py --flac <verified FLAC 1.5.0 encoder>`; see [music provenance](assets-source/music/PROVENANCE.md). The isolated Worker uses `wrangler.cinematic-preview.jsonc` with no production route. [Approved release gate](docs/plans/CINEMATIC-SHOWS.md) holds production if WebGPU stability or shared-PC timing remains unqualified.
+
+## Cinematic show qualification
+
+Run `node tests/cinematic-qualification.mjs test-results/cinematic-qualification-clean` alone with `SHOW_URL` set to the exact candidate artifact. Its complete hardware window is capped at 20 minutes and includes existing counterbalanced cadence/transition checks plus real-time native show stability. External tests/builds invalidate the timing; preserve that evidence and retain the isolated preview until a valid check passes. [Current receipt](docs/evidence/cinematic-shows-2026-10-02/QUALIFICATION.md). Music remains a separate opt-in; quantity never changes the 96 BPM score.

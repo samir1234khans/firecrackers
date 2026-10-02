@@ -20,7 +20,7 @@ Recovery diagnostics distinguish overload samples, backend history, device-loss 
 - Two-hour accelerated Festival simulation passed resource bounds. This is logical time, not physical/GPU endurance.
 - Native Chrome WebGPU, WebGL and Canvas each passed 21 theme/viewport cases, covering all seven existing viewport sizes and three shows. The original recording decoder verified all eighteen durations, peak headroom and identical overlap samples. Music playback, master mute, pause/resume and immersion passed.
 - Focused lifecycle checks passed explicit visual themes with sound off, mid-show music activation, hidden-page freeze/explicit resume, offline app and consent-cached score chunks, missing-music fallback and genuine overload recovery preserving music/show phase.
-- These pre-qualification browser passes precede the final small phase-boundary/contact refinements. Final-source native checks, matched captures, clean hardware timing, complete PR/main CI and deployment remain separate gates; their results must be recorded before promotion.
+- Final-source native checks and matched captures have now completed; see [the preview and qualification receipt](QUALIFICATION.md). Shared-PC timing was rejected by the monitor, so clean hardware qualification and main/production promotion remain held.
 
 ## Findings retained
 
