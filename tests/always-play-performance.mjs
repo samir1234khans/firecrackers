@@ -8,6 +8,8 @@ const out=process.argv[2]||'test-results/always-performance';await mkdir(out,{re
 const backends=(process.env.ALWAYS_PERF_BACKENDS||'webgpu,webgl,canvas').split(',');
 const repeats=Number(process.env.ALWAYS_PERF_REPEATS||4);
 const seconds=Number(process.env.ALWAYS_PERF_SECONDS||15);
+const quality=process.env.ALWAYS_PERF_QUALITY||'standard';
+assert.ok(['low','standard','ultra'].includes(quality));
 const report={candidate,baseline,method:'Sequential installed Chrome, counterbalanced baseline/candidate legacy workloads, then four paces with alternating order. Fixed scalar observer; normal real-time clock. No completed GPU timing or physical-phone qualification.',runs:[],comparisons:[],errors:[],failed:null};
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const quantile=(v,q)=>{if(!v.length)return null;const a=[...v].sort((a,b)=>a-b);return a[Math.min(a.length-1,Math.floor(a.length*q))];};
@@ -16,7 +18,7 @@ const labels=['Low','Medium','High','Super High'];
 async function condition(origin,source,backend,workload,repeat,duration){
  const errors=[];const context=await browser.newContext({viewport:{width:1280,height:800},serviceWorkers:'block',reducedMotion:'no-preference',...(source==='candidate'&&repeat===0&&typeof workload==='number'?{recordVideo:{dir:`${out}/videos`,size:{width:1280,height:800}}}:{})});
  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
- await page.addInitScript(()=>localStorage.setItem('firecrackers.preferences.v1',JSON.stringify({version:2,onboarded:true,quality:'standard',reducedFlashes:false,sound:false,placementMode:'random'})));
+ await page.addInitScript(quality=>localStorage.setItem('firecrackers.preferences.v1',JSON.stringify({version:3,onboarded:true,quality,reducedFlashes:false,sound:false,placementMode:'random'})),quality);
  const url=new URL(origin);url.searchParams.set('backend',backend);url.searchParams.set('qa','1');url.searchParams.set('seed','42');
  await page.goto(url.href);await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});
  await page.waitForFunction(()=>window.__firecrackersQA.snapshot().moon?.ready,{},{timeout:90000});
