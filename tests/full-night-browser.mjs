@@ -43,7 +43,13 @@ try {
       if(backend==='webgl') {
         assert.equal(s.reflectionAllocated,true); assert.equal(s.reflectionMode,'planar');
         assert.equal(s.waterBurstLightCapacity,12);
-        if(quality==='low') {assert.equal(s.reflectionWidth,128); assert.equal(s.reflectionHz,6);}
+        if(quality==='low') {
+          const aspect=width/height;
+          assert.equal(s.reflectionWidth,Math.max(1,Math.round(128*Math.min(1,aspect))));
+          assert.equal(s.reflectionHeight,Math.max(1,Math.round(128/Math.max(1,aspect)*s.reflectionCropHeight)));
+          assert.ok(s.reflectionWidth<=128&&s.reflectionHeight<=128,'only the visible water-band rows are allocated');
+          assert.equal(s.reflectionHz,6);
+        }
       }
       result.checks.push('requested backend and persistent quality-tier reflection');
       // Use the same real icon/admission path as a user; no direct source injection.
