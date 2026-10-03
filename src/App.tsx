@@ -65,6 +65,7 @@ export default function App() {
   const world = useWorld(host, prefs, epoch, notify, presentation);
   const platform = usePlatform(notify);
   const state = world.snapshot;
+  const motionBlocked = prefs.reducedMotion || state.reducedMotion;
   const preparing = !startupPresented && !world.error;
   const immersiveAvailable = presentation.mode === 'interactive' && (Boolean(state.show) || ['playing', 'falling'].includes(state.personal.status)) && !world.error && !preparing;
   const immersiveActive = immersiveAvailable && immersive;
@@ -386,7 +387,7 @@ export default function App() {
         </div>
         <div className='settings-group'><h3>Cinematic response</h3>
           <Toggle label='Cinematic exposure' detail='A restrained brightness response to large shells; no brighter default or changes to show density.' checked={prefs.cinematicExposure} onChange={v => change('cinematicExposure', v)}/>
-          <Toggle label='Gentle camera response' detail={state.reducedMotion ? 'Disabled by your motion preference.' : world.backend.startsWith('Canvas') ? 'Requires the native 3D renderer; unavailable in Canvas.' : 'Optional sub-pixel perspective motion for the largest shells. Off by default.'} disabled={state.reducedMotion || world.backend.startsWith('Canvas')} checked={prefs.cameraMotion && !state.reducedMotion && !world.backend.startsWith('Canvas')} onChange={v => change('cameraMotion', v)}/>
+          <Toggle label='Gentle camera response' detail={motionBlocked ? 'Disabled by your motion preference.' : world.backend.startsWith('Canvas') ? 'Requires the native 3D renderer; unavailable in Canvas.' : 'Optional sub-pixel perspective motion for the largest shells. Off by default.'} disabled={motionBlocked || world.backend.startsWith('Canvas')} checked={prefs.cameraMotion && !motionBlocked && !world.backend.startsWith('Canvas')} onChange={v => change('cameraMotion', v)}/>
         </div>
         <div className='settings-group'><h3>Comfort</h3>
           <Toggle label='Reduced flashes' detail='Softer light; the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>

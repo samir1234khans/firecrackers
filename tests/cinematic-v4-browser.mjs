@@ -34,7 +34,7 @@ try{
    if(backend==='canvas')assert.equal(await page.getByLabel('Gentle camera response',{exact:true}).isDisabled(),true);
    await page.getByLabel('Reduced interface motion',{exact:true}).check();assert.equal(await page.getByLabel('Gentle camera response',{exact:true}).isDisabled(),true);
    await close();await advance(.2);if(backend==='webgl')assert.deepEqual((await snap()).cameraResponsePixels,[0,0]);entry.checks.push('motion override and truthful Canvas capability');
-   await page.getByRole('button',{name:'Night studio',exact:true}).click();await page.getByRole('button',{name:/^Saved nights/}).click();
+   await page.getByRole('button',{name:'Open night studio',exact:true}).click();await page.getByRole('button',{name:/^Saved nights/}).click();
    await page.getByRole('heading',{name:'Earlier golden night',exact:true}).waitFor();
    const bytes=await page.evaluate(()=>localStorage.getItem('firecrackers.nights.v1'));
    await page.getByRole('button',{name:'Adapt a copy of Earlier golden night',exact:true}).click();
