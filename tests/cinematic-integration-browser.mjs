@@ -5,7 +5,7 @@ import { inspectCapturedVideo } from './captured-media-helpers.mjs';
 const base = process.env.STAGE_URL || 'http://127.0.0.1:4173/';
 const out = process.argv[2] || 'test-results/cinematic-integration';
 await mkdir(out, { recursive: true });
-const report = { base, method: 'CI Chromium software WebGL/Canvas, emulated sizes, deterministic show checks, live audio/capture lifecycle and decoded exported media', physicalDevice: false, hardwareQualified: false, listeningQualified: false, cases: [] };
+const report = { base, method: 'CI Chromium software WebGL/Canvas, emulated sizes, deterministic show checks and bounded real-frame music/capture lifecycle; not a frame-rate benchmark', physicalDevice: false, hardwareQualified: false, listeningQualified: false, cases: [] };
 const browser = await chromium.launch({ headless: true, args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'] });
 try {
   for (const backend of ['webgl', 'canvas']) for (const [width, height] of [[1280, 800], [393, 851]]) {
@@ -77,7 +77,16 @@ try {
       await page.getByRole('checkbox', { name: 'Include app audio', exact: true }).check();
       await page.getByRole('button', { name: 'Record clip', exact: true }).click();
       await page.waitForFunction(() => window.__firecrackersQA.snapshot().capture.recording);
-      await page.waitForTimeout(1500);
+      const recordingStart = await snap();
+      // Transport validation needs actual scene frames. An arbitrary 1.5-second
+      // sample sometimes contains fewer than two presents on software WebGL.
+      // Do not invent frames, relax the decode assertions, or call this an FPS test.
+      await page.waitForFunction(frames => {
+        const state = window.__firecrackersQA.snapshot();
+        return state.capture.recording && state.frames >= frames + 8 && state.capture.seconds >= 2;
+      }, recordingStart.frames, { timeout: 12000, polling: 100 });
+      const recordingEnd = await snap();
+      entry.captureWindow = { presentedFrames: recordingEnd.frames - recordingStart.frames, seconds: recordingEnd.capture.seconds, simulationSeconds: recordingEnd.time - recordingStart.time };
       await page.getByRole('button', { name: 'Stop recording clip', exact: true }).click();
       const video = page.getByRole('region', { name: 'Capture preview' }).getByLabel('Captured fireworks clip');
       await video.waitFor();
