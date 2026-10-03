@@ -29,9 +29,14 @@ for (const f of FAMILIES) test(`${f.name}: one committed rocket, apex break, and
   const point = rocketPoint(r, SHELL_LOCAL_Y);
   assert.ok(Math.hypot(burst.x - point[0], burst.y - point[1], burst.z - point[2]) < 1e-6);
   assert.equal(s.activeUnits, 0);
-  assert.equal(s.launchBlock, '', 'the next family is ready at the apex without a timer');
+  if (f.id === 'grand-finale') {
+    assert.equal(s.launchBlock, 'capacity', 'two full finales cannot exceed the fixed head pool');
+    s.select('multicolor-peony');
+  }
+  assert.equal(s.launchBlock, '', 'the next fitting family is ready at the apex without a timer');
   assert.equal(s.ready, true);
   advance(s, 18);
+  s.select(f.id);
   assert.equal(s.ready, true);
   assert.equal(s.ignite(), true);
 });

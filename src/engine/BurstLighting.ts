@@ -17,7 +17,7 @@ export function gatherBurstLighting(lights: readonly BurstSource[], out: Float32
     out.fill(0);
     for (let i = 0; i < Math.min(BURST_LIGHT_CAPACITY, lights.length); i++) {
         const light = lights[i], energy = burstLightEnergy(light, reducedFlashes);
-        if (!energy || ![light.x, light.y, light.z, light.r, light.g, light.b].every(Number.isFinite)) continue;
+        if (!energy || !Number.isFinite(light.x) || !Number.isFinite(light.y) || !Number.isFinite(light.z) || !Number.isFinite(light.r) || !Number.isFinite(light.g) || !Number.isFinite(light.b)) continue;
         out[0] += Math.max(0, light.r) * energy;
         out[1] += Math.max(0, light.g) * energy;
         out[2] += Math.max(0, light.b) * energy;
