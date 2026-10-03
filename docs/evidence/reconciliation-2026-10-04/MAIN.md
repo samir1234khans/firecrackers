@@ -1,3 +1,5 @@
+**Subsequent production release:** The owner lifted the production hold and authorized deployment. [Actual production receipt](PRODUCTION.md). The main-promotion account below records the earlier checkpoint.
+
 # Current-work reconciliation and main promotion
 
 On 4 October 2026 (India time), the owner requested the latest remote/local branch reconciliation and promotion of all current work to main. This supersedes the earlier hold on main promotion. **Production deployment remains on hold**; no Cloudflare release workflow or Worker deployment was invoked.

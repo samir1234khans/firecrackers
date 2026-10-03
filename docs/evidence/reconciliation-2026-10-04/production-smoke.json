@@ -1,0 +1,86 @@
+{
+  "origin": "https://firecrackers.mainandmany.com/",
+  "source": "e60d46443836d1f60bfb65f026dfc36eb5ba509c",
+  "cases": [
+    {
+      "backend": "webgpu",
+      "width": 393,
+      "height": 851,
+      "release": {
+        "version": "2026-10-03.4",
+        "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    },
+    {
+      "backend": "webgpu",
+      "width": 1280,
+      "height": 800,
+      "release": {
+        "version": "2026-10-03.4",
+        "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    },
+    {
+      "backend": "webgl",
+      "width": 393,
+      "height": 851,
+      "release": {
+        "version": "2026-10-03.4",
+        "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    },
+    {
+      "backend": "webgl",
+      "width": 1280,
+      "height": 800,
+      "release": {
+        "version": "2026-10-03.4",
+        "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    },
+    {
+      "backend": "canvas",
+      "width": 393,
+      "height": 851,
+      "release": {
+        "version": "2026-10-03.4",
+        "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    },
+    {
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800,
+      "release": {
+        "version": "2026-10-03.4",
+        "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb"
+      },
+      "theme": "golden",
+      "musicRequests": 2,
+      "voices": 1,
+      "recoveryHistory": []
+    }
+  ],
+  "errors": [],
+  "failed": null
+}

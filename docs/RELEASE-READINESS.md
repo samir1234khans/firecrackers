@@ -1,3 +1,5 @@
+**Current production and main: `2026-10-03.4`.** The owner authorized reconciliation and production deployment on 4 October. The tested main CI artifact is live at [Firecrackers](https://firecrackers.mainandmany.com/); [source, deployment, cache and public verification receipt](evidence/reconciliation-2026-10-04/PRODUCTION.md). The earlier production hold is superseded. Physical-device and sustained-performance qualification remains unverified. Entries below preserve earlier checkpoints.
+
 # V4 promotion and remaining release gates
 
 **4 October 2026 update:** The owner authorized current-work reconciliation and main promotion. [PR #47](https://github.com/samir1234khans/firecrackers/pull/47) is merged as `e60d46443836d1f60bfb65f026dfc36eb5ba509c`, incorporating the musical scores with V4 and capture fixes. [Current main receipt](evidence/reconciliation-2026-10-04/MAIN.md). The earlier musical hold is lifted for main promotion only; production deployment and hardware/performance qualification remain held. The earlier V4/candidate history below is retained, not a claim that #47 is still unmerged.

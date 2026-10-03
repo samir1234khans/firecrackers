@@ -1,0 +1,328 @@
+{
+  "origin": "https://firecrackers.mainandmany.com/",
+  "at": "2026-10-03T22:04:15.939Z",
+  "version": "2026-10-03.4",
+  "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb",
+  "modules": 149,
+  "method": "Native Chrome same-origin SHA-256 against exact main CI artifact",
+  "results": [
+    {
+      "file": "art/ignition-flame.png",
+      "status": 200,
+      "bytes": 42893,
+      "sha256": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e"
+    },
+    {
+      "file": "art/moon-lro-v001.png",
+      "status": 200,
+      "bytes": 319502,
+      "sha256": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8"
+    },
+    {
+      "file": "art/paper-color.png",
+      "status": 200,
+      "bytes": 188989,
+      "sha256": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a"
+    },
+    {
+      "file": "art/river-life-v007.glb",
+      "status": 200,
+      "bytes": 7620280,
+      "sha256": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258"
+    },
+    {
+      "file": "art/river-life-v008.glb",
+      "status": 200,
+      "bytes": 8006212,
+      "sha256": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5"
+    },
+    {
+      "file": "art/rocket.glb",
+      "status": 200,
+      "bytes": 240240,
+      "sha256": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3"
+    },
+    {
+      "file": "art/smoke-density-light-v005.png",
+      "status": 200,
+      "bytes": 555389,
+      "sha256": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8"
+    },
+    {
+      "file": "art/smoke-density-light.png",
+      "status": 200,
+      "bytes": 862060,
+      "sha256": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f"
+    },
+    {
+      "file": "art/terrace-v004.glb",
+      "status": 200,
+      "bytes": 547136,
+      "sha256": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48"
+    },
+    {
+      "file": "art/terrace-v008.glb",
+      "status": 200,
+      "bytes": 2229768,
+      "sha256": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f"
+    },
+    {
+      "file": "art/water-normal-v005.png",
+      "status": 200,
+      "bytes": 230518,
+      "sha256": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb"
+    },
+    {
+      "file": "art/water-normal.png",
+      "status": 200,
+      "bytes": 98053,
+      "sha256": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2"
+    },
+    {
+      "file": "art/waterfront-night-v005.webp",
+      "status": 200,
+      "bytes": 36060,
+      "sha256": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784"
+    },
+    {
+      "file": "assets/CapturePanel-BEThCx1A.js",
+      "status": 200,
+      "bytes": 3950,
+      "sha256": "71f3d6a6b028e0952e17fb4b2691e255b649bdb632b31ab0d544a5de82ca4fca"
+    },
+    {
+      "file": "assets/FireworkBrowser-W4XGqHeg.js",
+      "status": 200,
+      "bytes": 5261,
+      "sha256": "d972c385e96df8fe2700a1bf42addad35e0c53510317447d016ee41441ce1718"
+    },
+    {
+      "file": "assets/index-Blk5nfW3.js",
+      "status": 200,
+      "bytes": 2771,
+      "sha256": "065f0ee8f956baf61ffeef5d4a71dbb842925916277e5e1b4dcf7fa148865918"
+    },
+    {
+      "file": "assets/main-BOGsyqdd.js",
+      "status": 200,
+      "bytes": 434203,
+      "sha256": "a639a25f3251b120ea25b4b642c6e195c624b0eb319d090581e6a4e93107c021"
+    },
+    {
+      "file": "assets/main-CHyi0XaJ.css",
+      "status": 200,
+      "bytes": 95373,
+      "sha256": "8b1f1a52a7e6171450dc0ab1c6903c5b6c07b9295b362c5ee246a95971d6dc22"
+    },
+    {
+      "file": "assets/NightStudio-y2IlpsP6.js",
+      "status": 200,
+      "bytes": 16567,
+      "sha256": "abc30bdf5bc167069bdb9a044eef7b59d757586949afa9c1a8764f6758fbb111"
+    },
+    {
+      "file": "assets/Renderer-B9E4T4z3.js",
+      "status": 200,
+      "bytes": 945485,
+      "sha256": "f82409fda9e09905093b292e98d571dedf50b95c3541e27d1bf6f7182eee6180"
+    },
+    {
+      "file": "assets/share-2-Dr-byi1J.js",
+      "status": 200,
+      "bytes": 519,
+      "sha256": "d80c434e80ef0558b5b54077d02d5d68c4d4e401a918026915e8d6bcc3403c80"
+    },
+    {
+      "file": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "bytes": 5748,
+      "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557"
+    },
+    {
+      "file": "audio/report-01.wav",
+      "status": 200,
+      "bytes": 53612,
+      "sha256": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e"
+    },
+    {
+      "file": "audio/report-02.wav",
+      "status": 200,
+      "bytes": 49026,
+      "sha256": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c"
+    },
+    {
+      "file": "audio/report-03.wav",
+      "status": 200,
+      "bytes": 59256,
+      "sha256": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e"
+    },
+    {
+      "file": "cache-lifecycle.js",
+      "status": 200,
+      "bytes": 620,
+      "sha256": "11ad8707a97103f4697f4e2d976b131514405fee395dbcec2fcdc89a378625fc"
+    },
+    {
+      "file": "icon.svg",
+      "status": 200,
+      "bytes": 505,
+      "sha256": "7cdb58c3cf72b7b731d4983f2d82f4c0ca3c89b03dccf7d50fb759f24779cd7f"
+    },
+    {
+      "file": "icons/icon-192.png",
+      "status": 200,
+      "bytes": 1029,
+      "sha256": "b131db8470526082476710c00af26c4ea745968fefdc43b1d04861c268a9c513"
+    },
+    {
+      "file": "icons/icon-512.png",
+      "status": 200,
+      "bytes": 3700,
+      "sha256": "bb5d0d5da7a19af5f0006b0aa030d99b811c8c37fbb1024bd7b638153c3f7d73"
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "bytes": 5938,
+      "sha256": "0143c34222c802657d2f4b7ce51539166910c569cb961a11d438a89b99620bfc"
+    },
+    {
+      "file": "manifest.webmanifest",
+      "status": 200,
+      "bytes": 434,
+      "sha256": "d165b107228a7e84a5bceba3f50fd94fb73495e07dd2ed3fbd06077ccc49a2dd"
+    },
+    {
+      "file": "music/golden-0.flac",
+      "status": 200,
+      "bytes": 272935,
+      "sha256": "0800614e95d609a13b539418c7ed6f2ff6bcb90e1804fae33c8d7db0251b7d08"
+    },
+    {
+      "file": "music/golden-1.flac",
+      "status": 200,
+      "bytes": 304478,
+      "sha256": "80514931ab1c800381051bbfc773368063059683088f5b43bbfd65df3366f533"
+    },
+    {
+      "file": "music/golden-2.flac",
+      "status": 200,
+      "bytes": 312130,
+      "sha256": "77a154efd0434f79050ace49349673e8ac43849b8dcd802496c3267b60e629d9"
+    },
+    {
+      "file": "music/golden-3.flac",
+      "status": 200,
+      "bytes": 312513,
+      "sha256": "59434559103605dbe31e8a9e22dac75383652ad43579e6351ee96c27097d8401"
+    },
+    {
+      "file": "music/golden-4.flac",
+      "status": 200,
+      "bytes": 325036,
+      "sha256": "0bc4e2cb9d052cc0aaa61be56bf78ec969c6105cd613bd6a0fbfc9d8e202fea2"
+    },
+    {
+      "file": "music/golden-5.flac",
+      "status": 200,
+      "bytes": 268925,
+      "sha256": "f24dd7e2bfc0ec8e32ff9b128be74b4b70397894c722e9f7a1441c8d8ab5b509"
+    },
+    {
+      "file": "music/moonlit-0.flac",
+      "status": 200,
+      "bytes": 266200,
+      "sha256": "fa1ec9a9bf61417da475bb514c7cec70d1c29864857077553bc94e5dea71df2b"
+    },
+    {
+      "file": "music/moonlit-1.flac",
+      "status": 200,
+      "bytes": 294893,
+      "sha256": "923d7ada7d37c3b8cc2ec0c57b4c711741cb8991b4df512cbab3855fcd15ac05"
+    },
+    {
+      "file": "music/moonlit-2.flac",
+      "status": 200,
+      "bytes": 301250,
+      "sha256": "8fff6d3763c35f54b2d5d590cf7bbafccb7798da894e80f8b1b908a50f312a60"
+    },
+    {
+      "file": "music/moonlit-3.flac",
+      "status": 200,
+      "bytes": 304012,
+      "sha256": "619dc841d87144ed7af5ba5ee44f70fe5177c85c22504f7831d42aeec60cfa50"
+    },
+    {
+      "file": "music/moonlit-4.flac",
+      "status": 200,
+      "bytes": 311392,
+      "sha256": "0ed2dd49ae7192ec565d2b08f498b7c736aa2e9b002e6051610c4235edb623a4"
+    },
+    {
+      "file": "music/moonlit-5.flac",
+      "status": 200,
+      "bytes": 263620,
+      "sha256": "247658f57495da55231e5ff2b479b2ae41153c0e7e74551980108150931865d6"
+    },
+    {
+      "file": "music/prismatic-0.flac",
+      "status": 200,
+      "bytes": 263284,
+      "sha256": "b3dd84dc60e9905b6300b63dac6334e4b7bca297a5deacf9632766af30e586f5"
+    },
+    {
+      "file": "music/prismatic-1.flac",
+      "status": 200,
+      "bytes": 290124,
+      "sha256": "aff99d1466a0fce8debb95c8161f0f5607311fdb0820a202631e001926009fed"
+    },
+    {
+      "file": "music/prismatic-2.flac",
+      "status": 200,
+      "bytes": 296159,
+      "sha256": "e61cc3cd9860b23f2931270f84ad0b320465105e1d242b4acde66b981e506b0d"
+    },
+    {
+      "file": "music/prismatic-3.flac",
+      "status": 200,
+      "bytes": 329395,
+      "sha256": "9e8e6c11f884b9dea251b15fdf0cfa81470f471f1fe253650d224a690998dce5"
+    },
+    {
+      "file": "music/prismatic-4.flac",
+      "status": 200,
+      "bytes": 342921,
+      "sha256": "1d283640c7cfeba34fe60027ba12294a1855e1b49ee81b1fb8c95e6140052b76"
+    },
+    {
+      "file": "music/prismatic-5.flac",
+      "status": 200,
+      "bytes": 259897,
+      "sha256": "c82213f3156d584e8ed82225d36c35353be64ae82069459c6580d485270a8a26"
+    },
+    {
+      "file": "release.json",
+      "status": 200,
+      "bytes": 39154,
+      "sha256": "43bd501f686ce75cfc29acf60a611032846f85869230284dc20b83f471cf30bf"
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "bytes": 2654,
+      "sha256": "d54e98737da0fcb34ad6ccecbaea88d62609d2493daaf2ac29908c28f69da963"
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.txt",
+      "status": 200,
+      "bytes": 26095,
+      "sha256": "efc70f5095bc017f6a22c56a3bd106813054ef83802111fccc431f76a0342594"
+    },
+    {
+      "file": "workbox-835c8c05.js",
+      "status": 200,
+      "bytes": 21863,
+      "sha256": "09fac2e643b2b4eb60ec4b0a4281c196c5942051e2229aec09fb99df59424315"
+    }
+  ]
+}

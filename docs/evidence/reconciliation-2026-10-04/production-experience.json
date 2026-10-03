@@ -1,0 +1,150 @@
+{
+  "base": "https://firecrackers.mainandmany.com/",
+  "method": "Chromium software WebGL 2 and Canvas; emulated viewports, real UI actions plus labelled deterministic stepping",
+  "hardwareQualified": false,
+  "physicalDevice": false,
+  "cases": [
+    {
+      "name": "canvas-1280x800",
+      "checks": [
+        "nonblank intended page, requested backend and reachable new tools",
+        "preview is isolated and silent, favourites persist, Select and Launch remain distinct",
+        "three-cue edits, undo/redo, save, rename, recipe export, bounded import rejection and share link",
+        "same-clock personal playback, dialog pause, full residue completion and deliberate Encore",
+        "actual scene PNG preview, truthful dimensions and decodable download",
+        "short scene-only clip records, stops, releases and decodes real nonblack frames",
+        "recipient must review then choose Play; link never autoplays or unmutes; favourites persist"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "photo": {
+        "width": 1280,
+        "height": 800,
+        "visible": true
+      },
+      "video": {
+        "width": 1280,
+        "height": 800,
+        "visible": true,
+        "time": 0.157992
+      },
+      "pass": true
+    },
+    {
+      "name": "canvas-393x851",
+      "checks": [
+        "nonblank intended page, requested backend and reachable new tools",
+        "preview is isolated and silent, favourites persist, Select and Launch remain distinct",
+        "three-cue edits, undo/redo, save, rename, recipe export, bounded import rejection and share link",
+        "same-clock personal playback, dialog pause, full residue completion and deliberate Encore",
+        "actual scene PNG preview, truthful dimensions and decodable download",
+        "short scene-only clip records, stops, releases and decodes real nonblack frames",
+        "recipient must review then choose Play; link never autoplays or unmutes; favourites persist"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "photo": {
+        "width": 393,
+        "height": 851,
+        "visible": true
+      },
+      "video": {
+        "width": 393,
+        "height": 851,
+        "visible": true,
+        "time": 0.151879
+      },
+      "pass": true
+    },
+    {
+      "name": "canvas-320x480",
+      "checks": [
+        "nonblank intended page, requested backend and reachable new tools",
+        "preview is isolated and silent, favourites persist, Select and Launch remain distinct",
+        "three-cue edits, undo/redo, save, rename, recipe export, bounded import rejection and share link",
+        "same-clock personal playback, dialog pause, full residue completion and deliberate Encore",
+        "actual scene PNG preview, truthful dimensions and decodable download",
+        "recipient must review then choose Play; link never autoplays or unmutes; favourites persist"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "photo": {
+        "width": 320,
+        "height": 480,
+        "visible": true
+      },
+      "pass": true
+    },
+    {
+      "name": "webgl-1280x800",
+      "checks": [
+        "nonblank intended page, requested backend and reachable new tools",
+        "preview is isolated and silent, favourites persist, Select and Launch remain distinct",
+        "three-cue edits, undo/redo, save, rename, recipe export, bounded import rejection and share link",
+        "same-clock personal playback, dialog pause, full residue completion and deliberate Encore",
+        "actual scene PNG preview, truthful dimensions and decodable download",
+        "short scene-only clip records, stops, releases and decodes real nonblack frames",
+        "recipient must review then choose Play; link never autoplays or unmutes; favourites persist"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "photo": {
+        "width": 1264,
+        "height": 790,
+        "visible": true
+      },
+      "video": {
+        "width": 1264,
+        "height": 790,
+        "visible": true,
+        "time": 0.061515
+      },
+      "pass": true
+    },
+    {
+      "name": "webgl-393x851",
+      "checks": [
+        "nonblank intended page, requested backend and reachable new tools",
+        "preview is isolated and silent, favourites persist, Select and Launch remain distinct",
+        "three-cue edits, undo/redo, save, rename, recipe export, bounded import rejection and share link",
+        "same-clock personal playback, dialog pause, full residue completion and deliberate Encore",
+        "actual scene PNG preview, truthful dimensions and decodable download",
+        "short scene-only clip records, stops, releases and decodes real nonblack frames",
+        "recipient must review then choose Play; link never autoplays or unmutes; favourites persist"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "photo": {
+        "width": 393,
+        "height": 851,
+        "visible": true
+      },
+      "video": {
+        "width": 393,
+        "height": 851,
+        "visible": true,
+        "time": 0.071713
+      },
+      "pass": true
+    },
+    {
+      "name": "webgl-320x480",
+      "checks": [
+        "nonblank intended page, requested backend and reachable new tools",
+        "preview is isolated and silent, favourites persist, Select and Launch remain distinct",
+        "three-cue edits, undo/redo, save, rename, recipe export, bounded import rejection and share link",
+        "same-clock personal playback, dialog pause, full residue completion and deliberate Encore",
+        "actual scene PNG preview, truthful dimensions and decodable download",
+        "recipient must review then choose Play; link never autoplays or unmutes; favourites persist"
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "photo": {
+        "width": 320,
+        "height": 480,
+        "visible": true
+      },
+      "pass": true
+    }
+  ]
+}

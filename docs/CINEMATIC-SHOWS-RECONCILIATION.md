@@ -1,3 +1,5 @@
+**Current production and main: `2026-10-03.4`.** The owner authorized reconciliation and production deployment on 4 October. The tested main CI artifact is live at [Firecrackers](https://firecrackers.mainandmany.com/); [source, deployment, cache and public verification receipt](evidence/reconciliation-2026-10-04/PRODUCTION.md). The earlier production hold is superseded. Physical-device and sustained-performance qualification remains unverified. Entries below preserve earlier checkpoints.
+
 # Musical shows reconciled with V4
 
 **4 October update:** The owner explicitly requested reconciliation and main promotion. PR #47 merged as `e60d46443836d1f60bfb65f026dfc36eb5ba509c`, including original PR #33 by ancestry. The main-promotion hold is superseded; the production hold and qualification limitations remain. [Main receipt](evidence/reconciliation-2026-10-04/MAIN.md). The following candidate-phase account is retained as history.

@@ -1,0 +1,51 @@
+{
+  "origin": "https://firecrackers.mainandmany.com/",
+  "at": "2026-10-03T22:03:21.882Z",
+  "version": "2026-10-03.4",
+  "sha256": "04e7c05185f679e2d43923f5bcee5425d35856f2e1f51529e468819a64c9fcfb",
+  "headers": [
+    {
+      "path": "",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": null
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": null
+    },
+    {
+      "path": "release.json",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"81060f26bacef486e9774ad6c1b645a8\""
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"014f9c18ea741f42260e026fc645cf85\""
+    },
+    {
+      "path": "cache-lifecycle.js",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"c49b44f4bc89b018ce8f75d9d177e069\""
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"d5a23be13ac3579db70e3ed898bf6851\""
+    },
+    {
+      "path": "./assets/index-Blk5nfW3.js",
+      "status": 200,
+      "cacheControl": "public, max-age=31536000, immutable",
+      "etag": "W/\"d93357b49b7e8b30d80ccf5a5c25ffb7\""
+    }
+  ],
+  "failed": null
+}

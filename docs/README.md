@@ -1,3 +1,5 @@
+**Current production and main: `2026-10-03.4`.** The owner authorized reconciliation and production deployment on 4 October. The tested main CI artifact is live at [Firecrackers](https://firecrackers.mainandmany.com/); [source, deployment, cache and public verification receipt](evidence/reconciliation-2026-10-04/PRODUCTION.md). The earlier production hold is superseded. Physical-device and sustained-performance qualification remains unverified. Entries below preserve earlier checkpoints.
+
 **Promoted musical/V4 reconciliation:** [4 October main receipt](evidence/reconciliation-2026-10-04/MAIN.md), [scope and intentional supersessions](CINEMATIC-SHOWS-RECONCILIATION.md). Production deployment remains on hold. Earlier entries below are historical.
 
 **Cinematic V4 candidate:** [CINEMATIC-V4.md](CINEMATIC-V4.md) records the realism/UX changes, deployment blocker and separate PR #33 hold. Candidate source is not a live-production receipt.
