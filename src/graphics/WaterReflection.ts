@@ -1,3 +1,4 @@
+import { BURST_LIGHT_CAPACITY, burstLightEnergy } from '../engine/BurstLighting.js';
 import type { MoonFrame } from './MoonComposition';
 import { WATER_Y, WATER_NEAR_Z, WATER_WAVES, WATER_MAX_DISPLACEMENT, WATER_FAR_FADE_MAX, WATER_FAR_FADE_FRACTION, WATER_NEAR_FADE_MAX, WATER_NEAR_FADE_FRACTION } from './WaterWaves.js';
 import type { WaterFrame } from './WaterWaves.js';
@@ -9,7 +10,6 @@ import type { Simulation } from '../engine/Simulation';
 import type { Quality } from '../engine/catalog';
 
 type OrientPass = (camera: THREE.PerspectiveCamera, reflecting?: boolean) => void;
-const BURST_LIGHT_CAPACITY = 4;
 
 /** Shared displaced height field and one explicitly scheduled planar pass.
  * Fresnel and crossing normals adapt Three.js r180 WaterMesh (MIT, copyright
@@ -35,8 +35,6 @@ export class WaterReflection {
   private readonly shoreCrop = uniform(1);
   private readonly shoreActive = uniform(0);
   private readonly streaks = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .3, blending: THREE.AdditiveBlending, depthWrite: false }), 288);
-  private readonly matrix = new THREE.Matrix4();
-  private readonly tint = new THREE.Color();
   private readonly phase = uniform(0);
   private readonly waveCount = uniform(4);
   private readonly farZ = uniform(-1000);
@@ -173,13 +171,15 @@ export class WaterReflection {
         const delta = light.xyz.sub(positionWorld);
         const distanceSquared = delta.dot(delta);
         const illumination = normal.dot(delta.div(distanceSquared.sqrt().max(1))).max(0);
-        const radius = delta.z.abs().mul(.22).add(delta.y.abs().mul(.75)).add(12);
+        const radius = delta.z.abs().mul(.50).add(delta.y.abs().mul(.95)).add(55);
         const footprint = delta.x.div(radius).pow(2).negate().exp();
-        const attenuation = float(1).div(distanceSquared.div(18000).add(1));
+        const attenuation = float(1).div(distanceSquared.div(110000).add(1));
         const broken = facets.mul(.86).add(.14).mul(skyFacets.b.mul(20).add(.75));
         result.addAssign(color.mul(light.w).mul(illumination).mul(footprint).mul(attenuation).mul(broken));
       });
-      return result.mul(this.strength).mul(.65).clamp(0, this.strength.mul(.18));
+      const radiance = result.mul(3.2);
+      const peak = radiance.r.max(radiance.g).max(radiance.b);
+      return radiance.div(float(1).add(peak.div(this.strength.mul(1.25))));
     })();
     material.colorNode = body.add(skyColor.mul(fresnel).mul(.64)).add(skyFacets).add(moon).add(dynamic).add(burstLight)
       .mul(smoothstep(this.farZ, this.farZ.add(8), positionWorld.z).mul(.2).add(.8));
@@ -244,12 +244,11 @@ export class WaterReflection {
     this.enabled.value = 0; this.hz = 0; this.last = -Infinity;
   }
   private reflectionRate(quality: Quality, aspect: number) {
-    if (quality === 'low') return 0;
+    if (quality === 'low') return 6;
     return quality === 'ultra' ? aspect < .72 ? 12 : 15 : aspect < .72 ? 10 : 15;
   }
   private ensureTarget(quality: Quality, aspect: number) {
-    if (quality === 'low') { this.releaseTarget(); return; }
-    const cap = quality === 'ultra' ? aspect < .72 ? 384 : 512 : 256;
+    const cap = quality === 'low' ? 128 : quality === 'ultra' ? aspect < .72 ? 384 : 512 : 256;
     this.hz = this.reflectionRate(quality, aspect);
     // Retain the full-view horizontal sampling density, but allocate only its
     // water-band rows. Cropping the camera raises its effective aspect by the
@@ -286,12 +285,12 @@ export class WaterReflection {
     this.mesh.visible = visible;
     this.detailTier.value = sim.quality === 'ultra' ? 1 : sim.quality === 'standard' ? .5 : 0;
     this.strength.value = sim.reducedFlashes ? .34 : .62; this.streaks.count = 0;
-    // Keep the four strongest current sources without sorting/mutating the
+    // Keep every live source within the fixed twelve-light simulation budget without sorting/mutating the
     // simulation or allocating temporary arrays during a composite firework.
     this.burstCount.value = 0;
     for (const anchor of this.lightAnchors) anchor.w = 0;
     for (const light of sim.lights) {
-      const energy = Math.exp(-light.age * 1.55) * light.strength;
+      const energy = burstLightEnergy(light, sim.reducedFlashes);
       if (energy < .0002) continue;
       for (let i = 0; i < BURST_LIGHT_CAPACITY; i++) if (energy > this.lightAnchors[i].w) {
         for (let j = BURST_LIGHT_CAPACITY - 1; j > i; j--) {
@@ -301,16 +300,8 @@ export class WaterReflection {
         this.burstCount.value = Math.min(BURST_LIGHT_CAPACITY, this.burstCount.value + 1); break;
       }
     }
-    if (visible && sim.quality === 'low') for (const light of sim.lights) for (let j = 0; j < 24; j++) {
-      const energy = Math.exp(-light.age * 1.5) * light.strength * (1 - j / 24) * (sim.reducedFlashes ? .22 : .34);
-      if (energy < .003 || this.streaks.count >= 288) continue;
-      const i = this.streaks.count++, width = (2 + j * .65) * (.5 + .5 * Math.sin(j * 1.3 + this.frame.phase));
-      this.matrix.makeScale(width, .22 + j * .015, 1); this.matrix.setPosition(light.x + Math.sin(j + this.frame.phase) * 2, -320 + j * 3, 0);
-      this.streaks.setMatrixAt(i, this.matrix); this.tint.setRGB(light.r * energy, light.g * energy, light.b * energy); this.streaks.setColorAt(i, this.tint);
-    }
     this.streaks.instanceMatrix.needsUpdate = true; if (this.streaks.instanceColor) this.streaks.instanceColor.needsUpdate = true;
     if (!visible) { this.releaseTarget(); return; }
-    if (sim.quality === 'low') { this.releaseTarget(); return; }
     const desiredHz = this.reflectionRate(sim.quality, camera.aspect);
     if (this.target && this.hz === desiredHz && sim.time >= this.last && sim.time - this.last < 1 / desiredHz) return;
     // Crop does not depend on wave phase or a burst. Resize/layout changes can

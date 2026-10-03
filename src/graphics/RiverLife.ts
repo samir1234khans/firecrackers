@@ -290,10 +290,10 @@ export class RiverLife {
       sampleWater(x, z, time, this.waterSample, frame);
       boat.contactError = Math.abs(height - this.waterSample.height);
     }
-    this.reflectionProxies.visible = visible && sim.quality !== 'low';
+    this.reflectionProxies.visible = visible;
     if (!visible) { this.fragments.count = 0; this.waterContact.count = 0; this.flames.count = 0; this.candleLight.intensity = 0; return; }
     this.group.updateMatrixWorld(true);
-    if (sim.quality !== 'low') this.updateReflectionProxies();
+    this.updateReflectionProxies();
     let contacts = 0;
     for (const boat of this.boats) {
       const scale = boat.object.scale.x;
