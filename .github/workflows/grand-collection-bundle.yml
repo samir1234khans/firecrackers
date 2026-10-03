@@ -1,42 +1,63 @@
-name: Grand collection source bundle
+name: Full night isolated edit and verification
 on:
   workflow_dispatch:
   push:
-    branches: [feat/grand-collection, fix/full-sky-bursts-waterlight]
-    paths: [.github/workflows/grand-collection-bundle.yml]
+    branches: [fix/full-sky-bursts-waterlight]
+    paths: [.github/workflows/grand-collection-bundle.yml, scripts/apply-full-night.py]
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: full-night-isolated-edit
+  cancel-in-progress: false
 jobs:
-  snapshot:
+  verify:
+    if: github.ref == 'refs/heads/fix/full-sky-bursts-waterlight'
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          ref: fix/full-sky-bursts-waterlight
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-      - run: npm ci
-      - name: Export a bounded local verification environment
+      - name: Apply guarded source changes
+        id: apply
         run: |
-          mkdir -p /tmp/grand-collection
-          python3 - <<'PY'
-          import subprocess, tarfile
-          files = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
-          with tarfile.open('/tmp/grand-collection/source.tar.gz', 'w:gz') as archive:
-              for path in files:
-                  if path and not path.startswith(('docs/evidence/', 'assets-source/')):
-                      archive.add(path, recursive=False)
-          PY
-          tar -czf /tmp/grand-collection/dependencies.tar.gz --exclude=node_modules/@cloudflare --exclude=node_modules/workerd --exclude=node_modules/wrangler node_modules
-          git rev-parse HEAD > /tmp/grand-collection/SOURCE_COMMIT.txt
-          sha256sum package-lock.json > /tmp/grand-collection/LOCK_SHA256.txt
-          node --version > /tmp/grand-collection/NODE_VERSION.txt
-          du -h /tmp/grand-collection/*
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 scripts/apply-full-night.py
+          git diff --check
+          mkdir -p /tmp/full-night
+          git diff -- src tests docs > /tmp/full-night/source.patch
+      - run: npm ci
+      - name: Typecheck before committing source
+        run: npm run typecheck
+      - name: Commit only to the isolated fix branch
+        run: |
+          test "$(git ls-remote origin refs/heads/fix/full-sky-bursts-waterlight | cut -f1)" = "$GITHUB_SHA"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src tests docs
+          git commit -m 'fix: fuller sky-filling shells and shell-colored waterfront illumination'
+          git push origin HEAD:refs/heads/fix/full-sky-bursts-waterlight
+      - name: Unit, lint, build and documentation checks
+        if: success()
+        run: |
+          set +e
+          set -o pipefail
+          npm test 2>&1 | tee /tmp/full-night/unit.log
+          unit=${PIPESTATUS[0]}
+          npm run lint 2>&1 | tee /tmp/full-night/lint.log
+          lint=${PIPESTATUS[0]}
+          npm run build 2>&1 | tee /tmp/full-night/build.log
+          build=${PIPESTATUS[0]}
+          python3 scripts/validate_docs.py 2>&1 | tee /tmp/full-night/docs.log
+          docs=${PIPESTATUS[0]}
+          printf 'unit=%s lint=%s build=%s docs=%s\n' "$unit" "$lint" "$build" "$docs" | tee /tmp/full-night/result.txt
+          test "$unit$lint$build$docs" = '0000'
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: bounded-verification-environment
-          path: /tmp/grand-collection
-          retention-days: 3
-          compression-level: 0
+          name: full-night-validation
+          path: /tmp/full-night
+          retention-days: 7
