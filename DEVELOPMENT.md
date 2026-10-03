@@ -1,3 +1,5 @@
+**Latest source work: richer night experience / `2026-10-03.2`, PR #45.** [Implementation, dependencies and qualification boundary](docs/RICHER-NIGHT-EXPERIENCE.md). Combines #37–#44's main-compatible features with #36. Exact promotion/check results are in PR #45. Draft #33 and its musical-score release hold are unchanged; no deployment is implied. The production receipts below remain historical evidence of the last actual deployment.
+
 Latest production: [moonlit water and immersive controls / build `.11`](docs/evidence/moonlit-water-2026-10-01/PRODUCTION.md) records the owner-authorized main promotion, passed qualification, actual deployment and rollback. Earlier candidate/release entries below are historical.
 
 Latest water/immersion qualification: [build `.11` receipt](docs/evidence/moonlit-water-2026-10-01/FINAL-QUALIFICATION.md). Reflection rates are bounded at Ultra 15/12 Hz and Standard 15/10 Hz (wide/portrait). Qualification and release state in that receipt supersede earlier candidate settings below.

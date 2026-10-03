@@ -273,7 +273,7 @@ export class Simulation {
         if (value) this.events = [];
     }
     startShow(preset: ShowPreset) {
-        this.personal.cancel(); this.finiteEnded = false;
+        this.personal.clear(); this.finiteEnded = false;
         this.cancelHold();
         this.paused = false;
         this.show = preset;

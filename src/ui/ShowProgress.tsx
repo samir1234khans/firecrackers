@@ -7,8 +7,8 @@ export function ShowProgress({state,onHide,onReplay,onCreate,onAlways,onStop}:{s
   const p=state.personal,personal=['playing','falling','complete','blocked'].includes(p.status);
   const done=personal?p.status==='complete':state.showTiming.complete;
   const blocked=personal&&p.status==='blocked';
-  if(!personal&&!state.show&&!done)return null;
-  const finite=personal||state.show==='finale'||done;
+  if(!personal&&!state.show&&!state.showTiming.preset&&!done)return null;
+  const finite=personal||state.showTiming.preset==='finale'||done;
   const elapsed=personal?p.elapsed:state.showTiming.elapsed;
   const duration=personal?p.estimate:state.showTiming.duration??0;
   const title=personal?p.name:state.show==='always'?'Always Play':state.show==='festival'?'Festival':state.show==='calm'?'Calm':'Finale';

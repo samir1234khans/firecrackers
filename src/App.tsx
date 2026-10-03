@@ -41,7 +41,6 @@ export default function App() {
   const [overlay, setOverlay] = useState<Overlay>(null);
   const [shared, setShared] = useState(() => { try { return { recipe: recipeFromHash(location.hash), error: '' }; } catch (error) { return { recipe: null, error: (error as Error).message }; } });
   const [studioRecipe, setStudioRecipe] = useState<ShowRecipe | null>(null);
-  const lastPersonal = useRef<ShowRecipe | null>(null);
   const [settingsSection, setSettingsSection] = useState<SettingsSection>('graphics');
   const [settingsReturnFocus, setSettingsReturnFocus] = useState(false);
   const panelInvoker = useRef<HTMLElement | null>(null);
@@ -89,11 +88,11 @@ export default function App() {
   const playPersonal = (recipe: ShowRecipe) => {
     const error = world.playRecipe(recipe);
     if (error) return error;
-    lastPersonal.current = recipe; setShared({ recipe: null, error: '' }); setNotice(''); close();
+    setShared({ recipe: null, error: '' }); setNotice(''); close();
   };
-  const showStudio = (recipe: ShowRecipe | null = null) => { setStudioRecipe(recipe); open('studio'); };
+  const showStudio = (recipe: ShowRecipe | null = null) => { if (recipe) setStudioRecipe(recipe); open('studio'); };
   const replay = () => {
-    const recipe = world.sim.current.personal.current ?? lastPersonal.current ?? { ...newRecipe('Finale', world.sim.current.seed), kind: 'finale' as const, cues: [] };
+    const recipe = (['complete', 'blocked'].includes(state.personal.status) ? world.sim.current.personal.current : null) ?? { ...newRecipe('Finale', world.sim.current.seed), kind: 'finale' as const, cues: [] };
     const error = playPersonal(recipe); if (error) notify(error);
   };
   const cancelReset = () => { setSettingsReturnFocus(true); setOverlay('settings'); };
@@ -346,7 +345,7 @@ export default function App() {
       <Suspense fallback={<p className='panel-note'>Preparing the catalogue…</p>}><FireworkBrowser selected={state.selected} reducedMotion={prefs.reducedMotion || state.reducedMotion} reducedFlashes={prefs.reducedFlashes} onSelect={id => { select(id); close(); }} onLaunch={id => { close(); igniteFamily(id); }}/></Suspense>
     </Dialog>}
     {overlay === 'studio' && <Dialog variant='studio' title='Night studio' onClose={close} returnFocus={panelInvoker.current}>
-      <Suspense fallback={<p className='panel-note'>Preparing the studio…</p>}><NightStudio initialRecipe={studioRecipe} onPlay={playPersonal} onStop={world.stopRecipe} onWatch={close} playing={['playing', 'falling'].includes(state.personal.status)}/></Suspense>
+      <Suspense fallback={<p className='panel-note'>Preparing the studio…</p>}><NightStudio initialRecipe={studioRecipe} onDraftChange={setStudioRecipe} onPlay={playPersonal} onStop={world.stopRecipe} onWatch={close} playing={['playing', 'falling'].includes(state.personal.status)}/></Suspense>
     </Dialog>}
     {overlay === 'capture' && <Dialog variant='capture' title='Keep a moment' onClose={close} returnFocus={panelInvoker.current}>
       <Suspense fallback={<p className='panel-note'>Preparing capture…</p>}><CapturePanel capture={world.capture} sound={world.soundActive} onPhoto={world.takePhoto} onStart={world.startClip} onStop={world.stopClip} onDownload={world.downloadCapture} onShare={world.shareCapture} onDiscard={world.discardCapture} onWatch={close}/></Suspense>

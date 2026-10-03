@@ -5,19 +5,21 @@ import { formatDuration, newRecipe, parseRecipe, PHASES, planRecipe, recipeLink,
 import type { ShowCue, ShowRecipe } from '../experience/ShowRecipe';
 import { browserStore, downloadBlob, exportRecipe, LIBRARY_KEY, readNights, writeNights } from '../experience/NightLibrary';
 import type { SavedNight } from '../experience/NightLibrary';
-type Props={initialRecipe?:ShowRecipe|null;onPlay:(recipe:ShowRecipe)=>string|void;onStop:()=>void;playing:boolean;onWatch:()=>void};
+type Props={initialRecipe?:ShowRecipe|null;onDraftChange?:(recipe:ShowRecipe)=>void;onPlay:(recipe:ShowRecipe)=>string|void;onStop:()=>void;playing:boolean;onWatch:()=>void};
 /** The studio is loaded only on demand. Draft history and storage are bounded, never frame-driven. */
-export default function NightStudio({initialRecipe,onPlay,onStop,playing,onWatch}:Props){
+export default function NightStudio({initialRecipe,onDraftChange,onPlay,onStop,playing,onWatch}:Props){
   const [draft,setDraft]=useState(()=>initialRecipe?parseRecipe(initialRecipe):newRecipe());
   const [past,setPast]=useState<ShowRecipe[]>([]),[future,setFuture]=useState<ShowRecipe[]>([]);
   const [tab,setTab]=useState<'create'|'saved'>('create');
   const [library,setLibrary]=useState(()=>readNights(browserStore()));
-  const [message,setMessage]=useState(initialRecipe?'Shared recipe loaded for review. Nothing will play or save until you choose.':'');
+  const [message,setMessage]=useState(initialRecipe?'Recipe loaded for review. Nothing will play or save until you choose.':'');
   const [link,setLink]=useState('');
   const [renaming,setRenaming]=useState<string|null>(null),[rename,setRename]=useState('');
   const [deleteId,setDeleteId]=useState<string|null>(null);
   const file=useRef<HTMLInputElement>(null);
   const mounted=useRef(true);
+  const importGeneration=useRef(0);
+  useEffect(()=>{onDraftChange?.(draft);},[draft,onDraftChange]);
   useEffect(()=>{mounted.current=true;const sync=()=>setLibrary(readNights(browserStore()));window.addEventListener('storage',sync);return()=>{mounted.current=false;window.removeEventListener('storage',sync);};},[]);
   const update=(recipe:ShowRecipe)=>{setPast(p=>[...p.slice(-(RECIPE_LIMITS.history-1)),draft]);setFuture([]);setDraft(recipe);setLink('');};
   const editCue=(index:number,value:Partial<ShowCue>)=>update({...draft,cues:draft.cues.map((c,i)=>i===index?{...c,...value}:c)});
@@ -33,7 +35,7 @@ export default function NightStudio({initialRecipe,onPlay,onStop,playing,onWatch
     }catch(error){setMessage((error as Error).message);}
   };
   const move=(i:number,delta:number)=>{const next=i+delta;if(next<0||next>=draft.cues.length||draft.cues[next].phase!==draft.cues[i].phase)return;const cues=[...draft.cues];[cues[i],cues[next]]=[cues[next],cues[i]];update({...draft,cues});};
-  const loadFile=async(input:File|undefined)=>{if(!input)return;try{if(input.size>RECIPE_LIMITS.bytes)throw new Error('This file exceeds the 12 KB recipe limit.');const recipe=parseRecipe(await input.text());if(mounted.current){update(recipe);setTab('create');setMessage('Imported for review. Your sound and comfort settings are unchanged.');}}catch(error){if(mounted.current)setMessage((error as Error).message);}finally{if(file.current)file.current.value='';}};
+  const loadFile=async(input:File|undefined)=>{if(!input)return;const generation=++importGeneration.current;try{if(input.size>RECIPE_LIMITS.bytes)throw new Error('This file exceeds the 12 KB recipe limit.');const recipe=parseRecipe(await input.text());if(mounted.current&&generation===importGeneration.current){update(recipe);setTab('create');setMessage('Imported for review. Your sound and comfort settings are unchanged.');}}catch(error){if(mounted.current)setMessage((error as Error).message);}finally{if(file.current)file.current.value='';}};
   return <div className='night-studio'>
     <div className='studio-tabs' role='group' aria-label='Night studio views'><button type='button' aria-pressed={tab==='create'} onClick={()=>setTab('create')}>Create a show</button><button type='button' aria-pressed={tab==='saved'} onClick={()=>setTab('saved')}>Saved nights <span>{library.nights.length}</span></button></div>
     <p className='panel-note'>A personal opening, build-up and finale. No account, uploads or public gallery.</p>

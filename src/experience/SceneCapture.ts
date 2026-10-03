@@ -23,6 +23,7 @@ export class SceneCapture {
   private disposed=false;
   private generation=0;
   private audio=false;
+  private photoBusy=false;
   private reason='';
   private createCopy(canvas:HTMLCanvasElement){
     const [w,h]=captureSize(canvas.width,canvas.height);
@@ -38,17 +39,19 @@ export class SceneCapture {
     if(!visible)throw new Error('This renderer did not expose a usable image. Try capturing after a burst, or use WebGL/Canvas graphics.');
   }
   async photo(canvas:HTMLCanvasElement,render:()=>void):Promise<void>{
-    if(this.snapshot.recording)throw new Error('Stop the clip before taking a photo.');
+    if(this.disposed)throw new Error('Capture has closed.');
+    if(this.snapshot.recording||this.photoBusy)throw new Error('Finish the current capture first.');
+    this.photoBusy=true;
     const token=++this.generation;this.snapshot.error='';
     try{
       render();this.createCopy(canvas);const copy=this.copy!;
       const blob=await new Promise<Blob>((resolve,reject)=>copy.toBlob(b=>b?resolve(b):reject(new Error('This browser could not encode the image.')),'image/png'));
       if(this.disposed||token!==this.generation)return;
       this.setResult({kind:'photo',url:'',blob,width:copy.width,height:copy.height,seconds:0,audio:false,reason:''});
-    }catch(error){this.fail(error);throw error;}finally{this.releaseCopy();}
+    }catch(error){if(!this.disposed)this.fail(error);throw error;}finally{this.releaseCopy();this.photoBusy=false;}
   }
   start(canvas:HTMLCanvasElement,render:()=>void,limit:number,audio?:{stream:MediaStream;release:()=>void}):void{
-    if(this.snapshot.recording) {audio?.release();throw new Error('A clip is already recording.');}
+    if(this.disposed||this.photoBusy||this.snapshot.recording) {audio?.release();throw new Error('Finish the current capture before recording.');}
     this.snapshot.error='';this.reason='';this.bytes=0;this.chunks=[];
     this.releaseAudio=audio?.release??null;this.audio=Boolean(audio);
     try{
@@ -63,8 +66,10 @@ export class SceneCapture {
       recorder.onerror=()=>{this.snapshot.error='The browser encoder failed. The incomplete clip was discarded.';this.reason=this.snapshot.error;this.stop(this.reason);};
       recorder.onstop=()=>{
         const copy=this.copy,elapsed=this.snapshot.seconds,blobs=this.chunks;
-        if(!this.disposed&&!this.snapshot.error&&copy&&blobs.length){const blob=new Blob(blobs,{type:recorder.mimeType});this.setResult({kind:'video',url:'',blob,width:copy.width,height:copy.height,seconds:elapsed,audio:this.audio,reason:this.reason});}
-        this.release();this.snapshot.recording=false;this.onChange();
+        try{
+          if(!this.disposed&&!this.snapshot.error&&copy&&blobs.length){const blob=new Blob(blobs,{type:recorder.mimeType});this.setResult({kind:'video',url:'',blob,width:copy.width,height:copy.height,seconds:elapsed,audio:this.audio,reason:this.reason});}
+        }catch(error){if(!this.disposed)this.fail(error);}
+        finally{this.release();this.snapshot.recording=false;this.onChange();}
       };
       recorder.start(250);
       this.timer=setTimeout(()=>this.stop('Clip complete.'),this.snapshot.limit*1000);
@@ -102,5 +107,5 @@ export class SceneCapture {
   }
   private releaseCopy(){if(this.copy){this.copy.width=this.copy.height=1;}this.copy=null;this.context=null;this.source=null;}
   private release(){if(this.timer)clearTimeout(this.timer);this.timer=null;this.stream?.getTracks().forEach(t=>t.stop());this.releaseAudio?.();this.releaseAudio=null;this.stream=null;if(this.recorder){this.recorder.ondataavailable=null;this.recorder.onstop=null;this.recorder.onerror=null;}this.recorder=null;this.chunks=[];this.bytes=0;this.releaseCopy();}
-  dispose(){this.disposed=true;this.generation++;if(this.recorder?.state==='recording')this.recorder.stop();this.release();this.discard();this.snapshot.recording=false;this.onChange=()=>{};}
+  dispose(){this.disposed=true;this.generation++;if(this.recorder?.state==='recording'){try{this.recorder.stop();}catch{/* Always release even after an encoder failure. */}}this.release();this.discard();this.snapshot.recording=false;this.onChange=()=>{};}
 }

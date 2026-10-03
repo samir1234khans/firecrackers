@@ -31,7 +31,7 @@ try{
    await page.getByRole('button',{name:'Favourites',exact:true}).click();assert.equal(await page.locator('[data-effect-card]').count(),1);
    await page.getByRole('button',{name:'Grand',exact:true}).click();await page.getByRole('button',{name:'Select Ruby Dahlia',exact:true}).click();
    assert.equal(await page.locator('dialog[open]').count(),0);assert.equal((await snap()).selected,'ruby-dahlia');assert.equal((await snap()).launched,before.launched);
-   await page.getByRole('button',{name:'Browse fireworks',exact:true}).click();await page.getByRole('button',{name:'Launch Ruby Dahlia',exact:true}).click();
+   await page.getByRole('button',{name:'Browse fireworks',exact:true}).click();await page.getByRole('dialog',{name:'Discover the fireworks'}).getByRole('button',{name:'Launch Ruby Dahlia',exact:true}).click();
    assert.equal((await snap()).phase,'fuse');assert.equal((await snap()).committedFamily,'Ruby Dahlia');
    await advance(5);await screenshot('ruby-water-and-smoke');await advance(35);check('preview is isolated and silent, favourites persist, Select and Launch remain distinct');
 
@@ -43,6 +43,7 @@ try{
    await page.getByLabel('Cue 3 position',{exact:true}).selectOption('0.65');
    await page.getByRole('button',{name:'Undo edit',exact:true}).click();assert.equal(await page.getByLabel('Cue 3 position',{exact:true}).inputValue(),'0.5');
    await page.getByRole('button',{name:'Redo edit',exact:true}).click();assert.equal(await page.getByLabel('Cue 3 position',{exact:true}).inputValue(),'0.65');
+   await close();await page.getByRole('button',{name:'Open night studio',exact:true}).click();await page.getByLabel('Show name',{exact:true}).waitFor();assert.equal(await page.getByLabel('Show name',{exact:true}).inputValue(),'Ember study');assert.equal(await page.getByLabel('Cue 2 firework',{exact:true}).inputValue(),'silver-crossette-crackle');
    await screenshot('studio');
    await page.getByRole('button',{name:'Save night',exact:true}).click();
    await page.getByRole('button',{name:/^Saved nights/}).click();await page.getByRole('button',{name:'Rename Ember study',exact:true}).click();

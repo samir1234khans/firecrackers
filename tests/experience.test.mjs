@@ -4,9 +4,10 @@ import { CONFIG_VERSION, FAMILIES, familyReservation } from '../.test-build/engi
 import { Simulation } from '../.test-build/engine/Simulation.js';
 import { parseRecipe, newRecipe, starterRecipe, planRecipe, spaceRecipe, recipeLink, recipeFromHash, RECIPE_LIMITS } from '../.test-build/experience/ShowRecipe.js';
 import { readNights, writeNights, readFavourites, writeFavourites, LIBRARY_KEY, FAVOURITES_KEY } from '../.test-build/experience/NightLibrary.js';
-import { captureSize, chooseRecordingType } from '../.test-build/experience/SceneCapture.js';
+import { SceneCapture, captureSize, chooseRecordingType } from '../.test-build/experience/SceneCapture.js';
 import { smokeLayer, canopyAlpha, canopyStretch, illuminateSmoke } from '../.test-build/engine/SmokeCanopy.js';
 import { SOUND_PROFILES, soundGeometry } from '../.test-build/engine/SoundProfiles.js';
+import { SessionDiagnostics } from '../.test-build/experience/SessionDiagnostics.js';
 import { RenderBudget } from '../.test-build/engine/RenderBudget.js';
 import { resolveScreenLaunchProfile } from '../.test-build/engine/LaunchProfile.js';
 import { stageFraming, waterfrontHorizon } from '../.test-build/engine/StageLayout.js';
@@ -152,4 +153,39 @@ test('adaptive resolution protects counts/pace and uses slow asymmetric recovery
 test('capture sizes are bounded without inventing resolution and encoder choice is detected',()=>{
   assert.deepEqual(captureSize(393,851),[393,851]);assert.deepEqual(captureSize(3840,2160),[1280,720]);assert.deepEqual(captureSize(2160,3840),[720,1280]);
   assert.equal(chooseRecordingType(()=>false),null);assert.equal(chooseRecordingType(t=>t==='video/mp4'),'video/mp4');assert.match(chooseRecordingType(()=>true),/webm/);
+});
+
+
+test('personal elapsed time freezes on completion and old Encore does not override a newly selected show',()=>{
+  const sim=new Simulation(730);sim.personal.start(newRecipe('Complete once',731));step(sim,110);
+  assert.equal(sim.personal.status,'complete');const elapsed=sim.personal.snapshot().elapsed;
+  step(sim,8);assert.equal(sim.personal.snapshot().elapsed,elapsed);
+  sim.startShow('festival');assert.equal(sim.personal.status,'idle');assert.equal(sim.personal.current,null);
+  assert.equal(sim.snapshot().showTiming.preset,'festival');assert.equal(sim.snapshot().personal.estimate,0);
+});
+test('manual selection dismisses a completed personal Encore without removing its reusable recipe',()=>{
+  const sim=new Simulation(730);sim.personal.start(newRecipe('Complete once',731));step(sim,110);
+  assert.equal(sim.personal.status,'complete');sim.select('ruby-dahlia');
+  assert.equal(sim.personal.status,'stopped');assert.equal(sim.personal.current.name,'Complete once');
+  assert.equal(sim.ignite(),true);assert.equal(sim.personal.status,'stopped');
+});
+test('stopping a personal show freezes its progress and leaves only already committed effects',()=>{
+  const sim=new Simulation(730);sim.personal.start(newRecipe('Stop once',731));step(sim,6);
+  sim.stopShow();const state=sim.personal.snapshot(),launched=sim.launched;step(sim,40);
+  assert.equal(sim.personal.snapshot().elapsed,state.elapsed);assert.equal(sim.launched,launched);
+});
+
+
+test('diagnostics stop at 60 seconds even when idle or paused',()=>{
+  const oldSet=globalThis.setTimeout,oldClear=globalThis.clearTimeout;
+  let callback,cleared=0;
+  globalThis.setTimeout=(fn,delay)=>{assert.equal(delay,60000);callback=fn;return 123;};
+  globalThis.clearTimeout=id=>{assert.equal(id,123);cleared++;};
+  try{const d=new SessionDiagnostics();d.start();d.pause();assert.equal(d.active,true);callback();assert.equal(d.active,false);assert.equal(cleared,1);d.start();d.stop();assert.equal(cleared,2);}
+  finally{globalThis.setTimeout=oldSet;globalThis.clearTimeout=oldClear;}
+});
+test('disposed capture cannot start and releases supplied audio on rejection',async()=>{
+  const c=new SceneCapture();c.dispose();let releases=0;
+  assert.throws(()=>c.start({},()=>{},15,{stream:{},release:()=>releases++}),/Finish/);
+  assert.equal(releases,1);await assert.rejects(()=>c.photo({},()=>{}),/closed/);
 });
