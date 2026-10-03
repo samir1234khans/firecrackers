@@ -53,6 +53,8 @@ Manual Chrome inspection confirmed native scene startup, reachable collection an
 
 Initial test assertions requiring coarse Peony cores, every Crossette split by 1.5 seconds, and Saturn's earlier unexpanded world velocity were replaced by the intended fine-core, staggered-parent and normalized expansion contracts. Count, branch separation, ring tilt, reservation and cleanup assertions remain. A temporary fitting-test stub omitted modelScale and was repaired; a new native browser label assertion was corrected after identifying a test harness error, not a renderer fallback.
 
+Runtime CI run 37160828844 retained two failing regression contracts: the stage test assumed every legacy apex was .30–.38 of the entire scene; the mobile launch test assumed every classic burst occurred within 3.8 seconds. Depth-aware per-family fitting and solved ascent invalidate those constants. The stage test now checks that the projected recessed apex agrees with the immutable fitted centre within one pixel, remains in the upper .68 of the actual sky and has a bounded positive scale. Complete opening and falling envelopes remain covered by the trajectory tests and all-thirteen browser matrix. The mobile test uses remaining committed fuse plus solved ascent, then verifies an actual burst. Both focused suites passed locally against the immutable final build. An initial strict boundary comparison at exactly .68 was corrected to allow one projection pixel, rather than altering the composition.
+
 ## Reproduction
 
 ```sh
