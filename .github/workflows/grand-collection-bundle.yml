@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [fix/full-sky-bursts-waterlight]
-    paths: [.github/workflows/grand-collection-bundle.yml, scripts/apply-full-night.py]
+    paths: [.github/workflows/grand-collection-bundle.yml, scripts/apply-full-night.py, scripts/full-night-runner.py]
 permissions:
   contents: write
 concurrency:
@@ -13,7 +13,7 @@ jobs:
   verify:
     if: github.ref == 'refs/heads/fix/full-sky-bursts-waterlight'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,12 +22,11 @@ jobs:
         with:
           node-version-file: .nvmrc
       - name: Apply guarded source changes
-        id: apply
         run: |
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          python3 scripts/apply-full-night.py
-          git diff --check
           mkdir -p /tmp/full-night
+          python3 scripts/full-night-runner.py
+          git diff --check
           git diff -- src tests docs > /tmp/full-night/source.patch
       - run: npm ci
       - name: Typecheck before committing source
@@ -41,7 +40,6 @@ jobs:
           git commit -m 'fix: fuller sky-filling shells and shell-colored waterfront illumination'
           git push origin HEAD:refs/heads/fix/full-sky-bursts-waterlight
       - name: Unit, lint, build and documentation checks
-        if: success()
         run: |
           set +e
           set -o pipefail
