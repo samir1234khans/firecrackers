@@ -1,3 +1,4 @@
+import { gatherBurstLighting } from './BurstLighting.js';
 import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
 import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from './LaunchProfile';
@@ -40,7 +41,10 @@ export class FireworkRenderer {
     private readonly paper = makePaperTexture();
     private readonly props = Array.from({ length: 8 }, () => new RocketProp(this.paper));
     private readonly stage = new LaunchStage();
-    private readonly blastLight = new THREE.PointLight(0xffcc88, 0, 160, 2);
+    // One permanently registered broad light preserves material variants and lights
+    // the textured near boat and far shore instead of dying at a 160-unit cutoff.
+    private readonly blastLight = new THREE.DirectionalLight(0xffcc88, 0);
+    private readonly burstWash = new Float32Array(7);
     private readonly fuseLight = new THREE.PointLight(0xffb45d, 0, 10, 2);
     private readonly moonLight = new THREE.DirectionalLight(0x8eafd1, .8);
     private readonly fusePosition = new THREE.Vector3();
@@ -377,13 +381,13 @@ export class FireworkRenderer {
         const parent = this.host.parentElement;
         parent?.style.setProperty('--ground-px', `${groundPixels}px`);
         parent?.style.setProperty('--placement-left', `${(this.projected.x + 1) * 50}%`);
-        const light = sim.lights[sim.lights.length - 1];
-        if (light) {
-            const intensity = Math.exp(-light.age * 2) * light.strength;
-            this.blastLight.position.set(light.x, light.y, light.z);
-            this.blastLight.color.setRGB(light.r, light.g, light.b);
-            this.blastLight.intensity = intensity * 60;
-            parent?.style.setProperty('--blast', `${Math.round(light.r * 230)} ${Math.round(light.g * 230)} ${Math.round(light.b * 230)} / ${Math.min(.16, intensity * .12)}`);
+        gatherBurstLighting(sim.lights, this.burstWash, sim.reducedFlashes);
+        const energy = this.burstWash[6];
+        if (energy > .0001) {
+            this.blastLight.position.set(this.burstWash[3], Math.max(30, this.burstWash[4]), this.burstWash[5]);
+            this.blastLight.color.setRGB(this.burstWash[0] / energy, this.burstWash[1] / energy, this.burstWash[2] / energy);
+            this.blastLight.intensity = 6 * energy / (1 + energy);
+            parent?.style.setProperty('--blast', `${Math.round(this.burstWash[0] / energy * 230)} ${Math.round(this.burstWash[1] / energy * 230)} ${Math.round(this.burstWash[2] / energy * 230)} / ${Math.min(.16, energy * .12)}`);
         } else {
             this.blastLight.intensity = 0;
             parent?.style.setProperty('--blast', '234 193 122 / 0');

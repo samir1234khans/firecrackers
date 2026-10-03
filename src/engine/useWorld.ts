@@ -16,7 +16,7 @@ import type { ShowPreset } from './catalog';
 import type { Preferences } from '../platform/preferences';
 import type { RendererPort } from './RendererPort';
 import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
-import { RenderOverloadGuard, withDeadline } from './RendererRecovery';
+import { NativeRenderRecovery, withDeadline } from './RendererRecovery';
 import { SkyInteraction, acceptsSkyPointer, skyCadence, skyMotionAllowed, skyPointFromPointer } from './SkyState';
 import { StartupProgress } from './StartupProgress';
 export type DropTarget = { kind: 'burst'; point: [number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
@@ -84,7 +84,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let qaStallSamplesUsed = 0;
         const startup = new AbortController();
         const governor = new QualityGovernor();
-        const overload = new RenderOverloadGuard();
+        const overload = new NativeRenderRecovery();
         const sky = new SkyInteraction();
         const osMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
         let stageLayout: StageLayout | null = null;
@@ -291,9 +291,14 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                         qaStallSamplesUsed++;
                     }
                     if (rendered && warmFrames > 60 && state.show === 'always') state.always.observe(state.time, observedMs, continuous);
-                    if (rendered && graphics && !graphics.backend.startsWith('Canvas') &&
-                        overload.observe(observedMs, continuous))
-                        void recoverOverload();
+                    if (rendered && graphics && !graphics.backend.startsWith('Canvas')) {
+                        const response = overload.observe(observedMs, continuous, state.quality === 'low');
+                        if (response === 'reduce-quality') {
+                            state.quality = 'low'; graphics.setQuality('low');
+                            lastQuality = now; lastSkyRender = 0; skyDirty = true;
+                            notice(`${graphics.backend} is staying active with Low detail after rendering pressure. Glow and water reflections remain on; your saved quality choice is unchanged.`);
+                        } else if (response === 'recover') void recoverOverload('sustained slow frames after Low-detail recovery');
+                    }
                     else if (!continuous)
                         overload.reset();
                 }

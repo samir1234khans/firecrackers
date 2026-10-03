@@ -44,3 +44,39 @@ export class RenderOverloadGuard {
         return slow >= 4 && total / this.samples.length >= 120;
     }
 }
+
+
+/** Keep native rendering for transient dense-shell pressure. Runtime/context
+ * failures still use the separate immediate recovery path. This policy never
+ * hides the backend, edits the saved preference, or changes show cadence. */
+export class NativeRenderRecovery {
+    private readonly pressure = new RenderOverloadGuard();
+    private lowPressureMs = 0;
+    private lowPressureFrames = 0;
+    reset() { this.pressure.reset(); this.lowPressureMs = this.lowPressureFrames = 0; }
+    observe(frameMs: number, active: boolean, alreadyLow: boolean): 'reduce-quality' | 'recover' | null {
+        if (!active) { this.reset(); return null; }
+        if (!Number.isFinite(frameMs) || frameMs <= 0) return null;
+        const overloaded = this.pressure.observe(frameMs, true);
+        if (!alreadyLow) {
+            this.lowPressureMs = this.lowPressureFrames = 0;
+            if (overloaded) { this.pressure.reset(); return 'reduce-quality'; }
+            return null;
+        }
+        if (frameMs < 100) {
+            this.lowPressureMs = Math.max(0, this.lowPressureMs - frameMs * 4);
+            this.lowPressureFrames = Math.max(0, this.lowPressureFrames - 2);
+            return null;
+        }
+        if (overloaded) {
+            this.lowPressureMs += Math.min(frameMs, 500);
+            this.lowPressureFrames++;
+        }
+        // At least six seconds AND 24 bad frames after Low adaptation. Three
+        // costly shell frames alone can no longer replace a working 3D scene.
+        if (this.lowPressureMs >= 6000 && this.lowPressureFrames >= 24) {
+            this.reset(); return 'recover';
+        }
+        return null;
+    }
+}

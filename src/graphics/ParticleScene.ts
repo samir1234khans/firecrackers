@@ -103,7 +103,8 @@ export class ParticleScene {
             h.material.positionNode = attribute('iPosition', 'vec3').add(u.right.mul(positionGeometry.x).mul(attribute('iScale', 'vec2').x)).add(u.up.mul(positionGeometry.y).mul(attribute('iScale', 'vec2').y));
             const radius = uv().sub(.5).length().mul(2);
             const hotCore = radius.pow(2).mul(-38).exp();
-            const kernel = radius.pow(2).mul(-17).exp().mul(.94).add(radius.pow(2).mul(-3.2).exp().mul(.075));
+            const kernel = radius.pow(2).mul(-17).exp().mul(.94).add(radius.pow(2).mul(-3.2).exp().mul(.24))
+                .mul(float(1).sub(smoothstep(.72, 1, radius)));
             h.material.colorNode = attribute('iColor', 'vec3').mul(hotCore.mul(.22).add(1)).add(vec3(.09).mul(hotCore)).mul(u.energy);
             h.material.opacityNode = kernel.mul(attribute('iAlpha', 'float')).mul(protectedMask);
             h.mesh.layers.enable(4);
@@ -117,7 +118,7 @@ export class ParticleScene {
             t.material.positionNode = middle.add(side.mul(positionGeometry.x).mul(attribute('iWidth', 'float')).mul(uv().y.mul(.08).add(.92)));
             const across = uv().x.sub(.5).mul(2).abs();
             const core = across.pow(2).mul(-10).exp();
-            const halo = across.pow(2).mul(-2.8).exp().mul(.08);
+            const halo = across.pow(2).mul(-2.8).exp().mul(.15);
             t.material.colorNode = attribute('iColor', 'vec3').mul(u.energy);
             const grain = middle.dot(vec3(.7, 1.3, .4)).sin().mul(.045).add(.955);
             const cap = smoothstep(0, .055, uv().y).mul(float(1).sub(smoothstep(.945, 1, uv().y)));
@@ -177,7 +178,7 @@ export class ParticleScene {
             if (p.age[i] < 0) continue;
             const b = this.heads[bucketFor(p.z[i])], n = b.count++, a = b.attrs, t = p.age[i] / p.life[i];
             const unit = Math.max(.035, (camera.position.z - p.z[i]) * pixelFactor);
-            const size = Math.max(p.size[i] * (1 - t * .38), unit * .9) * 5;
+            const size = Math.max(p.size[i] * (1 - t * .38), unit * 1.05) * 7.5;
             b.reflectionBounds.include(p.x[i], p.y[i], p.z[i], size * 1.2);
             const fade = Math.pow(Math.max(0, 1 - t), .72), red = p.family[i] === 2 ? Math.max(0, (t - .4) * 1.1) : 0;
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
