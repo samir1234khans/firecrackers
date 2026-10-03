@@ -1,3 +1,6 @@
+import { starColor, aerialTransmission } from '../engine/StarAppearance.js';
+import { SmokeOcclusion } from '../engine/SmokeOcclusion.js';
+import { CINEMA_BASE_EXPOSURE } from '../engine/CinematicResponse.js';
 import { canopyAlpha, canopyStretch, illuminateSmoke } from '../engine/SmokeCanopy.js';
 import { BURST_LIGHT_CAPACITY, burstLightEnergy, gatherBurstLighting, limitBurstRadiance } from '../engine/BurstLighting.js';
 import { measureStage, stageFraming, waterfrontHorizon } from '../engine/StageLayout';
@@ -82,6 +85,8 @@ export class CompatibilityRenderer implements RendererPort {
     private airborne = 0;
     private bodies = 0;
     private readonly glows = new Map<string, HTMLCanvasElement>();
+    private readonly starTone = new Float32Array(3);
+    private readonly occlusion = new SmokeOcclusion();
     private readonly burstWash = new Float32Array(7);
     private readonly tintMask = document.createElement('canvas');
     private readonly tintContext = this.tintMask.getContext('2d')!;
@@ -599,6 +604,7 @@ export class CompatibilityRenderer implements RendererPort {
     render() {
         if (this.disposed || !this.initialized) return;
         const started = performance.now(), c = this.ctx, s = this.sim;
+        this.occlusion.update(s.smoke, 0, s.ground, 240);
         gatherBurstLighting(s.lights, this.burstWash, s.reducedFlashes);
         limitBurstRadiance(this.burstWash, .50);
         c.setTransform(this.ratio, 0, 0, this.ratio, 0, 0);
@@ -684,17 +690,20 @@ export class CompatibilityRenderer implements RendererPort {
             const age = trails.age[i] / trails.life[i];
             if (age > .97) continue;
             const a = this.project(trails.ax[i], trails.ay[i], trails.az[i]), b = this.project(trails.bx[i], trails.by[i], trails.bz[i]);
-            c.globalAlpha = Math.pow(1 - age, 1.35) * (s.reducedFlashes ? .58 : .75);
+            c.globalAlpha = Math.pow(1 - age, 1.35) * (s.reducedFlashes ? .58 : .75) * this.occlusion.transmission((trails.ax[i]+trails.bx[i])*.5, (trails.ay[i]+trails.by[i])*.5, (trails.az[i]+trails.bz[i])*.5);
             c.strokeStyle = this.tone(trails.r[i], trails.g[i], trails.b[i]); c.lineWidth = Math.max(.55, trails.width[i] * this.scale * 2 * (1 - age * .65));
             c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
         }
         for (const pool of [s.heads, s.embers]) for (let i = 0; i < pool.count; i++) {
             if (pool.age[i] < 0) continue;
             const p = this.project(pool.x[i], pool.y[i], pool.z[i]);
-            const alpha = pool.gain[i] * Math.pow(Math.max(0, 1 - pool.age[i] / pool.life[i]), .85);
+            const alpha = pool.gain[i] * Math.pow(Math.max(0, 1 - pool.age[i] / pool.life[i]), .85)
+                * this.occlusion.transmission(pool.x[i], pool.y[i], pool.z[i])
+                * aerialTransmission(Math.hypot(pool.x[i], pool.y[i]-80, 240-pool.z[i]));
+            starColor(pool.family[i], pool.age[i], pool.life[i], pool.r[i], pool.g[i], pool.b[i], this.starTone);
             // Quantize glow colours to avoid a new texture for every star.
             const quantize = (value: number) => Math.round(value * 8) / 8;
-            this.glow(p.x, p.y, pool === s.embers ? 1.9 : Math.max(4.8, Math.min(9, pool.size[i] * this.scale * 8)), this.tone(quantize(pool.r[i]), quantize(pool.g[i]), quantize(pool.b[i])), alpha * (s.reducedFlashes ? .72 : .9));
+            this.glow(p.x, p.y, pool === s.embers ? 1.9 : Math.max(4.8, Math.min(9, pool.size[i] * this.scale * 8)), this.tone(quantize(this.starTone[0]), quantize(this.starTone[1]), quantize(this.starTone[2])), alpha * (s.reducedFlashes ? .72 : .9));
         }
         for (const r of s.rockets) if (r.stage === 'ascent') {
             const p = this.project(...rocketPoint(r, SHELL_LOCAL_Y));
@@ -702,6 +711,12 @@ export class CompatibilityRenderer implements RendererPort {
         }
         for (const carrier of s.cues) { const p = this.project(carrier.x, carrier.y, carrier.z); this.glow(p.x, p.y, 3.5, this.tone(...carrierTint(carrier.family, carrier.palette)), .8); }
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
+        // Canvas is already display-referred: a bounded neutral attenuation is
+        // the fallback approximation, not a second ACES/color-space conversion.
+        if (s.cinematicExposure && this.mode !== 'transparent') {
+            c.save(); c.fillStyle = '#000'; c.globalAlpha = Math.max(0, 1 - s.cinema.exposure / CINEMA_BASE_EXPOSURE);
+            c.fillRect(0, 0, this.width, this.height); c.restore();
+        }
         const nextGround = this.nextProfile();
         const ground = this.project(nextGround.padX!, nextGround.prop!.contactY);
         this.host.parentElement?.style.setProperty('--ground-px', `${this.height - ground.y}px`);

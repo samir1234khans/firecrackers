@@ -1,3 +1,5 @@
+**Cinematic V4 candidate:** [CINEMATIC-V4.md](CINEMATIC-V4.md) records the realism/UX changes, deployment blocker and separate PR #33 hold. Candidate source is not a live-production receipt.
+
 **Latest source work: richer night experience / `2026-10-03.2`, PR #45.** [Implementation, dependencies and qualification boundary](RICHER-NIGHT-EXPERIENCE.md). Combines #37–#44's main-compatible features with #36. Exact promotion/check results are in PR #45. Draft #33 and its musical-score release hold are unchanged; no deployment is implied. The production receipts below remain historical evidence of the last actual deployment.
 
 Latest production: [Always Play / build `.3`](evidence/always-play-2026-10-02/PRODUCTION.md), [qualification](evidence/always-play-2026-10-02/IMPLEMENTATION.md), [public controls](evidence/always-play-2026-10-02/final/controls.html) and [PR #32](https://github.com/samir1234khans/firecrackers/pull/32). Four quantity levels, smooth immersive controls, main promotion and actual production verification are recorded. The original longer performance plan remains partially unqualified; earlier entries below preserve historical checkpoints.

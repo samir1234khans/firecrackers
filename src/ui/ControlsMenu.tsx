@@ -1,12 +1,13 @@
-import { Camera, Clapperboard, Library, HelpCircle, Maximize, Minimize, Settings2 } from 'lucide-react';
+import { Play, Camera, Clapperboard, Library, HelpCircle, Maximize, Minimize, Settings2 } from 'lucide-react';
 
 type Props = {
-  fullscreen: boolean; onBrowse: () => void; onStudio: () => void; onCapture: () => void;
+  onWatch: () => void; fullscreen: boolean; onBrowse: () => void; onStudio: () => void; onCapture: () => void;
   onSettings: () => void;
   onFullscreen: () => void; onHelp: () => void;
 };
 export function ControlsMenu(p: Props) {
   return <nav className='controls-menu' aria-label='Controls'>
+    <button type='button' onClick={p.onWatch}><Play size={18} aria-hidden='true'/><span>Just watch</span></button>
     <button type='button' onClick={p.onBrowse}><Library size={18} aria-hidden='true'/><span>Browse fireworks</span></button>
     <button type='button' onClick={p.onStudio}><Clapperboard size={18} aria-hidden='true'/><span>Night studio</span></button>
     <button type='button' onClick={p.onCapture}><Camera size={18} aria-hidden='true'/><span>Capture a moment</span></button>

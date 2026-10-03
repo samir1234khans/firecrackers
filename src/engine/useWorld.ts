@@ -136,6 +136,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         state.setPlacement(prefs.current.placement);
         state.setPlacementMode(prefs.current.placementMode);
         state.reducedFlashes = prefs.current.reducedFlashes;
+        state.cinematicExposure = prefs.current.cinematicExposure;
+        state.cameraMotion = prefs.current.cameraMotion;
         state.quality = prefs.current.quality === 'auto' ? 'standard' : prefs.current.quality;
         state.protectCenter = display.current.protect;
         state.safeRect = [...display.current.safeRect];
@@ -624,6 +626,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     }, [epoch, presentation.seed, host, refresh, syncPause]);
     useEffect(() => {
         sim.current.reducedFlashes = preferences.reducedFlashes;
+        sim.current.cinematicExposure = preferences.cinematicExposure;
+        sim.current.cameraMotion = preferences.cameraMotion;
         if (preferences.quality !== 'auto') {
             sim.current.quality = preferences.quality;
             renderer.current?.setQuality(preferences.quality);
@@ -632,7 +636,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         audio.current?.setHeadphones(preferences.headphones);
         if (!preferences.adaptiveResolution) { renderer.current?.setResolutionScale?.(1); setResolutionScale(1); }
         skyRedraw.current?.();
-    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience, preferences.headphones, preferences.adaptiveResolution]);
+    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience, preferences.headphones, preferences.adaptiveResolution, preferences.cinematicExposure, preferences.cameraMotion]);
     useEffect(() => {
         sim.current.protectCenter = presentation.protect;
         sim.current.safeRect = [...presentation.safeRect];

@@ -1,3 +1,4 @@
+import { CINEMA_BASE_EXPOSURE } from './CinematicResponse.js';
 import { gatherBurstLighting } from './BurstLighting.js';
 import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
@@ -9,7 +10,7 @@ import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjec
 import type { LaunchPropComposition, LaunchBounds } from './LaunchComposition';
 import { signatureEnvelope } from './SignatureDiagnostics';
 import * as THREE from 'three/webgpu';
-import { float, mix, pass, uniform, vec4 } from 'three/tsl';
+import { float, hash, mix, pass, renderOutput, screenCoordinate, smoothstep, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 import { BUDGETS, FAMILIES, clamp, familyIndex } from './catalog';
 import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from './LaunchGeometry';
@@ -56,6 +57,8 @@ export class FireworkRenderer {
     private readonly particles: ParticleScene;
     private readonly overlay = uniform(0);
     private readonly projected = new THREE.Vector3();
+    private readonly cameraHome = new THREE.Vector3();
+    private cameraCenterY = 0;
     private pendingAssets: Partial<WaterfrontAssets> = {};
     private assets: Partial<WaterfrontAssets> = {};
     private readonly assetStates = Object.fromEntries(WATERFRONT_ASSET_NAMES.map(name => [name, 'loading'])) as Record<WaterfrontAssetName, 'loading' | 'ready' | 'active' | 'failed'>;
@@ -80,7 +83,7 @@ export class FireworkRenderer {
         this.renderer = new THREE.WebGPURenderer({ antialias: false, alpha: true, forceWebGL, powerPreference: 'high-performance' });
         this.renderer.setClearColor(0x020409, 1);
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = .95;
+        this.renderer.toneMappingExposure = CINEMA_BASE_EXPOSURE;
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         this.camera.layers.enable(1);
         this.scene.add(this.environment.group, this.water.mesh);
@@ -114,12 +117,19 @@ export class FireworkRenderer {
         this.particles = new ParticleScene(this.scene, this.smokeAtlas, this.opaquePass);
         this.scenePass = pass(this.scene, this.camera);
         const source = this.scenePass.getTextureNode('output');
-        this.bloomPass = bloom(source, .30, .18, .85);
+        this.bloomPass = bloom(source, .30, .18, 1.10);
         this.post = new THREE.PostProcessing(this.renderer);
         const glow = this.bloomPass.rgb;
         const haloAlpha = glow.r.max(glow.g).max(glow.b).mul(.32).clamp(0, 1);
         const alpha = mix(float(1), source.a.max(haloAlpha).clamp(0, 1), this.overlay);
-        this.post.outputNode = vec4(source.rgb.add(glow), alpha);
+        // Keep light/bloom linear until exactly one display conversion. Static
+        // sub-LSB dither reduces sky banding without animated grain or black lift.
+        this.post.outputColorTransform = false;
+        const display = renderOutput(vec4(source.rgb.add(glow), alpha), THREE.ACESFilmicToneMapping, THREE.SRGBColorSpace);
+        const luma = display.r.mul(.2126).add(display.g.mul(.7152)).add(display.b.mul(.0722));
+        const darkSky = smoothstep(.012, .06, luma).mul(float(1).sub(smoothstep(.4, .75, luma)));
+        const noise = hash(screenCoordinate.x.add(screenCoordinate.y.mul(4099))).sub(.5).mul(.75 / 255);
+        this.post.outputNode = vec4(display.rgb.add(noise.mul(darkSky).mul(this.overlay.oneMinus())).clamp(0, 1), alpha);
         this.lossHandler = (event: Event) => {
             event.preventDefault();
             if (!this.disposed) this.onFailure('Graphics were interrupted. Retry to return to a fresh sky.');
@@ -190,6 +200,7 @@ export class FireworkRenderer {
         this.camera.aspect = aspect;
         this.camera.position.set(0, centerY + Math.sin(pitch) * distance, Math.cos(pitch) * distance);
         this.camera.lookAt(0, centerY, 0);
+        this.cameraHome.copy(this.camera.position); this.cameraCenterY = centerY;
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
         this.resolvePropLayouts();
@@ -293,6 +304,15 @@ export class FireworkRenderer {
     render() {
         if (this.disposed || !this.initialized) return;
         const start = performance.now(), sim = this.sim;
+        this.renderer.toneMappingExposure = sim.cinematicExposure ? sim.cinema.exposure : CINEMA_BASE_EXPOSURE;
+        // Translate the real camera and target together: restrained foreground
+        // parallax, no growing impulse, no rotation, no change to launch admission.
+        const motion = sim.cameraMotion && !sim.reducedMotion && this.mode !== 'transparent';
+        const pixels = 2 * Math.tan(this.camera.fov * Math.PI / 360) * this.cameraHome.z / Math.max(1, this.host.clientHeight);
+        const dx = motion ? sim.cinema.cameraX * pixels : 0, dy = motion ? sim.cinema.cameraY * pixels : 0;
+        this.camera.position.set(this.cameraHome.x + dx, this.cameraHome.y + dy, this.cameraHome.z);
+        this.camera.lookAt(dx, this.cameraCenterY + dy, 0);
+        this.camera.updateMatrixWorld();
         // Apply at a frame boundary. Paper and rocket meshes wait for an interval
         // without an airborne body; an eight-second cap also serves continuous shows.
         if (this.pendingAssetCount) {
@@ -438,7 +458,7 @@ export class FireworkRenderer {
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,
-            visibleLightCount,
+            visibleLightCount, cinematicExposure: this.renderer.toneMappingExposure, cinemaDither: this.mode !== 'transparent', cameraResponsePixels: [simSafeCamera(this.sim, this.mode, 0), simSafeCamera(this.sim, this.mode, 1)],
             shellScreen: projected ? { x: (projected.x + 1) * this.host.clientWidth / 2, y: (1 - projected.y) * this.host.clientHeight / 2 } : null,
             apexScreen: apex ? { x: (apex.x + 1) * this.host.clientWidth / 2, y: (1 - apex.y) * this.host.clientHeight / 2 } : null,
             signatureBounds, launchProfile: r?.launchProfile ?? null,
@@ -478,4 +498,8 @@ export class FireworkRenderer {
         if (this.initialized) this.renderer.dispose();
         this.renderer.domElement.remove();
     }
+}
+
+function simSafeCamera(sim: Simulation, mode: DisplayMode, axis: number): number {
+    return sim.cameraMotion && !sim.reducedMotion && mode !== 'transparent' ? (axis ? sim.cinema.cameraY : sim.cinema.cameraX) : 0;
 }

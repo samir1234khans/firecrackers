@@ -1,3 +1,5 @@
+import { starColor, aerialTransmission } from '../engine/StarAppearance.js';
+import { SmokeOcclusion } from '../engine/SmokeOcclusion.js';
 import { canopyAlpha, canopyStretch, illuminateSmoke } from '../engine/SmokeCanopy.js';
 import * as THREE from 'three/webgpu';
 import { attribute, cos, dot, float, mix, pass, positionGeometry, positionView, screenUV, sin, smoothstep, texture, uniform, uv, vec2, vec3 } from 'three/tsl';
@@ -96,7 +98,10 @@ export class ParticleScene {
             const diffuse = dot(normal, localDirection).max(0);
             const rim = gradient.length().clamp(0, 1).mul(.55).add(.065);
             const transmission = density.r.mul(-1.85).exp();
-            const shading = diffuse.mul(.72).add(rim).mul(transmission);
+            // Forward-scattered light reveals the plume edge when its source is
+            // behind it. The dense interior keeps absorption; there is no white veil.
+            const forward = localDirection.z.negate().max(0).pow(3).mul(.24);
+            const shading = diffuse.mul(.72).add(rim).add(forward.mul(rim.add(.08))).mul(transmission);
             s.material.colorNode = vec3(.020, .027, .039).mul(float(1).sub(density.r.mul(.42))).add(attribute('iColor', 'vec3').mul(shading));
             s.material.opacityNode = density.a.mul(attribute('iAlpha', 'float')).mul(density.r.mul(.28).add(.82)).mul(soft).mul(protectedMask);
             this.smoke.push(s); scene.add(s.mesh);
@@ -129,6 +134,8 @@ export class ParticleScene {
         }
     }
     private readonly canopyLight = new Float32Array(6);
+    private readonly starTone = new Float32Array(3);
+    private readonly occlusion = new SmokeOcclusion();
     private savedProtection = 0;
     private reflecting = false;
     private readonly reflectionFrustum = new THREE.Frustum();
@@ -175,6 +182,7 @@ export class ParticleScene {
             batch.count = 0; batch.reflectionBounds.reset();
         }
         const pixelFactor = 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, height);
+        this.occlusion.update(sim.smoke, camera.position.x, camera.position.y, camera.position.z);
         const p = sim.heads;
         for (let i = 0; i < p.count; i++) {
             if (p.age[i] < 0) continue;
@@ -182,12 +190,15 @@ export class ParticleScene {
             const unit = Math.max(.035, (camera.position.z - p.z[i]) * pixelFactor);
             const size = Math.max(p.size[i] * (1 - t * .38), unit * 1.05) * 7.5;
             b.reflectionBounds.include(p.x[i], p.y[i], p.z[i], size * 1.2);
-            const fade = Math.pow(Math.max(0, 1 - t), .72), red = p.family[i] === 2 ? Math.max(0, (t - .4) * 1.1) : 0;
+            const fade = Math.pow(Math.max(0, 1 - t), .72);
+            starColor(p.family[i], p.age[i], p.life[i], p.r[i], p.g[i], p.b[i], this.starTone);
+            const air = aerialTransmission(Math.hypot(camera.position.x-p.x[i], camera.position.y-p.y[i], camera.position.z-p.z[i]));
+            const smokeTransmission = this.occlusion.transmission(p.x[i], p.y[i], p.z[i]);
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
-            a.iAlpha.setX(n, fade * p.gain[i] * (.84 + hash01(p.id[i], 51) * .16));
+            a.iAlpha.setX(n, fade * p.gain[i] * (.84 + hash01(p.id[i], 51) * .16) * smokeTransmission * air);
             const heat = p.family[i] >= 10 ? 1.75 + Math.exp(-p.age[i] * 4) * .45 : 2.35 + Math.exp(-p.age[i] * 4) * 1.3;
-            a.iColor.setXYZ(n, p.r[i] * heat, p.g[i] * (1 - red) * heat, p.b[i] * (1 - red) * heat);
+            a.iColor.setXYZ(n, this.starTone[0] * heat, this.starTone[1] * heat, this.starTone[2] * heat);
         }
         const embers = sim.embers;
         for (let i = 0; i < embers.count; i++) {
@@ -234,7 +245,7 @@ export class ParticleScene {
             a.iA.setXYZ(n, ax, ay, az);
             a.iB.setXYZ(n, bx, by, bz);
             a.iWidth.setX(n, width);
-            a.iAlpha.setX(n, Math.pow(Math.max(0, 1 - age), 1.3) * (.58 + hash01(owner, 81) * .28) * brightness);
+            a.iAlpha.setX(n, Math.pow(Math.max(0, 1 - age), 1.3) * (.58 + hash01(owner, 81) * .28) * brightness * this.occlusion.transmission((ax+bx)*.5, (ay+by)*.5, z));
             a.iColor.setXYZ(n, red * 2.55 * (1 + age * .09), green * 2.55 * (1 - age * .15), blue * 2.55 * (1 - age * .34));
         };
         for (let i = 0; i < t.count; i++) {
