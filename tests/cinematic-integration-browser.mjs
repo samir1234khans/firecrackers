@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { inspectCapturedVideo } from './captured-media-helpers.mjs';
 const base = process.env.STAGE_URL || 'http://127.0.0.1:4173/';
 const out = process.argv[2] || 'test-results/cinematic-integration';
 await mkdir(out, { recursive: true });
@@ -30,23 +31,18 @@ try {
       await page.waitForSelector('main[data-ready="true"][data-presented="true"]', { timeout: 90000 });
       await page.evaluate(() => window.__firecrackersQA.freeze(true));
       const expected = backend === 'webgl' ? 'WebGL 2' : 'Canvas 2D · compatibility';
-      assert.equal((await snap()).backend, expected);
-      assert.equal(musicRequests, 0);
+      assert.equal((await snap()).backend, expected); assert.equal(musicRequests, 0);
       for (const theme of ['moonlit', 'golden', 'prismatic']) {
         await choose(theme);
-        assert.equal((await snap()).cinematic.theme, theme);
-        assert.equal((await snap()).showTiming.duration, 90);
+        assert.equal((await snap()).cinematic.theme, theme); assert.equal((await snap()).showTiming.duration, 90);
         await advance(5.2); await shot(`${theme}-opening`); await advance(73);
         const crest = await snap();
-        assert.equal(crest.show, 'finale');
-        assert.ok(crest.cinematic.admitted >= 4);
-        assert.ok(crest.cinematic.maxImpactError <= 1 / 30 + 1e-6);
-        assert.equal(crest.backend, expected);
+        assert.equal(crest.show, 'finale'); assert.ok(crest.cinematic.admitted >= 4);
+        assert.ok(crest.cinematic.maxImpactError <= 1 / 30 + 1e-6); assert.equal(crest.backend, expected);
         await advance(12); assert.equal((await snap()).show, null); await advance(35);
         await page.getByRole('button', { name: 'Replay', exact: true }).waitFor();
         await page.getByRole('button', { name: 'Replay', exact: true }).click();
-        assert.equal((await snap()).cinematic.theme, theme);
-        assert.equal((await snap()).personal.kind, 'finale');
+        assert.equal((await snap()).cinematic.theme, theme); assert.equal((await snap()).personal.kind, 'finale');
         await advance(120); await advance(15);
       }
       assert.equal(musicRequests, 0);
@@ -54,8 +50,7 @@ try {
       await choose('moonlit', 'festival'); await advance(12);
       await page.getByRole('button', { name: /^Show mode:/ }).click();
       await page.getByLabel('Endless show', { exact: true }).selectOption('golden');
-      assert.equal((await snap()).cinematic.theme, 'moonlit');
-      assert.equal((await snap()).cinematic.pendingTheme, 'golden');
+      assert.equal((await snap()).cinematic.theme, 'moonlit'); assert.equal((await snap()).cinematic.pendingTheme, 'golden');
       await page.getByRole('button', { name: 'Close show mode', exact: true }).click();
       await advance(3.1); assert.equal((await snap()).cinematic.theme, 'golden');
       entry.checks.push('queued theme joins the next phrase without restarting');
@@ -86,46 +81,15 @@ try {
       await page.getByRole('button', { name: 'Stop recording clip', exact: true }).click();
       const video = page.getByRole('region', { name: 'Capture preview' }).getByLabel('Captured fireworks clip');
       await video.waitFor();
-      const media = await video.evaluate(async element => {
-        await new Promise((resolve, reject) => {
-          if (element.readyState >= 2) return resolve();
-          const timeout = setTimeout(() => reject(new Error('Video decode timed out')), 10000);
-          element.onloadeddata = () => { clearTimeout(timeout); resolve(); };
-          element.onerror = () => { clearTimeout(timeout); reject(new Error('Video decode failed')); };
-          element.load();
-        });
-        const blob = await fetch(element.currentSrc).then(response => response.blob());
-        if (blob.size > 24 * 1024 * 1024) throw new Error('Export exceeded capture memory budget');
-        const canvas = document.createElement('canvas');
-        canvas.width = 160; canvas.height = 100;
-        const c = canvas.getContext('2d'); c.drawImage(element, 0, 0, 160, 100);
-        const pixels = c.getImageData(0, 0, 160, 100).data;
-        let lit = 0;
-        for (let i = 0; i < pixels.length; i += 4) if (Math.max(pixels[i], pixels[i + 1], pixels[i + 2]) > 12) lit++;
-        const audioContext = new AudioContext();
-        let audio;
-        try {
-          const decoded = await audioContext.decodeAudioData(await blob.arrayBuffer());
-          let sum = 0, peak = 0, count = 0;
-          for (let ch = 0; ch < decoded.numberOfChannels; ch++) {
-            const samples = decoded.getChannelData(ch);
-            for (let i = 0; i < samples.length; i += 8) { sum += samples[i] ** 2; peak = Math.max(peak, Math.abs(samples[i])); count++; }
-          }
-          audio = { channels: decoded.numberOfChannels, seconds: decoded.duration, sampleRate: decoded.sampleRate, rms: Math.sqrt(sum / Math.max(1, count)), peak };
-        } finally { await audioContext.close(); }
-        const dataUrl = await new Promise((resolve, reject) => {
-          const reader = new FileReader(); reader.onerror = () => reject(new Error('Cannot retain clip evidence')); reader.onload = () => resolve(reader.result); reader.readAsDataURL(blob);
-        });
-        return { width: element.videoWidth, height: element.videoHeight, containerDuration: Number.isFinite(element.duration) ? element.duration : 'streaming metadata', bytes: blob.size, mime: blob.type, litPixels: lit, audio, dataUrl };
-      });
-      const { dataUrl, ...decoded } = media;
-      assert.ok(decoded.width > 0 && decoded.height > 0 && decoded.litPixels > 50, 'export contains nonblack scene pixels');
+      const decoded = await inspectCapturedVideo(video, `${out}/${name}-captured`);
+      entry.capture = decoded;
+      assert.equal(decoded.frame.error, undefined, JSON.stringify(decoded.frame));
+      assert.ok(decoded.frame.width > 0 && decoded.frame.height > 0 && decoded.frame.litPixels > 50, `export contains nonblack scene pixels: ${JSON.stringify(decoded.frame)}`);
+      assert.equal(decoded.audio.error, undefined, JSON.stringify(decoded.audio));
       assert.ok(decoded.audio.channels > 0 && Number.isFinite(decoded.audio.seconds) && decoded.audio.seconds > .5 && decoded.audio.seconds <= 31, 'export contains a bounded decodable audio track');
       assert.ok(Number.isFinite(decoded.audio.rms) && decoded.audio.rms > 1e-5, 'exported app audio is not silent');
-      await writeFile(`${out}/${name}-captured.${decoded.mime.includes('mp4') ? 'mp4' : 'webm'}`, Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64'));
-      entry.capture = decoded;
       await page.getByText(/seconds · app audio/).waitFor(); await shot('audio-capture');
-      entry.checks.push('exported clip has actual scene pixels and a decoded non-silent app-audio track; no microphone');
+      entry.checks.push('exported clip has presented scene pixels and a decoded non-silent app-audio track; no microphone');
       await page.getByRole('button', { name: 'Close panel', exact: true }).click();
       await page.getByRole('button', { name: /^Show mode:/ }).click();
       await page.getByRole('button', { name: 'Manual', exact: true }).click();
