@@ -5,6 +5,15 @@ const MAX_BYTES=24*1024*1024;
 const MAX_EDGE=1280;
 export function captureSize(width:number,height:number):[number,number]{const scale=Math.min(1,MAX_EDGE/Math.max(width,height));return [Math.max(1,Math.floor(width*scale)),Math.max(1,Math.floor(height*scale))];}
 export function chooseRecordingType(supports:(mime:string)=>boolean):string|null {return ['video/webm;codecs=vp8,opus','video/webm;codecs=vp8','video/mp4','video/webm'].find(supports)??null;}
+/** Keep capture cadence tied to completed scene draws where manual delivery exists.
+ * Older implementations keep the timed path; an unused probing stream is stopped. */
+export function createFrameStream(canvas:HTMLCanvasElement):{stream:MediaStream;present:(()=>void)|null}{
+  const stream=canvas.captureStream(0);
+  const track=stream.getVideoTracks()[0] as (MediaStreamTrack&{requestFrame?:()=>void})|undefined;
+  if(typeof track?.requestFrame==='function')return {stream,present:()=>track.requestFrame!()};
+  stream.getTracks().forEach(t=>t.stop());
+  return {stream:canvas.captureStream(24),present:null};
+}
 /** Copies only presented scene pixels into one bounded 2D canvas. Never captures the screen or microphone. */
 export class SceneCapture {
   snapshot:CaptureSnapshot={recording:false,seconds:0,limit:15,result:null,error:''};
@@ -13,6 +22,7 @@ export class SceneCapture {
   private context:CanvasRenderingContext2D|null=null;
   private recorder:MediaRecorder|null=null;
   private stream:MediaStream|null=null;
+  private presentFrame:(()=>void)|null=null;
   private chunks:Blob[]=[];
   private bytes=0;
   private source:HTMLCanvasElement|null=null;
@@ -57,7 +67,8 @@ export class SceneCapture {
     try{
       if(typeof MediaRecorder==='undefined'||typeof canvas.captureStream!=='function')throw new Error('Video recording is unavailable here. Capture a photo instead.');
       const mime=chooseRecordingType(t=>MediaRecorder.isTypeSupported(t));if(!mime)throw new Error('No supported recording format. Capture a photo instead.');
-      render();this.createCopy(canvas);this.stream=this.copy!.captureStream(24);
+      render();this.createCopy(canvas);
+      const delivery=createFrameStream(this.copy!);this.stream=delivery.stream;this.presentFrame=delivery.present;
       if(audio)for(const track of audio.stream.getAudioTracks())this.stream.addTrack(track);
       const recorder=new MediaRecorder(this.stream,{mimeType:mime,videoBitsPerSecond:4000000,audioBitsPerSecond:128000});
       this.recorder=recorder;this.started=performance.now();this.frameTime=-Infinity;
@@ -72,6 +83,7 @@ export class SceneCapture {
         finally{this.release();this.snapshot.recording=false;this.onChange();}
       };
       recorder.start(250);
+      this.context!.drawImage(canvas,0,0,this.copy!.width,this.copy!.height);this.presentFrame?.();
       this.timer=setTimeout(()=>this.stop('Clip complete.'),this.snapshot.limit*1000);
       this.onChange();
     }catch(error){this.release();this.snapshot.recording=false;this.fail(error);throw error;}
@@ -84,7 +96,7 @@ export class SceneCapture {
     this.frameTime=simTime;
     const elapsed=(performance.now()-this.started)/1000;
     this.snapshot.seconds=Math.min(this.snapshot.limit,Math.round(elapsed*10)/10);
-    try{this.context?.drawImage(canvas,0,0,this.copy!.width,this.copy!.height);}catch{this.stop('Recording finished because the scene became unavailable.');}
+    try{this.context?.drawImage(canvas,0,0,this.copy!.width,this.copy!.height);this.presentFrame?.();}catch{this.stop('Recording finished because the scene became unavailable.');}
     if(elapsed>=this.snapshot.limit)this.stop('Clip complete.');
   }
   stop(reason='Recording stopped.'){
@@ -106,6 +118,6 @@ export class SceneCapture {
     try{await navigator.share({files:[file],title:'A night of fireworks'});return 'Share action completed.';}catch(error){if(error instanceof DOMException&&error.name==='AbortError')return 'Sharing cancelled.';throw error;}
   }
   private releaseCopy(){if(this.copy){this.copy.width=this.copy.height=1;}this.copy=null;this.context=null;this.source=null;}
-  private release(){if(this.timer)clearTimeout(this.timer);this.timer=null;this.stream?.getTracks().forEach(t=>t.stop());this.releaseAudio?.();this.releaseAudio=null;this.stream=null;if(this.recorder){this.recorder.ondataavailable=null;this.recorder.onstop=null;this.recorder.onerror=null;}this.recorder=null;this.chunks=[];this.bytes=0;this.releaseCopy();}
+  private release(){if(this.timer)clearTimeout(this.timer);this.timer=null;this.presentFrame=null;this.stream?.getTracks().forEach(t=>t.stop());this.releaseAudio?.();this.releaseAudio=null;this.stream=null;if(this.recorder){this.recorder.ondataavailable=null;this.recorder.onstop=null;this.recorder.onerror=null;}this.recorder=null;this.chunks=[];this.bytes=0;this.releaseCopy();}
   dispose(){this.disposed=true;this.generation++;if(this.recorder?.state==='recording'){try{this.recorder.stop();}catch{/* Always release even after an encoder failure. */}}this.release();this.discard();this.snapshot.recording=false;this.onChange=()=>{};}
 }

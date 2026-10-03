@@ -56,14 +56,18 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps chromium
+      - name: Install independent export decoder
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
       - name: Themed Encore, music consent, phrase changes, pause and audio capture
         run: |
           mkdir -p test-results/cinematic-integration
+          git rev-parse HEAD > test-results/cinematic-integration/SOURCE.txt
           npm run preview -- --port 4173 > test-results/cinematic-integration/server.log 2>&1 &
           server=$!
           trap 'kill "$server" 2>/dev/null || true' EXIT
           for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break || sleep 1; done
           npm run test:cinematic-integration -- test-results/cinematic-integration
+          node tests/verify-media-continuity.mjs test-results/cinematic-integration
       - uses: actions/upload-artifact@v4
         if: always()
         with:
