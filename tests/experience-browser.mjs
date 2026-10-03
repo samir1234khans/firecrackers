@@ -54,7 +54,11 @@ try{
    const savedText=await page.evaluate(()=>localStorage.getItem('firecrackers.nights.v1'));
    await page.getByLabel('Import show recipe file',{exact:true}).setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({...downloaded,reducedFlashes:false}))});
    await page.getByText('Unsupported show recipe format.',{exact:true}).waitFor();assert.equal(await page.evaluate(()=>localStorage.getItem('firecrackers.nights.v1')),savedText);
-   await page.getByRole('button',{name:'Share recipe',exact:true}).click();const share=await page.getByLabel('Share link',{exact:true}).inputValue();assert.match(share,/#night=/);
+   await page.getByRole('button',{name:'Share recipe',exact:true}).click();
+   const shareField=page.locator('.studio-link textarea');
+   await shareField.waitFor({state:'attached',timeout:5000});
+   const share=await shareField.inputValue();assert.match(share,/#night=/);
+   assert.ok(await shareField.evaluate(field=>[...field.labels].some(label=>label.textContent.startsWith('Share link'))),'the actual generated URL has a visible label');
    check('three-cue edits, undo/redo, save, rename, recipe export, bounded import rejection and share link');
 
    await page.getByRole('button',{name:'Play from start',exact:true}).click();
@@ -92,7 +96,7 @@ try{
    await recipient.getByRole('button',{name:'Review shared night',exact:true}).click();assert.equal(await recipient.getByLabel('Show name',{exact:true}).inputValue(),'River encore');
    await recipient.getByRole('button',{name:'Close panel',exact:true}).click();await recipient.getByRole('button',{name:'Browse fireworks',exact:true}).click();await recipient.getByRole('button',{name:'Favourites',exact:true}).click();assert.equal(await recipient.locator('[data-effect-card="gold-willow"]').count(),1);await recipient.close();check('recipient must review then choose Play; link never autoplays or unmutes; favourites persist');
    assert.deepEqual(entry.errors,[]);assert.deepEqual(entry.consoleErrors,[]);entry.pass=true;
-  }catch(error){entry.pass=false;entry.failure=error.stack;entry.final=await snap().catch(()=>null);await screenshot('FAILED').catch(()=>{});process.exitCode=1;console.error('FAIL',name,error.stack);}
+  }catch(error){entry.pass=false;entry.failure=error.stack;entry.final=await snap().catch(()=>null);entry.visibleStatus=await page.locator('dialog .studio-status').allTextContents().catch(()=>[]);entry.dialogText=await page.locator('dialog').allTextContents().catch(()=>[]);await screenshot('FAILED').catch(()=>{});process.exitCode=1;console.error('FAIL',name,error.stack,entry.visibleStatus);}
   finally{await context.close();await writeFile(`${out}/report.json`,JSON.stringify(report,null,2));}
  }
 }finally{await browser.close();await writeFile(`${out}/report.json`,JSON.stringify(report,null,2));}
