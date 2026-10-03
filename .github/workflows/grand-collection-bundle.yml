@@ -18,17 +18,25 @@ jobs:
         with:
           node-version-file: .nvmrc
       - run: npm ci
-      - name: Export current tracked source and exact dependencies for delivery review
+      - name: Export a bounded local verification environment
         run: |
           mkdir -p /tmp/grand-collection
-          git archive HEAD | gzip > /tmp/grand-collection/source.tar.gz
-          tar -czf /tmp/grand-collection/dependencies.tar.gz node_modules
+          python3 - <<'PY'
+          import subprocess, tarfile
+          files = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
+          with tarfile.open('/tmp/grand-collection/source.tar.gz', 'w:gz') as archive:
+              for path in files:
+                  if path and not path.startswith(('docs/evidence/', 'assets-source/')):
+                      archive.add(path, recursive=False)
+          PY
+          tar -czf /tmp/grand-collection/dependencies.tar.gz --exclude=node_modules/@cloudflare --exclude=node_modules/workerd --exclude=node_modules/wrangler node_modules
           git rev-parse HEAD > /tmp/grand-collection/SOURCE_COMMIT.txt
           sha256sum package-lock.json > /tmp/grand-collection/LOCK_SHA256.txt
           node --version > /tmp/grand-collection/NODE_VERSION.txt
+          du -h /tmp/grand-collection/*
       - uses: actions/upload-artifact@v4
         with:
-          name: grand-collection-environment
+          name: bounded-verification-environment
           path: /tmp/grand-collection
           retention-days: 3
           compression-level: 0
