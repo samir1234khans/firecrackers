@@ -1,0 +1,486 @@
+{
+  "main": "e60d46443836d1f60bfb65f026dfc36eb5ba509c",
+  "at": "2026-10-03T20:47:31.8826656Z",
+  "branches": [
+    {
+      "ref": "refs/heads/codex/always-play",
+      "sha": "44161d9d1be5b506ec3adc6da4a5540fd1405976",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/codex/always-play-planning",
+      "sha": "7ebe065534701cc848417305e9073d368e371228",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/codex/cinematic-shows",
+      "sha": "5fbb45b2d9d1ee3463cee232f3f3bdc937255e01",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/codex/moonlit-water-realism",
+      "sha": "19bd10c53426e8db13adb1c0bb4746d3fa5a0aae",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/codex/reconciliation-2026-10-04",
+      "sha": "e60d46443836d1f60bfb65f026dfc36eb5ba509c",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/branch-reconciliation-2026-09-30",
+      "sha": "de65875a11f8d033ce8678cf71089ecd18f03eaa",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/cinematic-release-receipt",
+      "sha": "75e87a3fa6eab6e031decd41940dd00a1b7329b2",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/graphics-recovery-production-receipt",
+      "sha": "2b33a4f5f3bf1e15fbeb79dfcda3f35bb62a50e0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/latest-production-reconciliation",
+      "sha": "add8934ed095ce69db223f524f54d8c68b661a14",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/pad-launch-production-receipt",
+      "sha": "dcc2677863158d122d90c66f7f484a677ff50707",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/promote-latest-to-main",
+      "sha": "378aa88353ae6606de33c9afcfbd13a53de2b96c",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/realism-production-receipt",
+      "sha": "334d91b8103ebb57ae543a0c98d09ae843a3ed2a",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/river-production-receipt",
+      "sha": "a050849fecc25a7e1566dee3931e58ded0432a1e",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/transparent-panels-release",
+      "sha": "eebcf8a75b308b1d6d69630f5ae0579d7f735a77",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/waterfront-production-2026-09-30",
+      "sha": "9a8e7e701ce2a7ae94c43eb51af673a3f8a69945",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/waterfront-release-receipt",
+      "sha": "11f18242c228bd8151a734fddf2befe53f554d77",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/docs/webgpu-production-receipt",
+      "sha": "6601d97098fe3896a057e7fdb41bdcab13f7b9d7",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/bottom-tray-upper-canopy",
+      "sha": "a57f4235bf02a5294d9d378fba3b28dd05e067e6",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/cinematic-realism-v2",
+      "sha": "720bf0e1baa95d8bb1c50b8054426f2369d01154",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/cinematic-waterfront",
+      "sha": "a300a61bc045b3ea200227f0d84764392cee917a",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/cloudflare-production",
+      "sha": "838c61db35bf1a8a27e3ff2559c9fb73d2621ba3",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/drag-to-pad-cinematic-controls",
+      "sha": "0fea477f324262f128f4ad8d74e06ff5a86abda0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/flagship-signatures",
+      "sha": "7946153d44a3ad42de8cdbb5b792af7b19c7f6f5",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/frictionless-firework-shelves",
+      "sha": "2724050f29449a642b7c7ed95469183b74fb42b6",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/galaxy-night-sky",
+      "sha": "24a68b3cf961953e35ec96b2623847acb5371e0c",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/interactive-galactic-sky",
+      "sha": "f179c736617c3eb5c0f9ad3106e25f2b83c7b0a2",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/moon-natural-water",
+      "sha": "b064fe43c87b9315afa91dda18364b88e70ee830",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/open-sky-controls",
+      "sha": "087e3bc82cb7b5d4ccf59a783ae703ccb1069db0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/realism-refinement",
+      "sha": "0ea48b7328b2612b28c5b55a83a2f5b36f947268",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/transparent-edge-panels",
+      "sha": "0fc44a5ffdeaddc875b103d970e0e0be1d059470",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/feat/waterfront-realism",
+      "sha": "947f0c57e679a34d35e00b550aae625eba845672",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/fix/burst-transition-stalls",
+      "sha": "57b20cfd6b5ceb4bdb8b1cd5d19c6c24a9f0ae69",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/fix/graphics-loading-budget",
+      "sha": "32bacb64ba0f9231f7bf1072365618435d249fe0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/fix/webgpu-asset-startup",
+      "sha": "b7ad56c52c72cfd9452e8f88903fa1134ef5d9e4",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/main",
+      "sha": "e60d46443836d1f60bfb65f026dfc36eb5ba509c",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/heads/reconcile/cinematic-shows-v4",
+      "sha": "cd396c3fc528b53a007fd3b7c211ab1482a7dc32",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/always-play",
+      "sha": "44161d9d1be5b506ec3adc6da4a5540fd1405976",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/cinematic-shows",
+      "sha": "5fbb45b2d9d1ee3463cee232f3f3bdc937255e01",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/moonlit-water-realism",
+      "sha": "19bd10c53426e8db13adb1c0bb4746d3fa5a0aae",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/branch-reconciliation-2026-09-30",
+      "sha": "de65875a11f8d033ce8678cf71089ecd18f03eaa",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/cinematic-release-receipt",
+      "sha": "75e87a3fa6eab6e031decd41940dd00a1b7329b2",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/graphics-recovery-production-receipt",
+      "sha": "2b33a4f5f3bf1e15fbeb79dfcda3f35bb62a50e0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/latest-production-reconciliation",
+      "sha": "add8934ed095ce69db223f524f54d8c68b661a14",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/pad-launch-production-receipt",
+      "sha": "dcc2677863158d122d90c66f7f484a677ff50707",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/promote-latest-to-main",
+      "sha": "378aa88353ae6606de33c9afcfbd13a53de2b96c",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/realism-production-receipt",
+      "sha": "334d91b8103ebb57ae543a0c98d09ae843a3ed2a",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/river-production-receipt",
+      "sha": "a050849fecc25a7e1566dee3931e58ded0432a1e",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/waterfront-production-2026-09-30",
+      "sha": "9a8e7e701ce2a7ae94c43eb51af673a3f8a69945",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/waterfront-release-receipt",
+      "sha": "11f18242c228bd8151a734fddf2befe53f554d77",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/docs/webgpu-production-receipt",
+      "sha": "6601d97098fe3896a057e7fdb41bdcab13f7b9d7",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/bottom-tray-upper-canopy",
+      "sha": "a57f4235bf02a5294d9d378fba3b28dd05e067e6",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/cinematic-atmosphere-v4",
+      "sha": "5f49229d16ffe39f4cf9beb947b126ba96d6a994",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/cinematic-realism-v2",
+      "sha": "720bf0e1baa95d8bb1c50b8054426f2369d01154",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/cinematic-waterfront",
+      "sha": "a300a61bc045b3ea200227f0d84764392cee917a",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/cloudflare-production",
+      "sha": "838c61db35bf1a8a27e3ff2559c9fb73d2621ba3",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/drag-to-pad-cinematic-controls",
+      "sha": "0fea477f324262f128f4ad8d74e06ff5a86abda0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/fireworks-v1",
+      "sha": "589fe284a097a3dd9b9c691e95a9c15189b0bbc3",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/fireworks-v1-implementation",
+      "sha": "16d9d1d8056ff6cb1d47b7fff92c3731395efdce",
+      "included": false,
+      "classification": "Preserved historical alternate per AGENTS.md"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/flagship-signatures",
+      "sha": "7946153d44a3ad42de8cdbb5b792af7b19c7f6f5",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/frictionless-firework-shelves",
+      "sha": "2724050f29449a642b7c7ed95469183b74fb42b6",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/galaxy-night-sky",
+      "sha": "24a68b3cf961953e35ec96b2623847acb5371e0c",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/grand-collection",
+      "sha": "44ee6527121c7ebc5a26179b26bb77f765623851",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/interactive-galactic-sky",
+      "sha": "f179c736617c3eb5c0f9ad3106e25f2b83c7b0a2",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/moon-natural-water",
+      "sha": "b064fe43c87b9315afa91dda18364b88e70ee830",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/open-sky-controls",
+      "sha": "087e3bc82cb7b5d4ccf59a783ae703ccb1069db0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/realism-refinement",
+      "sha": "0ea48b7328b2612b28c5b55a83a2f5b36f947268",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/richer-night-experience",
+      "sha": "60c28a1e70ef779a6ec1f72ec583203de5fd1b3e",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/transparent-edge-panels",
+      "sha": "0fc44a5ffdeaddc875b103d970e0e0be1d059470",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/feat/waterfront-realism",
+      "sha": "9603a096be6509304ba5c2e4fc4b4b1b3ea421ef",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/burst-transition-stalls",
+      "sha": "57b20cfd6b5ceb4bdb8b1cd5d19c6c24a9f0ae69",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/capture-continuity",
+      "sha": "cd03c92776181c9dbf8dbebca44ffcf00ad71999",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/full-sky-bursts-waterlight",
+      "sha": "b75e3c59c5ddc995a2ff0c553267dacada2e3245",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/graphics-loading-budget",
+      "sha": "32bacb64ba0f9231f7bf1072365618435d249fe0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/ignition-reliability",
+      "sha": "6b1a5fa4c5613e30b5a81ff314a5377d0861c62b",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/video-launch-flow",
+      "sha": "501b346e9624e9c665a19ddcff561e0657c382c0",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/viewability-recovery",
+      "sha": "f48a8bf4a153ce5077a8901738bb4883aebc456b",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/fix/webgpu-asset-startup",
+      "sha": "b7ad56c52c72cfd9452e8f88903fa1134ef5d9e4",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/main",
+      "sha": "e60d46443836d1f60bfb65f026dfc36eb5ba509c",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/ops/verified-cloudflare-release",
+      "sha": "eddc90eed5b34ed6ab2d145c1808ab3fe95ac2bd",
+      "included": true,
+      "classification": "Included in promoted main"
+    },
+    {
+      "ref": "refs/remotes/origin/reconcile/cinematic-shows-v4",
+      "sha": "cd396c3fc528b53a007fd3b7c211ab1482a7dc32",
+      "included": true,
+      "classification": "Included in promoted main"
+    }
+  ]
+}

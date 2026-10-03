@@ -1,8 +1,8 @@
 # Agent instructions — Firecrackers
 
-## Richer night source boundary
+## Current reconciliation boundary
 
-See `docs/RICHER-NIGHT-EXPERIENCE.md` and PR #45 for the latest owner-authorised experience work, reconciliation and exact check results. Preserve draft #33's separate musical-score release hold. Never infer a deployment from main promotion or claim its held 90-second scores are included in the main-compatible 32-second Finale.
+The owner explicitly authorized reconciling all current work and promoting it to main on 4 October 2026. PR #47 incorporates PR #33's cinematic music with V4, richer-night features and capture fixes; its main merge is `e60d46443836d1f60bfb65f026dfc36eb5ba509c`. See `docs/evidence/reconciliation-2026-10-04/MAIN.md`. The earlier hold is lifted for main promotion only. Production deployment remains on hold, and hardware/performance qualification remains unverified. Preserve the reconciled 90-second scores, newer Studio/capture features and deliberate Update & restart behavior. Never infer a deployment from main promotion.
 
 ## Current source and scope
 

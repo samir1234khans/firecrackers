@@ -1,5 +1,7 @@
 # V4 promotion and remaining release gates
 
+**4 October 2026 update:** The owner authorized current-work reconciliation and main promotion. [PR #47](https://github.com/samir1234khans/firecrackers/pull/47) is merged as `e60d46443836d1f60bfb65f026dfc36eb5ba509c`, incorporating the musical scores with V4 and capture fixes. [Current main receipt](evidence/reconciliation-2026-10-04/MAIN.md). The earlier musical hold is lifted for main promotion only; production deployment and hardware/performance qualification remain held. The earlier V4/candidate history below is retained, not a claim that #47 is still unmerged.
+
 ## Promoted source
 
 PR #46 was merged with a normal merge commit, preserving complete V4 and richer-night history. V4 promotion commit: `207fdc78a62129295e32876574809dd3f9fe4fdb`; reviewed candidate head: `5f49229d16ffe39f4cf9beb947b126ba96d6a994`; configuration `2026-10-03.3`. Later operational/documentation commits do not imply a new application version or deployment.

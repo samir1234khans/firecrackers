@@ -1,4 +1,4 @@
-**Held musical/V4 reconciliation:** [scope, intentional supersessions and gates](CINEMATIC-SHOWS-RECONCILIATION.md).
+**Promoted musical/V4 reconciliation:** [4 October main receipt](evidence/reconciliation-2026-10-04/MAIN.md), [scope and intentional supersessions](CINEMATIC-SHOWS-RECONCILIATION.md). Production deployment remains on hold. Earlier entries below are historical.
 
 **Cinematic V4 candidate:** [CINEMATIC-V4.md](CINEMATIC-V4.md) records the realism/UX changes, deployment blocker and separate PR #33 hold. Candidate source is not a live-production receipt.
 

@@ -1,4 +1,6 @@
-# Musical shows reconciled with V4 — held candidate
+# Musical shows reconciled with V4
+
+**4 October update:** The owner explicitly requested reconciliation and main promotion. PR #47 merged as `e60d46443836d1f60bfb65f026dfc36eb5ba509c`, including original PR #33 by ancestry. The main-promotion hold is superseded; the production hold and qualification limitations remain. [Main receipt](evidence/reconciliation-2026-10-04/MAIN.md). The following candidate-phase account is retained as history.
 
 This is a separately held integration candidate, not a deployment, main promotion or clearance of PR #33. Its parents preserve V4/main work and PR #33's exact `5fbb45b2d9d1ee3463cee232f3f3bdc937255e01` ancestry. The original held branch, PR and release decision remain unchanged. Candidate config: `2026-10-03.4`.
 
