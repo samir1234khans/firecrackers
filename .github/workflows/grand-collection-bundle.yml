@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [fix/full-sky-bursts-waterlight]
-    paths: [.github/workflows/grand-collection-bundle.yml, scripts/apply-full-night.py, scripts/full-night-runner.py]
+    paths: [.github/workflows/grand-collection-bundle.yml, scripts/refine-full-night.py]
 permissions:
   contents: write
 concurrency:
@@ -21,13 +21,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-      - name: Apply guarded source changes
+      - name: Apply guarded refinements
+        id: apply
         run: |
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
           mkdir -p /tmp/full-night
-          python3 scripts/full-night-runner.py
+          python3 scripts/refine-full-night.py
           git diff --check
-          git diff -- src tests docs > /tmp/full-night/source.patch
+          git diff -- src tests docs package.json > /tmp/full-night/source.patch
       - run: npm ci
       - name: Typecheck before committing source
         run: npm run typecheck
@@ -36,23 +37,40 @@ jobs:
           test "$(git ls-remote origin refs/heads/fix/full-sky-bursts-waterlight | cut -f1)" = "$GITHUB_SHA"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add src tests docs
-          git commit -m 'fix: fuller sky-filling shells and shell-colored waterfront illumination'
+          git add src tests docs package.json
+          git commit -m 'fix: retain native rendering under burst pressure and tighten full-night invariants'
           git push origin HEAD:refs/heads/fix/full-sky-bursts-waterlight
       - name: Unit, lint, build and documentation checks
+        id: validation
         run: |
           set +e
-          set -o pipefail
-          npm test 2>&1 | tee /tmp/full-night/unit.log
-          unit=${PIPESTATUS[0]}
-          npm run lint 2>&1 | tee /tmp/full-night/lint.log
-          lint=${PIPESTATUS[0]}
-          npm run build 2>&1 | tee /tmp/full-night/build.log
-          build=${PIPESTATUS[0]}
-          python3 scripts/validate_docs.py 2>&1 | tee /tmp/full-night/docs.log
-          docs=${PIPESTATUS[0]}
+          npm test > /tmp/full-night/unit.log 2>&1
+          unit=$?
+          tail -15 /tmp/full-night/unit.log
+          grep -A23 'not ok' /tmp/full-night/unit.log || true
+          npm run lint > /tmp/full-night/lint.log 2>&1
+          lint=$?
+          cat /tmp/full-night/lint.log
+          npm run build > /tmp/full-night/build.log 2>&1
+          build=$?
+          tail -12 /tmp/full-night/build.log
+          python3 scripts/validate_docs.py > /tmp/full-night/docs.log 2>&1
+          docs=$?
+          cat /tmp/full-night/docs.log
+          echo "build=$build" >> "$GITHUB_OUTPUT"
           printf 'unit=%s lint=%s build=%s docs=%s\n' "$unit" "$lint" "$build" "$docs" | tee /tmp/full-night/result.txt
           test "$unit$lint$build$docs" = '0000'
+      - name: Install browser
+        if: always() && steps.validation.outputs.build == '0'
+        run: npx playwright install --with-deps chromium > /tmp/full-night/browser-install.log 2>&1
+      - name: Desktop and phone full-night browser checks
+        if: always() && steps.validation.outputs.build == '0'
+        run: |
+          npm run preview -- --port 4173 > /tmp/full-night/server.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ > /dev/null && break || sleep 1; done
+          node tests/full-night-browser.mjs /tmp/full-night/browser
       - uses: actions/upload-artifact@v4
         if: always()
         with:
