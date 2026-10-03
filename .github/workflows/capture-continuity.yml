@@ -1,96 +1,49 @@
-name: Capture continuity diagnosis
+name: Capture continuity regression
 on:
   workflow_dispatch:
   push:
-    branches: [fix/capture-continuity]
-    paths: [.github/workflows/capture-continuity.yml]
+    branches: [main]
+    paths: [src/experience/SceneCapture.ts, tests/capture-stream.test.mjs, tests/capture-continuity-browser.mjs, tests/captured-media-helpers.mjs, .github/workflows/capture-continuity.yml]
+  pull_request:
+    paths: [src/experience/SceneCapture.ts, src/engine/useWorld.ts, tests/capture-stream.test.mjs, tests/capture-continuity-browser.mjs, tests/captured-media-helpers.mjs, package.json, .github/workflows/capture-continuity.yml]
 permissions:
   contents: read
+concurrency:
+  group: capture-continuity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
-  inspect:
+  verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 5b75eec2245ef8baf0a54dd12a7b5df17a4e637b
           persist-credentials: false
-      - uses: actions/checkout@v4
-        with:
-          ref: 6246003bd85cf2aca38ef40d4f8ef8a207a31fa4
-          path: capture-fix-source
-          persist-credentials: false
-      - name: Combine only the recorded capture-file fix with the exact music candidate
-        run: |
-          mkdir -p test-results/continuity
-          git rev-parse HEAD > test-results/continuity/SOURCE.txt
-          git -C capture-fix-source rev-parse HEAD > test-results/continuity/CAPTURE_FIX_SOURCE.txt
-          cp capture-fix-source/src/experience/SceneCapture.ts src/experience/SceneCapture.ts
-          git diff -- src/experience/SceneCapture.ts > test-results/continuity/runtime.patch
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci && npm run build
+      - run: npm ci
+      - name: TypeScript and frame-delivery unit contracts
+        run: |
+          mkdir -p test-results/capture-continuity
+          git rev-parse HEAD > test-results/capture-continuity/SOURCE.txt
+          npx tsc -p tsconfig.engine.json
+          node --test tests/capture-stream.test.mjs
+          npm run build
       - run: npx playwright install --with-deps chromium
-      - name: Add bounded test-only draw tracing
+      - name: Install independent media decoder
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Actual UI capture, presented pixels and multiple distinct decoded frames
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          path=Path('tests/cinematic-integration-browser.mjs')
-          text=path.read_text()
-          old="      await page.getByRole('button', { name: 'Capture this night', exact: true }).click();"
-          assert text.count(old)==1
-          spy='''      await page.evaluate(() => {
-            const original = HTMLCanvasElement.prototype.captureStream;
-            HTMLCanvasElement.prototype.captureStream = function(...args) {
-              const trace = { draws: 0, firstDraw: null, lastDraw: null, width: this.width, height: this.height, requestRate: args[0] };
-              window.__captureTrace = trace;
-              const context = this.getContext('2d'), draw = context.drawImage.bind(context);
-              context.drawImage = (...values) => {
-                trace.draws++; trace.firstDraw ??= performance.now(); trace.lastDraw = performance.now();
-                return draw(...values);
-              };
-              return original.apply(this, args);
-            };
-          });'''
-          text=text.replace(old,spy+'\n'+old)
-          old='      await page.waitForTimeout(1500);'
-          assert text.count(old)==1
-          text=text.replace(old,"      entry.recordingBefore = await snap();\n"+old+"\n      entry.recordingAfter = await snap();\n      entry.captureTrace = await page.evaluate(() => window.__captureTrace);")
-          path.write_text(text)
-          PY
-          git diff -- tests > test-results/continuity/test-only-instrumentation.patch
-          node --check tests/cinematic-integration-browser.mjs
-      - name: Real recording journeys plus independent frame/timestamp checks
-        run: |
-          npm run preview -- --port 4173 > test-results/continuity/server.log 2>&1 &
+          npm run preview -- --port 4173 > test-results/capture-continuity/server.log 2>&1 &
           server=$!
           trap 'kill "$server" 2>/dev/null || true' EXIT
           for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break || sleep 1; done
-          npm run test:cinematic-integration -- test-results/continuity
-          python3 - <<'PY'
-          import json,subprocess
-          from pathlib import Path
-          root=Path('test-results/continuity')
-          report=json.loads((root/'report.json').read_text())
-          audits=[]
-          for c in report['cases']:
-              path=next(root.glob(c['name']+'-captured.webm'))
-              result=json.loads(subprocess.check_output(['ffprobe','-v','error','-count_frames','-show_streams','-of','json',str(path)],text=True))
-              video=next(s for s in result['streams'] if s['codec_type']=='video')
-              hashes=subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-map','0:v:0','-an','-f','framemd5','-'],text=True)
-              lines=[line for line in hashes.splitlines() if line and not line.startswith('#')]
-              unique=len(set(line.rsplit(',',1)[-1].strip() for line in lines))
-              audit={'name':c['name'],'frames':int(video.get('nb_read_frames',0)),'distinct':unique,'trace':c.get('captureTrace'),'media':c.get('capture')}
-              audits.append(audit); print(json.dumps(audit,indent=2))
-          (root/'independent-continuity.json').write_text(json.dumps(audits,indent=2))
-          assert len(audits)==4
-          assert all(a['frames']>=2 and a['distinct']>=2 for a in audits), 'A changing scene must export multiple changing video frames, not a still image with audio'
-          PY
+          npm run test:capture-continuity -- test-results/capture-continuity
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: capture-continuity-diagnosis
-          path: test-results/continuity
+          name: capture-continuity-evidence
+          path: test-results/capture-continuity
           retention-days: 14
