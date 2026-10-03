@@ -15,16 +15,26 @@ jobs:
         with:
           ref: 5b75eec2245ef8baf0a54dd12a7b5df17a4e637b
           persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: 6246003bd85cf2aca38ef40d4f8ef8a207a31fa4
+          path: capture-fix-source
+          persist-credentials: false
+      - name: Combine only the recorded capture-file fix with the exact music candidate
+        run: |
+          mkdir -p test-results/continuity
+          git rev-parse HEAD > test-results/continuity/SOURCE.txt
+          git -C capture-fix-source rev-parse HEAD > test-results/continuity/CAPTURE_FIX_SOURCE.txt
+          cp capture-fix-source/src/experience/SceneCapture.ts src/experience/SceneCapture.ts
+          git diff -- src/experience/SceneCapture.ts > test-results/continuity/runtime.patch
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci && npm run build
       - run: npx playwright install --with-deps chromium
-      - name: Add bounded test-only draw tracing without modifying application code
+      - name: Add bounded test-only draw tracing
         run: |
-          mkdir -p test-results/continuity
-          git rev-parse HEAD > test-results/continuity/SOURCE.txt
           python3 - <<'PY'
           from pathlib import Path
           path=Path('tests/cinematic-integration-browser.mjs')
@@ -34,7 +44,7 @@ jobs:
           spy='''      await page.evaluate(() => {
             const original = HTMLCanvasElement.prototype.captureStream;
             HTMLCanvasElement.prototype.captureStream = function(...args) {
-              const trace = { draws: 0, firstDraw: null, lastDraw: null, width: this.width, height: this.height };
+              const trace = { draws: 0, firstDraw: null, lastDraw: null, width: this.width, height: this.height, requestRate: args[0] };
               window.__captureTrace = trace;
               const context = this.getContext('2d'), draw = context.drawImage.bind(context);
               context.drawImage = (...values) => {
@@ -48,29 +58,36 @@ jobs:
           old='      await page.waitForTimeout(1500);'
           assert text.count(old)==1
           text=text.replace(old,"      entry.recordingBefore = await snap();\n"+old+"\n      entry.recordingAfter = await snap();\n      entry.captureTrace = await page.evaluate(() => window.__captureTrace);")
-          text=text.replace('[[1280, 800], [393, 851]]','[[1280, 800]]')
           path.write_text(text)
           PY
           git diff -- tests > test-results/continuity/test-only-instrumentation.patch
           node --check tests/cinematic-integration-browser.mjs
-      - name: Run actual desktop recording journeys and retain raw media
+      - name: Real recording journeys plus independent frame/timestamp checks
         run: |
           npm run preview -- --port 4173 > test-results/continuity/server.log 2>&1 &
           server=$!
           trap 'kill "$server" 2>/dev/null || true' EXIT
           for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break || sleep 1; done
-          set +e
           npm run test:cinematic-integration -- test-results/continuity
-          result=$?
           python3 - <<'PY'
-          import json
+          import json,subprocess
           from pathlib import Path
-          report=json.loads(Path('test-results/continuity/report.json').read_text())
-          fields=['time','frames','paused','show','headCount','trailCount','active','phase','skyFrozen','capture']
+          root=Path('test-results/continuity')
+          report=json.loads((root/'report.json').read_text())
+          audits=[]
           for c in report['cases']:
-              print(json.dumps({'name':c['name'],'pass':c.get('pass'),'failure':c.get('failure'),'trace':c.get('captureTrace'),'before':{k:c.get('recordingBefore',{}).get(k) for k in fields},'after':{k:c.get('recordingAfter',{}).get(k) for k in fields},'media':c.get('capture')},indent=2))
+              path=next(root.glob(c['name']+'-captured.webm'))
+              result=json.loads(subprocess.check_output(['ffprobe','-v','error','-count_frames','-show_streams','-of','json',str(path)],text=True))
+              video=next(s for s in result['streams'] if s['codec_type']=='video')
+              hashes=subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-map','0:v:0','-an','-f','framemd5','-'],text=True)
+              lines=[line for line in hashes.splitlines() if line and not line.startswith('#')]
+              unique=len(set(line.rsplit(',',1)[-1].strip() for line in lines))
+              audit={'name':c['name'],'frames':int(video.get('nb_read_frames',0)),'distinct':unique,'trace':c.get('captureTrace'),'media':c.get('capture')}
+              audits.append(audit); print(json.dumps(audit,indent=2))
+          (root/'independent-continuity.json').write_text(json.dumps(audits,indent=2))
+          assert len(audits)==4
+          assert all(a['frames']>=2 and a['distinct']>=2 for a in audits), 'A changing scene must export multiple changing video frames, not a still image with audio'
           PY
-          exit "$result"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
