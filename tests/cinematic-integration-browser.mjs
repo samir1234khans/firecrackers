@@ -87,7 +87,18 @@ try {
       }, recordingStart.frames, { timeout: 12000, polling: 100 });
       const recordingEnd = await snap();
       entry.captureWindow = { presentedFrames: recordingEnd.frames - recordingStart.frames, seconds: recordingEnd.capture.seconds, simulationSeconds: recordingEnd.time - recordingStart.time };
-      await page.getByRole('button', { name: 'Stop recording clip', exact: true }).click();
+      try {
+        await page.getByRole('button', { name: 'Stop recording clip', exact: true }).click({ timeout: 5000 });
+        entry.captureStop = 'manual';
+      } catch (error) {
+        // A slow software renderer can consume the remaining wall-clock clip
+        // limit while Playwright waits for actionability. Accept only the
+        // existing successful 15-second automatic completion, then decode the
+        // actual export with the same frame/audio/continuity gates below.
+        const completed = (await snap()).capture;
+        if (completed.recording || completed.seconds !== 15 || completed.error) throw error;
+        entry.captureStop = 'automatic limit reached during Stop action';
+      }
       const video = page.getByRole('region', { name: 'Capture preview' }).getByLabel('Captured fireworks clip');
       await video.waitFor();
       const decoded = await inspectCapturedVideo(video, `${out}/${name}-captured`);
