@@ -5,10 +5,10 @@ import type { ShowPreset } from '../engine/catalog';
 
 type Props = { pace: AlwaysPace; limited: boolean; reducedFlashes: boolean; onPaceChange: (pace: AlwaysPace) => void; value: ShowPreset | null; disabled?: boolean; onChange: (value: ShowPreset | null) => void; onOpenChange?: (open: boolean) => void };
 const MODES = [
-  { value: null, label: 'Manual', direction: 'up', Icon: Hand },
-  { value: 'calm' as const, label: 'Calm', direction: 'right', Icon: Leaf },
-  { value: 'festival' as const, label: 'Festival', direction: 'down', Icon: Sparkles },
-  { value: 'finale' as const, label: 'Finale', direction: 'left', Icon: Crown },
+  { value: null, label: 'Manual', detail: 'Your choice, one launch at a time', direction: 'up', Icon: Hand },
+  { value: 'calm' as const, label: 'Calm', detail: 'Spaced shapes · continuous', direction: 'right', Icon: Leaf },
+  { value: 'festival' as const, label: 'Festival', detail: 'Mixed shells · continuous', direction: 'down', Icon: Sparkles },
+  { value: 'finale' as const, label: 'Finale', detail: '32 seconds + falling sparks', direction: 'left', Icon: Crown },
 ];
 function direction(dx: number, dy: number) { return Math.abs(dx) > Math.abs(dy) ? dx > 0 ? 1 : 3 : dy > 0 ? 2 : 0; }
 export function ShowModeKnob({ value, pace, limited, reducedFlashes, onPaceChange, disabled = false, onChange, onOpenChange }: Props) {
@@ -70,7 +70,7 @@ export function ShowModeKnob({ value, pace, limited, reducedFlashes, onPaceChang
       }
     }}>
       <button className='mode-selector-close' type='button' aria-label='Close show mode' onClick={close}><X size={17}/></button>
-      {MODES.map(mode => <button key={mode.direction} type='button' data-direction={mode.direction} aria-pressed={value === mode.value} onClick={() => { onChange(mode.value); close(); }}><mode.Icon size={21} aria-hidden='true'/><span>{mode.label}</span></button>)}
+      {MODES.map(mode => <button key={mode.direction} type='button' data-direction={mode.direction} aria-label={mode.label} title={mode.detail} aria-pressed={value === mode.value} onClick={() => { onChange(mode.value); close(); }}><mode.Icon size={21} aria-hidden='true'/><span>{mode.label}<small className='mode-detail'>{mode.detail}</small></span></button>)}
       <button className='always-entry' type='button' data-direction='always' aria-pressed={value === 'always'} aria-expanded={alwaysPanel} onClick={() => setAlwaysPanel(v => !v)}><Infinity size={21} aria-hidden='true'/><span>Always Play</span></button>
       {alwaysPanel && <section className='always-settings' aria-label='Always Play settings'>
         <p>Keep the night going until you stop it.</p>

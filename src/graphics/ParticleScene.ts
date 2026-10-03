@@ -1,3 +1,4 @@
+import { canopyAlpha, canopyStretch, illuminateSmoke } from '../engine/SmokeCanopy.js';
 import * as THREE from 'three/webgpu';
 import { attribute, cos, dot, float, mix, pass, positionGeometry, positionView, screenUV, sin, smoothstep, texture, uniform, uv, vec2, vec3 } from 'three/tsl';
 import type { Simulation } from '../engine/Simulation';
@@ -127,6 +128,7 @@ export class ParticleScene {
             this.trails.push(t); scene.add(t.mesh);
         }
     }
+    private readonly canopyLight = new Float32Array(6);
     private savedProtection = 0;
     private reflecting = false;
     private readonly reflectionFrustum = new THREE.Frustum();
@@ -255,23 +257,17 @@ export class ParticleScene {
         order.sort((a, b) => smoke.z[a] - smoke.z[b]);
         for (const i of order) {
             const b = this.smoke[bucketFor(smoke.z[i])], n = b.count++, a = b.attrs;
-            let lr = 0, lg = 0, lb = 0, dx = 0, dy = 0, dz = 0;
-            for (const light of sim.lights) {
-                const lx = light.x - smoke.x[i], ly = light.y - smoke.y[i], lz = light.z - smoke.z[i];
-                const d = Math.hypot(lx, ly, lz), falloff = Math.max(0, 1 - d / 39);
-                const power = falloff * falloff * Math.exp(-light.age * .72) * light.strength * (sim.reducedFlashes ? 1.0 : 1.25);
-                lr += light.r * power; lg += light.g * power; lb += light.b * power;
-                const directionScale = power / Math.max(1, d);
-                dx += (lx * u.right.value.x + ly * u.right.value.y + lz * u.right.value.z) * directionScale;
-                dy += (lx * u.up.value.x + ly * u.up.value.y + lz * u.up.value.z) * directionScale;
-                dz += (lx * u.towardCamera.x + ly * u.towardCamera.y + lz * u.towardCamera.z) * directionScale;
-            }
-            const age = smoke.age[i] / smoke.life[i];
+            const light = this.canopyLight;
+            illuminateSmoke(sim.lights, smoke.x[i], smoke.y[i], smoke.z[i], sim.reducedFlashes, light);
+            const dx = light[3] * u.right.value.x + light[4] * u.right.value.y + light[5] * u.right.value.z;
+            const dy = light[3] * u.up.value.x + light[4] * u.up.value.y + light[5] * u.up.value.z;
+            const dz = light[3] * u.towardCamera.x + light[4] * u.towardCamera.y + light[5] * u.towardCamera.z;
+            const stretch = canopyStretch(smoke.id[i], smoke.age[i]);
             a.iPosition.setXYZ(n, smoke.x[i], smoke.y[i], smoke.z[i]);
-            a.iScale.setXY(n, smoke.size[i] * 2.8, smoke.size[i] * 2.1);
+            a.iScale.setXY(n, smoke.size[i] * 2.8 * stretch, smoke.size[i] * 2.1 / stretch);
             a.iRotation.setX(n, smoke.angle[i]);
-            a.iAlpha.setX(n, Math.min(1, smoke.age[i] * 1.8) * Math.pow(1 - age, 1.4) * smoke.gravity[i] * .86);
-            a.iColor.setXYZ(n, Math.min(1.05, lr), Math.min(1.05, lg), Math.min(1.05, lb));
+            a.iAlpha.setX(n, canopyAlpha(smoke.age[i], smoke.life[i], smoke.gravity[i], smoke.family[i]));
+            a.iColor.setXYZ(n, light[0], light[1], light[2]);
             const lightLength = Math.max(.001, Math.hypot(dx, dy, dz));
             a.iLightDir.setXYZ(n, dx / lightLength, dy / lightLength, dz / lightLength);
             a.iFrame.setX(n, Math.min(14.98, (1 - Math.exp(-smoke.age[i] * .22)) * 15));

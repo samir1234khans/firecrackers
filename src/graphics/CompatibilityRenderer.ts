@@ -1,3 +1,4 @@
+import { canopyAlpha, canopyStretch, illuminateSmoke } from '../engine/SmokeCanopy.js';
 import { BURST_LIGHT_CAPACITY, burstLightEnergy, gatherBurstLighting, limitBurstRadiance } from '../engine/BurstLighting.js';
 import { measureStage, stageFraming, waterfrontHorizon } from '../engine/StageLayout';
 import type { StageLayout } from '../engine/StageLayout';
@@ -71,6 +72,10 @@ export class CompatibilityRenderer implements RendererPort {
     private horizon = .72;
     private scale = 1;
     private ratio = 1;
+    private resolutionScale = 1;
+    private readonly canopyLight = new Float32Array(6);
+    private readonly canopyOrder: number[] = [];
+    setResolutionScale(scale: number) { const next = Math.max(.65, Math.min(1, scale)); if (Math.abs(next - this.resolutionScale) > .001) { this.resolutionScale = next; this.setQuality(this.sim.quality); } }
     private disposed = false;
     private initialized = false;
     private staged = 0;
@@ -351,7 +356,7 @@ export class CompatibilityRenderer implements RendererPort {
     }
     setQuality(quality: Quality) {
         if (this.disposed) return;
-        this.ratio = Math.min(window.devicePixelRatio || 1, BUDGETS[quality].ratio, Math.sqrt(1600000 / (this.width * this.height)));
+        this.ratio = Math.min(window.devicePixelRatio || 1, BUDGETS[quality].ratio, Math.sqrt(1600000 / (this.width * this.height))) * this.resolutionScale;
         this.canvas.width = Math.round(this.width * this.ratio);
         this.canvas.height = Math.round(this.height * this.ratio);
         this.canvas.style.width = `${this.width}px`;
@@ -657,19 +662,20 @@ export class CompatibilityRenderer implements RendererPort {
         }
         // The smoke is retained and wind-drifted by the same simulation used in 3D.
         const smoke = s.smoke;
-        for (let i = 0; i < smoke.count; i++) {
+        this.canopyOrder.length = smoke.count;
+        for (let i = 0; i < smoke.count; i++) this.canopyOrder[i] = i;
+        this.canopyOrder.sort((a,b) => smoke.z[a] - smoke.z[b]);
+        for (const i of this.canopyOrder) {
             const p = this.project(smoke.x[i], smoke.y[i], smoke.z[i]);
             const radius = Math.max(2, smoke.size[i] * this.scale * 1.6);
-            let red = .14, green = .18, blue = .23;
-            for (const light of s.lights) {
-                const distance = Math.hypot(light.x - smoke.x[i], light.y - smoke.y[i], light.z - smoke.z[i]);
-                const energy = Math.max(0, 1 - distance / 39) ** 2 * Math.exp(-light.age * .72) * .7;
-                red += light.r * energy; green += light.g * energy; blue += light.b * energy;
-            }
+            illuminateSmoke(s.lights, smoke.x[i], smoke.y[i], smoke.z[i], s.reducedFlashes, this.canopyLight);
+            const red = .14 + this.canopyLight[0], green = .18 + this.canopyLight[1], blue = .23 + this.canopyLight[2];
+            const stretch = canopyStretch(smoke.id[i], smoke.age[i]);
+            c.save(); c.translate(p.x, p.y); c.rotate(smoke.angle[i]); c.scale(stretch, 1 / stretch); c.translate(-p.x, -p.y);
             const haze = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius);
             haze.addColorStop(0, this.tone(red, green, blue)); haze.addColorStop(1, 'transparent');
-            c.globalAlpha = Math.min(1, smoke.age[i] * 1.8) * Math.pow(1 - smoke.age[i] / smoke.life[i], 1.4) * .25;
-            c.fillStyle = haze; c.fillRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
+            c.globalAlpha = canopyAlpha(smoke.age[i], smoke.life[i], smoke.gravity[i], smoke.family[i]) * .46;
+            c.fillStyle = haze; c.fillRect(p.x - radius, p.y - radius, radius * 2, radius * 2); c.restore();
         }
         c.globalCompositeOperation = 'lighter'; c.lineCap = 'round';
         const trails = s.trails;

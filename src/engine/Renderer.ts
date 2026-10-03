@@ -210,9 +210,11 @@ export class FireworkRenderer {
         this.host.dataset.display = mode;
         if (this.initialized) this.resize();
     }
+    private resolutionScale = 1;
+    setResolutionScale(scale: number) { const next = Math.max(.65, Math.min(1, scale)); if (Math.abs(next - this.resolutionScale) > .001) { this.resolutionScale = next; this.setQuality(this.sim.quality); } }
     setQuality(q: Quality) {
         const budget = BUDGETS[q], w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
-        const ratio = Math.min(window.devicePixelRatio || 1, budget.ratio, Math.sqrt(budget.pixels / (w * h)));
+        const ratio = Math.min(window.devicePixelRatio || 1, budget.ratio, Math.sqrt(budget.pixels / (w * h))) * this.resolutionScale;
         this.renderer.setPixelRatio(ratio);
         this.bloomPass.strength.value = budget.bloom * (this.sim.reducedFlashes ? .7 : 1);
         this.metrics.renderPixels = Math.round(w * h * ratio * ratio);

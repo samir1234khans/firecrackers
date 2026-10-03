@@ -1,3 +1,4 @@
+import { SOUND_PROFILES, soundGeometry } from './SoundProfiles';
 import { randomStream } from './catalog';
 import type { SimEvent } from './Simulation';
 /** Opt-in CC0 field recordings plus original synthesis. No autoplay or pre-consent fetch. */
@@ -11,6 +12,33 @@ export class AudioEngine {
     private compressor: DynamicsCompressorNode | null = null;
     private noise: AudioBuffer | null = null;
     private voices = new Set<AudioScheduledSourceNode>();
+    private readonly priorities = new Map<AudioScheduledSourceNode, number>();
+    private readonly cleanups = new Map<AudioScheduledSourceNode, () => void>();
+    private headphones = false;
+    private spatialY = 0;
+    private spatialZ = -1;
+    private captureDestination: MediaStreamAudioDestinationNode | null = null;
+    setHeadphones(value: boolean) { this.headphones = value; }
+    /** Only the already-consented app output, after volume/compression. No microphone. */
+    captureAudio(): { stream: MediaStream; release: () => void } {
+        if (!this.enabled || !this.context || !this.compressor || this.context.state !== 'running') throw new Error('Enable sound first, or record without audio.');
+        this.releaseCapture();
+        const destination = this.context.createMediaStreamDestination();
+        this.captureDestination = destination; this.compressor.connect(destination);
+        return { stream: destination.stream, release: () => { if (this.captureDestination === destination) this.releaseCapture(); } };
+    }
+    private releaseCapture() {
+        if (!this.captureDestination) return;
+        try { this.compressor?.disconnect(this.captureDestination); } catch { /* Already disconnected during disposal. */ }
+        this.captureDestination.stream.getTracks().forEach(track => track.stop());
+        this.captureDestination.disconnect(); this.captureDestination = null;
+    }
+    private makeRoom(required: number) {
+        for (const voice of this.voices) {
+            if (40 - this.voices.size >= required) break;
+            if ((this.priorities.get(voice) ?? 1) < 3) { try { voice.stop(); } catch { /* already ended */ } this.cleanups.get(voice)?.(); }
+        }
+    }
     private timers = new Set<ReturnType<typeof setTimeout>>();
     private ambience: AudioBufferSourceNode | null = null;
     private hapticActive = false;
@@ -71,15 +99,21 @@ export class AudioEngine {
         }));
         this.loadingSamples = false;
     }
-    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled }; }
+    cancelScheduled() {
+        this.stop();
+        if (this.enabled && !this.suspended && this.context && this.master) {
+            this.master.gain.setValueAtTime(this.volume, this.context.currentTime); this.updateAmbience();
+        }
+    }
+    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled, headphoneSpatialization: this.headphones, audioCaptureActive: Boolean(this.captureDestination), voiceCapacity: 40 }; }
     private recordedReport(event: SimEvent, at: number, pan: number, distance: number) {
-        const c = this.context, buffer = this.samples[event.id % 3];
+        const profile = SOUND_PROFILES[event.family] ?? SOUND_PROFILES[0];
+        const c = this.context, buffer = this.samples[profile.sample];
         if (!c || !buffer) return false;
         const source = c.createBufferSource(); source.buffer = buffer;
-        source.playbackRate.value = .92 + randomStream(event.id ^ event.family)() * .16;
+        source.playbackRate.value = (profile.pitch / 76) ** .24 * (.96 + randomStream(event.id ^ event.family)() * .08);
         const filter = c.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = Math.max(900, 4500 - distance * 22);
-        this.connect(source, filter, at, buffer.duration / source.playbackRate.value, .27 * event.strength / (1 + distance / 180), pan);
-        return true;
+        return this.connect(source, filter, at, Math.min(2.8, buffer.duration / source.playbackRate.value), .24 * event.strength / (1 + distance / 180), pan, 3);
     }
     setOptions(volume: number, haptics: boolean, ambience: boolean) {
         this.volume = Math.max(0, Math.min(.8, Number.isFinite(volume) ? volume : .45));
@@ -133,8 +167,12 @@ export class AudioEngine {
         if (this.suspended || this.disposed || document.hidden)
             return;
         for (const e of events) {
-            const distance = Math.hypot(e.x, e.y - 16, e.z || 0);
-            const delay = e.type === 'burst' || e.type === 'crackle' ? Math.min(1.2, .12 + distance / 190) : 0;
+            const geometry = soundGeometry(e.x, e.y, e.z || 0, worldWidth);
+            const profile = SOUND_PROFILES[e.family] ?? SOUND_PROFILES[0];
+            const distance = geometry.distance;
+            const delay = e.type === 'burst' || e.type === 'crackle' ? geometry.delay : 0;
+            this.spatialY = Math.max(-.3, Math.min(1.5, (e.y - 16) / 80));
+            this.spatialZ = -Math.max(1, distance / 70);
             if (this.haptics && this.timers.size < 12 && (e.type === 'launch' || e.type === 'burst')) {
                 const timer = setTimeout(() => { this.timers.delete(timer); if (this.haptics && !this.suspended && !this.disposed && !document.hidden)
                     this.hapticActive = navigator.vibrate(e.type === 'launch' ? 12 : 22); }, delay * 1000);
@@ -142,38 +180,47 @@ export class AudioEngine {
             }
             if (!this.enabled || !this.context || this.context.state !== 'running')
                 continue;
-            const pan = Math.max(-0.8, Math.min(0.8, e.x / (worldWidth / 2)));
+            const pan = geometry.pan;
             const at = this.context.currentTime + delay;
             if (e.type === 'fuse')
                 this.noiseVoice(at, Math.min(2.6, e.duration || 1.8), 1800, 0.055, pan, 'highpass');
             if (e.type === 'launch') {
                 this.noiseVoice(at, 0.72, 950, 0.18, pan, 'bandpass');
-                if (e.family === 1)
-                    this.tone(at, 0.65, 940, 510, 0.018, pan);
+                if (profile.whistle)
+                    this.tone(at, 0.65, profile.whistle, profile.whistle * .55, 0.014, pan);
             }
             if (e.type === 'burst') {
+                this.makeRoom(4);
                 const recorded = this.recordedReport(e, at, pan, distance);
-                this.noiseVoice(at, 1.6, 310, (recorded ? .12 : .45) * e.strength, pan, 'lowpass');
-                this.noiseVoice(at, 0.28, 1600, 0.13 * e.strength, pan, 'highpass');
-                this.tone(at, 0.8, 72, 32, 0.34 * e.strength, pan);
-                this.noiseVoice(at + 0.21, 1.4, 420, 0.11 * e.strength, -pan * 0.45, 'lowpass');
-                if (e.family === 0 || e.family === 3)
-                    for (let j = 0; j < 5; j++)
-                        this.noiseVoice(at + 0.5 + j * 0.19, 0.07, 2400, 0.035, pan, 'highpass');
+                // Fundamental identity gets budget before ornamental grains or echoes.
+                this.noiseVoice(at, profile.decay, profile.body, (recorded ? .11 : .38) * e.strength * geometry.gain, pan, 'lowpass', 3);
+                this.tone(at, .65, profile.pitch, profile.pitch * .44, .26 * e.strength * geometry.gain, pan, 3);
+                this.noiseVoice(at, .20, profile.snap, .10 * e.strength * geometry.gain, pan, 'highpass', 2);
+                if (this.voices.size < 32) this.noiseVoice(at + profile.echo, Math.min(2.5, profile.decay * .8), profile.body * .85, .075 * e.strength * geometry.gain, -pan * .45, 'lowpass', 1);
+                const grains = Math.min(profile.grains, Math.max(0, 32 - this.voices.size));
+                for (let j = 0; j < grains; j++) this.noiseVoice(at + .48 + j * .20, .07, profile.snap * 1.18, .022 * geometry.gain, pan, 'highpass', 1);
             }
-            if (e.type === 'crackle')
-                for (let j = 0; j < 3; j++)
-                    this.noiseVoice(at + j * 0.045, 0.045, 2600, 0.045, pan, 'highpass');
+            if (e.type === 'crackle') {
+                this.makeRoom(2);
+                // Secondary accents follow real split events; never invent new shell reports.
+                for (let j = 0; j < 2; j++) this.noiseVoice(at + j * .06, .06, profile.snap, .038 * geometry.gain, pan, 'highpass', 3);
+            }
         }
     }
-    private connect(source: AudioScheduledSourceNode, filter: AudioNode, at: number, duration: number, gain: number, pan: number) {
+    private connect(source: AudioScheduledSourceNode, filter: AudioNode, at: number, duration: number, gain: number, pan: number, priority = 1): boolean {
         if (!this.context || !this.master || this.voices.size >= 40) {
             source.disconnect();
             filter.disconnect();
-            return;
+            return false;
         }
-        const c = this.context, g = c.createGain(), p = c.createStereoPanner();
-        p.pan.value = pan;
+        const c = this.context, g = c.createGain();
+        let p: AudioNode;
+        if (this.headphones && priority >= 2 && this.voices.size < 24) {
+            try {
+                const h = c.createPanner(); h.panningModel = 'HRTF'; h.distanceModel = 'inverse'; h.rolloffFactor = 0;
+                h.positionX.value = pan * 2; h.positionY.value = this.spatialY; h.positionZ.value = this.spatialZ; p = h;
+            } catch { const stereo = c.createStereoPanner(); stereo.pan.value = pan; p = stereo; }
+        } else { const stereo = c.createStereoPanner(); stereo.pan.value = pan; p = stereo; }
         g.gain.setValueAtTime(0, at);
         g.gain.linearRampToValueAtTime(gain, at + Math.min(0.015, duration / 5));
         g.gain.exponentialRampToValueAtTime(0.0001, at + duration);
@@ -181,12 +228,15 @@ export class AudioEngine {
         filter.connect(g);
         g.connect(p);
         p.connect(this.master);
-        this.voices.add(source);
-        source.onended = () => { this.voices.delete(source); source.disconnect(); filter.disconnect(); g.disconnect(); p.disconnect(); };
+        this.voices.add(source); this.priorities.set(source, priority);
+        let cleaned = false;
+        const cleanup = () => { if (cleaned) return; cleaned = true; this.voices.delete(source); this.priorities.delete(source); this.cleanups.delete(source); source.disconnect(); filter.disconnect(); g.disconnect(); p.disconnect(); };
+        this.cleanups.set(source, cleanup); source.onended = cleanup;
         source.start(at);
         source.stop(at + duration + 0.015);
+        return true;
     }
-    private noiseVoice(at: number, duration: number, frequency: number, gain: number, pan: number, type: BiquadFilterType) {
+    private noiseVoice(at: number, duration: number, frequency: number, gain: number, pan: number, type: BiquadFilterType, priority = 1) {
         if (!this.context || !this.noise)
             return;
         const s = this.context.createBufferSource();
@@ -196,16 +246,16 @@ export class AudioEngine {
         f.type = type;
         f.frequency.value = frequency;
         f.Q.value = 0.65;
-        this.connect(s, f, at, duration, gain, pan);
+        this.connect(s, f, at, duration, gain, pan, priority);
     }
-    private tone(at: number, duration: number, start: number, end: number, gain: number, pan: number) {
+    private tone(at: number, duration: number, start: number, end: number, gain: number, pan: number, priority = 1) {
         if (!this.context)
             return;
         const s = this.context.createOscillator();
         s.type = 'sine';
         s.frequency.setValueAtTime(start, at);
         s.frequency.exponentialRampToValueAtTime(end, at + duration);
-        this.connect(s, this.context.createGain(), at, duration, gain, pan);
+        this.connect(s, this.context.createGain(), at, duration, gain, pan, priority);
     }
     private updateAmbience() {
         if (!this.context || !this.master || !this.noise)
@@ -242,6 +292,7 @@ export class AudioEngine {
                 voice.stop();
             }
             catch { }
+            this.cleanups.get(voice)?.();
         }
         this.voices.clear();
         for (const timer of this.timers)
@@ -258,5 +309,5 @@ export class AudioEngine {
             navigator.vibrate(0);
         this.hapticActive = false;
     }
-    dispose() { this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); void this.context?.close(); this.context = null; }
+    dispose() { this.releaseCapture(); this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); void this.context?.close(); this.context = null; }
 }

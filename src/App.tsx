@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { AlertCircle, Download, Eye, EyeOff, Flame, Hand, Keyboard, MapPin, Maximize, Monitor, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { AlertCircle, Camera, Clapperboard, Library, Square, Download, Eye, EyeOff, Flame, Hand, Keyboard, MapPin, Maximize, Monitor, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { FAMILIES, CONFIG_VERSION, familyKeyIndex } from './engine/catalog';
 import type { FamilyId, ShowPreset } from './engine/catalog';
 import { useWorld } from './engine/useWorld';
@@ -25,13 +25,23 @@ import './styles/flow.css';
 import './styles/recovery.css';
 import './styles/stage.css';
 import './styles/panels.css';
+import './styles/experience.css';
+import { newRecipe, recipeFromHash } from './experience/ShowRecipe';
+import type { ShowRecipe } from './experience/ShowRecipe';
+import { ShowProgress } from './ui/ShowProgress';
+const NightStudio = lazy(() => import('./ui/NightStudio'));
+const CapturePanel = lazy(() => import('./ui/CapturePanel'));
+const FireworkBrowser = lazy(() => import('./ui/FireworkBrowser').then(module => ({ default: module.FireworkBrowser })));
 
-type Overlay = 'help' | 'settings' | 'reset' | 'picker' | 'controls' | null;
+type Overlay = 'help' | 'settings' | 'reset' | 'picker' | 'controls' | 'studio' | 'browse' | 'capture' | null;
 
 export default function App() {
   const [presentation, setPresentation] = useState(() => parsePresentation(location.search));
   const [prefs, setPrefs] = useState(loadPreferences);
   const [overlay, setOverlay] = useState<Overlay>(null);
+  const [shared, setShared] = useState(() => { try { return { recipe: recipeFromHash(location.hash), error: '' }; } catch (error) { return { recipe: null, error: (error as Error).message }; } });
+  const [studioRecipe, setStudioRecipe] = useState<ShowRecipe | null>(null);
+  const lastPersonal = useRef<ShowRecipe | null>(null);
   const [settingsSection, setSettingsSection] = useState<SettingsSection>('graphics');
   const [settingsReturnFocus, setSettingsReturnFocus] = useState(false);
   const panelInvoker = useRef<HTMLElement | null>(null);
@@ -57,7 +67,7 @@ export default function App() {
   const platform = usePlatform(notify);
   const state = world.snapshot;
   const preparing = !startupPresented && !world.error;
-  const immersiveAvailable = presentation.mode === 'interactive' && Boolean(state.show) && !world.error && !preparing;
+  const immersiveAvailable = presentation.mode === 'interactive' && (Boolean(state.show) || ['playing', 'falling'].includes(state.personal.status)) && !world.error && !preparing;
   const immersiveActive = immersiveAvailable && immersive;
   const hidden = presentationHidden || immersiveActive;
   const immersiveRef = useRef(immersiveActive); immersiveRef.current = immersiveActive;
@@ -76,6 +86,16 @@ export default function App() {
   const wake = () => { setHidden(false); setImmersive(false); };
   const open = (next: Overlay) => { cancelDrag.current?.(); setModeOpen(false); if (!overlay) panelInvoker.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;  if (next === 'settings') { setSettingsSection('graphics'); setSettingsReturnFocus(false); } world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
   const close = () => { cancelDrag.current?.(); setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
+  const playPersonal = (recipe: ShowRecipe) => {
+    const error = world.playRecipe(recipe);
+    if (error) return error;
+    lastPersonal.current = recipe; setShared({ recipe: null, error: '' }); setNotice(''); close();
+  };
+  const showStudio = (recipe: ShowRecipe | null = null) => { setStudioRecipe(recipe); open('studio'); };
+  const replay = () => {
+    const recipe = world.sim.current.personal.current ?? lastPersonal.current ?? { ...newRecipe('Finale', world.sim.current.seed), kind: 'finale' as const, cues: [] };
+    const error = playPersonal(recipe); if (error) notify(error);
+  };
   const cancelReset = () => { setSettingsReturnFocus(true); setOverlay('settings'); };
   const startDrag = (id: FamilyId, event: React.PointerEvent<HTMLButtonElement>) => {
     clearSuppressedClick.current?.();
@@ -270,6 +290,20 @@ export default function App() {
     onFocusCapture={() => { if (!immersiveActive) setHidden(false); }}
   >
     <div ref={host} className='scene-host' aria-hidden='true'/>
+    {!hidden && !overlay && !modeOpen && !preparing && !world.error && presentation.mode === 'interactive' && <>
+      <nav className='experience-actions chrome' data-stage-control aria-label='Explore this night'>
+        <button type='button' aria-label='Browse fireworks' title='Browse fireworks and favourites' onClick={() => open('browse')}><Library size={18}/><span>Browse</span></button>
+        <button type='button' aria-label='Open night studio' title='Create and save a show' onClick={() => showStudio()}><Clapperboard size={18}/><span>Studio</span></button>
+        <button type='button' aria-label='Capture this night' title='Photos and short clips' onClick={() => open('capture')}><Camera size={18}/><span>Capture</span></button>
+      </nav>
+      {prefs.showProgress && <ShowProgress state={state} onHide={() => change('showProgress', false)} onReplay={replay} onCreate={() => showStudio()} onAlways={() => world.start('always', prefs.alwaysPace)} onStop={world.stopRecipe}/>}
+      {(shared.recipe || shared.error) && <section className='shared-night-notice' data-stage-control aria-label='Shared night'>
+        <p>{shared.recipe ? `A show was shared with you: ${shared.recipe.name}. Review it before playing.` : shared.error}</p>
+        {shared.recipe && <button type='button' className='secondary-button' onClick={() => showStudio(shared.recipe)}>Review shared night</button>}
+        <button type='button' className='text-button' onClick={() => setShared({ recipe: null, error: '' })}>Dismiss</button>
+      </section>}
+    </>}
+    {world.capture.recording && <div className='recording-control' data-stage-control data-always='true'><span>Recording · {world.capture.seconds.toFixed(0)} / {world.capture.limit}s</span><button type='button' aria-label='Stop recording clip' onClick={() => { world.stopClip(); open('capture'); }}><Square size={16}/>Stop</button></div>}
     <CinematicHUD
       available={world.ready && !world.error && !overlay && !modeOpen && !preparing}
       phase={state.phase}
@@ -308,8 +342,17 @@ export default function App() {
       </div>
     </div>
     {previewPoint && !overlay && !hidden && <div className='position-ground-preview' aria-hidden='true' style={{left: previewPoint[0], top: previewPoint[1]}}><MapPin size={16}/></div>}
+    {overlay === 'browse' && <Dialog variant='browse' title='Discover the fireworks' onClose={close} returnFocus={panelInvoker.current}>
+      <Suspense fallback={<p className='panel-note'>Preparing the catalogue…</p>}><FireworkBrowser selected={state.selected} reducedMotion={prefs.reducedMotion || state.reducedMotion} reducedFlashes={prefs.reducedFlashes} onSelect={id => { select(id); close(); }} onLaunch={id => { close(); igniteFamily(id); }}/></Suspense>
+    </Dialog>}
+    {overlay === 'studio' && <Dialog variant='studio' title='Night studio' onClose={close} returnFocus={panelInvoker.current}>
+      <Suspense fallback={<p className='panel-note'>Preparing the studio…</p>}><NightStudio initialRecipe={studioRecipe} onPlay={playPersonal} onStop={world.stopRecipe} onWatch={close} playing={['playing', 'falling'].includes(state.personal.status)}/></Suspense>
+    </Dialog>}
+    {overlay === 'capture' && <Dialog variant='capture' title='Keep a moment' onClose={close} returnFocus={panelInvoker.current}>
+      <Suspense fallback={<p className='panel-note'>Preparing capture…</p>}><CapturePanel capture={world.capture} sound={world.soundActive} onPhoto={world.takePhoto} onStart={world.startClip} onStop={world.stopClip} onDownload={world.downloadCapture} onShare={world.shareCapture} onDiscard={world.discardCapture} onWatch={close}/></Suspense>
+    </Dialog>}
     {overlay === 'controls' && <Dialog variant='controls' title='Controls' onClose={close} returnFocus={panelInvoker.current}>
-      <ControlsMenu fullscreen={platform.fullscreen} onSettings={() => open('settings')} onFullscreen={() => { void platform.toggleFullscreen(); close(); }} onHelp={() => open('help')}/>
+      <ControlsMenu onBrowse={() => open('browse')} onStudio={() => showStudio()} onCapture={() => open('capture')} fullscreen={platform.fullscreen} onSettings={() => open('settings')} onFullscreen={() => { void platform.toggleFullscreen(); close(); }} onHelp={() => open('help')}/>
     </Dialog>}
     {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} returnFocus={panelInvoker.current}>
       <p className='panel-note'>Browse the thirteen effects. The left collection launches them.</p>
@@ -335,6 +378,10 @@ export default function App() {
           <div className='button-row renderer-options'><a className='secondary-button' aria-label='Automatic renderer' href='?'><RotateCcw size={16} aria-hidden='true'/>Auto</a><a className='secondary-button' aria-label='Try WebGPU graphics' href='?backend=webgpu'><Sparkles size={16} aria-hidden='true'/>WebGPU</a><a className='secondary-button' aria-label='Try WebGL graphics' href='?backend=webgl'><Monitor size={16} aria-hidden='true'/>WebGL</a><a className='secondary-button' aria-label='Compatibility mode' href='?backend=canvas'><Monitor size={16} aria-hidden='true'/>Canvas</a></div>
           <p className='fine-print'>WebGPU and WebGL use 3D; Canvas uses simpler 2D. Switching starts a fresh sky and keeps saved quality.</p>
         </div>
+        <div className='settings-group'><h3>Detail and progress</h3>
+          <Toggle label='Adaptive drawing resolution' detail='Reduce pixel cost during pressure without changing shell recipes or your saved quality.' checked={prefs.adaptiveResolution} onChange={v => change('adaptiveResolution', v)}/>
+          <Toggle label='Show progress and Encore' detail='Optional status for finite and continuous shows.' checked={prefs.showProgress} onChange={v => change('showProgress', v)}/>
+        </div>
         <div className='settings-group'><h3>Comfort</h3>
           <Toggle label='Reduced flashes' detail='Softer light; the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
           <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
@@ -344,6 +391,7 @@ export default function App() {
         <div className='settings-group'><h3>Sound & feel</h3>
         <Toggle label='Sound' detail='Fuse, launch and spatial reports.' checked={world.soundActive} onChange={() => void toggleSound()}/>
         <label className='volume-setting'><span>Volume</span><input aria-label='Volume' type='range' min='0' max='0.8' step='0.01' value={prefs.volume} onChange={event => change('volume', Number(event.target.value))}/><output>{Math.round(prefs.volume * 100)}%</output></label>
+        <Toggle label='Headphone spatial audio' detail='Optional HRTF placement for key reports; stereo remains the default and fallback.' checked={prefs.headphones} onChange={v => change('headphones', v)}/>
         <Toggle label='Quiet night ambience' checked={prefs.ambience} onChange={v => change('ambience', v)}/>
         <Toggle label='Gentle haptics' detail={typeof navigator.vibrate === 'function' ? 'Short pulses on supported devices.' : 'Not supported in this browser.'} disabled={typeof navigator.vibrate !== 'function'} checked={prefs.haptics && typeof navigator.vibrate === 'function'} onChange={v => change('haptics', v)}/>
         </div>
@@ -363,6 +411,11 @@ export default function App() {
         <div className='setting-row'><span><span className='setting-label'>Offline play</span><small>{platform.offline ? 'Offline package cached on this device.' : 'Available after the offline package finishes caching.'}</small></span><span className={`status-dot${platform.offline ? ' available' : ''}`}/></div>
         <div className='button-row'><button className='secondary-button' onClick={() => void platform.installApp()}><Download size={16} aria-hidden='true'/>{platform.installable ? 'Install app' : 'Installation help'}</button><button className='secondary-button' onClick={() => void platform.toggleFullscreen()}><Maximize size={16} aria-hidden='true'/>Fullscreen</button></div>
         {platform.updateReady && <button className='secondary-button' disabled={Boolean(state.committedId)} onClick={() => { world.pause(true); void platform.applyUpdate(); }}>Update app and restart</button>}
+        </div>
+        <div className='settings-group'><h3>Local performance check</h3>
+          <p className='fine-print'>Opt-in, at most 60 seconds. Samples drawing intervals and available browser diagnostics. Nothing is uploaded; this is not GPU, battery or thermal qualification.</p>
+          <p className='panel-note'>Drawing resolution: {Math.round(world.resolutionScale * 100)}% of the quality budget.</p>
+          <div className='button-row'><button type='button' className='secondary-button' onClick={() => { if (world.diagnosticsActive) world.stopDiagnostics(); else { world.startDiagnostics(); close(); } }}>{world.diagnosticsActive ? 'Stop local check' : 'Start local check'}</button><button type='button' className='text-button' onClick={world.downloadDiagnostics}>Export local diagnostics</button></div>
         </div>
         <details className='diagnostics panel-detail'><summary>Graphics details</summary><dl><div><dt>Renderer</dt><dd>{world.backend} · Realism V3 / edge panels</dd></div><div><dt>Build</dt><dd>{CONFIG_VERSION}</dd></div><div><dt>Render pixels</dt><dd>{world.metrics.renderPixels.toLocaleString()}</dd></div><div><dt>Active quality</dt><dd>{state.quality}</dd></div><div><dt>Visible particles</dt><dd>{state.particles.toLocaleString()}</dd></div><div><dt>Smoke layers</dt><dd>{state.smoke} / 96</dd></div><div><dt>Launched / bursts</dt><dd>{state.launched} / {state.bursts}</dd></div></dl></details>
         <div className='panel-actions'><button className='text-button' onClick={() => setOverlay('help')}><Keyboard size={16} aria-hidden='true'/>Help and keyboard controls</button><button className='text-button' onClick={() => setOverlay('help')}>Replay introduction</button><button id='settings-reset-trigger' className='text-button' onClick={() => { setSettingsReturnFocus(false); setOverlay('reset'); }}><RotateCcw size={16} aria-hidden='true'/>Reset this sky</button></div>

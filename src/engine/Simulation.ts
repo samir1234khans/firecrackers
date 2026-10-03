@@ -1,3 +1,5 @@
+import { RecipePlayer } from '../experience/RecipePlayer.js';
+import { smokeLayer } from './SmokeCanopy.js';
 import { BURST_LIGHT_CAPACITY, BURST_LIGHT_LIFETIME } from './BurstLighting.js';
 import { BUDGETS, FAMILIES, clamp, familyIndex, familyReservation, splitChildCount, hash01, randomStream } from './catalog.js';
 import type { FamilyId, Quality, ShowPreset } from './catalog.js';
@@ -95,6 +97,8 @@ export class Simulation {
     holding = false;
     holdProgress = 0;
     readonly always: AlwaysPlayDirector;
+    readonly personal: RecipePlayer;
+    private finiteEnded = false;
     show: ShowPreset | null = null;
     launched = 0;
     bursts = 0;
@@ -120,8 +124,9 @@ export class Simulation {
     private placementRng: () => number;
     private launchProfileResolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null = null;
     setLaunchProfileResolver(resolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
-    constructor(readonly seed = 20260916) {
+    constructor(public seed = 20260916) {
         this.always = new AlwaysPlayDirector(seed);
+        this.personal = new RecipePlayer(this);
         this.launchRng = randomStream(seed);
         this.showRng = randomStream(seed ^ 0x5bf03635);
         this.smokeRng = randomStream(seed ^ 0x34167829);
@@ -268,6 +273,7 @@ export class Simulation {
         if (value) this.events = [];
     }
     startShow(preset: ShowPreset) {
+        this.personal.cancel(); this.finiteEnded = false;
         this.cancelHold();
         this.paused = false;
         this.show = preset;
@@ -277,11 +283,14 @@ export class Simulation {
         this.message = preset === 'finale' ? 'A finale, then a quiet sky.' : 'The night is in good hands.';
     }
     stopShow(announce = true) {
+        this.personal.cancel(); this.finiteEnded = false;
         if (this.show && announce) this.message = 'Automatic show stopped. The sky is yours.';
         this.show = null;
         this.always.family = -1;
     }
-    reset() {
+    reset(seed = this.seed) {
+        if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff) throw new Error('Invalid simulation seed');
+        this.seed = seed; this.personal.clear(); this.finiteEnded = false;
         this.signatureStages.fill(0);
         this.heads.clear();
         this.trails.clear();
@@ -324,6 +333,8 @@ export class Simulation {
     drainEvents() { const e = this.events; this.events = []; return e; }
     snapshot() {
         return {
+            personal: this.personal.snapshot(),
+            showTiming: { preset: this.show ?? (this.finiteEnded ? 'finale' : null), elapsed: Math.max(0, Math.floor(this.time - this.showStart)), duration: this.show === 'finale' || this.finiteEnded ? 32 : null, complete: this.finiteEnded && this.phase === 'ready' && !this.smoke.count && !this.rockets.length },
             always: this.always.snapshot(), futureHeads: this.futureHeads, activeUnits: this.activeUnits, headCount: this.heads.count, trailCount: this.trails.count,
             ready: this.ready, paused: this.paused, selected: this.selected, placement: this.placement,
             placementMode: this.placementMode, nextPlacement: this.placement, committedPlacement: this.committed?.normalizedPlacement ?? null,
@@ -350,6 +361,7 @@ export class Simulation {
             this.holdProgress += dt / 0.65;
             if (this.holdProgress >= 1) this.ignite();
         }
+        this.personal.tick();
         if (this.show) this.directShow();
         this.trails.advance(dt, this.wind);
         this.moveHeads(dt);
@@ -455,7 +467,7 @@ export class Simulation {
             return;
         }
         if (this.show === 'finale' && this.time - this.showStart >= 32) {
-            this.stopShow(false);
+            this.show = null; this.finiteEnded = true;
             this.message = 'Finale complete. Stay for the embers.';
             return;
         }
@@ -645,7 +657,17 @@ export class Simulation {
         if (this.smoke.count >= BUDGETS[this.quality].smoke) return;
         const rand = this.smokeRng;
         const i = this.smoke.add(x, y, z, 0.6 + rand() * 0.35, 0.3 + rand() * 0.3, (rand() - 0.5) * 0.3, kind === 0 ? 1.3 + rand() : kind === 1 ? 4 + rand() * 2 : 10 + rand() * 5, 0.08, 0.09, 0.12, size, 0, opacity, 0, 0, kind);
-        if (i >= 0) this.smoke.angle[i] = rand() * Math.PI * 2;
+        if (i >= 0) {
+            this.smoke.angle[i] = rand() * Math.PI * 2;
+            if (kind === 2) {
+                const layer = smokeLayer(this.smoke.id[i]);
+                this.smoke.z[i] += (layer - 1) * 9;
+                this.smoke.size[i] *= .86 + layer * .14;
+                this.smoke.life[i] *= .86 + layer * .12;
+                this.smoke.vx[i] *= 1.15 - layer * .16;
+                this.smoke.vy[i] *= .78 + layer * .17;
+            }
+        }
     }
     private moveSmoke(dt: number) {
         const p = this.smoke;
@@ -653,10 +675,12 @@ export class Simulation {
             p.age[i] += dt;
             if (p.age[i] >= p.life[i]) { p.remove(i); continue; }
             p.x[i] += (this.wind + p.vx[i] + Math.sin(this.time * 0.35 + p.id[i]) * 0.14) * dt;
-            p.y[i] += p.vy[i] * dt;
-            p.z[i] += p.vz[i] * dt;
-            p.size[i] += dt * (p.family[i] === 0 ? .22 : p.family[i] === 1 ? .55 : .68);
-            p.angle[i] += dt * 0.018;
+            const layer = smokeLayer(p.id[i]);
+            const eddy = p.family[i] === 2 ? Math.sin(p.age[i] * .32 + p.x[i] * .08 + layer) : 0;
+            p.y[i] += (p.vy[i] + eddy * .20) * dt;
+            p.z[i] += (p.vz[i] + Math.cos(p.age[i] * .24 + p.y[i] * .09) * .12) * dt;
+            p.size[i] += dt * (p.family[i] === 0 ? .22 : p.family[i] === 1 ? .55 : (.58 + layer * .08) * Math.exp(-p.age[i] * .025));
+            p.angle[i] += dt * (.012 + layer * .008);
         }
     }
 }

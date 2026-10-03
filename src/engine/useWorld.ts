@@ -19,6 +19,12 @@ import { CompatibilityRenderer } from '../graphics/CompatibilityRenderer';
 import { NativeRenderRecovery, withDeadline } from './RendererRecovery';
 import { SkyInteraction, acceptsSkyPointer, skyCadence, skyMotionAllowed, skyPointFromPointer } from './SkyState';
 import { StartupProgress } from './StartupProgress';
+import { SceneCapture } from '../experience/SceneCapture';
+import type { CaptureSnapshot } from '../experience/SceneCapture';
+import { SessionDiagnostics } from '../experience/SessionDiagnostics';
+import { RenderBudget } from './RenderBudget';
+import { parseRecipe } from '../experience/ShowRecipe';
+import type { ShowRecipe } from '../experience/ShowRecipe';
 export type DropTarget = { kind: 'burst'; point: [number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
@@ -43,6 +49,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     const [backend, setBackend] = useState('Starting');
     const [soundActive, setSoundActive] = useState(false);
     const [metrics, setMetrics] = useState({ renderPixels: 0, submitMs: 0, frames: 0, p95Ms: 0 });
+    const capture = useRef<SceneCapture | null>(null);
+    const diagnostics = useRef<SessionDiagnostics | null>(null);
+    const [captureState, setCaptureState] = useState<CaptureSnapshot>({ recording: false, seconds: 0, limit: 15, result: null, error: '' });
+    const [resolutionScale, setResolutionScale] = useState(1);
+    const [diagnosticsActive, setDiagnosticsActive] = useState(false);
     const soundWanted = useRef(false);
     const alive = useRef(false);
     const soundRequest = useRef(0);
@@ -53,6 +64,10 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const paused = intent.current.paused;
         sim.current.setPaused(paused);
         audio.current?.setSuspended(paused || document.hidden);
+        if (paused || document.hidden) {
+            capture.current?.stop(document.hidden ? 'Recording finished when the page was hidden.' : 'Recording finished when the scene paused.');
+            diagnostics.current?.pause();
+        }
         skyRedraw.current?.(resetSky);
         refresh();
     }, [refresh]);
@@ -84,6 +99,16 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let qaStallSamplesUsed = 0;
         const startup = new AbortController();
         const governor = new QualityGovernor();
+        const budget = new RenderBudget();
+        const recorder = new SceneCapture();
+        const session = new SessionDiagnostics();
+        capture.current = recorder; diagnostics.current = session;
+        recorder.onChange = () => { if (!cancelled) setCaptureState({ ...recorder.snapshot }); };
+        setCaptureState({ ...recorder.snapshot }); setResolutionScale(1); setDiagnosticsActive(false);
+        const presented = () => {
+            graphics?.render();
+            recorder.frame(host.current?.querySelector('canvas') ?? null, sim.current.time);
+        };
         const overload = new NativeRenderRecovery();
         const sky = new SkyInteraction();
         const osMotion = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
@@ -117,6 +142,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         state.setPaused(intent.current.paused);
         const sound = new AudioEngine();
         audio.current = sound;
+        sound.setHeadphones(prefs.current.headphones);
         sound.setSuspended(intent.current.paused || document.hidden);
         let startupPending = true;
         let startupSettled = false;
@@ -178,7 +204,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             skyDirty = true;
             if (!runtimeReady || switchingGraphics || document.hidden) return;
             try {
-                graphics?.render();
+                presented();
                 lastSkyRender = performance.now();
                 skyLastRenderedTime = sky.state.time;
                 skyDirty = false;
@@ -190,6 +216,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             const target = host.current;
             const previous = graphics;
             if (cancelled || switchingGraphics || !target || !previous || previous.backend.startsWith('Canvas')) return;
+            recorder.stop('Recording finished because graphics needed recovery.');
+            session.pause();
             switchingGraphics = true;
             setBackend('Recovering graphics');
             let replacement: RendererPort | null = null;
@@ -215,6 +243,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 if (cancelled) { replacement.dispose(); return; }
                 graphics = replacement;
                 renderer.current = replacement;
+                replacement.setResolutionScale?.(budget.scale);
                 if (host.current) {
                     stageLayout = measureStage(host.current, display.current.mode === 'interactive');
                     replacement.setLayout(stageLayout);
@@ -273,7 +302,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     lastRender = now;
                     let rendered = false;
                     try {
-                        graphics?.render();
+                        presented();
                         rendered = true;
                         lastSkyRender = now;
                         skyLastRenderedTime = sky.state.time;
@@ -282,6 +311,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     catch {
                         fail('Graphics were interrupted. Try lower quality or restart the scene.');
                     }
+                    if (rendered && continuous) session.frame(now, graphics?.backend ?? 'Unknown', state.quality, budget.scale);
+                    else session.pause();
                     if (++warmFrames > 60 && continuous && cadence < 500)
                         governor.add(cadence);
                     let observedMs = Math.max(cadence, graphics?.metrics.submitMs || 0);
@@ -304,7 +335,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 }
                 else if (!switchingGraphics && skyDue) {
                     try {
-                        graphics?.render();
+                        presented();
                         lastSkyRender = now;
                         skyLastRenderedTime = sky.state.time;
                         skyDirty = false;
@@ -312,9 +343,12 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                         else skyAmbientFrames++;
                     } catch { fail('Graphics were interrupted. Try lower quality or restart the scene.'); }
                 }
-                if (prefs.current.quality === 'auto' && now - lastQuality > 1500 && warmFrames > 90) {
+                if (now - lastQuality > 1500 && warmFrames > 90) {
                     lastQuality = now;
-                    const next = governor.evaluate(state.quality, targetFps, true);
+                    const next = governor.evaluate(state.quality, targetFps, prefs.current.quality === 'auto');
+                    const oldScale = budget.scale;
+                    const scale = budget.evaluate(governor.p95, prefs.current.adaptiveResolution);
+                    if (scale !== oldScale) { graphics?.setResolutionScale?.(scale); setResolutionScale(scale); skyDirty = true; }
                     if (next !== state.quality) {
                         state.quality = next;
                         graphics?.setQuality(next);
@@ -325,6 +359,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             }
             else {
                 publishSky(false);
+                session.pause();
                 lastRender = 0;
                 overload.reset();
                 previouslyMoving = false;
@@ -333,6 +368,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 lastReport = now;
                 publishStartup();
                 refresh();
+                if (recorder.snapshot.recording) setCaptureState({ ...recorder.snapshot });
+                setDiagnosticsActive(session.active);
                 if (graphics)
                     setMetrics({ ...graphics.metrics, p95Ms: governor.p95 });
             }
@@ -342,13 +379,14 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             // Initial observer notifications can arrive while GPU preparation is
             // awaiting its device or reflection materials. Startup owns that view.
             if (cancelled || !runtimeReady || switchingGraphics || !graphics) return;
+            recorder.stop('Recording finished because the scene size changed.');
             // Resizing also redraws an idle/paused canvas. Failures retain recovery controls.
             try {
                 updateLayout();
                 graphics?.resize();
                 cacheHorizon();
                 publishSky(false);
-                graphics?.render();
+                presented();
                 lastSkyRender = performance.now();
                 skyLastRenderedTime = sky.state.time;
                 skyDirty = false;
@@ -502,7 +540,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), startup: preparation.snapshot, backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), qaStallSamplesUsed, qaStallSamplesRemaining,
+                    snapshot: () => ({ ...state.snapshot(), startup: preparation.snapshot, backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), resolutionScale: budget.scale, capture: { recording: recorder.snapshot.recording, seconds: recorder.snapshot.seconds, error: recorder.snapshot.error }, diagnosticsActive: session.active, qaStallSamplesUsed, qaStallSamplesRemaining,
                         skyState: { ...sky.state }, skyAmbientCadence: skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed),
                         skyResponding: sky.responding, skyAmbientFrames, skyResponseFrames, skyOneOffFrames, skyLastRenderedTime, skyFrozen: captureFrozen }),
                     injectOverloadSamples: (count: number, milliseconds: number) => {
@@ -529,7 +567,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                         state.drainEvents();
                         state.setPaused(paused);
                         publishSky(false);
-                        graphics?.render();
+                        presented();
                         skyLastRenderedTime = sky.state.time;
                         skyDirty = false;
                         skyOneOffFrames++;
@@ -537,7 +575,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     },
                     render: () => {
                         publishSky(false);
-                        graphics?.render();
+                        presented();
                         skyLastRenderedTime = sky.state.time;
                         skyDirty = false;
                         skyOneOffFrames++;
@@ -573,6 +611,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             delete (window as unknown as {
                 __firecrackersQA?: unknown;
             }).__firecrackersQA;
+            recorder.dispose(); session.stop();
+            if (capture.current === recorder) capture.current = null;
+            if (diagnostics.current === session) diagnostics.current = null;
             sound.dispose();
             try { graphics?.dispose(); } catch { /* A failed driver must not break React cleanup. */ }
             renderer.current = null;
@@ -588,8 +629,10 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             renderer.current?.setQuality(preferences.quality);
         }
         audio.current?.setOptions(preferences.volume, preferences.haptics, preferences.ambience);
+        audio.current?.setHeadphones(preferences.headphones);
+        if (!preferences.adaptiveResolution) { renderer.current?.setResolutionScale?.(1); setResolutionScale(1); }
         skyRedraw.current?.();
-    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience]);
+    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience, preferences.headphones, preferences.adaptiveResolution]);
     useEffect(() => {
         sim.current.protectCenter = presentation.protect;
         sim.current.safeRect = [...presentation.safeRect];
@@ -631,7 +674,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     };
     // Configuration changes do not take ownership of the user's explicit pause.
     const setShowMode = (preset: ShowPreset | null) => {
-        if (!status.current.ready || status.current.error || sim.current.show === preset) return;
+        if (!status.current.ready || status.current.error || (sim.current.show === preset && !['playing','falling'].includes(sim.current.personal.status))) return;
         if (preset) sim.current.startShow(preset);
         else sim.current.stopShow();
         syncPause();
@@ -660,7 +703,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         return admitted;
     };
     const reset = () => {
-        audio.current?.stop();
+        capture.current?.stop('Recording finished before restarting the sky.');
+        diagnostics.current?.pause();
+        audio.current?.cancelScheduled();
         intent.current.setManual(false);
         sim.current.reset();
         sim.current.protectCenter = display.current.protect;
@@ -699,7 +744,37 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     };
     const positionFromPointer = (clientX: number) => renderer.current?.projectPlacement(clientX) ?? .5;
     const previewPosition = (placement: number) => renderer.current?.projectLaunchPosition(placement) ?? [0, 0];
+    const playRecipe = (input: ShowRecipe): string | void => {
+        if (!status.current.ready || status.current.error) return 'The scene is still preparing. Try again when it is ready.';
+        try {
+            const recipe = parseRecipe(input);
+            const profiles = recipe.cues.map(cue => renderer.current?.resolveLaunchProfile(cue.family, cue.position));
+            // Preflight occurs inside start before any reset; an invalid recipe leaves the current night alone.
+            sim.current.personal.start(recipe, profiles);
+            capture.current?.stop('Recording finished before starting a new night.');
+            audio.current?.cancelScheduled(); diagnostics.current?.pause();
+            intent.current.setManual(false); syncPause(true);
+        } catch (error) { return error instanceof Error ? error.message : 'This show could not start.'; }
+    };
+    const stopRecipe = () => { sim.current.stopShow(); audio.current?.cancelScheduled(); refresh(); };
+    const takePhoto = async () => {
+        const canvas = host.current?.querySelector('canvas');
+        if (!canvas || !capture.current || !renderer.current) throw new Error('The scene is not ready for capture.');
+        await capture.current.photo(canvas, () => renderer.current?.render());
+    };
+    const startClip = (seconds: number, includeAudio: boolean) => {
+        const canvas = host.current?.querySelector('canvas');
+        if (!canvas || !capture.current || !renderer.current) throw new Error('The scene is not ready for capture.');
+        if (intent.current.userPaused || document.hidden) throw new Error('Resume the night before recording a clip.');
+        capture.current.start(canvas, () => renderer.current?.render(), seconds, includeAudio ? audio.current?.captureAudio() : undefined);
+    };
+    const startDiagnostics = () => { diagnostics.current?.start(); setDiagnosticsActive(true); };
+    const stopDiagnostics = () => { diagnostics.current?.stop(); setDiagnosticsActive(false); };
     const continueStartup = () => { startupControl.current.continue(); updateStartupRef.current?.(); };
     const startupMoon = () => renderer.current?.startupMoon() ?? null;
-    return { sim, ready, startup: startupState, continueStartup, startupMoon, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, setShowMode, setPlacement, setPlacementMode, ignite, igniteFamily, reset, refresh, positionFromPointer, previewPosition, heroRect, dropTarget, drop };
+    return { sim, capture: captureState, takePhoto, startClip, stopClip: () => capture.current?.stop(),
+        downloadCapture: () => capture.current?.download(), shareCapture: () => capture.current?.share(),
+        discardCapture: () => { capture.current?.discard(); if (capture.current) setCaptureState({ ...capture.current.snapshot }); },
+        resolutionScale, diagnosticsActive, startDiagnostics, stopDiagnostics, downloadDiagnostics: () => diagnostics.current?.download(),
+        playRecipe, stopRecipe, ready, startup: startupState, continueStartup, startupMoon, error, backend, snapshot, metrics, soundActive, configureSound, pause, setOverlay, start, setShowMode, setPlacement, setPlacementMode, ignite, igniteFamily, reset, refresh, positionFromPointer, previewPosition, heroRect, dropTarget, drop };
 }

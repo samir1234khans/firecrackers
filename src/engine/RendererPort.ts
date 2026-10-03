@@ -17,6 +17,7 @@ export interface RendererPort {
     resolveLaunchProfile(id: FamilyId, placement?: number): LaunchProfile;
     setDisplay(mode: DisplayMode): void;
     setQuality(quality: Quality): void;
+    setResolutionScale?(scale: number): void;
     setSkyState(state: Readonly<SkyState>): void;
     projectPlacement(clientX: number, id?: FamilyId): number;
     projectLaunchPosition(placement: number): [number, number];

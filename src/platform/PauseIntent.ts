@@ -2,6 +2,7 @@
 export class PauseIntent {
     private manual = false;
     private readonly blockers = new Set<string>();
+    get userPaused() { return this.manual; }
     get paused() { return this.manual || this.blockers.size > 0; }
     setManual(value: boolean) { this.manual = value; return this.paused; }
     block(reason: string, value: boolean) {
