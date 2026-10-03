@@ -30,7 +30,13 @@ try{
    await advance(40);const before=await snap();await icon(id).click();const committed=await snap();assert.equal(committed.phase,'fuse');assert.equal(committed.selected,id);assert.ok(committed.committedId);assert.ok(committed.launchProfile);
    await icon(id).dispatchEvent('click');assert.equal((await snap()).committedId,committed.committedId);
    const fraction=(committed.apexScreen.y-committed.stageLayout.unobstructedScene.y)/committed.stageLayout.unobstructedScene.height;
-   assert.ok(fraction>=.30&&fraction<=.38,`Upper canopy ${id}: ${fraction}`);
+   if(id==='grand-finale'){
+    const scene=committed.stageLayout.unobstructedScene,viewport=committed.stageLayout.viewport;
+    const shore=(Number.isFinite(committed.waterline)?committed.waterline:.72)*viewport.height;
+    const skyHeight=Math.min(scene.y+scene.height,shore)-scene.y;
+    assert.ok(committed.apexScreen.y>scene.y&&committed.apexScreen.y<scene.y+skyHeight*.5,'finale crown is composed inside the visible sky above the shore');
+    assert.ok(committed.launchProfile.effectScale>0&&committed.launchProfile.finaleSpread>=0,'finale snapshots its fitted size and carrier spread');
+   }else assert.ok(fraction>=.30&&fraction<=.38,`Upper canopy ${id}: ${fraction}`);
    await advance(id==='opal-supernova'?7.8:4.9);await page.mouse.move(1,1);await page.screenshot({path:`${out}/${backend}-${id}-upper.png`});await advance(id==='opal-supernova'?2.2:5.1);const after=await snap();assert.equal(after.launched,before.launched+1);assert.ok(after.bursts>before.bursts);pass(`${backend} ${id}: one immediate admission, immutable duplicate guard, upper canopy`,{fraction});
   }
   await advance(40);let before=await snap();const l=before.stageLayout,x=l.heroRect.x+l.heroRect.width*.4,y=l.heroRect.y+l.heroRect.height*.32;
@@ -39,7 +45,7 @@ try{
   await advance(40);
   const currentLayout=(await snap()).stageLayout;
   for(const [name,end,tx,ty] of [['water','up',196,currentLayout.heroRect.height*.77],['collection','up',currentLayout.tray.x+24,currentLayout.tray.y+24],['rail','up',currentLayout.rail.x+24,currentLayout.rail.y+24],['outside','up',-5,-5],['escape','escape',196,180],['pointercancel','cancel',196,180]]){
-   before=await snap();await drag('ruby-dahlia',tx,ty,end);const after=await snap();assert.equal(after.launched,before.launched,name);assert.equal(after.bursts,before.bursts,name);assert.equal(after.committedId,before.committedId,name);pass(`${backend}: ${name} cancels without accidental click`);
+   before=await snap();await drag(id='ruby-dahlia',tx,ty,end);const after=await snap();assert.equal(after.launched,before.launched,name);assert.equal(after.bursts,before.bursts,name);assert.equal(after.committedId,before.committedId,name);pass(`${backend}: ${name} cancels without accidental click`);
   }
   before=await snap();await icon('ruby-dahlia').click();assert.equal((await snap()).phase,'fuse');const busyId=(await snap()).committedId,busyBox=await icon('gold-willow').boundingBox();await page.mouse.move(busyBox.x+24,busyBox.y+24);await page.mouse.down();await page.mouse.move(busyBox.x+40,busyBox.y+24);await advance(40);await page.mouse.move(busyBox.x+24,busyBox.y+24);await page.mouse.up();assert.equal((await snap()).committedId,null,'A completed unavailable drag cannot become a later click');assert.ok(busyId);pass(`${backend}: fresh tap immediately after cancellation launches`);
   const cdp=await context.newCDPSession(page),t=await icon('sapphire-saturn').boundingBox();before=await snap();await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:t.x+24,y:t.y+24}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:196,y:180}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});assert.equal((await snap()).launched,before.launched);pass(`${backend}: native touch cancellation`);
