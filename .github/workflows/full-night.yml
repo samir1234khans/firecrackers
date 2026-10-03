@@ -1,0 +1,81 @@
+name: Full night regression
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/engine/**'
+      - 'src/graphics/**'
+      - 'tests/**'
+      - 'package*.json'
+      - '.github/workflows/full-night.yml'
+permissions:
+  contents: read
+concurrency:
+  group: full-night-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Unit, TypeScript, lint, build and documentation
+        run: |
+          mkdir -p test-results/full-night-checks
+          set +e
+          status=0
+          for task in 'npm test' 'npm run typecheck' 'npm run lint' 'npm run build' 'python3 scripts/validate_docs.py'; do
+            name=$(echo "$task" | tr ' /' '--')
+            bash -c "$task" > "test-results/full-night-checks/$name.log" 2>&1
+            code=$?
+            echo "$task: exit $code"
+            tail -15 "test-results/full-night-checks/$name.log"
+            grep -A25 'not ok' "test-results/full-night-checks/$name.log" || true
+            if [ "$code" != 0 ]; then status=1; fi
+          done
+          exit "$status"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-night-checks
+          path: test-results/full-night-checks
+          retention-days: 14
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Software WebGL and Canvas, desktop and phone, Low and Ultra
+        run: |
+          mkdir -p test-results/full-night
+          npm run preview -- --port 4173 > test-results/full-night/server.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ > /dev/null && break || sleep 1; done
+          set +e
+          node tests/full-night-browser.mjs test-results/full-night
+          result=$?
+          node -e "const r=require('./test-results/full-night/report.json'); for(const c of r.cases) console.log(JSON.stringify({name:c.name,pass:c.pass,failure:c.failure,errors:c.errors,backend:c.final?.backend,initialBackend:c.initial?.backend,waterline:c.initial?.waterline,before:c.beforeRedPixels,after:c.redPixels,lights:c.red?.waterBurstLights}));"
+          exit "$result"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-night-browser-evidence
+          path: test-results/full-night
+          retention-days: 14
