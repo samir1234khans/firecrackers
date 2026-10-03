@@ -3,4 +3,5 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { AppBoundary } from './ui/AppBoundary';
 import './index.css';
+import './styles/experience-layout.css';
 createRoot(document.getElementById('root')!).render(<StrictMode><AppBoundary><App/></AppBoundary></StrictMode>);

@@ -1,0 +1,7 @@
+/* The transient ready hint must not cover Browse, Studio or Capture. */
+.fireworks-app .startup-ready-note{top:calc(70px + env(safe-area-inset-top));left:auto;right:calc(18px + env(safe-area-inset-right));transform:none;max-width:min(310px,calc(100vw - 100px));pointer-events:none;}
+@media(max-width:680px){.fireworks-app .startup-ready-note{top:calc(62px + env(safe-area-inset-top));right:10px;max-width:calc(100vw - 110px);}}
+
+.fireworks-app:has(.recording-control) .show-progress,
+.fireworks-app:has(.recording-control) .startup-ready-note,
+.fireworks-app:has(.show-progress) .startup-ready-note{display:none;}
