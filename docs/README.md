@@ -1,10 +1,12 @@
+**Current source candidate: legacy launch and burst realism / `2026-10-04.1`.** [Implementation, per-family refinements and qualification boundary](evidence/legacy-realism-2026-10-04/IMPLEMENTATION.md). Exact-head promotion is pending; production remains `2026-10-03.4`. Older entries below retain their historical release states.
+
 **Current production and main: `2026-10-03.4`.** The owner authorized reconciliation and production deployment on 4 October. The tested main CI artifact is live at [Firecrackers](https://firecrackers.mainandmany.com/); [source, deployment, cache and public verification receipt](evidence/reconciliation-2026-10-04/PRODUCTION.md). The earlier production hold is superseded. Physical-device and sustained-performance qualification remains unverified. Entries below preserve earlier checkpoints.
 
 **Promoted musical/V4 reconciliation:** [4 October main receipt](evidence/reconciliation-2026-10-04/MAIN.md), [scope and intentional supersessions](CINEMATIC-SHOWS-RECONCILIATION.md). Production deployment remains on hold. Earlier entries below are historical.
 
 **Cinematic V4 candidate:** [CINEMATIC-V4.md](CINEMATIC-V4.md) records the realism/UX changes, deployment blocker and separate PR #33 hold. Candidate source is not a live-production receipt.
 
-**Latest source work: richer night experience / `2026-10-03.2`, PR #45.** [Implementation, dependencies and qualification boundary](RICHER-NIGHT-EXPERIENCE.md). Combines #37–#44's main-compatible features with #36. Exact promotion/check results are in PR #45. Draft #33 and its musical-score release hold are unchanged; no deployment is implied. The production receipts below remain historical evidence of the last actual deployment.
+**Latest source work: richer night experience / `2026-10-03.2`, PR #45.** [Implementation, dependencies and qualification boundary](RICHER-NIGHT-EXPERIENCE.md). Combines #37â€“#44's main-compatible features with #36. Exact promotion/check results are in PR #45. Draft #33 and its musical-score release hold are unchanged; no deployment is implied. The production receipts below remain historical evidence of the last actual deployment.
 
 Latest production: [Always Play / build `.3`](evidence/always-play-2026-10-02/PRODUCTION.md), [qualification](evidence/always-play-2026-10-02/IMPLEMENTATION.md), [public controls](evidence/always-play-2026-10-02/final/controls.html) and [PR #32](https://github.com/samir1234khans/firecrackers/pull/32). Four quantity levels, smooth immersive controls, main promotion and actual production verification are recorded. The original longer performance plan remains partially unqualified; earlier entries below preserve historical checkpoints.
 
@@ -50,37 +52,37 @@ Authority order: later explicit owner decisions, then the decision register and 
 
 ## Product and experience
 
-1. [Product brief](01-product-brief.md) — goal, audience, scope, and quality bar.
-2. [Requirements and acceptance](02-requirements-and-acceptance.md) — testable V1 obligations.
-3. [Decisions and open questions](03-decisions-and-open-questions.md) — confirmed direction, defaults, corrections, and remaining owner choices.
-4. [Firework specifications](04-firework-specifications.md) — the five identities and their complete visual timelines.
-5. [Interaction and user journeys](05-interaction-and-user-journeys.md) — picking, placement, ignition, interruption, and recovery.
-6. [Art direction and realism](06-art-direction-and-realism.md) — scene, light, smoke, camera, and reference review.
-7. [Design system and motion](07-design-system-and-motion.md) — responsive composition, controls, accessibility, and motion tokens.
-8. [Audio and haptics](08-audio-and-haptics.md) — event-based sound, mixing, timing, and device limitations.
-9. [Auto-show and display mode](09-auto-show-and-display-mode.md) — paced sequences, manual takeover, and decorative use.
+1. [Product brief](01-product-brief.md) â€” goal, audience, scope, and quality bar.
+2. [Requirements and acceptance](02-requirements-and-acceptance.md) â€” testable V1 obligations.
+3. [Decisions and open questions](03-decisions-and-open-questions.md) â€” confirmed direction, defaults, corrections, and remaining owner choices.
+4. [Firework specifications](04-firework-specifications.md) â€” the five identities and their complete visual timelines.
+5. [Interaction and user journeys](05-interaction-and-user-journeys.md) â€” picking, placement, ignition, interruption, and recovery.
+6. [Art direction and realism](06-art-direction-and-realism.md) â€” scene, light, smoke, camera, and reference review.
+7. [Design system and motion](07-design-system-and-motion.md) â€” responsive composition, controls, accessibility, and motion tokens.
+8. [Audio and haptics](08-audio-and-haptics.md) â€” event-based sound, mixing, timing, and device limitations.
+9. [Auto-show and display mode](09-auto-show-and-display-mode.md) â€” paced sequences, manual takeover, and decorative use.
 
 ## Engineering and delivery
 
-10. [Technical architecture](10-technical-architecture.md) — modules, renderer selection, boundaries, and state.
-11. [Simulation and rendering](11-simulation-and-rendering.md) — implementation algorithms and render pipeline.
-12. [Performance and compatibility](12-performance-and-compatibility.md) — bounded resource budgets and quality management.
-13. [PWA, offline, and lifecycle](13-pwa-offline-and-lifecycle.md) — installation, cache updates, suspend, and recovery.
-14. [Accessibility, privacy, and safety](14-accessibility-privacy-and-safety.md) — operability, flash reduction, and public-data boundaries.
-15. [Assets and licensing](15-assets-and-licensing.md) — original asset briefs, inventories, and provenance gates.
-16. [Implementation roadmap](16-implementation-roadmap.md) — dependencies and independently reviewable milestones.
-17. [Test and release plan](17-test-and-release-plan.md) — scenarios, evidence, and release blockers.
-18. [Deployment and operations](18-deployment-and-operations.md) — static hosting, preview, release, rollback, and maintenance.
-19. [Research and reuse](19-research-and-reuse.md) — verified primary sources, reusable components, and limits of evidence.
-20. [Implementation handover](20-implementation-handover.md) — a ready-to-use development prompt and first milestone.
-21. [Risk register](21-risk-register.md) — mitigations and triggers.
-22. [Requirements traceability](22-requirements-traceability.md) — requirement-to-document, milestone, and test mapping.
+10. [Technical architecture](10-technical-architecture.md) â€” modules, renderer selection, boundaries, and state.
+11. [Simulation and rendering](11-simulation-and-rendering.md) â€” implementation algorithms and render pipeline.
+12. [Performance and compatibility](12-performance-and-compatibility.md) â€” bounded resource budgets and quality management.
+13. [PWA, offline, and lifecycle](13-pwa-offline-and-lifecycle.md) â€” installation, cache updates, suspend, and recovery.
+14. [Accessibility, privacy, and safety](14-accessibility-privacy-and-safety.md) â€” operability, flash reduction, and public-data boundaries.
+15. [Assets and licensing](15-assets-and-licensing.md) â€” original asset briefs, inventories, and provenance gates.
+16. [Implementation roadmap](16-implementation-roadmap.md) â€” dependencies and independently reviewable milestones.
+17. [Test and release plan](17-test-and-release-plan.md) â€” scenarios, evidence, and release blockers.
+18. [Deployment and operations](18-deployment-and-operations.md) â€” static hosting, preview, release, rollback, and maintenance.
+19. [Research and reuse](19-research-and-reuse.md) â€” verified primary sources, reusable components, and limits of evidence.
+20. [Implementation handover](20-implementation-handover.md) â€” a ready-to-use development prompt and first milestone.
+21. [Risk register](21-risk-register.md) â€” mitigations and triggers.
+22. [Requirements traceability](22-requirements-traceability.md) â€” requirement-to-document, milestone, and test mapping.
 
 The full baseline also includes machine-readable specifications under `specs/`, visual tokens under `design/`, and repository-level status and contributor instructions. Documents linked here are delivered as a coordinated baseline; consult Git history for the completed set.
 
 ## Fast reading paths
 
-For the product owner: 01 → 03 → 04 → 06 → 16. For implementation: 02 → 05 → 10 → 11 → 12 → 17 → 20. For designers: 04 → 06 → 07 → 08 → 15. For release review: 14 → 17 → 18 → 21 → 22.
+For the product owner: 01 â†’ 03 â†’ 04 â†’ 06 â†’ 16. For implementation: 02 â†’ 05 â†’ 10 â†’ 11 â†’ 12 â†’ 17 â†’ 20. For designers: 04 â†’ 06 â†’ 07 â†’ 08 â†’ 15. For release review: 14 â†’ 17 â†’ 18 â†’ 21 â†’ 22.
 
 A planning document alone is not implementation evidence. Planned tests remain unrun until an evidence record identifies the build, environment, and results; current executed results are linked at the top of this index.
 

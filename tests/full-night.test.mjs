@@ -41,14 +41,14 @@ test('invalid source positions cannot contaminate a whole scene wash', () => {
   assert.ok(Math.abs(out[6] - burstLightEnergy(light())) < 1e-6);
 });
 for (const quality of ['low','standard','ultra']) {
-  test(`Peony/${quality}: complete count, larger heads, core and falling colour after 3s`, () => {
+  test(`Peony/${quality}: complete count, fine cores and falling colour after 3s`, () => {
     const s = new Simulation(123); s.quality = quality;
     assert.ok(s.burstAt('multicolor-peony', 0, 100, .5));
     const n = Math.round(FAMILIES[1].count * BUDGETS[quality].scale);
     assert.equal(s.heads.count, n, 'geometry fitting cannot thin the shell a second time');
     const speeds = Array.from({length: n}, (_, i) => Math.hypot(s.heads.vx[i], s.heads.vy[i], s.heads.vz[i]));
     assert.ok(Math.max(...speeds) > Math.min(...speeds) * 2, 'slower inner stars form a core');
-    assert.ok([...s.heads.size.slice(0,n)].every(size => size >= .18));
+    assert.ok([...s.heads.size.slice(0,n)].every(size => size >= .12 && size <= .14));
     advance(s, 3.2); assert.equal(s.heads.count, n); assert.ok(s.trails.count > n);
     assert.ok(s.heads.x.slice(0,n).some(x => Math.abs(x) > 10));
   });
@@ -57,7 +57,8 @@ for (const quality of ['low','standard','ultra']) {
     assert.ok(s.burstAt('silver-crossette-crackle', 0, 100));
     const parents = Math.round(64 * BUDGETS[quality].scale);
     assert.equal(s.heads.count, parents);
-    advance(s, 1.5); assert.equal(s.heads.count, parents * 4);
+    advance(s, .8); assert.equal(s.heads.count, parents, "parents establish the shell before splitting");
+    advance(s, 1.0); assert.equal(s.heads.count, parents * 4, "all staggered four-way leaves survive");
     assert.ok([...s.heads.split.slice(0,s.heads.count)].every(v => v === 0), 'leaves do not recursively split');
     const ids = [...s.heads.id.slice(0,s.heads.count)], xs = [...s.heads.x.slice(0,s.heads.count)];
     advance(s, .5); assert.deepEqual([...s.heads.id.slice(0,s.heads.count)], ids);

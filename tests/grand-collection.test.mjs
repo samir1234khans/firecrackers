@@ -1,3 +1,4 @@
+import { LEGACY_EXPANSION } from '../.test-build/engine/LegacyRealism.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Simulation } from '../.test-build/engine/Simulation.js';
@@ -55,7 +56,7 @@ test('Saturn retains a genuinely tilted ring and smaller blue sphere', () => {
     const ring = stars.filter(s => s.color[0] === 1), core = stars.filter(s => s.color[0] < .4);
     assert.equal(ring.length,core.length);
     assert.ok(Math.max(...ring.map(s => Math.abs(s.velocity[2]))) > 25);
-    assert.ok(Math.max(...core.map(s => Math.hypot(...s.velocity))) < 22);
+    assert.ok(Math.max(...core.map(s => Math.hypot(...s.velocity))) < 22 * LEGACY_EXPANSION);
 });
 test('Phoenix has eleven rising arms and reserved traveling leaf parents', () => {
     const { stars } = grandRecipe(8,'ultra',12);

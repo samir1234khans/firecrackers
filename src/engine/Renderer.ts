@@ -1,14 +1,15 @@
+import { burstDepth } from './LegacyRealism';
 import { CINEMA_BASE_EXPOSURE } from './CinematicResponse.js';
 import { gatherBurstLighting } from './BurstLighting.js';
 import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
-import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from './LaunchProfile';
+import { resolveScreenLaunchProfile, resolveLaunchAimScreenX, resolveLegacyLaunchProfile, legacyCompositionScale, signatureCompositionScale } from './LaunchProfile';
 import type { LaunchProfile } from './LaunchProfile';
 import type { RendererStartup } from './StartupProgress';
 import type { MoonFrame } from '../graphics/MoonComposition';
 import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjectionDiagnostics } from './LaunchComposition';
 import type { LaunchPropComposition, LaunchBounds } from './LaunchComposition';
-import { signatureEnvelope } from './SignatureDiagnostics';
+import { signatureEnvelope, effectEnvelope } from './SignatureDiagnostics';
 import * as THREE from 'three/webgpu';
 import { float, hash, mix, pass, renderOutput, screenCoordinate, smoothstep, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
@@ -204,11 +205,13 @@ export class FireworkRenderer {
         this.camera.updateProjectionMatrix();
         this.camera.updateMatrixWorld();
         this.resolvePropLayouts();
+        this.legacyProfiles.fill(undefined);
         this.environment.frameTerrace(this.camera);
         this.water.resize(this.camera);
         this.environment.setPortraitHorizon(aspect < .72, this.water.diagnostics().waterline, aspect);
         this.environment.setViewport(w, h);
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / framing.scale * .9), 16);
+        for (const family of FAMILIES.slice(0,10)) this.resolveLaunchProfile(family.id,.5);
         this.renderer.setSize(w, h);
         this.setQuality(this.sim.quality);
     }
@@ -221,6 +224,7 @@ export class FireworkRenderer {
         this.host.dataset.display = mode;
         if (this.initialized) this.resize();
     }
+    private readonly legacyProfiles: (LaunchProfile | undefined)[] = Array(10);
     private resolutionScale = 1;
     setResolutionScale(scale: number) { const next = Math.max(.65, Math.min(1, scale)); if (Math.abs(next - this.resolutionScale) > .001) { this.resolutionScale = next; this.setQuality(this.sim.quality); } }
     setQuality(q: Quality) {
@@ -230,8 +234,8 @@ export class FireworkRenderer {
         this.bloomPass.strength.value = budget.bloom * (this.sim.reducedFlashes ? .7 : 1);
         this.metrics.renderPixels = Math.round(w * h * ratio * ratio);
     }
-    private screenPoint(x: number, y: number) {
-        const point = new THREE.Vector3(x, y, 0).project(this.camera);
+    private screenPoint(x: number, y: number, z = 0) {
+        const point = new THREE.Vector3(x, y, z).project(this.camera);
         return { x: (point.x + 1) * this.layout.viewport.width / 2, y: (1 - point.y) * this.layout.viewport.height / 2 };
     }
     startupMoon(): Readonly<MoonFrame> | null { return this.initialized ? this.environment.startupMoon() : null; }
@@ -247,9 +251,9 @@ export class FireworkRenderer {
         return {completed,total:WATERFRONT_ASSET_NAMES.length,pending:completed<WATERFRONT_ASSET_NAMES.length,degraded,
             detail:pendingName?`${activating?'Preparing':'Loading'} ${labels[pendingName]}`:degraded?'Scene ready with fallback artwork':'Scene ready'};
     }
-    private worldPoint(x: number, y: number) {
+    private worldPoint(x: number, y: number, z = 0) {
         const l = this.layout;
-        const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+        const ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), -z);
         ray.setFromCamera(new THREE.Vector2(x / l.viewport.width * 2 - 1, 1 - y / l.viewport.height * 2), this.camera);
         return ray.ray.intersectPlane(plane, new THREE.Vector3()) ?? new THREE.Vector3(0, this.sim.ground, 0);
     }
@@ -271,6 +275,14 @@ export class FireworkRenderer {
         const index = familyIndex(id), l = this.layout, prop = this.compositions[index], bounds = this.launchBounds[index];
         const normalizedPlacement = clamp(placement, 0, 1), padX = bounds.worldMin + normalizedPlacement * (bounds.worldMax - bounds.worldMin);
         const screenX = bounds.screenMin + normalizedPlacement * (bounds.screenMax - bounds.screenMin), scene = l.unobstructedScene;
+        if(index<10){
+            const far=l.viewport.width/l.viewport.height<.72?-180:-1000;
+            const shore=this.screenPoint(0,4.65,far).y;
+            const profile = this.legacyProfiles[index] ??= resolveLegacyLaunchProfile(l,id,(x,y,z)=>this.worldPoint(x,y,z),(x,y,z)=>this.screenPoint(x,y,z),prop,shore,scene.x+scene.width/2);
+            const y = this.screenPoint(0,profile.apex+prop.shellOffset,profile.burstDepth).y;
+            const aimX = clamp(this.worldPoint(screenX,y,profile.burstDepth).x,profile.aimMinX!,profile.aimMaxX!);
+            return {...profile,aimX,padX,normalizedPlacement};
+        }
         const scale=stageFraming(l).scale;
         const profile = resolveScreenLaunchProfile(l, id, scale, y => this.worldPoint(scene.x+scene.width/2,y).y, scene.x + scene.width / 2, prop);
         const effectScale=profile.effectScale??1;
@@ -293,13 +305,19 @@ export class FireworkRenderer {
         const bounds = this.launchBounds[familyIndex(this.sim.selected)];
         return [this.layout.viewport.x + bounds.screenMin + clamp(placement,0,1) * (bounds.screenMax - bounds.screenMin), this.layout.viewport.y + bounds.contactScreenY];
     }
-    projectBurst(clientX: number, clientY: number): [number, number] | null {
+    projectBurst(clientX: number, clientY: number, id = this.sim.selected): [number, number, number] | null {
         const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
         if (x < r.x || x > r.x + r.width || y < r.y || y > r.y + r.height) return null;
         const ray = new THREE.Raycaster();
         ray.setFromCamera(new THREE.Vector2(x / l.viewport.width * 2 - 1, 1 - y / l.viewport.height * 2), this.camera);
-        const point = ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), new THREE.Vector3());
-        return point ? [point.x, point.y] : null;
+        const point = ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), -burstDepth(familyIndex(id))), new THREE.Vector3());
+        return point ? [point.x, point.y, point.z] : null;
+    }
+    burstCompositionScale(id: FamilyId, point: readonly [number, number, number]): number {
+        const p = this.screenPoint(...point);
+        return familyIndex(id) < 10 ? legacyCompositionScale(this.layout, id, (x,y,z)=>this.screenPoint(x,y,z), point,
+            this.screenPoint(0,4.65,this.layout.viewport.width/this.layout.viewport.height<.72?-180:-1000).y)
+            : signatureCompositionScale(this.layout, stageFraming(this.layout).scale, p.x, p.y);
     }
     render() {
         if (this.disposed || !this.initialized) return;
@@ -446,7 +464,7 @@ export class FireworkRenderer {
         const r = this.sim.committed;
         const point = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         const projected = point ? new THREE.Vector3(...point).project(this.camera) : null;
-        const apex = r ? new THREE.Vector3(r.launchProfile?.aimX ?? r.x, r.top + (r.launchProfile?.prop?.shellOffset ?? SHELL_LOCAL_Y * ROCKET_SCALE[1]), r.z).project(this.camera) : null;
+        const apex = r ? new THREE.Vector3(r.launchProfile?.aimX ?? r.x, r.top + (r.launchProfile?.prop?.shellOffset ?? SHELL_LOCAL_Y * ROCKET_SCALE[1]), r.launchProfile?.burstDepth ?? r.z).project(this.camera) : null;
         const profile=r?.launchProfile??this.nextProfile(),prop=profile.prop??this.compositions[familyIndex(this.sim.selected)];
         return {
             ...propProjectionDiagnostics(prop,r?.padX??profile.padX!, (x,y)=>this.screenPoint(x,y)),
@@ -461,8 +479,8 @@ export class FireworkRenderer {
             visibleLightCount, cinematicExposure: this.renderer.toneMappingExposure, cinemaDither: this.mode !== 'transparent', cameraResponsePixels: [simSafeCamera(this.sim, this.mode, 0), simSafeCamera(this.sim, this.mode, 1)],
             shellScreen: projected ? { x: (projected.x + 1) * this.host.clientWidth / 2, y: (1 - projected.y) * this.host.clientHeight / 2 } : null,
             apexScreen: apex ? { x: (apex.x + 1) * this.host.clientWidth / 2, y: (1 - apex.y) * this.host.clientHeight / 2 } : null,
-            signatureBounds, launchProfile: r?.launchProfile ?? null,
-            flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell: point } : null,
+            effectBounds:effectEnvelope(this.sim.heads,(x,y,z)=>this.screenPoint(x,y,z)),signatureBounds, launchProfile: r?.launchProfile ?? null,
+            flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, z:r.z, vz:r.vz, phase:r.phase, fuse:r.fuse, y: r.y, vy: r.vy, top: r.top, family: r.family, shell: point } : null,
         };
     }
     dispose() {

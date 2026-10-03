@@ -176,3 +176,8 @@ The isolated configuration is `wrangler.open-sky-preview.jsonc`; it has no produ
 ## Always Play
 
 The [implementation receipt](docs/evidence/always-play-2026-10-02/IMPLEMENTATION.md) records the bounded four-pace director and current qualification. Unit checks are in `npm test`; `tests/always-play-soak.mjs`, `tests/always-play-browser.mjs` and `tests/always-play-performance.mjs` provide logical endurance, native interaction and sequential timing/video evidence. Use `ALWAYS_URL` for the isolated preview. CI uses explicitly labeled software WebGL/Canvas; physical-phone and flash-conformance claims require their own evidence.
+
+
+## Legacy realism qualification
+
+`npm run test:legacy-realism` captures all thirteen effects in four viewport sizes through forced WebGL and Canvas. See [the implementation and qualification record](docs/evidence/legacy-realism-2026-10-04/IMPLEMENTATION.md). Serve an immutable build, set `LEGACY_URL` to its origin, and use `LEGACY_VALIDATE=1` for composition assertions. `LEGACY_VIDEO=1` records labelled fixed-clock moving sequences. Native installed-Chrome checks require `LEGACY_HARDWARE=1` and an explicitly requested backend; they are not physical-phone or GPU timing evidence.
