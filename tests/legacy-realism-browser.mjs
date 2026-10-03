@@ -6,7 +6,7 @@ const out=process.argv[2]||'test-results/legacy-realism';await mkdir(out,{recurs
 const ids=['gold-willow','multicolor-peony','chrysanthemum','silver-crossette-crackle','grand-finale','aurora-crown','ruby-dahlia','sapphire-saturn','phoenix-palm','opal-supernova','imperial-crown','celestial-aurora','royal-phoenix'];
 const views=[[1280,800],[393,851],[320,480],[844,390]];
 const hardware=process.env.LEGACY_HARDWARE==='1',quality=process.env.LEGACY_QUALITY||'ultra';
-const report={base,quality,hardware,seed:20261004,method:hardware?'Installed Chrome native GPU, viewport emulation and fixed-clock phase sampling; not physical phone or GPU timing':'Deterministic fixed-clock captures and condensed browser video; software WebGL/Canvas, phone emulation; not GPU timing',cases:[],errors:[],failed:null};
+const report={base,quality,hardware,seed:20261004,phaseZero:120,method:hardware?'Installed Chrome native GPU, viewport emulation and fixed-clock phase sampling; not physical phone or GPU timing':'Deterministic fixed-clock captures and condensed browser video; software WebGL/Canvas, phone emulation; not GPU timing',cases:[],errors:[],failed:null};
 const browser=await chromium.launch(hardware?{channel:'chrome',headless:true}:{headless:true,args:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
 let activePage;
 try{
@@ -21,12 +21,14 @@ try{
    await page.evaluate(()=>window.__firecrackersQA.freeze(true));
    const snap=()=>page.evaluate(()=>window.__firecrackersQA.snapshot());
    const advance=seconds=>page.evaluate(seconds=>window.__firecrackersQA.advance(seconds),seconds);
+   await advance(Math.max(0,120-(await snap()).time-1e-8));
+   assert.ok(Math.abs((await snap()).time-120)<1/60+.00001,'Common fixed-clock scene time before each launch');
    const entry={name,id,phases:[],resources:{heads:0,trails:0,reservations:0,smoke:0,embers:0}};report.cases.push(entry);
    assert.equal((await snap()).backend,backend==='canvas'?'Canvas 2D · compatibility':backend==='webgpu'?'WebGPU':'WebGL 2');
    if(hardware&&backend==='webgpu'&&!report.adapter){report.adapter=await page.evaluate(async()=>{const a=await navigator.gpu.requestAdapter();return {vendor:a.info.vendor,architecture:a.info.architecture,fallback:a.info.isFallbackAdapter};});assert.equal(report.adapter.fallback,false);}
    await page.locator(`[data-family-icon="${id}"]`).click();await advance(.8);
    const flight=(await snap()).flight;assert.ok(flight);
-   const advanceMotion=async seconds=>{if(process.env.LEGACY_VIDEO==='1'&&width===1280){while(seconds>.12){await advance(.12);await page.screenshot();seconds-=.12;}}if(seconds>0)await advance(seconds);};
+   const advanceMotion=async seconds=>{if(process.env.LEGACY_VIDEO==='1'&&width===1280){while(seconds>.10){await advance(.10);await page.screenshot();seconds-=.10;}}if(seconds>0)await advance(seconds);};
    const capture=async phase=>{
     const s=await snap();for(const [key,value]of Object.entries({heads:s.headCount,trails:s.trailCount,reservations:s.futureHeads,smoke:s.smoke,embers:s.embers}))entry.resources[key]=Math.max(entry.resources[key],value);
     if(process.env.LEGACY_VALIDATE==='1')for(const b of s.effectBounds){const r=s.stageLayout.unobstructedScene;assert.ok(b.left>=r.x-1&&b.right<=r.x+r.width+1&&b.top>=r.y-1&&b.bottom<=r.y+r.height+1,JSON.stringify({name,id,phase,b,r}));}
