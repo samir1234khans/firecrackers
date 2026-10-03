@@ -41,6 +41,13 @@ try{
    await advanceMotion(Math.max(0,flight.ascent-(await snap()).flight.age+.08));await capture('opening');
    if(process.env.LEGACY_VIDEO==='1'&&width===1280){for(let j=0;j<18;j++){await advance(.15);await page.screenshot();}}else await advance(2.7);
    await capture('developed');await advanceMotion(id==='opal-supernova'?4.6:3.4);await capture('residue');
+   if(process.env.LEGACY_VIDEO==='1'&&width===1280){
+    const active=s=>s.headCount+s.futureHeads+s.trailCount+s.embers+s.carriers;
+    let terminal=await snap();
+    for(let tail=0;tail<48&&active(terminal)>0;tail++){await advance(.5);await page.screenshot();terminal=await snap();}
+    assert.equal(active(terminal),0,'Moving sequence reaches the last star, child, trail and detached ember');
+    entry.motionTerminal={time:terminal.time,heads:terminal.headCount,reservations:terminal.futureHeads,trails:terminal.trailCount,embers:terminal.embers,carriers:terminal.carriers};
+   }
    await advance(40);const clean=await snap();assert.equal(clean.headCount+clean.futureHeads+clean.trailCount+clean.smoke+clean.embers+clean.carriers,0);
    if(!report.release)report.release=await page.evaluate(()=>fetch('/release.json').then(r=>r.json()));
   }
