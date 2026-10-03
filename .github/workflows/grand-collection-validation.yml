@@ -122,7 +122,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        width: [1280, 393, 320, 844]
+        include:
+          - { width: 393, label: '393' }
+          - { width: 320, label: '320' }
+          - { width: 844, label: '844' }
+          - { width: 1280, label: '1280-webgl-classics', backend: webgl, families: 'gold-willow,multicolor-peony,chrysanthemum,silver-crossette-crackle,grand-finale' }
+          - { width: 1280, label: '1280-webgl-grand', backend: webgl, families: 'aurora-crown,ruby-dahlia,sapphire-saturn,phoenix-palm,opal-supernova' }
+          - { width: 1280, label: '1280-webgl-signature', backend: webgl, families: 'imperial-crown,celestial-aurora,royal-phoenix' }
+          - { width: 1280, label: '1280-canvas-classics', backend: canvas, families: 'gold-willow,multicolor-peony,chrysanthemum,silver-crossette-crackle,grand-finale' }
+          - { width: 1280, label: '1280-canvas-grand', backend: canvas, families: 'aurora-crown,ruby-dahlia,sapphire-saturn,phoenix-palm,opal-supernova' }
+          - { width: 1280, label: '1280-canvas-signature', backend: canvas, families: 'imperial-crown,celestial-aurora,royal-phoenix' }
     steps:
       - uses: actions/checkout@v4
         with:
@@ -145,13 +154,15 @@ jobs:
         env:
           LEGACY_URL: http://127.0.0.1:4173/
           LEGACY_VIEW: ${{ matrix.width }}
+          LEGACY_BACKENDS: ${{ matrix.backend || 'webgl,canvas' }}
+          LEGACY_FAMILIES: ${{ matrix.families }}
           LEGACY_VALIDATE: '1'
           LEGACY_VIDEO: '1'
         run: npm run test:legacy-realism -- /tmp/legacy-realism-evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: legacy-realism-${{ matrix.width }}-evidence
+          name: legacy-realism-${{ matrix.label }}-evidence
           path: |
             /tmp/legacy-realism-evidence
             /tmp/legacy-server.log
