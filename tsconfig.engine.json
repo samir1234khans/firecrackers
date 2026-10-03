@@ -11,7 +11,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/engine/catalog.ts", "src/platform/preferences.ts",
+    "src/engine/catalog.ts",
+    "src/platform/preferences.ts",
     "src/engine/Pool.ts",
     "src/engine/Simulation.ts",
     "src/engine/Trails.ts",
@@ -23,6 +24,18 @@
     "src/engine/RendererRecovery.ts",
     "src/engine/StartupProgress.ts",
     "src/engine/SkyState.ts",
-    "src/graphics/CelestialScene.ts", "src/graphics/MoonComposition.ts", "src/graphics/WaterWaves.ts", "src/graphics/PlanarReflection.ts", "src/graphics/WaterReflection.ts", "src/graphics/ParticleReflectionBounds.ts"
+    "src/graphics/CelestialScene.ts",
+    "src/graphics/MoonComposition.ts",
+    "src/graphics/WaterWaves.ts",
+    "src/graphics/PlanarReflection.ts",
+    "src/graphics/WaterReflection.ts",
+    "src/graphics/ParticleReflectionBounds.ts",
+    "src/engine/SmokeCanopy.ts",
+    "src/engine/SoundProfiles.ts",
+    "src/engine/RenderBudget.ts",
+    "src/experience/ShowRecipe.ts",
+    "src/experience/NightLibrary.ts",
+    "src/experience/SceneCapture.ts",
+    "src/experience/SessionDiagnostics.ts"
   ]
 }

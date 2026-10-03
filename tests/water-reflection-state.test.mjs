@@ -111,7 +111,7 @@ test('paused comfort and wave-setting changes refresh poses without bypassing ph
 });
 test('desktop and portrait reflection rates bound submissions independently of target resolution', () => {
   for (const [aspect, quality, rate, cap] of [[1.6, 'ultra', 15, 512], [1.6, 'standard', 15, 256],
-    [.5, 'ultra', 12, 384], [.5, 'standard', 10, 256]]) {
+    [.5, 'ultra', 12, 384], [.5, 'standard', 10, 256], [1.6, 'low', 6, 128], [.5, 'low', 6, 128]]) {
     const f = fixture();
     try {
       f.camera.aspect = aspect; f.camera.updateProjectionMatrix(); f.water.resize(f.camera);
@@ -149,13 +149,13 @@ test('quality, resize and visibility enforce one lazy target or no target', () =
   try {
     assert.equal(f.water.target, null);
     f.sim.quality = 'low'; f.water.update(f.renderer, f.scene, f.camera, f.sim, true, false, f.orient);
-    assert.equal(f.water.target, null); assert.equal(f.water.diagnostics().reflectionHz, 0);
+    assert.ok(f.water.target); assert.equal(f.water.target.width, 128); assert.equal(f.water.diagnostics().reflectionHz, 6);
     f.sim.quality = 'ultra'; f.water.update(f.renderer, f.scene, f.camera, f.sim, true, true, f.orient);
     const target = f.water.target; assert.equal(target.width, 512);
     assert.equal(target.height, Math.round(320 * f.water.diagnostics().reflectionCropHeight));
     assert.ok(target.height < 320, 'allocate only water rows at the same sampling density');
     f.sim.time += .01; f.water.update(f.renderer, f.scene, f.camera, f.sim, true, true, f.orient);
-    assert.equal(f.state.renders, 1, 'throttle suppresses an early update');
+    assert.equal(f.state.renders, 2, 'throttle suppresses an early update after the Low-to-Ultra refresh');
     f.camera.aspect = .5; f.camera.updateProjectionMatrix(); f.water.resize(f.camera);
     f.water.update(f.renderer, f.scene, f.camera, f.sim, true, true, f.orient);
     assert.equal(f.water.target, target); assert.equal(target.width, 192);

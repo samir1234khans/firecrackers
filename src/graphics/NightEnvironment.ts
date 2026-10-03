@@ -1,3 +1,4 @@
+import { burstLightEnergy } from '../engine/BurstLighting.js';
 import * as THREE from 'three/webgpu';
 import { Fn, If, cos, positionWorld, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
@@ -319,12 +320,12 @@ export class NightEnvironment {
     if (this.terrace) this.terrace.visible = visible;
     let energy = 0, r = 0, g = 0, b = 0;
     for (const light of sim.lights) {
-      const e = Math.exp(-light.age * 1.7) * light.strength;
+      const e = burstLightEnergy(light, sim.reducedFlashes);
       energy += e; r += light.r * e; g += light.g * e; b += light.b * e;
     }
     if (energy > .001) this.washMaterial.color.setRGB(r / energy, g / energy, b / energy);
-    this.washMaterial.opacity = Math.min(.18, energy * (sim.reducedFlashes ? .08 : .12));
-    this.wetEdgeMaterial.emissive.setRGB(.006 + r * .012, .010 + g * .012, .016 + b * .012);
+    this.washMaterial.opacity = .32 * energy / (1 + energy);
+    this.wetEdgeMaterial.emissive.setRGB(.006 + r * .045 / (1 + energy), .010 + g * .045 / (1 + energy), .016 + b * .045 / (1 + energy));
   }
 
   private makeSky() {

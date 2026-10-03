@@ -1,10 +1,10 @@
 /** Versioned virtual-animation parameters, not physical firework specifications. */
-export const CONFIG_VERSION = '2026-10-02.3';
+export const CONFIG_VERSION = '2026-10-03.2';
 export const FAMILIES = [
     { id: 'gold-willow', name: 'Gold Willow', short: 'Willow', note: 'A slow-falling canopy of gold.', color: '#eac17a', count: 192, speed: 25, life: 7.8, drag: 0.41, gravity: 4.3, trail: 3.1, cost: 1, ascent: 2.2 },
-    { id: 'multicolor-peony', name: 'Multicolor Peony', short: 'Peony', note: 'A crisp sphere of jewel-like stars.', color: '#dd819d', count: 248, speed: 24, life: 2.7, drag: 0.66, gravity: 2.8, trail: 0.14, cost: 1, ascent: 1.9 },
+    { id: 'multicolor-peony', name: 'Multicolor Peony', short: 'Peony', note: 'A crisp sphere of jewel-like stars.', color: '#dd819d', count: 248, speed: 30, life: 4.6, drag: 0.50, gravity: 2.8, trail: 0.65, cost: 1, ascent: 1.9 },
     { id: 'chrysanthemum', name: 'Chrysanthemum', short: 'Chrysanthemum', note: 'Radiant copper rays with ruby tips.', color: '#ed9b69', count: 192, speed: 25, life: 4.8, drag: 0.50, gravity: 3.1, trail: 1.7, cost: 1, ascent: 2.1 },
-    { id: 'silver-crossette-crackle', name: 'Silver Crossette Crackle', short: 'Crossette', note: 'Silver stars open into four smaller trails.', color: '#c2d9e6', count: 32, speed: 19, life: 3.2, drag: 0.38, gravity: 3.0, trail: 0.9, cost: 1, ascent: 2.0 },
+    { id: 'silver-crossette-crackle', name: 'Silver Crossette Crackle', short: 'Crossette', note: 'Silver stars open into four smaller trails.', color: '#c2d9e6', count: 64, speed: 23, life: 4.2, drag: 0.38, gravity: 3.0, trail: 1.25, cost: 1, ascent: 2.0 },
     { id: 'grand-finale', name: 'Grand Finale', short: 'Finale', note: 'A constellation of bursts. A golden ending.', color: '#c5a4dc', count: 1, speed: 18, life: 7.2, drag: 0.43, gravity: 3.2, trail: 2.9, cost: 3, ascent: 2.4 },
     { id: 'aurora-crown', name: 'Aurora Crown', short: 'Aurora', note: 'A jade crown opens around a violet heart, then falls into mint and lilac.', color: '#6de3ba', count: 320, speed: 28, life: 6.4, drag: .48, gravity: 3.4, trail: 2.0, cost: 2, ascent: 2.3 },
     { id: 'ruby-dahlia', name: 'Ruby Dahlia', short: 'Dahlia', note: 'Twelve ruby and rose petals surround a sparkling champagne center.', color: '#fb789d', count: 360, speed: 30, life: 5.5, drag: .52, gravity: 3.3, trail: 1.7, cost: 2, ascent: 2.3 },
@@ -44,7 +44,10 @@ export function hash01(id: number, salt = 0) {
 /** Peak reservations include still-unborn leaves and composite children at Ultra. */
 export function familyReservation(family: number): number {
     if (family >= 5) return [420, 480, 520, 420, 980, 720, 700, 640][family - 5] ?? 0;
-    return family === 4 ? 900 : family === 3 ? 160 : Math.ceil((FAMILIES[family]?.count || 0) * 1.2);
+    // The finale's primary and all five unborn breaks are reserved at Ultra.
+    // Derive this from recipes so a denser Crossette cannot silently over-admit.
+    if (family === 4) return 3 * familyReservation(1) + familyReservation(2) + familyReservation(3) + familyReservation(0);
+    return family === 3 ? Math.round(FAMILIES[3].count * 1.2) * 4 : Math.ceil((FAMILIES[family]?.count || 0) * 1.2);
 }
 export const splitChildCount = (family: number) => family === 8 ? 5 : 4;
 export const familyKeyIndex = (key: string) => /^[0-9]$/.test(key) ? (key === '0' ? 9 : Number(key) - 1) : -1;

@@ -97,7 +97,10 @@ try {
             await openPicker(page); await page.getByRole('button', { name: 'Grand collection', exact: false }).click();
             assert.equal((await snapshot(page)).selected, 'gold-willow', 'Browsing tabs does not commit a selection');
             await page.getByRole('button', { name: 'Close panel' }).click();
-            await page.locator('body').click({ position: { x: device.width / 2, y: 24 } });
+            // The top-centre point now belongs to Browse on phones. Focus a real
+            // empty sky point before testing global shortcuts, without opening a dialog.
+            await page.locator('body').click({ position: { x: device.width / 2, y: 120 } });
+            assert.equal(await page.locator('main').getAttribute('data-overlay'), 'none');
             for (const [i, key] of ['6', '7', '8', '9', '0'].entries()) { await page.keyboard.press(key); assert.equal((await snapshot(page)).selected, ids[i]); }
             await page.keyboard.press('1'); assert.equal((await snapshot(page)).selected, 'gold-willow');
             await page.keyboard.press('8');
@@ -121,5 +124,6 @@ try {
     report.failed = error.stack || String(error); console.error(report.failed); process.exitCode = 1;
     if (current) { await shot(current, 'FAILED').catch(() => {}); await writeFile(path.join(output, 'FAILED.html'), await current.content()).catch(() => {}); }
 } finally {
-    await browser?.close(); await writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2));
+    if (browser) await browser.close();
+    await writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2));
 }

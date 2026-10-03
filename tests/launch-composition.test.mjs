@@ -24,7 +24,13 @@ for (const [width,height] of viewports) test(`screen apex and grounded terrace $
     const profile = resolveScreenLaunchProfile(layout,family.id,scale,y=>16+(baseline-y)/scale);
     for (const apex of [profile.apex,profile.apexMin,profile.apexMax]) {
       const fraction = (baseline-(apex+SHELL_LOCAL_Y*ROCKET_SCALE[1]-16)*scale)/layout.heroRect.height;
-      assert.ok(fraction >= .31-1e-9 && fraction <= .37+1e-9, `${family.id}: ${fraction}`);
+      if (family.id === 'grand-finale') {
+        const skyBottom = Math.min(layout.heroRect.height, waterY) - 10;
+        const center = fraction * layout.heroRect.height;
+        assert.ok(center >= skyBottom * .388 - 1e-7 && center <= skyBottom * .412 + 1e-7, 'finale uses the visible sky, not the old 37% scene cap');
+        assert.ok(center - 65 * profile.effectScale * scale * 1.2 >= 0, 'principal crown clears the top');
+        assert.ok(center + 112 * profile.effectScale * scale * 1.2 <= waterY, 'falling shell remains above the shore');
+      } else assert.ok(fraction >= .31-1e-9 && fraction <= .37+1e-9, `${family.id}: ${fraction}`);
       assert.ok(apex > 16+10);
     }
   }

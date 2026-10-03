@@ -1,3 +1,6 @@
+import { RecipePlayer } from '../experience/RecipePlayer.js';
+import { smokeLayer } from './SmokeCanopy.js';
+import { BURST_LIGHT_CAPACITY, BURST_LIGHT_LIFETIME } from './BurstLighting.js';
 import { BUDGETS, FAMILIES, clamp, familyIndex, familyReservation, splitChildCount, hash01, randomStream } from './catalog.js';
 import type { FamilyId, Quality, ShowPreset } from './catalog.js';
 import type { LaunchProfile } from './LaunchProfile.js';
@@ -94,6 +97,8 @@ export class Simulation {
     holding = false;
     holdProgress = 0;
     readonly always: AlwaysPlayDirector;
+    readonly personal: RecipePlayer;
+    private finiteEnded = false;
     show: ShowPreset | null = null;
     launched = 0;
     bursts = 0;
@@ -119,8 +124,9 @@ export class Simulation {
     private placementRng: () => number;
     private launchProfileResolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null = null;
     setLaunchProfileResolver(resolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
-    constructor(readonly seed = 20260916) {
+    constructor(public seed = 20260916) {
         this.always = new AlwaysPlayDirector(seed);
+        this.personal = new RecipePlayer(this);
         this.launchRng = randomStream(seed);
         this.showRng = randomStream(seed ^ 0x5bf03635);
         this.smokeRng = randomStream(seed ^ 0x34167829);
@@ -250,7 +256,7 @@ export class Simulation {
         const family = familyIndex(id);
         if (!this.ignite('manual', family, this.placement)) return false;
         const rocket = this.committed!;
-        if (family >= 10) rocket.launchProfile = Object.freeze({ ...(rocket.launchProfile ?? { apex: y, apexMin: y, apexMax: y, centerFraction: .34 }), effectScale });
+        if (family === 4 || family >= 10) rocket.launchProfile = Object.freeze({ ...(rocket.launchProfile ?? { apex: y, apexMin: y, apexMax: y, centerFraction: .34 }), effectScale, ...(family === 4 ? { finaleSpread: 0 } : {}) });
         this.events = this.events.filter(event => event.type !== 'fuse');
         rocket.x = x; rocket.y = y - (rocket.launchProfile?.prop?.shellOffset ?? SHELL_LOCAL_Y * ROCKET_SCALE[1]); rocket.z = 0;
         rocket.vx = rocket.vy = rocket.vz = 0;
@@ -267,6 +273,7 @@ export class Simulation {
         if (value) this.events = [];
     }
     startShow(preset: ShowPreset) {
+        this.personal.clear(); this.finiteEnded = false;
         this.cancelHold();
         this.paused = false;
         this.show = preset;
@@ -276,11 +283,14 @@ export class Simulation {
         this.message = preset === 'finale' ? 'A finale, then a quiet sky.' : 'The night is in good hands.';
     }
     stopShow(announce = true) {
+        this.personal.cancel(); this.finiteEnded = false;
         if (this.show && announce) this.message = 'Automatic show stopped. The sky is yours.';
         this.show = null;
         this.always.family = -1;
     }
-    reset() {
+    reset(seed = this.seed) {
+        if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff) throw new Error('Invalid simulation seed');
+        this.seed = seed; this.personal.clear(); this.finiteEnded = false;
         this.signatureStages.fill(0);
         this.heads.clear();
         this.trails.clear();
@@ -323,6 +333,8 @@ export class Simulation {
     drainEvents() { const e = this.events; this.events = []; return e; }
     snapshot() {
         return {
+            personal: this.personal.snapshot(),
+            showTiming: { preset: this.show ?? (this.finiteEnded ? 'finale' : null), elapsed: Math.max(0, Math.floor(this.time - this.showStart)), duration: this.show === 'finale' || this.finiteEnded ? 32 : null, complete: this.finiteEnded && this.phase === 'ready' && !this.smoke.count && !this.rockets.length },
             always: this.always.snapshot(), futureHeads: this.futureHeads, activeUnits: this.activeUnits, headCount: this.heads.count, trailCount: this.trails.count,
             ready: this.ready, paused: this.paused, selected: this.selected, placement: this.placement,
             placementMode: this.placementMode, nextPlacement: this.placement, committedPlacement: this.committed?.normalizedPlacement ?? null,
@@ -349,6 +361,7 @@ export class Simulation {
             this.holdProgress += dt / 0.65;
             if (this.holdProgress >= 1) this.ignite();
         }
+        this.personal.tick();
         if (this.show) this.directShow();
         this.trails.advance(dt, this.wind);
         this.moveHeads(dt);
@@ -356,7 +369,7 @@ export class Simulation {
         this.moveEmbers(dt);
         for (let i = this.lights.length - 1; i >= 0; i--) {
             this.lights[i].age += dt;
-            if (this.lights[i].age > 4.5) this.lights.splice(i, 1);
+            if (this.lights[i].age >= BURST_LIGHT_LIFETIME) this.lights.splice(i, 1);
         }
         for (let i = this.rockets.length - 1; i >= 0; i--) {
             const r = this.rockets[i];
@@ -454,7 +467,7 @@ export class Simulation {
             return;
         }
         if (this.show === 'finale' && this.time - this.showStart >= 32) {
-            this.stopShow(false);
+            this.show = null; this.finiteEnded = true;
             this.message = 'Finale complete. Stay for the embers.';
             return;
         }
@@ -481,15 +494,22 @@ export class Simulation {
             return;
         }
         const rand = randomStream(r.seed);
+        const composition = r.launchProfile?.effectScale ?? 1;
+        // A real full shell opens first; every later break comes from a moving carrier.
+        this.burst(1, x, y, z, composition * 1.12, r.seed);
         const groups = this.reducedFlashes ?
-            [{ f: 1, t: 0.35 }, { f: 2, t: 1.10 }, { f: 1, t: 1.85 }, { f: 3, t: 2.60 }, { f: 0, t: 3.50 }] :
-            [{ f: 1, t: 0.35 }, { f: 2, t: 0.80 }, { f: 1, t: 1.20 }, { f: 3, t: 1.60 }, { f: 0, t: 2.25 }];
-        this.emit('burst', x, y, z, 4, 0.5);
+            [{ f: 1, t: 1.15 }, { f: 2, t: 2.00 }, { f: 1, t: 2.85 }, { f: 3, t: 3.70 }, { f: 0, t: 4.55 }] :
+            [{ f: 1, t: .85 }, { f: 2, t: 1.45 }, { f: 1, t: 2.05 }, { f: 3, t: 2.70 }, { f: 0, t: 3.50 }];
+        const spread = r.launchProfile?.finaleSpread ?? 34 * composition;
+        const lanes = [-.82, .82, -.40, .42, 0];
         for (let j = 0; j < groups.length; j++) {
             const g = groups[j];
+            const drift = 5 + rand() * 5;
             this.cues.push({ id: this.nextObjectId++, at: this.time + g.t, family: g.f, x, y, z,
-                vx: (j % 2 ? -1 : 1) * (5 + rand() * 5), vy: 2 + rand() * 5, vz: (rand() - 0.5) * 8,
-                scale: j === 4 ? 0.83 : 0.56, seed: Math.floor(rand() * 0xffffffff), reserve: j === 4 ? 230 : 155 });
+                vx: lanes[j] * spread / g.t + (j === 4 ? 0 : (j % 2 ? 1 : -1) * drift * composition * .1),
+                vy: (2 + rand() * 5) * composition, vz: (rand() - .5) * 8 * composition,
+                gravity: 3.2 * composition, scale: (j === 4 ? .75 : .62) * composition,
+                seed: Math.floor(rand() * 0xffffffff), reserve: familyReservation(g.f) });
         }
     }
     private burst(family: number, x: number, y: number, z: number, scale: number, seed: number, mx = 0, my = 0, mz = 0, variant = -1) {
@@ -498,7 +518,7 @@ export class Simulation {
             return;
         }
         const f = FAMILIES[family], rand = randomStream(seed);
-        const n = Math.round(f.count * BUDGETS[this.quality].scale * (scale < 1 ? 0.58 : 1));
+        const n = Math.round(f.count * BUDGETS[this.quality].scale);
         const rotate = rand() * Math.PI * 2, palette = Math.floor(rand() * 3);
         let lightR = 0, lightG = 0, lightB = 0;
         for (let i = 0; i < n; i++) {
@@ -506,7 +526,7 @@ export class Simulation {
             const theta = i * 2.399963229728653 + rotate + (rand() - 0.5) * 0.52;
             const vertical = clamp(1 - 2 * (i + 0.5) / n + (rand() - 0.5) * 0.16, -1, 1);
             const radial = Math.sqrt(Math.max(0, 1 - vertical * vertical));
-            const speed = f.speed * scale * (0.74 + rand() * 0.48);
+            const speed = f.speed * scale * (0.74 + rand() * 0.48) * (family === 1 && i % 7 === 0 ? .48 : 1);
             let r = 1, g = 0.38 + rand() * 0.26, b = 0.055 + rand() * .035;
             if (family === 1) {
                 const sector = Math.floor(((theta % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2)) / (Math.PI * 2) * 6);
@@ -515,14 +535,14 @@ export class Simulation {
             }
             if (family === 2) { g = 0.40 + rand() * 0.24; b = 0.10; }
             if (family === 3) { r = 0.83; g = 0.91; b = 1; }
-            this.heads.add(x, y, z, Math.cos(theta) * radial * speed + mx, vertical * speed + my, Math.sin(theta) * radial * speed + mz, f.life * (0.84 + rand() * 0.24), r, g, b, family === 1 ? 0.13 : 0.105, f.drag, f.gravity, f.trail, family === 3 ? 0.95 + rand() * 0.40 : 0, family);
+            this.heads.add(x, y, z, Math.cos(theta) * radial * speed + mx, vertical * speed + my, Math.sin(theta) * radial * speed + mz, f.life * (0.84 + rand() * 0.24), r, g, b, family === 1 ? .19 : .155, f.drag, f.gravity * scale, f.trail, family === 3 ? 0.95 + rand() * 0.40 : 0, family);
             lightR += r;
             lightG += g;
             lightB += b;
         }
         this.bursts++;
-        this.emit('burst', x, y, z, family, scale);
-        if (this.lights.length < 12) this.lights.push({ x, y, z, age: 0, r: lightR / n, g: lightG / n, b: lightB / n, strength: scale });
+        this.emit('burst', x, y, z, family, Math.min(1, scale));
+        if (this.lights.length < BURST_LIGHT_CAPACITY) this.lights.push({ x, y, z, age: 0, r: lightR / n, g: lightG / n, b: lightB / n, strength: Math.max(.65, Math.min(1, scale)) });
         const layers = this.quality === 'low' ? 4 : 7;
         for (let i = 0; i < layers; i++) this.addSmoke(x + (rand() - 0.5) * 15 * scale, y + (rand() - 0.5) * 12 * scale, z + (rand() - 0.5) * 14 * scale, (4 + rand() * 5) * scale, 0.48 + rand() * 0.26, 2);
         if (!this.show) this.message = 'Stay for the falling embers.';
@@ -545,7 +565,7 @@ export class Simulation {
         // Staggered colored reports, never a full-screen strobe or amplified volume.
         const energy = family >= 10 ? (stage ? .30 : .70) : 1;
         this.emit('burst', x, y, z, family, Math.min(1, scale) * energy);
-        if (this.lights.length < 12) this.lights.push({ x, y, z, age: 0,
+        if (this.lights.length < BURST_LIGHT_CAPACITY) this.lights.push({ x, y, z, age: 0,
             r: recipe.light[0], g: recipe.light[1], b: recipe.light[2], strength: Math.min(1, scale) * energy });
         const random = randomStream(seed ^ 0x49e);
         const layers = palette >= 0 ? 2 : this.quality === 'low' ? 4 : 7;
@@ -609,11 +629,13 @@ export class Simulation {
         const wx = ny * uz - nz * uy, wy = nz * ux - nx * uz, wz = nx * uy - ny * ux;
         const angle = hash01(id, 831) * Math.PI * 2;
         const family = p.family[i], count = splitChildCount(family);
+        const splitScale = family === 3 ? clamp(length / 20, .20, 1.20) : 1;
+        const kick = family === 3 ? 13 * splitScale : 8;
         p.remove(i);
         for (let k = 0; k < count; k++) {
-            const a = angle + k * Math.PI * 2 / count, c = Math.cos(a) * 8, s = Math.sin(a) * 8;
+            const a = angle + k * Math.PI * 2 / count, c = Math.cos(a) * kick, s = Math.sin(a) * kick;
             const tone = family === 8 ? [1, .19 + k * .04, .35] : [.84, .93, 1];
-            p.add(x, y, z, vx * 0.55 + ux * c + wx * s, vy * 0.55 + uy * c + wy * s, vz * 0.55 + uz * c + wz * s, 1.8 + hash01(id, k) * 0.6, tone[0], tone[1], tone[2], family === 8 ? .11 : .085, .65, 3.1, .95, 0, family);
+            p.add(x, y, z, vx * 0.55 + ux * c + wx * s, vy * 0.55 + uy * c + wy * s, vz * 0.55 + uz * c + wz * s, (family === 3 ? 2.7 : 1.8) + hash01(id, k) * 0.6, tone[0], tone[1], tone[2], family === 8 ? .11 : .145, .65, 3.1 * splitScale, family === 3 ? 1.4 : .95, 0, family);
         }
         if (id % 8 === 0) this.emit('crackle', x, y, z, family, .3);
     }
@@ -635,7 +657,17 @@ export class Simulation {
         if (this.smoke.count >= BUDGETS[this.quality].smoke) return;
         const rand = this.smokeRng;
         const i = this.smoke.add(x, y, z, 0.6 + rand() * 0.35, 0.3 + rand() * 0.3, (rand() - 0.5) * 0.3, kind === 0 ? 1.3 + rand() : kind === 1 ? 4 + rand() * 2 : 10 + rand() * 5, 0.08, 0.09, 0.12, size, 0, opacity, 0, 0, kind);
-        if (i >= 0) this.smoke.angle[i] = rand() * Math.PI * 2;
+        if (i >= 0) {
+            this.smoke.angle[i] = rand() * Math.PI * 2;
+            if (kind === 2) {
+                const layer = smokeLayer(this.smoke.id[i]);
+                this.smoke.z[i] += (layer - 1) * 9;
+                this.smoke.size[i] *= .86 + layer * .14;
+                this.smoke.life[i] *= .86 + layer * .12;
+                this.smoke.vx[i] *= 1.15 - layer * .16;
+                this.smoke.vy[i] *= .78 + layer * .17;
+            }
+        }
     }
     private moveSmoke(dt: number) {
         const p = this.smoke;
@@ -643,10 +675,12 @@ export class Simulation {
             p.age[i] += dt;
             if (p.age[i] >= p.life[i]) { p.remove(i); continue; }
             p.x[i] += (this.wind + p.vx[i] + Math.sin(this.time * 0.35 + p.id[i]) * 0.14) * dt;
-            p.y[i] += p.vy[i] * dt;
-            p.z[i] += p.vz[i] * dt;
-            p.size[i] += dt * (p.family[i] === 0 ? .22 : p.family[i] === 1 ? .55 : .68);
-            p.angle[i] += dt * 0.018;
+            const layer = smokeLayer(p.id[i]);
+            const eddy = p.family[i] === 2 ? Math.sin(p.age[i] * .32 + p.x[i] * .08 + layer) : 0;
+            p.y[i] += (p.vy[i] + eddy * .20) * dt;
+            p.z[i] += (p.vz[i] + Math.cos(p.age[i] * .24 + p.y[i] * .09) * .12) * dt;
+            p.size[i] += dt * (p.family[i] === 0 ? .22 : p.family[i] === 1 ? .55 : (.58 + layer * .08) * Math.exp(-p.age[i] * .025));
+            p.angle[i] += dt * (.012 + layer * .008);
         }
     }
 }

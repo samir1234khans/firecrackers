@@ -1,5 +1,9 @@
 # Agent instructions — Firecrackers
 
+## Richer night source boundary
+
+See `docs/RICHER-NIGHT-EXPERIENCE.md` and PR #45 for the latest owner-authorised experience work, reconciliation and exact check results. Preserve draft #33's separate musical-score release hold. Never infer a deployment from main promotion or claim its held 90-second scores are included in the main-compatible 32-second Finale.
+
 ## Current source and scope
 
 Work only in `samir1234khans/firecrackers` and its explicitly selected checkout. Fetch current refs and inspect the worktree, README, PROJECT_STATUS, DEVELOPMENT and docs/README before editing. Following the owner's authorized Grand Collection promotion, **main is the canonical thirteen-effect application baseline**. Start new feature/fix branches from current main and submit pull requests back to main. `feat/grand-collection` and the earlier recovery and realism branches preserve delivery history; they are not competing current integration targets.

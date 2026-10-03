@@ -1,3 +1,5 @@
+import { canopyAlpha, canopyStretch, illuminateSmoke } from '../engine/SmokeCanopy.js';
+import { BURST_LIGHT_CAPACITY, burstLightEnergy, gatherBurstLighting, limitBurstRadiance } from '../engine/BurstLighting.js';
 import { measureStage, stageFraming, waterfrontHorizon } from '../engine/StageLayout';
 import type { StageLayout } from '../engine/StageLayout';
 import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from '../engine/LaunchProfile';
@@ -70,12 +72,31 @@ export class CompatibilityRenderer implements RendererPort {
     private horizon = .72;
     private scale = 1;
     private ratio = 1;
+    private resolutionScale = 1;
+    private readonly canopyLight = new Float32Array(6);
+    private readonly canopyOrder: number[] = [];
+    setResolutionScale(scale: number) { const next = Math.max(.65, Math.min(1, scale)); if (Math.abs(next - this.resolutionScale) > .001) { this.resolutionScale = next; this.setQuality(this.sim.quality); } }
     private disposed = false;
     private initialized = false;
     private staged = 0;
     private airborne = 0;
     private bodies = 0;
     private readonly glows = new Map<string, HTMLCanvasElement>();
+    private readonly burstWash = new Float32Array(7);
+    private readonly tintMask = document.createElement('canvas');
+    private readonly tintContext = this.tintMask.getContext('2d')!;
+    /** Reuse one bounded alpha mask; never paint a coloured rectangle over a boat. */
+    private drawSurfaceTint(image: HTMLCanvasElement, x: number, y: number, width: number, height: number) {
+        const peak = Math.max(this.burstWash[0], this.burstWash[1], this.burstWash[2]);
+        if (peak < .001) return;
+        const mask = this.tintContext, c = this.ctx;
+        mask.clearRect(0, 0, 1024, 128); mask.globalCompositeOperation = 'source-over';
+        mask.drawImage(image, 0, 0); mask.globalCompositeOperation = 'source-in';
+        mask.fillStyle = this.tone(this.burstWash[0] / peak, this.burstWash[1] / peak, this.burstWash[2] / peak);
+        mask.fillRect(0, 0, image.width, image.height);
+        c.save(); c.globalCompositeOperation = 'lighter'; c.globalAlpha = peak * .65;
+        c.drawImage(this.tintMask, 0, 0, image.width, image.height, x, y, width, height); c.restore();
+    }
 
     /** Fixed original silhouettes and sprites are painted once, never generated in the frame loop. */
     private makeRiverArt() {
@@ -272,7 +293,8 @@ export class CompatibilityRenderer implements RendererPort {
                 c.beginPath(); c.moveTo(x, y); c.quadraticCurveTo(x + boat.screenWidth * .06, y + .6,
                     x + boat.screenWidth * (.13 + fragment % 3 * .035), y); c.stroke();
             }
-            c.globalAlpha = 1; c.drawImage(boat.image, -boat.screenWidth / 2, -boat.waterline * scale, boat.screenWidth, boat.image.height * scale); c.restore();
+            c.globalAlpha = 1; c.drawImage(boat.image, -boat.screenWidth / 2, -boat.waterline * scale, boat.screenWidth, boat.image.height * scale);
+            this.drawSurfaceTint(boat.image, -boat.screenWidth / 2, -boat.waterline * scale, boat.screenWidth, boat.image.height * scale); c.restore();
         }
         // Only a small lamp halo; the cached hulls and windows remain darker than firework heads.
         for (let i = 4; i < this.riverArt.lamps.length; i++) {
@@ -285,6 +307,7 @@ export class CompatibilityRenderer implements RendererPort {
         const ctx = this.canvas.getContext('2d', { alpha: true });
         if (!ctx) throw new Error('This browser cannot create a drawing canvas.');
         this.ctx = ctx;
+        this.tintMask.width = 1024; this.tintMask.height = 128;
         // Fixed 128px scratch and mask, never resized or allocated by pointer movement.
         this.starResponse.width = this.starResponse.height = 128;
         this.starResponseMask.width = this.starResponseMask.height = 128;
@@ -333,7 +356,7 @@ export class CompatibilityRenderer implements RendererPort {
     }
     setQuality(quality: Quality) {
         if (this.disposed) return;
-        this.ratio = Math.min(window.devicePixelRatio || 1, BUDGETS[quality].ratio, Math.sqrt(1600000 / (this.width * this.height)));
+        this.ratio = Math.min(window.devicePixelRatio || 1, BUDGETS[quality].ratio, Math.sqrt(1600000 / (this.width * this.height))) * this.resolutionScale;
         this.canvas.width = Math.round(this.width * this.ratio);
         this.canvas.height = Math.round(this.height * this.ratio);
         this.canvas.style.width = `${this.width}px`;
@@ -353,7 +376,7 @@ export class CompatibilityRenderer implements RendererPort {
         const index=familyIndex(id),prop=this.compositions[index],bounds=this.launchBounds[index],scene=this.layout.unobstructedScene;
         const normalizedPlacement=clamp(placement,0,1),padX=bounds.worldMin+normalizedPlacement*(bounds.worldMax-bounds.worldMin);
         const screenX=bounds.screenMin+normalizedPlacement*(bounds.screenMax-bounds.screenMin);
-        const profile=resolveScreenLaunchProfile(this.layout,id,this.scale,y=>this.sim.ground+(this.baseline-y)/this.scale,scene.x+scene.width/2,prop);
+        const profile=resolveScreenLaunchProfile(this.layout,id,this.scale,y=>this.sim.ground+(this.baseline-y)/this.scale,scene.x+scene.width/2,prop,this.height*this.horizon);
         const effectScale=profile.effectScale??1;
         const nearDepthFactor=index>=10?240/Math.max(140,240-65*effectScale):1;
         const aimScreenX=resolveLaunchAimScreenX(this.layout,id,this.scale,screenX,effectScale,nearDepthFactor);
@@ -413,7 +436,22 @@ export class CompatibilityRenderer implements RendererPort {
         c.lineTo(this.width, horizon + 2); c.lineTo(0, horizon + 2); c.fill();
         const shoreHeight = clamp(this.height * .028, 16, 26);
         c.globalAlpha = 1; c.drawImage(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
+        this.drawSurfaceTint(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
         c.save(); c.beginPath(); c.rect(0, horizon + 2, this.width, waterHeight - 2); c.clip(); c.globalCompositeOperation = 'lighter';
+        // Broad shell-coloured incident light is separate from the moon path and
+        // bounded reflected particles. All twelve sources survive Low quality.
+        for (let i = 0; i < Math.min(BURST_LIGHT_CAPACITY, s.lights.length); i++) {
+            const light = s.lights[i], energy = burstLightEnergy(light, s.reducedFlashes);
+            if (energy < .001) continue;
+            const point = this.project(light.x, light.y, light.z);
+            c.save(); c.translate(point.x, horizon + waterHeight * .43);
+            c.scale(Math.max(100, this.width * .48), waterHeight * 1.15);
+            const wash = c.createRadialGradient(0, 0, 0, 0, 0, 1);
+            wash.addColorStop(0, this.tone(light.r, light.g, light.b));
+            wash.addColorStop(.32, this.tone(light.r, light.g, light.b)); wash.addColorStop(1, 'transparent');
+            c.fillStyle = wash; c.globalAlpha = energy * .68 / (1 + this.burstWash[6] * .60);
+            c.fillRect(-1, -1, 2, 2); c.restore();
+        }
         // Low-frequency sky response on long swells retains dark troughs.
         // Twelve finite interrupted patches avoid full-width ruled stripes.
         c.strokeStyle = '#213d58'; c.lineCap = 'round';
@@ -485,6 +523,9 @@ export class CompatibilityRenderer implements RendererPort {
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
         this.drawRiverBoats(); c.globalAlpha = 1;
         c.fillStyle = '#111c27'; c.fillRect(0, terraceY, this.width, this.height * .08);
+        c.save(); c.globalCompositeOperation = 'lighter'; c.globalAlpha = .35;
+        c.fillStyle = this.tone(this.burstWash[0], this.burstWash[1], this.burstWash[2]);
+        c.fillRect(0, terraceY, this.width, this.height * .08); c.restore();
         // A narrow uneven damp seam belongs to the existing terrace edge.
         c.fillStyle = '#07111a'; c.beginPath(); c.moveTo(0, terraceY);
         for (let x = 0; x <= this.width; x += 16) c.lineTo(x, terraceY + 1.8 + Math.sin(x * .047) * .6 + Math.sin(x * .113) * .35);
@@ -558,6 +599,8 @@ export class CompatibilityRenderer implements RendererPort {
     render() {
         if (this.disposed || !this.initialized) return;
         const started = performance.now(), c = this.ctx, s = this.sim;
+        gatherBurstLighting(s.lights, this.burstWash, s.reducedFlashes);
+        limitBurstRadiance(this.burstWash, .50);
         c.setTransform(this.ratio, 0, 0, this.ratio, 0, 0);
         c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
         c.clearRect(0, 0, this.width, this.height);
@@ -619,19 +662,20 @@ export class CompatibilityRenderer implements RendererPort {
         }
         // The smoke is retained and wind-drifted by the same simulation used in 3D.
         const smoke = s.smoke;
-        for (let i = 0; i < smoke.count; i++) {
+        this.canopyOrder.length = smoke.count;
+        for (let i = 0; i < smoke.count; i++) this.canopyOrder[i] = i;
+        this.canopyOrder.sort((a,b) => smoke.z[a] - smoke.z[b]);
+        for (const i of this.canopyOrder) {
             const p = this.project(smoke.x[i], smoke.y[i], smoke.z[i]);
             const radius = Math.max(2, smoke.size[i] * this.scale * 1.6);
-            let red = .14, green = .18, blue = .23;
-            for (const light of s.lights) {
-                const distance = Math.hypot(light.x - smoke.x[i], light.y - smoke.y[i], light.z - smoke.z[i]);
-                const energy = Math.max(0, 1 - distance / 39) ** 2 * Math.exp(-light.age * .72) * .7;
-                red += light.r * energy; green += light.g * energy; blue += light.b * energy;
-            }
+            illuminateSmoke(s.lights, smoke.x[i], smoke.y[i], smoke.z[i], s.reducedFlashes, this.canopyLight);
+            const red = .14 + this.canopyLight[0], green = .18 + this.canopyLight[1], blue = .23 + this.canopyLight[2];
+            const stretch = canopyStretch(smoke.id[i], smoke.age[i]);
+            c.save(); c.translate(p.x, p.y); c.rotate(smoke.angle[i]); c.scale(stretch, 1 / stretch); c.translate(-p.x, -p.y);
             const haze = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius);
             haze.addColorStop(0, this.tone(red, green, blue)); haze.addColorStop(1, 'transparent');
-            c.globalAlpha = Math.min(1, smoke.age[i] * 1.8) * Math.pow(1 - smoke.age[i] / smoke.life[i], 1.4) * .25;
-            c.fillStyle = haze; c.fillRect(p.x - radius, p.y - radius, radius * 2, radius * 2);
+            c.globalAlpha = canopyAlpha(smoke.age[i], smoke.life[i], smoke.gravity[i], smoke.family[i]) * .46;
+            c.fillStyle = haze; c.fillRect(p.x - radius, p.y - radius, radius * 2, radius * 2); c.restore();
         }
         c.globalCompositeOperation = 'lighter'; c.lineCap = 'round';
         const trails = s.trails;
@@ -650,7 +694,7 @@ export class CompatibilityRenderer implements RendererPort {
             const alpha = pool.gain[i] * Math.pow(Math.max(0, 1 - pool.age[i] / pool.life[i]), .85);
             // Quantize glow colours to avoid a new texture for every star.
             const quantize = (value: number) => Math.round(value * 8) / 8;
-            this.glow(p.x, p.y, pool === s.embers ? 1.9 : 3.1, this.tone(quantize(pool.r[i]), quantize(pool.g[i]), quantize(pool.b[i])), alpha * (s.reducedFlashes ? .72 : .9));
+            this.glow(p.x, p.y, pool === s.embers ? 1.9 : Math.max(4.8, Math.min(9, pool.size[i] * this.scale * 8)), this.tone(quantize(pool.r[i]), quantize(pool.g[i]), quantize(pool.b[i])), alpha * (s.reducedFlashes ? .72 : .9));
         }
         for (const r of s.rockets) if (r.stage === 'ascent') {
             const p = this.project(...rocketPoint(r, SHELL_LOCAL_Y));
@@ -693,6 +737,7 @@ export class CompatibilityRenderer implements RendererPort {
             riverContactAlignment: 'four hull points and wave-conforming fragments',
             riverHullSamples: this.riverArt.boats.map(boat => ({ height: boat.sampledHeight ?? 0, pitch: boat.roll,
                 roll: 0, centerDeviation: boat.contactError ?? 0 })),
+            waterBurstLightCapacity: BURST_LIGHT_CAPACITY, waterBurstLightCount: this.sim.lights.length,
             waterSurfaceFragments: this.mode === 'transparent' ? 0 : 96, waterReflectionTargets: 0,
             waterPhase: this.waterFrame.phase, waterWaveCount: this.waterFrame.waveCount, waterVisible: this.mode !== 'transparent',
             waterMotionAllowed: this.waterFrame.motionAllowed, waterDisplacementBound: WATER_MAX_DISPLACEMENT,
@@ -710,6 +755,7 @@ export class CompatibilityRenderer implements RendererPort {
         this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
         this.celestialArt.nearStars.width = this.celestialArt.nearStars.height = 1;
         this.starResponse.width = this.starResponse.height = 1;
+        this.tintMask.width = this.tintMask.height = 1;
         this.starResponseMask.width = this.starResponseMask.height = 1;
         this.riverArt.homes.width = this.riverArt.homes.height = 1;
         for (const boat of this.riverArt.boats) boat.image.width = boat.image.height = 1;
