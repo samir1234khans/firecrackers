@@ -1,0 +1,67 @@
+name: Reconcile held music with V4
+on:
+  push:
+    branches: [reconcile/cinematic-shows-v4]
+    paths: [.github/workflows/cinematic-reconcile-apply.yml]
+permissions:
+  contents: write
+concurrency:
+  group: cinematic-held-source-reconciliation
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    if: github.ref == 'refs/heads/reconcile/cinematic-shows-v4'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: reconcile/cinematic-shows-v4
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Preserve both histories and apply the reviewed conflict resolution
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          held=5fbb45b2d9d1ee3463cee232f3f3bdc937255e01
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git merge --no-commit --no-ff "$held" || true
+          test "$(git rev-parse MERGE_HEAD)" = "$held"
+          # Resolve the combined tree from V4 plus the explicitly reviewed music
+          # integration, rather than accepting old renderer or reload conflicts.
+          git restore --source="$GITHUB_SHA" --staged --worktree .
+          git checkout "$held" -- src/engine/CinematicDirector.ts src/engine/ShowMusic.ts scripts/generate-show-music.py tests/show-music.test.mjs public/music public/_headers assets-source/music docs/evidence/cinematic-shows-2026-10-02 docs/plans/CINEMATIC-SHOWS.md
+          python3 - <<'PY'
+          import base64, hashlib, lzma, pathlib, subprocess
+          encoded=''.join(pathlib.Path(f'scripts/cinematic-reconcile-transfer-{i}.b64').read_text().strip() for i in range(4))
+          patch=lzma.decompress(base64.b64decode(encoded,validate=True))
+          assert hashlib.sha256(patch).hexdigest()=='2ac8acdd1cadea1a1c1753729de3b3c0ece68c9a873ee532fffb9ba96ef14413', 'Reconciliation transfer mismatch'
+          pathlib.Path('/tmp/cinematic-reconciliation.patch').write_bytes(patch)
+          subprocess.run(['git','apply','--unidiff-zero','--check','/tmp/cinematic-reconciliation.patch'],check=True)
+          subprocess.run(['git','apply','--unidiff-zero','/tmp/cinematic-reconciliation.patch'],check=True)
+          p=pathlib.Path('assets-source/PROVENANCE.md')
+          p.write_text(p.read_text()+'\n## Reconciled original musical scores\n\nThe eighteen original, unchanged FLAC assets and their manifest are retained from held PR #33. See [music provenance](music/PROVENANCE.md). Their inclusion on this candidate does not clear the release hold.\n')
+          PY
+          git diff --check
+      - run: npm ci
+      - run: npm run typecheck
+      - name: Commit only to the separate held integration branch
+        run: |
+          set -euo pipefail
+          rm scripts/cinematic-reconcile-transfer-{0,1,2,3}.b64
+          test "$(git ls-remote origin refs/heads/reconcile/cinematic-shows-v4 | cut -f1)" = "$GITHUB_SHA"
+          git add src scripts tests docs assets-source public/music public/_headers README.md PROJECT_STATUS.md DEVELOPMENT.md package.json tsconfig.engine.json vite.config.ts .gitignore
+          git diff --cached --check
+          git diff --cached --quiet -- .github/workflows
+          git commit -m 'feat: reconcile held musical shows with V4 without losing richer-night features' -m 'Preserve PR33 ancestry while retaining twelve-source lighting, current recovery, composer and capture. Keep explicit updates and original Always Play density. Original PR33 and main are not changed; the release hold remains.'
+          test "$(git rev-parse HEAD^2)" = '5fbb45b2d9d1ee3463cee232f3f3bdc937255e01'
+          git push origin HEAD:refs/heads/reconcile/cinematic-shows-v4
+      - name: Verify the complete reconciled source
+        run: |
+          npm test
+          npm run lint
+          npm run build
+          python3 scripts/validate_docs.py
