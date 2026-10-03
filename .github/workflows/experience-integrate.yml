@@ -41,9 +41,12 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git fetch origin b75e3c59c5ddc995a2ff0c553267dacada2e3245
           git merge --no-ff -m 'Reconcile fuller shells and waterfront baseline from PR 36' b75e3c59c5ddc995a2ff0c553267dacada2e3245
-          git apply --check --unidiff-zero /tmp/experience/source.patch
-          git apply --index --unidiff-zero /tmp/experience/source.patch
+          test "$(git hash-object .github/workflows/experience-regression.yml)" = '16444c7c61aad40a0d83c44c9147757f14792c27'
+          test "$(git hash-object .github/workflows/full-night.yml)" = 'ee181e8284288537d4fe5004648cd82ef0c901b1'
+          git apply --check --unidiff-zero --exclude=.github/workflows/experience-regression.yml /tmp/experience/source.patch
+          git apply --index --unidiff-zero --exclude=.github/workflows/experience-regression.yml /tmp/experience/source.patch
           git diff --cached --check
+          test -z "$(git diff --name-only "$GITHUB_SHA" -- .github/workflows)"
       - run: npm ci
       - name: Validate source before the feature-branch checkpoint
         run: |
@@ -62,6 +65,7 @@ jobs:
         run: |
           set +e
           status=0
+          npm audit --json > /tmp/experience/audit.json
           for task in 'npm test' 'npm run build' 'python3 scripts/validate_docs.py'; do
             name=$(echo "$task" | tr ' /' '--')
             bash -c "$task" > "/tmp/experience/$name.log" 2>&1
