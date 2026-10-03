@@ -49,7 +49,7 @@ try{
   assert.ok(await knob().evaluate(e=>e===document.activeElement));
   await page.getByRole('button',{name:'Resume scene',exact:true}).click();
   for(const mode of ['Calm','Festival','Finale']){await choose(mode);assert.equal((await snap()).show,mode.toLowerCase());assert.equal((await snap()).paused,false);}
-  await advance(40);assert.equal((await snap()).show,null);pass(`${backend}: mode choice, modal focus, independent pause and finite Finale`);
+  await advance(89);assert.equal((await snap()).show,'finale');await advance(2);assert.equal((await snap()).show,null);pass(`${backend}: mode choice, modal focus, independent pause and finite 90-second Finale`);
   // Directional knob uses committed pointerup, cancel/Escape never changes a show.
   let k=await knob().boundingBox();await page.mouse.move(k.x+k.width/2,k.y+k.height/2);await page.mouse.down();await page.mouse.move(k.x+k.width/2-48,k.y+k.height/2,{steps:5});await page.mouse.up();assert.equal((await snap()).show,'finale');await choose('Manual');
   k=await knob().boundingBox();await page.mouse.move(k.x+32,k.y+32);await page.mouse.down();await page.mouse.move(k.x+32,k.y-30,{steps:5});await page.keyboard.press('Escape');await page.mouse.up();assert.equal((await snap()).show,null);pass(`${backend}: directional mode gesture and cancellation`);

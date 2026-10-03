@@ -53,7 +53,7 @@ export async function fingerprintEntries(root = '.') {
   await walk('src'); await walk('public');
   for (const path of ['index.html','package.json','package-lock.json','vite.config.ts','postcss.config.cjs',
     'tsconfig.json','tsconfig.engine.json','wrangler.jsonc','scripts/generate-release.mjs',
-    'scripts/generate-icons.mjs','scripts/generate-notices.mjs','scripts/service-worker-template.js']) {
+    'scripts/generate-icons.mjs','scripts/generate-notices.mjs','scripts/service-worker-template.js','assets-source/service-worker/cache-lifecycle.template.js']) {
     try { await readFile(join(root,path)); paths.push(path); }
     catch (error) { if (error.code !== 'ENOENT') throw error; }
   }
@@ -70,11 +70,14 @@ export async function fingerprintEntries(root = '.') {
 }
 
 export async function generateRelease() {
-  const modules = await fingerprintEntries();
   const hash = value => createHash('sha256').update(value).digest('hex');
   const catalog = await readFile('src/engine/catalog.ts', 'utf8');
   const version = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)?.[1];
   if (!version) throw new Error('Missing release version in the catalog.');
+  const lifecycle = await readFile('assets-source/service-worker/cache-lifecycle.template.js','utf8');
+  await mkdir('public',{recursive:true});
+  await writeFile('public/cache-lifecycle.js',lifecycle.replace('__FIRECRACKERS_RELEASE__',version));
+  const modules = await fingerprintEntries();
   const sha256 = hash(JSON.stringify(modules.map(({ path, sha256 }) => ({ path, sha256 }))));
   const receipt = {
     formatVersion: 3, version, scope: 'all-client-source-build-inputs-and-public-assets',

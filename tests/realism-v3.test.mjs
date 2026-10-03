@@ -55,7 +55,7 @@ test('visible frame adapter rejects invalid deltas and caps a long interruption'
 test('manual selection during an automatic fuse preserves the committed effect and takes over', () => {
   const s = new Simulation(901);
   s.startShow('festival');
-  for (let i = 0; i < 60; i++) s.advance(1 / 60);
+  for (let i = 0; i < 240 && !s.rockets.some(r => r.stage === 'fuse'); i++) s.advance(1 / 60);
   const rocket = s.rockets.find(r => r.stage === 'fuse');
   assert.ok(rocket);
   const originalFamily = rocket.family;

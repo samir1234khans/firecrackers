@@ -50,6 +50,7 @@ export class AlwaysPlayDirector {
         this.slowSince = this.healthySince = this.lastFeedback = -1;
     }
     setPace(value: unknown) { this.pace = paceValue(value); }
+    setConnector(family: number) { if (!this.feature) this.family = family === this.previous ? (family + 1) % 4 : family; }
     tick(dt: number) { this.interval += (INTERVALS[this.pace - 1] - this.interval) * (1 - Math.exp(-dt / 1.1)); }
     private refill() {
         for (let i = 0; i < 13; i++) this.bag[i] = i;
@@ -79,7 +80,7 @@ export class AlwaysPlayDirector {
         this.pendingSince = time;
         return this.family;
     }
-    result(time: number, admitted: boolean, pressure: number, reducedFlashes: boolean, denialReason: 0 | 1 | 2 = 0) {
+    result(time: number, admitted: boolean, pressure: number, reducedFlashes: boolean, denialReason: 0 | 1 | 2 = 0, density = 0) {
         this.pressure = pressure;
         this.limited = reducedFlashes || this.demand > 1 || pressure >= .75 || !admitted;
         if (!admitted) {
@@ -93,11 +94,11 @@ export class AlwaysPlayDirector {
         if (this.family >= 4) this.lastHeavy = time;
         if (this.feature) { this.cursor++; this.nextFeature = time + FEATURE_GAPS[this.pace - 1]; }
         this.family = -1;
-        let spacing = Math.max(.75, this.interval * (.85 + this.rand() * .30) * this.demand);
+        let spacing = Math.max(.75, this.interval * (.85 + this.rand() * .30) * this.demand / (density || 1));
         if (pressure >= .75) spacing *= 1.35;
         this.phrase = (this.phrase + 1) % (this.pace === 4 ? 3 : this.pace === 3 ? 2 : 1);
         if (this.pace >= 3) spacing *= this.phrase === 0 ? 1.12 : .94;
-        if (time >= this.nextRest) { spacing *= 1.8; this.nextRest = time + 30 + this.rand() * 15; }
+        if (!density && time >= this.nextRest) { spacing *= 1.8; this.nextRest = time + 30 + this.rand() * 15; }
         this.next = time + Math.max(reducedFlashes ? 3 : .75, spacing);
     }
     /** Timestamped renderer feedback is replayable; no wall-clock or extra loop. */

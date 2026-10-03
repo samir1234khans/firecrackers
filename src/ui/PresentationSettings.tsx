@@ -4,6 +4,7 @@ import { presentationLink } from '../platform/presentation';
 import type { Presentation, SafeRect } from '../platform/presentation';
 import { paceValue, PACE_LABELS } from '../engine/AlwaysPlayDirector';
 import { Toggle } from './Dialog';
+import { SHOW_THEMES, THEME_NAMES, themeValue } from '../engine/CinematicDirector';
 type Props = {
     value: Presentation;
     onChange: (value: Presentation) => void;
@@ -46,6 +47,7 @@ export function PresentationSettings({ value, onChange, onStart, onExit, disable
       </select>
     </label>
     {value.show === 'always' && <label className='setting-row'><span className='setting-label'>Always Play quantity</span><select aria-label='Always Play quantity' value={value.pace ?? 2} onChange={event => onChange({ ...value, pace: paceValue(Number(event.target.value)) })}>{PACE_LABELS.map((label, i) => <option key={label} value={i + 1}>{i + 1} {label}</option>)}</select></label>}
+    {value.show && value.show !== 'calm' && <label className='setting-row'><span className='setting-label'>Display show</span><select aria-label='Display show' value={value.theme ?? 'prismatic'} onChange={event => onChange({ ...value, theme: themeValue(event.target.value) })}>{SHOW_THEMES.map(theme => <option key={theme} value={theme}>{THEME_NAMES[theme]}</option>)}</select></label>}
     <label className='setting-row'><span className='setting-label'>Frame-rate target</span>
       <select aria-label='Frame-rate target' value={value.fps} onChange={event => onChange({ ...value, fps: event.target.value === '30' ? 30 : 60 })}>
         <option value='30'>30 fps</option><option value='60'>60 fps</option>

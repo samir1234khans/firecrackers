@@ -65,7 +65,7 @@ test('validated preferences migrate without sound or session auto-start',()=>{
  assert.equal(defaults().alwaysPace,2);assert.equal(defaults().sound,false);
  for(const value of [undefined,null,0,5,'4',1.1,NaN,Infinity])assert.equal(paceValue(value),2);
  globalThis.localStorage={getItem:key=>key===STORAGE_KEY?JSON.stringify({version:2,preset:'festival',sound:false}):null};
- assert.equal(loadPreferences().alwaysPace,2);assert.equal(loadPreferences().version,3);
+ assert.equal(loadPreferences().alwaysPace,2);assert.equal(loadPreferences().version,4);
  globalThis.localStorage={getItem:()=>JSON.stringify({version:3,alwaysPace:4,preset:'always'})};assert.equal(loadPreferences().alwaysPace,4);
  globalThis.localStorage={getItem:()=>{throw Error('denied');}};assert.equal(loadPreferences().alwaysPace,2);delete globalThis.localStorage;
 });

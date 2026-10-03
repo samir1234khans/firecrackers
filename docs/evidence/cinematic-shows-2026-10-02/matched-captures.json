@@ -1,0 +1,487 @@
+{
+  "seed": 20260916,
+  "backend": "WebGPU",
+  "method": "Identical reset, viewport, saved defaults, logical time and Manual RNG; actual GPU rendering. Phone/tablet viewports are emulated.",
+  "captures": [
+    {
+      "width": 393,
+      "height": 851,
+      "family": "idle",
+      "seconds": 8,
+      "file": "before-393x851-idle.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "341aa7ac6d4dc0ecda4711ec55e925d627b66642dede16fec4ddb29c346f2e47",
+      "phase": "before",
+      "headCount": 0,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "before-393x851-gold-willow.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "a6101fe00409939bf8b9e09f9a00222937132fa6bfcd0eb791589f2c557cc9c4",
+      "phase": "before",
+      "headCount": 230,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "before-393x851-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "07f39fb511417b6a996e162a2d6278f3c52e5bef88875c4434d1b12ccb69070b",
+      "phase": "before",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "before-393x851-opal-supernova.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "f262891d0ee5424d4f92e61a0869492de5fea3d6f5c05f876b1d6db0984fe40a",
+      "phase": "before",
+      "headCount": 384,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "before-393x851-imperial-crown.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "f3633de0ac50d09394f694248c76f8ecb4bef661d87d05792731f92858f4c18d",
+      "phase": "before",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "idle",
+      "seconds": 8,
+      "file": "before-768x1024-idle.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "e845709fea8168b75c4c4844299195e29e3719779920b750f748bdcd7fd67bc5",
+      "phase": "before",
+      "headCount": 0,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "before-768x1024-gold-willow.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "0d1e8ba648853a341d36b99c9c2204d0df079c38b922c9e04d49b992e90b58ae",
+      "phase": "before",
+      "headCount": 230,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "before-768x1024-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "2606842724f6f95b95565b4f4cd928055b95d0b69b631ecfb9c5882a25276c26",
+      "phase": "before",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "before-768x1024-opal-supernova.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "c122734b8237a9f3cdaecd537b976a70b1342bb7788c0528db41fa9e6cd9e4b2",
+      "phase": "before",
+      "headCount": 384,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "before-768x1024-imperial-crown.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "13d951c56d627812fd3a6313630e584a703e729a5d16167b68991c6277de88af",
+      "phase": "before",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "idle",
+      "seconds": 8,
+      "file": "before-1280x800-idle.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "0165add9c1804432e8929682795f5794bd3a44dab5645480de8faccd939d3942",
+      "phase": "before",
+      "headCount": 0,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "before-1280x800-gold-willow.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "a794166068fae9e899a108a1ed080cf0df677b0d5e3de4c8d9b00370e478e120",
+      "phase": "before",
+      "headCount": 230,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "before-1280x800-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "a302603c3507667ec259df991dd3fa27efd865e6c9e40c7213f5103b4cc68ba3",
+      "phase": "before",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "before-1280x800-opal-supernova.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "9faaec26f29f539c490ad1dde93489cd3c09aee23d598531ac37a19952dd5343",
+      "phase": "before",
+      "headCount": 384,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "before-1280x800-imperial-crown.png",
+      "release": {
+        "version": "2026-10-02.3",
+        "sha256": "c9bb7291fd81d625331fcbc6746c92938906165feff69ae4156865aa41f989a8"
+      },
+      "sha256": "769eaf161ca5e3c7fe422dddf56783490821afe522014e08d6c7077670d67e20",
+      "phase": "before",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "idle",
+      "seconds": 8,
+      "file": "after-393x851-idle.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "1a6cab0782c50baef9cc46529c963a9170bf6974471fc90c632c96209ee8df50",
+      "phase": "after",
+      "headCount": 0,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "after-393x851-gold-willow.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "d8638a10c84448612f45193b350ae42351a758b05b7e54534ab5ebeeca6a9ada",
+      "phase": "after",
+      "headCount": 230,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "after-393x851-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "a12e2023f66ef6f7c947239eafbb3f9f420c2b6318f0bab444fbaa7105e2e139",
+      "phase": "after",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "after-393x851-opal-supernova.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "80e456afdb94b00daff0fa98113d18adb4f24263838a52966738b5f1f7c7f3bc",
+      "phase": "after",
+      "headCount": 384,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "after-393x851-imperial-crown.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "b629fe286484d5fbef9620d0bb456a1236534c46110c29ca0ff4b6a29d6938e5",
+      "phase": "after",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "idle",
+      "seconds": 8,
+      "file": "after-768x1024-idle.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "2020a72670ee29e056ee54563aa6ec79486ca44bfda1d31bb1bbd47a2090494e",
+      "phase": "after",
+      "headCount": 0,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "after-768x1024-gold-willow.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "8f2257adb8b7e9b1f88485c7cdb795515781408b6a956b092361f70596618a23",
+      "phase": "after",
+      "headCount": 230,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "after-768x1024-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "29dd1053ca8f2095d28c0cc23147ea2eec9218c3e32b339cb75c16c01690e9ea",
+      "phase": "after",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "after-768x1024-opal-supernova.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "6932efcf2f175846c5b6b56b4a4390b1e914c52f74cae3ea740f9495110e20c6",
+      "phase": "after",
+      "headCount": 384,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "after-768x1024-imperial-crown.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "69ca9a32214ada4c2d86162853a61f29584c9a9b2349f9bb1771aba9e111c751",
+      "phase": "after",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": false
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "idle",
+      "seconds": 8,
+      "file": "after-1280x800-idle.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "6b0faae56bea5a0fc22a6e08613f5ed457910d805e657cf373444bb915a30c9b",
+      "phase": "after",
+      "headCount": 0,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "gold-willow",
+      "seconds": 4.9,
+      "file": "after-1280x800-gold-willow.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "c26ce3424e5f098798c0725953cd347706812034536ca9482302ed4156c48198",
+      "phase": "after",
+      "headCount": 230,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "sapphire-saturn",
+      "seconds": 4.9,
+      "file": "after-1280x800-sapphire-saturn.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "63f61c6ac69daa0b291d2018e93cb980434d8d6e628443aadab634988faac7cc",
+      "phase": "after",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "opal-supernova",
+      "seconds": 5.6,
+      "file": "after-1280x800-opal-supernova.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "f0d1d04ecf289ff66b13eae2d95516cb788abf7fedd5ca07b68083896428c72c",
+      "phase": "after",
+      "headCount": 384,
+      "backend": "WebGPU",
+      "retained": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "family": "imperial-crown",
+      "seconds": 5.4,
+      "file": "after-1280x800-imperial-crown.png",
+      "release": {
+        "version": "2026-10-02.4",
+        "sha256": "125fbda7f2be7edb40e9bbbf4b34efce0d2553a1df5f7420aae7619c9105df9c"
+      },
+      "sha256": "85d967bbc6ee46709dc288e29bda80cb95fedb74f7d2d5d13421fb6aded82eb7",
+      "phase": "after",
+      "headCount": 480,
+      "backend": "WebGPU",
+      "retained": true
+    }
+  ]
+}

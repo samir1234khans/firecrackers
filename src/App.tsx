@@ -96,7 +96,7 @@ export default function App() {
   };
   const showStudio = (recipe: ShowRecipe | null = null) => { if (recipe) setStudioRecipe(recipe); open('studio'); };
   const replay = () => {
-    const recipe = (['complete', 'blocked'].includes(state.personal.status) ? world.sim.current.personal.current : null) ?? { ...newRecipe('Finale', world.sim.current.seed), kind: 'finale' as const, cues: [] };
+    const recipe = (['complete', 'blocked'].includes(state.personal.status) ? world.sim.current.personal.current : null) ?? { ...newRecipe('Finale', world.sim.current.seed), kind: 'finale' as const, theme: world.sim.current.cinematic.theme, cues: [] };
     const error = playPersonal(recipe); if (error) notify(error);
   };
   const cancelReset = () => { setSettingsReturnFocus(true); setOverlay('settings'); };
@@ -339,7 +339,7 @@ export default function App() {
     </>}</div>
 
     <div className='lower-controls chrome' inert={hidden || Boolean(overlay) || preparing || undefined}>
-      <ShowModeKnob pace={prefs.alwaysPace} limited={state.always.limited} reducedFlashes={prefs.reducedFlashes} onPaceChange={pace => { world.sim.current.always.setPace(pace); change('alwaysPace', pace); world.refresh(); }} value={state.show} disabled={!world.ready || Boolean(world.error)} onChange={chooseMode} onOpenChange={onModeOpen}/>
+      <ShowModeKnob finaleTheme={prefs.finaleTheme} endlessTheme={prefs.endlessTheme} pendingTheme={state.cinematic.pendingTheme} onThemeChange={(finale, endless) => { change('finaleTheme', finale); change('endlessTheme', endless); world.sim.current.setShowThemes(finale, endless); world.refresh(); }} pace={prefs.alwaysPace} limited={state.always.limited} reducedFlashes={prefs.reducedFlashes} onPaceChange={pace => { world.sim.current.always.setPace(pace); change('alwaysPace', pace); world.refresh(); }} value={state.show} disabled={!world.ready || Boolean(world.error)} onChange={chooseMode} onOpenChange={onModeOpen}/>
       <div inert={modeOpen || undefined}>
         <LaunchPositionControl value={state.placement} random={state.placementMode === 'random'} disabled={!world.ready || Boolean(world.error)} onChange={choosePosition} onRandomChange={chooseRandom} onPreview={setPositionPreview}/>
       </div>
@@ -399,6 +399,8 @@ export default function App() {
         <Toggle label='Sound' detail='Fuse, launch and spatial reports.' checked={world.soundActive} onChange={() => void toggleSound()}/>
         <label className='volume-setting'><span>Volume</span><input aria-label='Volume' type='range' min='0' max='0.8' step='0.01' value={prefs.volume} onChange={event => change('volume', Number(event.target.value))}/><output>{Math.round(prefs.volume * 100)}%</output></label>
         <Toggle label='Headphone spatial audio' detail='Optional HRTF placement for key reports; stereo remains the default and fallback.' checked={prefs.headphones} onChange={v => change('headphones', v)}/>
+        <Toggle label='Show music' detail={world.soundActive ? 'Original ambient scores for Festival, Finale and Always Play.' : 'Enable Sound to hear the original show scores.'} checked={prefs.showMusic} onChange={v => change('showMusic', v)}/>
+        <label className='volume-setting'><span>Music volume</span><input aria-label='Music volume' type='range' min='0' max='0.8' step='0.01' value={prefs.musicVolume} onChange={event => change('musicVolume', Number(event.target.value))}/><output>{Math.round(prefs.musicVolume * 100)}%</output></label>
         <Toggle label='Quiet night ambience' checked={prefs.ambience} onChange={v => change('ambience', v)}/>
         <Toggle label='Gentle haptics' detail={typeof navigator.vibrate === 'function' ? 'Short pulses on supported devices.' : 'Not supported in this browser.'} disabled={typeof navigator.vibrate !== 'function'} checked={prefs.haptics && typeof navigator.vibrate === 'function'} onChange={v => change('haptics', v)}/>
         </div>
@@ -406,7 +408,7 @@ export default function App() {
       <section className='panel-pane settings-tab-panel' role='tabpanel' id='settings-display' aria-labelledby='settings-tab-display' hidden={settingsSection !== 'display'} tabIndex={0}>
       <PresentationSettings value={presentation} onChange={setPresentation} disabled={!world.ready || Boolean(world.error)} onStart={() => {
         setPresentation(p => ({ ...p, mode: p.mode === 'interactive' ? 'scene' : p.mode, show: p.show || 'calm' }));
-        world.start(presentation.show || 'calm', presentation.pace);
+        world.start(presentation.show || 'calm', presentation.pace, presentation.theme);
         world.setOverlay(false);
         setOverlay(null);
         setHidden(true);

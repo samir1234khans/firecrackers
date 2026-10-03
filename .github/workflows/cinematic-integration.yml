@@ -1,0 +1,76 @@
+name: Cinematic integration regression
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['src/**', 'scripts/**', 'tests/**', 'assets-source/music/**', 'assets-source/service-worker/**', 'public/music/**', 'package*.json', 'vite.config.ts', '.github/workflows/cinematic-integration.yml']
+permissions:
+  contents: read
+concurrency:
+  group: cinematic-integration-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Reconciled source, original music hashes and unchanged admission budgets
+        run: |
+          mkdir -p test-results/cinematic-integration-checks
+          set +e
+          status=0
+          for task in 'npm run typecheck' 'npm test' 'npm run lint' 'npm run build' 'python3 scripts/validate_docs.py' 'npm audit --audit-level=high'; do
+            name=$(echo "$task" | tr ' /' '--')
+            bash -c "$task" > "test-results/cinematic-integration-checks/$name.log" 2>&1
+            code=$?
+            echo "$task: exit $code"
+            tail -12 "test-results/cinematic-integration-checks/$name.log"
+            grep -A25 'not ok' "test-results/cinematic-integration-checks/$name.log" || true
+            if [ "$code" != 0 ]; then status=1; fi
+          done
+          exit "$status"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cinematic-integration-checks
+          path: test-results/cinematic-integration-checks
+          retention-days: 14
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Install independent export decoder
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Themed Encore, music consent, phrase changes, pause and audio capture
+        run: |
+          mkdir -p test-results/cinematic-integration
+          git rev-parse HEAD > test-results/cinematic-integration/SOURCE.txt
+          npm run preview -- --port 4173 > test-results/cinematic-integration/server.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ >/dev/null && break || sleep 1; done
+          npm run test:cinematic-integration -- test-results/cinematic-integration
+          node tests/verify-media-continuity.mjs test-results/cinematic-integration
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cinematic-integration-browser-evidence
+          path: test-results/cinematic-integration
+          retention-days: 14

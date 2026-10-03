@@ -100,9 +100,9 @@ test('unexpected admission pressure blocks visibly instead of dropping a cue',()
   const s=new Simulation(1);s.personal.start(newRecipe());const original=s.ignite;s.ignite=()=>false;step(s,.1);s.ignite=original;
   assert.equal(s.personal.status,'blocked');assert.equal(s.personal.snapshot().cue,0);assert.match(s.personal.reason,/No cue was silently skipped/);
 });
-test('finite main preset completes on its own clock without including held musical scores',()=>{
+test('integrated 90-second preset completes on its shared clock without truncating the falling tail',()=>{
   const s=new Simulation(7),recipe={...newRecipe('Finale',7),kind:'finale',cues:[]};s.personal.start(recipe);
-  step(s,31);assert.equal(s.show,'finale');step(s,2);assert.equal(s.show,null);assert.ok(['falling','complete'].includes(s.personal.status));
+  step(s,89);assert.equal(s.show,'finale');step(s,2);assert.equal(s.show,null);assert.ok(['falling','complete'].includes(s.personal.status));
   step(s,50);assert.equal(s.personal.status,'complete');assert.equal(s.heads.count+s.trails.count+s.smoke.count,0);
 });
 test('local nights are bounded, independently named and preserved on corrupt reads',()=>{
