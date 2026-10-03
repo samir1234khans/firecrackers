@@ -1,0 +1,3678 @@
+{
+  "origin": "http://127.0.0.1:4188/",
+  "started": "2026-10-02T15:14:35.477Z",
+  "maximumMinutes": 20,
+  "completed": false,
+  "stable": false,
+  "wallSeconds": 338.318,
+  "failed": "Error: External automated test/build overlapped timing; retain and reject this dataset\n    at Object.check (file:///C:/Users/samir/Documents/ChatGPT/FireCrackers%20Webapp/repo/tests/performance-isolation.mjs:37:59)\n    at check (file:///C:/Users/samir/Documents/ChatGPT/FireCrackers%20Webapp/repo/tests/cinematic-qualification.mjs:11:95)\n    at file:///C:/Users/samir/Documents/ChatGPT/FireCrackers%20Webapp/repo/tests/cinematic-qualification.mjs:42:20",
+  "isolation": {
+    "method": "Windows WMI Node creation events at two-second provider resolution and initial active-suite check; commands classified but never executed or recorded. No per-frame process polling. Sub-two-second jobs can escape observation.",
+    "events": [
+      {
+        "processId": 35680,
+        "at": "2026-10-02T15:19:10.0971488Z",
+        "kind": "external-test-or-build"
+      },
+      {
+        "processId": 38784,
+        "at": "2026-10-02T15:19:10.1726899Z",
+        "kind": "external-test-or-build"
+      },
+      {
+        "processId": 53432,
+        "at": "2026-10-02T15:19:10.1796869Z",
+        "kind": "external-test-or-build"
+      }
+    ]
+  },
+  "stability": [],
+  "interpretation": "INVALID shared-hardware timing. Descriptive numbers do not satisfy qualification. Full-length cold/warmed show stability was not started. No measured GPU completion.",
+  "rawReportSha256": "58891d775f24b167a665b4811e80c5b23e43ef1f68062826cb59f51c5ac3499f",
+  "paired": {
+    "baseline": "https://firecrackers.mainandmany.com/",
+    "candidate": "http://127.0.0.1:4188/",
+    "seed": 20260916,
+    "method": "Installed headless Chrome, sequential counterbalanced AB/BA pairs, the recorded number of complete repetitions at each backend and viewport. All authored assets are active before reset and realtime idle warmup. Service workers are blocked. CDP Runtime closure scopes bind a private test-only scalar reader to the existing renderer metrics and Simulation, symmetrically for both sources; Debugger is never enabled and no app/public API is changed. Full QA snapshot verifies bindings before and after sampling. Each interval preallocates 8192 numeric records and materializes objects afterward, avoiding full diagnostic graphs on every rAF. Sampling observes realtime requestAnimationFrame and app submitMs, retaining CPU samples only when the renderer frame counter advances. Measurement never drives a frozen QA render loop.",
+    "limits": "rAF cadence and CPU submission are recorded separately; neither is completed GPU time. Phone-sized viewports are emulated on this PC. Physical-phone performance and thermal endurance are unqualified. Scalar observer overhead is measured; this does not prove older collections were entirely caused by QA diagnostics. Legacy failed full-snapshot reports remain separate retained evidence; percentile methods and performance assertions are unchanged.",
+    "settings": {
+      "quality": "ultra",
+      "reducedFlashes": true,
+      "reducedMotion": false,
+      "sound": false,
+      "haptics": false,
+      "placement": 0.5,
+      "idleMilliseconds": 3000,
+      "launchMilliseconds": 7500,
+      "warmupMilliseconds": 1500,
+      "repeats": 2,
+      "warmParticleDrawing": true
+    },
+    "comparisons": [
+      {
+        "type": "paired",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.200000017881393,
+          "candidateMs": 5.100000023841858,
+          "deltaMs": -0.09999999403953552,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "transitionWorst": null,
+        "renderedCadenceP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 60,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.100000000000364,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 59,
+            "over50Ms": 18,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 60,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 59,
+            "over50Ms": 20,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.300000011920929,
+          "candidateMs": 5.300000011920929,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.400000000001455,
+          "candidateMs": 4.5,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 143,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 450,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 450,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.4000000059604645,
+          "candidateMs": 5.799999982118607,
+          "deltaMs": 0.3999999761581421,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.400000000001455,
+          "candidateMs": 4.400000000001455,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 16.69999999999709,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 450,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 29.100000000002183,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 450,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.199999988079071,
+          "candidateMs": 5.4000000059604645,
+          "deltaMs": 0.20000001788139343,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "transitionWorst": null,
+        "renderedCadenceP95": {
+          "baselineMs": 54.19999999999891,
+          "candidateMs": 54.19999999999891,
+          "deltaMs": 0,
+          "allowanceMs": 10.839999999999783,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 54.19999999999891,
+          "candidateMs": 54.19999999999891,
+          "deltaMs": 0,
+          "allowanceMs": 10.839999999999783,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 59,
+            "p50Ms": 50,
+            "p95Ms": 54.19999999999891,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.19999999999891,
+            "over33Ms": 58,
+            "over50Ms": 19,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 59,
+            "p50Ms": 50,
+            "p95Ms": 54.19999999999891,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.19999999999891,
+            "over33Ms": 58,
+            "over50Ms": 18,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.4000000059604645,
+          "candidateMs": 5.4000000059604645,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.400000000001455,
+          "candidateMs": 4.399999999999636,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.700000000000728,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0.09999999999854481,
+          "allowanceMs": 3.3400000000001455,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.700000000000728,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0.09999999999854481,
+          "allowanceMs": 3.3400000000001455,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.700000000000728,
+            "worstMs": 16.80000000000109,
+            "p95NearestRankMs": 16.700000000000728,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000109,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 450,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 20.899999999997817,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 450,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.399999976158142,
+          "candidateMs": 5.4000000059604645,
+          "deltaMs": 2.9802322387695312e-08,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.30000000000291,
+          "candidateMs": 16.599999999998545,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 16.69999999999709,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 451,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 451,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 20.799999999999272,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.5,
+          "candidateMs": 3.7000000178813934,
+          "deltaMs": 0.20000001788139343,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "transitionWorst": null,
+        "renderedCadenceP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 59,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 58,
+            "over50Ms": 20,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 60,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.100000000000364,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 59,
+            "over50Ms": 17,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 4.799999982118607,
+          "candidateMs": 4.5999999940395355,
+          "deltaMs": -0.19999998807907104,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.5,
+          "candidateMs": 4.300000000001091,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 143,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000109,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 451,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 449,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 20.900000000001455,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 4.699999988079071,
+          "candidateMs": 4.5999999940395355,
+          "deltaMs": -0.09999999403953552,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.400000000001455,
+          "candidateMs": 4.30000000000291,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 449,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 41.70000000000073,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 1,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 449,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.5,
+          "candidateMs": 3.899999976158142,
+          "deltaMs": 0.3999999761581421,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "transitionWorst": null,
+        "renderedCadenceP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 59,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.19999999999891,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 58,
+            "over50Ms": 26,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 59,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.19999999999891,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 58,
+            "over50Ms": 26,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 4.700000017881393,
+          "candidateMs": 4.699999988079071,
+          "deltaMs": -2.9802322387695312e-08,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.5,
+          "candidateMs": 4.300000000001091,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000109,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000109,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 447,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 62.60000000000218,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 1,
+            "over50Ms": 1,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 450,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 4.600000023841858,
+          "candidateMs": 4.5999999940395355,
+          "deltaMs": -2.9802322387695312e-08,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 4.5,
+          "candidateMs": 4.400000000001455,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.700000000000728,
+          "deltaMs": -0.09999999999854481,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.700000000000728,
+          "deltaMs": -0.09999999999854481,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.700000000000728,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.700000000000728,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 450,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 451,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.300000000000182,
+          "deltaMs": 9.094947017729282e-13,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 0.4000000059604645,
+          "candidateMs": 0.30000001192092896,
+          "deltaMs": -0.09999999403953552,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "transitionWorst": null,
+        "renderedCadenceP95": {
+          "baselineMs": 104.20000000000073,
+          "candidateMs": 104.10000000000036,
+          "deltaMs": -0.1000000000003638,
+          "allowanceMs": 20.840000000000146,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 104.20000000000073,
+          "candidateMs": 104.10000000000036,
+          "deltaMs": -0.1000000000003638,
+          "allowanceMs": 20.840000000000146,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 29,
+            "p50Ms": 100,
+            "p95Ms": 104.20000000000073,
+            "worstMs": 104.20000000000073,
+            "p95NearestRankMs": 104.20000000000073,
+            "over33Ms": 29,
+            "over50Ms": 29,
+            "over100Ms": 7
+          },
+          "candidate": {
+            "count": 29,
+            "p50Ms": 100.09999999999854,
+            "p95Ms": 104.10000000000036,
+            "worstMs": 104.10000000000036,
+            "p95NearestRankMs": 104.10000000000036,
+            "over33Ms": 29,
+            "over50Ms": 29,
+            "over100Ms": 16
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 8.399999999999636,
+          "candidateMs": 8.399999999997817,
+          "deltaMs": -1.8189894035458565e-12,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.4000000059604645,
+          "candidateMs": 3.4000000059604645,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.399999999999636,
+          "candidateMs": 4.399999999999636,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 16.69999999999891,
+          "candidateMs": 16.80000000000109,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 33.5,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": -0.09999999999854481,
+          "allowanceMs": 6.7,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 33.5,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": -0.09999999999854481,
+          "allowanceMs": 6.7,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 72,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.5,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.5,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 72,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 225,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 223,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 225,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 222,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 12.200000000000728,
+          "candidateMs": 8.399999999997817,
+          "deltaMs": -3.8000000000029104,
+          "allowanceMs": 2.4400000000001456,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.4000000059604645,
+          "candidateMs": 3.399999976158142,
+          "deltaMs": -2.9802322387695312e-08,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.30000000000291,
+          "candidateMs": 4.30000000000291,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 16.700000000000728,
+          "candidateMs": 16.799999999999272,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 72,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 72,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 225,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.599999999998545,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 222,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 225,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 223,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 0.4000000059604645,
+          "candidateMs": 0.4000000059604645,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "transitionWorst": null,
+        "renderedCadenceP95": {
+          "baselineMs": 104.10000000000036,
+          "candidateMs": 104.09999999999945,
+          "deltaMs": -9.094947017729282e-13,
+          "allowanceMs": 20.820000000000075,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 104.10000000000036,
+          "candidateMs": 104.09999999999945,
+          "deltaMs": -9.094947017729282e-13,
+          "allowanceMs": 20.820000000000075,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 29,
+            "p50Ms": 100,
+            "p95Ms": 104.10000000000036,
+            "worstMs": 104.10000000000036,
+            "p95NearestRankMs": 104.10000000000036,
+            "over33Ms": 29,
+            "over50Ms": 29,
+            "over100Ms": 10
+          },
+          "candidate": {
+            "count": 30,
+            "p50Ms": 100,
+            "p95Ms": 104.09999999999945,
+            "worstMs": 104.19999999999982,
+            "p95NearestRankMs": 104.09999999999945,
+            "over33Ms": 29,
+            "over50Ms": 29,
+            "over100Ms": 7
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 8.400000000001455,
+          "candidateMs": 12.400000000001455,
+          "deltaMs": 4,
+          "allowanceMs": 2,
+          "withinAllowance": false
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.300000011920929,
+          "candidateMs": 3.4000000059604645,
+          "deltaMs": 0.09999999403953552,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.30000000000291,
+          "candidateMs": 4.399999999999636,
+          "deltaMs": 0.09999999999672582,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 12.599999999998545,
+          "candidateMs": 16.700000000000728,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 72,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 72,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 225,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 223,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 225,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 223,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "paired",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 12.399999999997817,
+          "candidateMs": 8.400000000001455,
+          "deltaMs": -3.999999999996362,
+          "allowanceMs": 2.4799999999995634,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.2999999821186066,
+          "candidateMs": 3.300000011920929,
+          "deltaMs": 2.9802322387695312e-08,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.30000000000291,
+          "candidateMs": 4.399999999997817,
+          "deltaMs": 0.09999999999490683,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionWorst": {
+          "baselineMs": 16.700000000000728,
+          "candidateMs": 16.700000000000728,
+          "baselineOver50": 0,
+          "candidateOver50": 0,
+          "baselineOver100": 0,
+          "candidateOver100": 0
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 72,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 72,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 71,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 225,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 223,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 225,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 223,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        }
+      },
+      {
+        "type": "combined",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.199999988079071,
+          "candidateMs": 5.300000011920929,
+          "deltaMs": 0.10000002384185791,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 1440,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 4.5,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 119,
+            "p50Ms": 3.4000000059604645,
+            "p95Ms": 5.199999988079071,
+            "worstMs": 5.700000017881393,
+            "p95NearestRankMs": 5.199999988079071,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 119,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 117,
+            "over50Ms": 37,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 1440,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            1.5166666666666662,
+            4.499999999999989
+          ],
+          "renderFrameRange": [
+            234,
+            293
+          ],
+          "backendStayed": [
+            "WebGPU"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 1440,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 4.5,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 119,
+            "p50Ms": 4.5999999940395355,
+            "p95Ms": 5.300000011920929,
+            "worstMs": 6.200000017881393,
+            "p95NearestRankMs": 5.300000011920929,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 119,
+            "p50Ms": 50,
+            "p95Ms": 54.19999999999891,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.19999999999891,
+            "over33Ms": 117,
+            "over50Ms": 38,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 1440,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            1.5166666666666662,
+            4.499999999999989
+          ],
+          "renderFrameRange": [
+            231,
+            290
+          ],
+          "backendStayed": [
+            "WebGPU"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.19999999999891,
+          "deltaMs": 0.09999999999854481,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.19999999999891,
+          "deltaMs": 0.09999999999854481,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 119,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 117,
+            "over50Ms": 37,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 119,
+            "p50Ms": 50,
+            "p95Ms": 54.19999999999891,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.19999999999891,
+            "over33Ms": 117,
+            "over50Ms": 38,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.4000000059604645,
+          "candidateMs": 5.399999976158142,
+          "deltaMs": -2.9802322387695312e-08,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 3595,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 8.5,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 900,
+            "p50Ms": 4.299999982118607,
+            "p95Ms": 5.4000000059604645,
+            "worstMs": 10.099999994039536,
+            "p95NearestRankMs": 5.399999976158142,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 900,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 20.899999999997817,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3595,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            4.716666666666655,
+            12.16666666666685
+          ],
+          "renderFrameRange": [
+            299,
+            747
+          ],
+          "backendStayed": [
+            "WebGPU"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 3599,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 8.400000000001455,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 900,
+            "p50Ms": 4.299999982118607,
+            "p95Ms": 5.399999976158142,
+            "worstMs": 6.0999999940395355,
+            "p95NearestRankMs": 5.399999976158142,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 900,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3599,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            4.683333333333322,
+            12.150000000000183
+          ],
+          "renderFrameRange": [
+            295,
+            744
+          ],
+          "backendStayed": [
+            "WebGPU"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 287,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 288,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 900,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 20.899999999997817,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 900,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "webgpu",
+        "width": 1280,
+        "height": 800,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 5.4000000059604645,
+          "candidateMs": 5.5,
+          "deltaMs": 0.09999999403953552,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 3586,
+            "p50Ms": 4.200000000000728,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 901,
+            "p50Ms": 4.299999982118607,
+            "p95Ms": 5.4000000059604645,
+            "worstMs": 22.700000017881393,
+            "p95NearestRankMs": 5.4000000059604645,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 901,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 29.100000000002183,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3586,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            42.96666666666551,
+            50.39999999999842
+          ],
+          "renderFrameRange": [
+            773,
+            1220
+          ],
+          "backendStayed": [
+            "WebGPU"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 3584,
+            "p50Ms": 4.19999999999709,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 20.80000000000291,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 901,
+            "p50Ms": 4.300000011920929,
+            "p95Ms": 5.5,
+            "worstMs": 13.700000017881393,
+            "p95NearestRankMs": 5.5,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 901,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3584,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            42.93333333333218,
+            50.39999999999842
+          ],
+          "renderFrameRange": [
+            768,
+            1217
+          ],
+          "backendStayed": [
+            "WebGPU"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 288,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 288,
+            "p50Ms": 16.69999999999709,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 901,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 29.100000000002183,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 901,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.5,
+          "candidateMs": 3.7000000178813934,
+          "deltaMs": 0.20000001788139343,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 1440,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 4.5,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 118,
+            "p50Ms": 2.9000000059604645,
+            "p95Ms": 3.5,
+            "worstMs": 3.800000011920929,
+            "p95NearestRankMs": 3.5,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 118,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 116,
+            "over50Ms": 46,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 1440,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.19999998807907104,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            1.5166666666666662,
+            4.516666666666656
+          ],
+          "renderFrameRange": [
+            237,
+            295
+          ],
+          "backendStayed": [
+            "WebGL 2"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 1440,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 4.699999999998909,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 119,
+            "p50Ms": 2.9000000059604645,
+            "p95Ms": 3.7000000178813934,
+            "worstMs": 4.200000017881393,
+            "p95NearestRankMs": 3.7000000178813934,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 119,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.19999999999891,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 117,
+            "over50Ms": 43,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 1440,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            1.4999999999999996,
+            4.499999999999989
+          ],
+          "renderFrameRange": [
+            230,
+            291
+          ],
+          "backendStayed": [
+            "WebGL 2"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 54.100000000000364,
+          "candidateMs": 54.100000000000364,
+          "deltaMs": 0,
+          "allowanceMs": 10.820000000000073,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 118,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 116,
+            "over50Ms": 46,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 119,
+            "p50Ms": 50,
+            "p95Ms": 54.100000000000364,
+            "worstMs": 54.19999999999891,
+            "p95NearestRankMs": 54.100000000000364,
+            "over33Ms": 117,
+            "over50Ms": 43,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 4.799999982118607,
+          "candidateMs": 4.600000023841858,
+          "deltaMs": -0.19999995827674866,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 3586,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 54.20000000000073,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 1,
+            "over50Ms": 1,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 898,
+            "p50Ms": 3.5999999940395355,
+            "p95Ms": 4.799999982118607,
+            "worstMs": 6.399999976158142,
+            "p95NearestRankMs": 4.799999982118607,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 898,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 62.60000000000218,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 1,
+            "over50Ms": 1,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3586,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            4.683333333333322,
+            12.16666666666685
+          ],
+          "renderFrameRange": [
+            300,
+            746
+          ],
+          "backendStayed": [
+            "WebGL 2"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 3585,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 20.900000000001455,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 899,
+            "p50Ms": 3.5999999940395355,
+            "p95Ms": 4.600000023841858,
+            "worstMs": 15.599999994039536,
+            "p95NearestRankMs": 4.600000023841858,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 899,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3585,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            4.666666666666655,
+            12.16666666666685
+          ],
+          "renderFrameRange": [
+            294,
+            745
+          ],
+          "backendStayed": [
+            "WebGL 2"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 288,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 287,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000109,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 898,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 62.60000000000218,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 1,
+            "over50Ms": 1,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 899,
+            "p50Ms": 16.69999999999891,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "webgl",
+        "width": 1280,
+        "height": 800,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 4.699999988079071,
+          "candidateMs": 4.5999999940395355,
+          "deltaMs": -0.09999999403953552,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 3585,
+            "p50Ms": 4.200000000000728,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 29.200000000000728,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 899,
+            "p50Ms": 3.699999988079071,
+            "p95Ms": 4.699999988079071,
+            "worstMs": 20.899999976158142,
+            "p95NearestRankMs": 4.699999988079071,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 899,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 41.70000000000073,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 1,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3585,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            42.93333333333218,
+            50.39999999999842
+          ],
+          "renderFrameRange": [
+            773,
+            1218
+          ],
+          "backendStayed": [
+            "WebGL 2"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 3590,
+            "p50Ms": 4.200000000000728,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 16.799999999999272,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 900,
+            "p50Ms": 3.699999988079071,
+            "p95Ms": 4.5999999940395355,
+            "worstMs": 6.100000023841858,
+            "p95NearestRankMs": 4.5999999940395355,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 900,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3590,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            42.866666666665516,
+            50.41666666666509
+          ],
+          "renderFrameRange": [
+            764,
+            1218
+          ],
+          "backendStayed": [
+            "WebGL 2"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 16.799999999999272,
+          "candidateMs": 16.799999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 3.3599999999998547,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 288,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 17,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 288,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 899,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 41.70000000000073,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 1,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 900,
+            "p50Ms": 16.700000000000728,
+            "p95Ms": 16.799999999999272,
+            "worstMs": 25,
+            "p95NearestRankMs": 16.799999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "workload": "idle",
+        "rafP95": {
+          "baselineMs": 4.299999999999272,
+          "candidateMs": 4.299999999999272,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 0.4000000059604645,
+          "candidateMs": 0.4000000059604645,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": null,
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 1440,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 4.5,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 58,
+            "p50Ms": 0.30000001192092896,
+            "p95Ms": 0.4000000059604645,
+            "worstMs": 0.4000000059604645,
+            "p95NearestRankMs": 0.4000000059604645,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 58,
+            "p50Ms": 100,
+            "p95Ms": 104.10000000000036,
+            "worstMs": 104.20000000000073,
+            "p95NearestRankMs": 104.10000000000036,
+            "over33Ms": 58,
+            "over50Ms": 58,
+            "over100Ms": 17
+          },
+          "qaObserver": {
+            "count": 1440,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            1.5166666666666662,
+            4.499999999999989
+          ],
+          "renderFrameRange": [
+            125,
+            162
+          ],
+          "backendStayed": [
+            "Canvas 2D \u00c2\u00b7 compatibility"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 1440,
+            "p50Ms": 4.199999999999818,
+            "p95Ms": 4.299999999999272,
+            "worstMs": 4.5,
+            "p95NearestRankMs": 4.299999999999272,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 59,
+            "p50Ms": 0.30000001192092896,
+            "p95Ms": 0.4000000059604645,
+            "worstMs": 0.4000000059604645,
+            "p95NearestRankMs": 0.4000000059604645,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 59,
+            "p50Ms": 100,
+            "p95Ms": 104.10000000000036,
+            "worstMs": 104.19999999999982,
+            "p95NearestRankMs": 104.10000000000036,
+            "over33Ms": 58,
+            "over50Ms": 58,
+            "over100Ms": 23
+          },
+          "qaObserver": {
+            "count": 1440,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            1.5166666666666662,
+            4.499999999999989
+          ],
+          "renderFrameRange": [
+            124,
+            153
+          ],
+          "backendStayed": [
+            "Canvas 2D \u00c2\u00b7 compatibility"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 104.10000000000036,
+          "candidateMs": 104.10000000000036,
+          "deltaMs": 0,
+          "allowanceMs": 20.820000000000075,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 104.10000000000036,
+          "candidateMs": 104.10000000000036,
+          "deltaMs": 0,
+          "allowanceMs": 20.820000000000075,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": null,
+        "transitionRenderedCadenceNearestRankP95": null,
+        "transitionRenderedIntervals": null,
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 58,
+            "p50Ms": 100,
+            "p95Ms": 104.10000000000036,
+            "worstMs": 104.20000000000073,
+            "p95NearestRankMs": 104.10000000000036,
+            "over33Ms": 58,
+            "over50Ms": 58,
+            "over100Ms": 17
+          },
+          "candidate": {
+            "count": 59,
+            "p50Ms": 100,
+            "p95Ms": 104.10000000000036,
+            "worstMs": 104.19999999999982,
+            "p95NearestRankMs": 104.10000000000036,
+            "over33Ms": 58,
+            "over50Ms": 58,
+            "over100Ms": 23
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "workload": "launch-1",
+        "rafP95": {
+          "baselineMs": 8.400000000001455,
+          "candidateMs": 8.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.399999976158142,
+          "candidateMs": 3.4000000059604645,
+          "deltaMs": 2.9802322387695312e-08,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.30000000000291,
+          "candidateMs": 4.399999999999636,
+          "deltaMs": 0.09999999999672582,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 3208,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 8.400000000001455,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 8.400000000001455,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 450,
+            "p50Ms": 1.800000011920929,
+            "p95Ms": 3.399999976158142,
+            "worstMs": 3.5999999940395355,
+            "p95NearestRankMs": 3.399999976158142,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 450,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 446,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3208,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            4.583333333333322,
+            12.083333333333513
+          ],
+          "renderFrameRange": [
+            157,
+            390
+          ],
+          "backendStayed": [
+            "Canvas 2D \u00c2\u00b7 compatibility"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 3196,
+            "p50Ms": 4.199999999998909,
+            "p95Ms": 8.400000000001455,
+            "worstMs": 16.80000000000109,
+            "p95NearestRankMs": 8.400000000001455,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 450,
+            "p50Ms": 1.800000011920929,
+            "p95Ms": 3.4000000059604645,
+            "worstMs": 4.0999999940395355,
+            "p95NearestRankMs": 3.4000000059604645,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 450,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 445,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3196,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            4.616666666666656,
+            12.083333333333513
+          ],
+          "renderFrameRange": [
+            156,
+            381
+          ],
+          "backendStayed": [
+            "Canvas 2D \u00c2\u00b7 compatibility"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 142,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 142,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 450,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 446,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 450,
+            "p50Ms": 33.30000000000109,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.600000000000364,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 445,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      },
+      {
+        "type": "combined",
+        "backend": "canvas",
+        "width": 1280,
+        "height": 800,
+        "workload": "launch-2",
+        "rafP95": {
+          "baselineMs": 12.399999999997817,
+          "candidateMs": 8.400000000001455,
+          "deltaMs": -3.999999999996362,
+          "allowanceMs": 2.4799999999995634,
+          "withinAllowance": true
+        },
+        "cpuSubmissionP95": {
+          "baselineMs": 3.300000011920929,
+          "candidateMs": 3.300000011920929,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "transitionRafP95": {
+          "baselineMs": 4.30000000000291,
+          "candidateMs": 4.30000000000291,
+          "deltaMs": 0,
+          "allowanceMs": 2,
+          "withinAllowance": true
+        },
+        "repeatedCadenceRegression": false,
+        "repeatedTransitionOver100": false,
+        "baselineSummary": {
+          "raf": {
+            "count": 3189,
+            "p50Ms": 4.200000000000728,
+            "p95Ms": 12.399999999997817,
+            "worstMs": 16.700000000000728,
+            "p95NearestRankMs": 12.399999999997817,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 450,
+            "p50Ms": 1.9000000059604645,
+            "p95Ms": 3.300000011920929,
+            "worstMs": 3.5999999940395355,
+            "p95NearestRankMs": 3.300000011920929,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 450,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.599999999998545,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 445,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3189,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            42.79999999999885,
+            50.28333333333176
+          ],
+          "renderFrameRange": [
+            395,
+            628
+          ],
+          "backendStayed": [
+            "Canvas 2D \u00c2\u00b7 compatibility"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "candidateSummary": {
+          "raf": {
+            "count": 3210,
+            "p50Ms": 4.200000000000728,
+            "p95Ms": 8.400000000001455,
+            "worstMs": 16.80000000000291,
+            "p95NearestRankMs": 8.400000000001455,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "cpuSubmission": {
+            "count": 450,
+            "p50Ms": 1.9000000059604645,
+            "p95Ms": 3.300000011920929,
+            "worstMs": 4,
+            "p95NearestRankMs": 3.300000011920929,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "renderedCadence": {
+            "count": 450,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 446,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "qaObserver": {
+            "count": 3210,
+            "p50Ms": 0,
+            "p95Ms": 0,
+            "worstMs": 0.10000002384185791,
+            "p95NearestRankMs": 0,
+            "over33Ms": 0,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "simulationRange": [
+            42.833333333332185,
+            50.29999999999843
+          ],
+          "renderFrameRange": [
+            394,
+            619
+          ],
+          "backendStayed": [
+            "Canvas 2D \u00c2\u00b7 compatibility"
+          ],
+          "qualities": [
+            "ultra"
+          ]
+        },
+        "renderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "renderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedCadenceNearestRankP95": {
+          "baselineMs": 33.400000000001455,
+          "candidateMs": 33.400000000001455,
+          "deltaMs": 0,
+          "allowanceMs": 6.680000000000291,
+          "withinAllowance": true
+        },
+        "transitionRenderedIntervals": {
+          "baseline": {
+            "count": 144,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 142,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 144,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 142,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "renderedCadenceSummaries": {
+          "baseline": {
+            "count": 450,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.599999999998545,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 445,
+            "over50Ms": 0,
+            "over100Ms": 0
+          },
+          "candidate": {
+            "count": 450,
+            "p50Ms": 33.30000000000291,
+            "p95Ms": 33.400000000001455,
+            "worstMs": 33.5,
+            "p95NearestRankMs": 33.400000000001455,
+            "over33Ms": 446,
+            "over50Ms": 0,
+            "over100Ms": 0
+          }
+        },
+        "repeatedRenderedCadenceRegression": false,
+        "repeatedNewRenderedTransitionOver50": false,
+        "repeatedNewRenderedTransitionOver100": false
+      }
+    ],
+    "acceptance": {
+      "rafWithinAllowance": true,
+      "noRepeatedNewTransitionOver100": true,
+      "runtimeErrors": 0,
+      "note": "The 100 ms repeatable hitch indicator supplements raw 33/50/100 ms interval counts; review the raw burst-relative frames for smaller repeated stalls. CPU submission allowances are reported separately and do not substitute for cadence or completed GPU measurements. App-rendered cadence is the primary frame-interval assessment; observer rAF failures and raw intervals are retained as a separate scheduling assessment. Original rAF assertions remain in the script exit status.",
+      "repeatableHitchDefinition": "A new transition over the threshold in at least two paired repetitions, retaining the original two-repeat criterion when extra repetitions are collected",
+      "primaryMetric": "App-rendered frame interval, from changes to the existing renderer frame counter; active scene capped at 60fps, idle retains its bounded cadence",
+      "percentileMethod": "p95Ms uses sorted[min(N-1,floor(N*.95))]; nearest-rank p95 is also retained as sorted[ceil(N*.95)-1]. Timings remain unrounded.",
+      "appRenderedCadenceWithinAllowance": true,
+      "appRenderedCadenceNearestRankWithinAllowance": true,
+      "noRepeatedNewRenderedTransitionOver50": true,
+      "noRepeatedNewRenderedTransitionOver100": true,
+      "observerRafWithinAllowance": true
+    },
+    "errors": [],
+    "failed": null,
+    "runIdentities": [
+      {
+        "source": "baseline",
+        "backend": "WebGPU",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1
+      },
+      {
+        "source": "candidate",
+        "backend": "WebGPU",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1
+      },
+      {
+        "source": "candidate",
+        "backend": "WebGPU",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2
+      },
+      {
+        "source": "baseline",
+        "backend": "WebGPU",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2
+      },
+      {
+        "source": "baseline",
+        "backend": "WebGL 2",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1
+      },
+      {
+        "source": "candidate",
+        "backend": "WebGL 2",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1
+      },
+      {
+        "source": "candidate",
+        "backend": "WebGL 2",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2
+      },
+      {
+        "source": "baseline",
+        "backend": "WebGL 2",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2
+      },
+      {
+        "source": "baseline",
+        "backend": "Canvas 2D \u00c2\u00b7 compatibility",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1
+      },
+      {
+        "source": "candidate",
+        "backend": "Canvas 2D \u00c2\u00b7 compatibility",
+        "width": 1280,
+        "height": 800,
+        "repeat": 1
+      },
+      {
+        "source": "candidate",
+        "backend": "Canvas 2D \u00c2\u00b7 compatibility",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2
+      },
+      {
+        "source": "baseline",
+        "backend": "Canvas 2D \u00c2\u00b7 compatibility",
+        "width": 1280,
+        "height": 800,
+        "repeat": 2
+      }
+    ]
+  }
+}

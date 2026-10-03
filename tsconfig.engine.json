@@ -37,6 +37,7 @@
     "src/experience/NightLibrary.ts",
     "src/experience/SceneCapture.ts",
     "src/experience/SessionDiagnostics.ts",
-    "src/engine/SmokeOcclusion.ts"
+    "src/engine/SmokeOcclusion.ts",
+    "src/engine/ShowMusic.ts"
   ]
 }

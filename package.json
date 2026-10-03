@@ -10,7 +10,7 @@
     "dev": "vite --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
-    "test": "tsc -p tsconfig.engine.json && node --test tests/always-play.test.mjs tests/engine.test.mjs tests/v2.test.mjs tests/realism-v3.test.mjs tests/video-flow.test.mjs tests/release-fingerprint.test.mjs tests/renderer-recovery.test.mjs tests/grand-collection.test.mjs tests/stage-interactions.test.mjs tests/sky-state.test.mjs tests/celestial-scene.test.mjs tests/launch-composition.test.mjs tests/moon-water.test.mjs tests/water-surface-grid.test.mjs tests/planar-reflection.test.mjs tests/water-reflection-state.test.mjs tests/particle-reflection-bounds.test.mjs tests/flagship-effects.test.mjs tests/open-sky-engine.test.mjs tests/open-sky-aim.test.mjs tests/startup-progress.test.mjs tests/full-night.test.mjs tests/experience.test.mjs tests/cinematic-v4.test.mjs",
+    "test": "tsc -p tsconfig.engine.json && node --test tests/always-play.test.mjs tests/engine.test.mjs tests/v2.test.mjs tests/realism-v3.test.mjs tests/video-flow.test.mjs tests/release-fingerprint.test.mjs tests/renderer-recovery.test.mjs tests/grand-collection.test.mjs tests/stage-interactions.test.mjs tests/sky-state.test.mjs tests/celestial-scene.test.mjs tests/launch-composition.test.mjs tests/moon-water.test.mjs tests/water-surface-grid.test.mjs tests/planar-reflection.test.mjs tests/water-reflection-state.test.mjs tests/particle-reflection-bounds.test.mjs tests/flagship-effects.test.mjs tests/open-sky-engine.test.mjs tests/open-sky-aim.test.mjs tests/startup-progress.test.mjs tests/full-night.test.mjs tests/experience.test.mjs tests/cinematic-v4.test.mjs tests/show-music.test.mjs tests/cinematic-integration.test.mjs",
     "test:soak": "tsc -p tsconfig.engine.json && node tests/soak.mjs",
     "test:e2e": "node tests/video-flow-browser.mjs",
     "build": "node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && node scripts/generate-release.mjs && tsc --noEmit && vite build",
@@ -22,7 +22,8 @@
     "test:grand": "node tests/grand-collection-browser.mjs",
     "test:full-night": "node tests/full-night-browser.mjs",
     "test:experience": "node tests/experience-browser.mjs",
-    "test:cinematic-v4": "node tests/cinematic-v4-browser.mjs"
+    "test:cinematic-v4": "node tests/cinematic-v4-browser.mjs",
+    "test:cinematic-integration": "node tests/cinematic-integration-browser.mjs"
   },
   "overrides": {
     "undici": "7.29.1"

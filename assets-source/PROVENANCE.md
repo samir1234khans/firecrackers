@@ -92,3 +92,7 @@ The new [river-life-v008.glb](../public/art/river-life-v008.glb) preserves the s
 [The v008 source and reproduction guide](blender/RIVER-V008.md) records 361 editable objects, 28 exported mesh nodes, 20,022 imported vertices, seventeen materials and six embedded shared maps. The export is 8,006,212 bytes, SHA256 `0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5`. [Fresh-scene verification](blender/renders/river-v008/verification.json) records the reopened packed master, finite bounds, unchanged root/anchor names and no external texture dependencies. Color uses sRGB; normal/roughness data use lossless linear PNG with the established exporter metadata correction. Inspected Cycles boat, pose and village renders establish geometry/material evidence; browser lighting, positioning, reflections, native GPU rendering and performance remain separate evidence.
 
 CC0 applies to the downloaded canoe and its adaptation. Original canopy, figures, foliage, shore buildings, terrace and application code remain original project work under the owner's existing licensing decisions. Voluntary creator attribution and source/CC0 links remain in the generated public third-party notice; the v008 additions do not replace or weaken that notice.
+
+## Reconciled original musical scores
+
+The eighteen original, unchanged FLAC assets and their manifest are retained from held PR #33. See [music provenance](music/PROVENANCE.md). Their inclusion on this candidate does not clear the release hold.

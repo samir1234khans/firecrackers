@@ -7,6 +7,7 @@ import { BUDGETS, FAMILIES, clamp, familyIndex, familyReservation, splitChildCou
 import type { FamilyId, Quality, ShowPreset } from './catalog.js';
 import type { LaunchProfile } from './LaunchProfile.js';
 import { AlwaysPlayDirector } from './AlwaysPlayDirector.js';
+import { CinematicDirector, themeValue, endlessThemeValue, type ShowTheme, type EndlessTheme } from './CinematicDirector.js';
 import { Pool } from './Pool.js';
 import { grandRecipe, coolGrandStar, carrierTint } from './GrandEffects.js';
 import { signatureRecipe, evolveSignature, signatureTint } from './FlagshipEffects.js';
@@ -25,6 +26,7 @@ export type SimEvent = {
     duration?: number;
 };
 export type Rocket = {
+    targetImpact?: number;
     id: number;
     family: number;
     x: number;
@@ -78,6 +80,7 @@ export type Light = {
     b: number;
     strength: number;
 };
+export type PreparedAutoShot = Readonly<{ family: number; placement: number; profile?: Readonly<LaunchProfile>; ground: number; x: number; top: number; ascent: number; thrust: number; acceleration: number; fuse: number; lead: number }>;
 /** One bounded 60 Hz virtual-world clock. The viewport never changes airborne physics. */
 export class Simulation {
     readonly heads = new Pool(3072);
@@ -101,6 +104,12 @@ export class Simulation {
     readonly always: AlwaysPlayDirector;
     readonly personal: RecipePlayer;
     private finiteEnded = false;
+    readonly cinematic = new CinematicDirector();
+    finaleTheme: ShowTheme = 'prismatic';
+    endlessTheme: EndlessTheme = 'cycle';
+    private pendingAuto: PreparedAutoShot | null = null;
+    private pendingGeneration = -1;
+    private autoRng: () => number;
     show: ShowPreset | null = null;
     launched = 0;
     bursts = 0;
@@ -130,6 +139,7 @@ export class Simulation {
     private launchProfileResolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null = null;
     setLaunchProfileResolver(resolver: ((id: FamilyId, placement: number) => LaunchProfile | undefined) | null) { this.launchProfileResolver = resolver; }
     constructor(public seed = 20260916) {
+        this.autoRng = randomStream(seed ^ 0x622ace15);
         this.always = new AlwaysPlayDirector(seed);
         this.personal = new RecipePlayer(this);
         this.launchRng = randomStream(seed);
@@ -169,7 +179,11 @@ export class Simulation {
         return this.heads.count || this.trails.count || this.embers.count || this.cues.length ? 'afterglow' : 'ready';
     }
     placementToX(value = this.placement) { return (clamp(value, 0, 1) - 0.5) * this.launchSpan; }
-    setViewport(width: number, _ground: number) { this.launchSpan = clamp(width, 65, 160); }
+    setViewport(width: number, _ground: number) {
+        const span = clamp(width, 65, 160);
+        if (span !== this.launchSpan) this.pendingAuto = null;
+        this.launchSpan = span;
+    }
     setPlacement(value: number) {
         if (!Number.isFinite(value)) return;
         this.placement = clamp(value, 0, 1);
@@ -199,10 +213,29 @@ export class Simulation {
         for (let i = 0; i < this.heads.count; i++) if (this.heads.split[i] > 0) n += splitChildCount(this.heads.family[i]) - 1;
         return n;
     }
-    ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement?: number) {
+    /** Pure preparation never reserves resources or advances any random stream. */
+    prepareAutoShot(family: number, placement: number, apexFraction: number): PreparedAutoShot {
+        if (this.protectCenter && placement >= this.safeRect[0] && placement <= this.safeRect[2]) {
+            placement = placement < .5 ? Math.max(0, this.safeRect[0] - .12) : Math.min(1, this.safeRect[2] + .12);
+        }
+        const resolved = this.launchProfileResolver?.(FAMILIES[family].id, placement);
+        const profile = resolved && Number.isFinite(resolved.apexMin) && Number.isFinite(resolved.apexMax) ? Object.freeze({ ...resolved }) : undefined;
+        const ground = profile?.ground ?? this.ground;
+        const top = profile ? Math.max(ground + 10, profile.apexMin + clamp(apexFraction, 0, 1) * (profile.apexMax - profile.apexMin)) : 72 + clamp(apexFraction, 0, 1) * 6;
+        const fraction = family >= 10 ? [.28, .22, .31][family - 10] : .24;
+        const ascent = Math.sqrt(2 * (top - ground) / (FLIGHT_GRAVITY * (1 - fraction))), thrust = ascent * fraction;
+        const fuse = 40 / 60;
+        return Object.freeze({ family, placement, profile, ground, x: profile?.padX ?? this.placementToX(placement), top, ascent, thrust,
+            acceleration: FLIGHT_GRAVITY * (ascent - thrust) / thrust, fuse, lead: fuse + Math.ceil(ascent * 60 - 1e-8) / 60 });
+    }
+    setShowThemes(finale: unknown, endless: unknown) {
+        this.finaleTheme = themeValue(finale); this.endlessTheme = endlessThemeValue(endless);
+        if (this.show && this.show !== 'calm') this.cinematic.request(this.show === 'finale' ? this.finaleTheme : this.endlessTheme);
+    }
+    ignite(source: 'manual' | 'auto' = 'manual', family = familyIndex(this.selected), placement?: number, shot?: PreparedAutoShot, targetImpact?: number) {
         if (placement !== undefined && !Number.isFinite(placement)) return false;
         if (this.paused) return false;
-        if (source === 'manual' && this.show === 'always') this.stopShow(false);
+        if (source === 'manual' && this.show) this.stopShow(false);
         if (source === 'manual' && (!this.prepared || this.committed)) return false;
         const f = FAMILIES[family];
         const reserve = this.reserveFor(family);
@@ -214,15 +247,15 @@ export class Simulation {
         if (source === 'manual') this.stopShow(false);
         // Independent placement randomness is consumed only after admission succeeds.
         const chosenPlacement = placement === undefined ? (this.placementMode === 'random' ? this.placementRng() : this.placement) : clamp(placement, 0, 1);
-        const rand = this.launchRng;
-        const heightDraw = rand();
-        const resolved = this.launchProfileResolver?.(f.id, chosenPlacement);
+        const rand = shot ? this.autoRng : this.launchRng;
+        const heightDraw = shot ? 0 : rand();
+        const resolved = shot?.profile ?? this.launchProfileResolver?.(f.id, chosenPlacement);
         const launchProfile = resolved && Number.isFinite(resolved.apexMin) && Number.isFinite(resolved.apexMax)
             ? Object.freeze({ ...resolved }) : undefined;
-        const ground = launchProfile?.ground ?? this.ground;
-        const x = launchProfile?.padX ?? this.placementToX(chosenPlacement), top = launchProfile
+        const ground = shot?.ground ?? launchProfile?.ground ?? this.ground;
+        const x = shot?.x ?? launchProfile?.padX ?? this.placementToX(chosenPlacement), top = shot?.top ?? (launchProfile
             ? Math.max(ground + 10, launchProfile.apexMin + heightDraw * (launchProfile.apexMax - launchProfile.apexMin))
-            : 72 + heightDraw * 6;
+            : 72 + heightDraw * 6);
         // Solve a powered rise followed by a coast that reaches the apex at zero vertical speed.
         // All families share virtual gravity; height changes flight duration, not the viewport.
         const thrustFraction = family >= 10 ? [.28, .22, .31][family - 10] : .24;
@@ -232,7 +265,7 @@ export class Simulation {
         const rocket: Rocket = {
             id: this.nextObjectId++, family, x, y: ground, z: 0, px: x, py: ground, pz: 0,
             vx: (rand() - 0.5) * 1.0, vy: 0, vz: (rand() - 0.5) * 1.1, ground, padX: x, normalizedPlacement: chosenPlacement, top, age: 0,
-            fuse: 0.58 + rand() * 0.18, ascent, thrust, acceleration, phase: 'fuse', stage: 'fuse',
+            fuse: shot?.fuse ?? (0.58 + rand() * 0.18), ascent, thrust, acceleration, phase: 'fuse', stage: 'fuse', targetImpact,
             cost: f.cost, seed: Math.floor(rand() * 0xffffffff), reserve, launchProfile,
         };
         this.rockets.push(rocket);
@@ -283,6 +316,8 @@ export class Simulation {
         this.paused = false;
         this.show = preset;
         this.showStart = this.time;
+        this.pendingAuto = null;
+        this.cinematic.reset(this.time, preset === 'finale' ? this.finaleTheme : this.endlessTheme);
         if (preset === 'always') this.always.reset(this.time);
         this.nextCue = this.time + 0.5;
         this.message = preset === 'finale' ? 'A finale, then a quiet sky.' : 'The night is in good hands.';
@@ -292,6 +327,8 @@ export class Simulation {
         if (this.show && announce) this.message = 'Automatic show stopped. The sky is yours.';
         this.show = null;
         this.always.family = -1;
+        this.pendingAuto = null;
+        this.cinematic.generation++;
     }
     reset(seed = this.seed) {
         if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff) throw new Error('Invalid simulation seed');
@@ -312,6 +349,8 @@ export class Simulation {
         this.paused = false;
         this.show = null;
         this.always.reset(0);
+        this.cinematic.reset(0, this.endlessTheme);
+        this.pendingAuto = null;
         this.launched = 0;
         this.bursts = 0;
         this.sequence = 0;
@@ -321,6 +360,7 @@ export class Simulation {
         this.showRng = randomStream(this.seed ^ 0x5bf03635);
         this.smokeRng = randomStream(this.seed ^ 0x34167829);
         this.placementRng = randomStream(this.seed ^ 0x1f923bc1);
+        this.autoRng = randomStream(this.seed ^ 0x622ace15);
         this.selected = 'gold-willow';
         this.placement = 0.5;
         this.placementMode = 'fixed';
@@ -341,7 +381,8 @@ export class Simulation {
         return {
             cinematicResponse: this.cinema.snapshot(),
             personal: this.personal.snapshot(),
-            showTiming: { preset: this.show ?? (this.finiteEnded ? 'finale' : null), elapsed: Math.max(0, Math.floor(this.time - this.showStart)), duration: this.show === 'finale' || this.finiteEnded ? 32 : null, complete: this.finiteEnded && this.phase === 'ready' && !this.smoke.count && !this.rockets.length },
+            showTiming: { preset: this.show ?? (this.finiteEnded ? 'finale' : null), elapsed: Math.max(0, Math.floor(this.time - this.showStart)), duration: this.show === 'finale' || this.finiteEnded ? 90 : null, complete: this.finiteEnded && this.phase === 'ready' && !this.smoke.count && !this.rockets.length },
+            cinematic: this.cinematic.snapshot(),
             always: this.always.snapshot(), futureHeads: this.futureHeads, activeUnits: this.activeUnits, headCount: this.heads.count, trailCount: this.trails.count,
             ready: this.ready, paused: this.paused, selected: this.selected, placement: this.placement,
             placementMode: this.placementMode, nextPlacement: this.placement, committedPlacement: this.committed?.normalizedPlacement ?? null,
@@ -462,6 +503,10 @@ export class Simulation {
         }
     }
     private directShow() {
+        if (this.show !== 'calm') this.cinematic.update(this.time);
+        if (this.pendingGeneration !== this.cinematic.generation) { this.pendingAuto = null; this.pendingGeneration = this.cinematic.generation; }
+        // Keep continuous quantity/cadence exactly as verified on richer-night main.
+        // The soundtrack follows this clock; it must not grid-delay user-selected density.
         if (this.show === 'always') {
             this.always.tick(1 / 60);
             const family = this.always.choose(this.time, this.reducedFlashes);
@@ -475,9 +520,26 @@ export class Simulation {
             this.always.result(this.time, admitted, pressure, this.reducedFlashes, !room ? 1 : heads / this.heads.capacity >= .90 && !solo ? 2 : 0);
             return;
         }
-        if (this.show === 'finale' && this.time - this.showStart >= 32) {
+        if (this.show === 'finale' && this.time - this.showStart >= 90) {
             this.show = null; this.finiteEnded = true;
             this.message = 'Finale complete. Stay for the embers.';
+            return;
+        }
+        if (this.show === 'festival' || this.show === 'finale') {
+            const cue = this.cinematic.cue;
+            if (!cue) return;
+            if (!this.pendingAuto) this.pendingAuto = this.prepareAutoShot(cue.family, cue.placement, cue.apex);
+            const shot = this.pendingAuto, impact = this.showStart + this.cinematic.cycle * 90 + cue.impact;
+            if (this.time + shot.lead < impact - 1e-8) return;
+            if (this.time + shot.lead > impact + 1 / 30 || this.show === 'finale' && this.cinematic.phase >= 75) {
+                this.cinematic.complete(false, this.time); this.pendingAuto = null; return;
+            }
+            const comfort = !this.reducedFlashes || this.time >= this.cinematic.lastAdmission + 3;
+            const nextFeature = this.cinematic.nextFeature;
+            const reserveFeature = !cue.featured && nextFeature && nextFeature.impact - cue.impact <= 6;
+            const room = !reserveFeature || this.heads.count + this.futureHeads + this.reserveFor(shot.family) + this.reserveFor(nextFeature.family) <= this.heads.capacity;
+            const admitted = comfort && room && this.ignite('auto', shot.family, shot.placement, shot, impact);
+            this.cinematic.complete(admitted, this.time); this.pendingAuto = null;
             return;
         }
         if (this.time < this.nextCue) return;
@@ -497,6 +559,7 @@ export class Simulation {
         this.nextCue = this.time + (admitted ? Math.max(spacing + (family === 9 ? 3.5 : family >= 5 ? 1 : 0) + (haze > 0.8 ? 1.0 : 0), this.reducedFlashes ? 3 : 0) : 1.25);
     }
     private primary(r: Rocket) {
+        if (r.targetImpact !== undefined) this.cinematic.maxImpactError = Math.max(this.cinematic.maxImpactError, Math.abs(this.time - r.targetImpact));
         const [x, y, z] = rocketPoint(r, SHELL_LOCAL_Y);
         if (r.family !== 4) {
             this.burst(r.family, x, y, z, r.launchProfile?.effectScale ?? 1, r.seed, r.vx * .13, r.vy * .08, r.vz * .13);

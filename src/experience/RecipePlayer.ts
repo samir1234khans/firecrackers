@@ -20,7 +20,7 @@ export class RecipePlayer {
     this.sim.reset(recipe.seed);
     this.sim.selected=selected;this.sim.placement=placement;this.sim.placementMode=placementMode;
     // Start preset before assigning the personal run, so the normal mode-change cancellation is safe.
-    if(recipe.kind==='finale')this.sim.startShow('finale');
+    if(recipe.kind==='finale'){this.sim.setShowThemes(recipe.theme ?? 'prismatic',this.sim.endlessTheme);this.sim.startShow('finale');}
     this.recipe=recipe;this.plan=plan;this.index=0;this.began=this.sim.time;this.ended=null;this.reason='';this.status='playing';
   }
   tick():void {
@@ -42,5 +42,5 @@ export class RecipePlayer {
   cancel():void {if(this.status!=='idle'&&this.status!=='stopped'){this.status='stopped';this.ended=this.sim.time;this.reason='Stopped. Current sparks are allowed to finish.';}}
   clear():void {this.recipe=null;this.plan={cues:[],seconds:0,conflicts:[]};this.index=0;this.began=0;this.ended=null;this.status='idle';this.reason='';}
   get current():ShowRecipe|null{return this.recipe?parseRecipe(this.recipe):null;}
-  snapshot(){return {status:this.status,name:this.recipe?.name??'',kind:this.recipe?.kind??null,elapsed:Math.max(0,Math.floor((this.ended??this.sim.time)-this.began)),estimate:this.plan.seconds,cue:this.index,total:this.plan.cues.length,phase:this.plan.cues[Math.max(0,this.index-1)]?.phase??'Opening',reason:this.reason};}
+  snapshot(){return {status:this.status,name:this.recipe?.name??'',kind:this.recipe?.kind??null,elapsed:Math.max(0,Math.floor((this.ended??this.sim.time)-this.began)),estimate:this.plan.seconds,cue:this.index,total:this.plan.cues.length,phase:this.recipe?.kind==='finale'?(this.sim.cinematic.phase<30?'Opening':this.sim.cinematic.phase<60?'Build-up':'Finale'):this.plan.cues[Math.max(0,this.index-1)]?.phase??'Opening',reason:this.reason};}
 }

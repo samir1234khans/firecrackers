@@ -1,0 +1,272 @@
+{
+  "format": 1,
+  "original": true,
+  "sampleRate": 24000,
+  "channels": 2,
+  "bits": 16,
+  "bpm": 96,
+  "seconds": 90,
+  "phraseSeconds": 15,
+  "handleSeconds": 0.075,
+  "encoder": "flac 1.5.0",
+  "themes": {
+    "moonlit": {
+      "name": "Moonlit Silver",
+      "key": "D minor",
+      "motif": [
+        62,
+        69,
+        65,
+        64,
+        62,
+        65,
+        67,
+        69
+      ],
+      "chords": [
+        [
+          50,
+          53,
+          57
+        ],
+        [
+          46,
+          50,
+          53
+        ],
+        [
+          53,
+          57,
+          60
+        ],
+        [
+          48,
+          52,
+          55
+        ]
+      ],
+      "seed": 91021
+    },
+    "golden": {
+      "name": "Golden Celebration",
+      "key": "D major",
+      "motif": [
+        62,
+        66,
+        69,
+        74,
+        73,
+        71,
+        69,
+        66
+      ],
+      "chords": [
+        [
+          50,
+          54,
+          57
+        ],
+        [
+          47,
+          50,
+          54
+        ],
+        [
+          43,
+          47,
+          50
+        ],
+        [
+          45,
+          49,
+          52
+        ]
+      ],
+      "seed": 91022
+    },
+    "prismatic": {
+      "name": "Prismatic Grand",
+      "key": "C major",
+      "motif": [
+        60,
+        64,
+        67,
+        72,
+        71,
+        69,
+        67,
+        64
+      ],
+      "chords": [
+        [
+          48,
+          52,
+          55
+        ],
+        [
+          45,
+          48,
+          52
+        ],
+        [
+          41,
+          45,
+          48
+        ],
+        [
+          43,
+          47,
+          50
+        ]
+      ],
+      "seed": 91023
+    }
+  },
+  "assets": [
+    {
+      "file": "music/moonlit-0.flac",
+      "sha256": "fa1ec9a9bf61417da475bb514c7cec70d1c29864857077553bc94e5dea71df2b",
+      "bytes": 266200,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -13.866
+    },
+    {
+      "file": "music/moonlit-1.flac",
+      "sha256": "923d7ada7d37c3b8cc2ec0c57b4c711741cb8991b4df512cbab3855fcd15ac05",
+      "bytes": 294893,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -10.474
+    },
+    {
+      "file": "music/moonlit-2.flac",
+      "sha256": "8fff6d3763c35f54b2d5d590cf7bbafccb7798da894e80f8b1b908a50f312a60",
+      "bytes": 301250,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -9.161
+    },
+    {
+      "file": "music/moonlit-3.flac",
+      "sha256": "619dc841d87144ed7af5ba5ee44f70fe5177c85c22504f7831d42aeec60cfa50",
+      "bytes": 304012,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -7.44
+    },
+    {
+      "file": "music/moonlit-4.flac",
+      "sha256": "0ed2dd49ae7192ec565d2b08f498b7c736aa2e9b002e6051610c4235edb623a4",
+      "bytes": 311392,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -6.936
+    },
+    {
+      "file": "music/moonlit-5.flac",
+      "sha256": "247658f57495da55231e5ff2b479b2ae41153c0e7e74551980108150931865d6",
+      "bytes": 263620,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -9.769
+    },
+    {
+      "file": "music/golden-0.flac",
+      "sha256": "0800614e95d609a13b539418c7ed6f2ff6bcb90e1804fae33c8d7db0251b7d08",
+      "bytes": 272935,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -13.872
+    },
+    {
+      "file": "music/golden-1.flac",
+      "sha256": "80514931ab1c800381051bbfc773368063059683088f5b43bbfd65df3366f533",
+      "bytes": 304478,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -11.544
+    },
+    {
+      "file": "music/golden-2.flac",
+      "sha256": "77a154efd0434f79050ace49349673e8ac43849b8dcd802496c3267b60e629d9",
+      "bytes": 312130,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -10.415
+    },
+    {
+      "file": "music/golden-3.flac",
+      "sha256": "59434559103605dbe31e8a9e22dac75383652ad43579e6351ee96c27097d8401",
+      "bytes": 312513,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -8.505
+    },
+    {
+      "file": "music/golden-4.flac",
+      "sha256": "0bc4e2cb9d052cc0aaa61be56bf78ec969c6105cd613bd6a0fbfc9d8e202fea2",
+      "bytes": 325036,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -6.936
+    },
+    {
+      "file": "music/golden-5.flac",
+      "sha256": "f24dd7e2bfc0ec8e32ff9b128be74b4b70397894c722e9f7a1441c8d8ab5b509",
+      "bytes": 268925,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -8.962
+    },
+    {
+      "file": "music/prismatic-0.flac",
+      "sha256": "b3dd84dc60e9905b6300b63dac6334e4b7bca297a5deacf9632766af30e586f5",
+      "bytes": 263284,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -13.952
+    },
+    {
+      "file": "music/prismatic-1.flac",
+      "sha256": "aff99d1466a0fce8debb95c8161f0f5607311fdb0820a202631e001926009fed",
+      "bytes": 290124,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -11.454
+    },
+    {
+      "file": "music/prismatic-2.flac",
+      "sha256": "e61cc3cd9860b23f2931270f84ad0b320465105e1d242b4acde66b981e506b0d",
+      "bytes": 296159,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -10.807
+    },
+    {
+      "file": "music/prismatic-3.flac",
+      "sha256": "9e8e6c11f884b9dea251b15fdf0cfa81470f471f1fe253650d224a690998dce5",
+      "bytes": 329395,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -8.588
+    },
+    {
+      "file": "music/prismatic-4.flac",
+      "sha256": "1d283640c7cfeba34fe60027ba12294a1855e1b49ee81b1fb8c95e6140052b76",
+      "bytes": 342921,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -6.936
+    },
+    {
+      "file": "music/prismatic-5.flac",
+      "sha256": "c82213f3156d584e8ed82225d36c35353be64ae82069459c6580d485270a8a26",
+      "bytes": 259897,
+      "frames": 363600,
+      "duration": 15.15,
+      "peakDbfs": -11.012
+    }
+  ],
+  "totalBytes": 5319164
+}

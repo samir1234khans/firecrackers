@@ -54,7 +54,7 @@ for(const backend of (process.env.IMMERSIVE_BACKENDS || 'webgpu,webgl,canvas').s
   await page.evaluate(()=>window.__firecrackersQA.advance(2));
   assert.equal(await page.locator('main').getAttribute('data-immersive'),'true');
   if(mode==='Finale') {
-   await page.evaluate(()=>window.__firecrackersQA.advance(35));
+   await page.evaluate(()=>window.__firecrackersQA.advance(89));
    await page.waitForSelector('main[data-immersive="false"]');
    assert.equal(await page.locator('.immersive-toggle').count(),0);
   } else { await page.keyboard.press('Escape'); }

@@ -1,0 +1,51 @@
+{
+  "origin": "https://firecrackers-shows-preview.allygym-api.workers.dev/",
+  "at": "2026-10-02T16:38:18.307Z",
+  "version": "2026-10-02.5",
+  "sha256": "c5207035d171b38844d852c53009e630997724bddb4e3f3b730284f90072cfd7",
+  "headers": [
+    {
+      "path": "",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": null
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": null
+    },
+    {
+      "path": "release.json",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"eeddd1d678d40008e58e36d684ffa3b6\""
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"b1799972395754cee41a023ca772e81e\""
+    },
+    {
+      "path": "cache-lifecycle.js",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"f3199eb2eaa2fc1d37cbdb95ddb66e59\""
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store",
+      "etag": "W/\"d5a23be13ac3579db70e3ed898bf6851\""
+    },
+    {
+      "path": "./assets/index-BcUxpgab.js",
+      "status": 200,
+      "cacheControl": "public, max-age=31536000, immutable",
+      "etag": "W/\"35ab347b136eda5e23a0e81a9541c10d\""
+    }
+  ],
+  "failed": null
+}

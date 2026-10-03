@@ -1,0 +1,114 @@
+{
+  "origin": "https://firecrackers-shows-preview.allygym-api.workers.dev/",
+  "method": "Native Chrome same-origin fetch and SHA-256; not app playback memory",
+  "assets": [
+    {
+      "file": "music/moonlit-0.flac",
+      "status": 200,
+      "bytes": 266200,
+      "sha256": "fa1ec9a9bf61417da475bb514c7cec70d1c29864857077553bc94e5dea71df2b"
+    },
+    {
+      "file": "music/moonlit-1.flac",
+      "status": 200,
+      "bytes": 294893,
+      "sha256": "923d7ada7d37c3b8cc2ec0c57b4c711741cb8991b4df512cbab3855fcd15ac05"
+    },
+    {
+      "file": "music/moonlit-2.flac",
+      "status": 200,
+      "bytes": 301250,
+      "sha256": "8fff6d3763c35f54b2d5d590cf7bbafccb7798da894e80f8b1b908a50f312a60"
+    },
+    {
+      "file": "music/moonlit-3.flac",
+      "status": 200,
+      "bytes": 304012,
+      "sha256": "619dc841d87144ed7af5ba5ee44f70fe5177c85c22504f7831d42aeec60cfa50"
+    },
+    {
+      "file": "music/moonlit-4.flac",
+      "status": 200,
+      "bytes": 311392,
+      "sha256": "0ed2dd49ae7192ec565d2b08f498b7c736aa2e9b002e6051610c4235edb623a4"
+    },
+    {
+      "file": "music/moonlit-5.flac",
+      "status": 200,
+      "bytes": 263620,
+      "sha256": "247658f57495da55231e5ff2b479b2ae41153c0e7e74551980108150931865d6"
+    },
+    {
+      "file": "music/golden-0.flac",
+      "status": 200,
+      "bytes": 272935,
+      "sha256": "0800614e95d609a13b539418c7ed6f2ff6bcb90e1804fae33c8d7db0251b7d08"
+    },
+    {
+      "file": "music/golden-1.flac",
+      "status": 200,
+      "bytes": 304478,
+      "sha256": "80514931ab1c800381051bbfc773368063059683088f5b43bbfd65df3366f533"
+    },
+    {
+      "file": "music/golden-2.flac",
+      "status": 200,
+      "bytes": 312130,
+      "sha256": "77a154efd0434f79050ace49349673e8ac43849b8dcd802496c3267b60e629d9"
+    },
+    {
+      "file": "music/golden-3.flac",
+      "status": 200,
+      "bytes": 312513,
+      "sha256": "59434559103605dbe31e8a9e22dac75383652ad43579e6351ee96c27097d8401"
+    },
+    {
+      "file": "music/golden-4.flac",
+      "status": 200,
+      "bytes": 325036,
+      "sha256": "0bc4e2cb9d052cc0aaa61be56bf78ec969c6105cd613bd6a0fbfc9d8e202fea2"
+    },
+    {
+      "file": "music/golden-5.flac",
+      "status": 200,
+      "bytes": 268925,
+      "sha256": "f24dd7e2bfc0ec8e32ff9b128be74b4b70397894c722e9f7a1441c8d8ab5b509"
+    },
+    {
+      "file": "music/prismatic-0.flac",
+      "status": 200,
+      "bytes": 263284,
+      "sha256": "b3dd84dc60e9905b6300b63dac6334e4b7bca297a5deacf9632766af30e586f5"
+    },
+    {
+      "file": "music/prismatic-1.flac",
+      "status": 200,
+      "bytes": 290124,
+      "sha256": "aff99d1466a0fce8debb95c8161f0f5607311fdb0820a202631e001926009fed"
+    },
+    {
+      "file": "music/prismatic-2.flac",
+      "status": 200,
+      "bytes": 296159,
+      "sha256": "e61cc3cd9860b23f2931270f84ad0b320465105e1d242b4acde66b981e506b0d"
+    },
+    {
+      "file": "music/prismatic-3.flac",
+      "status": 200,
+      "bytes": 329395,
+      "sha256": "9e8e6c11f884b9dea251b15fdf0cfa81470f471f1fe253650d224a690998dce5"
+    },
+    {
+      "file": "music/prismatic-4.flac",
+      "status": 200,
+      "bytes": 342921,
+      "sha256": "1d283640c7cfeba34fe60027ba12294a1855e1b49ee81b1fb8c95e6140052b76"
+    },
+    {
+      "file": "music/prismatic-5.flac",
+      "status": 200,
+      "bytes": 259897,
+      "sha256": "c82213f3156d584e8ed82225d36c35353be64ae82069459c6580d485270a8a26"
+    }
+  ]
+}

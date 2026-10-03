@@ -1,6 +1,9 @@
 import { SOUND_PROFILES, soundGeometry } from './SoundProfiles';
 import { randomStream } from './catalog';
 import type { SimEvent } from './Simulation';
+import { ShowMusic } from './ShowMusic';
+import type { CinematicDirector } from './CinematicDirector';
+import type { ShowPreset } from './catalog';
 /** Opt-in CC0 field recordings plus original synthesis. No autoplay or pre-consent fetch. */
 export class AudioEngine {
     private readonly variation = randomStream(82171);
@@ -49,6 +52,15 @@ export class AudioEngine {
     private volume = 0.45;
     private ambient = false;
     private disposed = false;
+    private music: ShowMusic | null = null;
+    private musicEnabled = false;
+    private musicVolume = .30;
+    constructor(private readonly onMusicFailure?: (message: string) => void) {}
+    setMusicOptions(enabled: boolean, volume: number) {
+        this.musicEnabled = enabled; this.musicVolume = volume;
+        this.music?.options(enabled && this.enabled, volume);
+    }
+    updateMusic(mode: ShowPreset | null, score: CinematicDirector, time: number) { this.music?.update(mode, score, time); }
     async configure(enabled: boolean, volume: number, haptics: boolean, ambience: boolean) {
         if (this.disposed)
             return false;
@@ -58,6 +70,7 @@ export class AudioEngine {
         this.ambient = ambience;
         if (!enabled) {
             this.enabled = false;
+            this.music?.options(false, this.musicVolume);
             this.stop();
             return false;
         }
@@ -69,6 +82,7 @@ export class AudioEngine {
             if (this.disposed || request !== this.requestGeneration || this.context!.state !== 'running')
                 return false;
             this.enabled = true;
+            this.music?.options(this.musicEnabled, this.musicVolume);
             void this.loadSamples();
             if (this.suspended)
                 this.stop();
@@ -105,7 +119,7 @@ export class AudioEngine {
             this.master.gain.setValueAtTime(this.volume, this.context.currentTime); this.updateAmbience();
         }
     }
-    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled, headphoneSpatialization: this.headphones, audioCaptureActive: Boolean(this.captureDestination), voiceCapacity: 40 }; }
+    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled, headphoneSpatialization: this.headphones, audioCaptureActive: Boolean(this.captureDestination), voiceCapacity: 40, musicEnabled: false, musicVoices: 0, musicBuffers: 0, musicBytes: 0, musicLoading: 0, musicFailure: '', ...this.music?.diagnostics() }; }
     private recordedReport(event: SimEvent, at: number, pan: number, distance: number) {
         const profile = SOUND_PROFILES[event.family] ?? SOUND_PROFILES[0];
         const c = this.context, buffer = this.samples[profile.sample];
@@ -135,6 +149,7 @@ export class AudioEngine {
         if (this.suspended === value)
             return;
         this.suspended = value;
+        this.music?.suspend(value);
         if (value)
             this.stop();
         else if (this.enabled && this.context?.state === 'running' && this.master) {
@@ -155,6 +170,8 @@ export class AudioEngine {
         this.compressor.release.value = 0.28;
         this.master.connect(this.compressor);
         this.compressor.connect(c.destination);
+        this.music = new ShowMusic(c, this.master, import.meta.env.BASE_URL, this.onMusicFailure);
+        this.music.suspend(this.suspended);
         this.noise = c.createBuffer(1, c.sampleRate * 3, c.sampleRate);
         const values = this.noise.getChannelData(0), rand = randomStream(839721);
         let pink = 0;
@@ -191,6 +208,7 @@ export class AudioEngine {
             }
             if (e.type === 'burst') {
                 this.makeRoom(4);
+                this.music?.duck(at);
                 const recorded = this.recordedReport(e, at, pan, distance);
                 // Fundamental identity gets budget before ornamental grains or echoes.
                 this.noiseVoice(at, profile.decay, profile.body, (recorded ? .11 : .38) * e.strength * geometry.gain, pan, 'lowpass', 3);
@@ -283,6 +301,7 @@ export class AudioEngine {
         }
     }
     stop() {
+        this.music?.stop();
         if (this.master && this.context) {
             this.master.gain.cancelScheduledValues(this.context.currentTime);
             this.master.gain.setValueAtTime(0, this.context.currentTime);
@@ -309,5 +328,5 @@ export class AudioEngine {
             navigator.vibrate(0);
         this.hapticActive = false;
     }
-    dispose() { this.releaseCapture(); this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); void this.context?.close(); this.context = null; }
+    dispose() { this.releaseCapture(); this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); this.music?.dispose(); void this.context?.close(); this.context = null; }
 }

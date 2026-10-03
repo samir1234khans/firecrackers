@@ -12,3 +12,5 @@ public/THIRD_PARTY_NOTICES.txt
 public/release.json
 assets-source/downloads/polyhaven-dutch-ship-medium-v007/
 assets-source/downloads/wooden-canoe-cc0/official-license.html
+
+public/cache-lifecycle.js
