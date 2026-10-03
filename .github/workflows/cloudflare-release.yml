@@ -1,0 +1,138 @@
+name: Verified Cloudflare release
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact current main commit to verify or deploy
+        required: true
+        type: string
+      deploy:
+        description: Publish this verified main commit to the existing Cloudflare Worker
+        required: true
+        default: false
+        type: boolean
+  push:
+    branches: [ops/verified-cloudflare-release]
+    paths: [.github/workflows/cloudflare-release.yml]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: firecrackers-cloudflare-production
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Check exact source, completed main CI and credential availability
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_SHA: ${{ inputs.expected_sha || '207fdc78a62129295e32876574809dd3f9fe4fdb' }}
+          DEPLOY_REQUESTED: ${{ github.event_name == 'push' || inputs.deploy }}
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mkdir -p /tmp/firecrackers-release
+          python3 - <<'PY'
+          import json, os, re, subprocess, urllib.request
+          from pathlib import Path
+          out=Path('/tmp/firecrackers-release')
+          repo=os.environ['GITHUB_REPOSITORY']
+          expected=os.environ['EXPECTED_SHA']
+          actual=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          def api(path):
+              req=urllib.request.Request('https://api.github.com/repos/'+repo+'/'+path,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(req,timeout=30) as response:return json.load(response)
+          main=api('git/ref/heads/main')['object']['sha']
+          runs=api('actions/runs?head_sha='+main+'&event=push&branch=main&per_page=100')['workflow_runs']
+          latest={}
+          for run in sorted(runs,key=lambda r:r['id'],reverse=True):latest.setdefault(run['name'],run)
+          required=['Runtime validation','Documentation validation']
+          checks={name:latest.get(name,{}).get('conclusion','missing') for name in required}
+          reasons=[]
+          if not re.fullmatch('[0-9a-f]{40}',expected) or actual!=expected or main!=expected:reasons.append('Expected SHA, checked-out source and current main must match exactly')
+          if not os.environ.get('CF_TOKEN'):reasons.append('CLOUDFLARE_API_TOKEN is unavailable')
+          if not os.environ.get('CF_ACCOUNT'):reasons.append('CLOUDFLARE_ACCOUNT_ID is unavailable')
+          if not all(value=='success' for value in checks.values()):reasons.append('Exact-main required push checks are not all successful')
+          requested=os.environ.get('DEPLOY_REQUESTED')=='true'
+          receipt={'source':actual,'expected':expected,'main':main,'requested':requested,'credentialConfigured':bool(os.environ.get('CF_TOKEN')),'accountConfigured':bool(os.environ.get('CF_ACCOUNT')),'checks':checks,'status':'BLOCKED' if reasons else 'VERIFIED_PREFLIGHT','reasons':reasons,'deployed':False}
+          try:
+              with urllib.request.urlopen('https://firecrackers.mainandmany.com/release.json',timeout=30) as response:live=json.load(response)
+              (out/'previous-public-release.json').write_text(json.dumps(live,indent=2))
+              receipt['previousPublic']={key:live.get(key) for key in ['version','sha256']}
+          except Exception as error:receipt['publicReadError']=str(error)
+          (out/'preflight.json').write_text(json.dumps(receipt,indent=2))
+          print(json.dumps(receipt,indent=2))
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('publish='+str(requested and not reasons).lower()+'\nsource='+actual+'\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:f.write('## Cloudflare preflight\n\n```json\n'+json.dumps(receipt,indent=2)+'\n```\n\nPreflight success does not mean the Worker was deployed.\n')
+          PY
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.publish == 'true'
+        with:
+          node-version-file: .nvmrc
+      - name: Build the exact verified source
+        if: steps.gate.outputs.publish == 'true'
+        run: |
+          npm ci
+          npm run build
+          cp dist/release.json /tmp/firecrackers-release/expected-release.json
+      - name: Authenticate, retain rollback versions and deploy existing Worker
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_SHA: ${{ steps.gate.outputs.source }}
+        run: |
+          set -euo pipefail
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq '.object.sha')
+          test "$current" = "$EXPECTED_SHA"
+          npx wrangler whoami > /tmp/firecrackers-release/authentication.log
+          npx wrangler deployments list --json > /tmp/firecrackers-release/previous-deployments.json
+          npx wrangler versions list --json > /tmp/firecrackers-release/rollback-versions.json
+          npx wrangler deploy 2>&1 | tee /tmp/firecrackers-release/deploy.log
+          printf '%s\n' "$EXPECTED_SHA" > /tmp/firecrackers-release/deployed-source.txt
+      - name: Verify actual public fingerprint and browser flows
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          STAGE_URL: https://firecrackers.mainandmany.com/
+          GRAND_URL: https://firecrackers.mainandmany.com/
+          VIDEO_FLOW_URL: https://firecrackers.mainandmany.com/
+          VIEWABILITY_URL: https://firecrackers.mainandmany.com/
+          EXPECTED_SHA: ${{ steps.gate.outputs.source }}
+        run: |
+          python3 - <<'PY'
+          import json,time,urllib.request
+          from pathlib import Path
+          root=Path('/tmp/firecrackers-release')
+          expected=json.loads((root/'expected-release.json').read_text())
+          for attempt in range(12):
+              try:
+                  req=urllib.request.Request('https://firecrackers.mainandmany.com/release.json?verify='+str(time.time_ns()),headers={'Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(req,timeout=20) as response:actual=json.load(response)
+                  if all(actual.get(k)==expected.get(k) for k in ('version','sha256','modules')):break
+              except Exception:pass
+              time.sleep(5)
+          else:raise SystemExit('Deployed public fingerprint mismatch; inspect deployment/rollback receipt')
+          (root/'verified-public-release.json').write_text(json.dumps(actual,indent=2))
+          PY
+          npx playwright install --with-deps chromium
+          npm run test:experience -- /tmp/firecrackers-release/experience
+          npm run test:cinematic-v4 -- /tmp/firecrackers-release/v4
+          npm run test:grand -- /tmp/firecrackers-release/grand
+          npm run test:e2e -- /tmp/firecrackers-release/original-flow
+          npm run test:viewability -- /tmp/firecrackers-release/recovery
+          printf 'Public fingerprint and browser checks passed for %s\n' "$EXPECTED_SHA" | tee /tmp/firecrackers-release/SUCCESS.txt
+      - name: Retain release or blocker evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-release-receipt
+          path: /tmp/firecrackers-release
+          retention-days: 30
