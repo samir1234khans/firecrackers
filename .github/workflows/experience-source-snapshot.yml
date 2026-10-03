@@ -1,0 +1,28 @@
+name: Experience source snapshot
+on:
+  push:
+    branches: [feat/richer-night-experience]
+    paths: [.github/workflows/experience-source-snapshot.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Export pinned review inputs; no branch writes or deployment
+        run: |
+          mkdir -p /tmp/experience-source
+          git fetch --no-tags --depth=1 origin 61c41165ef099675c2e709313c0e47e02cdbd061 b75e3c59c5ddc995a2ff0c553267dacada2e3245 5fbb45b2d9d1ee3463cee232f3f3bdc937255e01
+          git ls-tree -r 61c41165ef099675c2e709313c0e47e02cdbd061 > /tmp/experience-source/main-tree.txt
+          git diff --binary 61c41165ef099675c2e709313c0e47e02cdbd061 b75e3c59c5ddc995a2ff0c553267dacada2e3245 > /tmp/experience-source/full-night.patch
+          git archive 5fbb45b2d9d1ee3463cee232f3f3bdc937255e01 src tests package.json docs/evidence/cinematic-shows-2026-10-02/QUALIFICATION.md | gzip > /tmp/experience-source/cinematic-source.tar.gz
+          git archive 61c41165ef099675c2e709313c0e47e02cdbd061 assets-source/PROVENANCE.md assets-source/DESIGN.md .github/workflows/grand-collection-bundle.yml | gzip > /tmp/experience-source/support.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experience-pinned-review-source
+          path: /tmp/experience-source
+          retention-days: 3
