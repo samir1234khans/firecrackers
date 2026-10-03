@@ -8,12 +8,13 @@ const views=[[1280,800],[393,851],[320,480],[844,390]];
 const hardware=process.env.LEGACY_HARDWARE==='1',quality=process.env.LEGACY_QUALITY||'ultra';
 const report={base,quality,hardware,seed:20261004,method:hardware?'Installed Chrome native GPU, viewport emulation and fixed-clock phase sampling; not physical phone or GPU timing':'Deterministic fixed-clock captures and condensed browser video; software WebGL/Canvas, phone emulation; not GPU timing',cases:[],errors:[],failed:null};
 const browser=await chromium.launch(hardware?{channel:'chrome',headless:true}:{headless:true,args:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
+let activePage;
 try{
  for(const backend of (process.env.LEGACY_BACKENDS||'webgl,canvas').split(','))for(const [width,height]of views.filter(v=>!process.env.LEGACY_VIEW||String(v[0])===process.env.LEGACY_VIEW)){
   const name=`${backend}-${width}x${height}`;
   const context=await browser.newContext({viewport:{width,height},serviceWorkers:'block',...(process.env.LEGACY_VIDEO==='1'&&width===1280?{recordVideo:{dir:`${out}/video`,size:{width,height}}}:{})});
   await context.addInitScript(quality=>localStorage.setItem('firecrackers.preferences.v1',JSON.stringify({version:4,onboarded:true,quality,adaptiveResolution:false,reducedFlashes:true,reducedMotion:false,sound:false,showMusic:false})),quality);
-  const page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
+  const page=await context.newPage();activePage=page;page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
   for(const id of ids.filter(id=>!process.env.LEGACY_FAMILIES||process.env.LEGACY_FAMILIES.split(',').includes(id))){
    await page.goto(`${base}?backend=${backend}&qa=1&seed=${report.seed}`);
    await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});
@@ -44,5 +45,5 @@ try{
   console.log('PASS legacy visual matrix',name,report.cases.filter(c=>c.name===name).length,'families');await context.close();
  }
  assert.deepEqual(report.errors,[]);
-}catch(e){report.failed=e.stack;throw e;}finally{await browser.close();await writeFile(`${out}/report.json`,JSON.stringify(report,null,2));}
+}catch(e){report.failed=e.stack;report.failureState=await activePage?.evaluate(()=>window.__firecrackersQA?.snapshot()).catch(()=>null);await activePage?.screenshot({path:`${out}/FAILED.png`}).catch(()=>{});throw e;}finally{await browser.close();await writeFile(`${out}/report.json`,JSON.stringify(report,null,2));}
 

@@ -11,7 +11,8 @@ export const LEGACY_FLIGHT = [
 export const LEGACY_EXPANSION = 1.22;
 export const LEGACY_FINALE_SPREAD = 75;
 // Complete principal and child envelopes, including falling tails and carrier
-// travel. Fitting projects both near and far corners, never only a flat disc.
+// travel. Tuple: half-width, rise, full fall, half-depth, opening fall.
+// Fitting projects both near and far corners, never only a flat disc.
 export const LEGACY_ENVELOPES = [
   [88,54,154,86,40], [83,67,97,82,42], [70,51,91,69,35], [59,46,74,59,33],
   [160,78,148,100,48], [80,50,50,58,28], [78,57,105,47,44], [81,34,67,76,25],

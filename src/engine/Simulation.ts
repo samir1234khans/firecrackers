@@ -711,7 +711,7 @@ export class Simulation {
         const family = p.family[i], count = splitChildCount(family);
         const composition = Math.max(.025, p.wave[i]);
         const splitScale = family === 3 ? composition * clamp(length / (20 * composition), .20, 1.20) : composition;
-        const kick = family === 3 ? 13 * splitScale : 8;
+        const kick = (family === 3 ? 13 : 8) * splitScale;
         p.remove(i);
         for (let k = 0; k < count; k++) {
             const a = angle + k * Math.PI * 2 / count, c = Math.cos(a) * kick, s = Math.sin(a) * kick;
