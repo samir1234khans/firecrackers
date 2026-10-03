@@ -1,0 +1,61 @@
+name: Cinematic V4 exact-main promotion
+on:
+  push:
+    branches: [feat/cinematic-atmosphere-v4]
+    paths: [.github/workflows/cinematic-v4-deploy-main.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: firecrackers-production-promotion
+  cancel-in-progress: false
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check existing deployment authorization
+        id: auth
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mkdir -p /tmp/main-promotion
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo 'available=false' >> "$GITHUB_OUTPUT"
+            echo 'BLOCKED: Existing GitHub Cloudflare API token/account binding is unavailable. Production was not changed; no credentials were created or printed.' | tee /tmp/main-promotion/result.txt
+          else
+            echo 'available=true' >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.auth.outputs.available == 'true'
+        with:
+          ref: a1202af5fa1955eab844988a1f1ff32299fb8579
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        if: steps.auth.outputs.available == 'true'
+        with:
+          node-version-file: .nvmrc
+      - name: Promote only the previously verified main commit
+        if: steps.auth.outputs.available == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          test "$(git ls-remote https://github.com/samir1234khans/firecrackers.git refs/heads/main | cut -f1)" = 'a1202af5fa1955eab844988a1f1ff32299fb8579'
+          curl --max-time 20 -fsS https://firecrackers.mainandmany.com/release.json > /tmp/main-promotion/before.json
+          npm ci
+          npm run build
+          cp public/release.json /tmp/main-promotion/expected.json
+          npx wrangler deployments list > /tmp/main-promotion/rollback.txt
+          npx wrangler deploy --config wrangler.jsonc | tee /tmp/main-promotion/deploy.log
+          curl --max-time 30 -fsS -H 'Cache-Control: no-cache' https://firecrackers.mainandmany.com/release.json > /tmp/main-promotion/after.json
+          node --input-type=module -e "import fs from 'node:fs';const a=JSON.parse(fs.readFileSync('/tmp/main-promotion/expected.json')),b=JSON.parse(fs.readFileSync('/tmp/main-promotion/after.json'));if(a.sha256!==b.sha256||a.version!==b.version)throw Error('Production fingerprint mismatch');"
+          echo 'DEPLOYED: exact main a1202af; release fingerprint verified. Public browser qualification remains separate.' > /tmp/main-promotion/result.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cinematic-v4-main-promotion-receipt
+          path: /tmp/main-promotion
+          retention-days: 14
