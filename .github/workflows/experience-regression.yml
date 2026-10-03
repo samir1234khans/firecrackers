@@ -1,0 +1,39 @@
+name: Richer night experience regression
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['src/**', 'tests/**', 'package*.json', 'tsconfig*.json', '.github/workflows/experience-regression.yml']
+permissions:
+  contents: read
+concurrency:
+  group: experience-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck && npm run lint && npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Exercise desktop and phone creative workflows
+        run: |
+          mkdir -p test-results/experience
+          npm run preview -- --port 4173 > test-results/experience/server.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ > /dev/null && break || sleep 1; done
+          node tests/experience-browser.mjs test-results/experience
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: richer-night-browser-evidence
+          path: test-results/experience
+          retention-days: 14
