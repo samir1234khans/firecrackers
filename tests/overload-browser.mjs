@@ -46,28 +46,33 @@ try {
   const committed = await snap(page);
   assert.ok(committed.committedId > 0);
   assert.equal(committed.selected, 'gold-willow');
-  await page.waitForFunction(() => document.querySelector('main')?.dataset.backend?.includes('Canvas'), null, { timeout: 30000 });
+  await page.waitForFunction(() => window.__firecrackersQA.snapshot().qaStallSamplesRemaining === 0, null, { timeout: 30000 });
   const recovered = await snap(page);
-  assert.equal(recovered.qaStallSamplesUsed, 3, 'The recovery must consume all injected active frames');
-  assert.equal(recovered.qaStallSamplesRemaining, 0);
-  assert.equal(recovered.committedId, committed.committedId, 'The same rocket survives the renderer replacement');
+  assert.equal(recovered.qaStallSamplesUsed, 3);
+  assert.equal(recovered.backend, 'WebGL 2', 'Three slow frames must not replace the native scene');
+  assert.equal(recovered.committedId, committed.committedId, 'The same rocket survives detail adaptation');
   assert.equal(recovered.selected, committed.selected);
-  assert.equal(recovered.quality, 'standard', 'The chosen quality is not rewritten');
+  assert.equal(recovered.quality, 'low', 'Effective quality adapts before a backend replacement');
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('firecrackers.preferences.v1')).quality), 'standard', 'The saved quality choice is not rewritten');
+  assert.equal(recovered.reflectionAllocated, true);
+  assert.equal(recovered.reflectionMode, 'planar');
+  assert.equal(recovered.reflectionHz, 6);
   assert.equal(await page.locator('main').getAttribute('data-ready'), 'true');
   assert.equal(recovered.paused, false);
   await page.waitForFunction(frames => window.__firecrackersQA.snapshot().frames >= frames + 8, recovered.frames, { timeout: 15000 });
   await page.waitForFunction(() => window.__firecrackersQA.snapshot().bursts >= 1, null, { timeout: 25000 });
-  pass('three forced severe frames recover to Canvas while the same rocket keeps moving and bursts');
+  assert.equal((await snap(page)).backend, 'WebGL 2');
+  pass('three forced severe frames retain native rendering and a planar reflection while the same rocket bursts');
 
   await page.getByRole('button', { name: 'Pause scene', exact: true }).click();
   const paused = await snap(page);
   assert.equal(paused.paused, true);
   await page.waitForTimeout(250);
-  assert.equal((await snap(page)).time, paused.time, 'The recovered scene obeys manual pause');
+  assert.equal((await snap(page)).time, paused.time, 'The adapted scene obeys manual pause');
   await page.getByRole('button', { name: 'Resume scene', exact: true }).click();
   assert.equal((await snap(page)).paused, false);
   await page.evaluate(() => { window.__firecrackersQA.freeze(true); window.__firecrackersQA.advance(35); window.__firecrackersQA.freeze(false); });
-  pass('manual pause and resume remain functional after recovery');
+  pass('manual pause and resume remain functional after adaptation');
 
   const hero = await page.locator('main').evaluate(element => JSON.parse(element.dataset.heroRect));
   const beforeSky = await snap(page);
@@ -76,7 +81,7 @@ try {
   assert.equal(sky.launched, beforeSky.launched + 1);
   assert.equal(sky.bursts, beforeSky.bursts + 1, 'A sky drop is an instant burst');
   assert.equal(sky.selected, 'multicolor-peony');
-  await page.screenshot({ path: `${out}/recovered-sky-burst.png` });
+  await page.screenshot({ path: `${out}/native-low-sky-burst.png` });
   await page.evaluate(() => { window.__firecrackersQA.freeze(true); window.__firecrackersQA.advance(35); window.__firecrackersQA.freeze(false); });
   const beforePad = await snap(page);
   await drag(page, edgeShelf(page, 'grand').locator('[data-family-icon="sapphire-saturn"]'), hero.x + hero.width * .75, beforePad.stageLayout.launchArea.y + beforePad.stageLayout.launchArea.height * .5);
@@ -87,7 +92,7 @@ try {
   assert.equal(pad.bursts, beforePad.bursts);
   await page.evaluate(() => window.__firecrackersQA.advance(5));
   assert.ok((await snap(page)).bursts > beforePad.bursts);
-  pass('Canvas projection still maps actual sky and terrace pointer drops after recovery');
+  pass('native Low projection still maps actual sky and terrace pointer drops after adaptation');
   await context.close();
 
   const showContext = await browser.newContext({ viewport: { width: 1280, height: 800 }, serviceWorkers: 'block' });
@@ -98,14 +103,34 @@ try {
   await showPage.getByRole('button',{name:'Festival',exact:true}).click();
   assert.equal((await snap(showPage)).show, 'festival');
   assert.equal(await showPage.evaluate(() => window.__firecrackersQA.injectOverloadSamples(3, 600)), true);
+  await showPage.waitForFunction(() => window.__firecrackersQA.snapshot().qaStallSamplesRemaining === 0, null, { timeout: 30000 });
+  const adaptedShow = await snap(showPage);
+  assert.equal(adaptedShow.backend, 'WebGL 2');
+  assert.equal(adaptedShow.quality, 'low');
+  assert.equal(adaptedShow.show, 'festival');
+  assert.equal(adaptedShow.paused, false);
+  pass('automatic Festival direction survives transient overload without flattening to Canvas');
+
+  // Prove the safety escape still works, but only after sustained pressure at Low.
+  // These are explicitly injected frame samples, not a hardware performance claim.
+  let batches = 0;
+  while (!(await snap(showPage)).backend.startsWith('Canvas') && batches < 12) {
+    assert.equal(await showPage.evaluate(() => window.__firecrackersQA.injectOverloadSamples(6, 600)), true);
+    await showPage.waitForFunction(() => {
+      const s = window.__firecrackersQA.snapshot();
+      return s.qaStallSamplesRemaining === 0 || s.backend.startsWith('Canvas');
+    }, null, { timeout: 30000 });
+    batches++;
+  }
   await showPage.waitForFunction(() => document.querySelector('main')?.dataset.backend?.includes('Canvas'), null, { timeout: 30000 });
   const recoveredShow = await snap(showPage);
-  assert.equal(recoveredShow.qaStallSamplesUsed, 3);
-  assert.equal(recoveredShow.show, 'festival', 'The automatic show must survive renderer replacement');
-  assert.equal(recoveredShow.quality, 'ultra');
+  assert.ok(batches >= 4, 'A backend change requires at least 24 additional bad Low frames');
+  assert.equal(recoveredShow.show, 'festival', 'The automatic show survives necessary renderer replacement');
+  assert.equal(recoveredShow.quality, 'low');
   assert.equal(recoveredShow.paused, false);
   assert.equal(await showPage.locator('main').getAttribute('data-ready'), 'true');
-  pass('automatic Festival direction and Ultra quality continue through fallback');
+  assert.equal(await showPage.evaluate(() => JSON.parse(localStorage.getItem('firecrackers.preferences.v1') || '{}').quality || 'ultra'), 'ultra');
+  pass('sustained severe Low pressure still recovers safely with the show and saved Ultra preference intact');
   await showContext.close();
   assert.deepEqual(report.errors, []);
 } catch (error) {
