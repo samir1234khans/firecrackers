@@ -1,11 +1,16 @@
-/* Keep the same reserved corner before, during and after a show. The 48px
-   immersive toggle must never cover Browse, Studio or Capture on a phone. */
+/* Reserve the same corner before, during and after a show. */
 .fireworks-app .experience-actions{right:calc(76px + var(--safe-right,0px));}
-
-/* The transient ready hint must not cover the creative controls. */
 .fireworks-app .startup-ready-note{top:calc(70px + env(safe-area-inset-top));left:auto;right:calc(18px + env(safe-area-inset-right));transform:none;max-width:min(310px,calc(100vw - 100px));pointer-events:none;}
 @media(max-width:680px){.fireworks-app .startup-ready-note{top:calc(62px + env(safe-area-inset-top));right:10px;max-width:calc(100vw - 110px);}}
-
 .fireworks-app:has(.recording-control) .show-progress,
 .fireworks-app:has(.recording-control) .startup-ready-note,
 .fireworks-app:has(.show-progress) .startup-ready-note{display:none;}
+
+/* Descriptions need real layout space, not overflow from a 48px compass cell.
+   Keep the four-direction arrangement and its central close target. Automatic
+   row growth also supports enlarged text; the bounded dialog remains scrollable. */
+.fireworks-app .mode-selector[open]{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(100px,auto)) auto auto;align-items:stretch;}
+.fireworks-app .mode-selector [data-direction]:not(.always-entry){width:100%;height:auto;min-height:100px;padding:8px 4px;justify-content:flex-start;overflow-wrap:anywhere;}
+.fireworks-app .mode-selector [data-direction] svg{flex-shrink:0;}
+.fireworks-app .mode-selector .mode-detail{max-width:none;}
+.fireworks-app .mode-selector .mode-selector-close{align-self:center;justify-self:center;}
