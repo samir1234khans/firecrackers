@@ -34,44 +34,54 @@ export function canonicalSource(path, text) {
   } finally { output.dispose(); }
 }
 
-export async function generateRelease() {
-  const paths = [
-    'src/graphics/MoonComposition.ts', 'src/graphics/WaterWaves.ts', 'src/graphics/WaterSurfaceGeometry.ts', 'src/graphics/PlanarReflection.ts', 'src/graphics/ParticleReflectionBounds.ts', 'src/graphics/WaterfrontAssets.ts', 'src/graphics/WaterReflection.ts', 'src/engine/Audio.ts',
-    'src/ui/StartupScreen.tsx', 'src/styles/startup.css', 'src/engine/StartupProgress.ts', 'src/engine/LaunchComposition.ts', 'src/engine/LaunchProfile.ts', 'src/engine/StageLayout.ts', 'src/styles/stage.css', 'src/styles/panels.css', 'index.html',
-    'src/engine/SignatureDiagnostics.ts', 'src/engine/FlagshipEffects.ts', 'src/engine/Pool.ts', 'src/ui/SignatureGlyph.tsx', 'src/engine/GrandEffects.ts', 'src/ui/FamilyPicker.tsx', 'src/ui/GrandGlyph.tsx', 'src/styles/grand-collection.css',
-    'src/bootstrap.ts', 'src/main.tsx', 'src/ui/AppBoundary.tsx', 'src/styles/recovery.css',
-    'src/engine/RendererPort.ts', 'src/engine/RendererRecovery.ts', 'src/engine/SkyState.ts', 'src/graphics/CompatibilityRenderer.ts',
-    'src/App.tsx', 'src/engine/FusePath.ts', 'src/engine/LaunchGeometry.ts', 'src/engine/Renderer.ts',
-    'src/engine/AlwaysPlayDirector.ts', 'src/platform/presentation.ts', 'src/engine/Simulation.ts', 'src/engine/VisibleFrame.ts', 'src/engine/catalog.ts',
-    'src/engine/useWorld.ts', 'src/platform/usePlatform.ts', 'src/graphics/LaunchStage.ts',
-    'src/graphics/NightEnvironment.ts', 'src/graphics/GalaxySky.ts', 'src/graphics/CelestialScene.ts', 'src/graphics/RiverLife.ts', 'src/graphics/OpaqueDepth.ts',
-    'src/graphics/ParticleScene.ts', 'src/graphics/RocketProp.ts', 'src/graphics/textures.ts',
-    'src/styles/completion.css', 'src/styles/flow.css', 'src/styles/hud-v3-art.css', 'src/styles/hud-v3.css',
-    'src/ui/CinematicHUD.tsx', 'src/ui/Dialog.tsx', 'src/ui/FireworkGlyph.tsx', 'src/ui/FireworkShelf.tsx',
-    'src/platform/preferences.ts', 'src/ui/ShowModeKnob.tsx', 'src/ui/LaunchPositionControl.tsx', 'src/ui/BottomCollection.tsx', 'src/ui/ControlsMenu.tsx', 'src/styles/collection.css', 'src/ui/PanelNav.tsx', 'src/ui/PresentationSettings.tsx',
-  ].sort();
+/** Enumerate, do not maintain a list that quietly omits new feature directories.
+ * Generated release.json excludes itself. Tests/evidence are not shipped client code. */
+export async function fingerprintEntries(root = '.') {
+  const { join } = await import('node:path');
+  const paths = [];
+  async function walk(directory) {
+    let entries;
+    try { entries = await readdir(join(root, directory), {withFileTypes:true}); }
+    catch (error) { if (error.code === 'ENOENT') return; throw error; }
+    for (const entry of entries) {
+      const path = `${directory}/${entry.name}`;
+      if (entry.isSymbolicLink()) throw new Error(`Fingerprint refuses symlink: ${path}`);
+      if (entry.isDirectory()) await walk(path);
+      else if (entry.isFile() && path !== 'public/release.json') paths.push(path);
+    }
+  }
+  await walk('src'); await walk('public');
+  for (const path of ['index.html','package.json','package-lock.json','vite.config.ts','postcss.config.cjs',
+    'tsconfig.json','tsconfig.engine.json','wrangler.jsonc','scripts/generate-release.mjs',
+    'scripts/generate-icons.mjs','scripts/generate-notices.mjs','scripts/service-worker-template.js']) {
+    try { await readFile(join(root,path)); paths.push(path); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
+  }
   const hash = value => createHash('sha256').update(value).digest('hex');
   const modules = [];
-  for (const path of paths) {
-    const source = (await readFile(path, 'utf8')).replaceAll('\r\n', '\n');
-    const normalized = canonicalSource(path, source);
-    modules.push({ path, sha256: hash(normalized.text), rawSha256: hash(source), removedHostAttributes: normalized.removedHostAttributes });
+  for (const path of [...new Set(paths)].sort()) {
+    const bytes = await readFile(join(root,path));
+    const isText = /\.(?:[cm]?[jt]sx?|css|html|jsonc?|svg|txt|webmanifest)$/.test(path);
+    const source = isText ? bytes.toString('utf8').replaceAll('\r\n','\n') : bytes;
+    const normalized = isText ? canonicalSource(path,source) : {text:source,removedHostAttributes:0};
+    modules.push({path,sha256:hash(normalized.text),rawSha256:hash(source),removedHostAttributes:normalized.removedHostAttributes});
   }
-  for (const dir of ['public/art', 'public/audio']) for (const name of (await readdir(dir)).sort()) {
-    const path = `${dir}/${name}`, bytes = await readFile(path);
-    modules.push({ path, sha256: hash(bytes), rawSha256: hash(bytes), removedHostAttributes: 0 });
-  }
-  modules.sort((a, b) => a.path.localeCompare(b.path));
+  return modules;
+}
+
+export async function generateRelease() {
+  const modules = await fingerprintEntries();
+  const hash = value => createHash('sha256').update(value).digest('hex');
   const catalog = await readFile('src/engine/catalog.ts', 'utf8');
   const version = catalog.match(/CONFIG_VERSION\s*=\s*'([^']+)'/)?.[1];
   if (!version) throw new Error('Missing release version in the catalog.');
   const sha256 = hash(JSON.stringify(modules.map(({ path, sha256 }) => ({ path, sha256 }))));
   const receipt = {
-    formatVersion: 2, version, scope: 'delivered-upgrade-modules',
+    formatVersion: 3, version, scope: 'all-client-source-build-inputs-and-public-assets',
     normalization: 'typescript-5.9.2-printer-static-appdeploy-source-id-only', sha256, modules,
   };
   await mkdir('public', { recursive: true });
   await writeFile('public/release.json', JSON.stringify(receipt, null, 2) + '\n');
-  console.log(`Release ${version}: ${modules.length} normalized upgrade modules, SHA-256 ${sha256}`);
+  console.log(`Release ${version}: ${modules.length} client source/config/asset entries, SHA-256 ${sha256}`);
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await generateRelease();

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-const url = 'https://firecrackers-a93nle.v2.appdeploy.ai/';
+const url = process.env.PREVIEW_URL || 'https://firecrackers.mainandmany.com/';
 const expected = JSON.parse(await readFile('public/release.json', 'utf8'));
 const response = await fetch(new URL('release.json', url), { signal: AbortSignal.timeout(30000), cache: 'no-store' });
 assert.equal(response.status, 200, 'Public release receipt is unavailable');
@@ -23,7 +23,7 @@ const result = {
 await mkdir('test-results', { recursive: true });
 await writeFile('test-results/deployed-source-parity.json', JSON.stringify(result, null, 2) + '\n');
 console.log(JSON.stringify(result, null, 2));
-assert.equal(actual.formatVersion, 2);
+assert.equal(actual.formatVersion, expected.formatVersion);
 const computed = createHash('sha256').update(JSON.stringify(comparable(actual).modules)).digest('hex');
 assert.equal(computed, actual.sha256, 'Public receipt aggregate is inconsistent');
 assert.deepEqual(comparable(actual), comparable(expected), 'Deployed application source differs after excluding only static host labels');

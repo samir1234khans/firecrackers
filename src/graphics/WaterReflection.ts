@@ -152,10 +152,19 @@ export class WaterReflection {
     const reflectionUV = uv.add(distortion);
     const inside = smoothstep(0, .012, reflectionUV.x).mul(smoothstep(0, .012, reflectionUV.y))
       .mul(smoothstep(.988, 1, reflectionUV.x).oneMinus()).mul(smoothstep(.988, 1, reflectionUV.y).oneMinus());
-    const reflected = this.reflectionNode.sample(reflectionUV.clamp(.001, .999)).rgb;
+    const reflected = Fn(() => {
+      const color = this.reflectionNode.sample(reflectionUV.clamp(.001, .999)).rgb.toVar();
+      If(this.detailTier.greaterThan(.75), () => {
+        const spread = vec2(.0024, .0007).mul(foreground.mul(-.55).add(1));
+        const left = this.reflectionNode.sample(reflectionUV.sub(spread).clamp(.001, .999)).rgb;
+        const right = this.reflectionNode.sample(reflectionUV.add(spread).clamp(.001, .999)).rgb;
+        color.assign(color.mul(.60).add(left.add(right).mul(.20)));
+      });
+      return color;
+    })();
     // The bounded target is bilinearly enlarged into the main view. Its softer
-    // silhouettes and shared facet distortion need one filtered lookup, rather
-    // than three taps on every water pixel.
+    // silhouettes use one lookup on Low/Standard. Ultra adds two narrow taps
+    // for a distance-dependent rough lobe, not a sharper duplicate reflection.
     const dynamic = reflected.mul(facets.mul(.72).add(.28))
       .mul(fresnel.mul(.7).add(.30)).mul(this.strength).mul(this.enabled).mul(inside);
     // Bursts are launched in front of the quay: their mathematically correct

@@ -65,6 +65,7 @@ export default function App() {
   const world = useWorld(host, prefs, epoch, notify, presentation);
   const platform = usePlatform(notify);
   const state = world.snapshot;
+  const motionBlocked = prefs.reducedMotion || state.reducedMotion;
   const preparing = !startupPresented && !world.error;
   const immersiveAvailable = presentation.mode === 'interactive' && (Boolean(state.show) || ['playing', 'falling'].includes(state.personal.status)) && !world.error && !preparing;
   const immersiveActive = immersiveAvailable && immersive;
@@ -85,6 +86,9 @@ export default function App() {
   const wake = () => { setHidden(false); setImmersive(false); };
   const open = (next: Overlay) => { cancelDrag.current?.(); setModeOpen(false); if (!overlay) panelInvoker.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;  if (next === 'settings') { setSettingsSection('graphics'); setSettingsReturnFocus(false); } world.setOverlay(true); platform.releaseWake(); setOverlay(next); wake(); };
   const close = () => { cancelDrag.current?.(); setDrag(null); dragRef.current = null; setOverlay(null); world.setOverlay(false); wake(); };
+  const watchNow = () => {
+    setStartupGuide(false); close(); world.start('finale'); setImmersive(true);
+  };
   const playPersonal = (recipe: ShowRecipe) => {
     const error = world.playRecipe(recipe);
     if (error) return error;
@@ -325,7 +329,7 @@ export default function App() {
     {drag && overlay !== 'picker' && <div className={`burst-drop-target${drag.kind ? ` valid ${drag.kind}` : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden='true'>{drag.kind === 'launch' ? <Flame size={26}/> : <Sparkles size={26}/>}<span>{drag.kind === 'launch' ? 'Release to launch' : drag.kind === 'burst' ? 'Release to burst' : 'Move over the sky or terrace'}</span></div>}
 
     {preparing && <StartupScreen {...world.startup} moonTarget={world.startupMoon() ?? undefined} reducedMotion={prefs.reducedMotion || state.reducedMotion} onComplete={finishStartup} onContinue={world.ready && world.startup.pending ? () => { startupFocusRequested.current = true; world.continueStartup(); } : undefined}/>}
-    {startupGuide && !preparing && !overlay && !world.error && <p className='startup-ready-note chrome' inert={hidden || undefined} aria-hidden={hidden} role='status'>{world.startup.degraded ? 'Ready with available detail. ' : 'Ready. '}Tap a firework, or drag it into the sky.</p>}
+    {startupGuide && !preparing && !overlay && !world.error && <p className='startup-ready-note chrome' inert={hidden || undefined} aria-hidden={hidden} role='status'>{world.startup.degraded ? 'Ready with available detail. ' : 'Ready. '}Tap a firework, or drag it into the sky. <button type='button' className='text-button watch-now' data-stage-control='true' onClick={watchNow}><Play size={14} aria-hidden='true'/> Just watch</button></p>}
     {world.error && <section className='recovery' role='alert'><div className='panel-heading'><AlertCircle size={18} aria-hidden='true'/><h2>Graphics interrupted</h2></div><p>{world.error}</p><div className='button-row panel-actions'><button className='secondary-button' onClick={() => { world.reset(); setEpoch(e => e + 1); }}><RotateCcw size={16} aria-hidden='true'/>Retry current quality</button><a className='secondary-button' href='?backend=webgl'><Monitor size={16} aria-hidden='true'/>Try WebGL graphics</a><button className='primary-button' onClick={() => { world.reset(); change('quality', 'low'); setEpoch(e => e + 1); }}><Settings2 size={16} aria-hidden='true'/>Retry with lower quality</button><a className='secondary-button' href='?backend=canvas'><Monitor size={16} aria-hidden='true'/>Use compatibility graphics</a><button className='text-button' onClick={() => location.reload()}>Reload website</button><button className='text-button' onClick={() => open('settings')}>Settings</button></div></section>}
     {immersiveAvailable && !overlay && <button ref={immersiveToggle} type='button' className='immersive-toggle' data-stage-control data-always='true' aria-label={immersiveActive ? 'Show controls' : 'Hide controls'} title={immersiveActive ? 'Show controls' : 'Hide controls'} onClick={() => { cancelDrag.current?.(); setPositionPreview(null); setModeOpen(false); immersiveToggle.current?.focus({ preventScroll: true }); setImmersive(value => !value); }}><Eye aria-hidden='true' size={20} className={immersiveActive ? 'toggle-glyph' : 'toggle-glyph active'}/><EyeOff aria-hidden='true' size={20} className={immersiveActive ? 'toggle-glyph active' : 'toggle-glyph'}/></button>}
     <div className='reveal-controls' inert={preparing || undefined} aria-hidden={!hidden || preparing}>{presentationHidden && !immersiveActive && <>
@@ -351,7 +355,7 @@ export default function App() {
       <Suspense fallback={<p className='panel-note'>Preparing capture…</p>}><CapturePanel capture={world.capture} sound={world.soundActive} onPhoto={world.takePhoto} onStart={world.startClip} onStop={world.stopClip} onDownload={world.downloadCapture} onShare={world.shareCapture} onDiscard={world.discardCapture} onWatch={close}/></Suspense>
     </Dialog>}
     {overlay === 'controls' && <Dialog variant='controls' title='Controls' onClose={close} returnFocus={panelInvoker.current}>
-      <ControlsMenu onBrowse={() => open('browse')} onStudio={() => showStudio()} onCapture={() => open('capture')} fullscreen={platform.fullscreen} onSettings={() => open('settings')} onFullscreen={() => { void platform.toggleFullscreen(); close(); }} onHelp={() => open('help')}/>
+      <ControlsMenu onWatch={watchNow} onBrowse={() => open('browse')} onStudio={() => showStudio()} onCapture={() => open('capture')} fullscreen={platform.fullscreen} onSettings={() => open('settings')} onFullscreen={() => { void platform.toggleFullscreen(); close(); }} onHelp={() => open('help')}/>
     </Dialog>}
     {overlay === 'picker' && <Dialog variant='picker' title='Choose a firework' onClose={close} returnFocus={panelInvoker.current}>
       <p className='panel-note'>Browse the thirteen effects. The left collection launches them.</p>
@@ -380,6 +384,10 @@ export default function App() {
         <div className='settings-group'><h3>Detail and progress</h3>
           <Toggle label='Adaptive drawing resolution' detail='Reduce pixel cost during pressure without changing shell recipes or your saved quality.' checked={prefs.adaptiveResolution} onChange={v => change('adaptiveResolution', v)}/>
           <Toggle label='Show progress and Encore' detail='Optional status for finite and continuous shows.' checked={prefs.showProgress} onChange={v => change('showProgress', v)}/>
+        </div>
+        <div className='settings-group'><h3>Cinematic response</h3>
+          <Toggle label='Cinematic exposure' detail='A restrained brightness response to large shells; no brighter default or changes to show density.' checked={prefs.cinematicExposure} onChange={v => change('cinematicExposure', v)}/>
+          <Toggle label='Gentle camera response' detail={motionBlocked ? 'Disabled by your motion preference.' : world.backend.startsWith('Canvas') ? 'Requires the native 3D renderer; unavailable in Canvas.' : 'Optional sub-pixel perspective motion for the largest shells. Off by default.'} disabled={motionBlocked || world.backend.startsWith('Canvas')} checked={prefs.cameraMotion && !motionBlocked && !world.backend.startsWith('Canvas')} onChange={v => change('cameraMotion', v)}/>
         </div>
         <div className='settings-group'><h3>Comfort</h3>
           <Toggle label='Reduced flashes' detail='Softer light; the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>

@@ -13,12 +13,12 @@ const ownKeys = (v: object, allowed: readonly string[]) => Object.keys(v).every(
 const record = (v: unknown): v is Record<string, unknown> => Boolean(v) && typeof v === 'object' && !Array.isArray(v);
 const number = (v: unknown, low: number, high: number): v is number => typeof v === 'number' && Number.isFinite(v) && v >= low && v <= high;
 /** A whitelist parser, never a settings merge. Imported data cannot change user comfort or fetch assets. */
-export function parseRecipe(input: string | unknown): ShowRecipe {
+export function inspectRecipe(input: string | unknown): ShowRecipe {
   if (typeof input === 'string' && new TextEncoder().encode(input).length > RECIPE_LIMITS.bytes) throw new Error('This show file is too large. Maximum 12 KB.');
   let value: unknown;
   try { value = typeof input === 'string' ? JSON.parse(input) : input; } catch { throw new Error('This is not a valid show file.'); }
   if (!record(value) || !ownKeys(value, ['schema','engine','name','seed','kind','cues']) || value.schema !== 1) throw new Error('Unsupported show recipe format.');
-  if (value.engine !== CONFIG_VERSION) throw new Error(`This recipe uses engine ${String(value.engine).slice(0,32)}. This build supports ${CONFIG_VERSION}; it will not silently change your show.`);
+  if (typeof value.engine !== 'string' || !/^[0-9]{4}-[0-9]{2}-[0-9]{2}\.[0-9]{1,4}$/.test(value.engine)) throw new Error('Invalid show engine version.');
   if (typeof value.name !== 'string' || !value.name.trim() || value.name.length > 60 || /[\u0000-\u001f\u007f]/.test(value.name)) throw new Error('Give the show a name of 1–60 readable characters.');
   if (!number(value.seed, 0, 0xffffffff) || !Number.isInteger(value.seed)) throw new Error('The show seed must be an unsigned 32-bit integer.');
   if (!['cues','finale'].includes(String(value.kind)) || !Array.isArray(value.cues) || value.cues.length > RECIPE_LIMITS.cues) throw new Error('A show can contain at most twelve cues.');
@@ -32,7 +32,18 @@ export function parseRecipe(input: string | unknown): ShowRecipe {
     phase = next;
     return {family:c.family as FamilyId, position:c.position, gap:Math.round(c.gap*10)/10, phase:c.phase as ShowPhase};
   });
-  return {schema:1,engine:CONFIG_VERSION,name:value.name.trim(),seed:value.seed,kind:value.kind as ShowRecipe['kind'],cues};
+  return {schema:1,engine:value.engine,name:value.name.trim(),seed:value.seed,kind:value.kind as ShowRecipe['kind'],cues};
+}
+/** Strict playback/import contract: preserving data is not a compatibility claim. */
+export function parseRecipe(input: string | unknown): ShowRecipe {
+  const recipe = inspectRecipe(input);
+  if (recipe.engine !== CONFIG_VERSION) throw new Error(`This recipe uses engine ${recipe.engine}. This build supports ${CONFIG_VERSION}; it will not silently change your show.`);
+  return recipe;
+}
+/** Call only for an explicit 'Adapt a copy' action, never on load or storage writes. */
+export function adaptRecipeCopy(input: ShowRecipe): ShowRecipe {
+  const original = inspectRecipe(input);
+  return parseRecipe({...original, engine: CONFIG_VERSION, name: `${original.name.slice(0,51)} (copy)`});
 }
 export function newRecipe(name='My night', seed=731): ShowRecipe {
   return {schema:1,engine:CONFIG_VERSION,name,seed,kind:'cues',cues:[

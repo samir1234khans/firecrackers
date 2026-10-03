@@ -1,3 +1,5 @@
+**Cinematic V4 candidate:** [docs/CINEMATIC-V4.md](docs/CINEMATIC-V4.md) records the realism/UX changes, deployment blocker and separate PR #33 hold. Candidate source is not a live-production receipt.
+
 **Latest source work: richer night experience / `2026-10-03.2`, PR #45.** [Implementation, dependencies and qualification boundary](docs/RICHER-NIGHT-EXPERIENCE.md). Combines #37–#44's main-compatible features with #36. Exact promotion/check results are in PR #45. Draft #33 and its musical-score release hold are unchanged; no deployment is implied. The production receipts below remain historical evidence of the last actual deployment.
 
 Latest production: [moonlit water and immersive controls / build `.11`](docs/evidence/moonlit-water-2026-10-01/PRODUCTION.md) records the owner-authorized main promotion, passed qualification, actual deployment and rollback. Earlier candidate/release entries below are historical.

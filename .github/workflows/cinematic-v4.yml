@@ -1,0 +1,47 @@
+name: Cinematic V4 regression
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['src/**', 'scripts/**', 'tests/**', 'package*.json', '.github/workflows/cinematic-v4.yml']
+permissions:
+  contents: read
+concurrency:
+  group: cinematic-v4-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Build the exact prior main for visual comparison
+        run: |
+          git worktree add --detach /tmp/v4-baseline a1202af5fa1955eab844988a1f1ff32299fb8579
+          ln -s "$GITHUB_WORKSPACE/node_modules" /tmp/v4-baseline/node_modules
+          (cd /tmp/v4-baseline && npm run build)
+      - name: Actual controls, motion preferences, saved recipes and matched captures
+        run: |
+          mkdir -p test-results/cinematic-v4
+          npm run preview -- --port 4173 > test-results/cinematic-v4/server.log 2>&1 &
+          candidate=$!
+          (cd /tmp/v4-baseline && npm run preview -- --port 4174) > test-results/cinematic-v4/baseline.log 2>&1 &
+          baseline=$!
+          trap 'kill "$candidate" "$baseline" 2>/dev/null || true' EXIT
+          for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ >/dev/null && curl -fsS http://127.0.0.1:4174/ >/dev/null && break || sleep 1; done
+          BASELINE_URL=http://127.0.0.1:4174/ npm run test:cinematic-v4 -- test-results/cinematic-v4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cinematic-v4-browser-evidence
+          path: test-results/cinematic-v4
+          retention-days: 14

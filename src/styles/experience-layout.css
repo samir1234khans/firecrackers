@@ -14,3 +14,7 @@
 .fireworks-app .mode-selector [data-direction] svg{flex-shrink:0;}
 .fireworks-app .mode-selector .mode-detail{max-width:none;}
 .fireworks-app .mode-selector .mode-selector-close{align-self:center;justify-self:center;}
+
+/* The short ready hint keeps the persistent Controls entry as its alternative. */
+.fireworks-app .startup-ready-note .watch-now { pointer-events: auto; min-height: 36px; display: inline-flex; align-items: center; gap: 6px; margin: 3px 0 0; }
+.saved-night .recipe-version-note { font-size: .75rem; line-height: 1.5; opacity: .8; }

@@ -1,3 +1,5 @@
+import { CinematicResponse } from './CinematicResponse.js';
+import { altitudeWind, shellAxis, starDrag } from './StarAppearance.js';
 import { RecipePlayer } from '../experience/RecipePlayer.js';
 import { smokeLayer } from './SmokeCanopy.js';
 import { BURST_LIGHT_CAPACITY, BURST_LIGHT_LIFETIME } from './BurstLighting.js';
@@ -105,6 +107,9 @@ export class Simulation {
     quality: Quality = 'standard';
     reducedFlashes = true;
     reducedMotion = false;
+    cinematicExposure = true;
+    cameraMotion = false;
+    readonly cinema = new CinematicResponse();
     readonly signatureStages = new Uint16Array(9);
     width = 160;
     ground = 16;
@@ -301,6 +306,7 @@ export class Simulation {
         this.lights = [];
         this.events = [];
         this.time = 0;
+        this.cinema.reset();
         this.waterPhase = 0;
         this.accumulator = 0;
         this.paused = false;
@@ -333,6 +339,7 @@ export class Simulation {
     drainEvents() { const e = this.events; this.events = []; return e; }
     snapshot() {
         return {
+            cinematicResponse: this.cinema.snapshot(),
             personal: this.personal.snapshot(),
             showTiming: { preset: this.show ?? (this.finiteEnded ? 'finale' : null), elapsed: Math.max(0, Math.floor(this.time - this.showStart)), duration: this.show === 'finale' || this.finiteEnded ? 32 : null, complete: this.finiteEnded && this.phase === 'ready' && !this.smoke.count && !this.rockets.length },
             always: this.always.snapshot(), futureHeads: this.futureHeads, activeUnits: this.activeUnits, headCount: this.heads.count, trailCount: this.trails.count,
@@ -349,6 +356,7 @@ export class Simulation {
         };
     }
     private emit(type: SimEvent['type'], x: number, y: number, z: number, family: number, strength = 1, duration?: number) {
+        if (type === 'burst') this.cinema.report(family, strength, x, this.time);
         if (this.events.length < 128) this.events.push({ id: ++this.sequence, time: this.time, type, x, y, z, family, strength, duration });
     }
     private step(dt: number) {
@@ -423,6 +431,7 @@ export class Simulation {
                 this.burst(c.family, c.x, c.y, c.z, c.scale, c.seed, c.vx * 0.15, c.vy * 0.15, c.vz * 0.15, c.palette);
             }
         }
+        this.cinema.step(dt, this.time, this.lights, this.cinematicExposure, this.cameraMotion && !this.reducedMotion, this.reducedFlashes);
     }
     private moveRocket(r: Rocket, dt: number) {
         const previousMotor = rocketPoint(r, MOTOR_LOCAL_Y);
@@ -496,6 +505,7 @@ export class Simulation {
         const rand = randomStream(r.seed);
         const composition = r.launchProfile?.effectScale ?? 1;
         // A real full shell opens first; every later break comes from a moving carrier.
+        this.cinema.report(4, 1, x, this.time);
         this.burst(1, x, y, z, composition * 1.12, r.seed);
         const groups = this.reducedFlashes ?
             [{ f: 1, t: 1.15 }, { f: 2, t: 2.00 }, { f: 1, t: 2.85 }, { f: 3, t: 3.70 }, { f: 0, t: 4.55 }] :
@@ -535,7 +545,7 @@ export class Simulation {
             }
             if (family === 2) { g = 0.40 + rand() * 0.24; b = 0.10; }
             if (family === 3) { r = 0.83; g = 0.91; b = 1; }
-            this.heads.add(x, y, z, Math.cos(theta) * radial * speed + mx, vertical * speed + my, Math.sin(theta) * radial * speed + mz, f.life * (0.84 + rand() * 0.24), r, g, b, family === 1 ? .19 : .155, f.drag, f.gravity * scale, f.trail, family === 3 ? 0.95 + rand() * 0.40 : 0, family);
+            this.heads.add(x, y, z, Math.cos(theta) * radial * speed * shellAxis(seed, 0) + mx, vertical * speed * shellAxis(seed, 1) + my, Math.sin(theta) * radial * speed * shellAxis(seed, 2) + mz, f.life * (0.84 + rand() * 0.24), r, g, b, family === 1 ? .19 : .155, starDrag(f.drag, seed, i), f.gravity * scale, f.trail, family === 3 ? 0.95 + rand() * 0.40 : 0, family);
             lightR += r;
             lightG += g;
             lightB += b;
@@ -587,7 +597,7 @@ export class Simulation {
             coolGrandStar(p, i, dt);
             if (p.family[i] >= 10) evolveSignature(p, i, dt, this.reducedFlashes, this.reducedMotion);
             const drag = Math.exp(-p.drag[i] * dt);
-            p.vx[i] = p.vx[i] * drag + this.wind * 0.09 * dt;
+            p.vx[i] = p.vx[i] * drag + altitudeWind(this.wind, p.y[i], p.z[i]) * 0.09 * dt;
             p.vy[i] = p.vy[i] * drag - p.gravity[i] * dt;
             p.vz[i] *= drag;
             p.x[i] += p.vx[i] * dt;
@@ -645,7 +655,7 @@ export class Simulation {
             p.age[i] += dt;
             if (p.age[i] >= p.life[i]) { p.remove(i); continue; }
             const d = Math.exp(-p.drag[i] * dt);
-            p.vx[i] = p.vx[i] * d + this.wind * dt * .24;
+            p.vx[i] = p.vx[i] * d + altitudeWind(this.wind, p.y[i], p.z[i]) * dt * .24;
             p.vy[i] = p.vy[i] * d - p.gravity[i] * dt;
             p.vz[i] *= d;
             p.x[i] += p.vx[i] * dt;
@@ -674,7 +684,7 @@ export class Simulation {
         for (let i = p.count - 1; i >= 0; i--) {
             p.age[i] += dt;
             if (p.age[i] >= p.life[i]) { p.remove(i); continue; }
-            p.x[i] += (this.wind + p.vx[i] + Math.sin(this.time * 0.35 + p.id[i]) * 0.14) * dt;
+            p.x[i] += (altitudeWind(this.wind, p.y[i], p.z[i]) + p.vx[i] + Math.sin(this.time * 0.35 + p.id[i]) * 0.14) * dt;
             const layer = smokeLayer(p.id[i]);
             const eddy = p.family[i] === 2 ? Math.sin(p.age[i] * .32 + p.x[i] * .08 + layer) : 0;
             p.y[i] += (p.vy[i] + eddy * .20) * dt;
