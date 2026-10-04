@@ -59,6 +59,8 @@ Runtime CI run 37160828844 retained two failing regression contracts: the stage 
 
 Cinematic integration run 37162938291 retained a Stop-button race on desktop software WebGL: after ten actual presented frames, the Stop action crossed the existing fifteen-second automatic deadline and the button detached. The final capture snapshot was stopped at fifteen seconds with no error. The test now accepts only that successful bounded automatic completion if the Stop action times out; real-frame, decoded nonblack scene, nonsilent app audio and independent continuity assertions remain unchanged. No application capture behavior or duration limit changed.
 
+Run 37163405898 exposed the same actionability wait before automatic completion, so the audio-export test now activates the visible, enabled Stop button with native keyboard Enter. This avoids waiting for two stable animation frames on a slow software GPU and also covers accessible stopping. Pointer Stop remains independently covered by the passing capture-continuity and experience suites. All four local WebGL/Canvas desktop/portrait cases passed with actual scene pixels and nonsilent decoded app audio; independent export continuity remains an exact-head CI gate.
+
 ## Reproduction
 
 ```sh
