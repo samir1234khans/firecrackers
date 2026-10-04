@@ -1,4 +1,6 @@
-**Current production and main: `2026-10-03.4`.** The owner authorized reconciliation and production deployment on 4 October. The tested main CI artifact is live at [Firecrackers](https://firecrackers.mainandmany.com/); [source, deployment, cache and public verification receipt](docs/evidence/reconciliation-2026-10-04/PRODUCTION.md). The earlier production hold is superseded. Physical-device and sustained-performance qualification remains unverified. Entries below preserve earlier checkpoints.
+**Current main and production: `2026-10-04.1`.** [Verified legacy realism release](docs/evidence/legacy-realism-2026-10-04/PRODUCTION.md). The historical checkpoints below retain their original state.
+
+**Previous production and main: `2026-10-03.4`.** The owner authorized reconciliation and production deployment on 4 October. The tested main CI artifact is live at [Firecrackers](https://firecrackers.mainandmany.com/); [source, deployment, cache and public verification receipt](docs/evidence/reconciliation-2026-10-04/PRODUCTION.md). The earlier production hold is superseded. Physical-device and sustained-performance qualification remains unverified. Entries below preserve earlier checkpoints.
 
 **Separately held integration candidate: cinematic shows + V4 (`2026-10-03.4`).** [Reconciliation and preserved release hold](docs/CINEMATIC-SHOWS-RECONCILIATION.md). Not a main promotion or deployment. Prior entries below are historical.
 

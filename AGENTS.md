@@ -2,7 +2,7 @@
 
 ## Current reconciliation boundary
 
-The owner explicitly authorized reconciling all current work and promoting it to main on 4 October 2026. PR #47 incorporates PR #33's cinematic music with V4, richer-night features and capture fixes; its main merge is `e60d46443836d1f60bfb65f026dfc36eb5ba509c`. See `docs/evidence/reconciliation-2026-10-04/MAIN.md`. The owner subsequently explicitly authorized production deployment. Build `2026-10-03.4` is deployed and publicly verified; see `docs/evidence/reconciliation-2026-10-04/PRODUCTION.md`. The earlier production hold is superseded; hardware/performance qualification remains unverified. Preserve the reconciled 90-second scores, newer Studio/capture features and deliberate Update & restart behavior. Never infer a deployment from main promotion.
+The owner explicitly authorized reconciling all current work and promoting it to main on 4 October 2026. PR #47 incorporates PR #33's cinematic music with V4, richer-night features and capture fixes; its main merge is `e60d46443836d1f60bfb65f026dfc36eb5ba509c`. See `docs/evidence/reconciliation-2026-10-04/MAIN.md`. The owner subsequently explicitly authorized production deployment. Build `2026-10-04.1`, including the legacy realism merge PR #50, is deployed and publicly verified; see `docs/evidence/legacy-realism-2026-10-04/PRODUCTION.md`. The earlier production hold is superseded; hardware/performance qualification remains unverified. Preserve the reconciled 90-second scores, newer Studio/capture features and deliberate Update & restart behavior. Never infer a deployment from main promotion.
 
 ## Current source and scope
 

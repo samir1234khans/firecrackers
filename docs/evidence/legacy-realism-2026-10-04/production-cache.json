@@ -1,0 +1,16 @@
+{
+  "origin": "https://firecrackers.mainandmany.com/",
+  "at": "2026-10-04T01:45:09.425Z",
+  "method": "Actual production worker activation in isolated native Chrome context, seeded old app caches; not an old installed-worker upgrade simulation",
+  "version": "2026-10-04.1",
+  "checks": [
+    "obsolete versioned app caches removed",
+    "unrelated cache preserved",
+    "current app controlled by service worker",
+    "offline reload presents current version"
+  ],
+  "keys": [
+    "unrelated-release-test",
+    "workbox-precache-v2-https://firecrackers.mainandmany.com/"
+  ]
+}

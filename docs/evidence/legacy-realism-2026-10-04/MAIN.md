@@ -1,5 +1,7 @@
 # Legacy fireworks realism — main promotion receipt
 
+Subsequent explicit owner authorization deployed this qualified application to production. [Verified production release](PRODUCTION.md). The earlier source-only scope below is historical.
+
 Source is promoted and verified. Both required exact-main push checks passed; all thirteen runtime jobs passed. The documentation/gallery follow-up preserves this qualified application unchanged.
 
 ## Source and build
