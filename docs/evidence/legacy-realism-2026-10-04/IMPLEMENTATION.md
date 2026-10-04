@@ -63,6 +63,8 @@ Run 37163405898 exposed the same actionability wait before automatic completion,
 
 ## Reproduction
 
+Final-source runtime run 37163952028 completed the entire legacy visual matrix, but its overload test inspected reflection rate at the exact adaptation decision. Recovery makes that decision after the measured frame is rendered; simulation quality already read Low while the water diagnostic still described the previous Standard pass (15 Hz). The test now keeps immediate rocket, renderer and preference checks, then verifies the actual 6 Hz / 128-pixel Low reflection after the existing eight presented-frame wait. No recovery or water behavior changed. All failure evidence is retained.
+
 ```sh
 npm run typecheck
 npm run lint

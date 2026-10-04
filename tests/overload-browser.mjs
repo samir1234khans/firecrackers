@@ -56,10 +56,18 @@ try {
   assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('firecrackers.preferences.v1')).quality), 'standard', 'The saved quality choice is not rewritten');
   assert.equal(recovered.reflectionAllocated, true);
   assert.equal(recovered.reflectionMode, 'planar');
-  assert.equal(recovered.reflectionHz, 6);
   assert.equal(await page.locator('main').getAttribute('data-ready'), 'true');
   assert.equal(recovered.paused, false);
   await page.waitForFunction(frames => window.__firecrackersQA.snapshot().frames >= frames + 8, recovered.frames, { timeout: 15000 });
+  // Adaptation is decided after the measured frame has already rendered.
+  // Inspect the water budget after Low frames are presented, not in that
+  // decision's intermediate state (which still describes the prior pass).
+  const renderedLow = await snap(page);
+  assert.equal(renderedLow.quality, 'low');
+  assert.equal(renderedLow.reflectionAllocated, true);
+  assert.equal(renderedLow.reflectionMode, 'planar');
+  assert.equal(renderedLow.reflectionHz, 6);
+  assert.equal(renderedLow.reflectionWidth, 128);
   await page.waitForFunction(() => window.__firecrackersQA.snapshot().bursts >= 1, null, { timeout: 25000 });
   assert.equal((await snap(page)).backend, 'WebGL 2');
   pass('three forced severe frames retain native rendering and a planar reflection while the same rocket bursts');
