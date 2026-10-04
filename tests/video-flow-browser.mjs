@@ -120,7 +120,11 @@ try {
       await advance(page, 24);
       await chooseFamily(page, name);
       const count = (await qa(page, 'snapshot')).bursts;
-      await launch.click(); await advance(page, index === 4 ? 5.1 : 3.8);
+      await launch.click();
+      const admitted = await qa(page, 'snapshot');
+      assert.equal(admitted.phase, 'fuse');
+      assert.ok(admitted.flight.ascent > 0 && admitted.flight.fuse > admitted.flight.age);
+      await advance(page, admitted.flight.fuse - admitted.flight.age + admitted.flight.ascent + .2);
       assert.ok((await qa(page, 'snapshot')).bursts > count);
       await shot(page, `${v.name}-family-${index + 1}`);
     }

@@ -13,7 +13,8 @@ export interface RendererPort {
     init(): Promise<void>;
     resize(): void;
     setLayout(layout: StageLayout): void;
-    projectBurst(clientX: number, clientY: number): [number, number] | null;
+    projectBurst(clientX: number, clientY: number, id?: FamilyId): [number, number, number] | null;
+    burstCompositionScale(id: FamilyId, point: readonly [number, number, number]): number;
     resolveLaunchProfile(id: FamilyId, placement?: number): LaunchProfile;
     setDisplay(mode: DisplayMode): void;
     setQuality(quality: Quality): void;

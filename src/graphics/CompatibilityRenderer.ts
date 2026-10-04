@@ -1,3 +1,4 @@
+import { burstDepth, recedingShellSize } from '../engine/LegacyRealism';
 import { starColor, aerialTransmission } from '../engine/StarAppearance.js';
 import { SmokeOcclusion } from '../engine/SmokeOcclusion.js';
 import { CINEMA_BASE_EXPOSURE } from '../engine/CinematicResponse.js';
@@ -5,13 +6,13 @@ import { canopyAlpha, canopyStretch, illuminateSmoke } from '../engine/SmokeCano
 import { BURST_LIGHT_CAPACITY, burstLightEnergy, gatherBurstLighting, limitBurstRadiance } from '../engine/BurstLighting.js';
 import { measureStage, stageFraming, waterfrontHorizon } from '../engine/StageLayout';
 import type { StageLayout } from '../engine/StageLayout';
-import { resolveScreenLaunchProfile, resolveLaunchAimScreenX } from '../engine/LaunchProfile';
+import { resolveScreenLaunchProfile, resolveLaunchAimScreenX, resolveLegacyLaunchProfile, legacyCompositionScale, signatureCompositionScale } from '../engine/LaunchProfile';
 import type { LaunchProfile } from '../engine/LaunchProfile';
 import type { RendererStartup } from '../engine/StartupProgress';
 import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjectionDiagnostics } from '../engine/LaunchComposition';
 import type { LaunchPropComposition, LaunchBounds } from '../engine/LaunchComposition';
-import { signatureBody, signatureTint } from '../engine/FlagshipEffects';
-import { signatureEnvelope } from '../engine/SignatureDiagnostics';
+import { signatureBody } from '../engine/FlagshipEffects';
+import { signatureEnvelope, effectEnvelope } from '../engine/SignatureDiagnostics';
 import { carrierTint } from '../engine/GrandEffects';
 import { BUDGETS, FAMILIES, ROCKET_PROFILES, clamp, familyIndex, randomStream } from '../engine/catalog';
 import type { FamilyId, Quality } from '../engine/catalog';
@@ -82,6 +83,7 @@ export class CompatibilityRenderer implements RendererPort {
     private disposed = false;
     private initialized = false;
     private staged = 0;
+    private readonly legacyProfiles: (LaunchProfile | undefined)[] = Array(10);
     private airborne = 0;
     private bodies = 0;
     private readonly glows = new Map<string, HTMLCanvasElement>();
@@ -350,7 +352,9 @@ export class CompatibilityRenderer implements RendererPort {
         this.compositions = FAMILIES.map(f => resolvePropComposition(this.layout,f.id,contactY,y=>this.sim.ground+(this.baseline-y)/this.scale));
         this.launchBounds = this.compositions.map(c=>resolveLaunchBounds(this.layout,c,(x,y)=>this.project(x,y),(x)=> (x-this.width/2)/this.scale));
         this.previewProfile = undefined;
+        this.legacyProfiles.fill(undefined);
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / this.scale * .9), 16);
+        for (const family of FAMILIES.slice(0,10)) this.resolveLaunchProfile(family.id,.5);
         this.setQuality(this.sim.quality);
     }
     startupMoon(): Readonly<MoonFrame> | null { return this.initialized ? this.moonFrame : null; }
@@ -381,6 +385,13 @@ export class CompatibilityRenderer implements RendererPort {
         const index=familyIndex(id),prop=this.compositions[index],bounds=this.launchBounds[index],scene=this.layout.unobstructedScene;
         const normalizedPlacement=clamp(placement,0,1),padX=bounds.worldMin+normalizedPlacement*(bounds.worldMax-bounds.worldMin);
         const screenX=bounds.screenMin+normalizedPlacement*(bounds.screenMax-bounds.screenMin);
+        if(index<10){
+          const worldAt=(x:number,y:number,z:number)=>{const q=240/Math.max(140,240-z);return {x:(x-this.width/2)/(this.scale*q),y:this.sim.ground+(this.baseline-y)/(this.scale*q)};};
+          const profile = this.legacyProfiles[index] ??= resolveLegacyLaunchProfile(this.layout,id,worldAt,(x,y,z)=>this.project(x,y,z),prop,this.height*this.horizon,scene.x+scene.width/2);
+          const y = this.project(0,profile.apex+prop.shellOffset,profile.burstDepth).y;
+          const aimX = clamp(worldAt(screenX,y,profile.burstDepth!).x,profile.aimMinX!,profile.aimMaxX!);
+          return {...profile,aimX,padX,normalizedPlacement};
+        }
         const profile=resolveScreenLaunchProfile(this.layout,id,this.scale,y=>this.sim.ground+(this.baseline-y)/this.scale,scene.x+scene.width/2,prop,this.height*this.horizon);
         const effectScale=profile.effectScale??1;
         const nearDepthFactor=index>=10?240/Math.max(140,240-65*effectScale):1;
@@ -403,10 +414,16 @@ export class CompatibilityRenderer implements RendererPort {
         const bounds=this.launchBounds[familyIndex(this.sim.selected)];
         return [this.layout.viewport.x+bounds.screenMin+clamp(placement,0,1)*(bounds.screenMax-bounds.screenMin),this.layout.viewport.y+bounds.contactScreenY];
     }
-    projectBurst(clientX: number, clientY: number): [number, number] | null {
+    projectBurst(clientX: number, clientY: number, id=this.sim.selected): [number, number, number] | null {
         const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
+        const z=burstDepth(familyIndex(id)),q=240/Math.max(140,240-z);
         return x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height
-            ? [(x - this.width / 2) / this.scale, this.sim.ground + (this.baseline - y) / this.scale] : null;
+            ? [(x-this.width/2)/(this.scale*q),this.sim.ground+(this.baseline-y)/(this.scale*q),z] : null;
+    }
+    burstCompositionScale(id: FamilyId, point: readonly [number, number, number]): number {
+        const p = this.project(...point);
+        return familyIndex(id) < 10 ? legacyCompositionScale(this.layout, id, (x,y,z)=>this.project(x,y,z), point, this.height*this.horizon)
+            : signatureCompositionScale(this.layout, this.scale, p.x, p.y);
     }
     private tone(r: number, g: number, b: number) {
         return `rgb(${Math.round(clamp(r, 0, 1) * 255)},${Math.round(clamp(g, 0, 1) * 255)},${Math.round(clamp(b, 0, 1) * 255)})`;
@@ -673,14 +690,14 @@ export class CompatibilityRenderer implements RendererPort {
         this.canopyOrder.sort((a,b) => smoke.z[a] - smoke.z[b]);
         for (const i of this.canopyOrder) {
             const p = this.project(smoke.x[i], smoke.y[i], smoke.z[i]);
-            const radius = Math.max(2, smoke.size[i] * this.scale * 1.6);
+            const radius = Math.max(2, smoke.size[i] * this.scale * 1.6 * (240/Math.max(140,240-smoke.z[i])));
             illuminateSmoke(s.lights, smoke.x[i], smoke.y[i], smoke.z[i], s.reducedFlashes, this.canopyLight);
             const red = .14 + this.canopyLight[0], green = .18 + this.canopyLight[1], blue = .23 + this.canopyLight[2];
             const stretch = canopyStretch(smoke.id[i], smoke.age[i]);
             c.save(); c.translate(p.x, p.y); c.rotate(smoke.angle[i]); c.scale(stretch, 1 / stretch); c.translate(-p.x, -p.y);
             const haze = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius);
             haze.addColorStop(0, this.tone(red, green, blue)); haze.addColorStop(1, 'transparent');
-            c.globalAlpha = canopyAlpha(smoke.age[i], smoke.life[i], smoke.gravity[i], smoke.family[i]) * .46;
+            c.globalAlpha = canopyAlpha(smoke.age[i], smoke.life[i], smoke.gravity[i], smoke.family[i]) * .46 * aerialTransmission(Math.hypot(smoke.x[i],smoke.y[i]-80,240-smoke.z[i]));
             c.fillStyle = haze; c.fillRect(p.x - radius, p.y - radius, radius * 2, radius * 2); c.restore();
         }
         c.globalCompositeOperation = 'lighter'; c.lineCap = 'round';
@@ -690,8 +707,8 @@ export class CompatibilityRenderer implements RendererPort {
             const age = trails.age[i] / trails.life[i];
             if (age > .97) continue;
             const a = this.project(trails.ax[i], trails.ay[i], trails.az[i]), b = this.project(trails.bx[i], trails.by[i], trails.bz[i]);
-            c.globalAlpha = Math.pow(1 - age, 1.35) * (s.reducedFlashes ? .58 : .75) * this.occlusion.transmission((trails.ax[i]+trails.bx[i])*.5, (trails.ay[i]+trails.by[i])*.5, (trails.az[i]+trails.bz[i])*.5);
-            c.strokeStyle = this.tone(trails.r[i], trails.g[i], trails.b[i]); c.lineWidth = Math.max(.55, trails.width[i] * this.scale * 2 * (1 - age * .65));
+            c.globalAlpha = Math.pow(1 - age, 1.35) * (s.reducedFlashes ? .58 : .75) * this.occlusion.transmission((trails.ax[i]+trails.bx[i])*.5, (trails.ay[i]+trails.by[i])*.5, (trails.az[i]+trails.bz[i])*.5) * aerialTransmission(Math.hypot((trails.ax[i]+trails.bx[i])*.5,(trails.ay[i]+trails.by[i])*.5-80,240-(trails.az[i]+trails.bz[i])*.5));
+            c.strokeStyle = this.tone(trails.r[i], trails.g[i], trails.b[i]); c.lineWidth = Math.max(.55, trails.width[i]*this.scale*2*(240/Math.max(140,240-(trails.az[i]+trails.bz[i])*.5))*(1-age*.65));
             c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
         }
         for (const pool of [s.heads, s.embers]) for (let i = 0; i < pool.count; i++) {
@@ -703,11 +720,11 @@ export class CompatibilityRenderer implements RendererPort {
             starColor(pool.family[i], pool.age[i], pool.life[i], pool.r[i], pool.g[i], pool.b[i], this.starTone);
             // Quantize glow colours to avoid a new texture for every star.
             const quantize = (value: number) => Math.round(value * 8) / 8;
-            this.glow(p.x, p.y, pool === s.embers ? 1.9 : Math.max(4.8, Math.min(9, pool.size[i] * this.scale * 8)), this.tone(quantize(this.starTone[0]), quantize(this.starTone[1]), quantize(this.starTone[2])), alpha * (s.reducedFlashes ? .72 : .9));
+            this.glow(p.x, p.y, pool === s.embers ? 1.9 : Math.max(pool.family[i]<10?3.1:4.8, Math.min(9, pool.size[i]*this.scale*8*(240/Math.max(140,240-pool.z[i])))), this.tone(quantize(this.starTone[0]), quantize(this.starTone[1]), quantize(this.starTone[2])), alpha * (s.reducedFlashes ? .72 : .9));
         }
         for (const r of s.rockets) if (r.stage === 'ascent') {
             const p = this.project(...rocketPoint(r, SHELL_LOCAL_Y));
-            this.glow(p.x, p.y, 4.3, r.family >= 10 ? this.tone(...signatureTint(r.family)) : '#ffcf86', .9);
+            this.glow(p.x,p.y,r.family<10?Math.max(1.65,recedingShellSize(r.family,r.age/r.ascent)*1.95):4.3,this.tone(...carrierTint(r.family,0,r.age/r.ascent)),.9);
         }
         for (const carrier of s.cues) { const p = this.project(carrier.x, carrier.y, carrier.z); this.glow(p.x, p.y, 3.5, this.tone(...carrierTint(carrier.family, carrier.palette)), .8); }
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
@@ -730,7 +747,7 @@ export class CompatibilityRenderer implements RendererPort {
         const shell = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         const profile=r?.launchProfile??this.nextProfile(),prop=profile.prop??this.compositions[familyIndex(this.sim.selected)];
         return { ...propProjectionDiagnostics(prop,r?.padX??profile.padX!,(x,y)=>this.project(x,y)),launchBounds:this.launchBounds[r?.family??familyIndex(this.sim.selected)],nextLaunchProfile:this.nextProfile(),
-            signatureBounds, moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
+            effectBounds:effectEnvelope(this.sim.heads,(x,y,z)=>this.project(x,y,z)),signatureBounds, moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
             ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.horizon, skyLayers: 3, skyTextures: 0,
             skyArtWidth: this.celestialArt.stars.width, skyArtHeight: this.celestialArt.stars.height,
             skyCelestialCrop: Math.max(.6, Math.min(1.35, this.width / this.height / 2)), skyResponseCachePixels: 32768,
@@ -759,9 +776,9 @@ export class CompatibilityRenderer implements RendererPort {
             waterFarZ: this.waterFrame.farZ, waterNearZ: this.waterFrame.nearZ,
             reflectionTargets: 0, reflectionAllocated: false, reflectionWidth: 0, reflectionHeight: 0, reflectionHz: 0,
             shellScreen: shell ? this.project(...shell) : null,
-            apexScreen: r ? this.project(r.launchProfile?.aimX??r.x, r.top + (r.launchProfile?.prop?.shellOffset??SHELL_LOCAL_Y*ROCKET_SCALE[1]), r.z) : null,
+            apexScreen: r ? this.project(r.launchProfile?.aimX??r.x, r.top + (r.launchProfile?.prop?.shellOffset??SHELL_LOCAL_Y*ROCKET_SCALE[1]), r.launchProfile?.burstDepth ?? r.z) : null,
             launchProfile: r?.launchProfile ?? null,
-            flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, y: r.y, vy: r.vy, top: r.top, family: r.family, shell } : null };
+            flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, z:r.z, vz:r.vz, phase:r.phase, fuse:r.fuse, y: r.y, vy: r.vy, top: r.top, family: r.family, shell } : null };
     }
     dispose() {
         if (this.disposed) return;

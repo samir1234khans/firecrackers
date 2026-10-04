@@ -15,7 +15,7 @@ export function starColor(family: number, age: number, life: number, red: number
   const hot = Math.exp(-Math.max(0, age) * 14) * (family >= 10 ? .035 : .08);
   const warm = family === 0 || family === 2 ? clamp((t - .48) / .52, 0, 1) : 0;
   out[0] = Math.max(0, red + hot * (1 - Math.min(1, red)));
-  out[1] = Math.max(0, green * (1 - warm * .38) + hot * (1 - Math.min(1, green)));
+  out[1] = Math.max(0, green * (1 - warm * (family===2?.85:.38)) + hot * (1 - Math.min(1, green)));
   out[2] = Math.max(0, blue * (1 - warm * .72) + hot * (1 - Math.min(1, blue)));
 }
 export function aerialTransmission(distance: number): number {

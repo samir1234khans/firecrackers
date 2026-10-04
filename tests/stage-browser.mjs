@@ -30,13 +30,13 @@ try{
    await advance(40);const before=await snap();await icon(id).click();const committed=await snap();assert.equal(committed.phase,'fuse');assert.equal(committed.selected,id);assert.ok(committed.committedId);assert.ok(committed.launchProfile);
    await icon(id).dispatchEvent('click');assert.equal((await snap()).committedId,committed.committedId);
    const fraction=(committed.apexScreen.y-committed.stageLayout.unobstructedScene.y)/committed.stageLayout.unobstructedScene.height;
-   if(id==='grand-finale'){
-    const scene=committed.stageLayout.unobstructedScene,viewport=committed.stageLayout.viewport;
-    const shore=(Number.isFinite(committed.waterline)?committed.waterline:.72)*viewport.height;
-    const skyHeight=Math.min(scene.y+scene.height,shore)-scene.y;
-    assert.ok(committed.apexScreen.y>scene.y&&committed.apexScreen.y<scene.y+skyHeight*.5,'finale crown is composed inside the visible sky above the shore');
-    assert.ok(committed.launchProfile.effectScale>0&&committed.launchProfile.finaleSpread>=0,'finale snapshots its fitted size and carrier spread');
-   }else assert.ok(fraction>=.30&&fraction<=.38,`Upper canopy ${id}: ${fraction}`);
+   const scene=committed.stageLayout.unobstructedScene,viewport=committed.stageLayout.viewport;
+   const shore=(Number.isFinite(committed.waterline)?committed.waterline:.72)*viewport.height;
+   const skyHeight=Math.min(scene.y+scene.height,shore)-scene.y;
+   assert.ok(committed.apexScreen.y>scene.y&&committed.apexScreen.y<=scene.y+skyHeight*.68+1,`Fitted upper sky ${id}: ${fraction}`);
+   assert.ok(Math.abs(fraction-committed.launchProfile.centerFraction)*scene.height<1,`${id}: projected recessed apex matches its immutable fitted centre`);
+   assert.ok(committed.launchProfile.effectScale>0&&committed.launchProfile.effectScale<=1,`${id}: bounded fitted composition`);
+   if(id==='grand-finale')assert.ok(committed.launchProfile.finaleSpread>=0,'finale snapshots its fitted carrier spread');
    await advance(id==='opal-supernova'?7.8:4.9);await page.mouse.move(1,1);await page.screenshot({path:`${out}/${backend}-${id}-upper.png`});await advance(id==='opal-supernova'?2.2:5.1);const after=await snap();assert.equal(after.launched,before.launched+1);assert.ok(after.bursts>before.bursts);pass(`${backend} ${id}: one immediate admission, immutable duplicate guard, upper canopy`,{fraction});
   }
   await advance(40);let before=await snap();const l=before.stageLayout,x=l.heroRect.x+l.heroRect.width*.4,y=l.heroRect.y+l.heroRect.height*.32;

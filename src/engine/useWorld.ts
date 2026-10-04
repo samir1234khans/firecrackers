@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { measureStage, stageFraming } from './StageLayout';
-import { signatureCompositionScale } from './LaunchProfile';
+import { measureStage } from './StageLayout';
 import type { StageLayout, StageRect } from './StageLayout';
 import type { FamilyId } from './catalog';
 import { Simulation } from './Simulation';
@@ -26,7 +25,7 @@ import { RenderBudget } from './RenderBudget';
 import { parseRecipe } from '../experience/ShowRecipe';
 import type { ShowRecipe } from '../experience/ShowRecipe';
 import type { ShowTheme } from './CinematicDirector';
-export type DropTarget = { kind: 'burst'; point: [number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
+export type DropTarget = { kind: 'burst'; point: [number, number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
 /** DOM owns controls; one fixed simulation clock owns all fireworks and their sound events. */
@@ -743,8 +742,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         if (localX < 0 || localY < 0 || localX > layout.viewport.width || localY > layout.viewport.height) return null;
         if (Object.values(layout.controls).some(control => inside(localX, localY, control))) return null;
         if (inside(localX, localY, layout.burstCanopy)) {
-            const point = graphics.projectBurst(x, y);
-            return point ? { kind: 'burst', point, compositionScale: signatureCompositionScale(layout, stageFraming(layout).scale, localX, localY) } : null;
+            const point = graphics.projectBurst(x, y, id);
+            const compositionScale = point ? graphics.burstCompositionScale(id ?? sim.current.selected, point) : 0;
+            return point && compositionScale > 0 ? { kind: 'burst', point, compositionScale } : null;
         }
         if (inside(localX, localY, layout.launchArea)) {
             const placement = graphics.projectPlacement(x, id);
@@ -756,7 +756,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const target = dropTarget(x, y, id);
         if (!target || !status.current.ready || status.current.error) return false;
         const admitted = target.kind === 'burst'
-            ? sim.current.burstAt(id, ...target.point, target.compositionScale)
+            ? sim.current.burstAt(id, target.point[0], target.point[1], target.compositionScale, target.point[2])
             : sim.current.igniteFamily(id, target.placement);
         refresh(); return admitted;
     };

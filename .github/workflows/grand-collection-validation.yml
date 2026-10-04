@@ -115,6 +115,58 @@ jobs:
             /tmp/open-sky-edge-evidence
             /tmp/grand-server.log
           retention-days: 7
+  legacy-realism:
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { width: 393, label: '393' }
+          - { width: 320, label: '320' }
+          - { width: 844, label: '844' }
+          - { width: 1280, label: '1280-webgl-classics', backend: webgl, families: 'gold-willow,multicolor-peony,chrysanthemum,silver-crossette-crackle,grand-finale' }
+          - { width: 1280, label: '1280-webgl-grand', backend: webgl, families: 'aurora-crown,ruby-dahlia,sapphire-saturn,phoenix-palm,opal-supernova' }
+          - { width: 1280, label: '1280-webgl-signature', backend: webgl, families: 'imperial-crown,celestial-aurora,royal-phoenix' }
+          - { width: 1280, label: '1280-canvas-classics', backend: canvas, families: 'gold-willow,multicolor-peony,chrysanthemum,silver-crossette-crackle,grand-finale' }
+          - { width: 1280, label: '1280-canvas-grand', backend: canvas, families: 'aurora-crown,ruby-dahlia,sapphire-saturn,phoenix-palm,opal-supernova' }
+          - { width: 1280, label: '1280-canvas-signature', backend: canvas, families: 'imperial-crown,celestial-aurora,royal-phoenix' }
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - name: Serve exact build
+        run: |
+          npm run preview -- --port 4173 > /tmp/legacy-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: All thirteen flights, bursts, residue and bounded cleanup
+        env:
+          LEGACY_URL: http://127.0.0.1:4173/
+          LEGACY_VIEW: ${{ matrix.width }}
+          LEGACY_BACKENDS: ${{ matrix.backend || 'webgl,canvas' }}
+          LEGACY_FAMILIES: ${{ matrix.families }}
+          LEGACY_VALIDATE: '1'
+          LEGACY_VIDEO: '1'
+        run: npm run test:legacy-realism -- /tmp/legacy-realism-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: legacy-realism-${{ matrix.label }}-evidence
+          path: |
+            /tmp/legacy-realism-evidence
+            /tmp/legacy-server.log
+          retention-days: 7
   recovery:
     needs: engine
     runs-on: ubuntu-latest

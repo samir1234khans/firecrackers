@@ -1,3 +1,4 @@
+import { recedingShellSize, particleDepthBucket } from '../engine/LegacyRealism';
 import { starColor, aerialTransmission } from '../engine/StarAppearance.js';
 import { SmokeOcclusion } from '../engine/SmokeOcclusion.js';
 import { canopyAlpha, canopyStretch, illuminateSmoke } from '../engine/SmokeCanopy.js';
@@ -6,11 +7,10 @@ import { attribute, cos, dot, float, mix, pass, positionGeometry, positionView, 
 import type { Simulation } from '../engine/Simulation';
 import { BUDGETS, hash01 } from '../engine/catalog';
 import { carrierTint } from '../engine/GrandEffects';
-import { signatureTint } from '../engine/FlagshipEffects';
-import { rocketPoint, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, flightBodyOpacity } from '../engine/LaunchGeometry';
+import { rocketPoint, MOTOR_LOCAL_Y, SHELL_LOCAL_Y } from '../engine/LaunchGeometry';
 import { ParticleReflectionBounds, TRAIL_CAP_EXTENSION } from './ParticleReflectionBounds';
 const BUCKETS = 6;
-const bucketFor = (z: number) => Math.max(0, Math.min(BUCKETS - 1, Math.floor((z + 75) / 25)));
+const bucketFor = particleDepthBucket;
 export class ParticleUniforms {
     readonly right = uniform(new THREE.Vector3(1, 0, 0));
     readonly up = uniform(new THREE.Vector3(0, 1, 0));
@@ -188,7 +188,7 @@ export class ParticleScene {
             if (p.age[i] < 0) continue;
             const b = this.heads[bucketFor(p.z[i])], n = b.count++, a = b.attrs, t = p.age[i] / p.life[i];
             const unit = Math.max(.035, (camera.position.z - p.z[i]) * pixelFactor);
-            const size = Math.max(p.size[i] * (1 - t * .38), unit * 1.05) * 7.5;
+            const size = Math.max(p.size[i] * (1 - t * .38), unit*(p.family[i]<10?.70:1.05))*7.5;
             b.reflectionBounds.include(p.x[i], p.y[i], p.z[i], size * 1.2);
             const fade = Math.pow(Math.max(0, 1 - t), .72);
             starColor(p.family[i], p.age[i], p.life[i], p.r[i], p.g[i], p.b[i], this.starTone);
@@ -197,7 +197,7 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
             a.iAlpha.setX(n, fade * p.gain[i] * (.84 + hash01(p.id[i], 51) * .16) * smokeTransmission * air);
-            const heat = p.family[i] >= 10 ? 1.75 + Math.exp(-p.age[i] * 4) * .45 : 2.35 + Math.exp(-p.age[i] * 4) * 1.3;
+            const heat = p.family[i] >= 10 ? 1.75 + Math.exp(-p.age[i] * 4) * .45 : 2.65 + Math.exp(-p.age[i]*6)*.40;
             a.iColor.setXYZ(n, this.starTone[0] * heat, this.starTone[1] * heat, this.starTone[2] * heat);
         }
         const embers = sim.embers;
@@ -209,7 +209,7 @@ export class ParticleScene {
             b.reflectionBounds.include(embers.x[i], embers.y[i], embers.z[i], size * 1.2);
             a.iPosition.setXYZ(n, embers.x[i], embers.y[i], embers.z[i]);
             a.iScale.setXY(n, size, size * 1.35);
-            a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * .75);
+            a.iAlpha.setX(n, Math.pow(1 - age, 1.35) * .75 * aerialTransmission(Math.hypot(camera.position.x-embers.x[i],camera.position.y-embers.y[i],camera.position.z-embers.z[i])));
             a.iColor.setXYZ(n, embers.r[i] * 4, embers.g[i] * 3.4, embers.b[i] * 2.4);
         }
         const addHead = (x: number, y: number, z: number, size: number, r: number, g: number, blue: number) => {
@@ -223,10 +223,10 @@ export class ParticleScene {
             if (r.stage !== 'ascent') continue;
             const shell = rocketPoint(r, SHELL_LOCAL_Y);
             const motor = rocketPoint(r, MOTOR_LOCAL_Y);
-            const receded = 1 - flightBodyOpacity(r.age, r.ascent);
+
             // One luminous shell follows exactly the same attachment that will burst.
-            const tone = r.family >= 10 ? signatureTint(r.family) : null;
-            addHead(...shell, 2.2 + receded * .8, tone ? tone[0] * 3.6 : 3.6, tone ? tone[1] * 3.6 : 2.4, tone ? tone[2] * 3.6 : 1.1);
+            const tone = carrierTint(r.family,0,r.age/r.ascent);
+            addHead(...shell, recedingShellSize(r.family,r.age/r.ascent), tone ? tone[0] * 3.6 : 3.6, tone ? tone[1] * 3.6 : 2.4, tone ? tone[2] * 3.6 : 1.1);
             if (r.phase === 'thrust') addHead(...motor, r.family >= 10 ? 3.3 : 2.8, tone ? tone[0] * 4.5 : 4.5, tone ? tone[1] * 4.5 : 2.5, tone ? tone[2] * 4.5 : .8);
         }
         for (const c of sim.cues) {
@@ -240,12 +240,12 @@ export class ParticleScene {
             const pixel = Math.max(.026, (camera.position.z - z) * pixelFactor);
             // At full heat the Gaussian core covers a pixel, avoiding stippled diagonal lines.
             // Older sections taper to a dim, fine ember rather than retaining a thick neon line.
-            const width = Math.max(physicalWidth * (1 - age * .72), pixel * (1.04 - age * .62)) * 4.5;
+            const width = Math.max(physicalWidth * (1 - age * .72), pixel*(.90-age*.55)) * 4.5;
             b.reflectionBounds.includeSegment(ax, ay, az, bx, by, bz, width);
             a.iA.setXYZ(n, ax, ay, az);
             a.iB.setXYZ(n, bx, by, bz);
             a.iWidth.setX(n, width);
-            a.iAlpha.setX(n, Math.pow(Math.max(0, 1 - age), 1.3) * (.58 + hash01(owner, 81) * .28) * brightness * this.occlusion.transmission((ax+bx)*.5, (ay+by)*.5, z));
+            a.iAlpha.setX(n, Math.pow(Math.max(0, 1 - age), 1.3) * (.58 + hash01(owner, 81) * .28) *brightness*aerialTransmission(Math.hypot(u.camera.value.x-(ax+bx)*.5,u.camera.value.y-(ay+by)*.5,u.camera.value.z-z))*this.occlusion.transmission((ax+bx)*.5, (ay+by)*.5, z));
             a.iColor.setXYZ(n, red * 2.55 * (1 + age * .09), green * 2.55 * (1 - age * .15), blue * 2.55 * (1 - age * .34));
         };
         for (let i = 0; i < t.count; i++) {
@@ -277,7 +277,7 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, smoke.x[i], smoke.y[i], smoke.z[i]);
             a.iScale.setXY(n, smoke.size[i] * 2.8 * stretch, smoke.size[i] * 2.1 / stretch);
             a.iRotation.setX(n, smoke.angle[i]);
-            a.iAlpha.setX(n, canopyAlpha(smoke.age[i], smoke.life[i], smoke.gravity[i], smoke.family[i]));
+            a.iAlpha.setX(n, canopyAlpha(smoke.age[i], smoke.life[i], smoke.gravity[i], smoke.family[i])*aerialTransmission(Math.hypot(u.camera.value.x-smoke.x[i],u.camera.value.y-smoke.y[i],u.camera.value.z-smoke.z[i])));
             a.iColor.setXYZ(n, light[0], light[1], light[2]);
             const lightLength = Math.max(.001, Math.hypot(dx, dy, dz));
             a.iLightDir.setXYZ(n, dx / lightLength, dy / lightLength, dz / lightLength);
