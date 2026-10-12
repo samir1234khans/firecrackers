@@ -13,7 +13,8 @@ export class OpaqueDepth {
 
     constructor(private readonly source: THREE.Scene) {
         source.traverse(object => {
-            if (!(object instanceof THREE.Mesh) || !object.layers.isEnabled(0)) return;
+            if (!(object instanceof THREE.Mesh) || object.userData.softParticleDepth === false ||
+                (!object.layers.isEnabled(0) && object.userData.softParticleDepth !== true)) return;
             const materials = Array.isArray(object.material) ? object.material : [object.material];
             if (materials.some(material => material.transparent || !material.depthWrite)) return;
             let proxy: THREE.Mesh;

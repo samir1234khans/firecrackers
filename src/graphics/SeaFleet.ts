@@ -55,6 +55,11 @@ export class SeaFleet {
     this.group.name = 'Spark ten-boat sea and living audience';
     for (const boat of this.boats) this.group.add(boat.root);
     this.group.add(this.passengers.group);
+    // Soft smoke needs submerged silhouettes, not a second articulated fleet.
+    // Keep the visible models intact and reuse the bounded hull proxies below.
+    this.group.traverse(object => {
+      if (object instanceof THREE.Mesh) object.userData.softParticleDepth = false;
+    });
     const canvas = document.createElement('canvas'); canvas.width = canvas.height = 32;
     const context = canvas.getContext('2d')!, gradient = context.createRadialGradient(16, 16, 1, 16, 16, 16);
     gradient.addColorStop(0, '#ffffffff'); gradient.addColorStop(.30, '#ffffff99'); gradient.addColorStop(1, '#ffffff00');
@@ -65,7 +70,7 @@ export class SeaFleet {
     const proxy = new THREE.MeshBasicMaterial({ color: '#2a2520', toneMapped: false, fog: true });
     this.reflectionHulls = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 12, 6), proxy, SEA_FLEET.length);
     this.reflectionCabins = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), proxy, 4);
-    for (const mesh of [this.reflectionHulls, this.reflectionCabins]) { mesh.layers.set(3); mesh.frustumCulled = false; this.group.add(mesh); }
+    for (const mesh of [this.reflectionHulls, this.reflectionCabins]) { mesh.layers.set(3); mesh.userData.softParticleDepth = true; mesh.frustumCulled = false; this.group.add(mesh); }
     this.glow = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: this.texture, color: '#ffbc77', transparent: true, opacity: .21, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, side: THREE.DoubleSide }), 13);
     this.glow.name = 'Source-attached warm practical glows'; this.glow.frustumCulled = false; this.group.add(this.glow);
     this.lights.forEach(light => { light.castShadow = false; light.layers.enable(3); this.group.add(light); });

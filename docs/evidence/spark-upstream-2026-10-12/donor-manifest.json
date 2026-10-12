@@ -43,7 +43,7 @@
       "path": "src/graphics/SeaFleet.ts",
       "donorSha256": "28200a05b242b909af073fe5b88313917eebebfc9eb50b5a817957f9f3514bfb",
       "kind": "port",
-      "destinationSha256": "b96989e05b6214bb0626f0b097d2c905508d5a04795db34fde6baf1a9685c147"
+      "destinationSha256": "1b96d2aa86bd820679c491ebbf8a8672419796bbcc03fc22209fbb5a9366cf80"
     },
     {
       "path": "src/graphics/SeaFleetState.ts",
@@ -352,7 +352,7 @@
     {
       "path": "src/engine/useWorld.ts",
       "kind": "adaptation",
-      "destinationSha256": "d9aa1408205260dddb609d0616952bb32fcda7773db5c397cf3691b97c809d6c",
+      "destinationSha256": "496feabe23695158c62f1a2c195cc93da3cdcdd8cb24009d04fbfb010021b032",
       "donorSha256": "edb29b990a66e7144ac9b9e7b6797eb2b930cb43bd6d7fc13f4d8d103b6e531f"
     },
     {
@@ -414,6 +414,12 @@
       "kind": "adaptation",
       "destinationSha256": "95e485f6513ca346e5c8f3b5c3193b9a3a0d1ce73d39153a465187e115ed1034",
       "donorSha256": "745d4e35f24048c7f6ba50582236f98559054bbc89ba50ee6d3bca71e6791233"
+    },
+    {
+      "path": "src/graphics/OpaqueDepth.ts",
+      "kind": "adaptation",
+      "destinationSha256": "df92e251ba5b1a4f33d44139a51d190d9aa64d7875bde20e9ef2781b2845ecfa",
+      "donorSha256": "066b6a45551f155916d713c58e6239661cd5e2790009194c37bfeff3defbc488"
     }
   ],
   "excluded": [

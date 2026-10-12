@@ -1,0 +1,403 @@
+{
+  "origin": "https://firecrackers-upstream-preview.allygym-api.workers.dev/",
+  "candidateSource": "f149d75",
+  "runtimeSource": "55668db24700e3c575337b1f55b57b90c44aabdd",
+  "version": "2026-10-12.1",
+  "fingerprint": "1053a4bd5caa0e434497fdf3d43b19f087f1d4922b3424d65ae7b1854d80fcfc",
+  "entries": 196,
+  "checked": 65,
+  "passed": true,
+  "files": [
+    {
+      "path": "cache-lifecycle.js",
+      "expected": "91a3601572ef442b378006c0199350a57c644e07971a448f61b709a33920c2b4",
+      "actual": "91a3601572ef442b378006c0199350a57c644e07971a448f61b709a33920c2b4",
+      "matches": true
+    },
+    {
+      "path": "icon.svg",
+      "expected": "a1d1fc6c0494889de59a60003b99674932de1a6a93a15161322c05ed3a8ada49",
+      "actual": "a1d1fc6c0494889de59a60003b99674932de1a6a93a15161322c05ed3a8ada49",
+      "matches": true
+    },
+    {
+      "path": "index.html",
+      "expected": "d9cad9176203fd9e8bfe7f082bfc0ac2c0c0094b7c179f940343900f825fbf9d",
+      "actual": "d9cad9176203fd9e8bfe7f082bfc0ac2c0c0094b7c179f940343900f825fbf9d",
+      "matches": true,
+      "servedAs": "/"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "expected": "d165b107228a7e84a5bceba3f50fd94fb73495e07dd2ed3fbd06077ccc49a2dd",
+      "actual": "d165b107228a7e84a5bceba3f50fd94fb73495e07dd2ed3fbd06077ccc49a2dd",
+      "matches": true
+    },
+    {
+      "path": "release.json",
+      "expected": "4470e29e4b982c96c334a3788533aa6f2255e6357b66906a0f49b76b98b301b5",
+      "actual": "4470e29e4b982c96c334a3788533aa6f2255e6357b66906a0f49b76b98b301b5",
+      "matches": true
+    },
+    {
+      "path": "sw.js",
+      "expected": "a75ddba85410bf8d087fc8594fdb67ee90a0472779eea00af1af6b87bc2371e2",
+      "actual": "a75ddba85410bf8d087fc8594fdb67ee90a0472779eea00af1af6b87bc2371e2",
+      "matches": true
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.txt",
+      "expected": "5e4e0ad4c5ed205e8fd729949758a620022f584f4fd24cbaeb9fedfd58156496",
+      "actual": "5e4e0ad4c5ed205e8fd729949758a620022f584f4fd24cbaeb9fedfd58156496",
+      "matches": true
+    },
+    {
+      "path": "workbox-835c8c05.js",
+      "expected": "09fac2e643b2b4eb60ec4b0a4281c196c5942051e2229aec09fb99df59424315",
+      "actual": "09fac2e643b2b4eb60ec4b0a4281c196c5942051e2229aec09fb99df59424315",
+      "matches": true
+    },
+    {
+      "path": "art/ignition-flame.png",
+      "expected": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+      "actual": "ac9b0410ed87f2e6350e400185bbde68cfb3a2d902ae385de097899ee4c2387e",
+      "matches": true
+    },
+    {
+      "path": "art/moon-lro-v001.png",
+      "expected": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+      "actual": "85b7c95f2c6b788107acd1a02c5f97765221fb02c465d097ead91d81e88cb7c8",
+      "matches": true
+    },
+    {
+      "path": "art/paper-color.png",
+      "expected": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+      "actual": "bda5713353c1910e6cf33ea1dabc5458de4d7aa2bcf38830d005852b86d8f97a",
+      "matches": true
+    },
+    {
+      "path": "art/river-life-v007.glb",
+      "expected": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+      "actual": "c63facc3e14b410da196a3b148ca10886b0aa75f1af02656d64ba09e6c72d258",
+      "matches": true
+    },
+    {
+      "path": "art/river-life-v008.glb",
+      "expected": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+      "actual": "0b0dc5a585747a2effe6bce778d7b3b8287a72eacd573eddf9babd0f4a7afcb5",
+      "matches": true
+    },
+    {
+      "path": "art/rocket.glb",
+      "expected": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+      "actual": "394501863f1769b9dfcc3dde4bd10acfc0976ba1a4f0c3310d84f3b3cad5e3f3",
+      "matches": true
+    },
+    {
+      "path": "art/smoke-density-light-v005.png",
+      "expected": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+      "actual": "96a471124e5aaae42b20f9abe8e7fa8736f8b4b4a5c41296bc7d941714456af8",
+      "matches": true
+    },
+    {
+      "path": "art/smoke-density-light.png",
+      "expected": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+      "actual": "932a7a8ce3d96c2de55b14590c878e315ae1cc3b586d0e1dafb4284f4ef65c1f",
+      "matches": true
+    },
+    {
+      "path": "art/terrace-v004.glb",
+      "expected": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+      "actual": "100d52ef558f98aca31c920ec72491c510a9259fcef1f6f712716f1750678a48",
+      "matches": true
+    },
+    {
+      "path": "art/terrace-v008.glb",
+      "expected": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+      "actual": "5e230ddfa0d74729c096e47023483b68f4a1abd8b25c67bece9c4f485ff9ca0f",
+      "matches": true
+    },
+    {
+      "path": "art/water-normal-v005.png",
+      "expected": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+      "actual": "fdbbfd9f0bfde57d6333a54d57e997ebc71e48badac8f45dada92ea321bdf4bb",
+      "matches": true
+    },
+    {
+      "path": "art/water-normal.png",
+      "expected": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+      "actual": "be5715d5cefb2881e8132483f2836e34159fee575600a5725eb030dc233439a2",
+      "matches": true
+    },
+    {
+      "path": "art/waterfront-night-v005.webp",
+      "expected": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+      "actual": "de054144a6dcf495851d710659fe4e2b782d6c1af5abeb1d64387b9f28dba784",
+      "matches": true
+    },
+    {
+      "path": "assets/App-CXn6WyKq.css",
+      "expected": "7dbff440b4abfce8262729200f06114c4186f5daf4a9f42c340cf29ca258467a",
+      "actual": "7dbff440b4abfce8262729200f06114c4186f5daf4a9f42c340cf29ca258467a",
+      "matches": true
+    },
+    {
+      "path": "assets/App-DgZd8UTS.js",
+      "expected": "8778fee5245aefcfe37a2c1c1b834a25b0229842568c3a7b53d5200f3dff002f",
+      "actual": "8778fee5245aefcfe37a2c1c1b834a25b0229842568c3a7b53d5200f3dff002f",
+      "matches": true
+    },
+    {
+      "path": "assets/CapturePanel-0hT-B6LE.js",
+      "expected": "311e11e35930a58c2213366a5290bcde7c0a2bbd6e24926f9c5153a365d94448",
+      "actual": "311e11e35930a58c2213366a5290bcde7c0a2bbd6e24926f9c5153a365d94448",
+      "matches": true
+    },
+    {
+      "path": "assets/FireworkBrowser-BNqk4Xe6.js",
+      "expected": "b19071815c769f76ad468b39e380359a32724d69fd56619afef545974b90e2d5",
+      "actual": "b19071815c769f76ad468b39e380359a32724d69fd56619afef545974b90e2d5",
+      "matches": true
+    },
+    {
+      "path": "assets/index-BeLEmY9z.js",
+      "expected": "619af772c29ce82930ffb137f2bf14db23a9f606a9e01ee86cbc197b5020f5c9",
+      "actual": "619af772c29ce82930ffb137f2bf14db23a9f606a9e01ee86cbc197b5020f5c9",
+      "matches": true
+    },
+    {
+      "path": "assets/main-CJmsUmpZ.css",
+      "expected": "53c8bb7d8a37be6340f2a39c86783185d03f6c19a323341be0fa09d39c086285",
+      "actual": "53c8bb7d8a37be6340f2a39c86783185d03f6c19a323341be0fa09d39c086285",
+      "matches": true
+    },
+    {
+      "path": "assets/main-eY6aBT6H.js",
+      "expected": "fdb237c76898d84ceed2f72e87b7821fd50675c71876e60348e3faba422e9082",
+      "actual": "fdb237c76898d84ceed2f72e87b7821fd50675c71876e60348e3faba422e9082",
+      "matches": true
+    },
+    {
+      "path": "assets/NightStudio-DUwHN-S4.js",
+      "expected": "7cb58e0bae75e5375f356003aeca252d8c5d055d73320222b27f153c3bde9b72",
+      "actual": "7cb58e0bae75e5375f356003aeca252d8c5d055d73320222b27f153c3bde9b72",
+      "matches": true
+    },
+    {
+      "path": "assets/Renderer-BYYDvoMd.js",
+      "expected": "38a356945c3eabf6b9fe5b11277aff2a07549c7ae9a83d364b089a045b03d26a",
+      "actual": "38a356945c3eabf6b9fe5b11277aff2a07549c7ae9a83d364b089a045b03d26a",
+      "matches": true
+    },
+    {
+      "path": "assets/share-2-BEtXDJ28.js",
+      "expected": "60c35fcc49b53c0a9edb9b9a3da3b292c5f9ab6c2f3bed87d2e403ce8003e1f1",
+      "actual": "60c35fcc49b53c0a9edb9b9a3da3b292c5f9ab6c2f3bed87d2e403ce8003e1f1",
+      "matches": true
+    },
+    {
+      "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "expected": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+      "actual": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+      "matches": true
+    },
+    {
+      "path": "audio/report-01.wav",
+      "expected": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+      "actual": "d272ec29073534bc62553f8c5a168508bc0f1dd38ef8f8b54a879e96528f860e",
+      "matches": true
+    },
+    {
+      "path": "audio/report-02.wav",
+      "expected": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+      "actual": "d8187a4e81005e9a33c949382bc810522bfcc7ac459bfb778db92ee2b052633c",
+      "matches": true
+    },
+    {
+      "path": "audio/report-03.wav",
+      "expected": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+      "actual": "10e182848879b64dd5a4c9a28d959f5138a431720547bd65edb9e755346c672e",
+      "matches": true
+    },
+    {
+      "path": "audio/sea-audience-v002-cheer.mp3",
+      "expected": "cb0a42fbf74edea7ec969fc69797d57e18e86d2eacf223650a8b0374b751cd71",
+      "actual": "cb0a42fbf74edea7ec969fc69797d57e18e86d2eacf223650a8b0374b751cd71",
+      "matches": true
+    },
+    {
+      "path": "audio/sea-audience-v002-LICENSE.txt",
+      "expected": "09ec4f63f7b4e827d6a7c5563cbfde8fe174a0744b25a92e221e1fafe3b89df7",
+      "actual": "09ec4f63f7b4e827d6a7c5563cbfde8fe174a0744b25a92e221e1fafe3b89df7",
+      "matches": true
+    },
+    {
+      "path": "icons/icon-192.png",
+      "expected": "b131db8470526082476710c00af26c4ea745968fefdc43b1d04861c268a9c513",
+      "actual": "b131db8470526082476710c00af26c4ea745968fefdc43b1d04861c268a9c513",
+      "matches": true
+    },
+    {
+      "path": "icons/icon-512.png",
+      "expected": "bb5d0d5da7a19af5f0006b0aa030d99b811c8c37fbb1024bd7b638153c3f7d73",
+      "actual": "bb5d0d5da7a19af5f0006b0aa030d99b811c8c37fbb1024bd7b638153c3f7d73",
+      "matches": true
+    },
+    {
+      "path": "music/golden-0.flac",
+      "expected": "0800614e95d609a13b539418c7ed6f2ff6bcb90e1804fae33c8d7db0251b7d08",
+      "actual": "0800614e95d609a13b539418c7ed6f2ff6bcb90e1804fae33c8d7db0251b7d08",
+      "matches": true
+    },
+    {
+      "path": "music/golden-1.flac",
+      "expected": "80514931ab1c800381051bbfc773368063059683088f5b43bbfd65df3366f533",
+      "actual": "80514931ab1c800381051bbfc773368063059683088f5b43bbfd65df3366f533",
+      "matches": true
+    },
+    {
+      "path": "music/golden-2.flac",
+      "expected": "77a154efd0434f79050ace49349673e8ac43849b8dcd802496c3267b60e629d9",
+      "actual": "77a154efd0434f79050ace49349673e8ac43849b8dcd802496c3267b60e629d9",
+      "matches": true
+    },
+    {
+      "path": "music/golden-3.flac",
+      "expected": "59434559103605dbe31e8a9e22dac75383652ad43579e6351ee96c27097d8401",
+      "actual": "59434559103605dbe31e8a9e22dac75383652ad43579e6351ee96c27097d8401",
+      "matches": true
+    },
+    {
+      "path": "music/golden-4.flac",
+      "expected": "0bc4e2cb9d052cc0aaa61be56bf78ec969c6105cd613bd6a0fbfc9d8e202fea2",
+      "actual": "0bc4e2cb9d052cc0aaa61be56bf78ec969c6105cd613bd6a0fbfc9d8e202fea2",
+      "matches": true
+    },
+    {
+      "path": "music/golden-5.flac",
+      "expected": "f24dd7e2bfc0ec8e32ff9b128be74b4b70397894c722e9f7a1441c8d8ab5b509",
+      "actual": "f24dd7e2bfc0ec8e32ff9b128be74b4b70397894c722e9f7a1441c8d8ab5b509",
+      "matches": true
+    },
+    {
+      "path": "music/moonlit-0.flac",
+      "expected": "fa1ec9a9bf61417da475bb514c7cec70d1c29864857077553bc94e5dea71df2b",
+      "actual": "fa1ec9a9bf61417da475bb514c7cec70d1c29864857077553bc94e5dea71df2b",
+      "matches": true
+    },
+    {
+      "path": "music/moonlit-1.flac",
+      "expected": "923d7ada7d37c3b8cc2ec0c57b4c711741cb8991b4df512cbab3855fcd15ac05",
+      "actual": "923d7ada7d37c3b8cc2ec0c57b4c711741cb8991b4df512cbab3855fcd15ac05",
+      "matches": true
+    },
+    {
+      "path": "music/moonlit-2.flac",
+      "expected": "8fff6d3763c35f54b2d5d590cf7bbafccb7798da894e80f8b1b908a50f312a60",
+      "actual": "8fff6d3763c35f54b2d5d590cf7bbafccb7798da894e80f8b1b908a50f312a60",
+      "matches": true
+    },
+    {
+      "path": "music/moonlit-3.flac",
+      "expected": "619dc841d87144ed7af5ba5ee44f70fe5177c85c22504f7831d42aeec60cfa50",
+      "actual": "619dc841d87144ed7af5ba5ee44f70fe5177c85c22504f7831d42aeec60cfa50",
+      "matches": true
+    },
+    {
+      "path": "music/moonlit-4.flac",
+      "expected": "0ed2dd49ae7192ec565d2b08f498b7c736aa2e9b002e6051610c4235edb623a4",
+      "actual": "0ed2dd49ae7192ec565d2b08f498b7c736aa2e9b002e6051610c4235edb623a4",
+      "matches": true
+    },
+    {
+      "path": "music/moonlit-5.flac",
+      "expected": "247658f57495da55231e5ff2b479b2ae41153c0e7e74551980108150931865d6",
+      "actual": "247658f57495da55231e5ff2b479b2ae41153c0e7e74551980108150931865d6",
+      "matches": true
+    },
+    {
+      "path": "music/moonlit-promise.wav",
+      "expected": "befbc04dc82ce1e8973784efea625d60889fcc46398e79498eb73e26a8ecacbf",
+      "actual": "befbc04dc82ce1e8973784efea625d60889fcc46398e79498eb73e26a8ecacbf",
+      "matches": true
+    },
+    {
+      "path": "music/prismatic-0.flac",
+      "expected": "b3dd84dc60e9905b6300b63dac6334e4b7bca297a5deacf9632766af30e586f5",
+      "actual": "b3dd84dc60e9905b6300b63dac6334e4b7bca297a5deacf9632766af30e586f5",
+      "matches": true
+    },
+    {
+      "path": "music/prismatic-1.flac",
+      "expected": "aff99d1466a0fce8debb95c8161f0f5607311fdb0820a202631e001926009fed",
+      "actual": "aff99d1466a0fce8debb95c8161f0f5607311fdb0820a202631e001926009fed",
+      "matches": true
+    },
+    {
+      "path": "music/prismatic-2.flac",
+      "expected": "e61cc3cd9860b23f2931270f84ad0b320465105e1d242b4acde66b981e506b0d",
+      "actual": "e61cc3cd9860b23f2931270f84ad0b320465105e1d242b4acde66b981e506b0d",
+      "matches": true
+    },
+    {
+      "path": "music/prismatic-3.flac",
+      "expected": "9e8e6c11f884b9dea251b15fdf0cfa81470f471f1fe253650d224a690998dce5",
+      "actual": "9e8e6c11f884b9dea251b15fdf0cfa81470f471f1fe253650d224a690998dce5",
+      "matches": true
+    },
+    {
+      "path": "music/prismatic-4.flac",
+      "expected": "1d283640c7cfeba34fe60027ba12294a1855e1b49ee81b1fb8c95e6140052b76",
+      "actual": "1d283640c7cfeba34fe60027ba12294a1855e1b49ee81b1fb8c95e6140052b76",
+      "matches": true
+    },
+    {
+      "path": "music/prismatic-5.flac",
+      "expected": "c82213f3156d584e8ed82225d36c35353be64ae82069459c6580d485270a8a26",
+      "actual": "c82213f3156d584e8ed82225d36c35353be64ae82069459c6580d485270a8a26",
+      "matches": true
+    },
+    {
+      "path": "scene/sea-boat-hulls-v002.glb",
+      "expected": "794c89ec1cc4f21a5c4e3484a42ffa73f7ec153e00a6b9dc85d4080ec8582ad2",
+      "actual": "794c89ec1cc4f21a5c4e3484a42ffa73f7ec153e00a6b9dc85d4080ec8582ad2",
+      "matches": true
+    },
+    {
+      "path": "welcome/native-celebration-mobile.mp4",
+      "expected": "30cfc505752821bc2d9059af415b8163a27dda1159da8c60f3acb84f5d6009e2",
+      "actual": "30cfc505752821bc2d9059af415b8163a27dda1159da8c60f3acb84f5d6009e2",
+      "matches": true
+    },
+    {
+      "path": "welcome/native-celebration-mobile.webm",
+      "expected": "3b90d38c441a158b03c9e7e5c3c97f8ea3a4890e4cbdde90b712c38bd08d4760",
+      "actual": "3b90d38c441a158b03c9e7e5c3c97f8ea3a4890e4cbdde90b712c38bd08d4760",
+      "matches": true
+    },
+    {
+      "path": "welcome/native-celebration-mobile.webp",
+      "expected": "3ec5f2f4fc886dc43bcabe6dcb4b48973a9a47ff5e4ad80602cd820cd2ba5409",
+      "actual": "3ec5f2f4fc886dc43bcabe6dcb4b48973a9a47ff5e4ad80602cd820cd2ba5409",
+      "matches": true
+    },
+    {
+      "path": "welcome/native-celebration.mp4",
+      "expected": "1672a12676bb7f47278e834afc0ab7917f52c0ebd16d8ad831d0b4fd48d0ef3b",
+      "actual": "1672a12676bb7f47278e834afc0ab7917f52c0ebd16d8ad831d0b4fd48d0ef3b",
+      "matches": true
+    },
+    {
+      "path": "welcome/native-celebration.webm",
+      "expected": "193d5c27229837112c5f9bdcfa7d97eef8255b6537e49b5ea1076766767eed08",
+      "actual": "193d5c27229837112c5f9bdcfa7d97eef8255b6537e49b5ea1076766767eed08",
+      "matches": true
+    },
+    {
+      "path": "welcome/native-celebration.webp",
+      "expected": "95c3eff385627ac8c5bb604d86af4181799bf7f921073a1887f37d54d3d9bd84",
+      "actual": "95c3eff385627ac8c5bb604d86af4181799bf7f921073a1887f37d54d3d9bd84",
+      "matches": true
+    }
+  ]
+}

@@ -12,8 +12,21 @@ import { WATER_Y } from '../.test-build/graphics/WaterWaves.js';
 import { readFile } from 'node:fs/promises';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { restoreSkyView } from '../.test-build/engine/SceneSession.js';
+import { OpaqueDepth } from '../.test-build/graphics/OpaqueDepth.js';
 const frame={phase:0,farZ:-180,nearZ:-14.75,waveCount:4,motionAllowed:true,gains:[1.5,1.35,1.1,1]};
 const event=(id,time=0,family=1,x=0)=>Object.freeze({id,time,type:'burst',family,x,y:100,z:-80,strength:1});
+
+test('soft smoke depth uses bounded boat silhouettes and preserves their live transforms and borrowed buffers',()=>{
+ const scene=new THREE.Scene(),geometry=new THREE.BoxGeometry(),material=new THREE.MeshBasicMaterial();
+ const detailed=new THREE.Mesh(geometry,material);detailed.userData.softParticleDepth=false;scene.add(detailed);
+ const hulls=new THREE.InstancedMesh(geometry,material,10);hulls.layers.set(3);hulls.userData.softParticleDepth=true;hulls.count=7;hulls.position.set(2,3,4);scene.add(hulls);
+ const bank=new THREE.Mesh(geometry,material);scene.add(bank);
+ const depth=new OpaqueDepth(scene);depth.update();assert.equal(depth.scene.children.length,2);
+ const proxy=depth.scene.children.find(o=>o.isInstancedMesh);assert.equal(proxy.count,7);assert.equal(proxy.instanceMatrix,hulls.instanceMatrix);assert.deepEqual(proxy.matrix.elements,hulls.matrixWorld.elements);
+ hulls.count=10;hulls.position.x=9;depth.update();assert.equal(proxy.count,10);assert.deepEqual(proxy.matrix.elements,hulls.matrixWorld.elements);
+ hulls.visible=false;depth.update();assert.equal(proxy.visible,false);
+ let disposed=0;geometry.addEventListener('dispose',()=>disposed++);depth.dispose();assert.equal(disposed,0,'Depth cannot dispose source geometry');geometry.dispose();material.dispose();
+});
 
 test('actual compact Blender hull export has five distinct roots and borrowed resource ownership',async()=>{
  const bytes=await readFile('public/scene/sea-boat-hulls-v002.glb');assert.ok(bytes.length<100000);

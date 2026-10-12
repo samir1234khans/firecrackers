@@ -41,6 +41,7 @@
     "src/engine/ShowMusic.ts",
     "src/graphics/SeaAudienceSession.ts",
     "src/graphics/SeaPassengerRig.ts",
+    "src/graphics/OpaqueDepth.ts",
     "src/graphics/SeaBoatModels.ts",
     "src/graphics/ShorelineModel.ts",
     "src/ui/SheetModel.ts",

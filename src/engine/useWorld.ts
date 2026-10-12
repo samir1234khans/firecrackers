@@ -602,6 +602,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
+                    // Timing probes must not build projected bounds, passenger
+                    // contacts or asset diagnostics on every browser frame.
+                    timing: () => ({ frames: graphics?.metrics.frames ?? 0, cpuSubmissionMs: graphics?.metrics.submitMs ?? 0 }),
                     snapshot: () => ({ ...state.snapshot(), recoveryHistory: [...recoveryHistory], startup: preparation.snapshot, backend: graphics?.backend, lively: lively.current?.snapshot(), ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), resolutionScale: budget.scale, capture: { recording: recorder.snapshot.recording, seconds: recorder.snapshot.seconds, error: recorder.snapshot.error }, diagnosticsActive: session.active, qaStallSamplesUsed, qaStallSamplesRemaining,
                         skyState: { ...sky.state }, skyAmbientCadence: skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed),
                         skyResponding: sky.responding, skyAmbientFrames, skyResponseFrames, skyOneOffFrames, skyLastRenderedTime, skyFrozen: captureFrozen }),

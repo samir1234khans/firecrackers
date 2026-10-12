@@ -1,0 +1,100 @@
+{
+  "method": "Installed Chrome desktop; matched 1280x800 Standard WebGL seed 42; 10 seconds warm and 5 seconds sample per workload; all local test browsers closed and review tab paused. Browser rAF intervals; not GPU duration. Baseline CPU submission unavailable. Lightweight candidate QA reads two timing scalars only.",
+  "results": [
+    {
+      "label": "baseline",
+      "workload": "idle",
+      "frameInterval": {
+        "samples": 1200,
+        "p50": 4.199999999998909,
+        "p95": 4.299999999999272,
+        "worst": 5.299999999999272
+      },
+      "cpuSubmission": {
+        "samples": 0
+      },
+      "backend": "WebGL 2",
+      "launched": 0,
+      "bursts": 0,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "baseline",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 1170,
+        "p50": 4.19999999999709,
+        "p95": 4.30000000000291,
+        "worst": 20.900000000001455
+      },
+      "cpuSubmission": {
+        "samples": 0
+      },
+      "backend": "WebGL 2",
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "idle",
+      "frameInterval": {
+        "samples": 1200,
+        "p50": 4.200000000000728,
+        "p95": 4.299999999999272,
+        "worst": 5
+      },
+      "cpuSubmission": {
+        "samples": 151,
+        "p50": 4.400000000372529,
+        "p95": 5,
+        "worst": 7.400000000372529
+      },
+      "backend": "WebGL 2",
+      "launched": 0,
+      "bursts": 0,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 438,
+        "p50": 12.5,
+        "p95": 25,
+        "worst": 83.30000000000291
+      },
+      "cpuSubmission": {
+        "samples": 276,
+        "p50": 10.699999999254942,
+        "p95": 12.300000000745058,
+        "worst": 82.5
+      },
+      "backend": "WebGL 2",
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "close-up",
+      "frameInterval": {
+        "samples": 466,
+        "p50": 8.400000000001455,
+        "p95": 24.900000000001455,
+        "worst": 116.69999999999709
+      },
+      "cpuSubmission": {
+        "samples": 247,
+        "p50": 8.299999998882413,
+        "p95": 16.59999999962747,
+        "worst": 94.69999999925494
+      },
+      "backend": "WebGL 2",
+      "launched": 5,
+      "bursts": 5,
+      "gpuTiming": "not measured"
+    }
+  ],
+  "qualification": "FAIL proposed p95 regression target for Super High. Idle passes. No hardware WebGPU, physical phone, Safari, thermal, battery or transition-hitch qualification."
+}
