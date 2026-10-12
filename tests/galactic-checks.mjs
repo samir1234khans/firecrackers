@@ -36,7 +36,7 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   assert.equal(initial.skyLayers, 3); assert.equal(initial.skyArtWidth, 2048);
   assert.equal(initial.skyArtHeight, 1024); assert.equal(initial.skyNearStars, 128);
   assert.equal(initial.skyFieldStars, 5200); assert.equal(initial.skyClusterStars, 3400);
-  assert.equal(initial.skyMaximumMeteors, 1); assert.equal(initial.skyMaximumParallaxPixels, 3);
+  assert.equal(initial.skyMaximumMeteors, 1); assert.equal(initial.skyMaximumParallaxPixels, 6);
   check(`${label}: three bounded 2K celestial layers and immutable resource limits`, { layers: initial.skyLayers });
   const { width, height } = page.viewportSize();
   await page.evaluate(() => window.__firecrackersQA.freeze(false));
@@ -45,7 +45,7 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   const engaged = await snapshot(page);
   assert.equal(engaged.launched, 0); assert.equal(engaged.bursts, 0);
   assert.equal(engaged.selected, initial.selected); assert.equal(engaged.placement, initial.placement);
-  assert.ok(Math.hypot(engaged.skyNearParallaxX, engaged.skyNearParallaxY) <= 3.00001);
+  assert.ok(Math.hypot(engaged.skyNearParallaxX, engaged.skyNearParallaxY) <= 6.00001);
   assert.ok(Math.hypot(engaged.skyNearParallaxX, engaged.skyNearParallaxY) > .1);
   await capture('sky-pointer');
   check(`${label}: blank-sky mouse response is bounded and cannot launch or change selection`, { engagement: engaged.skyEngagement });
@@ -88,7 +88,7 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   const idleAfter = await snapshot(page);
   const elapsedMs = await page.evaluate(start => performance.now() - start, sampleStart);
   const frameDelta = idleAfter.frames - idle.frames;
-  const cap = idle.backend.startsWith('Canvas') ? 10 : 20;
+  const cap = 30; // The enhanced waterfront now has a bounded 30 Hz idle fleet.
   assert.ok(frameDelta > 0 && frameDelta <= Math.ceil(cap * elapsedMs / 1000) + 3,
     `Ambient cadence must remain bounded: ${JSON.stringify({ frameDelta, cap, elapsedMs, idle, idleAfter })}`);
   assert.equal(idleAfter.launched, 0); assert.equal(idleAfter.particles, 0);

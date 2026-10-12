@@ -1,0 +1,14 @@
+{
+  "origin": "http://127.0.0.1:4208/",
+  "checks": [
+    "Installed old worker retains the open old application until explicit Update and restart",
+    "Explicit activation removes only obsolete app-owned caches and preserves unrelated cache/local data",
+    "Cold offline reload presents the current fleet and playable Signature effect"
+  ],
+  "failed": null,
+  "keys": [
+    "workbox-precache-v2-http://127.0.0.1:4208/",
+    "unrelated-upstream-test",
+    "firecrackers-art-2026-10-12.1"
+  ]
+}

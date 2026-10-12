@@ -1,0 +1,2728 @@
+{
+  "url": "http://127.0.0.1:4206/",
+  "expectedVersion": "2026-10-12.1",
+  "expectedFingerprint": "1053a4bd5caa0e434497fdf3d43b19f087f1d4922b3424d65ae7b1854d80fcfc",
+  "expectedSourceCount": 196,
+  "startedAt": "2026-10-12T15:00:44.125Z",
+  "selectedCases": [
+    "320x480",
+    "375x667",
+    "393x851",
+    "844x390",
+    "1920x1080"
+  ],
+  "dragOrigin": "row-center",
+  "method": "Bundled Chromium headless, software WebGL/Canvas. Real native dialogs and DOM input; viewport/touch emulation.",
+  "limitations": "No installed-Chrome hardware, physical phone, OS accessibility setting or endurance claim. Zoom method is explicitly emulated.",
+  "checks": [
+    {
+      "name": "320x480-controls: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 30,
+          "y": 8,
+          "width": 260,
+          "height": 388,
+          "right": 290,
+          "bottom": 396
+        },
+        "body": {
+          "x": 30,
+          "y": 112,
+          "width": 260,
+          "height": 284,
+          "right": 290,
+          "bottom": 396
+        },
+        "header": {
+          "x": 30,
+          "y": 56,
+          "width": 260,
+          "height": 56,
+          "right": 290,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "controls",
+        "className": "sheet edge-panel sheet--controls",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 356,
+        "bodyClientHeight": 284,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "320x480-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 112,
+          "width": 304,
+          "height": 284,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 1118,
+        "bodyClientHeight": 284,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "320x480-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 112,
+          "width": 304,
+          "height": 284,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 369,
+        "bodyClientHeight": 284,
+        "overflow": false
+      },
+      "targetCount": 10
+    },
+    {
+      "name": "320x480-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 112,
+          "width": 304,
+          "height": 284,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 369,
+        "bodyClientHeight": 284,
+        "overflow": false
+      },
+      "targetCount": 10
+    },
+    {
+      "name": "320x480-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 168,
+          "width": 304,
+          "height": 228,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 975,
+        "bodyClientHeight": 228,
+        "overflow": false
+      },
+      "targetCount": 17
+    },
+    {
+      "name": "320x480: roving keyboard tabs and native forward/reverse focus containment"
+    },
+    {
+      "name": "320x480-settings-sound: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 168,
+          "width": 304,
+          "height": 228,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 569,
+        "bodyClientHeight": 228,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "320x480-settings-display: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 168,
+          "width": 304,
+          "height": 228,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 470,
+        "bodyClientHeight": 228,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "320x480-settings-display-expanded: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 168,
+          "width": 304,
+          "height": 228,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 820,
+        "bodyClientHeight": 228,
+        "overflow": false
+      },
+      "targetCount": 18
+    },
+    {
+      "name": "320x480-settings-device: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 168,
+          "width": 304,
+          "height": 228,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 798,
+        "bodyClientHeight": 228,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "320x480-settings-diagnostics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 304,
+          "height": 388,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 168,
+          "width": 304,
+          "height": 228,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 112
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 1041,
+        "bodyClientHeight": 228,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "320x480-reset: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 175.40625,
+          "width": 304,
+          "height": 220.59375,
+          "right": 312,
+          "bottom": 396
+        },
+        "body": {
+          "x": 8,
+          "y": 279.40625,
+          "width": 304,
+          "height": 116.59375,
+          "right": 312,
+          "bottom": 396
+        },
+        "header": {
+          "x": 8,
+          "y": 223.40625,
+          "width": 304,
+          "height": 56,
+          "right": 312,
+          "bottom": 279.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "reset",
+        "className": "sheet edge-panel sheet--reset",
+        "view": {
+          "width": 320,
+          "height": 480
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 117,
+        "bodyClientHeight": 117,
+        "overflow": false
+      },
+      "targetCount": 4
+    },
+    {
+      "name": "320x480: backdrop close, reset cancellation and independent pause owners"
+    },
+    {
+      "name": "320x480: no unexpected application errors"
+    },
+    {
+      "name": "375x667-controls: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 57.5,
+          "y": 115,
+          "width": 260,
+          "height": 468,
+          "right": 317.5,
+          "bottom": 583
+        },
+        "body": {
+          "x": 57.5,
+          "y": 223,
+          "width": 260,
+          "height": 360,
+          "right": 317.5,
+          "bottom": 583
+        },
+        "header": {
+          "x": 57.5,
+          "y": 163,
+          "width": 260,
+          "height": 60,
+          "right": 317.5,
+          "bottom": 223
+        },
+        "open": true,
+        "modal": true,
+        "variant": "controls",
+        "className": "sheet edge-panel sheet--controls",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 360,
+        "bodyClientHeight": 360,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "375x667-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 575,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 116,
+          "width": 359,
+          "height": 467,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 1047,
+        "bodyClientHeight": 467,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "375x667-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 101.8125,
+          "width": 359,
+          "height": 481.1875,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 209.8125,
+          "width": 359,
+          "height": 373.1875,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 149.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 209.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 373,
+        "bodyClientHeight": 373,
+        "overflow": false
+      },
+      "targetCount": 10
+    },
+    {
+      "name": "375x667-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 101.8125,
+          "width": 359,
+          "height": 481.1875,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 209.8125,
+          "width": 359,
+          "height": 373.1875,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 149.8125,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 209.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 373,
+        "bodyClientHeight": 373,
+        "overflow": false
+      },
+      "targetCount": 10
+    },
+    {
+      "name": "375x667-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 575,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 172,
+          "width": 359,
+          "height": 411,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 926,
+        "bodyClientHeight": 411,
+        "overflow": false
+      },
+      "targetCount": 17
+    },
+    {
+      "name": "375x667: roving keyboard tabs and native forward/reverse focus containment"
+    },
+    {
+      "name": "375x667-settings-sound: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 575,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 172,
+          "width": 359,
+          "height": 411,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 554,
+        "bodyClientHeight": 411,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "375x667-settings-display: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 575,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 172,
+          "width": 359,
+          "height": 411,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 474,
+        "bodyClientHeight": 411,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "375x667-settings-display-expanded: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 575,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 172,
+          "width": 359,
+          "height": 411,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 805,
+        "bodyClientHeight": 411,
+        "overflow": false
+      },
+      "targetCount": 18
+    },
+    {
+      "name": "375x667-settings-device: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 575,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 172,
+          "width": 359,
+          "height": 411,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 748,
+        "bodyClientHeight": 411,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "375x667-settings-diagnostics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 8,
+          "width": 359,
+          "height": 575,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 172,
+          "width": 359,
+          "height": 411,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 56,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 970,
+        "bodyClientHeight": 411,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "375x667-reset: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 8,
+          "y": 354.40625,
+          "width": 359,
+          "height": 228.59375,
+          "right": 367,
+          "bottom": 583
+        },
+        "body": {
+          "x": 8,
+          "y": 462.40625,
+          "width": 359,
+          "height": 120.59375,
+          "right": 367,
+          "bottom": 583
+        },
+        "header": {
+          "x": 8,
+          "y": 402.40625,
+          "width": 359,
+          "height": 60,
+          "right": 367,
+          "bottom": 462.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "reset",
+        "className": "sheet edge-panel sheet--reset",
+        "view": {
+          "width": 375,
+          "height": 667
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
+        "overflow": false
+      },
+      "targetCount": 4
+    },
+    {
+      "name": "375x667: backdrop close, reset cancellation and independent pause owners"
+    },
+    {
+      "name": "375x667: no unexpected application errors"
+    },
+    {
+      "name": "393x851-controls: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 66.5,
+          "y": 299,
+          "width": 260,
+          "height": 468,
+          "right": 326.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 66.5,
+          "y": 407,
+          "width": 260,
+          "height": 360,
+          "right": 326.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 66.5,
+          "y": 347,
+          "width": 260,
+          "height": 60,
+          "right": 326.5,
+          "bottom": 407
+        },
+        "open": true,
+        "modal": true,
+        "variant": "controls",
+        "className": "sheet edge-panel sheet--controls",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 360,
+        "bodyClientHeight": 360,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "393x851-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 8,
+          "width": 360,
+          "height": 759,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 116,
+          "width": 360,
+          "height": 651,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 56,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 1047,
+        "bodyClientHeight": 651,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "393x851-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 285.8125,
+          "width": 360,
+          "height": 481.1875,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 393.8125,
+          "width": 360,
+          "height": 373.1875,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 333.8125,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 393.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 373,
+        "bodyClientHeight": 373,
+        "overflow": false
+      },
+      "targetCount": 10
+    },
+    {
+      "name": "393x851-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 285.8125,
+          "width": 360,
+          "height": 481.1875,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 393.8125,
+          "width": 360,
+          "height": 373.1875,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 333.8125,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 393.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 373,
+        "bodyClientHeight": 373,
+        "overflow": false
+      },
+      "targetCount": 10
+    },
+    {
+      "name": "393x851-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 8,
+          "width": 360,
+          "height": 759,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 172,
+          "width": 360,
+          "height": 595,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 56,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 926,
+        "bodyClientHeight": 595,
+        "overflow": false
+      },
+      "targetCount": 17
+    },
+    {
+      "name": "393x851: roving keyboard tabs and native forward/reverse focus containment"
+    },
+    {
+      "name": "393x851-settings-sound: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 49.25,
+          "width": 360,
+          "height": 717.75,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 213.25,
+          "width": 360,
+          "height": 553.75,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 97.25,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 157.25
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 554,
+        "bodyClientHeight": 554,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "393x851-settings-display: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 129.03125,
+          "width": 360,
+          "height": 637.96875,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 293.03125,
+          "width": 360,
+          "height": 473.96875,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 177.03125,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 237.03125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 474,
+        "bodyClientHeight": 474,
+        "overflow": false
+      },
+      "targetCount": 13
+    },
+    {
+      "name": "393x851-settings-display-expanded: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 8,
+          "width": 360,
+          "height": 759,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 172,
+          "width": 360,
+          "height": 595,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 56,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 824,
+        "bodyClientHeight": 595,
+        "overflow": false
+      },
+      "targetCount": 18
+    },
+    {
+      "name": "393x851-settings-device: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 8,
+          "width": 360,
+          "height": 759,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 172,
+          "width": 360,
+          "height": 595,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 56,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 748,
+        "bodyClientHeight": 595,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "393x851-settings-diagnostics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 8,
+          "width": 360,
+          "height": 759,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 172,
+          "width": 360,
+          "height": 595,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 56,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 116
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 970,
+        "bodyClientHeight": 595,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "393x851-reset: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 16.5,
+          "y": 538.40625,
+          "width": 360,
+          "height": 228.59375,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "body": {
+          "x": 16.5,
+          "y": 646.40625,
+          "width": 360,
+          "height": 120.59375,
+          "right": 376.5,
+          "bottom": 767
+        },
+        "header": {
+          "x": 16.5,
+          "y": 586.40625,
+          "width": 360,
+          "height": 60,
+          "right": 376.5,
+          "bottom": 646.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "reset",
+        "className": "sheet edge-panel sheet--reset",
+        "view": {
+          "width": 393,
+          "height": 851
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
+        "overflow": false
+      },
+      "targetCount": 4
+    },
+    {
+      "name": "393x851: backdrop close, reset cancellation and independent pause owners"
+    },
+    {
+      "name": "393x851: no unexpected application errors"
+    },
+    {
+      "name": "844x390-controls: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 512,
+          "y": 8,
+          "width": 260,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 512,
+          "y": 64,
+          "width": 260,
+          "height": 242,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 512,
+          "y": 8,
+          "width": 260,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "controls",
+        "className": "sheet edge-panel sheet--controls",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 356,
+        "bodyClientHeight": 242,
+        "overflow": false
+      },
+      "targetCount": 8
+    },
+    {
+      "name": "844x390-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 64,
+          "width": 340,
+          "height": 242,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 1077,
+        "bodyClientHeight": 242,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "844x390-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 64,
+          "width": 340,
+          "height": 242,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 369,
+        "bodyClientHeight": 242,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "844x390-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 64,
+          "width": 340,
+          "height": 242,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 369,
+        "bodyClientHeight": 242,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "844x390-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 120,
+          "width": 340,
+          "height": 186,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 961,
+        "bodyClientHeight": 186,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "844x390: roving keyboard tabs and native forward/reverse focus containment"
+    },
+    {
+      "name": "844x390-settings-sound: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 120,
+          "width": 340,
+          "height": 186,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 550,
+        "bodyClientHeight": 186,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "844x390-settings-display: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 120,
+          "width": 340,
+          "height": 186,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 470,
+        "bodyClientHeight": 186,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "844x390-settings-display-expanded: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 120,
+          "width": 340,
+          "height": 186,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 801,
+        "bodyClientHeight": 186,
+        "overflow": false
+      },
+      "targetCount": 17
+    },
+    {
+      "name": "844x390-settings-device: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 120,
+          "width": 340,
+          "height": 186,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 758,
+        "bodyClientHeight": 186,
+        "overflow": false
+      },
+      "targetCount": 15
+    },
+    {
+      "name": "844x390-settings-diagnostics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 298,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 120,
+          "width": 340,
+          "height": 186,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 8,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 64
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 980,
+        "bodyClientHeight": 186,
+        "overflow": false
+      },
+      "targetCount": 15
+    },
+    {
+      "name": "844x390-reset: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 432,
+          "y": 133.40625,
+          "width": 340,
+          "height": 172.59375,
+          "right": 772,
+          "bottom": 306
+        },
+        "body": {
+          "x": 432,
+          "y": 189.40625,
+          "width": 340,
+          "height": 116.59375,
+          "right": 772,
+          "bottom": 306
+        },
+        "header": {
+          "x": 432,
+          "y": 133.40625,
+          "width": 340,
+          "height": 56,
+          "right": 772,
+          "bottom": 189.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "reset",
+        "className": "sheet edge-panel sheet--reset",
+        "view": {
+          "width": 844,
+          "height": 390
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 117,
+        "bodyClientHeight": 117,
+        "overflow": false
+      },
+      "targetCount": 3
+    },
+    {
+      "name": "844x390: backdrop close, reset cancellation and independent pause owners"
+    },
+    {
+      "name": "844x390: no unexpected application errors"
+    },
+    {
+      "name": "1920x1080-controls: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1588,
+          "y": 576,
+          "width": 260,
+          "height": 420,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1588,
+          "y": 636,
+          "width": 260,
+          "height": 360,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1588,
+          "y": 576,
+          "width": 260,
+          "height": 60,
+          "right": 1848,
+          "bottom": 636
+        },
+        "open": true,
+        "modal": true,
+        "variant": "controls",
+        "className": "sheet edge-panel sheet--controls",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 360,
+        "bodyClientHeight": 360,
+        "overflow": false
+      },
+      "targetCount": 8
+    },
+    {
+      "name": "1920x1080-help: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 8,
+          "width": 340,
+          "height": 988,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 68,
+          "width": 340,
+          "height": 928,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 8,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 68
+        },
+        "open": true,
+        "modal": true,
+        "variant": "help",
+        "className": "sheet edge-panel sheet--help",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 1081,
+        "bodyClientHeight": 928,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "1920x1080-picker-classics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 562.8125,
+          "width": 340,
+          "height": 433.1875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 622.8125,
+          "width": 340,
+          "height": 373.1875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 562.8125,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 622.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 373,
+        "bodyClientHeight": 373,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "1920x1080-picker-grand: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 562.8125,
+          "width": 340,
+          "height": 433.1875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 622.8125,
+          "width": 340,
+          "height": 373.1875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 562.8125,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 622.8125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "picker",
+        "className": "sheet edge-panel sheet--picker",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 373,
+        "bodyClientHeight": 373,
+        "overflow": false
+      },
+      "targetCount": 9
+    },
+    {
+      "name": "1920x1080-settings-graphics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 8,
+          "width": 340,
+          "height": 988,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 124,
+          "width": 340,
+          "height": 872,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 8,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 68
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 965,
+        "bodyClientHeight": 872,
+        "overflow": false
+      },
+      "targetCount": 16
+    },
+    {
+      "name": "1920x1080: roving keyboard tabs and native forward/reverse focus containment"
+    },
+    {
+      "name": "1920x1080-settings-sound: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 326.25,
+          "width": 340,
+          "height": 669.75,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 442.25,
+          "width": 340,
+          "height": 553.75,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 326.25,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 386.25
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 554,
+        "bodyClientHeight": 554,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "1920x1080-settings-display: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 406.03125,
+          "width": 340,
+          "height": 589.96875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 522.03125,
+          "width": 340,
+          "height": 473.96875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 406.03125,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 466.03125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 474,
+        "bodyClientHeight": 474,
+        "overflow": false
+      },
+      "targetCount": 12
+    },
+    {
+      "name": "1920x1080-settings-display-expanded: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 75.03125,
+          "width": 340,
+          "height": 920.96875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 191.03125,
+          "width": 340,
+          "height": 804.96875,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 75.03125,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 135.03125
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 805,
+        "bodyClientHeight": 805,
+        "overflow": false
+      },
+      "targetCount": 17
+    },
+    {
+      "name": "1920x1080-settings-device: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 118.421875,
+          "width": 340,
+          "height": 877.578125,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 234.421875,
+          "width": 340,
+          "height": 761.578125,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 118.421875,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 178.421875
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 762,
+        "bodyClientHeight": 762,
+        "overflow": false
+      },
+      "targetCount": 15
+    },
+    {
+      "name": "1920x1080-settings-diagnostics: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 8,
+          "width": 340,
+          "height": 988,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 124,
+          "width": 340,
+          "height": 872,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 8,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 68
+        },
+        "open": true,
+        "modal": true,
+        "variant": "settings",
+        "className": "sheet edge-panel sheet--settings",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [
+          "sheet-content panel-body"
+        ],
+        "bodyScrollHeight": 984,
+        "bodyClientHeight": 872,
+        "overflow": false
+      },
+      "targetCount": 15
+    },
+    {
+      "name": "1920x1080-reset: bounds, transparent material, scroll and 48px effective targets",
+      "geometry": {
+        "box": {
+          "x": 1508,
+          "y": 815.40625,
+          "width": 340,
+          "height": 180.59375,
+          "right": 1848,
+          "bottom": 996
+        },
+        "body": {
+          "x": 1508,
+          "y": 875.40625,
+          "width": 340,
+          "height": 120.59375,
+          "right": 1848,
+          "bottom": 996
+        },
+        "header": {
+          "x": 1508,
+          "y": 815.40625,
+          "width": 340,
+          "height": 60,
+          "right": 1848,
+          "bottom": 875.40625
+        },
+        "open": true,
+        "modal": true,
+        "variant": "reset",
+        "className": "sheet edge-panel sheet--reset",
+        "view": {
+          "width": 1920,
+          "height": 1080
+        },
+        "background": "rgba(7, 15, 25, 0.76)",
+        "backdrop": "rgba(2, 6, 12, 0.12)",
+        "border": "0px",
+        "blur": "none",
+        "scrollables": [],
+        "bodyScrollHeight": 121,
+        "bodyClientHeight": 121,
+        "overflow": false
+      },
+      "targetCount": 3
+    },
+    {
+      "name": "1920x1080: backdrop close, reset cancellation and independent pause owners"
+    },
+    {
+      "name": "1920x1080: no unexpected application errors"
+    }
+  ],
+  "failures": [],
+  "screenshots": [
+    "320x480-controls.png",
+    "320x480-help.png",
+    "320x480-picker-classics.png",
+    "320x480-picker-grand.png",
+    "320x480-settings-graphics.png",
+    "320x480-settings-sound.png",
+    "320x480-settings-display.png",
+    "320x480-settings-display-expanded.png",
+    "320x480-settings-device.png",
+    "320x480-settings-diagnostics.png",
+    "320x480-reset.png",
+    "375x667-controls.png",
+    "375x667-help.png",
+    "375x667-picker-classics.png",
+    "375x667-picker-grand.png",
+    "375x667-settings-graphics.png",
+    "375x667-settings-sound.png",
+    "375x667-settings-display.png",
+    "375x667-settings-display-expanded.png",
+    "375x667-settings-device.png",
+    "375x667-settings-diagnostics.png",
+    "375x667-reset.png",
+    "393x851-controls.png",
+    "393x851-help.png",
+    "393x851-picker-classics.png",
+    "393x851-picker-grand.png",
+    "393x851-settings-graphics.png",
+    "393x851-settings-sound.png",
+    "393x851-settings-display.png",
+    "393x851-settings-display-expanded.png",
+    "393x851-settings-device.png",
+    "393x851-settings-diagnostics.png",
+    "393x851-reset.png",
+    "844x390-controls.png",
+    "844x390-help.png",
+    "844x390-picker-classics.png",
+    "844x390-picker-grand.png",
+    "844x390-settings-graphics.png",
+    "844x390-settings-sound.png",
+    "844x390-settings-display.png",
+    "844x390-settings-display-expanded.png",
+    "844x390-settings-device.png",
+    "844x390-settings-diagnostics.png",
+    "844x390-reset.png",
+    "1920x1080-controls.png",
+    "1920x1080-help.png",
+    "1920x1080-picker-classics.png",
+    "1920x1080-picker-grand.png",
+    "1920x1080-settings-graphics.png",
+    "1920x1080-settings-sound.png",
+    "1920x1080-settings-display.png",
+    "1920x1080-settings-display-expanded.png",
+    "1920x1080-settings-device.png",
+    "1920x1080-settings-diagnostics.png",
+    "1920x1080-reset.png"
+  ],
+  "errors": [],
+  "expectedFaults": [],
+  "browserClosed": true,
+  "browserVersion": "140.0.7339.186",
+  "remainingContexts": 0,
+  "finishedAt": "2026-10-12T15:01:45.818Z"
+}

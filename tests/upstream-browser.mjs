@@ -17,7 +17,7 @@ for(const {backend,viewport:[width,height]} of cases.filter(c=>(!process.env.UPS
  const snap=()=>page.evaluate(()=>window.__firecrackersQA.snapshot());
  const s=await snap();assert.equal(s.backend,{canvas:'Canvas 2D · compatibility',webgl:'WebGL 2',webgpu:'WebGPU'}[backend]);assert.equal(s.riverSeatedFigures,33);assert.equal(await page.locator('[data-family-icon]').count(),13);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  const targets=await page.locator('[data-family-icon]').evaluateAll(nodes=>nodes.map(e=>{const r=e.getBoundingClientRect();return{w:r.width,h:r.height,x:r.x,y:r.y,hit:e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))};}));
- for(const t of targets){assert.ok(t.w>=44&&t.h>=44,`target size ${width}: ${JSON.stringify(t)}`);if(height>=600)assert.ok(t.hit,`covered target ${width}: ${JSON.stringify(t)}`);}
+ for(const t of targets){assert.ok(t.w>=44&&t.h>=44,`target size ${width}: ${JSON.stringify(t)}`);if(t.y>=0&&t.y+t.h<=height)assert.ok(t.hit,`covered target ${width}: ${JSON.stringify(t)}`);}
  await page.getByRole('button',{name:/Explore the waterfront/}).click();
  await page.getByRole('button',{name:'Watch boats',exact:true}).click();
  for(const id of [0,1,5,6]){await page.getByLabel('Choose a family',{exact:true}).selectOption(String(id));assert.equal((await snap()).seaFocus,id);}

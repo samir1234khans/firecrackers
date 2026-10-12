@@ -35,7 +35,7 @@ export function Dialog({ title, children, onClose, description, navigation, retu
     if (dialog && !dialog.open) dialog.showModal();
     // A returning Settings panel can focus its still-selected pane's reset
     // trigger. Other panels begin at the always-visible close control.
-    const initial = initialFocusId ? document.getElementById(initialFocusId) : null;
+    const initial = initialFocusId ? document.getElementById(initialFocusId) : dialog?.querySelector<HTMLElement>('.panel-close');
     if (initial instanceof HTMLElement && dialog?.contains(initial)) initial.focus({ preventScroll: true });
     const cancel = (event: Event) => { event.preventDefault(); close.current(); };
     dialog?.addEventListener('cancel', cancel);

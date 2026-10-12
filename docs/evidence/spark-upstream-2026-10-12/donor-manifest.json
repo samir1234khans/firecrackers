@@ -304,7 +304,7 @@
     {
       "path": "src/styles/world.css",
       "kind": "new or host integration",
-      "destinationSha256": "6ef3614ed47b189a36ef17299ba66484ab4f3a64a3ee7f469c399500ab70a6ae"
+      "destinationSha256": "993277947108c188e0f1199b50eff265a758c2ba7b6a9ebfd5e407d7933f69f4"
     },
     {
       "path": "src/ui/CreativeTools.tsx",
@@ -394,7 +394,7 @@
     {
       "path": "src/ui/Dialog.tsx",
       "kind": "adaptation",
-      "destinationSha256": "bf55d430fa9060151737d28339b2b886e18602516b40d8fe6667f68aa827afdb",
+      "destinationSha256": "1f73f4120c5c6be424c3fa478264d0c27ad44fdbd9f7248987105ecefaa28a22",
       "donorSha256": "f6d3b154808de70d349c4a0cd7d02de6bd2b6135060335e0a34b858a28fdea7a"
     },
     {
