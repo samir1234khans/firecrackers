@@ -49,6 +49,6 @@
     "typescript": "5.9.2",
     "vite": "6.4.3",
     "vite-plugin-pwa": "1.0.3",
-    "wrangler": "4.143.0"
+    "wrangler": "4.149.0"
   }
 }

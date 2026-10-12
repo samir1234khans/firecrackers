@@ -76,6 +76,8 @@ export class SeaPassengerRig {
       // Establish the color attribute before pipeline warmup, including initially
       // empty close-up batches. Late attributes otherwise leave a white variant.
       mesh.setColorAt(0, new THREE.Color(0xffffff));
+      mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+      mesh.instanceColor!.setUsage(THREE.DynamicDrawUsage);
       mesh.name = `Passenger ${key} batch`; mesh.frustumCulled = false; mesh.layers.disable(3); mesh.count = 0;
       this.batches.set(key, { mesh, used: 0 }); this.group.add(mesh);
     }
@@ -212,8 +214,16 @@ export class SeaPassengerRig {
       this.contact.push({ person: spec.id, gazeError: state.gazeError, upper, fore, footY: .22 - .2275 * spec.size, oarGripError, pointingError, clapPalmGap });
     }
     for (const batch of this.batches.values()) {
-      batch.mesh.count = batch.used; batch.mesh.instanceMatrix.needsUpdate = true;
-      if (batch.mesh.instanceColor) batch.mesh.instanceColor.needsUpdate = true;
+      batch.mesh.count = batch.used;
+      if (!batch.used) continue;
+      batch.mesh.instanceMatrix.clearUpdateRanges();
+      batch.mesh.instanceMatrix.addUpdateRange(0, batch.used * 16);
+      batch.mesh.instanceMatrix.needsUpdate = true;
+      if (batch.mesh.instanceColor) {
+        batch.mesh.instanceColor.clearUpdateRanges();
+        batch.mesh.instanceColor.addUpdateRange(0, batch.used * 3);
+        batch.mesh.instanceColor.needsUpdate = true;
+      }
     }
   }
   private clothing(spec: PassengerSpec, torso: THREE.Matrix4, seat: THREE.Matrix4) {

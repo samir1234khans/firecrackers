@@ -324,13 +324,16 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 else sea.current.audience.drainCues();
                 sound.updateMusic(state.show, state.cinematic, state.time);
                 publishSky();
-                const targetFps = display.current.fps === 30 || state.quality === 'low' || graphics?.backend.startsWith('Canvas') ? 30 : 60;
+                const fireworkActivity = state.holding || state.heads.count > 0 || state.trails.count > 0 ||
+                    state.smoke.count > 0 || state.embers.count > 0 || state.cues.length > 0 ||
+                    state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
+                // Idle fleet poses are authored at 30 Hz. Do not submit duplicate
+                // full-world/depth passes at 60 Hz between launches.
+                const targetFps = display.current.fps === 30 || state.quality === 'low' || graphics?.backend.startsWith('Canvas') || (!fireworkActivity && sea.current.focus === null) ? 30 : 60;
                 // Firework activity, recovery and quality measurement keep their original
                 // cadence. Decorative idle frames have a separate bounded schedule.
                 const visualState = `${state.selected}:${state.placement}:${state.quality}:${state.reducedFlashes}:${display.current.mode}:${state.rearming}:${Boolean(state.committed)}`;
-                const moving = (display.current.mode !== 'transparent' && !state.reducedMotion) || state.holding || state.heads.count > 0 || state.trails.count > 0 ||
-                    state.smoke.count > 0 || state.embers.count > 0 || state.cues.length > 0 ||
-                    state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
+                const moving = (display.current.mode !== 'transparent' && !state.reducedMotion) || fireworkActivity;
                 const fireworkDue = !lastRender || visualState !== previousVisualState ||
                     ((moving || previouslyMoving) && now - lastRender >= 1000 / targetFps - 1.2);
                 const ambientFps = skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed);

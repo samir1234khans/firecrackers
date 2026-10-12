@@ -67,7 +67,7 @@
       "path": "src/graphics/SeaPassengerRig.ts",
       "donorSha256": "cc455c4369463fa42645eebeab604d934dbb6eb3ffc22ea2d2730ea06868f3c6",
       "kind": "port",
-      "destinationSha256": "4ad93d458117d4b2662cb9736147ce537909b694fe78c625a343f84e03991a68"
+      "destinationSha256": "2484d7b317c27fe705ce8fafc8ce81c30329fb325d64c44bc6aa6bd35cec6c60"
     },
     {
       "path": "src/graphics/SeaPassengers.ts",
@@ -352,7 +352,7 @@
     {
       "path": "src/engine/useWorld.ts",
       "kind": "adaptation",
-      "destinationSha256": "2bf00e73e063cff8a92140f74a2cc4f839fdd2a35a6b7d17f91e2f364cc09f94",
+      "destinationSha256": "d9aa1408205260dddb609d0616952bb32fcda7773db5c397cf3691b97c809d6c",
       "donorSha256": "edb29b990a66e7144ac9b9e7b6797eb2b930cb43bd6d7fc13f4d8d103b6e531f"
     },
     {
