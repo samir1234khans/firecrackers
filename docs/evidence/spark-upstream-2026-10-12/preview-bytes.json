@@ -1,9 +1,8 @@
 {
   "origin": "https://firecrackers-upstream-preview.allygym-api.workers.dev/",
-  "candidateSource": "f149d75",
-  "runtimeSource": "55668db24700e3c575337b1f55b57b90c44aabdd",
+  "candidateSource": "323cf29efb03374bec21eb8bfeb47c9dc9a654ed",
   "version": "2026-10-12.1",
-  "fingerprint": "1053a4bd5caa0e434497fdf3d43b19f087f1d4922b3424d65ae7b1854d80fcfc",
+  "fingerprint": "0860b67bc2fbb643328b3d2222bc3ec4464b0263a3ef6b5360dd52564c56422d",
   "entries": 196,
   "checked": 65,
   "passed": true,
@@ -22,10 +21,9 @@
     },
     {
       "path": "index.html",
-      "expected": "d9cad9176203fd9e8bfe7f082bfc0ac2c0c0094b7c179f940343900f825fbf9d",
-      "actual": "d9cad9176203fd9e8bfe7f082bfc0ac2c0c0094b7c179f940343900f825fbf9d",
-      "matches": true,
-      "servedAs": "/"
+      "expected": "f019f4b6346f9e2c99b4d260497edae659d76ff01d7459f1696172b3b1328ae5",
+      "actual": "f019f4b6346f9e2c99b4d260497edae659d76ff01d7459f1696172b3b1328ae5",
+      "matches": true
     },
     {
       "path": "manifest.webmanifest",
@@ -35,14 +33,14 @@
     },
     {
       "path": "release.json",
-      "expected": "4470e29e4b982c96c334a3788533aa6f2255e6357b66906a0f49b76b98b301b5",
-      "actual": "4470e29e4b982c96c334a3788533aa6f2255e6357b66906a0f49b76b98b301b5",
+      "expected": "c7ccbade9956107cdde2d292f3b55f222518012d63c72c015cff73bfd21e7277",
+      "actual": "c7ccbade9956107cdde2d292f3b55f222518012d63c72c015cff73bfd21e7277",
       "matches": true
     },
     {
       "path": "sw.js",
-      "expected": "a75ddba85410bf8d087fc8594fdb67ee90a0472779eea00af1af6b87bc2371e2",
-      "actual": "a75ddba85410bf8d087fc8594fdb67ee90a0472779eea00af1af6b87bc2371e2",
+      "expected": "951a654e5bda810bfa0bc9c36d500bd0385f29f2182d4b7bce69fd66ee642977",
+      "actual": "951a654e5bda810bfa0bc9c36d500bd0385f29f2182d4b7bce69fd66ee642977",
       "matches": true
     },
     {
@@ -136,33 +134,39 @@
       "matches": true
     },
     {
-      "path": "assets/App-CXn6WyKq.css",
-      "expected": "7dbff440b4abfce8262729200f06114c4186f5daf4a9f42c340cf29ca258467a",
-      "actual": "7dbff440b4abfce8262729200f06114c4186f5daf4a9f42c340cf29ca258467a",
+      "path": "assets/App-BBLLKdwT.css",
+      "expected": "18d8155cd7c0d24b48ce779031d60a891e7c89d85136203607cbb1b7df68de28",
+      "actual": "18d8155cd7c0d24b48ce779031d60a891e7c89d85136203607cbb1b7df68de28",
       "matches": true
     },
     {
-      "path": "assets/App-DgZd8UTS.js",
-      "expected": "8778fee5245aefcfe37a2c1c1b834a25b0229842568c3a7b53d5200f3dff002f",
-      "actual": "8778fee5245aefcfe37a2c1c1b834a25b0229842568c3a7b53d5200f3dff002f",
+      "path": "assets/App-BIPQ3JNx.js",
+      "expected": "bec88941d871e9cfce90a51d7c4d876c5e361adc3f06a273bcc0e737c65cd170",
+      "actual": "bec88941d871e9cfce90a51d7c4d876c5e361adc3f06a273bcc0e737c65cd170",
       "matches": true
     },
     {
-      "path": "assets/CapturePanel-0hT-B6LE.js",
-      "expected": "311e11e35930a58c2213366a5290bcde7c0a2bbd6e24926f9c5153a365d94448",
-      "actual": "311e11e35930a58c2213366a5290bcde7c0a2bbd6e24926f9c5153a365d94448",
+      "path": "assets/CapturePanel-CrB3tsWI.js",
+      "expected": "65f64bfda1e43838ed36ec5616f9372b348536d728235c4cdfb314d002f4c8d3",
+      "actual": "65f64bfda1e43838ed36ec5616f9372b348536d728235c4cdfb314d002f4c8d3",
       "matches": true
     },
     {
-      "path": "assets/FireworkBrowser-BNqk4Xe6.js",
-      "expected": "b19071815c769f76ad468b39e380359a32724d69fd56619afef545974b90e2d5",
-      "actual": "b19071815c769f76ad468b39e380359a32724d69fd56619afef545974b90e2d5",
+      "path": "assets/FireworkBrowser-CTsSlOgr.js",
+      "expected": "38970868dc85b3ff338a8d3238f812130d964cd0c61dd577b8e7d7952d10e114",
+      "actual": "38970868dc85b3ff338a8d3238f812130d964cd0c61dd577b8e7d7952d10e114",
       "matches": true
     },
     {
-      "path": "assets/index-BeLEmY9z.js",
-      "expected": "619af772c29ce82930ffb137f2bf14db23a9f606a9e01ee86cbc197b5020f5c9",
-      "actual": "619af772c29ce82930ffb137f2bf14db23a9f606a9e01ee86cbc197b5020f5c9",
+      "path": "assets/index-DDsi2Sa6.js",
+      "expected": "67dceb47fdd1e24d4fffca3afc0fb7739aa6189e791a731868501078941823b8",
+      "actual": "67dceb47fdd1e24d4fffca3afc0fb7739aa6189e791a731868501078941823b8",
+      "matches": true
+    },
+    {
+      "path": "assets/main-B_3QEWN4.js",
+      "expected": "ffe72ccb871215ba823c514d91df93c879faa25b68796a39275bb00fd2f2a72c",
+      "actual": "ffe72ccb871215ba823c514d91df93c879faa25b68796a39275bb00fd2f2a72c",
       "matches": true
     },
     {
@@ -172,27 +176,21 @@
       "matches": true
     },
     {
-      "path": "assets/main-eY6aBT6H.js",
-      "expected": "fdb237c76898d84ceed2f72e87b7821fd50675c71876e60348e3faba422e9082",
-      "actual": "fdb237c76898d84ceed2f72e87b7821fd50675c71876e60348e3faba422e9082",
+      "path": "assets/NightStudio-BYVtfXY5.js",
+      "expected": "686292c43032e44974317f070928b0b0057f28e0a4e64a0f28c40c50c11be13c",
+      "actual": "686292c43032e44974317f070928b0b0057f28e0a4e64a0f28c40c50c11be13c",
       "matches": true
     },
     {
-      "path": "assets/NightStudio-DUwHN-S4.js",
-      "expected": "7cb58e0bae75e5375f356003aeca252d8c5d055d73320222b27f153c3bde9b72",
-      "actual": "7cb58e0bae75e5375f356003aeca252d8c5d055d73320222b27f153c3bde9b72",
+      "path": "assets/Renderer-DWk7y2bX.js",
+      "expected": "eedc8f9020f6591a2d6d0a92e183e9d462153319b34d503efa2041c677efa087",
+      "actual": "eedc8f9020f6591a2d6d0a92e183e9d462153319b34d503efa2041c677efa087",
       "matches": true
     },
     {
-      "path": "assets/Renderer-BYYDvoMd.js",
-      "expected": "38a356945c3eabf6b9fe5b11277aff2a07549c7ae9a83d364b089a045b03d26a",
-      "actual": "38a356945c3eabf6b9fe5b11277aff2a07549c7ae9a83d364b089a045b03d26a",
-      "matches": true
-    },
-    {
-      "path": "assets/share-2-BEtXDJ28.js",
-      "expected": "60c35fcc49b53c0a9edb9b9a3da3b292c5f9ab6c2f3bed87d2e403ce8003e1f1",
-      "actual": "60c35fcc49b53c0a9edb9b9a3da3b292c5f9ab6c2f3bed87d2e403ce8003e1f1",
+      "path": "assets/share-2-T2M0FQX0.js",
+      "expected": "b7fb400f14cef99f9e345671f803b6b07a1abf3e54ccc97c5523ac2900bfd019",
+      "actual": "b7fb400f14cef99f9e345671f803b6b07a1abf3e54ccc97c5523ac2900bfd019",
       "matches": true
     },
     {

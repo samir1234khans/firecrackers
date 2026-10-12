@@ -1,0 +1,75 @@
+{
+  "origin": "http://127.0.0.1:4206/",
+  "at": "2026-10-12T15:47:21.634Z",
+  "cases": [
+    {
+      "backend": "canvas",
+      "width": 320,
+      "height": 480,
+      "pass": true,
+      "people": 33,
+      "targets": 13,
+      "errors": []
+    },
+    {
+      "backend": "canvas",
+      "width": 360,
+      "height": 640,
+      "pass": true,
+      "people": 33,
+      "targets": 13,
+      "errors": []
+    },
+    {
+      "backend": "canvas",
+      "width": 390,
+      "height": 844,
+      "pass": true,
+      "people": 33,
+      "targets": 13,
+      "errors": []
+    },
+    {
+      "backend": "canvas",
+      "width": 768,
+      "height": 1024,
+      "pass": true,
+      "people": 33,
+      "targets": 13,
+      "errors": []
+    },
+    {
+      "backend": "canvas",
+      "width": 844,
+      "height": 390,
+      "pass": true,
+      "people": 33,
+      "targets": 13,
+      "errors": []
+    },
+    {
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800,
+      "pass": true,
+      "people": 33,
+      "targets": 13,
+      "errors": []
+    },
+    {
+      "backend": "canvas",
+      "width": 1920,
+      "height": 1080,
+      "pass": true,
+      "people": 33,
+      "targets": 13,
+      "errors": []
+    },
+    {
+      "name": "optional entrance is GPU-free; Skip starts playable Canvas",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "failed": null
+}

@@ -232,33 +232,39 @@
     },
     {
       "path": "public/welcome/native-celebration-mobile.mp4",
-      "kind": "adaptation",
-      "destinationSha256": "30cfc505752821bc2d9059af415b8163a27dda1159da8c60f3acb84f5d6009e2"
+      "kind": "newer donor asset adaptation; generic original native fireworks film",
+      "destinationSha256": "30cfc505752821bc2d9059af415b8163a27dda1159da8c60f3acb84f5d6009e2",
+      "laterCommittedDonor": "9e367d6ae1e09d05aa0645a40ac2910d458a3033"
     },
     {
       "path": "public/welcome/native-celebration-mobile.webm",
-      "kind": "adaptation",
-      "destinationSha256": "3b90d38c441a158b03c9e7e5c3c97f8ea3a4890e4cbdde90b712c38bd08d4760"
+      "kind": "newer donor asset adaptation; generic original native fireworks film",
+      "destinationSha256": "3b90d38c441a158b03c9e7e5c3c97f8ea3a4890e4cbdde90b712c38bd08d4760",
+      "laterCommittedDonor": "9e367d6ae1e09d05aa0645a40ac2910d458a3033"
     },
     {
       "path": "public/welcome/native-celebration-mobile.webp",
-      "kind": "adaptation",
-      "destinationSha256": "3ec5f2f4fc886dc43bcabe6dcb4b48973a9a47ff5e4ad80602cd820cd2ba5409"
+      "kind": "newer donor asset adaptation; generic original native fireworks film",
+      "destinationSha256": "3ec5f2f4fc886dc43bcabe6dcb4b48973a9a47ff5e4ad80602cd820cd2ba5409",
+      "laterCommittedDonor": "9e367d6ae1e09d05aa0645a40ac2910d458a3033"
     },
     {
       "path": "public/welcome/native-celebration.mp4",
-      "kind": "adaptation",
-      "destinationSha256": "1672a12676bb7f47278e834afc0ab7917f52c0ebd16d8ad831d0b4fd48d0ef3b"
+      "kind": "newer donor asset adaptation; generic original native fireworks film",
+      "destinationSha256": "1672a12676bb7f47278e834afc0ab7917f52c0ebd16d8ad831d0b4fd48d0ef3b",
+      "laterCommittedDonor": "9e367d6ae1e09d05aa0645a40ac2910d458a3033"
     },
     {
       "path": "public/welcome/native-celebration.webm",
-      "kind": "adaptation",
-      "destinationSha256": "193d5c27229837112c5f9bdcfa7d97eef8255b6537e49b5ea1076766767eed08"
+      "kind": "newer donor asset adaptation; generic original native fireworks film",
+      "destinationSha256": "193d5c27229837112c5f9bdcfa7d97eef8255b6537e49b5ea1076766767eed08",
+      "laterCommittedDonor": "9e367d6ae1e09d05aa0645a40ac2910d458a3033"
     },
     {
       "path": "public/welcome/native-celebration.webp",
-      "kind": "adaptation",
-      "destinationSha256": "95c3eff385627ac8c5bb604d86af4181799bf7f921073a1887f37d54d3d9bd84"
+      "kind": "newer donor asset adaptation; generic original native fireworks film",
+      "destinationSha256": "95c3eff385627ac8c5bb604d86af4181799bf7f921073a1887f37d54d3d9bd84",
+      "laterCommittedDonor": "9e367d6ae1e09d05aa0645a40ac2910d458a3033"
     },
     {
       "path": "src/engine/CelebrationRun.ts",
@@ -304,7 +310,7 @@
     {
       "path": "src/styles/world.css",
       "kind": "new or host integration",
-      "destinationSha256": "993277947108c188e0f1199b50eff265a758c2ba7b6a9ebfd5e407d7933f69f4"
+      "destinationSha256": "324392486d6f7e94d198d67af64cbf59b93c084a8f370a0ebaccfc10be73cc1f"
     },
     {
       "path": "src/ui/CreativeTools.tsx",
@@ -329,7 +335,7 @@
     {
       "path": "src/ui/WorldTools.tsx",
       "kind": "new or host integration",
-      "destinationSha256": "d1dc118a32bdce99e9a68e7ddf21875a807668b4ff0daafc666ee7ad3b4d0f42"
+      "destinationSha256": "1386405975504ec5d57ccc517ae636d027f368a0b1afe312be34996dfa751ca1"
     },
     {
       "path": "src/App.tsx",
@@ -437,5 +443,16 @@
     "Explicit scene capabilities replacing invitation renderer activation",
     "Host audio and conductor ownership",
     "Generic optional entrance; direct play default"
-  ]
+  ],
+  "subsequentDonorAudit": {
+    "main": "9e367d6ae1e09d05aa0645a40ac2910d458a3033",
+    "comparedWith": "d7ff9aa20ace8785a26238065b54da998fbfe689",
+    "aheadCommits": 13,
+    "observedAfterPinnedImplementation": true,
+    "notes": [
+      "Generic native-celebration film/poster files were independently inspected and already adapted; their later committed origin is recorded below.",
+      "Later invitation reading-column/toolbar layout and prepared welcome recovery are not Firecrackers application-shell ports.",
+      "The new screen-aware celebration fitter is a subsequent generic candidate; the current candidate retains the approved pinned donor scheduler with Firecrackers launch-fit rules. It is not claimed as imported."
+    ]
+  }
 }
