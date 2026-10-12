@@ -94,14 +94,14 @@ export class SeaBoatModels {
     if (index === 1) {
       const geometry = this.geometry(new THREE.CylinderGeometry(.98, .98, 3.5, 16, 1, true, 0, Math.PI));
       const material = this.cloth.clone(); material.side = THREE.DoubleSide; this.materials.add(material);
-      canopy = this.part(root, 'Original woven curved shelter', geometry, material, [1, 1, 1], [-.15, .82, 0]); canopy.rotation.z = Math.PI / 2;
+      canopy = this.part(root, 'Original woven curved shelter', geometry, material, [1, 1, 1], [-.15, 1.50, 0]); canopy.rotation.z = Math.PI / 2;
       // Fine longitudinal weave and curved ribs remain original authored geometry.
       const ribGeometry = this.geometry(new THREE.TorusGeometry(.985, .016, 4, 16, Math.PI));
       for (const x of [-1.6, -.8, 0, .8, 1.6]) {
-        const rib = this.part(root, 'Bent canopy rib', ribGeometry, this.rim, [1, 1, 1], [x - .15, .82, 0]);
+        const rib = this.part(root, 'Bent canopy rib', ribGeometry, this.rim, [1, 1, 1], [x - .15, 1.50, 0]);
         rib.rotation.y = Math.PI / 2; rib.rotation.z = Math.PI / 2;
       }
-      for (const x of [-1.6, -.6, .6, 1.6]) for (const z of [-.85, .85]) this.part(root, 'Canopy timber upright', this.cylinder, this.rim, [.035, 1.05, .035], [x, .59, z]);
+      for (const x of [-1.6, -.6, .6, 1.6]) for (const z of [-.85, .85]) this.part(root, 'Canopy timber upright', this.cylinder, this.rim, [.035, 1.73, .035], [x, .93, z]);
     }
     if (index === 3) {
       for (const side of [-1, 1]) this.part(root, 'Cabin side below open window', this.box, this.blue, [2, .62, .08], [-.45, .55, side * .64]);
@@ -225,7 +225,7 @@ export class SeaBoatModels {
       const copy = cover.clone(), box = new THREE.Box3().setFromObject(copy), size = box.getSize(new THREE.Vector3()), center = box.getCenter(new THREE.Vector3());
       const holder = new THREE.Group(); holder.name = 'Preserved original v008 woven cover and UVs';
       copy.position.sub(center); copy.layers.disable(3); holder.add(copy);
-      holder.scale.set(3.5 / size.x, .98 / size.y, 1.96 / size.z); holder.position.set(-.15, 1.31, 0);
+      holder.scale.set(3.5 / size.x, .98 / size.y, 1.96 / size.z); holder.position.set(-.15, 1.99, 0);
       if (models[1].canopy) models[1].root.remove(models[1].canopy);
       models[1].root.add(holder); models[1].canopy = holder;
     }

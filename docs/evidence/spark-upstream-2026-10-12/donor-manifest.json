@@ -19,7 +19,7 @@
       "path": "src/graphics/SeaBoatModels.ts",
       "donorSha256": "7910769ee1da939d68da9ec5bcf48274f41c4b0a7037c4c8af1c3bcc44d0d30b",
       "kind": "port",
-      "destinationSha256": "7878aab7ecdde65cf8f363637b393a5cc1b7155b67299f5bbc4bc32fd86e0e74"
+      "destinationSha256": "a11830fb7bbf4ac8f76c7fc976eb28cc426ef6e2719b7dffae9bad240db8e31c"
     },
     {
       "path": "src/graphics/SeaBoatView.ts",
@@ -229,47 +229,6 @@
       "path": "public/music/moonlit-promise.wav",
       "kind": "new or host integration",
       "destinationSha256": "befbc04dc82ce1e8973784efea625d60889fcc46398e79498eb73e26a8ecacbf"
-    },
-    {
-      "path": "public/welcome/jasmine-night-mobile.mp4",
-      "kind": "adaptation",
-      "destinationSha256": "1792055b5f49fe685e80c78ef0507f98993301ec3dfba6f26c3c7c37ba5ea280",
-      "donorSha256": "1792055b5f49fe685e80c78ef0507f98993301ec3dfba6f26c3c7c37ba5ea280"
-    },
-    {
-      "path": "public/welcome/jasmine-night-mobile.webm",
-      "kind": "adaptation",
-      "destinationSha256": "c2a48c40bb4b3686b2dbe1a85eecd83547b016062feb8573c864cfe183a3f9ba",
-      "donorSha256": "c2a48c40bb4b3686b2dbe1a85eecd83547b016062feb8573c864cfe183a3f9ba"
-    },
-    {
-      "path": "public/welcome/jasmine-night-mobile.webp",
-      "kind": "adaptation",
-      "destinationSha256": "9301f3382443362b79be2445c251d0c0ae6785c32b50e7fc58939fd8ac800fa8",
-      "donorSha256": "9301f3382443362b79be2445c251d0c0ae6785c32b50e7fc58939fd8ac800fa8"
-    },
-    {
-      "path": "public/welcome/jasmine-night.mp4",
-      "kind": "adaptation",
-      "destinationSha256": "bb0c4639584f90a961144b60f8415512d3c67f2d5bd0c96696c4d06ee59825b8",
-      "donorSha256": "bb0c4639584f90a961144b60f8415512d3c67f2d5bd0c96696c4d06ee59825b8"
-    },
-    {
-      "path": "public/welcome/jasmine-night.webm",
-      "kind": "adaptation",
-      "destinationSha256": "380671c7bce50db4339a2d80b2efec09846046e26f0829492dd7ce5d10a55571",
-      "donorSha256": "380671c7bce50db4339a2d80b2efec09846046e26f0829492dd7ce5d10a55571"
-    },
-    {
-      "path": "public/welcome/jasmine-night.webp",
-      "kind": "adaptation",
-      "destinationSha256": "f60f4f5777c22507c273bcede279cef7a62f2c19e08a1191253657b51e1495e1",
-      "donorSha256": "f60f4f5777c22507c273bcede279cef7a62f2c19e08a1191253657b51e1495e1"
-    },
-    {
-      "path": "public/welcome/loading-moon.webp",
-      "kind": "adaptation",
-      "destinationSha256": "bb02b8c0919c4a3e2d1b524fa29fc20a56341ddf05b861edc0f08212de6b31c4"
     },
     {
       "path": "public/welcome/native-celebration-mobile.mp4",
