@@ -6,5 +6,6 @@
 
 .world-tools.expanded{max-height:calc(100dvh - 120px);overflow:auto}@media(max-width:700px){.world-tools{top:72px}.world-tools.expanded{max-height:calc(100dvh - 180px)}}
 @media(max-height:600px){.world-tools{top:auto;bottom:82px;left:auto;right:60px;max-width:min(212px,calc(100vw - 80px))}.world-tools.expanded{max-height:calc(100dvh - 120px)}}
+.world-tools-compact{display:none}@media(max-height:600px){.world-tools:not(.expanded){top:72px;bottom:auto;width:44px;max-width:44px}.world-tools:not(.expanded) .world-tools-label{display:none}.world-tools:not(.expanded) .world-tools-compact{display:inline;font-size:24px;line-height:1}.world-tools:not(.expanded)>button{padding:8px;text-align:center}}
 
 .world-effect-token{position:relative;display:grid;place-items:center;width:44px;height:44px}.world-effect-token>.firework-glyph,.world-effect-token>.grand-glyph,.world-effect-token>.signature-glyph{width:34px;height:34px}.world-effect-token>.token-paper{position:absolute;right:-1px;bottom:-2px;width:15px;height:28px;filter:drop-shadow(0 1px 2px #000)}@media(prefers-reduced-transparency:reduce){.world-tools,.sheet{backdrop-filter:none;background:#0a1420}}
