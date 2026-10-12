@@ -38,6 +38,14 @@
     "src/experience/SceneCapture.ts",
     "src/experience/SessionDiagnostics.ts",
     "src/engine/SmokeOcclusion.ts",
-    "src/engine/ShowMusic.ts"
+    "src/engine/ShowMusic.ts",
+    "src/graphics/SeaAudienceSession.ts",
+    "src/graphics/SeaPassengerRig.ts",
+    "src/graphics/SeaBoatModels.ts",
+    "src/graphics/ShorelineModel.ts",
+    "src/ui/SheetModel.ts",
+    "src/engine/Audio.ts",
+    "src/engine/SceneSession.ts",
+    "src/vite-env.d.ts"
   ]
 }

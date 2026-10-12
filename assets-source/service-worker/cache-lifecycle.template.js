@@ -1,7 +1,7 @@
 // Cache cleanup runs only when the replacement worker is deliberately activated.
 (() => {
   const release = '__FIRECRACKERS_RELEASE__';
-  const keep = new Set(['art', 'audio', 'music'].map(kind => `firecrackers-${kind}-${release}`));
+  const keep = new Set(['art', 'audio', 'music', 'scene'].map(kind => `firecrackers-${kind}-${release}`));
   self.addEventListener('activate', event => event.waitUntil((async () => {
     try {
       for (const name of await caches.keys()) {

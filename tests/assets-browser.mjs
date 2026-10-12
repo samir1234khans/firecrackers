@@ -37,8 +37,8 @@ try {
   assert.ok(snapshot.authoredAssetErrors.sky, 'Missing authored scenery must retain the procedural sky');
   assert.ok(snapshot.authoredAssetErrors.river, 'Missing boats must retain a diagnosed procedural river');
   assert.equal(snapshot.riverScenery, 'procedural river fallback');
-  assert.equal(snapshot.riverBoats, 3);
-  assert.equal(snapshot.riverLampAnchors, 10);
+  assert.equal(snapshot.riverBoats, 10);
+  assert.equal(snapshot.riverLampAnchors, 13);
   assert.ok(snapshot.authoredAssets.includes('smoke'), 'Ready assets must not wait for the failed terrace');
 
   releaseShells();

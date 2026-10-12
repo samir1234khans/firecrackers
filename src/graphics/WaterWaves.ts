@@ -20,9 +20,31 @@ export const WATER_NEAR_FADE_MAX = 18;
 export const WATER_NEAR_FADE_FRACTION = .10;
 
 export type WaterSample = { height: number; slopeX: number; slopeZ: number };
-export type WaterBounds = { farZ: number; nearZ: number; waveCount: number };
+export const WATER_IMPULSE_LIMITS = Object.freeze({ count: 4, lifetime: 2.4, amplitude: .14, speed: 18, frequency: .65, width: 9 });
+export type WaterImpulse = { x: number; z: number; startedAt: number; amplitude: number };
+export type WaterBounds = { farZ: number; nearZ: number; waveCount: number; gains?: readonly number[]; impulses?: readonly WaterImpulse[]; time?: number; motionAllowed?: boolean };
 export type WaterFrame = WaterBounds & { phase: number; motionAllowed: boolean };
+export function waterDisplacementBound(bounds: Readonly<WaterBounds>) {
+  const waves = bounds.gains ? WATER_WAVES.reduce((sum, wave, i) => sum + wave.amplitude * (bounds.gains?.[i] ?? 1), 0) : WATER_MAX_DISPLACEMENT;
+  return waves + (bounds.impulses?.reduce((sum, impulse) => sum + Math.abs(impulse.amplitude), 0) ?? 0);
+}
 const DEFAULT_BOUNDS: Readonly<WaterBounds> = { farZ: -1000, nearZ: WATER_NEAR_Z, waveCount: 4 };
+
+/** Four reused impulse slots; the world clock owns age and pause semantics. */
+export class WaterInteraction {
+  readonly impulses: WaterImpulse[] = Array.from({ length: WATER_IMPULSE_LIMITS.count }, () => ({ x: 0, z: 0, startedAt: -Infinity, amplitude: 0 }));
+  add(x: number, z: number, time: number, bounds: Readonly<WaterBounds>) {
+    if (!Number.isFinite(x + z + time) || z <= bounds.farZ || z >= bounds.nearZ || bounds.waveCount <= 0 || bounds.motionAllowed === false) return false;
+    let oldest = this.impulses[0];
+    for (const impulse of this.impulses) if (impulse.startedAt < oldest.startedAt) oldest = impulse;
+    oldest.x = x; oldest.z = z; oldest.startedAt = time; oldest.amplitude = WATER_IMPULSE_LIMITS.amplitude;
+    return true;
+  }
+  update(time: number, motionAllowed: boolean) {
+    for (const impulse of this.impulses) if (!motionAllowed || time < impulse.startedAt || time - impulse.startedAt >= WATER_IMPULSE_LIMITS.lifetime) impulse.amplitude = 0;
+  }
+  activeCount() { let count = 0; for (const impulse of this.impulses) if (impulse.amplitude > 0) count++; return count; }
+}
 
 /** Resolve the quality/layout contract once per frame into preallocated state. */
 export function updateWaterFrame(out: WaterFrame, simulationWaterPhase: number, quality: Quality, phone: boolean, motionAllowed: boolean) {
@@ -46,10 +68,22 @@ export function sampleWater(x: number, z: number, phase: number, out: WaterSampl
   for (let i = 0; i < waveCount; i++) {
     const wave = WATER_WAVES[i];
     const angle = x * wave.x + z * wave.z - phase * wave.speed + wave.phase;
-    const slope = Math.cos(angle) * wave.amplitude;
-    out.height += Math.sin(angle) * wave.amplitude;
+    const amplitude = wave.amplitude * (bounds.gains?.[i] ?? 1);
+    const slope = Math.cos(angle) * amplitude;
+    out.height += Math.sin(angle) * amplitude;
     out.slopeX += slope * wave.x;
     out.slopeZ += slope * wave.z;
+  }
+  if (bounds.motionAllowed !== false && bounds.impulses && bounds.time !== undefined) for (const impulse of bounds.impulses) {
+    const age = bounds.time - impulse.startedAt;
+    if (impulse.amplitude <= 0 || age < 0 || age >= WATER_IMPULSE_LIMITS.lifetime) continue;
+    const dx = x - impulse.x, dz = z - impulse.z, radius = Math.hypot(dx, dz);
+    const delta = radius - WATER_IMPULSE_LIMITS.speed * age;
+    const envelope = Math.exp(-delta * delta / (2 * WATER_IMPULSE_LIMITS.width ** 2)) * (1 - age / WATER_IMPULSE_LIMITS.lifetime) ** 2 * impulse.amplitude;
+    const angle = radius * WATER_IMPULSE_LIMITS.frequency - age * WATER_IMPULSE_LIMITS.speed * WATER_IMPULSE_LIMITS.frequency;
+    const slope = envelope * (Math.cos(angle) * WATER_IMPULSE_LIMITS.frequency - Math.sin(angle) * delta / WATER_IMPULSE_LIMITS.width ** 2);
+    out.height += Math.sin(angle) * envelope;
+    if (radius > .0001) { out.slopeX += slope * dx / radius; out.slopeZ += slope * dz / radius; }
   }
   const farWidth = Math.min(WATER_FAR_FADE_MAX, span * WATER_FAR_FADE_FRACTION);
   const nearWidth = Math.min(WATER_NEAR_FADE_MAX, span * WATER_NEAR_FADE_FRACTION);
@@ -74,7 +108,14 @@ export function sampleWaterHeight(x: number, z: number, phase: number, bounds: R
   let height = 0;
   for (let i = 0; i < Math.min(WATER_WAVES.length, bounds.waveCount); i++) {
     const wave = WATER_WAVES[i];
-    height += Math.sin(x * wave.x + z * wave.z - phase * wave.speed + wave.phase) * wave.amplitude;
+    height += Math.sin(x * wave.x + z * wave.z - phase * wave.speed + wave.phase) * wave.amplitude * (bounds.gains?.[i] ?? 1);
+  }
+  if (bounds.motionAllowed !== false && bounds.impulses && bounds.time !== undefined) for (const impulse of bounds.impulses) {
+    const age = bounds.time - impulse.startedAt;
+    if (impulse.amplitude <= 0 || age < 0 || age >= WATER_IMPULSE_LIMITS.lifetime) continue;
+    const radius = Math.hypot(x - impulse.x, z - impulse.z), delta = radius - WATER_IMPULSE_LIMITS.speed * age;
+    height += Math.sin(radius * WATER_IMPULSE_LIMITS.frequency - age * WATER_IMPULSE_LIMITS.speed * WATER_IMPULSE_LIMITS.frequency) *
+      Math.exp(-delta * delta / (2 * WATER_IMPULSE_LIMITS.width ** 2)) * (1 - age / WATER_IMPULSE_LIMITS.lifetime) ** 2 * impulse.amplitude;
   }
   const farT = Math.min(1, (z - bounds.farZ) / Math.min(WATER_FAR_FADE_MAX, span * WATER_FAR_FADE_FRACTION));
   const nearT = Math.min(1, (bounds.nearZ - z) / Math.min(WATER_NEAR_FADE_MAX, span * WATER_NEAR_FADE_FRACTION));

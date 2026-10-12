@@ -1,0 +1,7 @@
+/* Original paper-prop illustrations and isolated, opt-in instructional examples. */
+.spark-cracker-art{display:block;overflow:visible;flex-shrink:0;pointer-events:none;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 2px 3px #02070a45);}
+.spark-cracker-art-name{fill:var(--spark-cracker-neon,#ffdd85);stroke:#06121f;stroke-width:.45;stroke-linejoin:round;paint-order:stroke;filter:drop-shadow(0 0 .4px var(--spark-cracker-glow,#ffdd8570));}
+/* Use firecrackerAccentStyle(family) on the containing button or this name. */
+.spark-cracker-name{color:var(--spark-cracker-neon,#edf2f4);text-shadow:0 1px 1px #020812,0 0 3px var(--spark-cracker-glow,transparent);font-weight:500;}
+@media(forced-colors:active){.spark-cracker-name{color:ButtonText;text-shadow:none;}}
+.spark-guide-stage .spark-cracker-art{filter:none;}

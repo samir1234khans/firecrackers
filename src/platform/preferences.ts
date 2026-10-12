@@ -3,9 +3,9 @@ import { themeValue, endlessThemeValue, type ShowTheme, type EndlessTheme } from
 import { FAMILIES } from '../engine/catalog.js';
 import type { FamilyId, Quality, ShowPreset } from '../engine/catalog.js';
 export const STORAGE_KEY='firecrackers.preferences.v1';
-export type Preferences={version:4;finaleTheme:ShowTheme;endlessTheme:EndlessTheme;showMusic:boolean;musicVolume:number;cinematicExposure:boolean;cameraMotion:boolean;showProgress:boolean;headphones:boolean;adaptiveResolution:boolean;alwaysPace:AlwaysPace;family:FamilyId;quality:Quality|'auto';sound:boolean;volume:number;haptics:boolean;ambience:boolean;reducedMotion:boolean;reducedFlashes:boolean;onboarded:boolean;preset:ShowPreset;placement:number;placementMode:'fixed'|'random'};
+export type Preferences={effectsSound:boolean;crowdSound:boolean;ambientMusic:boolean;version:4;finaleTheme:ShowTheme;endlessTheme:EndlessTheme;showMusic:boolean;musicVolume:number;cinematicExposure:boolean;cameraMotion:boolean;showProgress:boolean;headphones:boolean;adaptiveResolution:boolean;alwaysPace:AlwaysPace;family:FamilyId;quality:Quality|'auto';sound:boolean;volume:number;haptics:boolean;ambience:boolean;reducedMotion:boolean;reducedFlashes:boolean;onboarded:boolean;preset:ShowPreset;placement:number;placementMode:'fixed'|'random'};
 export function defaults():Preferences {
-  return {version:4,finaleTheme:'prismatic',endlessTheme:'cycle',showMusic:false,musicVolume:.30,cinematicExposure:true,cameraMotion:false,showProgress:true,headphones:false,adaptiveResolution:true,alwaysPace:2,family:'gold-willow',quality:'ultra',sound:false,volume:0.45,haptics:false,ambience:false,
+  return {effectsSound:true,crowdSound:false,ambientMusic:false,version:4,finaleTheme:'prismatic',endlessTheme:'cycle',showMusic:false,musicVolume:.30,cinematicExposure:true,cameraMotion:false,showProgress:true,headphones:false,adaptiveResolution:true,alwaysPace:2,family:'gold-willow',quality:'ultra',sound:false,volume:0.45,haptics:false,ambience:false,
     reducedMotion:typeof matchMedia==='function' && matchMedia('(prefers-reduced-motion: reduce)').matches,
     reducedFlashes:true,onboarded:false,preset:'festival',placement:.5,placementMode:'fixed'};
 }
@@ -13,7 +13,7 @@ export function loadPreferences():Preferences {
   const safe=defaults();
   try {
     const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null'); if(!data || ![1,2,3,4].includes(data.version)) return safe;
-    for(const key of ['sound','haptics','ambience','reducedMotion','reducedFlashes','onboarded','showProgress','headphones','adaptiveResolution','cinematicExposure','cameraMotion'] as const) if(typeof data[key]==='boolean') safe[key]=data[key];
+    for(const key of ['effectsSound','crowdSound','ambientMusic','sound','haptics','ambience','reducedMotion','reducedFlashes','onboarded','showProgress','headphones','adaptiveResolution','cinematicExposure','cameraMotion'] as const) if(typeof data[key]==='boolean') safe[key]=data[key];
     if(FAMILIES.some(f=>f.id===data.family)) safe.family=data.family;
     if(['auto','low','standard','ultra'].includes(data.quality)) safe.quality=data.version===1&&data.quality==='auto'?'ultra':data.quality;
     safe.alwaysPace=paceValue(data.alwaysPace);

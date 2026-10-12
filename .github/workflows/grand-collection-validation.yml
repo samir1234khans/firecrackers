@@ -227,3 +227,39 @@ jobs:
             /tmp/panel-evidence
             /tmp/startup-evidence
           retention-days: 7
+
+  upstream-world:
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - name: Serve qualified build
+        run: |
+          npm run preview -- --port 4177 > /tmp/upstream-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4177/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Moving world, creative Studio and accessible controls
+        env:
+          UPSTREAM_CI: '1'
+          UPSTREAM_BACKENDS: webgl,canvas
+          UPSTREAM_URL: http://127.0.0.1:4177/
+          UPSTREAM_OUT: /tmp/upstream-world
+        run: npm run test:upstream-browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upstream-world-evidence
+          path: /tmp/upstream-world
+          retention-days: 7

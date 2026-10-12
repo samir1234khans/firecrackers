@@ -1,10 +1,14 @@
+import { restoreSkyView } from './SceneSession';
+import { emitSkyArt, skyTextPaths } from '../experience/SkyArt';
+import { CelebrationRun } from './CelebrationRun';
+import { SeaAudienceSession } from '../graphics/SeaAudienceSession';
+import { SEA_NEAR_BOATS } from '../graphics/SeaFleetState';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { measureStage } from './StageLayout';
 import type { StageLayout, StageRect } from './StageLayout';
 import type { FamilyId } from './catalog';
 import { Simulation } from './Simulation';
 import { AudioEngine } from './Audio';
-import { familyIndex } from './catalog';
 import { QualityGovernor } from './QualityGovernor';
 import { advanceVisibleFrame } from './VisibleFrame';
 import { PauseIntent } from '../platform/PauseIntent';
@@ -22,10 +26,10 @@ import { SceneCapture } from '../experience/SceneCapture';
 import type { CaptureSnapshot } from '../experience/SceneCapture';
 import { SessionDiagnostics } from '../experience/SessionDiagnostics';
 import { RenderBudget } from './RenderBudget';
-import { parseRecipe } from '../experience/ShowRecipe';
+import { parseRecipe, planRecipe } from '../experience/ShowRecipe';
 import type { ShowRecipe } from '../experience/ShowRecipe';
 import type { ShowTheme } from './CinematicDirector';
-export type DropTarget = { kind: 'burst'; point: [number, number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
+export type DropTarget = { kind: 'shore'; profile: import('./LaunchProfile').LaunchProfile } | { kind: 'burst'; point: [number, number, number]; compositionScale: number } | { kind: 'launch'; placement: number };
 const inside = (x: number, y: number, r: StageRect) =>
     x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
 /** DOM owns controls; one fixed simulation clock owns all fireworks and their sound events. */
@@ -36,6 +40,16 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     display.current = presentation;
     const [initial] = useState(() => new Simulation(presentation.seed));
     const sim = useRef(initial);
+    const sea = useRef(new SeaAudienceSession());
+    const lively = useRef<CelebrationRun | null>(null);
+    const pendingConductor = useRef<{ action:()=>void; clear:boolean } | null>(null);
+    const switchConductor = (action:()=>void,clear=false) => {
+        const state=sim.current, run=lively.current;
+        if(run?.claimed || (clear && (state.rockets.length>0 || state.heads.count>0 || state.trails.count>0 || state.smoke.count>0 || state.embers.count>0))){run?.setPaused(true);pendingConductor.current={action,clear};notice('Finishing the current sky before your show.');}
+        else {run?.cancel();action();}
+    };
+    const [boatView, setBoatView] = useState<number | null>(null);
+    const [launchDepth, setLaunchDepth] = useState<'near' | 'far'>('near');
     const audio = useRef<AudioEngine | null>(null);
     const renderer = useRef<RendererPort | null>(null);
     const skyRedraw = useRef<((reset?: boolean) => void) | null>(null);
@@ -63,7 +77,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     const syncPause = useCallback((resetSky = false) => {
         const paused = intent.current.paused;
         sim.current.setPaused(paused);
-        audio.current?.setSuspended(paused || document.hidden);
+        audio.current?.setSuspended(paused || document.hidden,!intent.current.userPaused&&!document.hidden&&status.current.ready&&!status.current.error);
         if (paused || document.hidden) {
             capture.current?.stop(document.hidden ? 'Recording finished when the page was hidden.' : 'Recording finished when the scene paused.');
             diagnostics.current?.pause();
@@ -92,6 +106,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         let graphics: RendererPort | null = null;
         let switchingGraphics = false;
         let runtimeReady = false;
+        let openingRequested = new URLSearchParams(location.search).get('opening') === '1';
         // Deterministic browser qualification exercises the real recovery path
         // without depending on the CI machine's GPU speed.
         let qaStallMs = 0;
@@ -131,10 +146,13 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         intent.current.block('hidden', document.hidden);
         const state = new Simulation(presentation.seed);
         sim.current = state;
+        state.artProjection = (x,y) => { const rect=host.current!.getBoundingClientRect(); return renderer.current?.projectBurst(rect.x+x*rect.width,rect.y+y*rect.height) ?? null; };
         state.setLaunchProfileResolver((id, placement) => renderer.current?.resolveLaunchProfile(id, placement));
         state.always.setPace(display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace);
         state.setShowThemes(display.current.mode === 'interactive' ? prefs.current.finaleTheme : display.current.theme ?? prefs.current.finaleTheme,
             display.current.mode === 'interactive' ? prefs.current.endlessTheme : display.current.theme ?? prefs.current.endlessTheme);
+        lively.current = new CelebrationRun(state, (id, placement) => renderer.current!.resolveLaunchProfile(id, placement), notice);
+        state.sceneDirector = { tick: () => lively.current?.tick() };
         state.selected = prefs.current.family;
         state.setPlacement(prefs.current.placement);
         state.setPlacementMode(prefs.current.placementMode);
@@ -147,7 +165,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         state.setPaused(intent.current.paused);
         const sound = new AudioEngine(notice);
         audio.current = sound;
+        sound.setEffectsSound(prefs.current.effectsSound);
         sound.setHeadphones(prefs.current.headphones);
+        sound.setAmbientMusic(prefs.current.ambientMusic);
         sound.setMusicOptions(prefs.current.showMusic, prefs.current.musicVolume);
         sound.setSuspended(intent.current.paused || document.hidden);
         let startupPending = true;
@@ -234,6 +254,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     try {
                         const module = await import('./Renderer');
                         replacement = new module.FireworkRenderer(target, state, fail, true);
+                        replacement.setSeaSession?.(sea.current);
                         replacement.setDisplay(display.current.mode);
                         publishSky(false, replacement);
                         await withDeadline(replacement.init(), startup.signal, 10000);
@@ -244,7 +265,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                 }
                 if (!replacement) {
                     replacement = new CompatibilityRenderer(target, state);
-                    replacement.setDisplay(display.current.mode);
+                    replacement.setSeaSession?.(sea.current);
+                        replacement.setDisplay(display.current.mode);
                     publishSky(false, replacement);
                     await replacement.init();
                 }
@@ -287,15 +309,26 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             const elapsed = last ? (now - last) / 1000 : 0;
             last = now;
             if (!document.hidden && !state.paused && !captureFrozen) {
+                if (openingRequested && runtimeReady && !graphics?.readiness().pending) {
+                    openingRequested=false; const url=new URL(location.href);url.searchParams.delete('opening');history.replaceState(null,'',url);
+                    emitSkyArt(state,skyTextPaths('FIRECRACKERS'));
+                    if(!state.reducedMotion) lively.current?.start(lively.current.starter(0));
+                }
                 advanceVisibleFrame(state, elapsed);
-                sound.consume(state.drainEvents(), state.width);
+                const pending=pendingConductor.current;
+                if(pending&&!lively.current?.claimed&&(!pending.clear||(!state.rockets.length&&!state.heads.count&&!state.trails.count&&!state.smoke.count&&!state.embers.count))){pendingConductor.current=null;lively.current?.cancel();pending.action();}
+                const events = state.drainEvents();
+                sea.current.ingest(events, state.time);
+                sound.consume(events, state.width);
+                if (prefs.current.crowdSound && !state.reducedMotion) sound.consumeAudience(sea.current.audience.drainCues(), sea.current.poses, state.width);
+                else sea.current.audience.drainCues();
                 sound.updateMusic(state.show, state.cinematic, state.time);
                 publishSky();
                 const targetFps = display.current.fps === 30 || state.quality === 'low' || graphics?.backend.startsWith('Canvas') ? 30 : 60;
                 // Firework activity, recovery and quality measurement keep their original
                 // cadence. Decorative idle frames have a separate bounded schedule.
                 const visualState = `${state.selected}:${state.placement}:${state.quality}:${state.reducedFlashes}:${display.current.mode}:${state.rearming}:${Boolean(state.committed)}`;
-                const moving = state.holding || state.heads.count > 0 || state.trails.count > 0 ||
+                const moving = (display.current.mode !== 'transparent' && !state.reducedMotion) || state.holding || state.heads.count > 0 || state.trails.count > 0 ||
                     state.smoke.count > 0 || state.embers.count > 0 || state.cues.length > 0 ||
                     state.lights.length > 0 || state.rockets.some(rocket => rocket.stage !== 'afterglow');
                 const fireworkDue = !lastRender || visualState !== previousVisualState ||
@@ -422,6 +455,10 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             if (!host.current) return;
             stageLayout = measureStage(host.current, display.current.mode === 'interactive');
             graphics?.setLayout(stageLayout);
+            const base = host.current.getBoundingClientRect();
+            const surfaces = Array.from(host.current.parentElement?.querySelectorAll<HTMLElement>('[data-world-glass]') ?? []).filter(e => !e.closest('[inert]') && e.offsetWidth > 0).slice(0, 4).map(e => { const r = e.getBoundingClientRect(); return { x: r.x - base.x, y: r.y - base.y, width: r.width, height: r.height, radius: 22 }; });
+            graphics?.setMoonObstructions?.(surfaces);
+            graphics?.setGlassSurfaces?.(surfaces, !host.current.parentElement?.dataset.immersive?.includes('true'));
             cacheHorizon();
             if (stageLayout.panelOpen || host.current.parentElement?.dataset.dragActive === 'true') releaseSky();
             skyDirty = true;
@@ -462,7 +499,19 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             if (point) sky.target(...point);
             else if (event.isPrimary) releaseSky();
         };
+        let tapStart: { id: number; x: number; y: number; at: number } | null = null;
+        const observeTap = (event: PointerEvent) => {
+            if (event.isPrimary && !blockedPointer(event) && !state.paused) tapStart = { id: event.pointerId, x: event.clientX, y: event.clientY, at: performance.now() };
+        };
+        stage?.addEventListener('pointerdown', observeTap, { passive: true });
         const onSkyPointerEnd = (event: PointerEvent) => {
+            const tap = tapStart; tapStart = null;
+            if (!captureFrozen && event.type === 'pointerup' && tap && tap.id === event.pointerId && performance.now() - tap.at < 450 && Math.hypot(event.clientX - tap.x, event.clientY - tap.y) < 8 && !blockedPointer(event) && !state.paused && !state.reducedMotion) {
+                const rect = host.current!.getBoundingClientRect(), x = event.clientX - rect.x, y = event.clientY - rect.y;
+                const moon = graphics?.startupMoon();
+                const kind = moon && Math.hypot(x - moon.x, y - moon.y) <= Math.max(22, moon.radius) ? 'moon' : y > skyHorizon * rect.height ? 'water' : 'sky';
+                graphics?.environmentTap?.(kind, x, y); skyDirty = true;
+            }
             if (!captureFrozen && event.pointerId === contactId) releaseSky();
         };
         const onSkyPointerLeave = () => { if (!captureFrozen) releaseSky(); };
@@ -488,6 +537,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             const preferred = new URLSearchParams(location.search).get('backend');
             const begin = async (candidate: RendererPort) => {
                 setStartupState(preparation.graphics(1, `Starting ${candidate.backend}`));
+                candidate.setSeaSession?.(sea.current);
                 graphics = candidate;
                 renderer.current = candidate;
                 candidate.setDisplay(display.current.mode);
@@ -549,7 +599,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                     __firecrackersQA?: unknown;
                 };
                 target.__firecrackersQA = {
-                    snapshot: () => ({ ...state.snapshot(), recoveryHistory: [...recoveryHistory], startup: preparation.snapshot, backend: graphics?.backend, ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), resolutionScale: budget.scale, capture: { recording: recorder.snapshot.recording, seconds: recorder.snapshot.seconds, error: recorder.snapshot.error }, diagnosticsActive: session.active, qaStallSamplesUsed, qaStallSamplesRemaining,
+                    snapshot: () => ({ ...state.snapshot(), recoveryHistory: [...recoveryHistory], startup: preparation.snapshot, backend: graphics?.backend, lively: lively.current?.snapshot(), ...graphics?.metrics, ...graphics?.diagnostics(), ...sound.diagnostics(), resolutionScale: budget.scale, capture: { recording: recorder.snapshot.recording, seconds: recorder.snapshot.seconds, error: recorder.snapshot.error }, diagnosticsActive: session.active, qaStallSamplesUsed, qaStallSamplesRemaining,
                         skyState: { ...sky.state }, skyAmbientCadence: skyCadence(state.quality, graphics?.backend || '', sky.responding, sky.state.motionAllowed),
                         skyResponding: sky.responding, skyAmbientFrames, skyResponseFrames, skyOneOffFrames, skyLastRenderedTime, skyFrozen: captureFrozen }),
                     injectOverloadSamples: (count: number, milliseconds: number) => {
@@ -571,9 +621,9 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
                             return;
                         const paused = state.paused;
                         state.setPaused(false);
-                        for (let i = 0; i < Math.ceil(seconds * 60); i++)
-                            state.advance(1 / 60);
-                        state.drainEvents();
+                        for (let i = 0; i < Math.ceil(seconds * 60); i++) {
+                            state.advance(1 / 60); sea.current.ingest(state.drainEvents(),state.time);
+                        }
                         state.setPaused(paused);
                         publishSky(false);
                         presented();
@@ -605,6 +655,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
             bounds?.disconnect();
             layoutChanges.disconnect();
             stage?.removeEventListener('pointerdown', onSkyPointerDown);
+            stage?.removeEventListener('pointerdown', observeTap);
             stage?.removeEventListener('pointermove', onSkyPointerMove);
             stage?.removeEventListener('pointerleave', onSkyPointerLeave);
             window.removeEventListener('pointerup', onSkyPointerEnd);
@@ -643,10 +694,12 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         audio.current?.setHeadphones(preferences.headphones);
         if (!preferences.adaptiveResolution) { renderer.current?.setResolutionScale?.(1); setResolutionScale(1); }
         audio.current?.setMusicOptions(preferences.showMusic, preferences.musicVolume);
+        audio.current?.setAmbientMusic(preferences.ambientMusic);
+        audio.current?.setEffectsSound(preferences.effectsSound);
         sim.current.setShowThemes(display.current.mode === 'interactive' ? preferences.finaleTheme : display.current.theme ?? preferences.finaleTheme,
             display.current.mode === 'interactive' ? preferences.endlessTheme : display.current.theme ?? preferences.endlessTheme);
         skyRedraw.current?.();
-    }, [preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience, preferences.headphones, preferences.adaptiveResolution, preferences.cinematicExposure, preferences.cameraMotion, preferences.showMusic, preferences.musicVolume, preferences.finaleTheme, preferences.endlessTheme]);
+    }, [preferences.effectsSound, preferences.ambientMusic, preferences.quality, preferences.reducedFlashes, preferences.reducedMotion, preferences.volume, preferences.haptics, preferences.ambience, preferences.headphones, preferences.adaptiveResolution, preferences.cinematicExposure, preferences.cameraMotion, preferences.showMusic, preferences.musicVolume, preferences.finaleTheme, preferences.endlessTheme]);
     useEffect(() => {
         sim.current.protectCenter = presentation.protect;
         sim.current.safeRect = [...presentation.safeRect];
@@ -686,14 +739,14 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         intent.current.setManual(false);
         if (preset === 'always') sim.current.always.setPace(pace ?? (display.current.mode === 'interactive' ? prefs.current.alwaysPace : display.current.pace));
         sim.current.setShowThemes(theme ?? (display.current.mode === 'interactive' ? prefs.current.finaleTheme : display.current.theme ?? prefs.current.finaleTheme), theme ?? (display.current.mode === 'interactive' ? prefs.current.endlessTheme : display.current.theme ?? prefs.current.endlessTheme));
-        sim.current.startShow(preset);
+        switchConductor(()=>sim.current.startShow(preset));
         syncPause();
     };
     // Configuration changes do not take ownership of the user's explicit pause.
     const setShowMode = (preset: ShowPreset | null) => {
-        if (!status.current.ready || status.current.error || (sim.current.show === preset && !['playing','falling'].includes(sim.current.personal.status))) return;
-        if (preset) sim.current.startShow(preset);
-        else sim.current.stopShow();
+        if (!status.current.ready || status.current.error || (sim.current.show === preset && !lively.current?.playing && !['playing','falling'].includes(sim.current.personal.status))) return;
+        if (preset) switchConductor(()=>sim.current.startShow(preset));
+        else {pendingConductor.current=null;lively.current?.cancel();sim.current.stopShow();}
         syncPause();
     };
     const setPlacement = (value: number) => {
@@ -709,13 +762,16 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     };
     const ignite = () => {
         if (status.current.ready && !status.current.error) {
-            sim.current.ignite('manual', familyIndex(sim.current.selected));
-            refresh();
+            igniteFamily(sim.current.selected);
         }
     };
     const igniteFamily = (id: FamilyId) => {
         if (!status.current.ready || status.current.error) return false;
-        const admitted = sim.current.igniteFamily(id);
+        restoreSkyView(renderer.current,sea.current); setBoatView(null);
+        const graphics = renderer.current;
+        const profile = launchDepth === 'far' ? graphics?.resolveShoreLaunch?.(id, sim.current.placement, Number(graphics?.diagnostics().skyHorizon ?? graphics?.diagnostics().waterline ?? .5) - .01) : null;
+        if (lively.current?.playing && !lively.current.canAdmitManual(id)) return false;
+        const admitted = launchDepth === 'far' ? Boolean(profile && sim.current.igniteAtProfile(id, profile)) : sim.current.igniteFamily(id);
         refresh();
         return admitted;
     };
@@ -724,6 +780,7 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         diagnostics.current?.pause();
         audio.current?.cancelScheduled();
         intent.current.setManual(false);
+        pendingConductor.current=null; lively.current?.cancel(); sea.current.resetReactions();
         sim.current.reset();
         sim.current.protectCenter = display.current.protect;
         sim.current.safeRect = [...display.current.safeRect];
@@ -741,6 +798,8 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         const localX = x - layout.viewport.x, localY = y - layout.viewport.y;
         if (localX < 0 || localY < 0 || localX > layout.viewport.width || localY > layout.viewport.height) return null;
         if (Object.values(layout.controls).some(control => inside(localX, localY, control))) return null;
+        const shore = graphics.resolveShoreLaunch?.(id ?? sim.current.selected, localX / layout.viewport.width, localY / layout.viewport.height);
+        if (shore) return { kind: 'shore', profile: shore };
         if (inside(localX, localY, layout.burstCanopy)) {
             const point = graphics.projectBurst(x, y, id);
             const compositionScale = point ? graphics.burstCompositionScale(id ?? sim.current.selected, point) : 0;
@@ -753,9 +812,11 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         return null;
     };
     const drop = (id: FamilyId, x: number, y: number) => {
+        if(lively.current?.playing&&!lively.current.canAdmitManual(id))return false;
         const target = dropTarget(x, y, id);
         if (!target || !status.current.ready || status.current.error) return false;
-        const admitted = target.kind === 'burst'
+        restoreSkyView(renderer.current,sea.current); setBoatView(null);
+        const admitted = target.kind === 'shore' ? sim.current.igniteAtProfile(id, target.profile) : target.kind === 'burst'
             ? sim.current.burstAt(id, target.point[0], target.point[1], target.compositionScale, target.point[2])
             : sim.current.igniteFamily(id, target.placement);
         refresh(); return admitted;
@@ -767,14 +828,15 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
         try {
             const recipe = parseRecipe(input);
             const profiles = recipe.cues.map(cue => renderer.current?.resolveLaunchProfile(cue.family, cue.position));
+            const plan=planRecipe(recipe,profiles);if(plan.conflicts.length)return plan.conflicts[0];
             // Preflight occurs inside start before any reset; an invalid recipe leaves the current night alone.
-            sim.current.personal.start(recipe, profiles);
+            switchConductor(()=>{sim.current.personal.start(recipe, profiles);sea.current.resetReactions();setBoatView(null);},true);
             capture.current?.stop('Recording finished before starting a new night.');
             audio.current?.cancelScheduled(); diagnostics.current?.pause();
             intent.current.setManual(false); syncPause(true);
         } catch (error) { return error instanceof Error ? error.message : 'This show could not start.'; }
     };
-    const stopRecipe = () => { sim.current.stopShow(); audio.current?.cancelScheduled(); refresh(); };
+    const stopRecipe = () => { pendingConductor.current=null; lively.current?.cancel(); sim.current.stopShow(); audio.current?.cancelScheduled(); refresh(); };
     const takePhoto = async () => {
         const canvas = host.current?.querySelector('canvas');
         if (!canvas || !capture.current || !renderer.current) throw new Error('The scene is not ready for capture.');
@@ -788,9 +850,19 @@ export function useWorld(host: React.RefObject<HTMLDivElement | null>, preferenc
     };
     const startDiagnostics = () => { diagnostics.current?.start(); setDiagnosticsActive(true); };
     const stopDiagnostics = () => { diagnostics.current?.stop(); setDiagnosticsActive(false); };
-    const continueStartup = () => { startupControl.current.continue(); updateStartupRef.current?.(); };
+    const continueStartup = () => { const complete=()=>{startupControl.current.continue();updateStartupRef.current?.();}; const warm=renderer.current?.warmAvailableDetail?.(); if(warm)void warm.then(complete).catch(()=>notice('Available graphics could not prepare. Try compatibility graphics.'));else complete(); };
+    const toggleLively = () => {
+        const run = lively.current; if (!run || !status.current.ready || status.current.error) return;
+        if(sim.current.reducedMotion){notice('Continuous choreography is off in reduced-motion mode. Individual fireworks remain available.');return;}
+        if (run.playing) { run.setPaused(!run.snapshot().paused); }
+        else { sim.current.stopShow(false); sim.current.sceneDirector = { tick: () => run.tick() }; run.start(run.starter(3)); }
+        refresh();
+    };
+    const livelyCadence = (pace: number) => { lively.current?.setCadence(pace); refresh(); };
+    const canLaunchFamily = (id: FamilyId) => sim.current.canLaunchFamily(id)&&(!lively.current?.playing||lively.current.canAdmitManual(id));
+    const watchBoat = (index: number | null) => { sea.current.setFocus(index); setBoatView(sea.current.focus); renderer.current?.render(); refresh(); };
     const startupMoon = () => renderer.current?.startupMoon() ?? null;
-    return { sim, capture: captureState, takePhoto, startClip, stopClip: () => capture.current?.stop(),
+    return { canLaunchFamily, lively: lively.current?.snapshot(), toggleLively, livelyCadence, sea, boatView, watchBoat, nearBoats: SEA_NEAR_BOATS, launchDepth, setLaunchDepth, sim, capture: captureState, takePhoto, startClip, stopClip: () => capture.current?.stop(),
         downloadCapture: () => capture.current?.download(), shareCapture: () => capture.current?.share(),
         discardCapture: () => { capture.current?.discard(); if (capture.current) setCaptureState({ ...capture.current.snapshot }); },
         resolutionScale, diagnosticsActive, startDiagnostics, stopDiagnostics, downloadDiagnostics: () => diagnostics.current?.download(),

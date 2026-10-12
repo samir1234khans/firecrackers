@@ -7,7 +7,7 @@ import type { LaunchPropComposition } from './LaunchComposition.js';
 import { burstDepth, LEGACY_ENVELOPES, LEGACY_FINALE_SPREAD } from './LegacyRealism.js';
 
 export type LaunchProfile = { apex: number; apexMin: number; apexMax: number; centerFraction: number; effectScale?: number;
-  burstDepth?: number; aimMinX?: number; aimMaxX?: number;
+  burstDepth?: number; originDepth?: number; aimMinX?: number; aimMaxX?: number;
   /** Maximum world-space travel of the smaller finale carriers. */
   finaleSpread?: number;
   prop?: LaunchPropComposition; padX?: number; ground?: number; aimX?: number; normalizedPlacement?: number };

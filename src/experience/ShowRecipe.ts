@@ -1,3 +1,5 @@
+import { validateSkyText, validateLightStrokes } from './SkyArt.js';
+import type { LightStroke } from './SkyArt.js';
 import { CONFIG_VERSION, FAMILIES, BUDGETS, familyReservation } from '../engine/catalog.js';
 import type { FamilyId } from '../engine/catalog.js';
 import type { LaunchProfile } from '../engine/LaunchProfile.js';
@@ -7,8 +9,8 @@ import { FLIGHT_GRAVITY } from '../engine/LaunchGeometry.js';
 export const RECIPE_LIMITS = Object.freeze({ cues: 12, bytes: 12000, link: 8192, saved: 20, history: 25 });
 export const PHASES = ['Opening', 'Build-up', 'Finale'] as const;
 export type ShowPhase = typeof PHASES[number];
-export type ShowCue = { family: FamilyId; position: number; gap: number; phase: ShowPhase };
-export type ShowRecipe = { schema: 1; engine: string; name: string; seed: number; kind: 'cues' | 'finale'; theme?: ShowTheme; cues: ShowCue[] };
+export type ShowCue = { family: FamilyId; position: number; gap: number; phase: ShowPhase; type?: 'launch' | 'group' | 'text' | 'drawing'; group?: FamilyId[]; text?: string; strokes?: LightStroke[] };
+export type ShowRecipe = { schema: 1 | 2; engine: string; name: string; seed: number; kind: 'cues' | 'finale'; theme?: ShowTheme; cues: ShowCue[] };
 const familySet = new Set<string>(FAMILIES.map(f => f.id));
 const ownKeys = (v: object, allowed: readonly string[]) => Object.keys(v).every(k => allowed.includes(k));
 const record = (v: unknown): v is Record<string, unknown> => Boolean(v) && typeof v === 'object' && !Array.isArray(v);
@@ -16,9 +18,10 @@ const number = (v: unknown, low: number, high: number): v is number => typeof v 
 /** A whitelist parser, never a settings merge. Imported data cannot change user comfort or fetch assets. */
 export function inspectRecipe(input: string | unknown): ShowRecipe {
   if (typeof input === 'string' && new TextEncoder().encode(input).length > RECIPE_LIMITS.bytes) throw new Error('This show file is too large. Maximum 12 KB.');
+  if(typeof input!=='string' && new TextEncoder().encode(JSON.stringify(input)).length>RECIPE_LIMITS.bytes)throw new Error('This show file is too large. Maximum 12 KB.');
   let value: unknown;
   try { value = typeof input === 'string' ? JSON.parse(input) : input; } catch { throw new Error('This is not a valid show file.'); }
-  if (!record(value) || !ownKeys(value, ['schema','engine','name','seed','kind','cues','theme']) || value.schema !== 1) throw new Error('Unsupported show recipe format.');
+  if (!record(value) || !ownKeys(value, ['schema','engine','name','seed','kind','cues','theme']) || ![1,2].includes(Number(value.schema))) throw new Error('Unsupported show recipe format.');
   if (typeof value.engine !== 'string' || !/^[0-9]{4}-[0-9]{2}-[0-9]{2}\.[0-9]{1,4}$/.test(value.engine)) throw new Error('Invalid show engine version.');
   if (typeof value.name !== 'string' || !value.name.trim() || value.name.length > 60 || /[\u0000-\u001f\u007f]/.test(value.name)) throw new Error('Give the show a name of 1–60 readable characters.');
   if (!number(value.seed, 0, 0xffffffff) || !Number.isInteger(value.seed)) throw new Error('The show seed must be an unsigned 32-bit integer.');
@@ -27,14 +30,27 @@ export function inspectRecipe(input: string | unknown): ShowRecipe {
   if (value.theme !== undefined && (value.kind !== 'finale' || !SHOW_THEMES.includes(value.theme as ShowTheme))) throw new Error('Invalid show theme.');
   let phase = -1;
   const cues = value.cues.map((c: unknown): ShowCue => {
-    if (!record(c) || !ownKeys(c,['family','position','gap','phase']) || typeof c.family !== 'string' || !familySet.has(c.family)) throw new Error('A cue names an unknown firework.');
+    if (!record(c) || !ownKeys(c,value.schema===1?['family','position','gap','phase']:['family','position','gap','phase','type','group','text','strokes']) || typeof c.family !== 'string' || !familySet.has(c.family)) throw new Error('A cue names an unknown firework.');
     if (!number(c.position,0,1) || !number(c.gap,0,30) || !PHASES.includes(c.phase as ShowPhase)) throw new Error('A cue has an invalid position, gap or phase.');
     const next = PHASES.indexOf(c.phase as ShowPhase);
     if (next < phase) throw new Error('Keep Opening, Build-up and Finale in that order.');
     phase = next;
-    return {family:c.family as FamilyId, position:c.position, gap:Math.round(c.gap*10)/10, phase:c.phase as ShowPhase};
+    const extra: Partial<ShowCue> = {};
+    if(value.schema===2 && c.type!==undefined){
+      if(!['launch','group','text','drawing'].includes(String(c.type))) throw new Error('Unknown creative cue type.');
+      extra.type=c.type as ShowCue['type'];
+      if(c.type==='text')extra.text=validateSkyText(c.text);
+      else if(c.text!==undefined)throw new Error('Lettering belongs only to a text cue.');
+      if(c.type==='drawing')extra.strokes=validateLightStrokes(c.strokes);
+      else if(c.strokes!==undefined)throw new Error('Strokes belong only to a drawing cue.');
+      if(c.type==='group'){
+        if(!Array.isArray(c.group)||c.group.length<2||c.group.length>5||c.group.some(f=>typeof f!=='string'||!familySet.has(f)))throw new Error('A group needs two to five known effects.');
+        extra.group=c.group as FamilyId[];
+      }else if(c.group!==undefined)throw new Error('Group effects belong only to a group cue.');
+    }else if(['text','strokes','group'].some(key=>c[key]!==undefined))throw new Error('Creative payload needs a cue type.');
+    return {family:c.family as FamilyId, position:c.position, gap:Math.round(c.gap*10)/10, phase:c.phase as ShowPhase,...extra};
   });
-  return {schema:1,engine:value.engine,name:value.name.trim(),seed:value.seed,kind:value.kind as ShowRecipe['kind'],cues,...(value.theme !== undefined ? {theme:value.theme as ShowTheme} : {})};
+  return {schema:value.schema as 1|2,engine:value.engine,name:value.name.trim(),seed:value.seed,kind:value.kind as ShowRecipe['kind'],cues,...(value.theme !== undefined ? {theme:value.theme as ShowTheme} : {})};
 }
 /** Strict playback/import contract: preserving data is not a compatibility claim. */
 export function parseRecipe(input: string | unknown): ShowRecipe {
@@ -78,6 +94,8 @@ export function planRecipe(recipe: ShowRecipe, profiles?: readonly (LaunchProfil
   let at=0;
   const cues=recipe.cues.map((cue,i): PlannedCue => {
     at += cue.gap;
+    if(cue.type==='text'||cue.type==='drawing')return {...cue,at,flight:0,reserve:0,until:at+8};
+    if(cue.type==='group')return {...cue,at,flight:12,reserve:Math.max(...cue.group!.map(id=>familyReservation(FAMILIES.findIndex(f=>f.id===id)))),until:at+75};
     const f=FAMILIES.findIndex(f=>f.id===cue.family), family=FAMILIES[f], profile=profiles?.[i];
     const ground=profile?.ground ?? 16, top=Math.max(ground+10, profile?.apexMax ?? 78);
     const fraction=f>=10?[.28,.22,.31][f-10]:.24;
@@ -88,7 +106,7 @@ export function planRecipe(recipe: ShowRecipe, profiles?: readonly (LaunchProfil
   const conflicts:string[]=[];
   for(let i=0;i<cues.length;i++) {
     const cue=cues[i], occupied=cues.slice(0,i).filter(c=>c.until>cue.at);
-    const units=FAMILIES.find(f=>f.id===cue.family)!.cost+occupied.filter(c=>c.at+c.flight>cue.at).reduce((n,c)=>n+FAMILIES.find(f=>f.id===c.family)!.cost,0);
+    const units=(cue.type==='text'||cue.type==='drawing'?0:cue.type==='group'?3:FAMILIES.find(f=>f.id===cue.family)!.cost)+occupied.filter(c=>c.at+c.flight>cue.at).reduce((n,c)=>n+FAMILIES.find(f=>f.id===c.family)!.cost,0);
     if(units>BUDGETS.low.units) conflicts.push(`Cue ${i+1}: earlier rockets are still in flight. Increase its gap.`);
     if(occupied.reduce((n,c)=>n+c.reserve,0)+cue.reserve>3072) conflicts.push(`Cue ${i+1}: leave more room for the preceding shells and their secondary breaks.`);
     if(i && cue.gap<3) conflicts.push(`Cue ${i+1}: use at least a 3-second gap to preserve the reduced-flash launch spacing.`);

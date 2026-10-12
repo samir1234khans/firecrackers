@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef } from 'react';
+import { nearestSheetStop, sheetStops } from './SheetModel';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { X } from 'lucide-react';
 
@@ -19,6 +20,9 @@ const FOCUSABLES = 'button, a[href], input, select, textarea, summary, [tabindex
 /** Native inert/Escape behavior, with an explicit Tab boundary for browser chrome. */
 export function Dialog({ title, children, onClose, description, navigation, returnFocus, initialFocusId, variant = 'settings', dragging = false }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
+  const [sheetHeight,setSheetHeight]=useState<number|null>(null);
+  const skipHandleClick=useRef(false);
+  const gesture=useRef<{id:number;y:number;height:number;at:number}|null>(null);
   const close = useRef(onClose);
   const returnTarget = useRef(returnFocus);
   const titleId = useId();
@@ -46,6 +50,8 @@ export function Dialog({ title, children, onClose, description, navigation, retu
   }, []);
   return <dialog
     ref={ref}
+    data-world-glass
+    style={sheetHeight===null?undefined:{height:sheetHeight,maxHeight:'calc(100dvh - 24px)'}}
     className={`sheet edge-panel sheet--${variant}${dragging ? ' is-dragging' : ''}`}
     aria-labelledby={titleId}
     aria-describedby={description ? descriptionId : undefined}
@@ -84,6 +90,11 @@ export function Dialog({ title, children, onClose, description, navigation, retu
       if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) onClose();
     }}
   >
+    <button className="sheet-drag-handle" type="button" aria-label="Resize panel" onClick={()=>{if(skipHandleClick.current){skipHandleClick.current=false;return;}const stops=sheetStops(innerHeight,innerWidth);setSheetHeight(h=>h===stops.work?stops.peek:stops.work);}}
+      onPointerDown={e=>{if(innerWidth>700||!e.isPrimary)return;const r=ref.current!.getBoundingClientRect();gesture.current={id:e.pointerId,y:e.clientY,height:r.height,at:performance.now()};e.currentTarget.setPointerCapture(e.pointerId);}}
+      onPointerMove={e=>{const g=gesture.current;if(!g||g.id!==e.pointerId)return;if(Math.abs(e.clientY-g.y)>8)skipHandleClick.current=true;setSheetHeight(Math.max(72,Math.min(innerHeight-24,g.height+g.y-e.clientY)));}}
+      onPointerUp={e=>{const g=gesture.current;gesture.current=null;if(!g||g.id!==e.pointerId||Math.abs(e.clientY-g.y)<8)return;const stops=sheetStops(innerHeight,innerWidth),visible=Math.max(44,g.height+g.y-e.clientY),stop=nearestSheetStop(visible,(e.clientY-g.y)/Math.max(1,performance.now()-g.at),stops);if(stop==='closed')onClose();else setSheetHeight(stops[stop]);}}
+      onPointerCancel={()=>{gesture.current=null;setSheetHeight(null);}}><span aria-hidden="true"/></button>
     <header className='sheet-heading panel-header'>
       <div className='panel-heading-copy'>
         <h2 className='panel-title' id={titleId}>{title}</h2>

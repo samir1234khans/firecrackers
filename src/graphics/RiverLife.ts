@@ -3,6 +3,8 @@ import type { WaterFrame } from './WaterWaves';
 import * as THREE from 'three/webgpu';
 import type { Simulation } from '../engine/Simulation';
 import { randomStream } from '../engine/catalog';
+import { SeaFleet } from './SeaFleet';
+import type { SeaAudienceSession } from './SeaAudienceSession';
 
 type BoatPlacement = { object: THREE.Object3D; x: number; z: number; scale: number; yaw: number; phase: number; foreground?: boolean;
   sampledHeight?: number; sampledPitch?: number; sampledRoll?: number; contactError?: number };
@@ -61,8 +63,11 @@ export class RiverLife {
   private lastWaterFrame = this.ownWaterFrame;
   private readonly fallbackGeometries = new Set<THREE.BufferGeometry>();
   private readonly fallbackMaterials = new Set<THREE.Material>();
+  private readonly sea?: SeaFleet;
+  setSeaSession(session: SeaAudienceSession) { this.sea?.setSession(session); }
 
-  constructor() {
+  constructor(sparkSea = false) {
+    if (sparkSea) { this.sea = new SeaFleet(); this.group.add(this.sea.group); }
     this.group.name = 'Quiet river boats, distant homes and practical reflections';
     this.fallback.name = 'Independent procedural river fallback';
     this.group.add(this.fallback);
@@ -233,6 +238,7 @@ export class RiverLife {
       object.material = Array.isArray(object.material) ? object.material.map(isolateHaze) : isolateHaze(object.material);
     });
     this.group.add(source); this.village = village; this.authored = true;
+    this.sea?.adopt(source);
     this.disableReflectionMeshes(source);
     this.boats = [{ object: boatA, x: -48, z: -115, scale: 3.5, yaw: .18, phase: 0 },
       { object: boatB, x: 62, z: -165, scale: 3.2, yaw: -.26, phase: 2.3 },
@@ -245,6 +251,7 @@ export class RiverLife {
 
   resize(phone: boolean) {
     this.phone = phone;
+    this.sea?.resize(phone);
     for (const boat of this.boats) {
       boat.object.position.set(phone ? boat.foreground ? -34 : boat.x * .62 : boat.x, WATER_Y, boat.z);
       boat.object.scale.setScalar(phone && boat.foreground ? 3.1 : boat.scale);
@@ -268,6 +275,7 @@ export class RiverLife {
     const frame = waterFrame ?? updateWaterFrame(this.ownWaterFrame, sim.waterPhase, sim.quality, this.phone, moving);
     this.lastWaterFrame = frame;
     const time = frame.phase; this.lastTime = time;
+    this.sea?.update(sim, frame, visible);
     for (const boat of this.boats) {
       const x = boat.object.position.x, z = boat.object.position.z, scale = boat.object.scale.x;
       const halfLength = (boat.foreground ? 4.75 : 2.75) * scale, halfBeam = (boat.foreground ? 1.5 : .875) * scale;
@@ -283,6 +291,7 @@ export class RiverLife {
       const acrossSlope = (this.hullSamples[2].height - this.hullSamples[3].height) / (halfBeam * 2);
       const steadiness = boat.foreground ? .72 : 1;
       boat.object.position.y = WATER_Y + height;
+      if (this.sea) boat.object.visible = false;
       // Local X is the hull's longitudinal axis. Euler YXZ keeps yaw fixed:
       // positive local pitch around Z raises the bow, negative X raises port.
       boat.object.rotation.set(-Math.atan(acrossSlope) * steadiness, boat.yaw, Math.atan(alongSlope) * steadiness, 'YXZ');
@@ -329,6 +338,7 @@ export class RiverLife {
       }
     }
     this.waterContact.count = contacts; this.waterContact.instanceMatrix.needsUpdate = true;
+    if (this.sea) this.waterContact.visible = false;
     if (this.waterContact.instanceColor) this.waterContact.instanceColor.needsUpdate = true;
     this.candleCenter.set(0, 0, 0);
     for (let i = 0; i < this.candles.length; i++) {
@@ -343,9 +353,14 @@ export class RiverLife {
     if (this.candles.length) this.candleCenter.multiplyScalar(1 / this.candles.length);
     this.candleLight.position.copy(this.candleCenter);
     this.candleLight.intensity = (sim.reducedFlashes ? 10 : 13) * (moving && !sim.reducedFlashes ? 1 + Math.sin(time * 2.1) * .025 : 1);
+    if (this.sea) {
+      this.flames.visible = false; this.candleLight.intensity = 0;
+      for (const glow of this.candleGlows) glow.visible = false;
+    }
     const segments = sim.quality === 'low' ? 4 : 8;
     let count = 0;
     for (let i = 0; i < this.lamps.length; i++) {
+      if (this.sea && i < 6) continue;
       this.lamps[i].getWorldPosition(this.point);
       const x = this.point.x, z = this.point.z;
       for (let j = 0; j < segments && count < 80; j++) {
@@ -426,6 +441,7 @@ export class RiverLife {
       this.reflectionShelters.setMatrixAt(shelters++, this.reflectionWorldMatrix);
     }
     this.reflectionHulls.count = this.boats.length; this.reflectionShelters.count = shelters;
+    if (this.sea) { this.reflectionHulls.count = 0; this.reflectionShelters.count = 0; }
     this.reflectionHulls.instanceMatrix.needsUpdate = true; this.reflectionShelters.instanceMatrix.needsUpdate = true;
     if (homes && this.reflectionHomeSource) {
       for (let i = 0; i < this.reflectionHomes.count; i++) {
@@ -440,6 +456,7 @@ export class RiverLife {
       const scale = i < 2 ? this.boats[i].object.scale.x : i < 6 ? this.boats[2].object.scale.x : this.village.scale.x;
       this.reflectionLocalMatrix.makeScale((i < 2 ? .05 : i < 6 ? .025 : .30) * scale,
         (i < 2 ? .075 : i < 6 ? .035 : .40) * scale, (i < 6 ? .05 : .025) * scale).setPosition(this.point);
+      if (this.sea && i < 6) this.reflectionLocalMatrix.makeScale(0, 0, 0);
       this.reflectionLamps.setMatrixAt(i, this.reflectionLocalMatrix);
     }
     this.reflectionLamps.instanceMatrix.needsUpdate = true;
@@ -503,7 +520,8 @@ export class RiverLife {
         min: { x: this.villageBounds.min.x, y: this.villageBounds.min.y, z: this.villageBounds.min.z },
         max: { x: this.villageBounds.max.x, y: this.villageBounds.max.y, z: this.villageBounds.max.z }
       },
-      riverPositions: this.boats.map(boat => ({ x: boat.object.position.x, y: boat.object.position.y, z: boat.object.position.z })) };
+      riverPositions: this.boats.map(boat => ({ x: boat.object.position.x, y: boat.object.position.y, z: boat.object.position.z })),
+      ...(this.sea?.diagnostics(camera) ?? {}) };
   }
 
   private makeHull() {
@@ -587,6 +605,7 @@ export class RiverLife {
   }
 
   dispose() {
+    this.sea?.dispose();
     for (const geometry of this.fallbackGeometries) geometry.dispose();
     for (const material of this.fallbackMaterials) material.dispose();
     this.reflectionTexture.dispose(); this.fragments.geometry.dispose(); (this.fragments.material as THREE.Material).dispose();

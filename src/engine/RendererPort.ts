@@ -1,3 +1,5 @@
+import type { SeaAudienceSession } from '../graphics/SeaAudienceSession';
+import type { GlassSurface } from '../graphics/GlassMath';
 import type { StageLayout } from './StageLayout';
 import type { FamilyId, Quality } from './catalog';
 import type { LaunchProfile } from './LaunchProfile';
@@ -10,6 +12,14 @@ import type { MoonFrame } from '../graphics/MoonComposition';
 export interface RendererPort {
     readonly backend: string;
     readonly metrics: { renderPixels: number; submitMs: number; frames: number };
+    boatViewActive?(): boolean;
+    resetBoatView?(): void;
+    setMoonObstructions?(surfaces: readonly import('../graphics/MoonComposition').MoonObstacle[]): void;
+    setSeaSession?(session: SeaAudienceSession): void;
+    setGlassSurfaces?(surfaces: readonly GlassSurface[], enabled?: boolean): void;
+    environmentTap?(kind: 'sky' | 'water' | 'moon', x: number, y: number): boolean;
+    resolveShoreLaunch?(id: FamilyId, x: number, y: number): LaunchProfile | null;
+    warmAvailableDetail?(): Promise<void>;
     init(): Promise<void>;
     resize(): void;
     setLayout(layout: StageLayout): void;

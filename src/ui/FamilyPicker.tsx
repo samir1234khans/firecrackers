@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { CSSProperties, PointerEvent } from 'react';
 import { FAMILIES, familyIndex } from '../engine/catalog';
 import type { FamilyId } from '../engine/catalog';
-import { FireworkGlyph } from './FireworkGlyph';
+import { FirecrackerArt } from './FirecrackerArt';
 import '../styles/grand-collection.css';
 
 type Props = { selectedId: FamilyId; available: boolean; onSelect: (id: FamilyId) => void; onDragStart?: (id: FamilyId, event: PointerEvent<HTMLButtonElement>) => void };
@@ -22,7 +22,7 @@ export function FamilyPicker({ selectedId, available, onSelect, onDragStart }: P
                 key={family.id} type='button' className={`flow-family${family.id === selectedId ? ' selected' : ''}`}
                 aria-label={family.name} aria-pressed={family.id === selectedId} title={`${family.name}: ${family.note}`}
                 style={{ '--family-color': family.color } as CSSProperties} disabled={!available} onPointerDown={event => onDragStart?.(family.id, event)} onClick={() => onSelect(family.id)}>
-                <span className='flow-family-art'><FireworkGlyph family={family.id} color={family.color}/></span>
+                <span className='flow-family-art'><FirecrackerArt family={family.id} size={40}/></span>
                 <span className='family-copy'><strong>{family.name}</strong></span>
             </button>)}
         </div>

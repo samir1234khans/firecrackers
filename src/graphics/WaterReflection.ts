@@ -1,13 +1,13 @@
 import { BURST_LIGHT_CAPACITY, burstLightEnergy } from '../engine/BurstLighting.js';
-import type { MoonFrame } from './MoonComposition';
-import { WATER_Y, WATER_NEAR_Z, WATER_WAVES, WATER_MAX_DISPLACEMENT, WATER_FAR_FADE_MAX, WATER_FAR_FADE_FRACTION, WATER_NEAR_FADE_MAX, WATER_NEAR_FADE_FRACTION } from './WaterWaves.js';
+import type { MoonFrame } from './MoonComposition.js';
+import { WATER_Y, WATER_NEAR_Z, WATER_WAVES, waterDisplacementBound, WATER_FAR_FADE_MAX, WATER_FAR_FADE_FRACTION, WATER_NEAR_FADE_MAX, WATER_NEAR_FADE_FRACTION, WATER_IMPULSE_LIMITS } from './WaterWaves.js';
 import type { WaterFrame } from './WaterWaves.js';
 import { fitWaterSurfaceGrid } from './WaterSurfaceGeometry.js';
 import { PlanarReflection } from './PlanarReflection.js';
 import * as THREE from 'three/webgpu';
 import { Fn, If, Loop, cameraPosition, float, int, modelWorldMatrix, positionLocal, positionWorld, reflect, smoothstep, texture, uniform, uniformArray, varying, vec2, vec3, vec4 } from 'three/tsl';
-import type { Simulation } from '../engine/Simulation';
-import type { Quality } from '../engine/catalog';
+import type { Simulation } from '../engine/Simulation.js';
+import type { Quality } from '../engine/catalog.js';
 
 type OrientPass = (camera: THREE.PerspectiveCamera, reflecting?: boolean) => void;
 
@@ -36,15 +36,22 @@ export class WaterReflection {
   private readonly shoreActive = uniform(0);
   private readonly streaks = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .3, blending: THREE.AdditiveBlending, depthWrite: false }), 288);
   private readonly phase = uniform(0);
+  private readonly interactionTime = uniform(0);
+  private readonly impulseValues = Array.from({ length: WATER_IMPULSE_LIMITS.count }, () => new THREE.Vector4());
+  private readonly impulses = uniformArray(this.impulseValues);
   private readonly waveCount = uniform(4);
+  private readonly waveGains = [uniform(1), uniform(1), uniform(1), uniform(1)];
   private readonly farZ = uniform(-1000);
   private readonly nearZ = uniform(WATER_NEAR_Z);
   private readonly farFadeWidth = uniform(80);
   private readonly nearFadeWidth = uniform(18);
   private readonly detailTier = uniform(1);
   private readonly strength = uniform(.4);
+  private readonly burstRadianceLimit = uniform(1.25);
   private readonly enabled = uniform(0);
   private readonly moonActive = uniform(0);
+  private readonly moonIllumination = uniform(1);
+  private readonly invitationReveal = uniform(1);
   private readonly moonDirection = uniform(new THREE.Vector3(.2, .3, -.95).normalize());
   private readonly lightAnchors = Array.from({ length: BURST_LIGHT_CAPACITY }, () => new THREE.Vector4());
   private readonly lightColors = Array.from({ length: BURST_LIGHT_CAPACITY }, () => new THREE.Vector3());
@@ -78,10 +85,29 @@ export class WaterReflection {
       const wave = WATER_WAVES[i];
       const active = this.waveCount.greaterThan(i).select(1, 0);
       const angle = world.x.mul(wave.x).add(world.z.mul(wave.z)).sub(this.phase.mul(wave.speed)).add(wave.phase);
-      const amplitude = active.mul(wave.amplitude), derivative = angle.cos().mul(amplitude);
+      const amplitude = active.mul(wave.amplitude).mul(this.waveGains[i]), derivative = angle.cos().mul(amplitude);
       height = height.add(angle.sin().mul(amplitude));
       slopeX = slopeX.add(derivative.mul(wave.x)); slopeZ = slopeZ.add(derivative.mul(wave.z));
     }
+    const impulseField = Fn(() => {
+      const result = vec3(0).toVar();
+      for (let i = 0; i < WATER_IMPULSE_LIMITS.count; i++) {
+        const impulse = this.impulses.element(int(i)), age = this.interactionTime.sub(impulse.z);
+        If(impulse.w.greaterThan(0).and(age.greaterThanEqual(0)).and(age.lessThan(WATER_IMPULSE_LIMITS.lifetime)), () => {
+          const offset = world.xz.sub(impulse.xy), radius = offset.length();
+          const delta = radius.sub(age.mul(WATER_IMPULSE_LIMITS.speed));
+          const envelope = delta.mul(delta).div(-2 * WATER_IMPULSE_LIMITS.width ** 2).exp()
+            .mul(age.div(WATER_IMPULSE_LIMITS.lifetime).oneMinus().pow(2)).mul(impulse.w);
+          const angle = delta.mul(WATER_IMPULSE_LIMITS.frequency);
+          const derivative = envelope.mul(angle.cos().mul(WATER_IMPULSE_LIMITS.frequency)
+            .sub(angle.sin().mul(delta).div(WATER_IMPULSE_LIMITS.width ** 2)));
+          const slopes = offset.div(radius.max(.0001)).mul(derivative);
+          result.addAssign(vec3(angle.sin().mul(envelope), slopes));
+        });
+      }
+      return result;
+    })();
+    height = height.add(impulseField.x); slopeX = slopeX.add(impulseField.y); slopeZ = slopeZ.add(impulseField.z);
     // Exact counterpart of sampleWater, including derivatives of both fades.
     const farT = world.z.sub(this.farZ).div(this.farFadeWidth).clamp(0, 1);
     const nearT = this.nearZ.sub(world.z).div(this.nearFadeWidth).clamp(0, 1);
@@ -107,8 +133,8 @@ export class WaterReflection {
       });
       return result;
     })();
-    const texturedSlope = broad.mul(.080).add(middle.mul(.22).mul(foreground.mul(.55).add(.45)))
-      .add(fine.mul(.11).mul(foreground.pow(2)));
+    const texturedSlope = broad.mul(.080).add(middle.mul(.16).mul(foreground.mul(.55).add(.45)))
+      .add(fine.mul(.075).mul(foreground.pow(2)));
     const totalSlope = waterSlope.add(texturedSlope);
     const normal = vec3(totalSlope.x.negate(), 1, totalSlope.y.negate()).normalize();
     const eye = cameraPosition.sub(positionWorld).normalize();
@@ -132,7 +158,7 @@ export class WaterReflection {
     const body = vec3(.0025, .0055, .010).add(vec3(.25, .48, .78).mul(broadLight).mul(fresnel.oneMinus().mul(.75).add(.25)));
     const facets = smoothstep(-.08, .13, middle.y.add(broad.x.mul(.45)).add(waterSlope.y.mul(2.6)));
     const skyFacets = smoothstep(.005, .15, middle.y.add(fine.x.mul(.30)).add(broad.y.mul(.65)))
-      .pow(2).mul(foreground.mul(.65).add(.20)).mul(vec3(.0035, .007, .012));
+      .pow(2).mul(foreground.mul(.65).add(.20)).mul(vec3(.0024, .005, .009));
 
     // A rough lobe and a narrower grazing lobe create interrupted lunar facets,
     // rather than a screen-painted strip or a second moon disc.
@@ -141,7 +167,7 @@ export class WaterReflection {
     const lunarLobe = alignment.pow(220).mul(.055).add(alignment.pow(950).mul(.32));
     const lunarPatch = smoothstep(-.018, .030, broad.y.add(broad.x.mul(.50)).add(waterSlope.x.mul(1.4)).add(waterSlope.y.mul(.7)));
     const moon = vec3(.43, .53, .68).mul(lunarLobe).mul(facets.mul(.85).add(.15))
-      .mul(lunarPatch.mul(.75).add(.25)).mul(fresnel.sqrt().mul(.6).add(.4)).mul(this.moonActive);
+      .mul(lunarPatch.mul(.75).add(.25)).mul(fresnel.sqrt().mul(.6).add(.4)).mul(this.moonActive).mul(this.moonIllumination);
 
     // Mean-plane projective coordinates preserve actual reflected positions.
     // Shared slopes fragment the image; there is no vertical screen remapping.
@@ -188,16 +214,17 @@ export class WaterReflection {
       });
       const radiance = result.mul(3.2);
       const peak = radiance.r.max(radiance.g).max(radiance.b);
-      return radiance.div(float(1).add(peak.div(this.strength.mul(1.25))));
+      return radiance.div(float(1).add(peak.div(this.strength.mul(this.burstRadianceLimit))));
     })();
     material.colorNode = body.add(skyColor.mul(fresnel).mul(.64)).add(skyFacets).add(moon).add(dynamic).add(burstLight)
-      .mul(smoothstep(this.farZ, this.farZ.add(8), positionWorld.z).mul(.2).add(.8));
+      .mul(smoothstep(this.farZ, this.farZ.add(8), positionWorld.z).mul(.2).add(.8)).mul(this.invitationReveal);
     this.mesh = new THREE.Mesh(this.wideSurface, material);
     this.mesh.name = 'Displaced moonlit waterfront'; this.mesh.rotation.x = -Math.PI / 2;
     this.mesh.position.set(0, WATER_Y, -400); this.mesh.frustumCulled = false;
     this.streaks.count = 0; this.streaks.frustumCulled = false;
     this.mesh.add(this.streaks); this.streaks.position.z = .025;
   }
+  setInvitationReveal(value: number) { this.invitationReveal.value = .28 + .72 * Math.max(0, Math.min(1, value)); }
   resize(camera: THREE.PerspectiveCamera) {
     const phone = camera.aspect < .72;
     this.mesh.geometry = phone ? this.phoneSurface : this.wideSurface;
@@ -210,6 +237,7 @@ export class WaterReflection {
     const distance = (WATER_Y - camera.position.y) / (this.farSide.y - camera.position.y);
     const farX = camera.position.x + (this.farSide.x - camera.position.x) * distance;
     this.mesh.scale.x = Math.max(1, (Math.abs(farX) + 40) / 700);
+    this.baseCoverage = this.mesh.scale.x;
     this.streaks.scale.x = 1 / this.mesh.scale.x;
     const farHalfWidth = Math.abs(farX) + 40;
     this.projectedEdge.set(0, WATER_Y, WATER_NEAR_Z).project(camera);
@@ -223,6 +251,8 @@ export class WaterReflection {
     this.mesh.geometry.computeBoundingSphere();
     this.projectedEdge.set(0, WATER_Y, phone ? -180 : -1000).project(camera);
     this.waterline.value = THREE.MathUtils.clamp((1 - this.projectedEdge.y) * .5, 0, 1);
+    this.mesh.scale.x = this.baseCoverage * (this.closeView ? 8 : 1);
+    this.streaks.scale.x = 1 / this.mesh.scale.x;
     this.mesh.updateMatrixWorld(true); this.last = -Infinity;
   }
   setNormal(value: THREE.Texture) { this.normalNode.value = value; }
@@ -231,12 +261,30 @@ export class WaterReflection {
   setShoreComposition(crop: number, active: number) { this.shoreCrop.value = crop; this.shoreActive.value = active; }
   /** Refresh a changed scene once even when its fixed clock is paused. */
   invalidate() { this.last = -Infinity; }
+  private closeView = false;
+  private baseCoverage = 1;
+  setViewCoverage(close: boolean) {
+    if (close === this.closeView) return;
+    this.closeView = close; this.mesh.scale.x = this.baseCoverage * (close ? 8 : 1);
+    this.streaks.scale.x = 1 / this.mesh.scale.x; this.mesh.updateMatrixWorld(true); this.invalidate();
+  }
+  setAudienceView(close: boolean) { this.burstRadianceLimit.value = close ? .16 : .40; }
   setFrame(frame: Readonly<WaterFrame>) {
     if (frame.farZ !== this.frame.farZ || frame.nearZ !== this.frame.nearZ ||
-      frame.waveCount !== this.frame.waveCount || frame.motionAllowed !== this.frame.motionAllowed) this.invalidate();
+      frame.waveCount !== this.frame.waveCount || frame.motionAllowed !== this.frame.motionAllowed ||
+      this.waveGains.some((gain, i) => gain.value !== (frame.gains?.[i] ?? 1))) this.invalidate();
     this.frame.phase = frame.phase; this.frame.waveCount = frame.waveCount;
     this.frame.farZ = frame.farZ; this.frame.nearZ = frame.nearZ; this.frame.motionAllowed = frame.motionAllowed;
+    this.frame.time = frame.time; this.frame.impulses = frame.impulses;
+    this.interactionTime.value = frame.time ?? 0;
+    for (let i = 0; i < WATER_IMPULSE_LIMITS.count; i++) {
+      const impulse = frame.impulses?.[i];
+      this.impulseValues[i].set(impulse?.x ?? 0, impulse?.z ?? 0, Number.isFinite(impulse?.startedAt) ? impulse!.startedAt : 0,
+        frame.motionAllowed ? impulse?.amplitude ?? 0 : 0);
+    }
     this.phase.value = frame.phase; this.waveCount.value = frame.waveCount;
+    this.frame.gains = frame.gains;
+    for (let i = 0; i < 4; i++) this.waveGains[i].value = frame.gains?.[i] ?? 1;
     this.farZ.value = frame.farZ; this.nearZ.value = frame.nearZ;
     const span = Math.max(1, frame.nearZ - frame.farZ);
     this.farFadeWidth.value = Math.min(WATER_FAR_FADE_MAX, span * WATER_FAR_FADE_FRACTION);
@@ -246,6 +294,7 @@ export class WaterReflection {
     this.skyProjectionMatrix.value.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
     this.moonRay.set(frame.x / Math.max(1, width) * 2 - 1, 1 - frame.y / Math.max(1, height) * 2, .5).unproject(camera);
     this.moonDirection.value.copy(this.moonRay).sub(camera.position).normalize();
+    this.moonIllumination.value = frame.illumination ?? 1;
     return this.moonDirection.value;
   }
   private releaseTarget() {
@@ -340,8 +389,10 @@ export class WaterReflection {
       reflectionMode: this.target ? 'planar' : 'disabled', reflectionCameraY: this.camera.position.y, reflectionPlaneY: WATER_Y,
       reflectionClipCoordinateSystem: this.clipCoordinateSystem, waterline: this.waterline.value,
       waterPhase: this.frame.phase, waterWaveCount: this.frame.waveCount, waterFarZ: this.frame.farZ, waterNearZ: this.frame.nearZ,
-      waterDisplacementBound: WATER_MAX_DISPLACEMENT, waterMotionAllowed: this.frame.motionAllowed, waterVisible: this.mesh.visible,
+      waterDisplacementBound: waterDisplacementBound(this.frame), waterMotionAllowed: this.frame.motionAllowed, waterVisible: this.mesh.visible,
       waterBurstLightCount: this.burstCount.value, waterBurstLightCapacity: BURST_LIGHT_CAPACITY,
+      waterImpulseCount: this.impulseValues.filter(value => value.w > 0).length, waterImpulseMaximum: WATER_IMPULSE_LIMITS.count,
+      moonIllumination: this.moonIllumination.value,
       waterBurstLights: this.lightAnchors.slice(0, this.burstCount.value).map((anchor, i) => ({
         x: anchor.x, y: anchor.y, z: anchor.z, energy: anchor.w,
         r: this.lightColors[i].x, g: this.lightColors[i].y, b: this.lightColors[i].z,

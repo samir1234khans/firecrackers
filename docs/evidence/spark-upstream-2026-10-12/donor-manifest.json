@@ -1,0 +1,476 @@
+{
+  "source": "samir1234khans/wedding-phone-invitation",
+  "commit": "d7ff9aa20ace8785a26238065b54da998fbfe689",
+  "destinationBase": "a268f448aa705054e8b6f70cadf2e3c272b693d5",
+  "files": [
+    {
+      "path": "src/graphics/SeaAudienceDirector.ts",
+      "donorSha256": "73df92d2163513f4e2b7fdb097ff12416fcc8007c4f173c63e4a08d07498a7be",
+      "kind": "port",
+      "destinationSha256": "2dc36348607ea7d916ac2fff0c7d3cb3304462c8bea8541b7e856bf09265b031"
+    },
+    {
+      "path": "src/graphics/SeaAudienceSession.ts",
+      "donorSha256": "d060350d346ebfee0ade3ad339c6b225351a160d4e645d0e1e6af19916be2a6a",
+      "kind": "port",
+      "destinationSha256": "4cd94073d7ef2b4d1419e31ba87a9a4c44405791eec0160be7dd2dfa55adf87b"
+    },
+    {
+      "path": "src/graphics/SeaBoatModels.ts",
+      "donorSha256": "7910769ee1da939d68da9ec5bcf48274f41c4b0a7037c4c8af1c3bcc44d0d30b",
+      "kind": "port",
+      "destinationSha256": "7878aab7ecdde65cf8f363637b393a5cc1b7155b67299f5bbc4bc32fd86e0e74"
+    },
+    {
+      "path": "src/graphics/SeaBoatView.ts",
+      "donorSha256": "4e765b6cc6c4ca2ef52c8522294334b992e38ca97822b0ca9f19178cb1e5bbc3",
+      "kind": "port",
+      "destinationSha256": "65ca237df13fa5fa9979a00cd919a8c330a690fed96326f2cb73aac5d44bb872"
+    },
+    {
+      "path": "src/graphics/SeaBuoyancy.ts",
+      "donorSha256": "a067f6c7b48782d93eb9a53a64b681c0d926d688a4236db1c8d0cc31bb8cf420",
+      "kind": "port",
+      "destinationSha256": "f80f906d4aa18432b2cc1c4f1271cb40a64e33cf01d728ac6de8a54cbd85bef9"
+    },
+    {
+      "path": "src/graphics/SeaBurstFeed.ts",
+      "donorSha256": "242208cf66558595e43da38496b667da3d32de880776cdedd0db031f650aa5b4",
+      "kind": "port",
+      "destinationSha256": "c937f288a8304a5fb7aa03f0660a4c7b2f9dc0447a7bb14c540465852e83c20d"
+    },
+    {
+      "path": "src/graphics/SeaFleet.ts",
+      "donorSha256": "28200a05b242b909af073fe5b88313917eebebfc9eb50b5a817957f9f3514bfb",
+      "kind": "port",
+      "destinationSha256": "b96989e05b6214bb0626f0b097d2c905508d5a04795db34fde6baf1a9685c147"
+    },
+    {
+      "path": "src/graphics/SeaFleetState.ts",
+      "donorSha256": "f3ba122ae4ed004e2e1a5934fe6f5a3661ae0efb5f40bde39a377c7226237d4a",
+      "kind": "port",
+      "destinationSha256": "f3ba122ae4ed004e2e1a5934fe6f5a3661ae0efb5f40bde39a377c7226237d4a"
+    },
+    {
+      "path": "src/graphics/SeaGarmentGeometry.ts",
+      "donorSha256": "b805678e5e034eb7b039f5a64de1bac0389cd8a1ac1c9f6d2ce3839b64019873",
+      "kind": "port",
+      "destinationSha256": "b805678e5e034eb7b039f5a64de1bac0389cd8a1ac1c9f6d2ce3839b64019873"
+    },
+    {
+      "path": "src/graphics/SeaHullAsset.ts",
+      "donorSha256": "719765e6c6cdce08833320406377bf83a0a4c21d646cf42b4793190379a77ba0",
+      "kind": "port",
+      "destinationSha256": "719765e6c6cdce08833320406377bf83a0a4c21d646cf42b4793190379a77ba0"
+    },
+    {
+      "path": "src/graphics/SeaPassengerRig.ts",
+      "donorSha256": "cc455c4369463fa42645eebeab604d934dbb6eb3ffc22ea2d2730ea06868f3c6",
+      "kind": "port",
+      "destinationSha256": "4ad93d458117d4b2662cb9736147ce537909b694fe78c625a343f84e03991a68"
+    },
+    {
+      "path": "src/graphics/SeaPassengers.ts",
+      "donorSha256": "048cf5a79cd65f44cdc56b1de4abe3eec2742936ea7fdeaa043fd5757ee8afea",
+      "kind": "port",
+      "destinationSha256": "01bbe96d142dee125bfd2bda03eb75d76c2b8c25bb7ac785029599419fe4c786"
+    },
+    {
+      "path": "src/graphics/SeaSpace.ts",
+      "donorSha256": "0b75f1e2479dd45591a864381ce108337340ca3053a5053f33db408728e97efb",
+      "kind": "port",
+      "destinationSha256": "9e7b1866cc4929f2a5de7ec0b0859b6b7674725231f43084a32125ba67587634"
+    },
+    {
+      "path": "src/graphics/SeaWardrobe.ts",
+      "donorSha256": "18904deceb7c511205ff7a7a9d7dafbc1c79548149a21d83ef9d58decb2a2f7a",
+      "kind": "port",
+      "destinationSha256": "18904deceb7c511205ff7a7a9d7dafbc1c79548149a21d83ef9d58decb2a2f7a"
+    },
+    {
+      "path": "src/graphics/ShorelineArt.ts",
+      "donorSha256": "a070fdddedfabcba8ed380dd39fab771aabacb70d87ca3fdd68c354a21e77056",
+      "kind": "port",
+      "destinationSha256": "e35ce670cc2a60c79607b541999236bb17536ac653ce79c45c986bb526600ed6"
+    },
+    {
+      "path": "src/graphics/ShorelineCanvas.ts",
+      "donorSha256": "bbee0e3ca209297a891b608b64cba0936a0701cb41e91b176c5d90f1f070241e",
+      "kind": "port",
+      "destinationSha256": "9e285b55b2271b018d28bbab19e97a7a2e2e81cd090cccd7df564a17a3a9d34a"
+    },
+    {
+      "path": "src/graphics/ShorelineCity.ts",
+      "donorSha256": "7376ed8ff352f5e5e294be96ab816942c114b4f3dc65cc35469e5c801a6d6f2a",
+      "kind": "port",
+      "destinationSha256": "8eba7e77bfeb3005118403c81ae8754770f900517986ac5811bd097691d51ae3"
+    },
+    {
+      "path": "src/graphics/ShorelineLaunch.ts",
+      "donorSha256": "95a03487b753dff654e737f02cc5236a86f01332ef9739adea07eb3d1d9d6770",
+      "kind": "port",
+      "destinationSha256": "95a03487b753dff654e737f02cc5236a86f01332ef9739adea07eb3d1d9d6770"
+    },
+    {
+      "path": "src/graphics/ShorelineModel.ts",
+      "donorSha256": "60d2904d523b151b47498dd0548ee689e342c22dc053201e24182e87a1258ecc",
+      "kind": "port",
+      "destinationSha256": "60d2904d523b151b47498dd0548ee689e342c22dc053201e24182e87a1258ecc"
+    },
+    {
+      "path": "src/graphics/CanvasSeaFleet.ts",
+      "donorSha256": "d7c98f0cc3df926f8b558e598df9de14cb699d662d4456a758ec680d36908a48",
+      "kind": "port",
+      "destinationSha256": "d76b3f6a8cc51e0f292897ec15cf1915399b1398281de655feda7659f6596d53"
+    },
+    {
+      "path": "src/graphics/GlassMath.ts",
+      "donorSha256": "afc5bc4b6f87ff37cbb254ce68e395ef8f00719270850081e2db6b8b3ef49460",
+      "kind": "port",
+      "destinationSha256": "afc5bc4b6f87ff37cbb254ce68e395ef8f00719270850081e2db6b8b3ef49460"
+    },
+    {
+      "path": "src/graphics/LivingGlass.ts",
+      "donorSha256": "c1b37267c0eb785330bd71223d77b191bf405461eb45d88e63dfcf90c694569b",
+      "kind": "port",
+      "destinationSha256": "c1b37267c0eb785330bd71223d77b191bf405461eb45d88e63dfcf90c694569b"
+    },
+    {
+      "path": "src/graphics/RiverLife.ts",
+      "donorSha256": "258a8807d7fd3516809559233c43354fb10a2cbbcb3699986c908457eb1ca701",
+      "kind": "adapt",
+      "destinationSha256": "258a8807d7fd3516809559233c43354fb10a2cbbcb3699986c908457eb1ca701"
+    },
+    {
+      "path": "src/graphics/NightEnvironment.ts",
+      "donorSha256": "c0386469f8c7e1fd1b09a1216910cb670563b9503b451c9ed8e4557ff97dde18",
+      "kind": "adapt",
+      "destinationSha256": "a335d7f7ae44ff71e5094c96453cc1ea3475175ba7a76931bcdd4ecd72461f50"
+    },
+    {
+      "path": "src/graphics/WaterReflection.ts",
+      "donorSha256": "75aaa7bae1232b93badd3317a48ba592075820a681b0567f8439f2720aa6bb45",
+      "kind": "adapt",
+      "destinationSha256": "c1e6c8e95881e6f4dd748d6b750e0c083e4d665e874f46588da9da5d7aa42f95"
+    },
+    {
+      "path": "src/graphics/WaterWaves.ts",
+      "donorSha256": "2488a1431d138022769561eec67fc292444b818d8d304c56a888884c67388ea7",
+      "kind": "adapt",
+      "destinationSha256": "2488a1431d138022769561eec67fc292444b818d8d304c56a888884c67388ea7"
+    },
+    {
+      "path": "src/graphics/MoonComposition.ts",
+      "donorSha256": "bb785bc60816201953f078777477089da3cdbcca21aa23952da2af43731b0d93",
+      "kind": "adapt",
+      "destinationSha256": "bb785bc60816201953f078777477089da3cdbcca21aa23952da2af43731b0d93"
+    },
+    {
+      "path": "src/graphics/CelestialScene.ts",
+      "donorSha256": "1a6075820b8d24b7ba484e6e0f10c95ccb3097ed4a97e898064fe932d9d0b6a3",
+      "kind": "adapt",
+      "destinationSha256": "1a6075820b8d24b7ba484e6e0f10c95ccb3097ed4a97e898064fe932d9d0b6a3"
+    },
+    {
+      "path": "src/graphics/CompatibilityRenderer.ts",
+      "donorSha256": "bee00ef5f462c17238cf0d77f4c1043616db55b672d0c033deb697ff9a622331",
+      "kind": "adapt",
+      "destinationSha256": "fb8b6bf7f7b51b616a877dcec1d37734ab13472bd3ca7fe793c842eddb09c406"
+    },
+    {
+      "path": "src/engine/Renderer.ts",
+      "donorSha256": "de143017b54bbbaa43e288ac0204df064c14e47898b8052ec43ee60039e91483",
+      "kind": "adapt",
+      "destinationSha256": "6fd253b3221cdd936ae46202159033828f9602ae55d7febcd32aee4b77f9355b"
+    },
+    {
+      "path": "src/engine/Simulation.ts",
+      "donorSha256": "3a13ebe2891806ff80374779ef0888bbc67f98f3682385dff2e596ed8a19b83e",
+      "kind": "adapt",
+      "destinationSha256": "e4dbab474dab713ce73d61ef5a23bf601cc0e3d85c166326b9493c7c89ef840a"
+    },
+    {
+      "path": "src/engine/LaunchProfile.ts",
+      "donorSha256": "1f338bc627c8cdfd97ce4ae69de15a5627431f2d134a6527119416b6caabe202",
+      "kind": "adapt",
+      "destinationSha256": "1f338bc627c8cdfd97ce4ae69de15a5627431f2d134a6527119416b6caabe202"
+    },
+    {
+      "path": "src/engine/Trails.ts",
+      "donorSha256": "8bcb2a01e3d5013c80f7965080438bb7a2f2faa9002a5fea94b7241ebd464f68",
+      "kind": "adapt",
+      "destinationSha256": "8bcb2a01e3d5013c80f7965080438bb7a2f2faa9002a5fea94b7241ebd464f68"
+    },
+    {
+      "path": "src/engine/Audio.ts",
+      "donorSha256": "dd28fd0f7e1e85506ef1bf2bb62160fb43839e2c89f2f06dd4ed68186cb359c1",
+      "kind": "adapt",
+      "destinationSha256": "79f7c6dabf8699dceb72cd001faee913e59f7d16f98f098a3eabe43ec6e4ec02"
+    },
+    {
+      "path": "public/scene/sea-boat-hulls-v002.glb",
+      "donorSha256": "794c89ec1cc4f21a5c4e3484a42ffa73f7ec153e00a6b9dc85d4080ec8582ad2",
+      "kind": "asset",
+      "destinationSha256": "794c89ec1cc4f21a5c4e3484a42ffa73f7ec153e00a6b9dc85d4080ec8582ad2"
+    },
+    {
+      "path": "public/audio/sea-audience-v002-cheer.mp3",
+      "donorSha256": "cb0a42fbf74edea7ec969fc69797d57e18e86d2eacf223650a8b0374b751cd71",
+      "kind": "asset",
+      "destinationSha256": "cb0a42fbf74edea7ec969fc69797d57e18e86d2eacf223650a8b0374b751cd71"
+    },
+    {
+      "path": "public/audio/sea-audience-v002-LICENSE.txt",
+      "donorSha256": "09ec4f63f7b4e827d6a7c5563cbfde8fe174a0744b25a92e221e1fafe3b89df7",
+      "kind": "asset",
+      "destinationSha256": "09ec4f63f7b4e827d6a7c5563cbfde8fe174a0744b25a92e221e1fafe3b89df7"
+    },
+    {
+      "path": "public/music/moonlit-promise.wav",
+      "kind": "new or host integration",
+      "destinationSha256": "befbc04dc82ce1e8973784efea625d60889fcc46398e79498eb73e26a8ecacbf"
+    },
+    {
+      "path": "public/welcome/jasmine-night-mobile.mp4",
+      "kind": "adaptation",
+      "destinationSha256": "1792055b5f49fe685e80c78ef0507f98993301ec3dfba6f26c3c7c37ba5ea280",
+      "donorSha256": "1792055b5f49fe685e80c78ef0507f98993301ec3dfba6f26c3c7c37ba5ea280"
+    },
+    {
+      "path": "public/welcome/jasmine-night-mobile.webm",
+      "kind": "adaptation",
+      "destinationSha256": "c2a48c40bb4b3686b2dbe1a85eecd83547b016062feb8573c864cfe183a3f9ba",
+      "donorSha256": "c2a48c40bb4b3686b2dbe1a85eecd83547b016062feb8573c864cfe183a3f9ba"
+    },
+    {
+      "path": "public/welcome/jasmine-night-mobile.webp",
+      "kind": "adaptation",
+      "destinationSha256": "9301f3382443362b79be2445c251d0c0ae6785c32b50e7fc58939fd8ac800fa8",
+      "donorSha256": "9301f3382443362b79be2445c251d0c0ae6785c32b50e7fc58939fd8ac800fa8"
+    },
+    {
+      "path": "public/welcome/jasmine-night.mp4",
+      "kind": "adaptation",
+      "destinationSha256": "bb0c4639584f90a961144b60f8415512d3c67f2d5bd0c96696c4d06ee59825b8",
+      "donorSha256": "bb0c4639584f90a961144b60f8415512d3c67f2d5bd0c96696c4d06ee59825b8"
+    },
+    {
+      "path": "public/welcome/jasmine-night.webm",
+      "kind": "adaptation",
+      "destinationSha256": "380671c7bce50db4339a2d80b2efec09846046e26f0829492dd7ce5d10a55571",
+      "donorSha256": "380671c7bce50db4339a2d80b2efec09846046e26f0829492dd7ce5d10a55571"
+    },
+    {
+      "path": "public/welcome/jasmine-night.webp",
+      "kind": "adaptation",
+      "destinationSha256": "f60f4f5777c22507c273bcede279cef7a62f2c19e08a1191253657b51e1495e1",
+      "donorSha256": "f60f4f5777c22507c273bcede279cef7a62f2c19e08a1191253657b51e1495e1"
+    },
+    {
+      "path": "public/welcome/loading-moon.webp",
+      "kind": "adaptation",
+      "destinationSha256": "bb02b8c0919c4a3e2d1b524fa29fc20a56341ddf05b861edc0f08212de6b31c4"
+    },
+    {
+      "path": "public/welcome/native-celebration-mobile.mp4",
+      "kind": "adaptation",
+      "destinationSha256": "30cfc505752821bc2d9059af415b8163a27dda1159da8c60f3acb84f5d6009e2"
+    },
+    {
+      "path": "public/welcome/native-celebration-mobile.webm",
+      "kind": "adaptation",
+      "destinationSha256": "3b90d38c441a158b03c9e7e5c3c97f8ea3a4890e4cbdde90b712c38bd08d4760"
+    },
+    {
+      "path": "public/welcome/native-celebration-mobile.webp",
+      "kind": "adaptation",
+      "destinationSha256": "3ec5f2f4fc886dc43bcabe6dcb4b48973a9a47ff5e4ad80602cd820cd2ba5409"
+    },
+    {
+      "path": "public/welcome/native-celebration.mp4",
+      "kind": "adaptation",
+      "destinationSha256": "1672a12676bb7f47278e834afc0ab7917f52c0ebd16d8ad831d0b4fd48d0ef3b"
+    },
+    {
+      "path": "public/welcome/native-celebration.webm",
+      "kind": "adaptation",
+      "destinationSha256": "193d5c27229837112c5f9bdcfa7d97eef8255b6537e49b5ea1076766767eed08"
+    },
+    {
+      "path": "public/welcome/native-celebration.webp",
+      "kind": "adaptation",
+      "destinationSha256": "95c3eff385627ac8c5bb604d86af4181799bf7f921073a1887f37d54d3d9bd84"
+    },
+    {
+      "path": "src/engine/CelebrationRun.ts",
+      "kind": "new or host integration",
+      "destinationSha256": "18656da1014ac2b0258794e8fb68d314b548dbec81b7621181ce06bbc0ae54cc"
+    },
+    {
+      "path": "src/engine/SceneSession.ts",
+      "kind": "new or host integration",
+      "destinationSha256": "1bbb097e3e7d1c6a633958adeb99dbba16f9279b8e05d55e42ba6d5001fa9528"
+    },
+    {
+      "path": "src/entrance/OptionalEntrance.tsx",
+      "kind": "new or host integration",
+      "destinationSha256": "75ba5f2670418300361a480aebdf26d355e1fd867f758b598502cdf351dd1011"
+    },
+    {
+      "path": "src/entrance/background.ts",
+      "kind": "adaptation",
+      "destinationSha256": "01bc7bf7ea980a1d552a498eab1a24e66c6cd07cb8c68adb8e0cc11cf1d991f4",
+      "donorSha256": "253f178c34a917f770ba0a256c7866aaa4670e5c24baeb3e2ae9d2024b4c706b"
+    },
+    {
+      "path": "src/entrance/entrance.css",
+      "kind": "new or host integration",
+      "destinationSha256": "d07c82a052481a597c7fa92968ccb1a1f82617ce5bdac4995ff1b20d7ca81ffa"
+    },
+    {
+      "path": "src/experience/SkyArt.ts",
+      "kind": "new or host integration",
+      "destinationSha256": "8e2bef8d333559f2433259916126b5f572762e6f5f244c800140136fb0d82232"
+    },
+    {
+      "path": "src/graphics/SceneCapabilities.ts",
+      "kind": "new or host integration",
+      "destinationSha256": "c5f500aa850ed3ef01a148275b9af9fb7e9568de8e920b9693e1719c7176b03e"
+    },
+    {
+      "path": "src/styles/firecracker-art.css",
+      "kind": "new or host integration",
+      "destinationSha256": "cb8ea071226195a2b3d06ce7332774165004902540b416df39bae559b44b1214"
+    },
+    {
+      "path": "src/styles/world.css",
+      "kind": "new or host integration",
+      "destinationSha256": "6ef3614ed47b189a36ef17299ba66484ab4f3a64a3ee7f469c399500ab70a6ae"
+    },
+    {
+      "path": "src/ui/CreativeTools.tsx",
+      "kind": "new or host integration",
+      "destinationSha256": "835b5336acfc569e8a6a07bf1b4cfd91d6124184b18af1622fce2c21e6b6f00e"
+    },
+    {
+      "path": "src/ui/FirecrackerArt.tsx",
+      "kind": "new or host integration",
+      "destinationSha256": "b80eb9e65b8284ee5d337f270fcc7af76a0609f58041e5285fc7df0526177971"
+    },
+    {
+      "path": "src/ui/LaunchDemo.tsx",
+      "kind": "new or host integration",
+      "destinationSha256": "7150c74c3c92b9fb34e2f5086e45bf530e8706be8871a057da26388b8df02ecd"
+    },
+    {
+      "path": "src/ui/SheetModel.ts",
+      "kind": "new or host integration",
+      "destinationSha256": "77cf2acaf3b2c34d4fee24c8f43beec4364cffb16120a56e5d9c270f4491a463"
+    },
+    {
+      "path": "src/ui/WorldTools.tsx",
+      "kind": "new or host integration",
+      "destinationSha256": "d1dc118a32bdce99e9a68e7ddf21875a807668b4ff0daafc666ee7ad3b4d0f42"
+    },
+    {
+      "path": "src/App.tsx",
+      "kind": "adaptation",
+      "destinationSha256": "d940481c23fadc449686e4185183366bf65be70824a1d195548ea24f6de49dcd",
+      "donorSha256": "4e0ebe61358e6ef0516622d44be692daafa19e6636a71315bd837bcb63e22ddd"
+    },
+    {
+      "path": "src/engine/RendererPort.ts",
+      "kind": "adaptation",
+      "destinationSha256": "9cadd9d4fc9509be962bdc53dcc300d2f86c7e67c44a2c0c6c80de3b8271589f",
+      "donorSha256": "c350eac66d1affc4f8f8424bbcbf0c22135e996d8cc97287247154905049ebc1"
+    },
+    {
+      "path": "src/engine/catalog.ts",
+      "kind": "adaptation",
+      "destinationSha256": "d06a457589021adb2d3dc696051609a67db7eaa1aad20a2ec73ddc55990ebbb7",
+      "donorSha256": "e1b42b1606dc3d76ff297318b7a12735d648153f2dffc97eb51e2076496f16a1"
+    },
+    {
+      "path": "src/engine/useWorld.ts",
+      "kind": "adaptation",
+      "destinationSha256": "2bf00e73e063cff8a92140f74a2cc4f839fdd2a35a6b7d17f91e2f364cc09f94",
+      "donorSha256": "edb29b990a66e7144ac9b9e7b6797eb2b930cb43bd6d7fc13f4d8d103b6e531f"
+    },
+    {
+      "path": "src/experience/RecipePlayer.ts",
+      "kind": "adaptation",
+      "destinationSha256": "5131f0662819639ff3e709d713749f4d507bd9a557fa1d96c6603cd53a3f3583",
+      "donorSha256": "45c3271acac3dbc4927d40cdb0c561e97e37da1a453631c5c0338b3ff1f51780"
+    },
+    {
+      "path": "src/experience/ShowRecipe.ts",
+      "kind": "adaptation",
+      "destinationSha256": "5bfb6b4385bb5e9ac17db176ab36909b3723d78c829035fbaf0406e95e5f21a5",
+      "donorSha256": "e128b501ad70f00b3ca07767efdedf6ef1d5f97909191a1c9212fb60b4e63de8"
+    },
+    {
+      "path": "src/graphics/ParticleScene.ts",
+      "kind": "adaptation",
+      "destinationSha256": "badd48c7f401cb94f1ff57426416f4715813fcf6c2efc185222db1c5fda94eb3",
+      "donorSha256": "ec0cf09008e4b2fde48008626dc773864823803b66f34d5780c578869ebdc2e5"
+    },
+    {
+      "path": "src/main.tsx",
+      "kind": "adaptation",
+      "destinationSha256": "76a1566782a6fb4e2649a76c846ddf686f335a1d4bf6332fe7834d61e14615a7",
+      "donorSha256": "eb1065fea7f38636fc8fc73d4265d8ad78dc74c2788014c0e20261e37b4ad356"
+    },
+    {
+      "path": "src/platform/preferences.ts",
+      "kind": "adaptation",
+      "destinationSha256": "d4316546d345f0a9a491c2078240744580df3ca2d81b3f651fd88dad6ac96811",
+      "donorSha256": "8964b411789927e0a5c7152c3fe19c0f0cb9e04b7c21412aa8c0ff009d38d0a1"
+    },
+    {
+      "path": "src/ui/BottomCollection.tsx",
+      "kind": "adaptation",
+      "destinationSha256": "cea4261ea2e91ecb04b35b9ae7c5458da361d9a250a7f3b3c0e78e13727988e0",
+      "donorSha256": "b8b9ea4b409077f2aa2381ca7e222d5aade274ddceab8628d7deb438efa77a80"
+    },
+    {
+      "path": "src/ui/Dialog.tsx",
+      "kind": "adaptation",
+      "destinationSha256": "bf55d430fa9060151737d28339b2b886e18602516b40d8fe6667f68aa827afdb",
+      "donorSha256": "f6d3b154808de70d349c4a0cd7d02de6bd2b6135060335e0a34b858a28fdea7a"
+    },
+    {
+      "path": "src/ui/FamilyPicker.tsx",
+      "kind": "adaptation",
+      "destinationSha256": "67fe3387e95f4e757854e3451fbb346e059915a147f748b7c673af1f8bad0554",
+      "donorSha256": "e9570da9b36deb41437b4edfaa9b5cef5b50b318fa842c4d5e101d1d3c886740"
+    },
+    {
+      "path": "src/ui/FireworkShelf.tsx",
+      "kind": "adaptation",
+      "destinationSha256": "8dc63bac5ab8ef93ca34a5665f48afca19cecd1b023e5fd06fd64c5b11c1993e",
+      "donorSha256": "282f2a3cf3cdcd5a246144a985d07b2c816c874694f99bd08ef00af3e2cf38c0"
+    },
+    {
+      "path": "src/ui/NightStudio.tsx",
+      "kind": "adaptation",
+      "destinationSha256": "95e485f6513ca346e5c8f3b5c3193b9a3a0d1ce73d39153a465187e115ed1034",
+      "donorSha256": "745d4e35f24048c7f6ba50582236f98559054bbc89ba50ee6d3bca71e6791233"
+    }
+  ],
+  "excluded": [
+    "invitation content and conductor",
+    "religious artwork",
+    "guest facts and portraits",
+    "Spark application shell and deployment configuration",
+    "superseded experimental local work"
+  ],
+  "contentBoundary": "No invitation conductor, wedding wording or facts, names, dates, venues, portraits, religious artwork or invitation metadata. Original Firecrackers shell/configuration retained.",
+  "newFeatures": [
+    "Generic stroke alphabet and native formation/cooling",
+    "Bounded keyboard/pointer drawing",
+    "Schema-2 grouped/text/drawing cues with schema-1 compatibility",
+    "Explicit scene capabilities replacing invitation renderer activation",
+    "Host audio and conductor ownership",
+    "Generic optional entrance; direct play default"
+  ]
+}

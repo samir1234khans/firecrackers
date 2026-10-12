@@ -1,8 +1,9 @@
+import { FireworkGlyph } from './FireworkGlyph';
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { CSSProperties, PointerEvent } from 'react';
 import { FAMILIES } from '../engine/catalog';
 import type { FamilyId } from '../engine/catalog';
-import { FireworkGlyph } from './FireworkGlyph';
+import { FirecrackerArt } from './FirecrackerArt';
 import '../styles/collection.css';
 
 type Props = {
@@ -57,7 +58,7 @@ export function BottomCollection({ selectedId, available, canLaunchFamily, onLau
             disabled={!available} onPointerDown={event => onDragStart(family.id, event)}
             onKeyDown={event => { if (event.repeat && ['Enter', ' '].includes(event.key)) event.preventDefault(); }}
             onClick={() => onLaunchFamily(family.id)}>
-            <FireworkGlyph family={family.id} color={family.color}/>
+            <span className="world-effect-token"><FireworkGlyph family={family.id} color={family.color}/><FirecrackerArt className="token-paper" family={family.id} size={28}/></span>
             <span className='bottom-collection-name' aria-hidden='true'>{family.name}</span>
           </button>
           {(noticeFamilyId ?? selectedId) === family.id && notice && <span className='bottom-collection-notice' role='status'>{notice}</span>}
