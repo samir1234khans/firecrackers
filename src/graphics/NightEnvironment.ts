@@ -1,23 +1,32 @@
+import { WORLD_CAPABILITIES } from './SceneCapabilities';
+import type { SceneCapabilities } from './SceneCapabilities';
 import { burstLightEnergy } from '../engine/BurstLighting.js';
 import * as THREE from 'three/webgpu';
-import { Fn, If, cos, positionWorld, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
+import type { SeaAudienceSession } from './SeaAudienceSession';
+import { Fn, If, cos, float, positionWorld, screenUV, sin, smoothstep, texture, uniform, vec2, vec3 } from 'three/tsl';
 import { randomStream } from '../engine/catalog';
 import type { Simulation } from '../engine/Simulation';
 import { makeGalaxySky } from './GalaxySky';
 import { updateMoonFrame } from './MoonComposition';
-import type { MoonFrame } from './MoonComposition';
+import type { MoonFrame, MoonObstacle, MoonMotion } from './MoonComposition';
 import { RiverLife } from './RiverLife';
-import { updateWaterFrame, WATER_NEAR_Z } from './WaterWaves';
+import { SEA_WAVE_GAINS } from './SeaFleetState';
+import { updateWaterFrame, WATER_NEAR_Z, WaterInteraction } from './WaterWaves';
 import type { WaterFrame } from './WaterWaves';
 import type { SkyState } from '../engine/SkyState';
 import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
+import { ShorelineCity } from './ShorelineCity';
 
 /** Original environment art and light probe, generated locally; no remote textures. */
 export class NightEnvironment {
+  setSeaSession(session: SeaAudienceSession) { this.river.setSeaSession(session); }
   readonly group = new THREE.Group();
   private readonly shoreline = new THREE.Group();
-  private readonly river = new RiverLife();
+  private readonly river: RiverLife;
+  private readonly city: ShorelineCity | null;
+  private framingCamera?: THREE.PerspectiveCamera;
   readonly waterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: false };
+  private readonly waterInteraction = new WaterInteraction();
   private phone = false;
   private readonly wetEdgeMaterial = new THREE.MeshStandardNodeMaterial({
     color: '#15212b', roughness: .26, metalness: 0, transparent: true,
@@ -32,6 +41,7 @@ export class NightEnvironment {
   private readonly projectedTerrace = new THREE.Vector3();
   private readonly floor: THREE.Mesh;
   private readonly sky: THREE.Mesh;
+  private readonly invitationExposure = uniform(1);
   readonly skyTexture: THREE.CanvasTexture;
   readonly skyCrop = uniform(1);
   readonly skyWaterline = uniform(.5);
@@ -44,7 +54,14 @@ export class NightEnvironment {
   private readonly moonCenter = uniform(new THREE.Vector2());
   private readonly moonRadius = uniform(15);
   private readonly moonActive = uniform(0);
+  private readonly moonIllumination = uniform(1);
   private readonly moonFrame = { x: 0, y: 0, radius: 15 };
+  private moonObstructions: readonly MoonObstacle[] = [];
+  private readonly moonMotion: MoonMotion = { time: 0, motionAllowed: false, pulseAt: -Infinity, obstructions: [] };
+  private moonPulseAt = -Infinity;
+  private starPulseAt = -Infinity;
+  private readonly starPulse = uniform(0);
+  private readonly starPulsePosition = uniform(new THREE.Vector2());
   startupMoon(): Readonly<MoonFrame> { return this.moonFrame; }
   private readonly skyTime = uniform(0);
   private readonly galaxyStrength = uniform(.55);
@@ -71,7 +88,17 @@ export class NightEnvironment {
   private readonly floorTexture: THREE.CanvasTexture;
   private readonly washTexture: THREE.CanvasTexture;
 
-  constructor() {
+  private readonly enhanced: boolean;
+  constructor(private readonly capabilities: SceneCapabilities = WORLD_CAPABILITIES) {
+    this.enhanced = capabilities.enhanced;
+    this.river = new RiverLife(capabilities.fleet);
+    if (capabilities.fleet) this.waterFrame.gains = SEA_WAVE_GAINS;
+    this.city = capabilities.shoreline ? new ShorelineCity() : null;
+    if (this.city) this.group.add(this.city.group);
+    if (this.city) {
+      const fallback = this.river.group.getObjectByName('Fallback clustered far-bank homes'); if (fallback) fallback.visible = false;
+      const homes = this.river.group.getObjectByName('Twelve reflection homes anchored to source house matrices'); if (homes) homes.visible = false;
+    }
     this.group.name = 'Waterfront terrace and distant shoreline';
     this.shoreline.name = 'Low distant shoreline silhouettes';
     this.group.add(this.shoreline);
@@ -103,14 +130,20 @@ export class NightEnvironment {
     const pointerDistance = screenUV.mul(this.cssViewport).sub(this.pointerPixels).div(CELESTIAL_LIMITS.responseRadiusPixels);
     // This scalar only lifts pixels already containing stars. It adds no cursor
     // glow, disk, flare or interaction geometry to the empty sky.
-    const response = pointerDistance.dot(pointerDistance).oneMinus().max(0).pow(2).mul(this.engagement).mul(.28);
+    const tapDistance = screenUV.mul(this.cssViewport).sub(this.starPulsePosition).div(72);
+    const response = pointerDistance.dot(pointerDistance).oneMinus().max(0).pow(2).mul(this.engagement).mul(.28)
+      .add(tapDistance.dot(tapDistance).oneMinus().max(0).pow(2).mul(this.starPulse).mul(.34));
     const nearLight = near.rgb.mul(near.a).mul(this.nearStrength).mul(twinkle.add(response)).mul(smoothstep(.28, .48, skyUV.y));
     const fragment = screenUV.mul(this.cssViewport), direction = this.meteorHead.sub(this.meteorTail);
     const projection = fragment.sub(this.meteorTail).dot(direction).div(direction.dot(direction).max(.0001)).clamp(0, 1);
     const distance = fragment.sub(this.meteorTail.add(direction.mul(projection))).length();
     const meteor = smoothstep(.16, .85, distance).oneMinus().mul(projection.pow(2)).mul(this.meteorOpacity);
     this.moonTexture.colorSpace = THREE.SRGBColorSpace; this.moonTexture.needsUpdate = true;
-    const night = texture(this.skyTexture, skyUV).rgb.add(celestial).add(nearLight).add(vec3(.34, .45, .62).mul(meteor));
+    // A faint cool atmospheric veil lifts the distant authored mountain band.
+    // It never changes its silhouette, crop, horizon, moon or global exposure.
+    const haze = this.enhanced ? smoothstep(this.skyWaterline.mul(.70), this.skyWaterline.mul(.87), screenUV.y)
+      .mul(smoothstep(this.skyWaterline.mul(.98), this.skyWaterline.mul(1.04), screenUV.y).oneMinus()).mul(.06) : float(0);
+    const night = texture(this.skyTexture, skyUV).rgb.add(celestial).add(nearLight).add(vec3(.34, .45, .62).mul(meteor)).add(vec3(.025, .043, .067).mul(haze));
     // Only this small coherent pixel region samples/shades the lunar texture.
     // Avoid a fourth texture sample and exponential at every sky pixel.
     skyMaterial.colorNode = Fn(() => {
@@ -121,9 +154,9 @@ export class NightEnvironment {
         const inside = smoothstep(.499, .501, delta.x.abs().max(delta.y.abs())).oneMinus();
         const alpha = lunar.a.mul(inside);
         const halo = delta.length().mul(2 / .95).sub(1).max(0).mul(-4.8).exp().mul(.018);
-        result.assign(result.add(vec3(.62, .70, .82).mul(halo)).mul(alpha.oneMinus()).add(lunar.rgb.mul(alpha).mul(.90)));
+        result.assign(result.add(vec3(.62, .70, .82).mul(halo).mul(this.moonIllumination)).mul(alpha.oneMinus()).add(lunar.rgb.mul(alpha).mul(.90).mul(this.moonIllumination)));
       });
-      return result;
+      return result.mul(this.invitationExposure);
     })();
     this.sky = new THREE.Mesh(new THREE.SphereGeometry(850, 32, 16), skyMaterial);
     this.sky.rotation.y = Math.PI * .5;
@@ -135,7 +168,7 @@ export class NightEnvironment {
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(600, 120),
       // Authored stone tone; burst wash supplies the changing illumination.
       // Hero rocket/stage retain PBR. The full-screen floor does not need an IBL sample per pixel.
-      new THREE.MeshBasicMaterial({ map: this.floorTexture, color: '#a7b5c8' }));
+      new THREE.MeshBasicMaterial({ map: this.floorTexture, color: this.enhanced ? '#bdb5ab' : '#a7b5c8' }));
     floor.rotation.x = -Math.PI / 2;
     floor.position.set(0, 4.9, 52);
     this.floor = floor;
@@ -230,6 +263,7 @@ export class NightEnvironment {
     this.wetEdge.position.set(0, this.terraceBounds.max.y + .012, -14.05);
   }
   frameTerrace(camera: THREE.PerspectiveCamera) {
+    this.framingCamera = camera;
     this.terraceDepth = camera.aspect < .72 ? 9 : 5.3;
     const distance = Math.max(1, camera.position.z);
     this.terraceWidth = Math.max(220, 2 * distance * Math.tan(camera.fov * Math.PI / 360) * camera.aspect * 1.20);
@@ -245,7 +279,10 @@ export class NightEnvironment {
     this.authoredSky.value = 1;
     this.shoreline.visible = false;
   }
-  setRiver(group: THREE.Group) { this.river.setAuthored(group); }
+  setRiver(group: THREE.Group) {
+    this.river.setAuthored(group);
+    if (this.city) { const village = group.getObjectByName('Shore_Village'); if (village) village.visible = false; }
+  }
   riverDiagnostics(camera: THREE.PerspectiveCamera) {
     let left = Infinity, top = Infinity, right = -Infinity, bottom = -Infinity;
     if (this.terrace) for (let i = 0; i < 8; i++) {
@@ -263,6 +300,16 @@ export class NightEnvironment {
     this.moonNode.value = lunar; this.moonActive.value = 1;
   }
   setSkyState(state: Readonly<SkyState>) { this.skyState = state; }
+  setMoonObstructions(rects: readonly MoonObstacle[]) { this.moonObstructions = rects.slice(0, 16); }
+  moonPulse(time: number) { if (!this.capabilities.interactions || !this.skyMotionAllowed()) return false; this.moonPulseAt = time; return true; }
+  waterTap(x: number, z: number, time: number) { return this.enhanced && this.waterInteraction.add(x, z, time, this.waterFrame); }
+  skyTap(x: number, y: number, time: number) {
+    if (!this.capabilities.interactions || !this.skyMotionAllowed()) return false;
+    this.starPulseAt = time; this.starPulsePosition.value.set(x, y); return true;
+  }
+  setInvitationReveal(value: number) {
+    if (this.enhanced) this.invitationExposure.value = .88 + .12 * Math.max(0, Math.min(1, value));
+  }
   setViewport(width: number, height: number) {
     this.cssViewport.value.set(Math.max(1, width), Math.max(1, height));
     const aspect = Math.max(.1, width / Math.max(1, height));
@@ -273,7 +320,9 @@ export class NightEnvironment {
   }
   skyMotionAllowed() { return this.skyState.motionAllowed && !this.reducedSkyMotion?.matches; }
   skyDiagnostics() {
-    return { moon: { ...this.moonFrame, ready: this.moonActive.value === 1, source: "NASA LRO / fixed gibbous" }, ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.skyWaterline.value,
+    return { ...this.city?.diagnostics(), moon: { ...this.moonFrame, illumination: this.moonIllumination.value, ready: this.moonActive.value === 1, source: "NASA LRO / fixed gibbous" }, moonObstructionCount: this.moonObstructions.length,
+      waterImpulseCount: this.waterInteraction.activeCount(), waterImpulseMaximum: 4, waterImpulseLifetime: 2.4, skyTapResponse: this.starPulse.value,
+      ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.skyWaterline.value,
       skyLayers: 3, skyTextures: 3, skyArtWidth: this.celestialArt.stars.width,
       skyArtHeight: this.celestialArt.stars.height, skyCelestialCrop: this.celestialCrop.value,
       skyFieldStars: this.celestialArt.metadata.fieldStars, skyClusterStars: this.celestialArt.metadata.clusteredStars,
@@ -291,15 +340,31 @@ export class NightEnvironment {
     this.shoreline.scale.y = height;
     this.shoreline.position.y = 4.65 * (1 - height);
     this.shoreline.position.z = phone ? 0 : -420;
-    for (let i = 0; i < 3; i++) this.shoreline.children[i].visible = !phone || i === 0;
+    for (let i = 0; i < 3; i++) {
+      const mountain = this.shoreline.children[i] as THREE.Mesh;
+      mountain.visible = this.enhanced || !phone || i === 0;
+      if (this.enhanced) (mountain.material as THREE.MeshBasicMaterial).opacity = [.46, .30, .18][i];
+    }
     this.river.resize(phone);
+    if (this.city && this.framingCamera) {
+      this.shoreline.visible = false;
+      this.city.frame(this.framingCamera, waterline, aspect * 1000, 1000);
+    }
   }
   update(sim: Simulation, visible: boolean, motionAllowed = true) {
     this.group.visible = visible;
+    if (sim.time < this.moonPulseAt) this.moonPulseAt = -Infinity;
+    if (sim.time < this.starPulseAt) this.starPulseAt = -Infinity;
     updateCelestialFrame(this.celestialFrame, this.skyState, this.cssViewport.value.x, this.cssViewport.value.y,
-      visible && sim.quality !== 'low' && motionAllowed && !this.reducedSkyMotion?.matches, sim.reducedFlashes);
-    updateMoonFrame(this.cssViewport.value.x, this.cssViewport.value.y, this.skyWaterline.value, this.moonFrame);
+      visible && sim.quality !== 'low' && motionAllowed && !this.reducedSkyMotion?.matches, sim.reducedFlashes, this.enhanced ? 6 : 3);
+    this.moonMotion.time = sim.time;
+    this.moonMotion.motionAllowed = visible && motionAllowed && !sim.reducedMotion && !this.reducedSkyMotion?.matches;
+    this.moonMotion.obstructions = this.moonObstructions; this.moonMotion.pulseAt = this.moonPulseAt;
+    updateMoonFrame(this.cssViewport.value.x, this.cssViewport.value.y, this.skyWaterline.value, this.moonFrame, this.enhanced ? this.moonMotion : undefined);
     this.moonCenter.value.set(this.moonFrame.x, this.moonFrame.y); this.moonRadius.value = this.moonFrame.radius;
+    this.moonIllumination.value = (this.moonFrame as MoonFrame).illumination ?? 1;
+    const tapAge = sim.time - this.starPulseAt;
+    this.starPulse.value = this.skyMotionAllowed() && tapAge >= 0 && tapAge < .7 ? Math.sin(tapAge / .7 * Math.PI) ** 2 : 0;
     const frame = this.celestialFrame;
     this.skyTime.value = frame.time;
     this.galaxyStrength.value = (sim.quality === 'ultra' ? .78 : sim.quality === 'standard' ? .62 : .38) * (sim.reducedFlashes ? .72 : 1);
@@ -315,6 +380,9 @@ export class NightEnvironment {
     this.meteorOpacity.value = frame.meteor.opacity;
     updateWaterFrame(this.waterFrame, sim.waterPhase, sim.quality, this.phone,
       visible && motionAllowed && !sim.reducedMotion && !this.reducedSkyMotion?.matches);
+    this.waterFrame.time = sim.time;
+    this.waterInteraction.update(sim.time, this.waterFrame.motionAllowed);
+    this.waterFrame.impulses = this.waterInteraction.impulses;
     this.river.update(sim, visible, motionAllowed, this.waterFrame);
     this.wetEdge.visible = visible && Boolean(this.terrace);
     if (this.terrace) this.terrace.visible = visible;
@@ -324,6 +392,7 @@ export class NightEnvironment {
       energy += e; r += light.r * e; g += light.g * e; b += light.b * e;
     }
     if (energy > .001) this.washMaterial.color.setRGB(r / energy, g / energy, b / energy);
+    this.city?.update(r, g, b, energy, sim.time, motionAllowed && !sim.paused && !sim.reducedMotion && !this.reducedSkyMotion?.matches);
     this.washMaterial.opacity = .32 * energy / (1 + energy);
     this.wetEdgeMaterial.emissive.setRGB(.006 + r * .045 / (1 + energy), .010 + g * .045 / (1 + energy), .016 + b * .045 / (1 + energy));
   }
@@ -373,15 +442,32 @@ export class NightEnvironment {
     const c = canvas.getContext('2d')!;
     const image = c.createImageData(512, 512), rand = randomStream(1773);
     for (let i = 0; i < image.data.length; i += 4) {
-      const grain = rand() * 4;
-      image.data[i] = 27 + grain; image.data[i + 1] = 35 + grain;
-      image.data[i + 2] = 47 + grain; image.data[i + 3] = 255;
+      const grain = rand() * (this.enhanced ? 19 : 4);
+      image.data[i] = (this.enhanced ? 32 : 27) + grain; image.data[i + 1] = (this.enhanced ? 30 : 35) + grain;
+      image.data[i + 2] = (this.enhanced ? 28 : 47) + grain; image.data[i + 3] = 255;
     }
     c.putImageData(image, 0, 0);
+    if (this.enhanced) {
+      // Original code-authored weathered stone, with staggered joints and
+      // irregular inclusions. It remains a lit 3D surface, not a backplate.
+      for (let row = 0; row < 4; row++) {
+        const offset = row % 2 ? 64 : 0;
+        c.strokeStyle = '#080b10'; c.lineWidth = 2;
+        c.beginPath(); c.moveTo(0, row * 128); c.lineTo(512, row * 128 + 1); c.stroke();
+        for (let col = -1; col < 5; col++) {
+          const x = offset + col * 128;
+          c.beginPath(); c.moveTo(x, row * 128); c.lineTo(x + 2, (row + 1) * 128); c.stroke();
+          for (let chip = 0; chip < 16; chip++) {
+            c.fillStyle = chip % 3 ? '#02060925' : '#dfbe9122';
+            c.fillRect(x + rand() * 120, row * 128 + rand() * 125, 1 + rand() * 4, 1 + rand() * 2);
+          }
+        }
+      }
+    }
     c.fillStyle = '#080c13'; c.fillRect(0, 0, 512, 3); c.fillRect(0, 0, 3, 512);
     c.fillStyle = '#ffffff05'; c.fillRect(3, 3, 509, 1);
     const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace;
-    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(45, 12); t.anisotropy = 4;
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(this.enhanced ? 14 : 45, this.enhanced ? 5 : 12); t.anisotropy = 4;
     return t;
   }
 
@@ -394,6 +480,7 @@ export class NightEnvironment {
     const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace; return t;
   }
   dispose() {
+    this.city?.dispose();
     this.wetEdge.geometry.dispose(); this.wetEdgeMaterial.dispose();
     this.river.dispose(); this.moonTexture.dispose(); if (this.moonNode.value !== this.moonTexture) this.moonNode.value.dispose();
     this.skyTexture.dispose(); this.galaxyTexture.dispose(); this.nearStarTexture.dispose(); this.probe.dispose(); this.washTexture.dispose(); this.floorTexture.dispose();

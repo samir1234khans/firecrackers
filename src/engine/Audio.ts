@@ -1,11 +1,50 @@
-import { SOUND_PROFILES, soundGeometry } from './SoundProfiles';
-import { randomStream } from './catalog';
-import type { SimEvent } from './Simulation';
-import { ShowMusic } from './ShowMusic';
-import type { CinematicDirector } from './CinematicDirector';
-import type { ShowPreset } from './catalog';
+import { SOUND_PROFILES, soundGeometry } from './SoundProfiles.js';
+import { randomStream } from './catalog.js';
+import type { SimEvent } from './Simulation.js';
+import { ShowMusic } from './ShowMusic.js';
+import type { CinematicDirector } from './CinematicDirector.js';
+import type { ShowPreset } from './catalog.js';
+import type { SeaReactionCue } from '../graphics/SeaAudienceDirector.js';
+import type { SeaPose } from '../graphics/SeaFleetState.js';
 /** Opt-in CC0 field recordings plus original synthesis. No autoplay or pre-consent fetch. */
 export class AudioEngine {
+    private audienceSample: AudioBuffer | null = null;
+    private audienceLoading = false;
+    private audienceFailure = false;
+    /** Audience voices share the existing global budget and are first to yield. */
+    consumeAudience(cues: readonly SeaReactionCue[], boats: readonly SeaPose[], span: number) {
+        if (!this.enabled || this.suspended || this.disposed || document.hidden || this.context?.state !== 'running') return;
+        void this.loadAudienceSample();
+        for (const cue of cues) {
+            if (this.voices.size >= 38 || [...this.priorities.values()].filter(priority => priority === 0).length >= 2) break;
+            const boat = boats[cue.boat]; if (!boat) continue;
+            const c = this.context, source = c.createBufferSource(), filter = c.createBiquadFilter();
+            source.buffer = cue.kind === 'cheer' ? this.audienceSample : this.noise;
+            if (!source.buffer) continue;
+            const distance = Math.abs(boat.z), duration = cue.kind === 'clap' ? .085 : Math.min(1.65, source.buffer.duration);
+            filter.type = 'lowpass'; filter.frequency.value = 3800 / (1 + distance / 240);
+            const pan = Math.max(-.85, Math.min(.85, boat.x / Math.max(1, span * .5)));
+            this.connect(source, filter, c.currentTime, duration, (cue.kind === 'clap' ? .045 : .035) * cue.strength / (1 + distance / 160), pan, 0);
+        }
+    }
+    private async loadAudienceSample() {
+        if (this.audienceLoading || this.audienceSample || this.audienceFailure || !this.context || !this.enabled) return;
+        this.audienceLoading = true;
+        try {
+            const response = await fetch('/audio/sea-audience-v002-cheer.mp3', { signal: this.fetches.signal });
+            if (!response.ok) throw new Error('Audience recording unavailable');
+            const buffer = await this.context.decodeAudioData(await response.arrayBuffer());
+            if (!this.disposed) this.audienceSample = buffer;
+        } catch { this.audienceFailure = true; }
+        finally { this.audienceLoading = false; }
+    }
+    audienceDiagnostics() { return { ready: Boolean(this.audienceSample), failure: this.audienceFailure, voices: [...this.priorities.values()].filter(priority => priority === 0).length }; }
+    private cancelAudience() {
+        for (const [voice, priority] of this.priorities) if (priority === 0) {
+            try { voice.stop(); } catch { /* Already ended. */ }
+            this.cleanups.get(voice)?.();
+        }
+    }
     private readonly variation = randomStream(82171);
     private readonly samples: AudioBuffer[] = [];
     private loadingSamples = false;
@@ -52,15 +91,54 @@ export class AudioEngine {
     private volume = 0.45;
     private ambient = false;
     private disposed = false;
+    private effectsEnabled = true;
+    setEffectsSound(value: boolean) { this.effectsEnabled=value; if(!value) for(const [voice,priority] of this.priorities) if(priority>0){try{voice.stop();}catch{/* ended */}this.cleanups.get(voice)?.();} }
+    private ambientBlocked = false;
+    private ambientMusic = false;
+    private ambientBuffer: AudioBuffer | null = null;
+    private ambientVoice: AudioBufferSourceNode | null = null;
+    private ambientGain: GainNode | null = null;
+    private ambientLoading = false;
+    private ambientFailed = false;
+    setAmbientMusic(enabled: boolean) {
+        const changed=this.ambientMusic!==enabled;
+        this.ambientMusic = enabled;
+        if(changed&&enabled){this.music?.dispose();this.music=null;}
+        if(changed&&!enabled){try{this.ambientVoice?.stop();}catch{/* ended */}this.ambientVoice?.disconnect();this.ambientGain?.disconnect();this.ambientVoice=null;this.ambientGain=null;this.ambientBuffer=null;
+            if(this.context&&this.master&&!this.disposed){this.music=new ShowMusic(this.context,this.master,import.meta.env.BASE_URL,this.onMusicFailure);this.music.suspend(this.suspended);}}
+        this.music?.options(this.musicEnabled && this.enabled && !enabled, this.musicVolume);
+        this.syncAmbientMusic();
+    }
+    private syncAmbientMusic() {
+        if (!this.context || !this.master || this.disposed) return;
+        const active = this.enabled && this.ambientMusic && !this.ambientBlocked && !document.hidden;
+        if (active && !this.ambientBuffer && !this.ambientLoading && !this.ambientFailed) {
+            this.ambientLoading = true;
+            void fetch(`${import.meta.env.BASE_URL}music/moonlit-promise.wav`, { signal: this.fetches.signal }).then(async r => {
+                if (!r.ok) throw new Error('Ambient score unavailable');
+                const bytes = await r.arrayBuffer(); if(bytes.byteLength > 12 * 1024 * 1024) throw new Error('Ambient score exceeds its budget');
+                const buffer = await this.context!.decodeAudioData(bytes);
+                if(buffer.length * buffer.numberOfChannels * 4 > 24 * 1024 * 1024) throw new Error('Ambient score exceeds its decoded budget');
+                if (!this.disposed && this.ambientMusic) this.ambientBuffer = buffer;
+            }).catch(() => { this.ambientFailed = true; this.onMusicFailure?.('Ambient music unavailable. Fireworks remain playable.'); }).finally(() => {this.ambientLoading=false;this.syncAmbientMusic();});
+        }
+        if(active && this.ambientBuffer && !this.ambientVoice) {
+            const voice=this.context.createBufferSource(), gain=this.context.createGain();
+            voice.buffer=this.ambientBuffer;voice.loop=true;voice.loopStart=20;voice.loopEnd=40;
+            voice.connect(gain);gain.connect(this.compressor ?? this.master);gain.gain.value=0;voice.start();this.ambientVoice=voice;this.ambientGain=gain;
+        }
+        if(this.ambientVoice) this.ambientVoice.playbackRate.setValueAtTime(active?1:0,this.context.currentTime);
+        this.ambientGain?.gain.setTargetAtTime(active ? this.musicVolume * this.volume : 0, this.context.currentTime, .025);
+    }
     private music: ShowMusic | null = null;
     private musicEnabled = false;
     private musicVolume = .30;
-    constructor(private readonly onMusicFailure?: (message: string) => void) {}
+    constructor(private readonly onMusicFailure?: (message: string) => void, private readonly synthesisOnly = false, gestureContext?: AudioContext) { this.context = gestureContext ?? null; }
     setMusicOptions(enabled: boolean, volume: number) {
         this.musicEnabled = enabled; this.musicVolume = volume;
-        this.music?.options(enabled && this.enabled, volume);
+        this.music?.options(enabled && this.enabled && !this.ambientMusic, volume); this.syncAmbientMusic();
     }
-    updateMusic(mode: ShowPreset | null, score: CinematicDirector, time: number) { this.music?.update(mode, score, time); }
+    updateMusic(mode: ShowPreset | null, score: CinematicDirector, time: number) { this.music?.update(mode, score, time); this.syncAmbientMusic(); }
     async configure(enabled: boolean, volume: number, haptics: boolean, ambience: boolean) {
         if (this.disposed)
             return false;
@@ -71,19 +149,20 @@ export class AudioEngine {
         if (!enabled) {
             this.enabled = false;
             this.music?.options(false, this.musicVolume);
+            this.syncAmbientMusic();
             this.stop();
             return false;
         }
         try {
-            if (!this.context)
+            if (!this.master)
                 this.initialize();
             if (this.context!.state === 'suspended')
                 await this.context!.resume();
             if (this.disposed || request !== this.requestGeneration || this.context!.state !== 'running')
                 return false;
             this.enabled = true;
-            this.music?.options(this.musicEnabled, this.musicVolume);
-            void this.loadSamples();
+            this.music?.options(this.musicEnabled && !this.ambientMusic, this.musicVolume); this.syncAmbientMusic();
+            if (!this.synthesisOnly) void this.loadSamples();
             if (this.suspended)
                 this.stop();
             else {
@@ -119,7 +198,7 @@ export class AudioEngine {
             this.master.gain.setValueAtTime(this.volume, this.context.currentTime); this.updateAmbience();
         }
     }
-    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled, headphoneSpatialization: this.headphones, audioCaptureActive: Boolean(this.captureDestination), voiceCapacity: 40, musicEnabled: false, musicVoices: 0, musicBuffers: 0, musicBytes: 0, musicLoading: 0, musicFailure: '', ...this.music?.diagnostics() }; }
+    diagnostics() { return { audioVoices: this.voices.size, audioTimers: this.timers.size, recordedSamples: this.samples.filter(Boolean).length, audioEnabled: this.enabled, headphoneSpatialization: this.headphones, audioCaptureActive: Boolean(this.captureDestination), voiceCapacity: 40, musicEnabled: false, musicVoices: 0, musicBuffers: 0, musicBytes: 0, musicLoading: 0, musicFailure: '', ...this.music?.diagnostics(), ambientMusicVoices: this.ambientVoice ? 1 : 0, ambientMusicReady: Boolean(this.ambientBuffer), ambientMusicHeld: Boolean(this.ambientVoice && this.ambientVoice.playbackRate.value===0), ambientMusicBytes: this.ambientBuffer ? this.ambientBuffer.length*this.ambientBuffer.numberOfChannels*4 : 0, effectsSoundEnabled: this.effectsEnabled, ambientMusicFailure: this.ambientFailed, ...this.audienceDiagnostics() }; }
     private recordedReport(event: SimEvent, at: number, pan: number, distance: number) {
         const profile = SOUND_PROFILES[event.family] ?? SOUND_PROFILES[0];
         const c = this.context, buffer = this.samples[profile.sample];
@@ -145,11 +224,20 @@ export class AudioEngine {
                 this.updateAmbience();
         }
     }
-    setSuspended(value: boolean) {
+    setSuspended(value: boolean, keepAmbient = false) {
+        this.ambientBlocked=value&&!keepAmbient;this.syncAmbientMusic();
         if (this.suspended === value)
             return;
         this.suspended = value;
+        if (value) this.cancelAudience();
         this.music?.suspend(value);
+        this.syncAmbientMusic();
+        if (this.synthesisOnly && this.context) {
+            // Freeze the Web Audio clock with the scene: already scheduled envelopes resume in phase.
+            if (value) void this.context.suspend().catch(() => {});
+            else if (this.enabled) void this.context.resume().catch(() => {});
+            return;
+        }
         if (value)
             this.stop();
         else if (this.enabled && this.context?.state === 'running' && this.master) {
@@ -158,7 +246,7 @@ export class AudioEngine {
         }
     }
     private initialize() {
-        this.context = new AudioContext();
+        this.context ??= new AudioContext();
         const c = this.context;
         this.master = c.createGain();
         this.master.gain.value = 0;
@@ -181,6 +269,7 @@ export class AudioEngine {
         }
     }
     consume(events: SimEvent[], worldWidth: number) {
+        if(!this.effectsEnabled)return;
         if (this.suspended || this.disposed || document.hidden)
             return;
         for (const e of events) {
@@ -199,9 +288,18 @@ export class AudioEngine {
                 continue;
             const pan = geometry.pan;
             const at = this.context.currentTime + delay;
+            if (e.type === 'mortar') this.tone(at, .32, 82, 42, .065, pan, 3);
+            if (e.type === 'whistle') this.tone(at, e.duration ?? 1.8, 460, 1300, .008, pan, 2);
+            if (e.type === 'scribe') this.noiseVoice(at, .045, 3600, .007 * e.strength, pan, 'highpass', 1);
+            if (e.type === 'letter-crack') this.noiseVoice(at, .10, 5200, .024, pan, 'highpass', 2);
+            if (e.type === 'willow-hush') this.noiseVoice(at, 2.6, 1300, .021, pan, 'lowpass', 1);
             if (e.type === 'fuse')
                 this.noiseVoice(at, Math.min(2.6, e.duration || 1.8), 1800, 0.055, pan, 'highpass');
-            if (e.type === 'launch') {
+            if (e.type === 'launch' && this.synthesisOnly) {
+                this.tone(at, .32, 82, 42, .055, pan, 3);
+                this.tone(at, 1.4, 460, 1150, .006, pan, 2);
+            }
+            if (e.type === 'launch' && !this.synthesisOnly) {
                 this.noiseVoice(at, 0.72, 950, 0.18, pan, 'bandpass');
                 if (profile.whistle)
                     this.tone(at, 0.65, profile.whistle, profile.whistle * .55, 0.014, pan);
@@ -209,7 +307,7 @@ export class AudioEngine {
             if (e.type === 'burst') {
                 this.makeRoom(4);
                 this.music?.duck(at);
-                const recorded = this.recordedReport(e, at, pan, distance);
+                const recorded = !this.synthesisOnly && this.recordedReport(e, at, pan, distance);
                 // Fundamental identity gets budget before ornamental grains or echoes.
                 this.noiseVoice(at, profile.decay, profile.body, (recorded ? .11 : .38) * e.strength * geometry.gain, pan, 'lowpass', 3);
                 this.tone(at, .65, profile.pitch, profile.pitch * .44, .26 * e.strength * geometry.gain, pan, 3);
@@ -328,5 +426,5 @@ export class AudioEngine {
             navigator.vibrate(0);
         this.hapticActive = false;
     }
-    dispose() { this.releaseCapture(); this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); this.music?.dispose(); void this.context?.close(); this.context = null; }
+    dispose() { try { this.ambientVoice?.stop(); } catch { /* Already stopped. */ } this.ambientVoice?.disconnect(); this.ambientGain?.disconnect(); this.ambientVoice=null; this.ambientBuffer=null; this.releaseCapture(); this.fetches.abort(); this.samples.length = 0; this.requestGeneration++; this.disposed = true; this.stop(); this.music?.dispose(); void this.context?.close(); this.context = null; }
 }

@@ -1,0 +1,91 @@
+{
+  "base": "http://127.0.0.1:4206/",
+  "software": true,
+  "method": "Exact control opacity/inert/focus/placement contracts after viewport presentation. Software CI selects Low; installed Chrome retains default Ultra. Not performance evidence.",
+  "results": [
+    {
+      "backend": "webgl",
+      "width": 320,
+      "height": 480,
+      "quality": "low"
+    },
+    {
+      "backend": "webgl",
+      "width": 375,
+      "height": 667,
+      "quality": "low"
+    },
+    {
+      "backend": "webgl",
+      "width": 393,
+      "height": 851,
+      "quality": "low"
+    },
+    {
+      "backend": "webgl",
+      "width": 768,
+      "height": 1024,
+      "quality": "low"
+    },
+    {
+      "backend": "webgl",
+      "width": 844,
+      "height": 390,
+      "quality": "low"
+    },
+    {
+      "backend": "webgl",
+      "width": 1280,
+      "height": 800,
+      "quality": "low"
+    },
+    {
+      "backend": "webgl",
+      "width": 1920,
+      "height": 1080,
+      "quality": "low"
+    },
+    {
+      "backend": "canvas",
+      "width": 320,
+      "height": 480,
+      "quality": "low"
+    },
+    {
+      "backend": "canvas",
+      "width": 375,
+      "height": 667,
+      "quality": "low"
+    },
+    {
+      "backend": "canvas",
+      "width": 393,
+      "height": 851,
+      "quality": "low"
+    },
+    {
+      "backend": "canvas",
+      "width": 768,
+      "height": 1024,
+      "quality": "low"
+    },
+    {
+      "backend": "canvas",
+      "width": 844,
+      "height": 390,
+      "quality": "low"
+    },
+    {
+      "backend": "canvas",
+      "width": 1280,
+      "height": 800,
+      "quality": "low"
+    },
+    {
+      "backend": "canvas",
+      "width": 1920,
+      "height": 1080,
+      "quality": "low"
+    }
+  ]
+}

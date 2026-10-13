@@ -65,37 +65,106 @@ jobs:
         env:
           FLAGSHIP_PROJECT: ${{ matrix.project }}
         run: node tests/flagship-browser.mjs /tmp/flagship-evidence
-      - name: Open sky controls, placement and responsive rocket contracts
-        if: matrix.project == 'desktop'
-        env:
-          OPEN_SKY_QUICK: '1'
-        run: node tests/open-sky-browser.mjs /tmp/open-sky-evidence
-      - name: Immersive automated shows and keyboard recovery
-        if: matrix.project == 'desktop'
-        env:
-          IMMERSIVE_SOFTWARE: '1'
-          IMMERSIVE_BACKENDS: webgl,canvas
-        run: node tests/immersive-browser.mjs /tmp/immersive-evidence
-      - name: Four-pace Always Play and manual/immersive lifecycle
-        if: matrix.project == 'desktop'
-        env:
-          ALWAYS_SOFTWARE: '1'
-          ALWAYS_BACKENDS: webgl,canvas
-          ALWAYS_CAPTURES: /tmp/always-play-captures
-        run: node tests/always-play-browser.mjs /tmp/always-play-evidence
-      - name: Endpoint launch composition
-        if: matrix.project == 'desktop'
-        env:
-          EDGE_QUICK: '1'
-        run: node tests/open-sky-edge-browser.mjs /tmp/open-sky-edge-evidence
       - name: Signature native touch tap, drag and cancellation
         if: matrix.project == 'mobile'
         run: node tests/flagship-touch-browser.mjs /tmp/flagship-touch-evidence
       - name: Signature offline and recovery regressions
         if: always()
         run: node tests/flagship-offline-recovery.mjs /tmp/flagship-offline-evidence
-      - name: Original launch, offline and platform regressions
+      - uses: actions/upload-artifact@v4
         if: always()
+        with:
+          name: grand-${{ matrix.project }}-evidence
+          path: |
+            /tmp/grand-evidence
+            /tmp/flagship-evidence
+            /tmp/flagship-offline-evidence
+            /tmp/flagship-touch-evidence
+            /tmp/grand-server.log
+          retention-days: 7
+  controls:
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - name: Serve exact production build
+        run: |
+          npm run preview -- --port 4173 > /tmp/controls-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Open sky controls, placement and responsive rocket contracts
+        env:
+          OPEN_SKY_QUICK: '1'
+        run: node tests/open-sky-browser.mjs /tmp/open-sky-evidence
+      - name: Immersive automated shows and keyboard recovery
+        env:
+          IMMERSIVE_SOFTWARE: '1'
+          IMMERSIVE_BACKENDS: webgl,canvas
+        run: node tests/immersive-browser.mjs /tmp/immersive-evidence
+      - name: Four-pace Always Play and manual/immersive lifecycle
+        env:
+          ALWAYS_SOFTWARE: '1'
+          ALWAYS_BACKENDS: webgl,canvas
+          ALWAYS_CAPTURES: /tmp/always-play-captures
+        run: node tests/always-play-browser.mjs /tmp/always-play-evidence
+      - name: Endpoint launch composition
+        env:
+          EDGE_QUICK: '1'
+        run: node tests/open-sky-edge-browser.mjs /tmp/open-sky-edge-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: controls-evidence
+          path: |
+            /tmp/immersive-evidence
+            /tmp/open-sky-evidence
+            /tmp/open-sky-edge-evidence
+            /tmp/always-play-evidence
+            /tmp/always-play-captures
+            /tmp/controls-server.log
+          retention-days: 7
+  # Keep the unmodified original platform flow independent of the growing
+  # collection/control chain. Both consume the same immutable engine artifact;
+  # a failure in either still fails the complete required Runtime workflow.
+  original-platform:
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop, mobile]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - name: Serve exact production build
+        run: |
+          npm run preview -- --port 4173 > /tmp/original-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Original launch, offline and platform regressions
         env:
           VIDEO_FLOW_URL: http://127.0.0.1:4173/
           VIDEO_FLOW_PROJECT: ${{ matrix.project }}
@@ -103,17 +172,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: grand-${{ matrix.project }}-evidence
+          name: original-${{ matrix.project }}-evidence
           path: |
-            /tmp/grand-evidence
             /tmp/original-evidence
-            /tmp/flagship-evidence
-            /tmp/flagship-offline-evidence
-            /tmp/flagship-touch-evidence
-            /tmp/immersive-evidence
-            /tmp/open-sky-evidence
-            /tmp/open-sky-edge-evidence
-            /tmp/grand-server.log
+            /tmp/original-server.log
           retention-days: 7
   legacy-realism:
     needs: engine
@@ -226,4 +288,40 @@ jobs:
             /tmp/galactic-evidence
             /tmp/panel-evidence
             /tmp/startup-evidence
+          retention-days: 7
+
+  upstream-world:
+    needs: engine
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: grand-collection-build
+          path: dist
+      - run: npx playwright install --with-deps chromium
+      - name: Serve qualified build
+        run: |
+          npm run preview -- --port 4177 > /tmp/upstream-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4177/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Moving world, creative Studio and accessible controls
+        env:
+          UPSTREAM_CI: '1'
+          UPSTREAM_BACKENDS: webgl,canvas
+          UPSTREAM_URL: http://127.0.0.1:4177/
+          UPSTREAM_OUT: /tmp/upstream-world
+        run: npm run test:upstream-browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upstream-world-evidence
+          path: /tmp/upstream-world
           retention-days: 7

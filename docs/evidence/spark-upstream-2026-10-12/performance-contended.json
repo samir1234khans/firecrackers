@@ -1,0 +1,99 @@
+{
+  "method": "One post-optimization comparison, installed Chrome, 1280x800 Standard WebGL, 10s warm / 5s sample per workload. Desktop only; no GPU/physical-device claim.",
+  "results": [
+    {
+      "label": "baseline",
+      "workload": "idle",
+      "frameInterval": {
+        "samples": 1200,
+        "p50": 4.200000000000728,
+        "p95": 4.299999999999272,
+        "worst": 4.30000000000291
+      },
+      "cpuSubmission": {
+        "samples": 0
+      },
+      "backend": "WebGL 2",
+      "launched": 0,
+      "bursts": 0,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "baseline",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 1147,
+        "p50": 4.19999999999709,
+        "p95": 4.30000000000291,
+        "worst": 33.30000000000291
+      },
+      "cpuSubmission": {
+        "samples": 0
+      },
+      "backend": "WebGL 2",
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "idle",
+      "frameInterval": {
+        "samples": 1199,
+        "p50": 4.19999999999709,
+        "p95": 4.299999999999272,
+        "worst": 8.400000000001455
+      },
+      "cpuSubmission": {
+        "samples": 151,
+        "p50": 4.899999976158142,
+        "p95": 5.899999976158142,
+        "worst": 8.399999976158142
+      },
+      "backend": "WebGL 2",
+      "launched": 0,
+      "bursts": 0,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 315,
+        "p50": 16.60000000000582,
+        "p95": 29.10000000000582,
+        "worst": 158.39999999999418
+      },
+      "cpuSubmission": {
+        "samples": 263,
+        "p50": 11.399999976158142,
+        "p95": 12.800000011920929,
+        "worst": 149.5
+      },
+      "backend": "WebGL 2",
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "close-up",
+      "frameInterval": {
+        "samples": 310,
+        "p50": 16.69999999999709,
+        "p95": 20.900000000001455,
+        "worst": 104
+      },
+      "cpuSubmission": {
+        "samples": 276,
+        "p50": 8.800000011920929,
+        "p95": 16.599999964237213,
+        "worst": 90.79999995231628
+      },
+      "backend": "WebGL 2",
+      "launched": 5,
+      "bursts": 5,
+      "gpuTiming": "not measured"
+    }
+  ]
+}

@@ -110,7 +110,7 @@ try {
   frame = await snapshot();
   assert.match(frame.authoredAssetErrors.river, /Embedded image.*could not be decoded.*Controlled corrupt embedded image/);
   assert.equal(frame.riverScenery, 'procedural river fallback'); assert.equal(frame.riverPbrTextures, 0);
-  assert.equal(frame.riverBoats, 3); assert.equal(frame.riverLampAnchors, 10);
+  assert.equal(frame.riverBoats, 10); assert.equal(frame.riverLampAnchors, 13);
   const lifecycle = await page.evaluate(() => window.__assetLifecycle);
   assert.equal(lifecycle.injectedFailures, 1); assert.equal(lifecycle.closedLargeBitmaps, 2);
   pass('One failed embedded map rejects the whole river enhancement and closes the other two decoded 2K maps', { lifecycle });
@@ -132,7 +132,7 @@ try {
   frame = await snapshot();
   assert.match(frame.authoredAssetErrors.river, /Image.*could not be decoded/);
   assert.equal(frame.riverScenery, 'procedural river fallback'); assert.equal(frame.riverPbrTextures, 0);
-  assert.equal(frame.riverBoats, 3); assert.equal(frame.riverLampAnchors, 10);
+  assert.equal(frame.riverBoats, 10); assert.equal(frame.riverLampAnchors, 13);
   const legacy = await page.evaluate(() => window.__assetLifecycle);
   assert.equal(await page.evaluate(() => typeof ImageBitmap), 'function');
   assert.equal(legacy.injectedFailures, 1); assert.equal(legacy.failedBlobRevoked, true);

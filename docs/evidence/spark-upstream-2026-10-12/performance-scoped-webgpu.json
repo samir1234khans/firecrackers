@@ -1,0 +1,129 @@
+{
+  "method": "Installed Chrome; matched 1280x800 Standard selected backend seed 42; 10s warm / 5s sample. Browser rAF intervals, not GPU duration. Separate CPU submission when available; baseline lacks lightweight probe. No overlapping local tests; physical-phone, Safari, thermal and battery unqualified.",
+  "results": [
+    {
+      "label": "baseline",
+      "workload": "idle",
+      "frameInterval": {
+        "samples": 1199,
+        "p50": 4.199999999998909,
+        "p95": 4.299999999999272,
+        "worst": 8.399999999999636
+      },
+      "cpuSubmission": {
+        "samples": 0
+      },
+      "backend": "WebGPU",
+      "quality": "standard",
+      "paused": false,
+      "renderedFrames": 58,
+      "launched": 0,
+      "bursts": 0,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "baseline",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 1104,
+        "p50": 4.19999999999709,
+        "p95": 8.299999999999272,
+        "worst": 70.90000000000146
+      },
+      "cpuSubmission": {
+        "samples": 0
+      },
+      "backend": "WebGPU",
+      "quality": "standard",
+      "paused": false,
+      "renderedFrames": 297,
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "idle",
+      "frameInterval": {
+        "samples": 1199,
+        "p50": 4.199999999998909,
+        "p95": 4.299999999999272,
+        "worst": 8.200000000000728
+      },
+      "cpuSubmission": {
+        "samples": 151,
+        "p50": 5.5,
+        "p95": 6.699999988079071,
+        "worst": 7.0999999940395355
+      },
+      "backend": "WebGPU",
+      "quality": "standard",
+      "paused": false,
+      "renderedFrames": 150,
+      "launched": 0,
+      "bursts": 0,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 1153,
+        "p50": 4.19999999999709,
+        "p95": 4.30000000000291,
+        "worst": 8.400000000001455
+      },
+      "cpuSubmission": {
+        "samples": 301,
+        "p50": 6.799999997019768,
+        "p95": 8.299999997019768,
+        "worst": 8.599999994039536
+      },
+      "backend": "WebGPU",
+      "quality": "standard",
+      "paused": false,
+      "renderedFrames": 301,
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "close-up",
+      "frameInterval": {
+        "samples": 1199,
+        "p50": 4.19999999999709,
+        "p95": 4.299999999995634,
+        "worst": 8.299999999995634
+      },
+      "cpuSubmission": {
+        "samples": 301,
+        "p50": 4.100000008940697,
+        "p95": 6.200000002980232,
+        "worst": 11.5
+      },
+      "backend": "WebGPU",
+      "quality": "standard",
+      "paused": false,
+      "renderedFrames": 301,
+      "launched": 5,
+      "bursts": 5,
+      "gpuTiming": "not measured"
+    }
+  ],
+  "checks": [
+    {
+      "workload": "idle",
+      "limit": 6.299999999999272,
+      "pass": true,
+      "minimumFrames": 30
+    },
+    {
+      "workload": "super-high",
+      "limit": 10.299999999999272,
+      "pass": true,
+      "minimumFrames": 100
+    }
+  ],
+  "guardCorrection": "Raw samples retained; old baseline presents idle sky at 12 Hz. Minimum idle presentations is 30 in 5s, active minimum remains 100. Re-evaluate only cadence liveness guard; p95 allowance unchanged."
+}

@@ -10,14 +10,14 @@ export const CELESTIAL_LIMITS = Object.freeze({
 
 /** One reusable output for both renderers; the shared world owns all elapsed time. */
 export type CelestialFrame = {
-  time: number; motionAllowed: boolean; engagement: number;
+  time: number; motionAllowed: boolean; engagement: number; parallaxLimit: number;
   farX: number; farY: number; dustX: number; dustY: number; nearX: number; nearY: number;
   twinkle: number; pointerX: number; pointerY: number;
   meteor: { active: boolean; headX: number; headY: number; tailX: number; tailY: number; opacity: number };
 };
 
 export function createCelestialFrame(): CelestialFrame {
-  return { time: 0, motionAllowed: false, engagement: 0,
+  return { time: 0, motionAllowed: false, engagement: 0, parallaxLimit: CELESTIAL_LIMITS.nearParallaxPixels,
     farX: 0, farY: 0, dustX: 0, dustY: 0, nearX: 0, nearY: 0,
     twinkle: 1, pointerX: .5, pointerY: .25,
     meteor: { active: false, headX: 0, headY: 0, tailX: 0, tailY: 0, opacity: 0 } };
@@ -32,7 +32,7 @@ const seededUnit = (epoch: number, salt: number) => {
 
 /** Cached scalar math only: no random stream mutation, timers, arrays or frame allocations. */
 export function updateCelestialFrame(out: CelestialFrame, state: Readonly<SkyState>,
-  width: number, height: number, motionAllowed: boolean, reducedFlashes: boolean): void {
+  width: number, height: number, motionAllowed: boolean, reducedFlashes: boolean, nearParallaxPixels: number = CELESTIAL_LIMITS.nearParallaxPixels): void {
   out.motionAllowed = motionAllowed && state.motionAllowed;
   out.time = out.motionAllowed && Number.isFinite(state.time) ? Math.max(0, state.time) : 0;
   out.engagement = out.motionAllowed ? unit(state.engagement) : 0;
@@ -43,9 +43,10 @@ export function updateCelestialFrame(out: CelestialFrame, state: Readonly<SkySta
   y = out.engagement ? y / length * out.engagement : 0;
   out.farX = x * .55; out.farY = y * .55;
   out.dustX = x * 1.35; out.dustY = y * 1.35;
-  // Near-field pointer displacement stays inside a 3 CSS pixel radius at every viewport/DPR.
-  out.nearX = x * CELESTIAL_LIMITS.nearParallaxPixels;
-  out.nearY = y * CELESTIAL_LIMITS.nearParallaxPixels;
+  // The invitation opts into 6 px; unchanged historical routes retain 3 px.
+  out.parallaxLimit = Math.max(0, Math.min(6, nearParallaxPixels));
+  out.nearX = x * out.parallaxLimit;
+  out.nearY = y * out.parallaxLimit;
   out.twinkle = 1 + Math.sin(out.time * .27 + .4) * (out.motionAllowed ? .025 : 0);
   const meteor = out.meteor;
   meteor.active = false; meteor.opacity = 0;
@@ -74,7 +75,7 @@ export function celestialDiagnostics(frame: CelestialFrame) {
   return { skyMotionTime: frame.time, skyMotionAllowed: frame.motionAllowed,
     skyPointerX: frame.pointerX, skyPointerY: frame.pointerY, skyEngagement: frame.engagement,
     skyNearParallaxX: frame.nearX, skyNearParallaxY: frame.nearY,
-    skyMaximumParallaxPixels: CELESTIAL_LIMITS.nearParallaxPixels,
+    skyMaximumParallaxPixels: frame.parallaxLimit,
     skyActiveMeteors: Number(frame.meteor.active), skyMaximumMeteors: CELESTIAL_LIMITS.maximumMeteors,
     skyMeteorOpacity: frame.meteor.opacity, skyMeteorIntervalSeconds: CELESTIAL_LIMITS.meteorIntervalSeconds };
 }

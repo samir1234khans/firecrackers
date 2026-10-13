@@ -1,0 +1,447 @@
+{
+  "seed": 42,
+  "quality": "standard",
+  "cases": [
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 320,
+      "height": 480,
+      "file": "baseline-canvas-320x480-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 360,
+      "height": 640,
+      "file": "baseline-canvas-360x640-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 390,
+      "height": 844,
+      "file": "baseline-canvas-390x844-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 768,
+      "height": 1024,
+      "file": "baseline-canvas-768x1024-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 844,
+      "height": 390,
+      "file": "baseline-canvas-844x390-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 1280,
+      "height": 800,
+      "file": "baseline-canvas-1280x800-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 1920,
+      "height": 1080,
+      "file": "baseline-canvas-1920x1080-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "baseline-webgl-1280x800-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "gold-willow",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "baseline-webgl-1280x800-gold-willow.png",
+      "time": 24.049999999999915,
+      "bursts": 1
+    },
+    {
+      "label": "baseline",
+      "name": "sapphire-saturn",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "baseline-webgl-1280x800-sapphire-saturn.png",
+      "time": 88.09999999999629,
+      "bursts": 2
+    },
+    {
+      "label": "baseline",
+      "name": "opal-supernova",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "baseline-webgl-1280x800-opal-supernova.png",
+      "time": 152.01666666667978,
+      "bursts": 3
+    },
+    {
+      "label": "baseline",
+      "name": "imperial-crown",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "baseline-webgl-1280x800-imperial-crown.png",
+      "time": 215.80000000006387,
+      "bursts": 11
+    },
+    {
+      "label": "baseline",
+      "name": "idle",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "baseline-webgl-390x844-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "baseline",
+      "name": "gold-willow",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "baseline-webgl-390x844-gold-willow.png",
+      "time": 23.516666666666612,
+      "bursts": 1
+    },
+    {
+      "label": "baseline",
+      "name": "sapphire-saturn",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "baseline-webgl-390x844-sapphire-saturn.png",
+      "time": 87.03333333332968,
+      "bursts": 2
+    },
+    {
+      "label": "baseline",
+      "name": "opal-supernova",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "baseline-webgl-390x844-opal-supernova.png",
+      "time": 150.55000000001195,
+      "bursts": 3
+    },
+    {
+      "label": "baseline",
+      "name": "imperial-crown",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "baseline-webgl-390x844-imperial-crown.png",
+      "time": 214.60000000006292,
+      "bursts": 11
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 320,
+      "height": 480,
+      "file": "candidate-canvas-320x480-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 360,
+      "height": 640,
+      "file": "candidate-canvas-360x640-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 390,
+      "height": 844,
+      "file": "candidate-canvas-390x844-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 768,
+      "height": 1024,
+      "file": "candidate-canvas-768x1024-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 844,
+      "height": 390,
+      "file": "candidate-canvas-844x390-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-canvas-1280x800-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "Canvas 2D · compatibility",
+      "width": 1920,
+      "height": 1080,
+      "file": "candidate-canvas-1920x1080-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "gold-willow",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-gold-willow.png",
+      "time": 24.049999999999915,
+      "bursts": 1,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "sapphire-saturn",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-sapphire-saturn.png",
+      "time": 88.09999999999629,
+      "bursts": 2,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "opal-supernova",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-opal-supernova.png",
+      "time": 152.01666666667978,
+      "bursts": 3,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "imperial-crown",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-imperial-crown.png",
+      "time": 215.80000000006387,
+      "bursts": 11,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "idle",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "candidate-webgl-390x844-idle.png",
+      "time": 20.000000000000146,
+      "bursts": 0,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "gold-willow",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "candidate-webgl-390x844-gold-willow.png",
+      "time": 23.516666666666612,
+      "bursts": 1,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "sapphire-saturn",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "candidate-webgl-390x844-sapphire-saturn.png",
+      "time": 87.03333333332968,
+      "bursts": 2,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "opal-supernova",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "candidate-webgl-390x844-opal-supernova.png",
+      "time": 150.55000000001195,
+      "bursts": 3,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "imperial-crown",
+      "backend": "WebGL 2",
+      "width": 390,
+      "height": 844,
+      "file": "candidate-webgl-390x844-imperial-crown.png",
+      "time": 214.60000000006292,
+      "bursts": 11,
+      "fleetTriangles": 31107
+    },
+    {
+      "label": "candidate",
+      "name": "boat-0",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-boat-0.png",
+      "time": 1.7833333333333319,
+      "bursts": 0,
+      "fleetTriangles": 36774
+    },
+    {
+      "label": "candidate",
+      "name": "boat-1",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-boat-1.png",
+      "time": 3.6166666666666587,
+      "bursts": 0,
+      "fleetTriangles": 38510
+    },
+    {
+      "label": "candidate",
+      "name": "boat-5",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-boat-5.png",
+      "time": 5.433333333333319,
+      "bursts": 0,
+      "fleetTriangles": 35027
+    },
+    {
+      "label": "candidate",
+      "name": "boat-6",
+      "backend": "WebGL 2",
+      "width": 1280,
+      "height": 800,
+      "file": "candidate-webgl-1280x800-boat-6.png",
+      "time": 7.316666666666646,
+      "bursts": 0,
+      "fleetTriangles": 35971
+    }
+  ],
+  "errors": [],
+  "timing": [
+    {
+      "label": "baseline",
+      "workload": "idle",
+      "samples": 1200,
+      "p95Ms": 4.299999999999272,
+      "worstMs": 4.5,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "baseline",
+      "workload": "super-high",
+      "samples": 741,
+      "p95Ms": 16.600000000002183,
+      "worstMs": 104.20000000000073,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "idle",
+      "samples": 602,
+      "p95Ms": 16.700000000000728,
+      "worstMs": 37.5,
+      "cpuSubmitMs": 15.900000035762787,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "super-high",
+      "samples": 353,
+      "p95Ms": 45.79999999999927,
+      "worstMs": 162.59999999999854,
+      "cpuSubmitMs": 25.599999964237213,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "close-up",
+      "samples": 219,
+      "p95Ms": 29.299999999999272,
+      "worstMs": 166.6999999999989,
+      "cpuSubmitMs": 22.399999976158142,
+      "gpuTiming": "not measured"
+    }
+  ],
+  "method": "Desktop installed Chrome. Fixed simulation seed/time for captures; fleet is renderer-clock presentation. rAF timing is browser frame cadence, not GPU completion."
+}

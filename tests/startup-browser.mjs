@@ -47,17 +47,17 @@ try{
   const held=await heldRoute(context,/\/art\/(rocket\.glb|moon-lro-v001\.png)(?:\?.*)?$/);
   await page.goto(`${base}?qa=1&backend=webgl`,{waitUntil:'domcontentloaded'});await ready(page);
   await page.waitForFunction(()=>window.__firecrackersQA.snapshot().startup.completed===7,undefined,{timeout:90000});
-  let state=await snap(page);assert.equal(state.startup.total,9);assert.equal(state.startup.phase,'scene');assert.equal(state.startup.pending,true);
+  let state=await snap(page);assert.equal(state.startup.total,12);assert.equal(state.startup.phase,'scene');assert.equal(state.startup.pending,true);
   assert.equal(state.authoredAssetStates.rocket,'loading');assert.equal(state.authoredAssetStates.moon,'loading');assert.equal(state.paused,true);
   assert.equal(await page.locator('main').getAttribute('data-presented'),'false');assert.equal(await page.locator('[data-family-icon]').count(),13,'all geometry stays mounted');
   assert.ok(await page.locator('[data-family-icon]').first().evaluate(e=>e.disabled&&!!e.closest('[inert]')));
   assert.ok(await page.locator('[data-control-rail]').evaluate(e=>e.inert));
   await page.keyboard.press('1');await page.keyboard.press('l');await page.keyboard.press('Space');state=await snap(page);assert.equal(state.launched,0);assert.equal(state.committedId,null);assert.equal(state.time,0,'startup does not run hidden simulation');
-  const progress=page.getByRole('progressbar',{name:'Scene asset preparation'});assert.equal(await progress.getAttribute('aria-valuenow'),'7');assert.equal(await progress.getAttribute('aria-valuemax'),'9');
+  const progress=page.getByRole('progressbar',{name:'Scene asset preparation'});assert.equal(await progress.getAttribute('aria-valuenow'),'7');assert.equal(await progress.getAttribute('aria-valuemax'),'12');
   await page.screenshot({path:`${out}/cold-held-assets.png`});
   held.release();await page.waitForSelector('[data-startup-transition="travel"]',{timeout:90000});
   const travel=await page.locator('.startup-moon-orbit').evaluate(e=>({x:parseFloat(e.style.left),y:parseFloat(e.style.top),diameter:parseFloat(e.style.width)}));
-  state=await snap(page);assert.equal(state.startup.completed,9);assert.equal(state.startup.pending,false);
+  state=await snap(page);assert.equal(state.startup.completed,12);assert.equal(state.startup.pending,false);
   assert.ok(Math.abs(travel.x-state.moon.x)<.1&&Math.abs(travel.y-state.moon.y)<.1&&Math.abs(travel.diameter-2*state.moon.radius/.95)<.1,'travel target matches actual renderer moon including authored transparent rim');
   assert.equal(state.paused,true,'transition still owns pause');await presented(page);assert.equal((await snap(page)).paused,false);assert.ok(held.requests()>=2);
   await page.locator('[data-family-icon="gold-willow"]').click();assert.ok((await snap(page)).committedId);record('Actual cold asset counts, inert mounted controls, no keyboard launches and renderer-aligned moon travel');
@@ -73,7 +73,7 @@ try{
  await scenario('asset-failure',async(page,context)=>{
   await context.route('**/art/terrace-v008.glb',route=>route.abort());await context.route('**/art/river-life-v008.glb',route=>route.abort());
   await page.goto(`${base}?qa=1&backend=webgl`,{waitUntil:'domcontentloaded'});await presented(page);const state=await snap(page);
-  assert.equal(state.startup.completed,9);assert.equal(state.startup.pending,false);assert.equal(state.startup.degraded,true);assert.equal(state.authoredAssetStates.terrace,'failed');assert.equal(state.authoredAssetStates.river,'failed');
+  assert.equal(state.startup.completed,12);assert.equal(state.startup.pending,false);assert.equal(state.startup.degraded,true);assert.equal(state.authoredAssetStates.terrace,'failed');assert.equal(state.authoredAssetStates.river,'failed');
   await page.locator('[data-family-icon="gold-willow"]').click();assert.ok((await snap(page)).committedId);record('Real failed authored assets settle automatically with playable reduced detail');
  });
  await scenario('warm-reload',async(page)=>{

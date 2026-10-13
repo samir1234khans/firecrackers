@@ -188,7 +188,8 @@ export class ParticleScene {
             if (p.age[i] < 0) continue;
             const b = this.heads[bucketFor(p.z[i])], n = b.count++, a = b.attrs, t = p.age[i] / p.life[i];
             const unit = Math.max(.035, (camera.position.z - p.z[i]) * pixelFactor);
-            const size = Math.max(p.size[i] * (1 - t * .38), unit*(p.family[i]<10?.70:1.05))*7.5;
+            const pattern = p.role[i] === -72;
+            const size = Math.max(p.size[i] * (1 - t * .38), unit*(pattern?.40:p.family[i]<10?.70:1.05))*7.5;
             b.reflectionBounds.include(p.x[i], p.y[i], p.z[i], size * 1.2);
             const fade = Math.pow(Math.max(0, 1 - t), .72);
             starColor(p.family[i], p.age[i], p.life[i], p.r[i], p.g[i], p.b[i], this.starTone);
@@ -197,7 +198,7 @@ export class ParticleScene {
             a.iPosition.setXYZ(n, p.x[i], p.y[i], p.z[i]);
             a.iScale.setXY(n, size, size);
             a.iAlpha.setX(n, fade * p.gain[i] * (.84 + hash01(p.id[i], 51) * .16) * smokeTransmission * air);
-            const heat = p.family[i] >= 10 ? 1.75 + Math.exp(-p.age[i] * 4) * .45 : 2.65 + Math.exp(-p.age[i]*6)*.40;
+            const heat = pattern ? 1.65 : p.family[i] >= 10 ? 1.75 + Math.exp(-p.age[i] * 4) * .45 : 2.65 + Math.exp(-p.age[i]*6)*.40;
             a.iColor.setXYZ(n, this.starTone[0] * heat, this.starTone[1] * heat, this.starTone[2] * heat);
         }
         const embers = sim.embers;
@@ -249,6 +250,7 @@ export class ParticleScene {
             a.iColor.setXYZ(n, red * 2.55 * (1 + age * .09), green * 2.55 * (1 - age * .15), blue * 2.55 * (1 - age * .34));
         };
         for (let i = 0; i < t.count; i++) {
+            if(t.age[i]<0)continue;
             addTrail(t.ax[i], t.ay[i], t.az[i], t.bx[i], t.by[i], t.bz[i], t.width[i], t.age[i] / t.life[i],
                 t.owner[i], t.r[i], t.g[i], t.b[i]);
         }

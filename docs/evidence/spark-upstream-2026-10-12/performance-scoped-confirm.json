@@ -1,0 +1,55 @@
+{
+  "method": "Installed Chrome; matched 1280x800 Standard selected backend seed 42; 10s warm / 5s sample. Browser rAF intervals, not GPU duration. Separate CPU submission when available; baseline lacks lightweight probe. No overlapping local tests; physical-phone, Safari, thermal and battery unqualified.",
+  "results": [
+    {
+      "label": "baseline",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 1067,
+        "p50": 4.200000000000728,
+        "p95": 8.300000000001091,
+        "worst": 29.100000000000364
+      },
+      "cpuSubmission": {
+        "samples": 0
+      },
+      "backend": "WebGL 2",
+      "quality": "standard",
+      "paused": false,
+      "renderedFrames": 300,
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    },
+    {
+      "label": "candidate",
+      "workload": "super-high",
+      "frameInterval": {
+        "samples": 1194,
+        "p50": 4.19999999999709,
+        "p95": 4.299999999999272,
+        "worst": 8.399999999997817
+      },
+      "cpuSubmission": {
+        "samples": 302,
+        "p50": 6.300000011920929,
+        "p95": 6.899999991059303,
+        "worst": 10.599999994039536
+      },
+      "backend": "WebGL 2",
+      "quality": "standard",
+      "paused": false,
+      "renderedFrames": 302,
+      "launched": 5,
+      "bursts": 4,
+      "gpuTiming": "not measured"
+    }
+  ],
+  "checks": [
+    {
+      "workload": "super-high",
+      "limit": 10.300000000001091,
+      "pass": true
+    }
+  ]
+}

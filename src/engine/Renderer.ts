@@ -1,3 +1,5 @@
+import { WORLD_CAPABILITIES } from '../graphics/SceneCapabilities';
+import type { SceneCapabilities } from '../graphics/SceneCapabilities';
 import { burstDepth } from './LegacyRealism';
 import { CINEMA_BASE_EXPOSURE } from './CinematicResponse.js';
 import { gatherBurstLighting } from './BurstLighting.js';
@@ -5,14 +7,20 @@ import { measureStage, stageFraming, stageCameraFrame } from './StageLayout';
 import type { StageLayout } from './StageLayout';
 import { resolveScreenLaunchProfile, resolveLaunchAimScreenX, resolveLegacyLaunchProfile, legacyCompositionScale, signatureCompositionScale } from './LaunchProfile';
 import type { LaunchProfile } from './LaunchProfile';
+import { resolveShorelineLaunch } from '../graphics/ShorelineLaunch';
 import type { RendererStartup } from './StartupProgress';
 import type { MoonFrame } from '../graphics/MoonComposition';
+import type { MoonObstacle } from '../graphics/MoonComposition';
+import type { GlassSurface } from '../graphics/GlassMath';
+import { LivingGlass } from '../graphics/LivingGlass';
+import { WATER_Y } from '../graphics/WaterWaves';
 import { PROP_CONTACT_Y, resolvePropComposition, resolveLaunchBounds, propProjectionDiagnostics } from './LaunchComposition';
 import type { LaunchPropComposition, LaunchBounds } from './LaunchComposition';
 import { signatureEnvelope, effectEnvelope } from './SignatureDiagnostics';
 import * as THREE from 'three/webgpu';
-import { float, hash, mix, pass, renderOutput, screenCoordinate, smoothstep, uniform, vec4 } from 'three/tsl';
+import { float, hash, mix, pass, renderOutput, screenCoordinate, smoothstep, texture, uniform, vec4 } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
+import type { ShaderNodeObject } from 'three/tsl';
 import { BUDGETS, FAMILIES, clamp, familyIndex } from './catalog';
 import { flightAxis, flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from './LaunchGeometry';
 import { ROCKET_SCALE } from './FusePath';
@@ -26,19 +34,26 @@ import { loadWaterfrontAssets, disposeWaterfrontAsset, WATERFRONT_ASSET_NAMES } 
 import type { WaterfrontAssets, WaterfrontAssetName } from '../graphics/WaterfrontAssets';
 import { WaterReflection } from '../graphics/WaterReflection';
 import { NightEnvironment } from '../graphics/NightEnvironment';
+import type { SeaAudienceSession } from '../graphics/SeaAudienceSession';
+import { SeaBoatView } from '../graphics/SeaBoatView';
 import { OpaqueDepth } from '../graphics/OpaqueDepth';
 import { makePaperTexture, makeSmokeAtlas } from '../graphics/textures';
 import type { DisplayMode } from '../platform/presentation';
 
 /** Perspective, depth-aware native r180 TSL pipeline. Simulation remains CPU fixed-step. */
 export class FireworkRenderer {
+    private seaSession?: SeaAudienceSession;
+    private readonly seaView = new SeaBoatView();
+    boatViewActive() { return this.seaView.active; }
+    resetBoatView() { this.seaView.reset(); this.resize(); }
+    setSeaSession(session: SeaAudienceSession) { if (this.capabilities.enhanced) { this.seaSession = session; this.environment.setSeaSession(session); } }
     readonly renderer: THREE.WebGPURenderer;
     readonly scene = new THREE.Scene();
     readonly camera = new THREE.PerspectiveCamera(42, 1, 1, 1500);
     private readonly opaqueCamera = new THREE.PerspectiveCamera();
-    readonly metrics = { renderPixels: 0, submitMs: 0, waterSubmitMs: 0, frames: 0 };
+    readonly metrics = { renderPixels: 0, submitMs: 0, waterSubmitMs: 0, particleSubmitMs: 0, environmentSubmitMs: 0, depthSubmitMs: 0, postSubmitMs: 0, frames: 0 };
     private readonly water = new WaterReflection();
-    private readonly environment = new NightEnvironment();
+    private readonly environment: NightEnvironment;
     private readonly smokeAtlas = makeSmokeAtlas();
     private readonly paper = makePaperTexture();
     private readonly props = Array.from({ length: 8 }, () => new RocketProp(this.paper));
@@ -55,6 +70,18 @@ export class FireworkRenderer {
     private readonly scenePass: ReturnType<typeof pass>;
     private readonly bloomPass: ReturnType<typeof bloom>;
     private readonly post: THREE.PostProcessing;
+    private readonly glass?: LivingGlass;
+    private readonly reducedTransparency = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-transparency: reduce)') : null;
+    private readonly forcedColours = typeof matchMedia === 'function' ? matchMedia('(forced-colors: active)') : null;
+    private warmupStarted = false;
+    private warmupComplete = false;
+    private warmupPending = false;
+    private warmupPromise: Promise<void> | null = null;
+    private readyFrames = 0;
+    private readonly waterRay = new THREE.Raycaster();
+    private readonly waterPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -WATER_Y);
+    private readonly interactionPoint = new THREE.Vector3();
+    private readonly interactionNDC = new THREE.Vector2();
     private readonly particles: ParticleScene;
     private readonly overlay = uniform(0);
     private readonly projected = new THREE.Vector3();
@@ -67,6 +94,7 @@ export class FireworkRenderer {
     private readonly assetQueuedAt: Partial<Record<WaterfrontAssetName, number>> = {};
     private pendingAssetCount = 0;
     private assetFrame = 0;
+    private presentationFrame = 0;
     private layout!: StageLayout;
     private compositions: LaunchPropComposition[] = [];
     private launchBounds: LaunchBounds[] = [];
@@ -80,7 +108,8 @@ export class FireworkRenderer {
     private initialized = false;
     private lossHandler: (event: Event) => void;
     backend = 'Starting';
-    constructor(private host: HTMLDivElement, private sim: Simulation, private onFailure: (message: string) => void, forceWebGL = false) {
+    constructor(private host: HTMLDivElement, private sim: Simulation, private onFailure: (message: string) => void, forceWebGL = false, private readonly capabilities: SceneCapabilities = WORLD_CAPABILITIES, glassDisabled = false) {
+        this.environment = new NightEnvironment(capabilities);
         this.renderer = new THREE.WebGPURenderer({ antialias: false, alpha: true, forceWebGL, powerPreference: 'high-performance' });
         this.renderer.setClearColor(0x020409, 1);
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -101,6 +130,20 @@ export class FireworkRenderer {
         // Per-prop lights otherwise add/remove a light as props appear and fade,
         // forcing every lit waterfront material to relink during each launch.
         this.scene.add(key, moon, this.blastLight, this.fuseLight);
+        if (capabilities.enhanced) {
+            // Warm practical lamps illuminate the real stone/boat materials.
+            // The stable pair is registered before either render pass compiles.
+            for (const x of [-75, 75]) {
+                const practical = new THREE.PointLight(0xffc98b, 45, 40, 2);
+                practical.position.set(x, 11, 25); this.scene.add(practical);
+                const housing = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 2.2, 3.5, 10),
+                    new THREE.MeshStandardMaterial({ color: '#29241e', roughness: .55, metalness: .28 }));
+                housing.position.set(x, 6.6, 25); this.scene.add(housing);
+                const lamp = new THREE.Mesh(new THREE.SphereGeometry(.60, 8, 6),
+                    new THREE.MeshBasicMaterial({ color: '#ffd399', toneMapped: false }));
+                lamp.position.copy(practical.position); this.scene.add(lamp);
+            }
+        }
         // A stable light list in both views avoids launch-time pipeline variants.
         for (const light of this.scene.children) if (light instanceof THREE.Light) {
             light.layers.enable(3); light.layers.enable(4);
@@ -126,7 +169,15 @@ export class FireworkRenderer {
         // Keep light/bloom linear until exactly one display conversion. Static
         // sub-LSB dither reduces sky banding without animated grain or black lift.
         this.post.outputColorTransform = false;
-        const display = renderOutput(vec4(source.rgb.add(glow), alpha), THREE.ACESFilmicToneMapping, THREE.SRGBColorSpace);
+        let linear: ShaderNodeObject<THREE.Node> = source.rgb.add(glow);
+        if (capabilities.glass) {
+            // r180 exposes getTextureNode; its DefinitelyTyped definition still
+            // calls it getTexture. Keep the pinned runtime rather than upgrading.
+            const bloomTexture = (this.bloomPass as unknown as { getTextureNode(): ReturnType<typeof texture> }).getTextureNode();
+            this.glass = new LivingGlass(source, bloomTexture, linear, glassDisabled);
+            linear = this.glass.output.toVec3();
+        }
+        const display = renderOutput(vec4(linear, alpha), THREE.ACESFilmicToneMapping, THREE.SRGBColorSpace);
         const luma = display.r.mul(.2126).add(display.g.mul(.7152)).add(display.b.mul(.0722));
         const darkSky = smoothstep(.012, .06, luma).mul(float(1).sub(smoothstep(.4, .75, luma)));
         const noise = hash(screenCoordinate.x.add(screenCoordinate.y.mul(4099))).sub(.5).mul(.75 / 255);
@@ -150,8 +201,14 @@ export class FireworkRenderer {
         this.host.dataset.realism = 'observatory-v3';
         this.host.dataset.backend = this.backend;
         this.resize();
-        if (this.mode !== 'transparent') await this.water.warmup(this.renderer, this.scene, this.camera, this.sim.quality,
-            (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
+        // Reflection compilation temporarily owns the renderer target. The
+        // adapter's startup RAF must not submit a frame into that target while
+        // its asynchronous pipeline preparation is still in progress.
+        this.warmupPending = true;
+        try {
+            if (this.mode !== 'transparent') await this.water.warmup(this.renderer, this.scene, this.camera, this.sim.quality,
+                (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
+        } finally { this.warmupPending = false; }
         if (!this.disposed) this.render();
         this.host.dataset.assets = 'procedural fallback';
         void loadWaterfrontAssets((name, asset) => {
@@ -184,7 +241,7 @@ export class FireworkRenderer {
         if (this.assetFrame || this.disposed) return;
         this.assetFrame = requestAnimationFrame(() => {
             this.assetFrame = 0;
-            if (this.disposed || !this.pendingAssetCount) return;
+            if (this.disposed || (!this.pendingAssetCount && (!this.warmupComplete || this.readyFrames >= 2))) return;
             try { this.render(); }
             catch (error) {
                 console.error('Graphics render failed after asset activation', error);
@@ -213,7 +270,21 @@ export class FireworkRenderer {
         this.sim.setViewport(Math.min(160, this.layout.heroRect.width / framing.scale * .9), 16);
         for (const family of FAMILIES.slice(0,10)) this.resolveLaunchProfile(family.id,.5);
         this.renderer.setSize(w, h);
+        this.glass?.setViewport(w, h);
         this.setQuality(this.sim.quality);
+    }
+    invitationPointAt(x: number, y: number): [number, number] {
+        const p = this.worldPoint(x * this.host.clientWidth, y * this.host.clientHeight); return [p.x, p.y];
+    }
+    invitationPixelPoint(x: number, y: number) { return this.screenPoint(x, y); }
+    /** Scene illumination is independent of particle visibility; never fade the GPU canvas. */
+    setInvitationReveal(value: number) {
+        if (!this.capabilities.enhanced) return;
+        const reveal = clamp(value, 0, 1);
+        this.environment.setInvitationReveal(reveal);
+        this.water.setInvitationReveal(reveal);
+        this.host.dataset.sparkLiveScenery = 'sky-water-moon';
+        this.host.dataset.sparkWaterReveal = String(reveal);
     }
     setDisplay(mode: DisplayMode) {
         this.mode = mode;
@@ -228,6 +299,7 @@ export class FireworkRenderer {
     private resolutionScale = 1;
     setResolutionScale(scale: number) { const next = Math.max(.65, Math.min(1, scale)); if (Math.abs(next - this.resolutionScale) > .001) { this.resolutionScale = next; this.setQuality(this.sim.quality); } }
     setQuality(q: Quality) {
+        this.glass?.setEnabled(q !== 'low'); this.glass?.setScatterTaps(q === 'ultra' ? 3 : 1);
         const budget = BUDGETS[q], w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
         const ratio = Math.min(window.devicePixelRatio || 1, budget.ratio, Math.sqrt(budget.pixels / (w * h))) * this.resolutionScale;
         this.renderer.setPixelRatio(ratio);
@@ -239,6 +311,38 @@ export class FireworkRenderer {
         return { x: (point.x + 1) * this.layout.viewport.width / 2, y: (1 - point.y) * this.layout.viewport.height / 2 };
     }
     startupMoon(): Readonly<MoonFrame> | null { return this.initialized ? this.environment.startupMoon() : null; }
+    setGlassSurfaces(surfaces: readonly GlassSurface[], enabled = true) {
+        if (this.glass?.setSurfaces(surfaces, enabled && !this.reducedTransparency?.matches && !this.forcedColours?.matches)) this.schedulePresentationRender();
+    }
+    private schedulePresentationRender() {
+        if (this.presentationFrame || this.disposed || !this.initialized) return;
+        this.presentationFrame = requestAnimationFrame(() => {
+            this.presentationFrame = 0;
+            if (this.disposed) return;
+            try { this.render(); } catch { this.onFailure('Graphics failed while presenting the controls. Retry graphics.'); }
+        });
+    }
+    /** Temporarily suppress material for invitation-image export; geometry and
+     * the renderer stay intact and the caller restores this immediately. */
+    setGlassEnabled(enabled: boolean) { this.glass?.setEnabled(enabled); this.schedulePresentationRender(); }
+    setGlassDiagnosticOff(disabled: boolean) { this.glass?.setDiagnosticOff(disabled); this.schedulePresentationRender(); }
+    setGlassScatterTaps(taps: 1 | 3 | 5) { this.glass?.setScatterTaps(taps); }
+    // The botanical entrance is semantic HTML; no entrance model or render pass.
+    // Keep the adapter contract so story, export and retained routes need no reset.
+    gateVisualState() { return { ready: true, failed: false }; }
+    setMoonObstructions(rects: readonly MoonObstacle[]) { this.environment.setMoonObstructions(rects); }
+    moonPulse() { return !this.sim.reducedMotion && this.environment.moonPulse(this.sim.time); }
+    environmentTap(kind: 'sky' | 'water' | 'moon', x: number, y: number): boolean {
+        if (!this.capabilities.interactions || !this.initialized || this.sim.paused || this.sim.reducedMotion || this.mode === 'transparent') return false;
+        if (kind === 'moon') return this.moonPulse();
+        if (kind === 'sky') return this.environment.skyTap(x, y, this.sim.time);
+        this.interactionNDC.set(x / Math.max(1, this.host.clientWidth) * 2 - 1, 1 - y / Math.max(1, this.host.clientHeight) * 2);
+        this.waterRay.setFromCamera(this.interactionNDC, this.camera);
+        const point = this.waterRay.ray.intersectPlane(this.waterPlane, this.interactionPoint);
+        return point ? this.environment.waterTap(point.x, point.z, this.sim.time) : false;
+    }
+    invitationSceneryState() { const sea = this.capabilities.enhanced ? this.environment.riverDiagnostics(this.camera) : {}; if (this.capabilities.enhanced) this.host.dataset.sparkSeaState = JSON.stringify(sea); return { ...sea, ...this.environment.skyDiagnostics(), ...this.water.diagnostics(), ...this.glass?.diagnostics(),
+        renderSubmitMs: this.metrics.submitMs, renderFrames: this.metrics.frames, renderWarmupComplete: this.warmupComplete, renderReadyFrames: this.readyFrames }; }
     readiness(): RendererStartup {
         let completed=0,degraded=false,pendingName:WaterfrontAssetName|undefined,activating=false;
         for(const name of WATERFRONT_ASSET_NAMES) {
@@ -248,8 +352,38 @@ export class FireworkRenderer {
             if(!pendingName&&(state==='loading'||state==='ready')){pendingName=name;activating=state==='ready';}
         }
         const labels:Record<WaterfrontAssetName,string>={smoke:'smoke',paper:'rocket finish',normal:'rocket surface',flame:'flame',rocket:'rocket artwork',terrace:'terrace',sky:'night sky',river:'waterfront',moon:'moon'};
-        return {completed,total:WATERFRONT_ASSET_NAMES.length,pending:completed<WATERFRONT_ASSET_NAMES.length,degraded,
-            detail:pendingName?`${activating?'Preparing':'Loading'} ${labels[pendingName]}`:degraded?'Scene ready with fallback artwork':'Scene ready'};
+        const extra = this.capabilities.enhanced ? Number(this.warmupComplete) + Math.min(2, this.readyFrames) : 0;
+        const total = WATERFRONT_ASSET_NAMES.length + (this.capabilities.enhanced ? 3 : 0);
+        return {completed:completed + extra,total,pending:completed + extra < total,degraded,
+            detail:pendingName?`${activating?'Preparing':'Loading'} ${labels[pendingName]}`:this.capabilities.enhanced && !this.warmupComplete ? 'Preparing fireworks and reflection pipelines'
+                : this.capabilities.enhanced && this.readyFrames < 2 ? 'Presenting the live world' : degraded?'Scene ready with fallback artwork':'Scene ready'};
+    }
+    private async warmFirstUse() {
+        this.warmupStarted = true; this.warmupPending = true;
+        const visibility = this.props.map(prop => prop.group.visible);
+        // Compile body, lit fuse/flame, every empty particle stream and reflected
+        // variants after authored textures are activated. Nothing is launched.
+        for (const prop of this.props) { prop.group.visible = true; prop.update(0, .2, 0, 0, 0); }
+        try {
+            await this.scenePass.compileAsync(this.renderer);
+            if (this.disposed) return;
+            if (this.mode !== 'transparent') await this.water.warmup(this.renderer, this.scene, this.camera, this.sim.quality,
+                (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
+            this.warmupComplete = true; this.readyFrames = 0;
+        } catch (error) {
+            if (!this.disposed) this.onFailure(error instanceof Error ? error.message : 'Firework pipeline preparation failed');
+        } finally {
+            for (let i = 0; i < this.props.length; i++) this.props[i].group.visible = visibility[i];
+            this.warmupPending = false;
+            this.scheduleAssetRender();
+        }
+    }
+    /** Explicit reduced-detail entry still warms the currently available world;
+     * this does not mark missing assets ready or shorten their real deadline. */
+    async warmAvailableDetail() {
+        if (!this.capabilities.enhanced || this.disposed || !this.initialized) return;
+        if (!this.warmupPromise) this.warmupPromise = this.warmFirstUse();
+        await this.warmupPromise;
     }
     private worldPoint(x: number, y: number, z = 0) {
         const l = this.layout;
@@ -305,6 +439,12 @@ export class FireworkRenderer {
         const bounds = this.launchBounds[familyIndex(this.sim.selected)];
         return [this.layout.viewport.x + bounds.screenMin + clamp(placement,0,1) * (bounds.screenMax - bounds.screenMin), this.layout.viewport.y + bounds.contactScreenY];
     }
+    shorelineHorizon() { return this.environment.skyWaterline.value; }
+    resolveShoreLaunch(id: FamilyId, x: number, y: number) {
+        if (!this.capabilities.enhanced) return null;
+        return resolveShorelineLaunch(id, x, y, this.host.clientWidth, this.host.clientHeight, this.environment.skyWaterline.value,
+            this.resolveLaunchProfile(id, x), (sx, sy, z) => this.worldPoint(sx, sy, z), (wx, wy, z) => this.screenPoint(wx, wy, z));
+    }
     projectBurst(clientX: number, clientY: number, id = this.sim.selected): [number, number, number] | null {
         const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
         if (x < r.x || x > r.x + r.width || y < r.y || y > r.y + r.height) return null;
@@ -320,7 +460,7 @@ export class FireworkRenderer {
             : signatureCompositionScale(this.layout, stageFraming(this.layout).scale, p.x, p.y);
     }
     render() {
-        if (this.disposed || !this.initialized) return;
+        if (this.disposed || !this.initialized || this.warmupPending) return;
         const start = performance.now(), sim = this.sim;
         this.renderer.toneMappingExposure = sim.cinematicExposure ? sim.cinema.exposure : CINEMA_BASE_EXPOSURE;
         // Translate the real camera and target together: restrained foreground
@@ -331,6 +471,11 @@ export class FireworkRenderer {
         this.camera.position.set(this.cameraHome.x + dx, this.cameraHome.y + dy, this.cameraHome.z);
         this.camera.lookAt(dx, this.cameraCenterY + dy, 0);
         this.camera.updateMatrixWorld();
+        if (this.seaSession) {
+            this.seaView.apply(this.camera, this.seaSession, sim.reducedMotion, sim.paused);
+            this.water.setAudienceView(this.seaSession.focus !== null);
+            this.water.setViewCoverage(this.seaView.active);
+        }
         // Apply at a frame boundary. Paper and rocket meshes wait for an interval
         // without an airborne body; an eight-second cap also serves continuous shows.
         if (this.pendingAssetCount) {
@@ -371,13 +516,18 @@ export class FireworkRenderer {
                     this.assetErrors[name] = error instanceof Error ? error.message : String(error);
                 }
             }
-            if (changed) this.publishAssetStatus();
+            if (changed) { this.publishAssetStatus(); this.readyFrames = 0; }
+        }
+        if (this.capabilities.enhanced && !this.warmupStarted && WATERFRONT_ASSET_NAMES.every(name => this.assetStates[name] === 'active' || this.assetStates[name] === 'failed')) {
+            void this.warmAvailableDetail(); return;
         }
         this.camera.updateMatrixWorld();
         this.opaqueCamera.copy(this.camera);
         this.opaqueCamera.layers.set(0);
         this.opaqueCamera.updateMatrixWorld();
+        let sectionStart = performance.now();
         this.particles.update(sim, this.camera, this.host.clientHeight * this.renderer.getPixelRatio());
+        this.metrics.particleSubmitMs = performance.now() - sectionStart;
         this.bloomPass.strength.value = BUDGETS[sim.quality].bloom * (sim.reducedFlashes ? .7 : 1);
         for (const prop of this.props) prop.group.visible = false;
         this.fuseLight.intensity = 0;
@@ -415,43 +565,56 @@ export class FireworkRenderer {
         this.host.dataset.visibleRocketBodies = String(this.props.filter(prop => prop.group.visible).length);
         const padProfile = sim.committed?.launchProfile ?? next;
         this.stage.update(sim, this.mode === 'interactive', padProfile.prop, sim.committed?.padX ?? next.padX);
+        sectionStart = performance.now();
         this.environment.update(sim, this.mode !== 'transparent', !this.host.parentElement?.classList.contains('reduced-motion'));
+        this.metrics.environmentSubmitMs = performance.now() - sectionStart;
         this.projected.set(next.padX!, next.prop!.contactY, 0).project(this.camera);
         const groundPixels = (1 + this.projected.y) * .5 * this.host.clientHeight;
         const parent = this.host.parentElement;
-        parent?.style.setProperty('--ground-px', `${groundPixels}px`);
-        parent?.style.setProperty('--placement-left', `${(this.projected.x + 1) * 50}%`);
+        // Scope changing chrome light/placement values to their consumers. Writing
+        // inherited variables on the app root invalidates every illustrated effect
+        // SVG on each burst frame, even though those drawings never use the values.
+        for (const placement of parent?.querySelectorAll<HTMLElement>('.placement-stage') ?? []) {
+            placement.style.setProperty('--ground-px', `${groundPixels}px`);
+            placement.style.setProperty('--placement-left', `${(this.projected.x + 1) * 50}%`);
+        }
         gatherBurstLighting(sim.lights, this.burstWash, sim.reducedFlashes);
         const energy = this.burstWash[6];
         if (energy > .0001) {
             this.blastLight.position.set(this.burstWash[3], Math.max(30, this.burstWash[4]), this.burstWash[5]);
             this.blastLight.color.setRGB(this.burstWash[0] / energy, this.burstWash[1] / energy, this.burstWash[2] / energy);
             this.blastLight.intensity = 6 * energy / (1 + energy);
-            parent?.style.setProperty('--blast', `${Math.round(this.burstWash[0] / energy * 230)} ${Math.round(this.burstWash[1] / energy * 230)} ${Math.round(this.burstWash[2] / energy * 230)} / ${Math.min(.16, energy * .12)}`);
         } else {
             this.blastLight.intensity = 0;
-            parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
+        const chromeLight = energy > .0001 ? `${Math.round(this.burstWash[0] / energy * 230)} ${Math.round(this.burstWash[1] / energy * 230)} ${Math.round(this.burstWash[2] / energy * 230)} / ${Math.min(.16, energy * .12)}` : '234 193 122 / 0';
+        for (const surface of parent?.querySelectorAll<HTMLElement>('.glass,.hud-mode-rail,.hud-utilities,.hud-inspector,.hud-deck') ?? []) surface.style.setProperty('--blast', chromeLight);
         this.water.setFrame(this.environment.waterFrame);
         this.moonLight.position.copy(this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera)).multiplyScalar(240);
+        this.moonLight.intensity = .8 * (this.environment.startupMoon().illumination ?? 1);
         this.water.setShoreComposition(this.environment.skyCrop.value, this.environment.authoredSky.value);
         // Opaque depth resolves all current scene transforms once. Reflection
         // and main passes can share that pose instead of traversing the same
         // authored scene again for each render. Restore automatic updates even
         // when a pass throws, so preparation/recovery keeps its normal contract.
+        sectionStart = performance.now();
         this.opaqueDepth.update();
+        this.metrics.depthSubmitMs = performance.now() - sectionStart;
         const automaticMatrices = this.scene.matrixWorldAutoUpdate;
         this.scene.matrixWorldAutoUpdate = false;
         try {
             const waterStart = performance.now();
             this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
             this.metrics.waterSubmitMs = performance.now() - waterStart;
+            sectionStart = performance.now();
             this.post.render();
+            this.metrics.postSubmitMs = performance.now() - sectionStart;
         } finally {
             this.scene.matrixWorldAutoUpdate = automaticMatrices;
         }
         this.metrics.submitMs = performance.now() - start;
         this.metrics.frames++;
+        if (this.warmupComplete) { this.readyFrames = Math.min(2, this.readyFrames + 1); if (this.readyFrames < 2) this.scheduleAssetRender(); }
     }
     diagnostics() {
         let visibleLightCount = 0;
@@ -473,6 +636,9 @@ export class FireworkRenderer {
             authoredAssetStates: { ...this.assetStates },
             authoredAssetErrors: { ...this.assetErrors },
             stageLayout: this.layout, ...this.water.diagnostics(), ...this.particles.reflectionDiagnostics(), ...this.environment.riverDiagnostics(this.camera), ...this.environment.skyDiagnostics(),
+            ...this.glass?.diagnostics(), renderWarmupComplete: this.warmupComplete, renderReadyFrames: this.readyFrames,
+            renderSubmitMs: this.metrics.submitMs, renderFrames: this.metrics.frames,
+            renderCpuSections: { particles: this.metrics.particleSubmitMs, environment: this.metrics.environmentSubmitMs, depth: this.metrics.depthSubmitMs, reflection: this.metrics.waterSubmitMs, post: this.metrics.postSubmitMs },
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,
@@ -487,6 +653,7 @@ export class FireworkRenderer {
         if (this.disposed) return;
         this.disposed = true;
         cancelAnimationFrame(this.assetFrame);
+        cancelAnimationFrame(this.presentationFrame);
         this.renderer.domElement.removeEventListener('webglcontextlost', this.lossHandler);
         this.particles.dispose();
         this.bloomPass.dispose();

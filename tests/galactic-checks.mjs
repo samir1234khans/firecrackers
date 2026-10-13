@@ -12,17 +12,23 @@ async function reset(page) {
   await page.waitForFunction(() => document.querySelector('main').dataset.overlay === 'none');
   assert.equal((await snapshot(page)).time, 0);
 }
-async function staticIdle(page) {
+async function staticIdle(page, movingFleet = false) {
   await page.waitForTimeout(400);
   const before = await snapshot(page);
+  const started = await page.evaluate(() => performance.now());
   await page.waitForTimeout(650);
   const after = await snapshot(page);
   const environment = await page.evaluate(() => ({ osReducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
     hidden: document.hidden, visibility: document.visibilityState,
     activeElement: document.activeElement?.getAttribute('aria-label') || document.activeElement?.tagName,
     documentFocused: document.hasFocus() }));
-  console.log('Comfort idle sample', JSON.stringify({ frameDelta: after.frames - before.frames, before, after, environment }));
-  assert.ok(after.frames - before.frames <= 2, 'Comfort idle must remain static');
+  const elapsed = await page.evaluate(start => performance.now() - start, started);
+  const maximumFrames = movingFleet ? Math.ceil(30 * elapsed / 1000) + 3 : 2;
+  console.log('Comfort idle sample', JSON.stringify({ frameDelta: after.frames - before.frames, maximumFrames, quality:after.quality, environment }));
+  assert.ok(after.frames - before.frames <= maximumFrames, movingFleet ? 'Low fleet must remain bounded at 30 Hz' : 'Comfort idle must remain static');
+  assert.equal(after.skyMotionTime,before.skyMotionTime);
+  assert.equal(after.skyNearParallaxX,before.skyNearParallaxX);
+  assert.equal(after.skyNearParallaxY,before.skyNearParallaxY);
   assert.equal(after.skyMotionAllowed, false);
   assert.equal(after.skyActiveMeteors, 0);
   assert.equal(after.skyEngagement, 0);
@@ -36,7 +42,7 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   assert.equal(initial.skyLayers, 3); assert.equal(initial.skyArtWidth, 2048);
   assert.equal(initial.skyArtHeight, 1024); assert.equal(initial.skyNearStars, 128);
   assert.equal(initial.skyFieldStars, 5200); assert.equal(initial.skyClusterStars, 3400);
-  assert.equal(initial.skyMaximumMeteors, 1); assert.equal(initial.skyMaximumParallaxPixels, 3);
+  assert.equal(initial.skyMaximumMeteors, 1); assert.equal(initial.skyMaximumParallaxPixels, 6);
   check(`${label}: three bounded 2K celestial layers and immutable resource limits`, { layers: initial.skyLayers });
   const { width, height } = page.viewportSize();
   await page.evaluate(() => window.__firecrackersQA.freeze(false));
@@ -45,7 +51,7 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   const engaged = await snapshot(page);
   assert.equal(engaged.launched, 0); assert.equal(engaged.bursts, 0);
   assert.equal(engaged.selected, initial.selected); assert.equal(engaged.placement, initial.placement);
-  assert.ok(Math.hypot(engaged.skyNearParallaxX, engaged.skyNearParallaxY) <= 3.00001);
+  assert.ok(Math.hypot(engaged.skyNearParallaxX, engaged.skyNearParallaxY) <= 6.00001);
   assert.ok(Math.hypot(engaged.skyNearParallaxX, engaged.skyNearParallaxY) > .1);
   await capture('sky-pointer');
   check(`${label}: blank-sky mouse response is bounded and cannot launch or change selection`, { engagement: engaged.skyEngagement });
@@ -68,6 +74,9 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   assert.equal((await snapshot(page)).launched, 0);
   check(`${label}: hovering a control releases sky interaction without activating it`);
   await openPanel(page, 'settings');
+  // Opening the optical sheet schedules one layout presentation. Observe pause
+  // after that presentation, rather than counting it as simulation movement.
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   const panel = await snapshot(page);
   await page.mouse.move(width * .5, height * .16); await page.waitForTimeout(350);
   const panelAfter = await snapshot(page);
@@ -88,13 +97,22 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   const idleAfter = await snapshot(page);
   const elapsedMs = await page.evaluate(start => performance.now() - start, sampleStart);
   const frameDelta = idleAfter.frames - idle.frames;
-  const cap = idle.backend.startsWith('Canvas') ? 10 : 20;
+  const cap = 30; // The enhanced waterfront now has a bounded 30 Hz idle fleet.
   assert.ok(frameDelta > 0 && frameDelta <= Math.ceil(cap * elapsedMs / 1000) + 3,
     `Ambient cadence must remain bounded: ${JSON.stringify({ frameDelta, cap, elapsedMs, idle, idleAfter })}`);
   assert.equal(idleAfter.launched, 0); assert.equal(idleAfter.particles, 0);
   check(`${label}: empty sky redraws at its bounded ambient cadence`, { frameDelta, cap, elapsedMs });
 
   await reset(page);
+  // Software rendering may correctly recover to Low during the preceding
+  // real-time workload. Restore the explicit Ultra test pose through controls
+  // while frozen; Low's intentionally static sky is covered separately below.
+  await openPanel(page, 'settings');
+  await settingsTab(page, 'Graphics');
+  await page.getByLabel('Graphics quality', { exact: true }).selectOption('low');
+  await page.getByLabel('Graphics quality', { exact: true }).selectOption('ultra');
+  await page.getByRole('button', { name: 'Close panel', exact: true }).click();
+  assert.equal((await snapshot(page)).quality, 'ultra');
   await page.evaluate(() => { window.__firecrackersQA.advance(9.7); window.__firecrackersQA.render(); });
   const meteor = await snapshot(page);
   assert.equal(meteor.skyActiveMeteors, 1); assert.ok(meteor.skyMeteorOpacity > 0 && meteor.skyMeteorOpacity <= .0771);
@@ -109,7 +127,7 @@ export async function qualifyGalacticSky(page, label, check, capture = async () 
   await page.getByRole('button', { name: 'Close panel', exact: true }).click();
   await page.evaluate(() => window.__firecrackersQA.freeze(false));
   await page.mouse.move(width * .6, height * .18);
-  check(`${label}: explicit Low quality holds a static noninteractive sky`, await staticIdle(page));
+  check(`${label}: explicit Low quality holds a static sky with bounded fleet motion`, await staticIdle(page,true));
 
   await openPanel(page, 'settings');
   await page.getByLabel('Graphics quality', { exact: true }).selectOption('ultra');

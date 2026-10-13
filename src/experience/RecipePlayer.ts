@@ -1,3 +1,5 @@
+import { CelebrationRun } from '../engine/CelebrationRun.js';
+import { emitSkyArt, skyTextPaths } from './SkyArt.js';
 import { familyIndex } from '../engine/catalog.js';
 import type { Simulation } from '../engine/Simulation.js';
 import { parseRecipe, planRecipe } from './ShowRecipe.js';
@@ -12,9 +14,11 @@ export class RecipePlayer {
   private ended:number|null=null;
   status:'idle'|'playing'|'falling'|'complete'|'stopped'|'blocked'='idle';
   reason='';
-  constructor(private readonly sim:Simulation){}
+  private readonly group: CelebrationRun;
+  constructor(private readonly sim:Simulation){this.group=new CelebrationRun(sim,(id,p)=>sim.prepareAutoShot(familyIndex(id),p,.5).profile!);}
   start(input:ShowRecipe,profiles?:readonly(LaunchProfile|undefined)[]):void {
     const recipe=parseRecipe(input),plan=planRecipe(recipe,profiles);
+    this.group.cancel();
     if(plan.conflicts.length)throw new Error(plan.conflicts[0]);
     const {selected,placement,placementMode}=this.sim;
     this.sim.reset(recipe.seed);
@@ -25,12 +29,14 @@ export class RecipePlayer {
   }
   tick():void {
     const recipe=this.recipe;if(!recipe||!['playing','falling'].includes(this.status))return;
+    if(this.group.playing){this.group.tick();return;}
     if(recipe.kind==='finale'){
       if(!this.sim.show)this.status='falling';
     }else if(this.status==='playing'){
       const cue=this.plan.cues[this.index];
       if(cue&&this.sim.time-this.began+1e-6>=cue.at){
-        if(!this.sim.ignite('auto',familyIndex(cue.family),cue.position)){
+        const accepted = cue.type==='text' ? emitSkyArt(this.sim,skyTextPaths(cue.text!)) : cue.type==='drawing' ? emitSkyArt(this.sim,cue.strokes!,false) : cue.type==='group' ? this.group.start({name:'Mirrored round',kind:'programme',lively:true,seed:recipe.seed,groups:[cue.group!.map((family,i,all)=>({family,position:all.length===1?.5:.18+i*.64/(all.length-1),group:0}))]}) : this.sim.ignite('auto',familyIndex(cue.family),cue.position);
+        if(!accepted){
           this.status='blocked';this.ended=this.sim.time;this.reason=`Cue ${this.index+1} could not launch within the current budget. No cue was silently skipped. Add spacing or replay after the sky clears.`;this.sim.message=this.reason;return;
         }
         this.index++;
@@ -39,8 +45,8 @@ export class RecipePlayer {
     }
     if(this.status==='falling'&&!this.sim.rockets.length&&!this.sim.heads.count&&!this.sim.trails.count&&!this.sim.embers.count&&!this.sim.cues.length&&!this.sim.smoke.count&&!this.sim.lights.length){this.status='complete';this.ended=this.sim.time;this.sim.message='Your night is complete.';}
   }
-  cancel():void {if(this.status!=='idle'&&this.status!=='stopped'){this.status='stopped';this.ended=this.sim.time;this.reason='Stopped. Current sparks are allowed to finish.';}}
-  clear():void {this.recipe=null;this.plan={cues:[],seconds:0,conflicts:[]};this.index=0;this.began=0;this.ended=null;this.status='idle';this.reason='';}
+  cancel():void {this.group.cancel();if(this.status!=='idle'&&this.status!=='stopped'){this.status='stopped';this.ended=this.sim.time;this.reason='Stopped. Current sparks are allowed to finish.';}}
+  clear():void {this.group.cancel();this.recipe=null;this.plan={cues:[],seconds:0,conflicts:[]};this.index=0;this.began=0;this.ended=null;this.status='idle';this.reason='';}
   get current():ShowRecipe|null{return this.recipe?parseRecipe(this.recipe):null;}
   snapshot(){return {status:this.status,name:this.recipe?.name??'',kind:this.recipe?.kind??null,elapsed:Math.max(0,Math.floor((this.ended??this.sim.time)-this.began)),estimate:this.plan.seconds,cue:this.index,total:this.plan.cues.length,phase:this.recipe?.kind==='finale'?(this.sim.cinematic.phase<30?'Opening':this.sim.cinematic.phase<60?'Build-up':'Finale'):this.plan.cues[Math.max(0,this.index-1)]?.phase??'Opening',reason:this.reason};}
 }

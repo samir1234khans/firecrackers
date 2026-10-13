@@ -1,0 +1,1008 @@
+{
+  "base": "http://127.0.0.1:4206/",
+  "seed": 20260916,
+  "method": "Bundled Chromium software WebGL and Canvas CI regression",
+  "checks": [
+    {
+      "name": "webgl/320x480: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 320,
+        "height": 480,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 404
+        },
+        "rail": {
+          "x": 256,
+          "y": 248,
+          "width": 48,
+          "height": 148,
+          "right": 304,
+          "bottom": 396
+        },
+        "tray": {
+          "x": 8,
+          "y": 156,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 396
+        },
+        "mode": {
+          "x": 248,
+          "y": 408,
+          "width": 64,
+          "height": 64,
+          "right": 312,
+          "bottom": 472
+        },
+        "position": {
+          "x": 8,
+          "y": 416,
+          "width": 216,
+          "height": 48,
+          "right": 224,
+          "bottom": 464
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 256,
+            "y": 248,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 296,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 298,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 346,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 396,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 204,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 204,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 204,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 252,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 252,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 252,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 300,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 300,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 300,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 348,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 348,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 348,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 396,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "webgl/320x480/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 101.24246451628032,
+        "apexMin": 96.36406708830931,
+        "apexMax": 106.13010974384413,
+        "centerFraction": 0.34,
+        "prop": {
+          "modelScale": [
+            2.5672498715550693,
+            2.2970130429703253,
+            2.5672498715550693
+          ],
+          "contactY": 6.82,
+          "originY": 13.067875476879285,
+          "padRadius": 3.5603702166040043,
+          "localTop": 6.37375,
+          "localFoot": -2.72,
+          "localRadius": 2.14,
+          "shellOffset": 7.465292389653557,
+          "motorOffset": 3.6063104774634107,
+          "standingHeight": 53.735795454545446
+        },
+        "ground": 13.067875476879285,
+        "effectScale": 0.6512651265126514,
+        "padX": 17.218416692466104,
+        "aimX": 0,
+        "normalizedPlacement": 0.5
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 125.28606705119958,
+          "top": 99.84230975313052,
+          "right": 194.43131011273576,
+          "bottom": 170.31286735720875
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 93.46595118256633,
+          "top": 71.89264069230353,
+          "right": 225.38279036566928,
+          "bottom": 204.8095567930566
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 68.40732031470971,
+          "top": 55.04384877327197,
+          "right": 249.5647463893235,
+          "bottom": 236.48405613325983
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 53.684398928649735,
+          "top": 50.46541612058776,
+          "right": 263.95262677626175,
+          "bottom": 260.89930968027215
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 45.16244638376978,
+          "top": 53.08145540381838,
+          "right": 272.6256166516186,
+          "bottom": 280.71103290156094
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 40.326609995073035,
+          "top": 59.917794895582546,
+          "right": 277.9659886120694,
+          "bottom": 297.81925400153835
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "webgl/320x480/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 101.24229913247049,
+        "apexMin": 96.36390170449948,
+        "apexMax": 106.1299443600343,
+        "centerFraction": 0.34,
+        "prop": {
+          "modelScale": [
+            2.567306745625415,
+            2.297063930296424,
+            2.567306745625415
+          ],
+          "contactY": 6.82,
+          "originY": 13.068013890406274,
+          "padRadius": 3.560449091959457,
+          "localTop": 6.4225,
+          "localFoot": -2.72,
+          "localRadius": 2.14,
+          "shellOffset": 7.465457773463378,
+          "motorOffset": 3.6063903705653857,
+          "standingHeight": 54.02386363636363
+        },
+        "ground": 13.068013890406274,
+        "effectScale": 0.6512651265126514,
+        "padX": 17.218416692466104,
+        "aimX": 0,
+        "normalizedPlacement": 0.5
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 130.99572805499758,
+          "top": 126.38370746109737,
+          "right": 190.74999648371377,
+          "bottom": 167.35093986049284
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 102.40690424034952,
+          "top": 103.13282206977465,
+          "right": 228.50544380008077,
+          "bottom": 194.81352114315007
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 77.6784360144486,
+          "top": 88.11243425829258,
+          "right": 262.049879682508,
+          "bottom": 222.28787541089812
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 64.47253782165531,
+          "top": 83.63981879652437,
+          "right": 281.45556406195766,
+          "bottom": 241.73201992469592
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 57.46800017842851,
+          "top": 85.32567680482967,
+          "right": 292.6078623092334,
+          "bottom": 256.75088443743846
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 129.58562328096306,
+          "top": 160.50826103515033,
+          "right": 190.28493444638485,
+          "bottom": 220.49996091322143
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "webgl/320x480/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 101.24262989276274,
+        "apexMin": 96.36423246479173,
+        "apexMax": 106.13027512032654,
+        "centerFraction": 0.34,
+        "prop": {
+          "modelScale": [
+            2.567193000004554,
+            2.2969621578988115,
+            2.567193000004554
+          ],
+          "contactY": 6.82,
+          "originY": 13.067737069484767,
+          "padRadius": 3.560291344743158,
+          "localTop": 6.325,
+          "localFoot": -2.72,
+          "localRadius": 2.14,
+          "shellOffset": 7.465127013171138,
+          "motorOffset": 3.606230587901134,
+          "standingHeight": 53.44772727272727
+        },
+        "ground": 13.067737069484767,
+        "effectScale": 0.6512651265126514,
+        "padX": 17.2184166924661,
+        "aimX": 0,
+        "normalizedPlacement": 0.5
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 120.4870159815209,
+          "top": 116.0138411269879,
+          "right": 192.81456325175674,
+          "bottom": 142.27585186028202
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 85.03285606630982,
+          "top": 93.09717801580531,
+          "right": 222.49578819702603,
+          "bottom": 149.31923328630364
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 57.223189141977926,
+          "top": 80.62946522488171,
+          "right": 246.03769921538543,
+          "bottom": 165.89775424658268
+        },
+        {
+          "family": 12,
+          "count": 458,
+          "left": 40.002667484182304,
+          "top": 75.07839661847258,
+          "right": 260.29579815036305,
+          "bottom": 186.9886786318474
+        },
+        {
+          "family": 12,
+          "count": 251,
+          "left": 29.290077106183308,
+          "top": 88.19805430670988,
+          "right": 269.004124486587,
+          "bottom": 206.75064394859396
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 133.95635230636225,
+          "top": 168.49694717742057,
+          "right": 186.17507599000112,
+          "bottom": 221.88487480694695
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "webgl/320/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl/320/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "webgl/320/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/320x480: thirteen independent 48px targets and clear waterfront",
+      "passed": true,
+      "layout": {
+        "width": 320,
+        "height": 480,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 404
+        },
+        "rail": {
+          "x": 256,
+          "y": 248,
+          "width": 48,
+          "height": 148,
+          "right": 304,
+          "bottom": 396
+        },
+        "tray": {
+          "x": 8,
+          "y": 156,
+          "width": 144,
+          "height": 240,
+          "right": 152,
+          "bottom": 396
+        },
+        "mode": {
+          "x": 248,
+          "y": 408,
+          "width": 64,
+          "height": 64,
+          "right": 312,
+          "bottom": 472
+        },
+        "position": {
+          "x": 8,
+          "y": 416,
+          "width": 216,
+          "height": 48,
+          "right": 224,
+          "bottom": 464
+        },
+        "safe": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "buttons": [
+          {
+            "x": 256,
+            "y": 248,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 296,
+            "name": "Pause scene",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 298,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 346,
+            "name": "Enable sound",
+            "hit": true
+          },
+          {
+            "x": 256,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 304,
+            "bottom": 396,
+            "name": "Controls",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 204,
+            "id": "gold-willow",
+            "name": "Launch Gold Willow",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 204,
+            "id": "multicolor-peony",
+            "name": "Launch Multicolor Peony",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 156,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 204,
+            "id": "chrysanthemum",
+            "name": "Launch Chrysanthemum",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 252,
+            "id": "silver-crossette-crackle",
+            "name": "Launch Silver Crossette Crackle",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 252,
+            "id": "grand-finale",
+            "name": "Launch Grand Finale",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 204,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 252,
+            "id": "aurora-crown",
+            "name": "Launch Aurora Crown",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 300,
+            "id": "ruby-dahlia",
+            "name": "Launch Ruby Dahlia",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 300,
+            "id": "sapphire-saturn",
+            "name": "Launch Sapphire Saturn",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 252,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 300,
+            "id": "phoenix-palm",
+            "name": "Launch Phoenix Palm",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 348,
+            "id": "opal-supernova",
+            "name": "Launch Opal Supernova",
+            "hit": true
+          },
+          {
+            "x": 56,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 104,
+            "bottom": 348,
+            "id": "imperial-crown",
+            "name": "Launch Imperial Crown",
+            "hit": true
+          },
+          {
+            "x": 104,
+            "y": 300,
+            "width": 48,
+            "height": 48,
+            "right": 152,
+            "bottom": 348,
+            "id": "celestial-aurora",
+            "name": "Launch Celestial Aurora",
+            "hit": true
+          },
+          {
+            "x": 8,
+            "y": 348,
+            "width": 48,
+            "height": 48,
+            "right": 56,
+            "bottom": 396,
+            "id": "royal-phoenix",
+            "name": "Launch Royal Phoenix",
+            "hit": true
+          }
+        ],
+        "obsolete": 0,
+        "overflow": false
+      }
+    },
+    {
+      "name": "canvas/320x480/imperial-crown: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 101.1942394239424,
+        "apexMin": 96.39423942394242,
+        "apexMax": 105.99423942394242,
+        "centerFraction": 0.34,
+        "prop": {
+          "modelScale": [
+            2.615555673214379,
+            2.340234023402339,
+            2.615555673214379
+          ],
+          "contactY": 6.82,
+          "originY": 13.185436543654362,
+          "padRadius": 3.6273627362736254,
+          "localTop": 6.37375,
+          "localFoot": -2.72,
+          "localRadius": 2.14,
+          "shellOffset": 7.605760576057602,
+          "motorOffset": 3.674167416741672,
+          "standingHeight": 53.735795454545446
+        },
+        "ground": 13.185436543654362,
+        "effectScale": 0.6512651265126514,
+        "padX": 17.42574257425743,
+        "aimX": 0,
+        "normalizedPlacement": 0.5
+      },
+      "samples": [
+        {
+          "family": 10,
+          "count": 360,
+          "left": 124.3362766109758,
+          "top": 97.56535780846099,
+          "right": 195.35161363908873,
+          "bottom": 172.96613321683736
+        },
+        {
+          "family": 10,
+          "count": 480,
+          "left": 92.4503981074567,
+          "top": 67.7431563362685,
+          "right": 226.3223142782184,
+          "bottom": 208.840470438256
+        },
+        {
+          "family": 10,
+          "count": 552,
+          "left": 67.37633061773896,
+          "top": 49.21667429670322,
+          "right": 250.4758797649905,
+          "bottom": 240.7542041010711
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 52.70074419794864,
+          "top": 43.854160546449975,
+          "right": 264.7924855688267,
+          "bottom": 264.28373433960405
+        },
+        {
+          "family": 10,
+          "count": 500,
+          "left": 44.26709782565902,
+          "top": 46.36419731360735,
+          "right": 273.36825545027875,
+          "bottom": 283.05862367169965
+        },
+        {
+          "family": 10,
+          "count": 428,
+          "left": 39.54310427979799,
+          "top": 53.527623410887145,
+          "right": 278.5969024201008,
+          "bottom": 299.1106183443294
+        }
+      ],
+      "stages": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "canvas/320x480/celestial-aurora: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 101.1942394239424,
+        "apexMin": 96.39423942394242,
+        "apexMax": 105.99423942394242,
+        "centerFraction": 0.34,
+        "prop": {
+          "modelScale": [
+            2.615555673214379,
+            2.340234023402339,
+            2.615555673214379
+          ],
+          "contactY": 6.82,
+          "originY": 13.185436543654362,
+          "padRadius": 3.6273627362736254,
+          "localTop": 6.4225,
+          "localFoot": -2.72,
+          "localRadius": 2.14,
+          "shellOffset": 7.605760576057602,
+          "motorOffset": 3.674167416741672,
+          "standingHeight": 54.02386363636363
+        },
+        "ground": 13.185436543654362,
+        "effectScale": 0.6512651265126514,
+        "padX": 17.42574257425743,
+        "aimX": 0,
+        "normalizedPlacement": 0.5
+      },
+      "samples": [
+        {
+          "family": 11,
+          "count": 312,
+          "left": 130.7652910479871,
+          "top": 124.76578371122883,
+          "right": 190.99030022743221,
+          "bottom": 169.15216548745656
+        },
+        {
+          "family": 11,
+          "count": 389,
+          "left": 102.1678884929658,
+          "top": 101.17398489975307,
+          "right": 229.13936474291353,
+          "bottom": 196.42137538922836
+        },
+        {
+          "family": 11,
+          "count": 464,
+          "left": 77.47305912797708,
+          "top": 85.46029715057426,
+          "right": 263.05821783783466,
+          "bottom": 222.7028596855297
+        },
+        {
+          "family": 11,
+          "count": 533,
+          "left": 64.3452966143936,
+          "top": 80.42577629998999,
+          "right": 282.6558138335425,
+          "bottom": 241.7570779596417
+        },
+        {
+          "family": 11,
+          "count": 308,
+          "left": 57.4269071756257,
+          "top": 82.00265509265705,
+          "right": 293.86968263232586,
+          "bottom": 256.7187351213513
+        },
+        {
+          "family": 11,
+          "count": 55,
+          "left": 129.4680340780114,
+          "top": 158.61437270489702,
+          "right": 190.39227449824975,
+          "bottom": 222.29906546330366
+        }
+      ],
+      "stages": [
+        1,
+        8,
+        1
+      ]
+    },
+    {
+      "name": "canvas/320x480/royal-phoenix: unique admission, three stages, safe complete envelope",
+      "passed": true,
+      "profile": {
+        "apex": 101.1942394239424,
+        "apexMin": 96.39423942394242,
+        "apexMax": 105.99423942394242,
+        "centerFraction": 0.34,
+        "prop": {
+          "modelScale": [
+            2.6155556732143794,
+            2.3402340234023393,
+            2.6155556732143794
+          ],
+          "contactY": 6.82,
+          "originY": 13.185436543654363,
+          "padRadius": 3.6273627362736263,
+          "localTop": 6.325,
+          "localFoot": -2.72,
+          "localRadius": 2.14,
+          "shellOffset": 7.605760576057603,
+          "motorOffset": 3.674167416741673,
+          "standingHeight": 53.44772727272727
+        },
+        "ground": 13.185436543654363,
+        "effectScale": 0.6512651265126514,
+        "padX": 17.42574257425743,
+        "aimX": 0,
+        "normalizedPlacement": 0.5
+      },
+      "samples": [
+        {
+          "family": 12,
+          "count": 192,
+          "left": 120.18437510093047,
+          "top": 114.02183020316357,
+          "right": 193.07295545808162,
+          "bottom": 142.5807070462081
+        },
+        {
+          "family": 12,
+          "count": 294,
+          "left": 84.45749486294133,
+          "top": 89.03825849623075,
+          "right": 223.00208971895682,
+          "bottom": 152.67116308728737
+        },
+        {
+          "family": 12,
+          "count": 396,
+          "left": 56.17250149852252,
+          "top": 74.2002688132145,
+          "right": 246.71617893182471,
+          "bottom": 170.52993478501193
+        },
+        {
+          "family": 12,
+          "count": 458,
+          "left": 38.834437448021234,
+          "top": 66.35840623702529,
+          "right": 261.01828619001753,
+          "bottom": 188.10175444804358
+        },
+        {
+          "family": 12,
+          "count": 251,
+          "left": 28.212554850340155,
+          "top": 81.6632511825859,
+          "right": 269.6821869879624,
+          "bottom": 207.91644666502984
+        },
+        {
+          "family": 12,
+          "count": 72,
+          "left": 133.8750256378109,
+          "top": 167.7310124773014,
+          "right": 186.28177747280336,
+          "bottom": 222.95111121518815
+        }
+      ],
+      "stages": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "canvas/320/imperial-crown: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/320/celestial-aurora: sky/terrace pointer launches and committed profile",
+      "passed": true
+    },
+    {
+      "name": "canvas/320/royal-phoenix: sky/terrace pointer launches and committed profile",
+      "passed": true
+    }
+  ],
+  "captures": [],
+  "errors": [],
+  "failed": null
+}

@@ -18,15 +18,22 @@ import { FLIGHT_GRAVITY, REARM_SECONDS, MOTOR_LOCAL_Y, SHELL_LOCAL_Y, rocketPoin
 export type SimEvent = {
     id: number;
     time: number;
-    type: 'fuse' | 'launch' | 'burst' | 'crackle';
+    type: 'fuse' | 'launch' | 'burst' | 'crackle' | 'mortar' | 'whistle' | 'scribe' | 'letter-crack' | 'willow-hush';
     x: number;
     y: number;
     z: number;
     family: number;
     strength: number;
     duration?: number;
+    /** Causal identity belongs only to a committed primary break, never its children. */
+    cueId?: string;
+    origin?: 'story' | 'manual' | 'programme';
+    primary?: boolean;
 };
 export type Rocket = {
+    cueId?: string;
+    origin?: 'story' | 'manual' | 'programme';
+    mirrorSign?: number;
     targetImpact?: number;
     id: number;
     family: number;
@@ -81,7 +88,7 @@ export type Light = {
     b: number;
     strength: number;
 };
-export type PreparedAutoShot = Readonly<{ family: number; placement: number; profile?: Readonly<LaunchProfile>; ground: number; x: number; top: number; ascent: number; thrust: number; acceleration: number; fuse: number; lead: number }>;
+export type PreparedAutoShot = Readonly<{ family: number; placement: number; profile?: Readonly<LaunchProfile>; ground: number; x: number; top: number; ascent: number; thrust: number; acceleration: number; fuse: number; lead: number; seed?: number; cueId?: string; origin?: 'story' | 'manual' | 'programme'; mirrorSign?: number }>;
 /** One bounded 60 Hz virtual-world clock. The viewport never changes airborne physics. */
 export class Simulation {
     readonly heads = new Pool(3072);
@@ -106,6 +113,10 @@ export class Simulation {
     readonly personal: RecipePlayer;
     private finiteEnded = false;
     readonly cinematic = new CinematicDirector();
+    /** Optional invitation conductor. It uses this fixed step and these same pools. */
+    get reservedHeads() { return this.futureHeads; }
+    artProjection?: (x: number, y: number) => [number, number, number] | null;
+    sceneDirector: { tick(dt: number): void; constrain?(): void; onPrimary?(event: SimEvent): void } | null = null;
     finaleTheme: ShowTheme = 'prismatic';
     endlessTheme: EndlessTheme = 'cycle';
     private pendingAuto: PreparedAutoShot | null = null;
@@ -171,6 +182,20 @@ export class Simulation {
         return Boolean(f) && this.activeUnits + f.cost <= BUDGETS[this.quality].units &&
             this.heads.count + this.futureHeads + this.reserveFor(family) <= this.heads.capacity;
     }
+    /** Pure scene admission, including a reserved future hero before it is ignited. */
+    canAdmitScene(family: number, reservedHeads = 0) {
+        return !this.paused && this.canReserve(family) &&
+            this.heads.count + this.futureHeads + this.reserveFor(family) + Math.max(0, reservedHeads) <= this.heads.capacity;
+    }
+    /** Pure atomic claim of every member plus a future hero's head allowance. */
+    canAdmitSceneGroup(families: readonly number[], reservedHeads = 0) {
+        return !this.paused && families.length > 0 && families.every(f => Boolean(FAMILIES[f])) &&
+            this.activeUnits + families.reduce((sum, f) => sum + FAMILIES[f].cost, 0) <= BUDGETS[this.quality].units &&
+            this.heads.count + this.futureHeads + families.reduce((sum, f) => sum + this.reserveFor(f), 0) + Math.max(0, reservedHeads) <= this.heads.capacity;
+    }
+    queueSceneEvent(type: SimEvent['type'], x: number, y: number, strength = 1, duration?: number) {
+        this.emit(type, x, y, 0, 0, strength, duration);
+    }
     get smallScale() { return 1; }
     get wind() { return 0.85 + Math.sin(this.time * 0.12) * 0.24; }
     get phase() {
@@ -215,11 +240,11 @@ export class Simulation {
         return n;
     }
     /** Pure preparation never reserves resources or advances any random stream. */
-    prepareAutoShot(family: number, placement: number, apexFraction: number): PreparedAutoShot {
+    prepareAutoShot(family: number, placement: number, apexFraction: number, profileOverride?: Readonly<LaunchProfile>): PreparedAutoShot {
         if (this.protectCenter && placement >= this.safeRect[0] && placement <= this.safeRect[2]) {
             placement = placement < .5 ? Math.max(0, this.safeRect[0] - .12) : Math.min(1, this.safeRect[2] + .12);
         }
-        const resolved = this.launchProfileResolver?.(FAMILIES[family].id, placement);
+        const resolved = profileOverride ?? this.launchProfileResolver?.(FAMILIES[family].id, placement);
         const profile = resolved && Number.isFinite(resolved.apexMin) && Number.isFinite(resolved.apexMax) ? Object.freeze({ ...resolved }) : undefined;
         const ground = profile?.ground ?? this.ground;
         const top = profile ? Math.max(ground + 10, profile.apexMin + clamp(apexFraction, 0, 1) * (profile.apexMax - profile.apexMin)) : 72 + clamp(apexFraction, 0, 1) * 6;
@@ -248,7 +273,7 @@ export class Simulation {
         if (source === 'manual') this.stopShow(false);
         // Independent placement randomness is consumed only after admission succeeds.
         const chosenPlacement = placement === undefined ? (this.placementMode === 'random' ? this.placementRng() : this.placement) : clamp(placement, 0, 1);
-        const rand = shot ? this.autoRng : this.launchRng;
+        const rand = shot?.seed !== undefined ? randomStream(shot.seed) : shot ? this.autoRng : this.launchRng;
         const heightDraw = shot ? 0 : rand();
         const resolved = shot?.profile ?? this.launchProfileResolver?.(f.id, chosenPlacement);
         const launchProfile = resolved && Number.isFinite(resolved.apexMin) && Number.isFinite(resolved.apexMax)
@@ -264,13 +289,14 @@ export class Simulation {
         const thrust = ascent * thrustFraction, coast = ascent - thrust;
         const acceleration = FLIGHT_GRAVITY * coast / thrust;
         const rocket: Rocket = {
-            id: this.nextObjectId++, family, x, y: ground, z: 0, px: x, py: ground, pz: 0,
-            vx: (rand() - 0.5) * 1.0, vy: 0, vz: (rand() - 0.5) * 1.1, ground, padX: x, normalizedPlacement: chosenPlacement, top, age: 0,
+            id: this.nextObjectId++, family, x, y: ground, z: launchProfile?.originDepth ?? 0, px: x, py: ground, pz: launchProfile?.originDepth ?? 0,
+            vx: (rand() - 0.5) * 1.0 * (shot?.mirrorSign ?? 1), vy: 0, vz: (rand() - 0.5) * 1.1, ground, padX: x, normalizedPlacement: chosenPlacement, top, age: 0,
             fuse: shot?.fuse ?? (0.58 + rand() * 0.18), ascent, thrust, acceleration, phase: 'fuse', stage: 'fuse', targetImpact,
             cost: f.cost, seed: Math.floor(rand() * 0xffffffff), reserve, launchProfile,
+            cueId: shot?.cueId, origin: shot?.origin ?? (source === 'manual' ? 'manual' : 'programme'), mirrorSign: shot?.mirrorSign,
         };
         this.rockets.push(rocket);
-        this.emit('fuse', x, ground, 0, family, 0.5, rocket.fuse);
+        this.emit('fuse', x, ground, rocket.z, family, 0.5, rocket.fuse);
         if (source === 'manual') {
             this.prepared = false;
             this.message = 'Fuse lit. Watch the sky.';
@@ -289,6 +315,18 @@ export class Simulation {
         return true;
     }
     /** Explicit drawer drop: same admission/reservation and seeded recipe as a rocket. */
+    igniteAtProfile(id: FamilyId, profile: Readonly<LaunchProfile>) {
+        const family = FAMILIES.findIndex(f => f.id === id);
+        if (family < 0 || !Number.isFinite((profile.padX ?? NaN) + (profile.ground ?? NaN) + profile.apex + profile.apexMin + profile.apexMax + (profile.originDepth ?? NaN) + (profile.burstDepth ?? NaN) + (profile.effectScale ?? NaN)) || (profile.effectScale ?? 0) <= 0 || (profile.effectScale ?? 2) > 1 || !this.canLaunchFamily(id)) return false;
+        const ground = profile.ground!, top = Math.max(ground + 10, profile.apex);
+        const fraction = poweredFraction(family), ascent = Math.sqrt(2 * (top - ground) / (FLIGHT_GRAVITY * (1 - fraction))), thrust = ascent * fraction;
+        const fuse = 40 / 60, placement = clamp(profile.normalizedPlacement ?? .5, 0, 1);
+        const shot = Object.freeze({ family, placement, profile: Object.freeze({ ...profile }), ground, x: profile.padX!, top, ascent, thrust,
+            acceleration: FLIGHT_GRAVITY * (ascent - thrust) / thrust, fuse, lead: fuse + Math.ceil(ascent * 60) / 60 });
+        const ok = this.ignite('manual', family, placement, shot);
+        if (ok) { this.selected = id; this.placement = placement; }
+        return ok;
+    }
     burstAt(id: FamilyId, x: number, y: number, effectScale = 1, z = 0) {
         if (this.show === 'always') this.stopShow(false);
         if (!Number.isFinite(z) || !Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(effectScale) || effectScale <= 0 || effectScale > 1 || !this.canLaunchFamily(id)) return false;
@@ -333,6 +371,7 @@ export class Simulation {
     }
     reset(seed = this.seed) {
         if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff) throw new Error('Invalid simulation seed');
+        this.sceneDirector = null;
         this.seed = seed; this.personal.clear(); this.finiteEnded = false;
         this.signatureStages.fill(0);
         this.heads.clear();
@@ -417,6 +456,7 @@ export class Simulation {
         this.moveHeads(dt);
         this.moveSmoke(dt);
         this.moveEmbers(dt);
+        this.sceneDirector?.tick(dt);
         for (let i = this.lights.length - 1; i >= 0; i--) {
             this.lights[i].age += dt;
             if (this.lights[i].age >= BURST_LIGHT_LIFETIME) this.lights.splice(i, 1);
@@ -431,12 +471,12 @@ export class Simulation {
                     const fp = fusePointAt(t);
                     const scale = r.launchProfile?.prop?.modelScale ?? ROCKET_SCALE;
                     const fx = r.x + fp[0] * scale[0], fy = r.ground + fp[1] * scale[1];
-                    this.trails.add(fx, fy, 0, fx + 0.2, fy + 0.32, 0, 0.19, 0.026, 1, 0.48, 0.11, r.id, 0, BUDGETS[this.quality].trails);
+                    this.trails.add(fx, fy, r.z, fx + 0.2, fy + 0.32, r.z, 0.19, 0.026, 1, 0.48, 0.11, r.id, 0, BUDGETS[this.quality].trails);
                 }
                 if (Math.floor(r.age * 12) !== Math.floor((r.age - dt) * 12)) {
                     const fp = fusePointAt(t);
                     const scale = r.launchProfile?.prop?.modelScale ?? ROCKET_SCALE;
-                    this.addSmoke(r.x + fp[0] * scale[0], r.ground + fp[1] * scale[1], .8, .50, .40, 0);
+                    this.addSmoke(r.x + fp[0] * scale[0], r.ground + fp[1] * scale[1], r.z + .8, .50, .40, 0);
                 }
                 if (r.age >= r.fuse) {
                     r.age = 0;
@@ -473,6 +513,7 @@ export class Simulation {
                 this.burst(c.family, c.x, c.y, c.z, c.scale, c.seed, c.vx * 0.15, c.vy * 0.15, c.vz * 0.15, c.palette);
             }
         }
+        this.sceneDirector?.constrain?.();
         this.cinema.step(dt, this.time, this.lights, this.cinematicExposure, this.cameraMotion && !this.reducedMotion, this.reducedFlashes);
     }
     private moveRocket(r: Rocket, dt: number) {
@@ -492,9 +533,10 @@ export class Simulation {
         r.vx = r.vx * Math.exp(-.42 * dt) + this.wind * dt * .10;
         r.x += r.vx * dt;
         }
-        if(r.family<10){
+        if(r.family<10 || r.launchProfile?.originDepth !== undefined){
             const t=clamp(r.age/r.ascent,0,1), target=r.launchProfile?.burstDepth??burstDepth(r.family);
-            r.z=target*t*t*(3-2*t);r.vz=target*6*t*(1-t)/r.ascent;
+            const origin = r.launchProfile?.originDepth ?? 0, travel = target - origin;
+            r.z=origin+travel*t*t*(3-2*t);r.vz=travel*6*t*(1-t)/r.ascent;
         }else{r.vz *= Math.exp(-.55 * dt);r.z += r.vz * dt;}
         const motor = rocketPoint(r, MOTOR_LOCAL_Y), poweredTail = r.phase === 'thrust';
         const tone = r.family >= 10 ? signatureTint(r.family) : carrierTint(r.family,0,r.age/r.ascent);
@@ -565,7 +607,14 @@ export class Simulation {
         if (r.targetImpact !== undefined) this.cinematic.maxImpactError = Math.max(this.cinematic.maxImpactError, Math.abs(this.time - r.targetImpact));
         const [x, y, z] = rocketPoint(r, SHELL_LOCAL_Y);
         if (r.family !== 4) {
+            const firstHead = this.heads.count, firstEvent = this.events.length;
             this.burst(r.family, x, y, z, r.launchProfile?.effectScale ?? 1, r.seed, r.vx * .13, r.vy * .08, r.vz * .13);
+            if (r.mirrorSign === -1) for (let i = firstHead; i < this.heads.count; i++) this.heads.vx[i] *= -1;
+            const event = this.events.slice(firstEvent).find(e => e.type === 'burst');
+            if (event) {
+                event.cueId = r.cueId; event.origin = r.origin; event.primary = true;
+                this.sceneDirector?.onPrimary?.(event);
+            }
             return;
         }
         const rand = randomStream(r.seed);
@@ -661,13 +710,19 @@ export class Simulation {
             p.age[i] += dt;
             if (p.age[i] < 0) continue;
             if (p.age[i] >= p.life[i] || p.y[i] < -18) { p.remove(i); continue; }
+            if(p.role[i]===-72){
+                const a=Math.min(1.1,Math.max(0,p.age[i]-dt)), b=Math.min(1.1,p.age[i]), delta=(Math.exp(-4.4*a)-Math.exp(-4.4*b))/4.4;
+                p.px[i]=p.x[i];p.py[i]=p.y[i];p.pz[i]=p.z[i];
+                p.x[i]+=p.vx[i]*delta;p.y[i]+=p.vy[i]*delta;p.z[i]+=p.vz[i]*delta;
+                p.gain[i]=Math.min(1,p.age[i]/.12)*Math.min(1,(p.life[i]-p.age[i])/2);continue;
+            }
             coolGrandStar(p, i, dt);
             if (p.family[i] >= 10) evolveSignature(p, i, dt, this.reducedFlashes, this.reducedMotion);
             else {p.gain[i]=legacyStarGain(p.family[i],p.age[i],p.life[i],p.id[i]);
                 if(p.family[i]===8){p.vx[i]+=p.curve[i]*dt*.32;}
             }
             const drag = Math.exp(-p.drag[i] * dt);
-            p.vx[i] = p.vx[i] * drag + altitudeWind(this.wind, p.y[i], p.z[i]) * 0.09 * dt;
+            p.vx[i] = p.vx[i] * drag + (p.role[i] === -72 ? 0 : altitudeWind(this.wind, p.y[i], p.z[i])) * 0.09 * dt;
             p.vy[i] = p.vy[i] * drag - p.gravity[i] * dt;
             p.vz[i] *= drag;
             p.x[i] += p.vx[i] * dt;

@@ -2,7 +2,7 @@ import type { CSSProperties, PointerEvent } from 'react';
 import { Flame } from 'lucide-react';
 import { FAMILIES } from '../engine/catalog';
 import type { FamilyId } from '../engine/catalog';
-import { FireworkGlyph } from './FireworkGlyph';
+import { FirecrackerArt } from './FirecrackerArt';
 
 type Props = {
   collection: 'classics' | 'grand';
@@ -37,7 +37,7 @@ export function FireworkShelf({ collection, variant, selectedId, available, canL
           disabled={!available}
           onPointerDown={event => { if (launchable) onDragStart?.(family.id, event); }}
           onClick={() => onSelect(family.id)}
-        ><FireworkGlyph family={family.id} color={family.color}/></button>
+        ><FirecrackerArt family={family.id} size={40}/></button>
         {variant === 'edge' && <button
           className='shelf-quick-launch'
           type='button'

@@ -44,9 +44,18 @@ try{
   assert.equal((await snap()).bursts,before.bursts+1);assert.equal((await snap()).launched,before.launched+1);assert.equal((await snap()).active,1);pass(`${backend}: sky release bursts once, geometry remains reserved`);
   await advance(40);
   const currentLayout=(await snap()).stageLayout;
-  for(const [name,end,tx,ty] of [['water','up',196,currentLayout.heroRect.height*.77],['collection','up',currentLayout.tray.x+24,currentLayout.tray.y+24],['rail','up',currentLayout.rail.x+24,currentLayout.rail.y+24],['outside','up',-5,-5],['escape','escape',196,180],['pointercancel','cancel',196,180]]){
+  // The former fixed point now lies on the enhanced bank and is a valid far
+  // launch. A cancellation check must address actual open water below the bank.
+  const horizon=Number((await snap()).skyHorizon);assert.ok(Number.isFinite(horizon),'Backend supplies its actual shore horizon');
+  const openWaterY=Math.min(currentLayout.launchArea.y-8,(horizon+.035)*currentLayout.viewport.height);
+  assert.ok(openWaterY>(horizon+.014)*currentLayout.viewport.height,'Cancellation point lies below the bank and above the terrace');
+  for(const [name,end,tx,ty] of [['water','up',196,openWaterY],['collection','up',currentLayout.tray.x+24,currentLayout.tray.y+24],['rail','up',currentLayout.rail.x+24,currentLayout.rail.y+24],['outside','up',-5,-5],['escape','escape',196,180],['pointercancel','cancel',196,180]]){
    before=await snap();await drag('ruby-dahlia',tx,ty,end);const after=await snap();assert.equal(after.launched,before.launched,name);assert.equal(after.bursts,before.bursts,name);assert.equal(after.committedId,before.committedId,name);pass(`${backend}: ${name} cancels without accidental click`);
   }
+  before=await snap();await drag('gold-willow',196,(horizon-.012)*currentLayout.viewport.height);
+  const distant=await snap();assert.equal(distant.phase,'fuse');assert.ok(distant.launchProfile.originDepth<0,'Shoreline drop commits a distant origin');
+  const committedFar=JSON.stringify(distant.launchProfile);await page.setViewportSize({width:844,height:390});assert.equal(JSON.stringify((await snap()).launchProfile),committedFar,'Resize cannot move an airborne far profile');
+  await page.setViewportSize({width:393,height:851});await advance(40);pass(`${backend}: valid shoreline drop commits one immutable far launch`);
   before=await snap();await icon('ruby-dahlia').click();assert.equal((await snap()).phase,'fuse');const busyId=(await snap()).committedId,busyBox=await icon('gold-willow').boundingBox();await page.mouse.move(busyBox.x+24,busyBox.y+24);await page.mouse.down();await page.mouse.move(busyBox.x+40,busyBox.y+24);await advance(40);await page.mouse.move(busyBox.x+24,busyBox.y+24);await page.mouse.up();assert.equal((await snap()).committedId,null,'A completed unavailable drag cannot become a later click');assert.ok(busyId);pass(`${backend}: fresh tap immediately after cancellation launches`);
   const cdp=await context.newCDPSession(page),t=await icon('sapphire-saturn').boundingBox();before=await snap();await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:t.x+24,y:t.y+24}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:196,y:180}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});assert.equal((await snap()).launched,before.launched);pass(`${backend}: native touch cancellation`);
   for(const placement of [0,1]){

@@ -1,3 +1,6 @@
+import { LaunchDemo } from './ui/LaunchDemo';
+import { WorldTools } from './ui/WorldTools';
+import './styles/world.css';
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { AlertCircle, Camera, Clapperboard, Library, Square, Download, Eye, EyeOff, Flame, Hand, Keyboard, MapPin, Maximize, Monitor, Pause, Play, RotateCcw, Settings2, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import { FAMILIES, CONFIG_VERSION, familyKeyIndex } from './engine/catalog';
@@ -58,7 +61,7 @@ export default function App() {
   const [positionPreview, setPositionPreview] = useState<number | null>(null);
   const cancelDrag = useRef<(() => void) | null>(null);
   const clearSuppressedClick = useRef<(() => void) | null>(null);
-  const [drag, setDrag] = useState<{ id: FamilyId; x: number; y: number; kind: 'burst' | 'launch' | null } | null>(null);
+  const [drag, setDrag] = useState<{ id: FamilyId; x: number; y: number; kind: 'burst' | 'launch' | 'shore' | null } | null>(null);
   const dragRef = useRef(drag); dragRef.current = drag;
   const revealTap = useRef(false);
   const notify = useCallback((text: string) => { setNoticeFamily(null); setNotice(text); }, []);
@@ -67,7 +70,7 @@ export default function App() {
   const state = world.snapshot;
   const motionBlocked = prefs.reducedMotion || state.reducedMotion;
   const preparing = !startupPresented && !world.error;
-  const immersiveAvailable = presentation.mode === 'interactive' && (Boolean(state.show) || ['playing', 'falling'].includes(state.personal.status)) && !world.error && !preparing;
+  const immersiveAvailable = presentation.mode === 'interactive' && (Boolean(state.show) || world.lively?.status === 'playing' || ['playing', 'falling'].includes(state.personal.status)) && !world.error && !preparing;
   const immersiveActive = immersiveAvailable && immersive;
   const hidden = presentationHidden || immersiveActive;
   const immersiveRef = useRef(immersiveActive); immersiveRef.current = immersiveActive;
@@ -128,7 +131,7 @@ export default function App() {
       if (!moved && Math.hypot(e.clientX - startX, e.clientY - startY) < 8) return;
       moved = true;
       const target = worldRef.current.dropTarget(e.clientX, e.clientY, id);
-      const kind = worldRef.current.sim.current.canLaunchFamily(id) ? target?.kind ?? null : null;
+      const kind = worldRef.current.canLaunchFamily(id) ? target?.kind ?? null : null;
       const value = { id, x: e.clientX, y: e.clientY, kind }; dragRef.current = value; setDrag(value);
     };
     const end = (e: PointerEvent) => {
@@ -178,6 +181,7 @@ export default function App() {
       if (!immersiveRef.current || event.key === 'Escape') { setHidden(false); setImmersive(false); }
       if (c.overlay) return;
       if (event.key === 'Escape') {
+        if(worldRef.current.boatView!==null)worldRef.current.watchBoat(null);
         cancelDrag.current?.();
         return;
       }
@@ -293,8 +297,9 @@ export default function App() {
     onFocusCapture={() => { if (!immersiveActive) setHidden(false); }}
   >
     <div ref={host} className='scene-host' aria-hidden='true'/>
+    {!preparing && !world.error && presentation.mode === 'interactive' && <WorldTools focus={world.boatView} nearBoats={world.nearBoats} watch={world.watchBoat} depth={world.launchDepth} setDepth={world.setLaunchDepth} hidden={immersiveActive} crowd={prefs.crowdSound} setCrowd={v => change('crowdSound', v)} ambient={prefs.ambientMusic} setAmbient={v => change('ambientMusic', v)} lively={Boolean(world.lively?.status === 'playing' && !world.lively?.paused)} toggleLively={world.toggleLively} cadence={world.lively?.cadence ?? 2} setCadence={world.livelyCadence} canReplay={!world.capture.recording} effects={prefs.effectsSound} setEffects={v => change('effectsSound',v)} />}
     {!hidden && !overlay && !modeOpen && !preparing && !world.error && presentation.mode === 'interactive' && <>
-      <nav className='experience-actions chrome' data-stage-control aria-label='Explore this night'>
+      <nav data-world-glass className='experience-actions chrome' data-stage-control aria-label='Explore this night'>
         <button type='button' aria-label='Browse fireworks' title='Browse fireworks and favourites' onClick={() => open('browse')}><Library size={18}/><span>Browse</span></button>
         <button type='button' aria-label='Open night studio' title='Create and save a show' onClick={() => showStudio()}><Clapperboard size={18}/><span>Studio</span></button>
         <button type='button' aria-label='Capture this night' title='Photos and short clips' onClick={() => open('capture')}><Camera size={18}/><span>Capture</span></button>
@@ -321,7 +326,7 @@ export default function App() {
       updateReady={platform.updateReady}
       onPause={resumeOrPause}
       onSound={() => void toggleSound()}
-      canLaunchFamily={id => world.ready && !world.error && !overlay && world.sim.current.canLaunchFamily(id)}
+      canLaunchFamily={id => world.ready && !world.error && !overlay && world.canLaunchFamily(id)}
       onDragStart={(id, event) => startDrag(id, event)}
       onLaunchFamily={igniteFamily}
       onControls={() => open('controls')}
@@ -363,7 +368,7 @@ export default function App() {
 
     </Dialog>}
     {overlay === 'help' && <Dialog variant='help' title='Quick help' onClose={close} returnFocus={panelInvoker.current}>
-      <div className='help-steps'><div><Sparkles size={18} aria-hidden='true'/><span><strong>Choose</strong><small>Tap a left-side icon to launch. Move the lower handle for the next rocket, or enable Random.</small></span></div><div><Hand size={18} aria-hidden='true'/><span><strong>Drop</strong><small>Sky: instant burst. Terrace: a rocket at your drop position.</small></span></div><div><Flame size={18} aria-hidden='true'/><span><strong>Launch</strong><small>One tap lights one fuse. Focus an icon and press Enter, or select with 1–9/0 and launch with L.</small></span></div></div>
+      <LaunchDemo/><div className='help-steps'><div><Sparkles size={18} aria-hidden='true'/><span><strong>Choose</strong><small>Tap a left-side icon to launch. Move the lower handle for the next rocket, or enable Random.</small></span></div><div><Hand size={18} aria-hidden='true'/><span><strong>Drop</strong><small>Sky: instant burst. Terrace: a rocket at your drop position.</small></span></div><div><Flame size={18} aria-hidden='true'/><span><strong>Launch</strong><small>One tap lights one fuse. Focus an icon and press Enter, or select with 1–9/0 and launch with L.</small></span></div></div>
       <Toggle label='Reduced flashes' detail='Softer light, with the same firework shapes.' checked={prefs.reducedFlashes} onChange={v => change('reducedFlashes', v)}/>
       <Toggle label='Reduced interface motion' checked={prefs.reducedMotion} onChange={v => change('reducedMotion', v)}/>
       <p className='fine-print'>Flashing effects; digital simulation. Sound starts off. Pause stays available.</p>

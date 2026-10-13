@@ -184,7 +184,7 @@ try {
     const initial = await snap(page); assert.equal(initial.quality, 'ultra');
     assert.equal(initial.riverScenery, 'Blender river-life-v008');
     assert.match(initial.riverBoatSource, /Wooden Canoe by OuterSpaceSimon.*CC0/);
-    assert.equal(initial.riverBoats, 3); assert.equal(initial.riverLampAnchors, 10);
+    assert.equal(initial.riverBoats, 10); assert.equal(initial.riverLampAnchors, 13);
     assert.ok(initial.riverReflectionFragments <= 80);
     assert.equal(initial.riverPbrTextures, 6, 'Activate the three retained hull maps and three original shelter maps');
     assert.equal(initial.riverPbrColorMaps, 2, 'Hull and woven shelter each have one shared sRGB color map');
@@ -192,8 +192,8 @@ try {
     assert.equal(initial.riverPbrColorSpacesCorrect, true, 'PBR albedo is sRGB; normal/roughness/metallic maps remain linear data');
     assert.ok(initial.riverTextureMemoryEstimateBytes > 0, 'Record decoded texture storage rather than only compressed download size');
     assert.equal(initial.riverVillageHomes, 12);
-    assert.equal(initial.riverSeatedFigures, 2);
-    assert.equal(initial.riverWaterContactInstances, 21, 'Exactly three waterline footprints and eighteen bounded wake fragments after render');
+    assert.equal(initial.riverSeatedFigures, 33);
+    assert.ok(initial.riverWaterContactInstances >= 10 && initial.riverWaterContactInstances <= 1024, 'Ten immersed hulls and bounded moving contact/wake marks');
     assert.ok(initial.riverVillageBounds?.min && initial.riverVillageBounds?.max, 'Expose actual resized village bounds');
     for (const axis of ['x', 'y', 'z']) {
       assert.ok(Number.isFinite(initial.riverVillageBounds.min[axis]) && Number.isFinite(initial.riverVillageBounds.max[axis]),
@@ -272,7 +272,7 @@ try {
       assert.ok(riverState.bursts > 0); assert.ok(riverState.authoredAssetErrors.river);
       assert.equal(riverState.backend, 'WebGL 2'); assert.equal(riverState.quality, 'ultra');
       assert.equal(riverState.riverScenery, 'procedural river fallback');
-      assert.equal(riverState.riverBoats, 3); assert.equal(riverState.riverLampAnchors, 10);
+      assert.equal(riverState.riverBoats, 10); assert.equal(riverState.riverLampAnchors, 13);
       assert.ok(riverState.riverReflectionFragments <= 80);
       await riverFallback.screenshot({ path: path.join(output, 'portrait-webgl-missing-river.png') });
       check('Missing authored river retains three boats including the candlelit nauka, bounded reflections and a playable WebGL fallback', { error: riverState.authoredAssetErrors.river });
@@ -290,7 +290,7 @@ try {
   check('OS reduced-motion preference initializes the existing comfort control');
   await resetFrozen(page); await capture(page, project, 'idle');
   const canvasRiver = await snap(page);
-  assert.equal(canvasRiver.riverBoats, 3); assert.equal(canvasRiver.riverLampAnchors, 10);
+  assert.equal(canvasRiver.riverBoats, 10); assert.equal(canvasRiver.riverLampAnchors, 13);
   assert.equal(canvasRiver.riverMotionTime, 0, 'OS reduced motion keeps the Canvas river static');
   check('Canvas retains three boats and ten lamp anchors under the static reduced-motion preference');
   await selectedLaunch(page).click();

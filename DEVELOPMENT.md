@@ -1,3 +1,5 @@
+**Spark upstream candidate / `2026-10-12.1`:** implemented on `feat/spark-upstream-world`; [implementation and qualification](docs/evidence/spark-upstream-2026-10-12/IMPLEMENTATION.md). Main and production remain `2026-10-04.1` until the release gates and promotion receipt confirm otherwise. Older entries below preserve their historical states.
+
 **Current main and production: `2026-10-04.1`.** [Verified legacy realism release](docs/evidence/legacy-realism-2026-10-04/PRODUCTION.md). The historical checkpoints below retain their original state.
 
 **Previous production and main: `2026-10-03.4`.** The owner authorized reconciliation and production deployment on 4 October. The tested main CI artifact is live at [Firecrackers](https://firecrackers.mainandmany.com/); [source, deployment, cache and public verification receipt](docs/evidence/reconciliation-2026-10-04/PRODUCTION.md). The earlier production hold is superseded. Physical-device and sustained-performance qualification remains unverified. Entries below preserve earlier checkpoints.

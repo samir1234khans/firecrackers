@@ -1,3 +1,5 @@
+import { WORLD_CAPABILITIES } from './SceneCapabilities';
+import type { SceneCapabilities } from './SceneCapabilities';
 import { burstDepth, recedingShellSize } from '../engine/LegacyRealism';
 import { starColor, aerialTransmission } from '../engine/StarAppearance.js';
 import { SmokeOcclusion } from '../engine/SmokeOcclusion.js';
@@ -22,12 +24,19 @@ import { flightBodyOpacity, rocketPoint, SHELL_LOCAL_Y } from '../engine/LaunchG
 import { FUSE_POINTS, fusePointAt, ROCKET_SCALE } from '../engine/FusePath';
 import type { DisplayMode } from '../platform/presentation';
 import { updateMoonFrame } from './MoonComposition';
-import type { MoonFrame } from './MoonComposition';
-import { sampleWater, sampleWaterHeight, updateWaterFrame, WATER_MAX_DISPLACEMENT, WATER_NEAR_Z } from './WaterWaves';
+import type { MoonFrame, MoonObstacle, MoonMotion } from './MoonComposition';
+import { sampleWater, sampleWaterHeight, updateWaterFrame, waterDisplacementBound, WATER_NEAR_Z, WaterInteraction } from './WaterWaves';
 import type { WaterFrame, WaterSample } from './WaterWaves';
+import { boundGlassSurfaces } from './GlassMath';
+import type { GlassSurface } from './GlassMath';
 import { makeGalaxySky } from './GalaxySky';
 import type { SkyState } from '../engine/SkyState';
 import { CELESTIAL_LIMITS, celestialDiagnostics, createCelestialFrame, updateCelestialFrame } from './CelestialScene';
+import { ShorelineCanvas } from './ShorelineCanvas';
+import { resolveShorelineLaunch } from './ShorelineLaunch';
+import { CanvasSeaFleet } from './CanvasSeaFleet';
+import type { SeaAudienceSession } from './SeaAudienceSession';
+import { SEA_WAVE_GAINS } from './SeaFleetState';
 
 type RiverLamp = { x: number; y: number; waterline: number; width: number; phase: number; strength: number; flicker: number };
 type RiverBoat = { image: HTMLCanvasElement; x: number; depth: number; width: number; phase: number; facing: number;
@@ -35,15 +44,27 @@ type RiverBoat = { image: HTMLCanvasElement; x: number; depth: number; width: nu
     sampledHeight?: number; contactError?: number };
 
 /** GPU-independent fallback, not a substitute for the primary 3D renderer.
- * Flight, splitting, wind, pause and all ten effects use the unchanged simulation.
+ * Flight, splitting, wind, pause and all thirteen effects use the unchanged simulation.
  */
 export class CompatibilityRenderer implements RendererPort {
+    private readonly shorelineCity = new ShorelineCanvas();
     readonly backend = 'Canvas 2D · compatibility';
     readonly metrics = { renderPixels: 0, submitMs: 0, frames: 0 };
     private readonly moonImage = new Image();
+    private readonly fallbackMoon = this.makeFallbackMoon();
+    private moonDeadline = 0;
     private moonReady = false;
     private moonFailed = false;
     private readonly moonFrame = { x: 0, y: 0, radius: 15 };
+    private readonly moonMotion: MoonMotion = { time: 0, motionAllowed: false, pulseAt: -Infinity, obstructions: [] };
+    private readonly waterInteraction = new WaterInteraction();
+    private glassSurfaces: readonly GlassSurface[] = [];
+    private glassAllowed = true;
+    private glassSuspended = false;
+    private debugGlassOff = new URLSearchParams(location.search).get('glass') === 'off';
+    private starTapAt = -Infinity;
+    private starTapX = .5;
+    private starTapY = .25;
     private readonly waterSample = { height: 0, slopeX: 0, slopeZ: 0 };
     private readonly hullSamples = Array.from({ length: 4 }, () => ({ height: 0, slopeX: 0, slopeZ: 0 }));
     private readonly waterFrame: WaterFrame = { phase: 0, waveCount: 4, farZ: -1000, nearZ: WATER_NEAR_Z, motionAllowed: true };
@@ -53,6 +74,8 @@ export class CompatibilityRenderer implements RendererPort {
     private riverReflectionChecksum = 0;
     private readonly canvas = document.createElement('canvas');
     private readonly ctx: CanvasRenderingContext2D;
+    private readonly sea?: CanvasSeaFleet;
+    setSeaSession(session: SeaAudienceSession) { this.sea?.setSession(session); }
     private readonly celestialArt = makeGalaxySky();
     private readonly celestialFrame = createCelestialFrame();
     private skyState: Readonly<SkyState> = { time: 0, pointerX: .5, pointerY: .25, engagement: 0, motionAllowed: false };
@@ -67,8 +90,42 @@ export class CompatibilityRenderer implements RendererPort {
     private previewProfile?: LaunchProfile;
     private previewFamily = -1;
     private previewPlacement = -1;
+    private lakeMix = 1;
+    private letterMix = 1;
+    private protectedRects: { x: number; y: number; width: number; height: number }[] = [];
+    setLakeMix(value: number) { this.lakeMix = clamp(value, 0, 1); }
+    setLetterMix(value: number) { this.letterMix = clamp(value, 0, 1); }
+    setProtectedRects(rects: readonly { x: number; y: number; width: number; height: number }[]) {
+        this.protectedRects = rects.slice(0, 24).filter(r => Number.isFinite(r.x + r.y + r.width + r.height) && r.width > 0 && r.height > 0).map(r => ({ ...r }));
+    }
+    sceneCanvas() { return this.canvas; }
+    authoredScale() { return this.scale; }
+    pointAt(x: number, y: number): [number, number] {
+        return [(clamp(x, 0, 1) - .5) * this.width / this.scale, this.sim.ground + (this.baseline - clamp(y, 0, 1) * this.height) / this.scale];
+    }
+    pixelPoint(x: number, y: number, z = 0) { return this.project(x, y, z); }
     setLayout(layout: StageLayout) { this.layout = layout; }
     setSkyState(state: Readonly<SkyState>) { this.skyState = state; }
+    setGlassSurfaces(surfaces: readonly GlassSurface[], enabled = true) { this.glassSurfaces = boundGlassSurfaces(surfaces, this.width, this.height); this.glassAllowed = enabled; }
+    setGlassEnabled(enabled: boolean) { this.glassSuspended = !enabled; }
+    setGlassDiagnosticOff(disabled: boolean) { this.debugGlassOff = disabled; }
+    setGlassScatterTaps(_taps: 1 | 3 | 5) { /* No GPU refraction is claimed by Canvas. */ }
+    setMoonObstructions(rects: readonly MoonObstacle[]) { this.moonMotion.obstructions = rects.slice(0, 16); }
+    moonPulse() {
+        if (!this.capabilities.enhanced || !this.moonMotion.motionAllowed) return false;
+        this.moonMotion.pulseAt = this.sim.time; return true;
+    }
+    environmentTap(kind: 'sky' | 'water' | 'moon', x: number, y: number) {
+        if (!this.capabilities.interactions || this.sim.paused || this.sim.reducedMotion || !this.moonMotion.motionAllowed) return false;
+        if (kind === 'moon') return this.moonPulse();
+        if (kind === 'sky') { this.starTapAt = this.sim.time; this.starTapX = x / this.width; this.starTapY = y / this.height; return true; }
+        if (!this.waterFrame.motionAllowed) return false;
+        const horizon = this.height * this.horizon, span = Math.max(1, this.height * .92 - horizon);
+        const depth = clamp((y - horizon) / span, 0, 1);
+        const z = this.waterFrame.nearZ + (this.waterFrame.farZ - this.waterFrame.nearZ) * (1 - depth) / (1 + depth * 7);
+        const nearWidth = this.width < 680 ? 96 : 260;
+        return this.waterInteraction.add((x / this.width - .5) * (nearWidth - z * 1.7), z, this.sim.time, this.waterFrame);
+    }
     private mode: DisplayMode = 'interactive';
     private width = 1;
     private height = 1;
@@ -92,6 +149,28 @@ export class CompatibilityRenderer implements RendererPort {
     private readonly burstWash = new Float32Array(7);
     private readonly tintMask = document.createElement('canvas');
     private readonly tintContext = this.tintMask.getContext('2d')!;
+    /** Cached native fallback artwork; failed media still leaves a lunar disc
+     * and its shared reflection, without waiting forever or reading pixels. */
+    private makeFallbackMoon() {
+        const image = document.createElement('canvas'); image.width = image.height = 128;
+        const c = image.getContext('2d')!;
+        const light = c.createRadialGradient(42, 38, 4, 64, 64, 61);
+        light.addColorStop(0, '#d1d0c8'); light.addColorStop(.68, '#aaaeb0'); light.addColorStop(1, '#687789');
+        c.fillStyle = light; c.beginPath(); c.arc(64, 64, 60, 0, Math.PI * 2); c.fill();
+        c.save(); c.clip();
+        const random = randomStream(20261104);
+        for (let i = 0; i < 36; i++) {
+            const x = 12 + random() * 104, y = 12 + random() * 104, radius = 2 + random() * 10;
+            c.fillStyle = '#53616c30'; c.beginPath(); c.ellipse(x, y, radius, radius * .72, .2, 0, Math.PI * 2); c.fill();
+            c.strokeStyle = '#e2ddd31f'; c.lineWidth = .8; c.stroke();
+        }
+        c.restore(); return image;
+    }
+    private settleMoon(success: boolean) {
+        if (this.disposed || this.moonReady || this.moonFailed) return;
+        clearTimeout(this.moonDeadline); this.moonDeadline = 0;
+        this.moonReady = success; this.moonFailed = !success; this.render();
+    }
     /** Reuse one bounded alpha mask; never paint a coloured rectangle over a boat. */
     private drawSurfaceTint(image: HTMLCanvasElement, x: number, y: number, width: number, height: number) {
         const peak = Math.max(this.burstWash[0], this.burstWash[1], this.burstWash[2]);
@@ -254,6 +333,7 @@ export class CompatibilityRenderer implements RendererPort {
         this.riverReflectionChecksum = 0;
         c.fillStyle = '#ae8252';
         for (const lamp of this.riverArt.lamps) {
+            if (this.sea && this.riverArt.lamps.indexOf(lamp) >= 4) continue;
             const start = lamp.waterline + Math.max(1, lamp.waterline - lamp.y) * .55;
             const fragments = this.sim.quality === 'low' ? 4 : 8;
             for (let i = 0; i < fragments; i++) {
@@ -269,6 +349,11 @@ export class CompatibilityRenderer implements RendererPort {
         }
     }
     private drawRiverBoats() {
+        if (this.sea) {
+            this.sea.draw(this.ctx, this.width, this.height, this.height * this.horizon, this.waterFrame, this.waterFrame.motionAllowed, (x, y, z) => this.project(x, y, z));
+            this.host.dataset.sparkSeaState = JSON.stringify(this.sea.diagnostics());
+            return;
+        }
         const c = this.ctx;
         this.riverContactChecksum = 0;
         for (const boat of this.riverArt.boats) {
@@ -310,7 +395,8 @@ export class CompatibilityRenderer implements RendererPort {
         }
     }
 
-    constructor(private host: HTMLDivElement, private sim: Simulation) {
+    constructor(private host: HTMLDivElement, private sim: Simulation, private readonly particleGlowScale = 1, private readonly capabilities: SceneCapabilities = WORLD_CAPABILITIES) {
+        if (capabilities.fleet) { this.sea = new CanvasSeaFleet(); this.waterFrame.gains = SEA_WAVE_GAINS; }
         const ctx = this.canvas.getContext('2d', { alpha: true });
         if (!ctx) throw new Error('This browser cannot create a drawing canvas.');
         this.ctx = ctx;
@@ -327,9 +413,15 @@ export class CompatibilityRenderer implements RendererPort {
     }
     async init() {
         if (this.disposed) return;
-        this.moonImage.onload = () => { if (!this.disposed) { this.moonReady = true; this.render(); } };
-        this.moonImage.onerror = () => { if(!this.disposed){this.moonFailed=true;this.render();} };
-        this.moonImage.src = `${import.meta.env.BASE_URL}art/moon-lro-v001.png`;
+        this.moonImage.onload = () => { void this.moonImage.decode().then(() => this.settleMoon(true), () => this.settleMoon(false)); };
+        this.moonImage.onerror = () => this.settleMoon(false);
+        if (true) {
+            // Match the native asset deadline. A late decode cannot replace the
+            // already-settled procedural moon or change readiness retroactively.
+            this.moonDeadline = window.setTimeout(() => this.settleMoon(false), 60_000);
+            this.moonImage.src = `${import.meta.env.BASE_URL}art/moon-lro-v001.png`;
+        }
+        else { this.mode = 'transparent'; this.moonReady = true; }
         this.initialized = true;
         this.host.replaceChildren(this.canvas);
         this.host.dataset.backend = this.backend;
@@ -348,6 +440,10 @@ export class CompatibilityRenderer implements RendererPort {
         const framing = stageFraming(this.layout);
         this.baseline = framing.baseline;
         this.scale = framing.scale;
+        if (false) {
+            this.scale = Math.min(this.width * .82 / 82, this.height * .47 / 74, 6);
+            this.baseline = this.height * .48 + (92 - this.sim.ground) * this.scale;
+        }
         const contactY = this.project(0, PROP_CONTACT_Y).y;
         this.compositions = FAMILIES.map(f => resolvePropComposition(this.layout,f.id,contactY,y=>this.sim.ground+(this.baseline-y)/this.scale));
         this.launchBounds = this.compositions.map(c=>resolveLaunchBounds(this.layout,c,(x,y)=>this.project(x,y),(x)=> (x-this.width/2)/this.scale));
@@ -365,7 +461,8 @@ export class CompatibilityRenderer implements RendererPort {
     }
     setQuality(quality: Quality) {
         if (this.disposed) return;
-        this.ratio = Math.min(window.devicePixelRatio || 1, BUDGETS[quality].ratio, Math.sqrt(1600000 / (this.width * this.height))) * this.resolutionScale;
+        const pixels = this.capabilities.enhanced ? BUDGETS[quality].pixels : 1600000;
+        this.ratio = Math.min(window.devicePixelRatio || 1, BUDGETS[quality].ratio, Math.sqrt(pixels / (this.width * this.height))) * this.resolutionScale;
         this.canvas.width = Math.round(this.width * this.ratio);
         this.canvas.height = Math.round(this.height * this.ratio);
         this.canvas.style.width = `${this.width}px`;
@@ -381,6 +478,21 @@ export class CompatibilityRenderer implements RendererPort {
         const depth = 240 / Math.max(140, 240 - z);
         return { x: this.width / 2 + x * this.scale * depth, y: this.baseline - (y - this.sim.ground) * this.scale * depth };
     }
+    private protectParticles() {
+        const c = this.ctx;
+        if (this.sim.protectCenter) {
+            const [left, top, right, bottom] = this.sim.safeRect;
+            c.beginPath(); c.rect(0, 0, this.width, this.height);
+            c.rect(left * this.width, top * this.height, (right - left) * this.width, (bottom - top) * this.height); c.clip('evenodd');
+        }
+        // Intersect each inverse rectangle separately; overlaps must remain protected.
+        for (const r of this.protectedRects) {
+            c.beginPath(); c.rect(0, 0, this.width, this.height);
+            c.rect(r.x - 8, r.y - 8, r.width + 16, r.height + 16); c.clip('evenodd');
+        }
+    }
+    /** The dedicated black-sky piece shares particles and projection, without waterfront art. */
+    invitationFuseY() { return this.sim.ground + (this.baseline - this.height * .94) / this.scale; }
     resolveLaunchProfile(id: FamilyId, placement = this.sim.placement) {
         const index=familyIndex(id),prop=this.compositions[index],bounds=this.launchBounds[index],scene=this.layout.unobstructedScene;
         const normalizedPlacement=clamp(placement,0,1),padX=bounds.worldMin+normalizedPlacement*(bounds.worldMax-bounds.worldMin);
@@ -413,6 +525,13 @@ export class CompatibilityRenderer implements RendererPort {
     projectLaunchPosition(placement:number): [number,number] {
         const bounds=this.launchBounds[familyIndex(this.sim.selected)];
         return [this.layout.viewport.x+bounds.screenMin+clamp(placement,0,1)*(bounds.screenMax-bounds.screenMin),this.layout.viewport.y+bounds.contactScreenY];
+    }
+    shorelineHorizon() { return this.horizon; }
+    resolveShoreLaunch(id: FamilyId, x: number, y: number) {
+        if (!this.capabilities.enhanced) return null;
+        const world = (sx: number, sy: number, z: number) => { const q = 240 / Math.max(140, 240 - z);
+            return { x: (sx - this.width / 2) / (this.scale * q), y: this.sim.ground + (this.baseline - sy) / (this.scale * q) }; };
+        return resolveShorelineLaunch(id, x, y, this.width, this.height, this.horizon, this.resolveLaunchProfile(id, x), world, (wx, wy, z) => this.project(wx, wy, z));
     }
     projectBurst(clientX: number, clientY: number, id=this.sim.selected): [number, number, number] | null {
         const l = this.layout, x = clientX - l.viewport.x, y = clientY - l.viewport.y, r = l.burstCanopy;
@@ -457,8 +576,11 @@ export class CompatibilityRenderer implements RendererPort {
         for (let x = 0; x <= this.width; x += 8) c.lineTo(x, horizon - 4 - Math.sin(x * .013) * 5 - Math.sin(x * .047) * 2);
         c.lineTo(this.width, horizon + 2); c.lineTo(0, horizon + 2); c.fill();
         const shoreHeight = clamp(this.height * .028, 16, 26);
-        c.globalAlpha = 1; c.drawImage(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
-        this.drawSurfaceTint(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
+        if (this.capabilities.enhanced) this.shorelineCity.draw(c, this.width, this.height, this.horizon, riverTime, this.skyState.motionAllowed && !s.paused && !s.reducedMotion && !this.reducedSkyMotion?.matches);
+        else {
+          c.globalAlpha = 1; c.drawImage(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
+          this.drawSurfaceTint(this.riverArt.homes, 0, horizon - shoreHeight + 1, this.width, shoreHeight);
+        }
         c.save(); c.beginPath(); c.rect(0, horizon + 2, this.width, waterHeight - 2); c.clip(); c.globalCompositeOperation = 'lighter';
         // Broad shell-coloured incident light is separate from the moon path and
         // bounded reflected particles. All twelve sources survive Low quality.
@@ -509,7 +631,7 @@ export class CompatibilityRenderer implements RendererPort {
             const halfWidth = (1 + depth * this.width * .052) * (.57 + crossing * .27);
             const y = baseY - this.waterSample.height * (3 + depth * 12);
             this.waterFacetPose[i * 3] = depth; this.waterFacetPose[i * 3 + 1] = baseY; this.waterFacetPose[i * 3 + 2] = crossing;
-            c.globalAlpha = this.moonReady ? (.034 + depth * .085) * facet : .008;
+            c.globalAlpha = this.moonReady || this.moonFailed ? (.034 + depth * .085) * facet * ((this.moonFrame as MoonFrame).illumination ?? 1) : .008;
             c.fillRect(moonX + drift - halfWidth, y, halfWidth * 2, .45 + depth * .8);
         }
         c.fillStyle = '#4a687e';
@@ -627,11 +749,24 @@ export class CompatibilityRenderer implements RendererPort {
         c.setTransform(this.ratio, 0, 0, this.ratio, 0, 0);
         c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
         c.clearRect(0, 0, this.width, this.height);
+        if (false) { c.fillStyle = '#000'; c.fillRect(0, 0, this.width, this.height); }
         updateCelestialFrame(this.celestialFrame, this.skyState, this.width, this.height,
             this.mode !== 'transparent' && s.quality !== 'low' && !this.reducedSkyMotion?.matches &&
-            !this.host.parentElement?.classList.contains('reduced-motion'), s.reducedFlashes);
+            !this.host.parentElement?.classList.contains('reduced-motion'), s.reducedFlashes, this.capabilities.enhanced ? 6 : 3);
         updateWaterFrame(this.waterFrame, s.waterPhase, s.quality, this.width < 680,
             !s.reducedMotion && !this.reducedSkyMotion?.matches && !this.host.parentElement?.classList.contains('reduced-motion'));
+        this.waterFrame.time = s.time; this.waterInteraction.update(s.time, this.waterFrame.motionAllowed);
+        this.waterFrame.impulses = this.waterInteraction.impulses;
+        this.sea?.update(s.time, this.waterFrame.motionAllowed && this.mode !== 'transparent');
+        if (this.moonMotion.pulseAt !== undefined && s.time < this.moonMotion.pulseAt) this.moonMotion.pulseAt = -Infinity;
+        if (s.time < this.starTapAt) this.starTapAt = -Infinity;
+        this.moonMotion.time = s.time; this.moonMotion.motionAllowed = !s.reducedMotion && !this.reducedSkyMotion?.matches && !this.host.parentElement?.classList.contains('reduced-motion');
+        updateMoonFrame(this.width, this.height, this.horizon, this.moonFrame, this.capabilities.enhanced ? this.moonMotion : undefined);
+        const tapAge = s.time - this.starTapAt;
+        if (this.capabilities.enhanced && this.waterFrame.motionAllowed && tapAge >= 0 && tapAge < .7) {
+            this.celestialFrame.engagement = Math.sin(tapAge / .7 * Math.PI) ** 2;
+            this.celestialFrame.pointerX = this.starTapX; this.celestialFrame.pointerY = this.starTapY;
+        }
         if (this.mode !== 'transparent') {
             const sky = c.createLinearGradient(0, 0, 0, this.height);
             sky.addColorStop(0, '#030916'); sky.addColorStop(.62, '#0c1b2b'); sky.addColorStop(1, '#050b13');
@@ -656,18 +791,24 @@ export class CompatibilityRenderer implements RendererPort {
             c.drawImage(this.celestialArt.nearStars, celestialLeft + frame.nearX, celestialTop + frame.nearY, celestialWidth, celestialHeight);
             this.drawCelestialResponse(celestialLeft, celestialTop, celestialWidth, celestialHeight, nearStrength);
             c.restore(); this.drawCelestialMeteor();
-            if (this.moonReady) {
+            if (this.moonReady || this.moonFailed) {
                 const m = this.moonFrame, diameter = m.radius * 2 / .95;
                 this.glow(m.x, m.y, m.radius * 2.5, '#a8bfd8', .065);
-                c.globalAlpha = .90; c.drawImage(this.moonImage, m.x-diameter/2, m.y-diameter/2, diameter, diameter);
+                c.globalAlpha = Math.min(1, .90 * ((m as MoonFrame).illumination ?? 1)); c.drawImage(this.moonReady ? this.moonImage : this.fallbackMoon, m.x-diameter/2, m.y-diameter/2, diameter, diameter);
             }
             c.globalAlpha = 1;
         }
         if (this.mode !== 'transparent') this.drawWater();
+        if (this.capabilities.enhanced && this.lakeMix < 1) {
+              // Preserve the live moon/sky during the opening; reveal only the waterfront.
+              c.globalAlpha = (1 - this.lakeMix) * .72; c.fillStyle = '#000'; c.fillRect(0, this.height * this.horizon, this.width, this.height * (1 - this.horizon)); c.globalAlpha = 1;
+        }
         this.staged = this.airborne = this.bodies = 0;
-        if (this.mode === 'interactive') {
-            this.drawStage();
-            if (!s.committed && !s.show) {
+        c.save();
+        if (this.capabilities.enhanced) this.protectParticles();
+        if (this.mode === 'interactive' || this.capabilities.enhanced) {
+            if (this.mode === 'interactive') this.drawStage();
+            if (this.mode === 'interactive' && !s.committed && !s.show) {
                 this.staged++;
                 const next=this.nextProfile();
                 this.drawRocket({ x:next.padX!,y:next.ground!,z:0,stage:'fuse',age:-1,ascent:1,fuse:1,family:familyIndex(s.selected),launchProfile:next });
@@ -678,11 +819,9 @@ export class CompatibilityRenderer implements RendererPort {
                 this.drawRocket(r);
             }
         }
+        c.restore();
         c.save();
-        if (s.protectCenter) {
-            const [left, top, right, bottom] = s.safeRect;
-            c.beginPath(); c.rect(0, 0, this.width, this.height); c.rect(left * this.width, top * this.height, (right - left) * this.width, (bottom - top) * this.height); c.clip('evenodd');
-        }
+        this.protectParticles();
         // The smoke is retained and wind-drifted by the same simulation used in 3D.
         const smoke = s.smoke;
         this.canopyOrder.length = smoke.count;
@@ -702,16 +841,21 @@ export class CompatibilityRenderer implements RendererPort {
         }
         c.globalCompositeOperation = 'lighter'; c.lineCap = 'round';
         const trails = s.trails;
-        const step = Math.max(1, Math.ceil(trails.count / (s.quality === 'low' ? 2500 : 6500)));
-        for (let i = 0; i < trails.count; i += step) {
+        const step = false ? 1 : Math.max(1, Math.ceil(trails.count / (s.quality === 'low' ? 2500 : 6500)));
+        for (let i = 0; i < trails.count; i++) {
+            if (trails.age[i]<0)continue;
+            if (trails.kind[i] === 1) continue;
+            // Never decimate a written stroke when decorative effects fill the shared trail pool.
+            if (!trails.anchored[i] && i % step !== 0) continue;
             const age = trails.age[i] / trails.life[i];
             if (age > .97) continue;
             const a = this.project(trails.ax[i], trails.ay[i], trails.az[i]), b = this.project(trails.bx[i], trails.by[i], trails.bz[i]);
-            c.globalAlpha = Math.pow(1 - age, 1.35) * (s.reducedFlashes ? .58 : .75) * this.occlusion.transmission((trails.ax[i]+trails.bx[i])*.5, (trails.ay[i]+trails.by[i])*.5, (trails.az[i]+trails.bz[i])*.5) * aerialTransmission(Math.hypot((trails.ax[i]+trails.bx[i])*.5,(trails.ay[i]+trails.by[i])*.5-80,240-(trails.az[i]+trails.bz[i])*.5));
-            c.strokeStyle = this.tone(trails.r[i], trails.g[i], trails.b[i]); c.lineWidth = Math.max(.55, trails.width[i]*this.scale*2*(240/Math.max(140,240-(trails.az[i]+trails.bz[i])*.5))*(1-age*.65));
+            c.globalAlpha = (trails.anchored[i] ? (.68 + .32 * Math.exp(-trails.age[i] * 1.7)) : Math.pow(1 - age, 1.35)) * (s.reducedFlashes ? .58 : .75) * this.occlusion.transmission((trails.ax[i]+trails.bx[i])*.5, (trails.ay[i]+trails.by[i])*.5, (trails.az[i]+trails.bz[i])*.5) * (trails.anchored[i] ? 1 : aerialTransmission(Math.hypot((trails.ax[i]+trails.bx[i])*.5,(trails.ay[i]+trails.by[i])*.5-80,240-(trails.az[i]+trails.bz[i])*.5)));
+            c.strokeStyle = this.tone(trails.r[i], trails.g[i] * (trails.anchored[i] && trails.b[i] < .5 ? 1 - age * .2 : 1), trails.b[i]); c.lineWidth = Math.max(trails.anchored[i] ? .95 : .55, trails.width[i] * this.scale * 2 * (240/Math.max(140,240-(trails.az[i]+trails.bz[i])*.5)) * (1 - age * .65));
             c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
         }
         for (const pool of [s.heads, s.embers]) for (let i = 0; i < pool.count; i++) {
+            if (this.capabilities.enhanced && pool.role[i] === -71) continue;
             if (pool.age[i] < 0) continue;
             const p = this.project(pool.x[i], pool.y[i], pool.z[i]);
             const alpha = pool.gain[i] * Math.pow(Math.max(0, 1 - pool.age[i] / pool.life[i]), .85)
@@ -720,7 +864,7 @@ export class CompatibilityRenderer implements RendererPort {
             starColor(pool.family[i], pool.age[i], pool.life[i], pool.r[i], pool.g[i], pool.b[i], this.starTone);
             // Quantize glow colours to avoid a new texture for every star.
             const quantize = (value: number) => Math.round(value * 8) / 8;
-            this.glow(p.x, p.y, pool === s.embers ? 1.9 : Math.max(pool.family[i]<10?3.1:4.8, Math.min(9, pool.size[i]*this.scale*8*(240/Math.max(140,240-pool.z[i])))), this.tone(quantize(this.starTone[0]), quantize(this.starTone[1]), quantize(this.starTone[2])), alpha * (s.reducedFlashes ? .72 : .9));
+            this.glow(p.x, p.y, (pool === s.embers ? (false ? 1.1 : 1.9) : false ? Math.max(1.15, Math.min(3.4, pool.size[i] * this.scale * 5)) : Math.max(pool.family[i]<10?3.1:4.8, Math.min(9, pool.size[i]*this.scale*8*(240/Math.max(140,240-pool.z[i]))))) * this.particleGlowScale, this.tone(quantize(this.starTone[0]), quantize(this.starTone[1]), quantize(this.starTone[2])), alpha * (s.reducedFlashes ? .72 : .9));
         }
         for (const r of s.rockets) if (r.stage === 'ascent') {
             const p = this.project(...rocketPoint(r, SHELL_LOCAL_Y));
@@ -728,11 +872,47 @@ export class CompatibilityRenderer implements RendererPort {
         }
         for (const carrier of s.cues) { const p = this.project(carrier.x, carrier.y, carrier.z); this.glow(p.x, p.y, 3.5, this.tone(...carrierTint(carrier.family, carrier.palette)), .8); }
         c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
+        // Letter paths are a separate authored pass: native content protection never erases a glyph.
+        c.save(); c.globalCompositeOperation = 'lighter'; c.lineCap = 'round';
+        for (let i = 0; i < trails.count; i++) {
+            if (trails.kind[i] !== 1) continue;
+            const age = trails.age[i] / trails.life[i];
+            if (age >= 1) continue;
+            const a = this.project(trails.ax[i], trails.ay[i]), b = this.project(trails.bx[i], trails.by[i]);
+            c.globalAlpha = (trails.anchored[i] === 2 ? this.letterMix : Math.min(1, (1 - age) * 1.7)) * (s.reducedFlashes ? .82 : .95);
+            c.strokeStyle = this.tone(trails.r[i], trails.g[i], trails.b[i]);
+            c.lineWidth = Math.max(1.15, trails.width[i] * this.scale * 2);
+            c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke();
+        }
+        for (let i = 0; i < s.heads.count; i++) if (this.capabilities.enhanced && s.heads.role[i] === -71) {
+            const p = this.project(s.heads.x[i], s.heads.y[i]);
+            this.glow(p.x, p.y, 3.2, '#ffe9bd', Math.max(0, 1 - s.heads.age[i] / s.heads.life[i]));
+        }
+        c.restore(); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
         // Canvas is already display-referred: a bounded neutral attenuation is
         // the fallback approximation, not a second ACES/color-space conversion.
         if (s.cinematicExposure && this.mode !== 'transparent') {
             c.save(); c.fillStyle = '#000'; c.globalAlpha = Math.max(0, 1 - s.cinema.exposure / CINEMA_BASE_EXPOSURE);
             c.fillRect(0, 0, this.width, this.height); c.restore();
+        }
+        // Classic alone promises a completely empty effect canvas over its HTML
+        // reading column. Clear the device-aligned bounds after every effect pass
+        // to remove residual alpha from Canvas clipping/composition. Spark stays
+        // transparent to fireworks, and Invited keeps its authored lettering.
+        if (this.mode === 'transparent' && s.protectCenter) {
+            const [left, top, right, bottom] = s.safeRect;
+            const x = Math.floor(left * this.width * this.ratio) / this.ratio;
+            const y = Math.floor(top * this.height * this.ratio) / this.ratio;
+            c.clearRect(x, y, Math.ceil(right * this.width * this.ratio) / this.ratio - x,
+                Math.ceil(bottom * this.height * this.ratio) / this.ratio - y);
+        }
+        if (this.glassAllowed && !this.glassSuspended && !this.debugGlassOff && this.capabilities.glass && this.sim.quality !== 'low') {
+            c.save(); c.globalAlpha = 1;
+            for (const rect of this.glassSurfaces) {
+                c.beginPath(); c.roundRect(rect.x, rect.y, rect.width, rect.height, rect.radius ?? 24);
+                c.fillStyle = '#0b142dcc'; c.fill(); c.strokeStyle = '#e6c27a38'; c.lineWidth = 1; c.stroke();
+            }
+            c.restore();
         }
         const nextGround = this.nextProfile();
         const ground = this.project(nextGround.padX!, nextGround.prop!.contactY);
@@ -747,8 +927,12 @@ export class CompatibilityRenderer implements RendererPort {
         const shell = r ? rocketPoint(r, SHELL_LOCAL_Y) : null;
         const profile=r?.launchProfile??this.nextProfile(),prop=profile.prop??this.compositions[familyIndex(this.sim.selected)];
         return { ...propProjectionDiagnostics(prop,r?.padX??profile.padX!,(x,y)=>this.project(x,y)),launchBounds:this.launchBounds[r?.family??familyIndex(this.sim.selected)],nextLaunchProfile:this.nextProfile(),
-            effectBounds:effectEnvelope(this.sim.heads,(x,y,z)=>this.project(x,y,z)),signatureBounds, moon: { ...this.moonFrame, ready: this.moonReady, source: "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
+            effectBounds:effectEnvelope(this.sim.heads,(x,y,z)=>this.project(x,y,z)),signatureBounds, moon: { ...this.moonFrame, ready: this.moonReady || this.moonFailed, degraded: this.moonFailed, source: this.moonFailed ? "Procedural fallback" : "NASA LRO / fixed gibbous" }, stageLayout: this.layout, stagedRockets: this.staged, airborneRockets: this.airborne, visibleRocketBodies: this.bodies,
             ...celestialDiagnostics(this.celestialFrame), skyHorizon: this.horizon, skyLayers: 3, skyTextures: 0,
+            glassTier: this.glassAllowed && !this.glassSuspended && this.glassSurfaces.length > 0 && !this.debugGlassOff ? 'frosted-canvas-fallback' : 'off',
+            glassSurfaceCount: this.glassSurfaces.length, glassMaximumSurfaces: 4, glassCPUReadbacks: 0,
+            waterImpulseCount: this.waterInteraction.activeCount(), waterImpulseMaximum: 4, waterImpulseLifetime: 2.4,
+            renderSubmitMs: this.metrics.submitMs, renderFrames: this.metrics.frames,
             skyArtWidth: this.celestialArt.stars.width, skyArtHeight: this.celestialArt.stars.height,
             skyCelestialCrop: Math.max(.6, Math.min(1.35, this.width / this.height / 2)), skyResponseCachePixels: 32768,
             skyFieldStars: this.celestialArt.metadata.fieldStars, skyClusterStars: this.celestialArt.metadata.clusteredStars,
@@ -772,17 +956,19 @@ export class CompatibilityRenderer implements RendererPort {
             waterBurstLightCapacity: BURST_LIGHT_CAPACITY, waterBurstLightCount: this.sim.lights.length,
             waterSurfaceFragments: this.mode === 'transparent' ? 0 : 96, waterReflectionTargets: 0,
             waterPhase: this.waterFrame.phase, waterWaveCount: this.waterFrame.waveCount, waterVisible: this.mode !== 'transparent',
-            waterMotionAllowed: this.waterFrame.motionAllowed, waterDisplacementBound: WATER_MAX_DISPLACEMENT,
+            waterMotionAllowed: this.waterFrame.motionAllowed, waterDisplacementBound: waterDisplacementBound(this.waterFrame),
             waterFarZ: this.waterFrame.farZ, waterNearZ: this.waterFrame.nearZ,
             reflectionTargets: 0, reflectionAllocated: false, reflectionWidth: 0, reflectionHeight: 0, reflectionHz: 0,
             shellScreen: shell ? this.project(...shell) : null,
             apexScreen: r ? this.project(r.launchProfile?.aimX??r.x, r.top + (r.launchProfile?.prop?.shellOffset??SHELL_LOCAL_Y*ROCKET_SCALE[1]), r.launchProfile?.burstDepth ?? r.z) : null,
+            ...(this.sea?.diagnostics() ?? {}),
             launchProfile: r?.launchProfile ?? null,
             flight: r ? { id: r.id, stage: r.stage, age: r.age, ascent: r.ascent, thrust: r.thrust, z:r.z, vz:r.vz, phase:r.phase, fuse:r.fuse, y: r.y, vy: r.vy, top: r.top, family: r.family, shell } : null };
     }
     dispose() {
         if (this.disposed) return;
-        this.disposed = true; this.moonImage.onload = null; this.moonImage.onerror=null; this.moonImage.src = ""; this.canvas.remove(); this.glows.clear();
+        this.shorelineCity.dispose();
+        this.disposed = true; clearTimeout(this.moonDeadline); this.moonDeadline = 0; this.moonImage.onload = null; this.moonImage.onerror=null; this.moonImage.src = ""; this.canvas.remove(); this.glows.clear();
         this.celestialArt.stars.width = this.celestialArt.stars.height = 1;
         this.celestialArt.dust.width = this.celestialArt.dust.height = 1;
         this.celestialArt.nearStars.width = this.celestialArt.nearStars.height = 1;
@@ -791,7 +977,7 @@ export class CompatibilityRenderer implements RendererPort {
         this.starResponseMask.width = this.starResponseMask.height = 1;
         this.riverArt.homes.width = this.riverArt.homes.height = 1;
         for (const boat of this.riverArt.boats) boat.image.width = boat.image.height = 1;
+        this.sea?.dispose();
         this.canvas.width = this.canvas.height = 1;
     }
 }
-

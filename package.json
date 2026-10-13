@@ -10,7 +10,7 @@
     "dev": "vite --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
-    "test": "tsc -p tsconfig.engine.json && node --test tests/always-play.test.mjs tests/engine.test.mjs tests/v2.test.mjs tests/realism-v3.test.mjs tests/video-flow.test.mjs tests/release-fingerprint.test.mjs tests/renderer-recovery.test.mjs tests/grand-collection.test.mjs tests/stage-interactions.test.mjs tests/sky-state.test.mjs tests/celestial-scene.test.mjs tests/launch-composition.test.mjs tests/moon-water.test.mjs tests/water-surface-grid.test.mjs tests/planar-reflection.test.mjs tests/water-reflection-state.test.mjs tests/particle-reflection-bounds.test.mjs tests/flagship-effects.test.mjs tests/open-sky-engine.test.mjs tests/open-sky-aim.test.mjs tests/startup-progress.test.mjs tests/full-night.test.mjs tests/experience.test.mjs tests/cinematic-v4.test.mjs tests/show-music.test.mjs tests/cinematic-integration.test.mjs tests/capture-stream.test.mjs tests/legacy-realism.test.mjs",
+    "test": "tsc -p tsconfig.engine.json && node --test tests/always-play.test.mjs tests/engine.test.mjs tests/v2.test.mjs tests/realism-v3.test.mjs tests/video-flow.test.mjs tests/release-fingerprint.test.mjs tests/renderer-recovery.test.mjs tests/grand-collection.test.mjs tests/stage-interactions.test.mjs tests/sky-state.test.mjs tests/celestial-scene.test.mjs tests/launch-composition.test.mjs tests/moon-water.test.mjs tests/water-surface-grid.test.mjs tests/planar-reflection.test.mjs tests/water-reflection-state.test.mjs tests/particle-reflection-bounds.test.mjs tests/flagship-effects.test.mjs tests/open-sky-engine.test.mjs tests/open-sky-aim.test.mjs tests/startup-progress.test.mjs tests/full-night.test.mjs tests/experience.test.mjs tests/cinematic-v4.test.mjs tests/show-music.test.mjs tests/cinematic-integration.test.mjs tests/capture-stream.test.mjs tests/legacy-realism.test.mjs tests/upstream-sea-fleet.test.mjs tests/upstream-sea-audience.test.mjs tests/upstream-sea-audience-audio.test.mjs tests/upstream-shoreline-city.test.mjs tests/upstream-spark-celebration-scheduling.test.mjs tests/upstream-spark-sheet-model.test.mjs tests/upstream-creative.test.mjs",
     "test:soak": "tsc -p tsconfig.engine.json && node tests/soak.mjs",
     "test:e2e": "node tests/video-flow-browser.mjs",
     "build": "node scripts/generate-icons.mjs && node scripts/generate-notices.mjs && node scripts/generate-release.mjs && tsc --noEmit && vite build",
@@ -25,7 +25,8 @@
     "test:cinematic-v4": "node tests/cinematic-v4-browser.mjs",
     "test:cinematic-integration": "node tests/cinematic-integration-browser.mjs",
     "test:capture-continuity": "node tests/capture-continuity-browser.mjs",
-    "test:legacy-realism": "node tests/legacy-realism-browser.mjs"
+    "test:legacy-realism": "node tests/legacy-realism-browser.mjs",
+    "test:upstream-browser": "node tests/upstream-browser.mjs"
   },
   "overrides": {
     "undici": "7.29.1"
@@ -48,6 +49,6 @@
     "typescript": "5.9.2",
     "vite": "6.4.3",
     "vite-plugin-pwa": "1.0.3",
-    "wrangler": "4.143.0"
+    "wrangler": "4.149.0"
   }
 }
