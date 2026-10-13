@@ -1,0 +1,114 @@
+{
+  "base": "http://127.0.0.1:4207/",
+  "method": "Installed Chrome requestAnimationFrame cadence through two live launches per backend; CPU/browser scheduling only, not completed GPU time or physical-phone qualification",
+  "results": [
+    {
+      "backend": "WebGPU",
+      "quality": "standard",
+      "requestedBackend": "webgpu",
+      "run": 1,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-04.1",
+      "fingerprint": "3d065114a3d2263b8119fac5c0ce95ffaf84d80a8bbaeeb9253edd54b9a7ca1c",
+      "firstBurstMs": 3042,
+      "overall": {
+        "frames": 1797,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.4,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 575,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 4.4,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "WebGPU",
+      "quality": "standard",
+      "requestedBackend": "webgpu",
+      "run": 2,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-04.1",
+      "fingerprint": "3d065114a3d2263b8119fac5c0ce95ffaf84d80a8bbaeeb9253edd54b9a7ca1c",
+      "firstBurstMs": 3163,
+      "overall": {
+        "frames": 1793,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 12.5,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 575,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 4.4,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "WebGL 2",
+      "quality": "standard",
+      "requestedBackend": "webgl",
+      "run": 1,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-04.1",
+      "fingerprint": "3d065114a3d2263b8119fac5c0ce95ffaf84d80a8bbaeeb9253edd54b9a7ca1c",
+      "firstBurstMs": 3026,
+      "overall": {
+        "frames": 1799,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.3,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 575,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 4.7,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "WebGL 2",
+      "quality": "standard",
+      "requestedBackend": "webgl",
+      "run": 2,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-04.1",
+      "fingerprint": "3d065114a3d2263b8119fac5c0ce95ffaf84d80a8bbaeeb9253edd54b9a7ca1c",
+      "firstBurstMs": 3163,
+      "overall": {
+        "frames": 1797,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.4,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 572,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.4,
+        "over33Ms": 0
+      },
+      "errors": []
+    }
+  ]
+}

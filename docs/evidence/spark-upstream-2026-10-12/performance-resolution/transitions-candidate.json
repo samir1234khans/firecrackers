@@ -1,0 +1,168 @@
+{
+  "base": "http://127.0.0.1:4206/",
+  "method": "Installed Chrome requestAnimationFrame cadence through two live launches per backend; CPU/browser scheduling only, not completed GPU time or physical-phone qualification",
+  "results": [
+    {
+      "backend": "WebGPU",
+      "quality": "standard",
+      "requestedBackend": "webgpu",
+      "run": 1,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-12.1",
+      "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+      "firstBurstMs": 3026,
+      "overall": {
+        "frames": 1797,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.4,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 574,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.3,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "WebGPU",
+      "quality": "standard",
+      "requestedBackend": "webgpu",
+      "run": 2,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-12.1",
+      "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+      "firstBurstMs": 3113,
+      "overall": {
+        "frames": 1795,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.5,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 573,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.4,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "WebGL 2",
+      "quality": "standard",
+      "requestedBackend": "webgl",
+      "run": 1,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-12.1",
+      "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+      "firstBurstMs": 3026,
+      "overall": {
+        "frames": 1799,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.4,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 575,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 4.9,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "WebGL 2",
+      "quality": "standard",
+      "requestedBackend": "webgl",
+      "run": 2,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-12.1",
+      "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+      "firstBurstMs": 3130,
+      "overall": {
+        "frames": 1791,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 37.4,
+        "over33Ms": 1
+      },
+      "transition": {
+        "frames": 574,
+        "p50Ms": 4.2,
+        "p95Ms": 4.3,
+        "worstMs": 8.3,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "Canvas 2D · compatibility",
+      "quality": "standard",
+      "requestedBackend": "canvas",
+      "run": 1,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-12.1",
+      "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+      "firstBurstMs": 4247,
+      "overall": {
+        "frames": 1621,
+        "p50Ms": 4.2,
+        "p95Ms": 8.3,
+        "worstMs": 16.8,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 525,
+        "p50Ms": 4.2,
+        "p95Ms": 6.8,
+        "worstMs": 16.7,
+        "over33Ms": 0
+      },
+      "errors": []
+    },
+    {
+      "backend": "Canvas 2D · compatibility",
+      "quality": "standard",
+      "requestedBackend": "canvas",
+      "run": 2,
+      "family": "gold-willow",
+      "viewport": "393x851 CSS (emulated)",
+      "seed": 20260916,
+      "version": "2026-10-12.1",
+      "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+      "firstBurstMs": 4213,
+      "overall": {
+        "frames": 1628,
+        "p50Ms": 4.2,
+        "p95Ms": 8.3,
+        "worstMs": 16.7,
+        "over33Ms": 0
+      },
+      "transition": {
+        "frames": 530,
+        "p50Ms": 4.2,
+        "p95Ms": 4.5,
+        "worstMs": 16.7,
+        "over33Ms": 0
+      },
+      "errors": []
+    }
+  ]
+}

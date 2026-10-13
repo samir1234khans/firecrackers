@@ -10,12 +10,18 @@ try {
 for(const backend of (process.env.IMMERSIVE_BACKENDS || 'webgpu,webgl,canvas').split(',')) {
  const page=await browser.newPage({serviceWorkers:'block'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ // Qualify controls separately from SwiftShader's multi-second Ultra raster
+ // stalls. Real installed-Chrome runs retain the app's default Ultra detail.
+ // Every visibility, focus, input and scene-footprint assertion stays exact.
+ if(process.env.IMMERSIVE_SOFTWARE==='1')await page.addInitScript(()=>localStorage.setItem('firecrackers.preferences.v1',JSON.stringify({version:4,onboarded:true,quality:'low',sound:false})));
  await page.goto(`${base}?backend=${backend}&qa=1&seed=20260916`);
  await page.waitForSelector('main[data-ready="true"][data-presented="true"]',{timeout:90000});
  await page.evaluate(()=>window.__firecrackersQA.freeze(true));
  assert.equal((await page.evaluate(()=>window.__firecrackersQA.snapshot())).backend, {webgpu:'WebGPU',webgl:'WebGL 2',canvas:'Canvas 2D · compatibility'}[backend]);
  for(const [width,height] of [[320,480],[375,667],[393,851],[768,1024],[844,390],[1280,800],[1920,1080]]) {
   await page.setViewportSize({width,height});
+  await page.waitForFunction(({width,height})=>{const s=window.__firecrackersQA.snapshot();return s.stageLayout.viewport.width===width&&s.stageLayout.viewport.height===height;},{width,height},{timeout:30000});
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   await page.getByRole('button',{name:/^Show mode:/}).click();
   await page.getByRole('button',{name:'Festival',exact:true}).click();
   await page.getByRole('button',{name:'Hide controls',exact:true}).waitFor();
@@ -57,7 +63,7 @@ for(const backend of (process.env.IMMERSIVE_BACKENDS || 'webgpu,webgl,canvas').s
   await page.getByRole('button',{name:/^Show mode:/}).click();
   await page.getByRole('button',{name:'Manual',exact:true}).click();
   assert.equal(await page.locator('.immersive-toggle').count(),0);
-  results.push({backend,width,height});console.log('PASS',backend,width,height);
+  results.push({backend,width,height,quality:(await page.evaluate(()=>window.__firecrackersQA.snapshot())).quality});console.log('PASS',backend,width,height);
  }
  // Exercise finite-show completion and progression while controls remain hidden.
  for(const mode of ['Calm','Finale']) {
@@ -81,4 +87,4 @@ for(const backend of (process.env.IMMERSIVE_BACKENDS || 'webgpu,webgl,canvas').s
  await page.keyboard.press('Escape');
  assert.deepEqual(errors,[]);await page.close();
 }
-} finally {await browser.close();await writeFile(`${out}/report.json`,JSON.stringify({base,results},null,2));}
+} finally {await browser.close();await writeFile(`${out}/report.json`,JSON.stringify({base,software:process.env.IMMERSIVE_SOFTWARE==='1',method:'Exact control opacity/inert/focus/placement contracts after viewport presentation. Software CI selects Low; installed Chrome retains default Ultra. Not performance evidence.',results},null,2));}

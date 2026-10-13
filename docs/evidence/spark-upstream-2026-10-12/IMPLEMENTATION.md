@@ -1,5 +1,7 @@
 # Spark upstream implementation and qualification
 
+**Latest qualification, 13 October:** [Performance resolution, exact CI preview and native Ultra immersion](performance-resolution/README.md). The owner required the timing target before production; the measured correction meets it. Main/production still require the promotion and release receipt. Earlier checkpoints below retain their historical states.
+
 Base: Firecrackers a268f448; donor: Spark d7ff9aa2. Owner approved the complete reverse-integration plan on 12 October 2026. Work is isolated on feat/spark-upstream-world. Spark tracked source and its release remain unchanged.
 
 ## Implemented candidate
