@@ -1,4 +1,4 @@
-**Spark upstream candidate / `2026-10-12.1`:** implemented on `feat/spark-upstream-world`; [implementation and qualification](docs/evidence/spark-upstream-2026-10-12/IMPLEMENTATION.md). Main and production remain `2026-10-04.1` until the release gates and promotion receipt confirm otherwise. Older entries below preserve their historical states.
+**Current main and production: Spark upstream / `2026-10-12.1`.** [Verified 13 October release, source, CI, performance and cache upgrade](docs/evidence/spark-upstream-2026-10-12/PRODUCTION-2026-10-13.md). Ten boats/33 passengers, family views, natural shoreline/water, creative Studio tools, choreography and optional entrance are live. Older entries below preserve their historical states.
 
 **Current main and production: `2026-10-04.1`.** [Verified legacy realism release](docs/evidence/legacy-realism-2026-10-04/PRODUCTION.md). The historical checkpoints below retain their original state.
 

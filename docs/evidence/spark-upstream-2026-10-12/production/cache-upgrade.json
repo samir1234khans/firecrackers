@@ -1,0 +1,20 @@
+{
+  "origin": "https://firecrackers.mainandmany.com/",
+  "checks": [
+    "Actual old production tab remains on its old build until explicit Update and restart",
+    "Public worker activation removes only obsolete app-owned caches and preserves unrelated cache/local data",
+    "Cold public-site offline reload retains the new fleet and playable Signature effect"
+  ],
+  "failed": null,
+  "published": {
+    "workerVersion": "04239f14-7971-4fd4-ab1a-894d2bbfe10e",
+    "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+    "version": "2026-10-12.1",
+    "source": "607ac370cc14d5a6904e365cb9e1335fbefb58c6"
+  },
+  "keys": [
+    "workbox-precache-v2-https://firecrackers.mainandmany.com/",
+    "unrelated-upstream-production-test",
+    "firecrackers-art-2026-10-12.1"
+  ]
+}

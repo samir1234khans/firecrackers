@@ -1,0 +1,27 @@
+{
+  "origin": "https://firecrackers.mainandmany.com/",
+  "cases": [
+    {
+      "backend": "WebGPU",
+      "width": 1280,
+      "height": 800,
+      "people": 33,
+      "boats": 10,
+      "bursts": 3,
+      "errors": [],
+      "idle": "webgpu-1280x800-idle.png"
+    },
+    {
+      "backend": "WebGPU",
+      "width": 390,
+      "height": 844,
+      "people": 33,
+      "boats": 10,
+      "bursts": 3,
+      "errors": [],
+      "idle": "webgpu-390x844-idle.png"
+    }
+  ],
+  "failed": null,
+  "method": "Installed desktop Chrome; native backend identity checked; viewport emulation, no physical-device or performance claim."
+}

@@ -2,6 +2,8 @@
 
 ## Current reconciliation boundary
 
+Latest owner-authorized release: Spark upstream, PR #51, main application source `607ac370cc14d5a6904e365cb9e1335fbefb58c6`, live build `2026-10-12.1` on 13 October. See `docs/evidence/spark-upstream-2026-10-12/PRODUCTION-2026-10-13.md`. The owner required the timing target before production; the documented desktop WebGL/WebGPU comparison meets it, and exact-main Runtime/docs passed before publication. Physical-device, Safari, thermal/battery and completed GPU timing remain unqualified. Earlier release/hold statements below are historical. Preserve the ten-boat/33-person world, creative tools, thirteen effects, four Always Play quantities, Studio/capture and deliberate Update & restart.
+
 The owner explicitly authorized reconciling all current work and promoting it to main on 4 October 2026. PR #47 incorporates PR #33's cinematic music with V4, richer-night features and capture fixes; its main merge is `e60d46443836d1f60bfb65f026dfc36eb5ba509c`. See `docs/evidence/reconciliation-2026-10-04/MAIN.md`. The owner subsequently explicitly authorized production deployment. Build `2026-10-04.1`, including the legacy realism merge PR #50, is deployed and publicly verified; see `docs/evidence/legacy-realism-2026-10-04/PRODUCTION.md`. The earlier production hold is superseded; hardware/performance qualification remains unverified. Preserve the reconciled 90-second scores, newer Studio/capture features and deliberate Update & restart behavior. Never infer a deployment from main promotion.
 
 ## Current source and scope

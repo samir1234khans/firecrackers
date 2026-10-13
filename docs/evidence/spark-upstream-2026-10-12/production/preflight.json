@@ -1,0 +1,23 @@
+{
+  "checks": [
+    {
+      "conclusion": "success",
+      "databaseId": 38416485419,
+      "name": "Documentation validation",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38416485506,
+      "name": "Runtime validation",
+      "status": "completed"
+    }
+  ],
+  "source": "607ac370cc14d5a6904e365cb9e1335fbefb58c6",
+  "fingerprint": "a809f42861e1d5c3fef9977ed25b478108cc480220e1ec87ad87eabe242bfd46",
+  "status": "VERIFIED_PREFLIGHT",
+  "credentialSource": "Existing authenticated local Wrangler OAuth",
+  "previousVersion": "e30d2169-d45f-4be4-bd9d-4f4efc468986",
+  "main": "607ac370cc14d5a6904e365cb9e1335fbefb58c6",
+  "artifact": "Exact main Runtime grand-collection-build"
+}
