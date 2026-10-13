@@ -51,7 +51,7 @@ export class FireworkRenderer {
     readonly scene = new THREE.Scene();
     readonly camera = new THREE.PerspectiveCamera(42, 1, 1, 1500);
     private readonly opaqueCamera = new THREE.PerspectiveCamera();
-    readonly metrics = { renderPixels: 0, submitMs: 0, waterSubmitMs: 0, frames: 0 };
+    readonly metrics = { renderPixels: 0, submitMs: 0, waterSubmitMs: 0, particleSubmitMs: 0, environmentSubmitMs: 0, depthSubmitMs: 0, postSubmitMs: 0, frames: 0 };
     private readonly water = new WaterReflection();
     private readonly environment: NightEnvironment;
     private readonly smokeAtlas = makeSmokeAtlas();
@@ -525,7 +525,9 @@ export class FireworkRenderer {
         this.opaqueCamera.copy(this.camera);
         this.opaqueCamera.layers.set(0);
         this.opaqueCamera.updateMatrixWorld();
+        let sectionStart = performance.now();
         this.particles.update(sim, this.camera, this.host.clientHeight * this.renderer.getPixelRatio());
+        this.metrics.particleSubmitMs = performance.now() - sectionStart;
         this.bloomPass.strength.value = BUDGETS[sim.quality].bloom * (sim.reducedFlashes ? .7 : 1);
         for (const prop of this.props) prop.group.visible = false;
         this.fuseLight.intensity = 0;
@@ -563,23 +565,30 @@ export class FireworkRenderer {
         this.host.dataset.visibleRocketBodies = String(this.props.filter(prop => prop.group.visible).length);
         const padProfile = sim.committed?.launchProfile ?? next;
         this.stage.update(sim, this.mode === 'interactive', padProfile.prop, sim.committed?.padX ?? next.padX);
+        sectionStart = performance.now();
         this.environment.update(sim, this.mode !== 'transparent', !this.host.parentElement?.classList.contains('reduced-motion'));
+        this.metrics.environmentSubmitMs = performance.now() - sectionStart;
         this.projected.set(next.padX!, next.prop!.contactY, 0).project(this.camera);
         const groundPixels = (1 + this.projected.y) * .5 * this.host.clientHeight;
         const parent = this.host.parentElement;
-        parent?.style.setProperty('--ground-px', `${groundPixels}px`);
-        parent?.style.setProperty('--placement-left', `${(this.projected.x + 1) * 50}%`);
+        // Scope changing chrome light/placement values to their consumers. Writing
+        // inherited variables on the app root invalidates every illustrated effect
+        // SVG on each burst frame, even though those drawings never use the values.
+        for (const placement of parent?.querySelectorAll<HTMLElement>('.placement-stage') ?? []) {
+            placement.style.setProperty('--ground-px', `${groundPixels}px`);
+            placement.style.setProperty('--placement-left', `${(this.projected.x + 1) * 50}%`);
+        }
         gatherBurstLighting(sim.lights, this.burstWash, sim.reducedFlashes);
         const energy = this.burstWash[6];
         if (energy > .0001) {
             this.blastLight.position.set(this.burstWash[3], Math.max(30, this.burstWash[4]), this.burstWash[5]);
             this.blastLight.color.setRGB(this.burstWash[0] / energy, this.burstWash[1] / energy, this.burstWash[2] / energy);
             this.blastLight.intensity = 6 * energy / (1 + energy);
-            parent?.style.setProperty('--blast', `${Math.round(this.burstWash[0] / energy * 230)} ${Math.round(this.burstWash[1] / energy * 230)} ${Math.round(this.burstWash[2] / energy * 230)} / ${Math.min(.16, energy * .12)}`);
         } else {
             this.blastLight.intensity = 0;
-            parent?.style.setProperty('--blast', '234 193 122 / 0');
         }
+        const chromeLight = energy > .0001 ? `${Math.round(this.burstWash[0] / energy * 230)} ${Math.round(this.burstWash[1] / energy * 230)} ${Math.round(this.burstWash[2] / energy * 230)} / ${Math.min(.16, energy * .12)}` : '234 193 122 / 0';
+        for (const surface of parent?.querySelectorAll<HTMLElement>('.glass,.hud-mode-rail,.hud-utilities,.hud-inspector,.hud-deck') ?? []) surface.style.setProperty('--blast', chromeLight);
         this.water.setFrame(this.environment.waterFrame);
         this.moonLight.position.copy(this.water.setMoonFrame(this.environment.startupMoon(), this.host.clientWidth, this.host.clientHeight, this.camera)).multiplyScalar(240);
         this.moonLight.intensity = .8 * (this.environment.startupMoon().illumination ?? 1);
@@ -588,14 +597,18 @@ export class FireworkRenderer {
         // and main passes can share that pose instead of traversing the same
         // authored scene again for each render. Restore automatic updates even
         // when a pass throws, so preparation/recovery keeps its normal contract.
+        sectionStart = performance.now();
         this.opaqueDepth.update();
+        this.metrics.depthSubmitMs = performance.now() - sectionStart;
         const automaticMatrices = this.scene.matrixWorldAutoUpdate;
         this.scene.matrixWorldAutoUpdate = false;
         try {
             const waterStart = performance.now();
             this.water.update(this.renderer, this.scene, this.camera, sim, this.mode !== 'transparent', this.environment.skyMotionAllowed(), (camera, reflecting = false) => this.particles.orientPass(camera, reflecting));
             this.metrics.waterSubmitMs = performance.now() - waterStart;
+            sectionStart = performance.now();
             this.post.render();
+            this.metrics.postSubmitMs = performance.now() - sectionStart;
         } finally {
             this.scene.matrixWorldAutoUpdate = automaticMatrices;
         }
@@ -625,6 +638,7 @@ export class FireworkRenderer {
             stageLayout: this.layout, ...this.water.diagnostics(), ...this.particles.reflectionDiagnostics(), ...this.environment.riverDiagnostics(this.camera), ...this.environment.skyDiagnostics(),
             ...this.glass?.diagnostics(), renderWarmupComplete: this.warmupComplete, renderReadyFrames: this.readyFrames,
             renderSubmitMs: this.metrics.submitMs, renderFrames: this.metrics.frames,
+            renderCpuSections: { particles: this.metrics.particleSubmitMs, environment: this.metrics.environmentSubmitMs, depth: this.metrics.depthSubmitMs, reflection: this.metrics.waterSubmitMs, post: this.metrics.postSubmitMs },
             stagedRockets: Number(this.host.dataset.stagedRockets || 0),
             airborneRockets: Number(this.host.dataset.airborneRockets || 0),
             visibleRocketBodies: this.props.filter(prop => prop.group.visible).length,

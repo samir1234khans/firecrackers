@@ -23,7 +23,20 @@ for(const backend of (process.env.IMMERSIVE_BACKENDS || 'webgpu,webgl,canvas').s
   const state=await page.evaluate(()=>window.__firecrackersQA.snapshot());
   await page.getByRole('button',{name:'Hide controls',exact:true}).click();
   assert.equal(await page.locator('.chrome').evaluateAll(nodes=>nodes.every(e=>!!e.closest('[inert]'))),true);
-  await page.waitForFunction(()=>[...document.querySelectorAll('.chrome')].every(e=>Number(getComputedStyle(e).opacity)===0),undefined,{timeout:5000});
+  try {
+   await page.waitForFunction(()=>[...document.querySelectorAll('.chrome')].every(e=>Number(getComputedStyle(e).opacity)===0),undefined,{timeout:5000});
+  } catch(error) {
+   // Retain the exact visual assertion and capture why a transition failed;
+   // recovery is allowed to reveal controls, but must not look like a pass.
+   await writeFile(`${out}/${backend}-${width}x${height}-transition-failure.json`,JSON.stringify(await page.evaluate(()=>({
+    immersive:document.querySelector('main')?.dataset.immersive,
+    text:document.body.innerText,
+    controls:[...document.querySelectorAll('.chrome')].map(e=>({class:e.className,opacity:getComputedStyle(e).opacity,inert:!!e.closest('[inert]')})),
+    snapshot:window.__firecrackersQA.snapshot(),
+   })),null,2));
+   await page.screenshot({path:`${out}/${backend}-${width}x${height}-transition-failure.png`});
+   throw error;
+  }
   assert.equal(await page.locator('main').getAttribute('data-immersive'),'true');
   assert.equal(await page.locator('main').getAttribute('data-hero-rect'),before);
   assert.equal(await page.locator('.reveal-controls button').count(),0);
