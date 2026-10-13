@@ -10,7 +10,9 @@ await p.waitForTimeout(10000);const before=await p.evaluate(()=>window.__firecra
 for(const result of results.filter(r=>r.label==='candidate'&&r.workload!=='close-up')){
  const reference=results.find(r=>r.label==='baseline'&&r.workload===result.workload);
  const limit=reference.frameInterval.p95+Math.max(2,reference.frameInterval.p95*.2);
- checks.push({workload:result.workload,limit,pass:result.frameInterval.p95<=limit&&result.backend===expectedBackend&&reference.backend===expectedBackend&&result.quality==='standard'&&!result.paused&&result.renderedFrames>100&&reference.quality==='standard'&&!reference.paused&&reference.renderedFrames>100});
+ // The old renderer's idle sky presents at 12 Hz; active launches use 60 Hz.
+ const minimumFrames=result.workload==='idle'?30:100;
+ checks.push({workload:result.workload,limit,minimumFrames,pass:result.frameInterval.p95<=limit&&result.backend===expectedBackend&&reference.backend===expectedBackend&&result.quality==='standard'&&!result.paused&&result.renderedFrames>minimumFrames&&reference.quality==='standard'&&!reference.paused&&reference.renderedFrames>minimumFrames});
 }
 if(process.env.PERFORMANCE_STRICT==='1'&&(!checks.length||checks.some(c=>!c.pass)))process.exitCode=1;
 }finally{await b.close();await writeFile(process.env.PERFORMANCE_OUT||'test-results/upstream-performance-final.json',JSON.stringify({method:'Installed Chrome; matched 1280x800 Standard selected backend seed 42; 10s warm / 5s sample. Browser rAF intervals, not GPU duration. Separate CPU submission when available; baseline lacks lightweight probe. No overlapping local tests; physical-phone, Safari, thermal and battery unqualified.',results,checks},null,2));}
